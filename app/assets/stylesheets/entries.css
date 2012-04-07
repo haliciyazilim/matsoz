@@ -1,0 +1,47 @@
+
+body {
+	font-family: "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+	background-color: #fef8ec;
+}
+
+#content {
+	margin-left: auto;
+	margin-right: auto;
+	width: 700px;
+	padding: 20px;
+	margin-top: 100px;
+	-moz-box-shadow: 0px 0px 10px #ccc;
+	-webkit-box-shadow: 0px 0px 10px #ccc;
+	background-color: #fef2d9;
+	overflow: auto;
+}
+
+#words_list {
+	width: 130px;
+	height: 100%;
+	float: left;
+	margin-right: 20px;
+}
+
+#words_list p {
+	margin: 5px;
+}
+
+#words_list .selected {
+	color: maroon;
+}
+
+#word_content {
+	float: left;
+}
+
+#word_content h1 {
+	text-shadow: white 1px 1px 0px;
+	color: maroon;
+}
+
+canvas {
+	margin-left: auto;
+	margin-right: auto;
+	width: 400px;
+}
