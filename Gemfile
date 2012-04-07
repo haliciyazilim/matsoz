@@ -9,6 +9,12 @@ gem 'haml'
 
 group :development, :test do
   gem 'sqlite3'
+  gem 'cucumber-rails'
+  gem 'database_cleaner'
+  gem 'capybara'
+  gem 'launchy'
+  gem 'rspec-rails'
+  gem 'simplecov'
 end
 
 group :production, :staging do
