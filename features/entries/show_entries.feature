@@ -13,5 +13,5 @@ Background: entries in database
   
 Scenario: show name and description of a word
   Given I am on the entry page for "Açı"
-  And I should see "Başlangıç noktaları aynı olan iki ışının birleşimine açı denir."
+  Then I should see "Başlangıç noktaları aynı olan iki ışının birleşimine açı denir."
   

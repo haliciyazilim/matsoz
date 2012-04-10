@@ -1,8 +1,8 @@
 class EntriesController < ApplicationController  
-  before_filter :set_all_words
+  before_filter :set_all_entries
   
-  def set_all_words
-    @all_words = Entry.all.collect {|entry| entry.word}
+  def set_all_entries
+    @all_entries = Entry.all
   end
   
   def index
@@ -26,14 +26,20 @@ class EntriesController < ApplicationController
   end
   
   def edit
-    
+    @entry = Entry.find(params[:id])
   end
   
   def update
-    
+    @entry = Entry.find params[:id]
+    @entry.update_attributes!(params[:entry])
+    flash[:notice] = "#{@entry.word} was successfully updated."
+    redirect_to entry_path(@entry)
   end
   
   def destroy
-    
+    @entry = Entry.find(params[:id])
+    @entry.destroy
+    flash[:notice] = "#{@entry.word} was deleted successfully."
+    redirect_to entries_path
   end
 end

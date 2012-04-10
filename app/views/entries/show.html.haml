@@ -1,19 +1,28 @@
 
 - content_for(:head) do
-  %meta{'name' => 'viewport', 'content' => 'width=device-width, initial-scale=0.5, user-scalable=no'}
+  %meta{'name' => 'viewport', 'content' => 'width=device-width, initial-scale=1, user-scalable=no'}
+  = javascript_include_tag 'animations/animation_base.js'
+  = javascript_include_tag @entry.javascript_file
 
 #content
   #words_list
-    - @all_words.each do |word|
-      %p= word
+    - @all_entries.each do |entry|
+      - if entry == @entry
+        %p.selected= link_to entry.word, entry_path(entry)
+      - else
+        %p
+          = link_to entry.word, entry_path(entry)
+          
   #word_content
     %h1.word
       = @entry.word
     %p.meaning
       = @entry.meaning
       
-    %canvas#animation_canvas{'width' => '400', 'height' => '300'}
+    %canvas#animation_canvas{'width' => '512', 'height' => '384'}
       Your browser doesn't support HTML5.
       
       
 = link_to 'Create new entry',  new_entry_path
+|
+= link_to "Edit #{@entry.word}", edit_entry_path(@entry)
