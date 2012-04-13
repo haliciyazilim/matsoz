@@ -1,53 +1,26 @@
 
-var rectWidth;
-var rectHeight;
-var movingEdge;
-var movingEdgeGrabbed = false;
-
-function mouse_down (x, y) {
-	if (movingEdge.isInside(x, y)) {
-		movingEdgeGrabbed = true;
-	}
+function animationInit () {
+	x1 = canvasWidth/2 - 75, y1 = canvasHeight/2 - 50;
+	x2 = canvasWidth/2 + 75, y2 = canvasHeight/2 + 50;
 	
-	draw();
-}
-
-function mouse_move (x, y) {
-	if (movingEdgeGrabbed) {
-		movingEdge.x = x;
-	}
+	rectangle = Rectangle.create(0, 0, 0, 0);
+	rectangle.setCorners(x1, y1, x2, y2);
+	rectangle.fillStyle = 'teal';
 	
-	draw();
-}
-
-function mouse_up () {
-	movingEdgeGrabbed = false;
-}
-
-function init() {
-	mouseIsDown = false;
-	angleGrabbed = false;
+	line = Line.create(x2, y1, x2, y2);
+	line.strokeStyle = 'red';
+	line.movable = true;
+	line.lockMovementY = true;
+	line.onMove = function (x, y) {
+		if ((x > x1 + rectangle.height - 10) && 
+			(x < x1 + rectangle.height + 10)) {
+			x = x1 + rectangle.height;
+			
+			line.setCorners(x, line.y1(), x, line.y2());
+		}
+		rectangle.setCorners(x1, y1, x, y2);
+	};
 	
-	rectWidth = 200;
-	rectHeight = 100;
-	
-	movingEdge = new Drawable(canvasWidth/2 + rectWidth/2, canvasHeight/2 - rectHeight/2, 20, rectHeight);
-}
-
-function draw() {
-	context.clearRect(0, 0, canvasWidth, canvasHeight);
-	
-	context.lineWidth = 4;
-	context.lineCap = 'round';
-
-	context.fillStyle = 'teal';
-	context.strokeStyle = 'black';
-	drawRectangle(canvasWidth/2, canvasHeight/2, rectWidth, rectHeight);
-	
-	context.beginPath();
-	context.lineWidth = 8;
-	context.strokeStyle = 'maroon';
-	context.moveTo(movingEdge.x, movingEdge.y);
-	context.lineTo(movingEdge.x, movingEdge.y + movingEdge.height);
-	context.stroke();
+	scene.addDrawable(rectangle);
+	scene.addDrawable(line);
 }

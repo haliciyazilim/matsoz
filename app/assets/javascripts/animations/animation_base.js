@@ -4,8 +4,11 @@ var context;
 var ipad;
 var canvasWidth;
 var canvasHeight;
+var scene;
 
 $(document).ready(function() {
+	scene = Scene.create();
+	
 	ipad = (window.navigator.userAgent.match('iPad'))?true:false;
 	
 	canvas = $("#animation_canvas").get(0);
@@ -20,17 +23,28 @@ $(document).ready(function() {
 		context.scale(2,2);
 	}
 	
+	window.requestAnimFrame = (function() {
+	      return  window.requestAnimationFrame       || 
+	              window.webkitRequestAnimationFrame || 
+	              window.mozRequestAnimationFrame    || 
+	              window.oRequestAnimationFrame      || 
+	              window.msRequestAnimationFrame     || 
+	              function(/* function */ callback, /* DOMElement */ element){
+	                window.setTimeout(callback, 1000 / 60);
+	              };
+	    })();
+	
 	if (ipad) {
 		$("#animation_canvas").bind('touchstart', function(e) {
 			var x = e.originalEvent.targetTouches[0].pageX - this.offsetLeft;
 			var y = e.originalEvent.targetTouches[0].pageY - this.offsetTop;
-			mouse_down(x, y);
+			scene.mouse_down(x, y);
 		});	
 	} else {
 		$("#animation_canvas").mousedown(function(e) {
 			var x = e.pageX - this.offsetLeft;
 			var y = e.pageY - this.offsetTop;
-			mouse_down(x, y);
+			scene.mouse_down(x, y);
 	   	});
 	}
 
@@ -38,75 +52,458 @@ $(document).ready(function() {
 		$("#animation_canvas").bind('touchmove', function(e) {
 			var x = e.originalEvent.targetTouches[0].pageX - this.offsetLeft;
 			var y = e.originalEvent.targetTouches[0].pageY - this.offsetTop;
-			mouse_move(x, y);
+			scene.smouse_move(x, y);
 			e.originalEvent.preventDefault();
 		});
 	} else {
 		$("#animation_canvas").mousemove(function(e) {
 			var x = e.pageX - this.offsetLeft;
 			var y = e.pageY - this.offsetTop;
-			mouse_move(x, y);
+			scene.mouse_move(x, y);
 	   	});
 	}
 
 	if (ipad) {
 		$(document).bind('touchend', function(e) {
-			mouse_up();
+			scene.mouse_up();
 		});		
 	} else {
 		$(document).mouseup(function(e) {
-			mouse_up();
+			scene.mouse_up();
 		});
 	}
 	
-	init();
-	draw();
+	animationInit();
+	mainLoop();
 });
 
-function drawLine(x1, y1, x2, y2) {
-	context.beginPath();
-	context.moveTo(x1, y1);
-	context.lineTo(x2, y2);
-	context.stroke();
+
+function mainLoop() {
+	scene.draw();
+	requestAnimFrame(mainLoop);
 }
 
-function drawTriangle(x1, y1, x2, y2, x3, y3) {
-	context.beginPath();
-	context.moveTo(x1, y1);
-	context.lineTo(x2, y2);
-	context.lineTo(x3, y3);
-	context.closePath();
-	context.fill();
+function clone(object) {
+  function OneShotConstructor(){}
+  OneShotConstructor.prototype = object;
+  return new OneShotConstructor();
+}
+
+function forEachIn(object, action) {
+  for (var property in object) {
+    if (object.hasOwnProperty(property))
+      action(property, object[property]);
+  }
+}
+
+Object.prototype.create = function() {
+  var object = clone(this);
+  if (typeof object.construct == "function")
+    object.construct.apply(object, arguments);
+  return object;
+};
+
+Object.prototype.extend = function(properties) {
+  var result = clone(this);
+
+  forEachIn(properties, function(name, value) {
+    result[name] = value;
+  });
+  return result;
+};
+
+var Scene = {
+	construct: function () {
+		this.drawables = [];
+	},
+
+	addDrawable: function(drawable) {
+		this.drawables.push(drawable)
+	},
 	
-	drawLine(x1, y1, x2, y2);
-	drawLine(x2, y2, x3, y3);
-	drawLine(x3, y3, x1, y1);
-}
+	needsRedraw: true,
+	redraw: function () {
+		this.needsRedraw = true;
+	},
 
-function drawRectangle(center_x, center_y, width, height) {
-	context.beginPath();
-	context.moveTo(center_x - width/2, center_y - height/2);
-	context.lineTo(center_x + width/2, center_y - height/2);
-	context.lineTo(center_x + width/2, center_y + height/2);
-	context.lineTo(center_x - width/2, center_y + height/2);
-	context.closePath();
-	context.fill();
-	context.stroke();
-}
-
-function Drawable(x, y, width, height) {
-	this.x = x;
-	this.y = y;
-	this.width = width;
-	this.height = height;
+	draw: function () {
+		if (this.needsRedraw) {
+			context.clearRect(0, 0, canvasWidth, canvasHeight);
+			for (var i=0; i<this.drawables.length; i++) {
+				if (this.drawables[i].visible) {
+			    	this.drawables[i].draw();
+				}
+			}
+			
+			this.needsRedraw = false;
+		}
+	},
 	
-	this.isInside = function(x, y) {
-		return (x < (this.x + this.width) &&
-		 		x > this.x &&
-		 		y < (this.y + this.height) &&
-				y > this.y);
-	};
-}
+	//Event Handling
+	mouse_down: function (x, y) {
+		for (var i=this.drawables.length; i>0; i--) {
+			if (this.drawables[i-1].mouse_down(x, y)) {
+				return true;
+			}
+		}
+		
+		if (typeof this.onMouseDown == "function") {
+			return this.onMouseDown(x, y);
+		}
+		
+		return false;
+	},
+	
+	mouse_move: function (x, y) {
+		for (var i=this.drawables.length; i>0; i--) {
+			if (this.drawables[i-1].mouse_move(x, y)) {
+				return true;
+			}
+		}
+		
+		if (typeof this.onMouseMove == "function") {
+			return this.onMouseMove(x, y);
+		}
+		
+		return false;
+	},
+	
+	mouse_up: function () {
+		for (var i=this.drawables.length; i>0; i--) {
+			if (this.drawables[i-1].mouse_up()) {
+				return true;
+			}
+		}
+		
+		if (typeof this.onMouseUp == "function") {
+			return this.onMouseUp(x, y);
+		}
+		
+		return false;
+	},
+
+	// Utility Functions
+	drawLine: function (x1, y1, x2, y2) {
+		context.beginPath();
+		context.moveTo(x1, y1);
+		context.lineTo(x2, y2);
+		context.stroke();
+	},
+
+	drawTriangle: function (x1, y1, x2, y2, x3, y3) {
+		context.beginPath();
+		context.moveTo(x1, y1);
+		context.lineTo(x2, y2);
+		context.lineTo(x3, y3);
+		context.closePath();
+		context.fill();
+
+		this.drawLine(x1, y1, x2, y2);
+		this.drawLine(x2, y2, x3, y3);
+		this.drawLine(x3, y3, x1, y1);
+	},
+
+	drawRectangle: function (center_x, center_y, width, height) {
+		context.beginPath();
+		context.moveTo(center_x - width/2, center_y - height/2);
+		context.lineTo(center_x + width/2, center_y - height/2);
+		context.lineTo(center_x + width/2, center_y + height/2);
+		context.lineTo(center_x - width/2, center_y + height/2);
+		context.closePath();
+		context.fill();
+		context.stroke();
+	},
+	
+	// Math Functions
+	Math: {
+		distance: function (x1, y1, x2, y2) {
+			return Math.sqrt((x1-x2) * (x1-x2) + (y1-y2)*(y1-y2));
+		}
+	}
+};
+
+var Drawable = {
+	construct: function (x, y, width, height) {
+		this.x = x;
+		this.y = y;
+		this.width = width;
+		this.height = height;
+	},
+	
+	contains: function (x, y) {
+		return (x < (this.x + this.width/2) &&
+		 		x > (this.x - this.width/2) &&
+		 		y < (this.y + this.height/2) &&
+				y > (this.y - this.height/2));
+	},
+	
+	draw: function() {
+		context.strokeStyle = this.strokeStyle;
+		context.fillStyle = this.fillStyle;
+		context.lineWidth = this.lineWidth;
+		context.lineCap = this.lineCap;
+	},		
+	
+	// Event Handling
+	mouse_down: function (x, y) {
+		if (typeof this.onMouseDown == "function") {
+			return this.onMouseDown(x, y);
+		}
+		
+		return false;
+	},
+	
+	mouse_move: function (x, y) {
+		if (typeof this.onMouseMove == "function") {
+			return this.onMouseMove(x, y);
+		}
+		
+		return false;
+	},
+	
+	mouse_up: function () {
+		if (typeof this.onMouseUp == "function") {
+			return this.onMouseUp();
+		}
+		
+		return false;
+	},
+		
+	visible: true,
+		
+	// Drawing Style		
+	strokeStyle: 'black',
+	fillStyle: 'white',
+	lineWidth: 4,
+	lineCap: 'round'
+};
+
+var Movable = Drawable.extend ({
+	construct: function (x, y, width, height) {
+		Drawable.construct.call(this, x, y, width, height);
+		
+		this.onMouseDown = function (x, y) {
+			if (this.contains(x, y) && this.movable) {
+				this.moving = true;
+				this.offset_x = x - this.x;
+				this.offset_y = y - this.y;
+				return true;
+			} else {
+				return false;
+			}
+		};
+		
+		this.onMouseMove = function (x, y) {
+			if (this.moving) {
+				if (!this.lockMovementX) {
+					this.x = x - this.offset_x;
+				}
+				
+				if (!this.lockMovementY) {
+					this.y = y - this.offset_y;
+				}
+				
+				if (typeof this.onMove == "function") {
+					this.onMove(this.x, this.y);
+				}
+				scene.redraw();
+				return true;
+			} else {
+				return false;
+			}
+		};
+		
+		this.onMouseUp = function () {
+			if (this.moving) {
+				this.moving = false;
+				return true;
+			} else {
+				return false;
+			}
+		};
+	},
+	
+	movable: false,
+	moving: false,
+	lockMovementX: false,
+	lockMovementY: false
+});
+
+var Line = Movable.extend ({
+	construct: function (x1, y1, x2, y2) {
+		this.setCorners(x1, y1, x2, y2);
+		Movable.construct.call(this, this.x, this.y, this.width, this.height);
+	},
+	
+	draw: function () {
+		Movable.draw.call(this);
+		Scene.drawLine(this.x1(), this.y1(), this.x2(), this.y2());
+	},
+	
+	// Getters
+	x1: function () {
+		return this.x + this._x1;
+	},
+	
+	y1: function () {
+		return this.y + this._y1;
+	},
+	
+	x2: function () {
+		return this.x + this._x2;
+	},
+	
+	y2: function () {
+		return this.y + this._y2;
+	},
+	
+	// Setters
+	setCorners: function (x1, y1, x2, y2) {
+				this.x = (x1+x2)/2;
+				this.y = (y1+y2)/2;
+				this._x1 = x1 - this.x;
+				this._y1 = y1 - this.y;
+				this._x2 = x2 - this.x;
+				this._y2 = y2 - this.y;
+				this.width = Math.max(Math.abs(x1-x2), 20);
+				this.height = Math.max(Math.abs(y1-y2), 20);
+	}
+});
+
+var Arc = Movable.extend ({
+	construct: function (x, y, radius, startAngle, endAngle) {
+		this.setRadius(radius);
+		this.setStartAngle(startAngle);
+		this.setEndAngle(endAngle);
+		Movable.construct.call(this, x, y, this.width, this.height);
+	},
+			
+	draw: function () {
+		Movable.draw.call(this);
+		context.beginPath();
+		context.arc(this.x, this.y, this.radius(), this.startAngle(), this.endAngle(), true);
+		context.fill();
+		context.stroke();
+	},
+	
+	// Getters
+	radius: function () {
+		return this._radius;
+	},
+	
+	startAngle: function () {
+		return this._startAngle;
+	},
+	
+	endAngle: function () {
+		return this._endAngle;
+	},
+	
+	// Setters
+	setRadius: function (radius) {
+		this._radius = radius;
+		this.width = 2*radius;
+		this.height = 2*radius;
+		scene.redraw();
+	},
+	
+	setStartAngle: function (startAngle) {
+		this._startAngle = startAngle;
+		scene.redraw();
+	},
+	
+	setEndAngle: function (endAngle) {
+		this._endAngle = endAngle;
+		scene.redraw();
+	}
+});
+
+var Circle = Arc.extend ({
+	construct: function (x, y, radius) {
+		Arc.construct.call(this, x, y, radius, 0, Math.PI * 2);
+	}
+});
+
+var Triangle = Movable.extend ({
+	construct: function (x1, y1, x2, y2, x3, y3) {
+		this.setCorners(x1, y1, x2, y2, x3, y3);
+		Movable.construct.call(this, this.x, this.y, this.width, this.height);
+	},
+			
+	// Drawing
+	draw: function () {
+		Movable.draw.call(this);				
+		Scene.drawTriangle(this.x1(), this.y1(), this.x2(), this.y2(), this.x3(), this.y3());
+	},
+	
+	// Getters
+	x1: function () {
+		return this.x + this._x1;
+	},
+	
+	y1: function () {
+		return this.y + this._y1;
+	},
+	
+	x2: function () {
+		return this.x + this._x2;
+	},
+	
+	y2: function () {
+		return this.y + this._y2;
+	},
+	
+	x3: function () {
+		return this.x + this._x3;
+	},
+
+	y3: function () {
+		return this.y + this._y3;
+	},
+	
+	// Setters
+	setCorners: function (x1, y1, x2, y2, x3, y3) {
+		_left = Math.min(x1,x2,x3);
+		_right = Math.max(x1,x2,x3);
+		_top = Math.min(y1,y2,y3);
+		_bottom = Math.max(y1,y2,y3);
+		
+		this.x = (_left+_right)/2;
+		this.y = (_top+_bottom)/2;
+		this.width = _right-_left;
+		this.height = _bottom-_top;
+		
+		this._x1 = x1 - this.x;
+		this._y1 = y1 - this.y;
+		this._x2 = x2 - this.x;
+		this._y2 = y2 - this.y;
+		this._x3 = x3 - this.x;
+		this._y3 = y3 - this.y;
+	
+		scene.redraw();
+	}
+});
+
+var Rectangle = Movable.extend({
+	construct: function (x, y, width, height) {
+		Movable.construct.call(this, x, y, width, height);
+	},
+	
+	draw: function () {
+		Movable.draw.call(this);
+		Scene.drawRectangle(this.x, this.y, this.width, this.height);
+	},
+	
+	setCorners: function (x1, y1, x2, y2) {
+		this.x = (x1 + x2)/2;
+		this.y = (y1 + y2)/2;
+		
+		this.width = Math.abs(x1 - x2);
+		this.height = Math.abs(y1 - y2);
+		
+		scene.redraw();
+	}
+})
 
 // function setPixel(imageData, x, y, r, g, b, a) {
 //     index = (x + y * imageData.width) * 4;

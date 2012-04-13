@@ -56,13 +56,13 @@ body {
 }
 
 canvas {
-	margin-top: 20px;
+	margin-top: 16px;
 	margin-left: auto;
 	margin-right: auto;
 	width: 512px;
 	height: 384px;
 	-moz-box-shadow: 10px 0px 20px #ddd;
 	-webkit-box-shadow: 0px 0px 20px #eee;
-	border: 8px solid white;
+	border: 0px solid white;
 	background-color: #fef8ec;
 }
