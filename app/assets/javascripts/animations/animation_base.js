@@ -77,7 +77,6 @@ $(document).ready(function() {
 	mainLoop();
 });
 
-
 function mainLoop() {
 	scene.draw();
 	requestAnimFrame(mainLoop);
@@ -203,12 +202,12 @@ var Scene = {
 		this.drawLine(x3, y3, x1, y1);
 	},
 
-	drawRectangle: function (center_x, center_y, width, height) {
+	drawRectangle: function (x, y, width, height) {
 		context.beginPath();
-		context.moveTo(center_x - width/2, center_y - height/2);
-		context.lineTo(center_x + width/2, center_y - height/2);
-		context.lineTo(center_x + width/2, center_y + height/2);
-		context.lineTo(center_x - width/2, center_y + height/2);
+		context.moveTo(x, y);
+		context.lineTo(x + width, y);
+		context.lineTo(x + width, y + height);
+		context.lineTo(x, y + height);
 		context.closePath();
 		context.fill();
 		context.stroke();
@@ -224,17 +223,14 @@ var Scene = {
 
 var Drawable = {
 	construct: function (x, y, width, height) {
-		this.x = x;
-		this.y = y;
-		this.width = width;
-		this.height = height;
+		this.setBoundingBox(x, y, width, height);
 	},
 	
 	contains: function (x, y) {
-		return (x < (this.x + this.width/2) &&
-		 		x > (this.x - this.width/2) &&
-		 		y < (this.y + this.height/2) &&
-				y > (this.y - this.height/2));
+		return (x < (this.x() + this.width()) &&
+		 		x > (this.x()) &&
+		 		y < (this.y() + this.height()) &&
+				y > (this.y()));
 	},
 	
 	draw: function() {
@@ -243,6 +239,59 @@ var Drawable = {
 		context.lineWidth = this.lineWidth;
 		context.lineCap = this.lineCap;
 	},		
+	
+	// Getters
+	x: function () {
+		return this._x;
+	},
+	
+	y: function () {
+		return this._y;
+	},
+	
+	width: function () {
+		return this._width;
+	},
+	
+	height: function () {
+		return this._height;
+	},
+	
+	centerX: function () {
+		return this.x() + this.width()/2;
+	},
+	
+	centerY: function () {
+		return this.y() + this.height()/2;
+	},
+	
+	// Setters
+	setBoundingBox: function (x, y, width, height) {
+		this._x = x;
+		this._y = y;
+		this._width = width;
+		this._height = height;
+		
+		scene.redraw();
+	},
+	
+	setOrigin: function (x, y) {
+		this._x = x;
+		this._y = y;
+	},
+	
+	setX: function (x) {
+		this._x = x;
+	},
+	
+	setY: function (y) {
+		this._y = y;
+	},
+	
+	setCenter: function (centerX, centerY) {
+		this._x = centerX - this.width()/2;
+		this._y = centerY - this.height()/2;
+	},
 	
 	// Event Handling
 	mouse_down: function (x, y) {
@@ -285,8 +334,8 @@ var Movable = Drawable.extend ({
 		this.onMouseDown = function (x, y) {
 			if (this.contains(x, y) && this.movable) {
 				this.moving = true;
-				this.offset_x = x - this.x;
-				this.offset_y = y - this.y;
+				this.offset_x = x - this.x();
+				this.offset_y = y - this.y();
 				return true;
 			} else {
 				return false;
@@ -296,15 +345,15 @@ var Movable = Drawable.extend ({
 		this.onMouseMove = function (x, y) {
 			if (this.moving) {
 				if (!this.lockMovementX) {
-					this.x = x - this.offset_x;
+					this.setX(x - this.offset_x);
 				}
 				
 				if (!this.lockMovementY) {
-					this.y = y - this.offset_y;
+					this.setY(y - this.offset_y);
 				}
 				
 				if (typeof this.onMove == "function") {
-					this.onMove(this.x, this.y);
+					this.onMove(this.x(), this.y());
 				}
 				scene.redraw();
 				return true;
@@ -332,7 +381,7 @@ var Movable = Drawable.extend ({
 var Line = Movable.extend ({
 	construct: function (x1, y1, x2, y2) {
 		this.setCorners(x1, y1, x2, y2);
-		Movable.construct.call(this, this.x, this.y, this.width, this.height);
+		Movable.construct.call(this, this.x(), this.y(), this.width(), this.height());
 	},
 	
 	draw: function () {
@@ -342,46 +391,48 @@ var Line = Movable.extend ({
 	
 	// Getters
 	x1: function () {
-		return this.x + this._x1;
+		return this.x() + this._x1;
 	},
 	
 	y1: function () {
-		return this.y + this._y1;
+		return this.y() + this._y1;
 	},
 	
 	x2: function () {
-		return this.x + this._x2;
+		return this.x() + this._x2;
 	},
 	
 	y2: function () {
-		return this.y + this._y2;
+		return this.y() + this._y2;
 	},
 	
 	// Setters
 	setCorners: function (x1, y1, x2, y2) {
-				this.x = (x1+x2)/2;
-				this.y = (y1+y2)/2;
-				this._x1 = x1 - this.x;
-				this._y1 = y1 - this.y;
-				this._x2 = x2 - this.x;
-				this._y2 = y2 - this.y;
-				this.width = Math.max(Math.abs(x1-x2), 20);
-				this.height = Math.max(Math.abs(y1-y2), 20);
+				this._width = Math.max(Math.abs(x1-x2), 20);
+				this._height = Math.max(Math.abs(y1-y2), 20);
+				this.setCenter((x1 + x2)/2, (y1 + y2)/2);
+				this._x1 = x1 - this.x();
+				this._y1 = y1 - this.y();
+				this._x2 = x2 - this.x();
+				this._y2 = y2 - this.y();
+				
+				scene.redraw();
 	}
 });
 
 var Arc = Movable.extend ({
-	construct: function (x, y, radius, startAngle, endAngle) {
+	construct: function (centerX, centerY, radius, startAngle, endAngle) {
 		this.setRadius(radius);
 		this.setStartAngle(startAngle);
 		this.setEndAngle(endAngle);
-		Movable.construct.call(this, x, y, this.width, this.height);
+		this.setCenter(centerX, centerY);
+		Movable.construct.call(this, this.x(), this.y(), this.width(), this.height());
 	},
 			
 	draw: function () {
 		Movable.draw.call(this);
 		context.beginPath();
-		context.arc(this.x, this.y, this.radius(), this.startAngle(), this.endAngle(), true);
+		context.arc(this.centerX(), this.centerY(), this.radius(), this.startAngle(), this.endAngle(), true);
 		context.fill();
 		context.stroke();
 	},
@@ -389,14 +440,6 @@ var Arc = Movable.extend ({
 	// Getters
 	radius: function () {
 		return this._radius;
-	},
-	
-	centerX: function () {
-		return this.x;
-	},
-	
-	centerY: function () {
-		return this.y;
 	},
 	
 	startAngle: function () {
@@ -410,14 +453,8 @@ var Arc = Movable.extend ({
 	// Setters
 	setRadius: function (radius) {
 		this._radius = radius;
-		this.width = 2*radius;
-		this.height = 2*radius;
-		scene.redraw();
-	},
-	
-	setCenter: function (centerX, centerY) {
-		this.x = centerX;
-		this.y = centerY;
+		this._width = 2*radius;
+		this._height = 2*radius;
 		scene.redraw();
 	},
 	
@@ -433,46 +470,46 @@ var Arc = Movable.extend ({
 });
 
 var Circle = Arc.extend ({
-	construct: function (x, y, radius) {
-		Arc.construct.call(this, x, y, radius, 0, Math.PI * 2);
+	construct: function (centerX, centerY, radius) {
+		Arc.construct.call(this, centerX, centerY, radius, 0, Math.PI * 2);
 	}
 });
 
 var Triangle = Movable.extend ({
 	construct: function (x1, y1, x2, y2, x3, y3) {
 		this.setCorners(x1, y1, x2, y2, x3, y3);
-		Movable.construct.call(this, this.x, this.y, this.width, this.height);
+		Movable.construct.call(this, this.x(), this.y(), this.width(), this.height());
 	},
 			
 	// Drawing
 	draw: function () {
-		Movable.draw.call(this);				
+		Movable.draw.call(this);	
 		Scene.drawTriangle(this.x1(), this.y1(), this.x2(), this.y2(), this.x3(), this.y3());
 	},
 	
 	// Getters
 	x1: function () {
-		return this.x + this._x1;
+		return this.x() + this._x1;
 	},
 	
 	y1: function () {
-		return this.y + this._y1;
+		return this.y() + this._y1;
 	},
 	
 	x2: function () {
-		return this.x + this._x2;
+		return this.x() + this._x2;
 	},
 	
 	y2: function () {
-		return this.y + this._y2;
+		return this.y() + this._y2;
 	},
 	
 	x3: function () {
-		return this.x + this._x3;
+		return this.x() + this._x3;
 	},
 
 	y3: function () {
-		return this.y + this._y3;
+		return this.y() + this._y3;
 	},
 	
 	// Setters
@@ -482,17 +519,17 @@ var Triangle = Movable.extend ({
 		_top = Math.min(y1,y2,y3);
 		_bottom = Math.max(y1,y2,y3);
 		
-		this.x = (_left+_right)/2;
-		this.y = (_top+_bottom)/2;
-		this.width = _right-_left;
-		this.height = _bottom-_top;
+		this._x = _left;
+		this._y = _top;
+		this._width = _right-_left;
+		this._height = _bottom-_top;
 		
-		this._x1 = x1 - this.x;
-		this._y1 = y1 - this.y;
-		this._x2 = x2 - this.x;
-		this._y2 = y2 - this.y;
-		this._x3 = x3 - this.x;
-		this._y3 = y3 - this.y;
+		this._x1 = x1 - this.x();
+		this._y1 = y1 - this.y();
+		this._x2 = x2 - this.x();
+		this._y2 = y2 - this.y();
+		this._x3 = x3 - this.x();
+		this._y3 = y3 - this.y();
 	
 		scene.redraw();
 	}
@@ -505,15 +542,15 @@ var Rectangle = Movable.extend({
 	
 	draw: function () {
 		Movable.draw.call(this);
-		Scene.drawRectangle(this.x, this.y, this.width, this.height);
+		Scene.drawRectangle(this.x(), this.y(), this.width(), this.height());
 	},
 	
 	setCorners: function (x1, y1, x2, y2) {
-		this.x = (x1 + x2)/2;
-		this.y = (y1 + y2)/2;
+		this._x = x1;
+		this._y = y1;
 		
-		this.width = Math.abs(x1 - x2);
-		this.height = Math.abs(y1 - y2);
+		this._width = Math.abs(x1 - x2);
+		this._height = Math.abs(y1 - y2);
 		
 		scene.redraw();
 	}

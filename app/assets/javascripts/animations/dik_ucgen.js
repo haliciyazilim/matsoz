@@ -8,15 +8,15 @@ function animationInit () {
 	cornerHandle.fillStyle = 'red';
 	cornerHandle.movable = true;
 	cornerHandle.onMove = function (x, y) {
-		if (x < x2 + 10 && x > x2 - 10) {
+		if (this.centerX() < x2 + 10 && this.centerX() > x2 - 10) {
 			x = x2;
-			cornerHandle.x = x2;
-		} else if (x < x3 + 10 && x > x3 - 10) {
+			this.setCenter(x2, this.centerY());
+		} else if (this.centerX() < x3 + 10 && this.centerX() > x3 - 10) {
 			x = x3;
-			cornerHandle.x = x3;
+			this.setCenter(x3, this.centerY());
 		}
 		
-		triangle.setCorners(this.x, this.y, triangle.x2(), triangle.y2(), triangle.x3(), triangle.y3());
+		triangle.setCorners(this.centerX(), this.centerY(), triangle.x2(), triangle.y2(), triangle.x3(), triangle.y3());
 	};
 
 	triangle = Triangle.create(x1, y1, x2, y2, x3, y3);
