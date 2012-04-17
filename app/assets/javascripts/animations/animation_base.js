@@ -391,6 +391,14 @@ var Arc = Movable.extend ({
 		return this._radius;
 	},
 	
+	centerX: function () {
+		return this.x;
+	},
+	
+	centerY: function () {
+		return this.y;
+	},
+	
 	startAngle: function () {
 		return this._startAngle;
 	},
@@ -404,6 +412,12 @@ var Arc = Movable.extend ({
 		this._radius = radius;
 		this.width = 2*radius;
 		this.height = 2*radius;
+		scene.redraw();
+	},
+	
+	setCenter: function (centerX, centerY) {
+		this.x = centerX;
+		this.y = centerY;
 		scene.redraw();
 	},
 	
