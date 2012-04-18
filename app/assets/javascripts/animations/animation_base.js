@@ -554,7 +554,68 @@ var Rectangle = Movable.extend({
 		
 		scene.redraw();
 	}
-})
+});
+
+var Label = Movable.extend({
+	construct: function (x, y, text) {
+		this.setText(text);
+		Movable.construct.call(this, x, y, this.width(), this.height());
+	},
+	
+	draw: function () {
+		Movable.draw.call(this);
+		context.font = this._fontSize + "pt " + this._fontFamily;
+		context.textBaseline="top";
+		context.fillText(this.text(), this.x(), this.y());
+	},
+	
+	// Getters
+	text: function () {
+		return this._text;
+	},
+	
+	fontSize: function() {
+		return this._fontSize;
+	},
+	
+	fontFamily: function () {
+		return this._fontFamily;
+	},
+	
+	// Setters
+	setText: function (text) {
+		this._text = text;
+		this.measureSize();
+				
+		scene.redraw();
+	},
+	
+	setFontSize: function (fontSie) {
+		this._fontSize = fontSize;
+		this.measureSize();
+		scene.redraw();
+	},
+	
+	setFontFamily: function (fontFamily) {
+		this._fontFamily = fontFamily;
+		this.measureSize();
+		scene.redraw();
+	},
+	
+	// Helpers
+	measureSize: function () {
+		this._height = this._fontSize * 1.5;
+		context.font = this._fontSize + "pt " + this._fontFamily;
+		this._width = context.measureText(this._text).width;
+		
+		scene.redraw();
+	},
+	
+	// Members
+	
+	_fontSize: 16,
+	_fontFamily: "Helvetica"
+});
 
 // function setPixel(imageData, x, y, r, g, b, a) {
 //     index = (x + y * imageData.width) * 4;
