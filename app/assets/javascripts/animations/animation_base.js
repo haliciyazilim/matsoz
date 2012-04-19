@@ -1,4 +1,3 @@
-
 var canvas;
 var context;
 var ipad;
