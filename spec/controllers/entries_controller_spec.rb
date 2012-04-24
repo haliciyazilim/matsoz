@@ -7,6 +7,7 @@ describe EntriesController do
       entry1 = mock('entry1')
       entry2 = mock('entry2')
       @fake_entries = [entry1, entry2]
+      Entry.stub(:order).and_return(Entry)
       Entry.stub(:all).and_return(@fake_entries)      
     end
     
