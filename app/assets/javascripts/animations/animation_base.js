@@ -6,6 +6,7 @@ var canvasHeight;
 var scene;
 
 $(document).ready(function() {
+	
 	scene = Scene.create();
 	
 	ipad = (window.navigator.userAgent.match('iPad'))?true:false;
@@ -291,6 +292,7 @@ var Drawable = {
 		this._x = centerX - this.width()/2;
 		this._y = centerY - this.height()/2;
 	},
+	
 	
 	// Event Handling
 	mouse_down: function (x, y) {
@@ -589,7 +591,7 @@ var Label = Movable.extend({
 		scene.redraw();
 	},
 	
-	setFontSize: function (fontSie) {
+	setFontSize: function (fontSize) {
 		this._fontSize = fontSize;
 		this.measureSize();
 		scene.redraw();

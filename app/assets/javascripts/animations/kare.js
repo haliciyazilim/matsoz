@@ -1,25 +1,40 @@
 
 function animationInit () {
-	x1 = canvasWidth/2 - 75, y1 = canvasHeight/2 - 50;
-	x2 = canvasWidth/2 + 75, y2 = canvasHeight/2 + 50;
+	xt = canvasWidth/2 - 75, yt = canvasHeight/2 - 50;
+	xb = canvasWidth/2 + 75, yb = canvasHeight/2 + 50;
 	
-	rectangle = Rectangle.create(x1, y1, x2 - x1, y2 - y1);
+	rectangle = Rectangle.create(xt, yt, xb - xt, yb - yt);
+	//rectangle.setCorners(xb,yt,xb,yb);
 	rectangle.fillStyle = 'teal';
 	
-	line = Line.create(x2, y1, x2, y2);
+	label=Label.create(40,30,"Aşagıdaki dikdörtgenden kare elde ediniz.");
+	label.fillStyle='black';
+	
+	line = Line.create(xb, yt, xb, yb);
 	line.strokeStyle = 'red';
 	line.movable = true;
 	line.lockMovementY = true;
 	line.onMove = function (x, y) {
-		if ((this.centerX() > x1 + rectangle.height() - 10) && 
-			(this.centerX() < x1 + rectangle.height() + 10)) {
-			x = x1 + rectangle.height();
-			
-			line.setCorners(x, line.y1(), x, line.y2());
+		if ((this.centerX() > xt + rectangle.height() -10 ) && 
+			(this.centerX() < xt + rectangle.height() + 10)) {
+			x = xt + rectangle.height();
+			rectangle.strokeStyle = 'yellow';	
+			label.setText("Kare bulundu!");
+
+		}else{
+			rectangle.strokeStyle = 'black';	
+			label.setText("");
 		}
-		rectangle.setCorners(x1, y1, line.centerX(), y2);
+
+		if(this.centerX() < xt + 5){		
+			line.setCorners(xt, line.y1(), xt, line.y2());
+		}else{
+			line.setCorners(x, line.y1(), x, line.y2());
+			rectangle.setCorners(xt, line.y1(), x, line.y2());
+		}
 	};
 	
 	scene.addDrawable(rectangle);
 	scene.addDrawable(line);
+	scene.addDrawable(label);
 }
