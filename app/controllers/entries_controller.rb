@@ -2,7 +2,7 @@ class EntriesController < ApplicationController
   before_filter :set_all_entries
   
   def set_all_entries
-    @all_entries = Entry.all
+    @all_entries = Entry.order(:word).all
   end
   
   def index

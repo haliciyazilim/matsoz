@@ -30,6 +30,7 @@ body {
 
 #words_list p {
 	margin: 5px;
+	margin-bottom: 10px;
 }
 
 #words_list p.selected {
