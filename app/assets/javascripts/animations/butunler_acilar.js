@@ -30,14 +30,19 @@ function animationInit(){
 	line3.movable = false;
 	
 	//create info label of angles
-	infoLabel1 = Label.create(center_x-115, center_y+40, "");
+	labelAlignmentY = center_y+50;
+	
+	infoLabel1 = Label.create(center_x-135, labelAlignmentY, "0°");
 	infoLabel1.fillStyle='blue';
 
-	infoLabel2 = Label.create(center_x-65, center_y+40, "");
+	infoLabel2 = Label.create(infoLabel1.x()+infoLabel1.width()+5, labelAlignmentY, "nin bütünler açısı");
 	infoLabel2.fillStyle='black';
 	
-	infoLabel3 = Label.create(center_x+100, center_y+40, "");
+	infoLabel3 = Label.create(infoLabel2.x()+infoLabel2.width()+5, labelAlignmentY, "180°");
 	infoLabel3.fillStyle='green';
+	
+	infoLabel4 = Label.create(infoLabel3.x()+infoLabel3.width()+5, labelAlignmentY, "dir.");
+	infoLabel4.fillStyle='black';
 	
 	angleTip.onMove = function(x,y){
 		
@@ -69,8 +74,10 @@ function animationInit(){
 		label.setText(integerDeg+"°");
 		label2.setText(complement+"°");
 		infoLabel1.setText(integerDeg+"°");
-		infoLabel2.setText("nin bütünler açısı");
+		infoLabel2.setX(infoLabel1.x()+infoLabel1.width()+5);
 		infoLabel3.setText(complement+"°");
+		infoLabel3.setX(infoLabel2.x()+infoLabel2.width()+5);
+		infoLabel4.setX(infoLabel3.x()+infoLabel3.width()+5);
 		angleTip.setCenter(center_x+100*Math.cos(angle),center_y-100*Math.sin(angle));
 		line1.setCorners(center_x,center_y,center_x+100*Math.cos(angle),center_y-100*Math.sin(angle));
 		if(angle == Math.PI){
@@ -89,6 +96,7 @@ function animationInit(){
 	scene.addDrawable(infoLabel1);
 	scene.addDrawable(infoLabel2);
 	scene.addDrawable(infoLabel3);
+	scene.addDrawable(infoLabel4);
 	scene.addDrawable(angleArc);
 	scene.addDrawable(angleArc2);
 	scene.addDrawable(line3);
