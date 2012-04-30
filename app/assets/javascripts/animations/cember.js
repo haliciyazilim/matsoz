@@ -1,0 +1,67 @@
+function animationInit(){
+	center_x = canvasWidth/2 , center_y =  canvasHeight/2;
+	x2 = canvasWidth/2 + 100, y2 = canvasHeight/2;
+	x3 = canvasWidth/2 + 100, y3 = canvasHeight/2;
+	angle = 0;
+	
+	circle=Circle.create(center_x, center_y, 100);
+
+	angleTip = Circle.create(x2,y2, 5);
+	angleTip.fillStyle='red';
+	angleTip.movable=true;
+	
+    line1 = Line.create(center_x, center_y, x2, y2)
+	line1.strokeStyle = 'green';
+	line1.movable = false;
+	
+	line2 = Line.create(center_x, center_y, x2, y2);
+	line2.movable = false;
+
+	angleTip.onMove = function(x,y){
+		
+		new_x=10 + x; 
+		new_y=10 + y; 
+		angle = Math.atan((new_y - center_y) / (new_x - center_x));
+	
+		
+		if (new_x >= center_x && new_y < center_y) {
+			angle = 0 - angle;
+
+		
+		} else if (new_x < center_x && new_y <= center_y) {
+			angle = Math.PI - angle ;
+
+		}else if(new_x <= center_x && new_y > center_y){
+			angle = Math.PI - angle ;
+			if(new_x == center_x)
+				angle=3*Math.PI/2;
+
+		}
+		else if(new_x > center_x && new_y >= center_y){
+			angle = 2*Math.PI - angle;
+
+		}
+		
+		if (angle > Math.PI * 2 - Math.PI / 30 || angle < Math.PI / 30) {
+			angle = 0;
+		} else if (angle < Math.PI / 2 + Math.PI / 30 && angle > Math.PI / 2 - Math.PI / 30) {
+			angle = Math.PI / 2;
+		} else if (angle < Math.PI + Math.PI / 30 && angle > Math.PI - Math.PI / 30) {
+			angle = Math.PI;
+		} else if (angle < Math.PI * 1.5 + Math.PI / 30 && angle > Math.PI * 1.5 - Math.PI / 30) {
+			angle = Math.PI * 1.5;
+		}
+
+
+		angleTip.setCenter(center_x+100*Math.cos(angle),center_y-100*Math.sin(angle));
+		line1.setCorners(center_x,center_y,center_x+100*Math.cos(angle),center_y-100*Math.sin(angle));
+	}
+	
+	
+	
+	scene.addDrawable(circle);
+	scene.addDrawable(line2);
+	scene.addDrawable(line1);
+	scene.addDrawable(angleTip);
+	
+}

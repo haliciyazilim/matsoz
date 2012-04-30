@@ -422,6 +422,71 @@ var Line = Movable.extend ({
 });
 
 var Arc = Movable.extend ({
+	construct: function (centerX, centerY, radius, startAngle, endAngle, isCounterClockwise) {
+		this.setRadius(radius);
+		this.setStartAngle(startAngle);
+		this.setEndAngle(endAngle);
+		this.setCenter(centerX, centerY);
+		this.setDirection(isCounterClockwise);
+		Movable.construct.call(this, this.x(), this.y(), this.width(), this.height());
+	},
+			
+	draw: function () {
+		Movable.draw.call(this);
+		context.beginPath();
+		context.arc(this.centerX(), this.centerY(), this.radius(), this.startAngle(), this.endAngle(), this.direction());
+		context.fill();
+		context.stroke();
+	},
+	
+	// Getters
+	radius: function () {
+		return this._radius;
+	},
+	
+	startAngle: function () {
+		return this._startAngle;
+	},
+	
+	endAngle: function () {
+		return this._endAngle;
+	},
+	
+	direction: function (){
+		return this._isCounterClockwise;
+	},
+	
+	// Setters
+	setRadius: function (radius) {
+		this._radius = radius;
+		this._width = 2*radius;
+		this._height = 2*radius;
+		scene.redraw();
+	},
+	
+	setStartAngle: function (startAngle) {
+		this._startAngle = startAngle;
+		scene.redraw();
+	},
+	
+	setEndAngle: function (endAngle) {
+		this._endAngle = endAngle;
+		scene.redraw();
+	},
+	
+	setDirection: function (bool){
+		this._isCounterClockwise=bool;
+		scene.redraw();
+	}
+});
+
+var Circle = Arc.extend ({
+	construct: function (centerX, centerY, radius) {
+		Arc.construct.call(this, centerX, centerY, radius, 0, Math.PI * 2);
+	}
+});
+
+var Sector = Movable.extend ({
 	construct: function (centerX, centerY, radius, startAngle, endAngle) {
 		this.setRadius(radius);
 		this.setStartAngle(startAngle);
@@ -433,7 +498,12 @@ var Arc = Movable.extend ({
 	draw: function () {
 		Movable.draw.call(this);
 		context.beginPath();
-		context.arc(this.centerX(), this.centerY(), this.radius(), this.startAngle(), this.endAngle(), true);
+		context.moveTo(this.centerX(),this.centerY());
+		//context.beginPath();
+		//context.lineTo(this.centerX()+this.radius(),this.centerY());
+		context.arc(this.centerX(),this.centerY(),this.radius(),this.startAngle(), this.endAngle(), true);
+		//context.moveTo(this.centerX(),this.centerY());
+		//context.lineTo(this.centerX(),this.centerY());
 		context.fill();
 		context.stroke();
 	},
@@ -467,12 +537,6 @@ var Arc = Movable.extend ({
 	setEndAngle: function (endAngle) {
 		this._endAngle = endAngle;
 		scene.redraw();
-	}
-});
-
-var Circle = Arc.extend ({
-	construct: function (centerX, centerY, radius) {
-		Arc.construct.call(this, centerX, centerY, radius, 0, Math.PI * 2);
 	}
 });
 
