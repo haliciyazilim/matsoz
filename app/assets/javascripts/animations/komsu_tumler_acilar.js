@@ -4,14 +4,14 @@ function animationInit(){
 	x3 = center_x, y3 = center_y - 100 ;
 	angle = 0;
 	
-	angleArc=Arc.create(center_x,center_y,15,0,0);
+	angleArc=Arc.create(center_x,center_y,15,0,0,true);
 	angleArc.strokeStyle='blue';
 	
 	label=Label.create(center_x+35,center_y-15,"0°");
 	label.fillStyle='blue';
 	label.setFontSize(10);//px
 	
-	angleArc2=Arc.create(center_x,center_y,25,0,-Math.PI/2);
+	angleArc2=Arc.create(center_x,center_y,25,0,-Math.PI/2,true);
 	angleArc2.strokeStyle='green';
 	
 	label2=Label.create(center_x+7,center_y-50,"90°");
