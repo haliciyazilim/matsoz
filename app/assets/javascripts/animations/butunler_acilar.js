@@ -4,13 +4,13 @@ function animationInit(){
 	x3 = canvasWidth/2 - 100, y3 = canvasHeight/2;
 	angle = 0;
 	
-	angleArc=Arc.create(center_x,center_y,20,0,0);
+	angleArc=Arc.create(center_x,center_y,20,0,0,true);
 	angleArc.strokeStyle='blue';
 	
 	label=Label.create(center_x+30,center_y-30,"0°");
 	label.fillStyle='blue';
 	
-	angleArc2=Arc.create(center_x,center_y,30,0,Math.PI);
+	angleArc2=Arc.create(center_x,center_y,30,0,Math.PI,true);
 	angleArc2.strokeStyle='green';
 	
 	label2=Label.create(center_x-80,center_y-30,"180°");
@@ -21,10 +21,10 @@ function animationInit(){
 	angleTip.movable=true;
 	
     line1 = Line.create(center_x, center_y, x2, y2)
-	line1.movable = false;
+	line1.movable = true;
 	
 	line2 = Line.create(center_x, center_y, x2, y2);
-	line2.movable = false;
+	line2.movable = true;
 	
 	line3 = Line.create(center_x, center_y, x3, y3);
 	line3.movable = false;
