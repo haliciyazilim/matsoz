@@ -6,6 +6,7 @@ function animationInit(){
 	circleRadius=100;
 	
 	mainCircle=Circle.create(center_x, center_y,circleRadius);
+	mainCircle.strokeStyle='#AAA5A5';
 	
 	sectorArc=Sector.create(center_x,center_y,circleRadius,0,0);
 	sectorArc.fillStyle='pink';
@@ -72,7 +73,7 @@ function animationInit(){
 		sectorArc.setEndAngle(0 - angle);
 	}
 	
-		
+	scene.addDrawable(mainCircle);
 	scene.addDrawable(sectorArc);
 	scene.addDrawable(label);
 	scene.addDrawable(angleArc);

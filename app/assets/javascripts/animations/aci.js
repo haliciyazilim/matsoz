@@ -5,7 +5,7 @@ function animationInit(){
 	angle = 0;
 	
 	
-	angleArc=Arc.create(center_x,center_y,20,0,0);
+	angleArc=Arc.create(center_x,center_y,20,0,0,true);
 	angleArc.strokeStyle='blue';
 	
 	label=Label.create(center_x+30,center_y-30,"0°");
@@ -64,8 +64,7 @@ function animationInit(){
 		angleTip.setCenter(center_x+100*Math.cos(angle),center_y-100*Math.sin(angle));
 		line1.setCorners(center_x,center_y,center_x+100*Math.cos(angle),center_y-100*Math.sin(angle));
 		angleArc.setEndAngle(0 - angle);
-		
-		//angleArc.setEndAngle(angle);
+
 	}
 	
 	

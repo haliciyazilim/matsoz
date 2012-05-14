@@ -21,10 +21,10 @@ function animationInit(){
 	angleTip.movable=true;
 	
     line1 = Line.create(center_x, center_y, x2, y2)
-	line1.movable = true;
+	line1.movable = false;
 	
 	line2 = Line.create(center_x, center_y, x2, y2);
-	line2.movable = true;
+	line2.movable = false;
 	
 	line3 = Line.create(center_x, center_y, x3, y3);
 	line3.movable = false;

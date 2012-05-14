@@ -214,11 +214,12 @@ var Scene = {
 	},
 	
 	// Math Functions
-	Math: {
+	Math:{
 		distance: function (x1, y1, x2, y2) {
 			return Math.sqrt((x1-x2) * (x1-x2) + (y1-y2)*(y1-y2));
 		}
 	}
+	
 };
 
 var Drawable = {
@@ -421,6 +422,7 @@ var Line = Movable.extend ({
 	}
 });
 
+
 var Arc = Movable.extend ({
 	construct: function (centerX, centerY, radius, startAngle, endAngle, isCounterClockwise) {
 		this.setRadius(radius);
@@ -482,7 +484,7 @@ var Arc = Movable.extend ({
 
 var Circle = Arc.extend ({
 	construct: function (centerX, centerY, radius) {
-		Arc.construct.call(this, centerX, centerY, radius, 0, Math.PI * 2);
+		Arc.construct.call(this, centerX, centerY, radius, 0, Math.PI * 2,true);
 	}
 });
 
@@ -499,13 +501,47 @@ var Sector = Movable.extend ({
 		Movable.draw.call(this);
 		context.beginPath();
 		context.moveTo(this.centerX(),this.centerY());
-		//context.beginPath();
-		//context.lineTo(this.centerX()+this.radius(),this.centerY());
 		context.arc(this.centerX(),this.centerY(),this.radius(),this.startAngle(), this.endAngle(), true);
-		//context.moveTo(this.centerX(),this.centerY());
-		//context.lineTo(this.centerX(),this.centerY());
+		context.closePath();
 		context.fill();
 		context.stroke();
+	},
+	
+	contain: function (x,y) {
+		var angle = Math.atan((y - this.centerY()) / (x - this.centerX()));
+		var start=0;
+		var end=0;
+		var dist=0;
+		var constantAngle=2*Math.PI*53/360;	
+	
+		if (x >= this.centerX() && y < this.centerY()) {
+			angle = 0 - angle;
+			start=0;
+			end=constantAngle;
+			this.regionNumber=1;
+		 } 
+		else if (x < this.centerX() && y <= this.centerY()) {
+			angle = Math.PI - angle ;
+			start=constantAngle;
+			end=Math.PI;
+			this.regionNumber=2;
+		}
+		else if(x <= this.centerX() && y > this.centerY()){
+			angle = Math.PI - angle ;
+			start=Math.PI;
+			end=Math.PI+constantAngle;
+			this.regionNumber=3;
+		}
+		else if(x > this.centerX() && y >= this.centerY()){
+			angle = 2*Math.PI - angle;
+			start=Math.PI+constantAngle;
+			end=2*Math.PI;
+			this.regionNumber=4;
+		}
+		
+		//alert(angle+" "+start+" "+end+" "+this.radius()+" 2 PI "+2*Math.PI);
+		dist=Math.sqrt((x-this.centerX())*(x-this.centerX())+(y-this.centerY())*(y-this.centerY()));
+		return angle > start && angle < end && dist <= this.radius();
 	},
 	
 	// Getters
@@ -537,7 +573,11 @@ var Sector = Movable.extend ({
 	setEndAngle: function (endAngle) {
 		this._endAngle = endAngle;
 		scene.redraw();
-	}
+	},
+	
+	regionNumber:0,
+	isClicked:false,
+	isSelectable:true
 });
 
 var Triangle = Movable.extend ({

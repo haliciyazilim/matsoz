@@ -34,16 +34,16 @@ function animationInit(){
 	//create info label of angles
 	labelAlignmentY = center_y+50;
 	
-	infoLabel1 = Label.create(65, labelAlignmentY, "0°");
+	infoLabel1 = Label.create(center_x-135, labelAlignmentY, "0°");
 	infoLabel1.fillStyle='blue';
 
-	infoLabel2 = Label.create(100, labelAlignmentY, "nin komşu tümler açısı");
+	infoLabel2 = Label.create(infoLabel1.x()+infoLabel1.width()+5, labelAlignmentY, "nin komşu tümler açısı");
 	infoLabel2.fillStyle='black';
 	
-	infoLabel3 = Label.create(center_x+110, labelAlignmentY, "90°");
+	infoLabel3 = Label.create(infoLabel2.x()+infoLabel2.width()+5, labelAlignmentY, "90°");
 	infoLabel3.fillStyle='green';
 	
-	infoLabel4 = Label.create(center_x+140, labelAlignmentY, "dir.");
+	infoLabel4 = Label.create(infoLabel3.x()+infoLabel3.width()+5, labelAlignmentY, "dir.");
 	infoLabel4.fillStyle='black';
 	
 	angleTip.onMove = function(x,y){
@@ -76,9 +76,12 @@ function animationInit(){
 		label.setText(integerDeg+"°");
 		label2.setText(complement+"°");
 		infoLabel1.setText(integerDeg+"°");
+		infoLabel2.setX(infoLabel1.x()+infoLabel1.width()+5);
 		infoLabel2.setText("nin komşu tümler açısı");
+		infoLabel3.setX(infoLabel2.x()+infoLabel2.width()+5);		
 		infoLabel3.setText(complement+"°");
-		infoLabel4.setText(" dir.");
+		infoLabel4.setX(infoLabel3.x()+infoLabel3.width()+5);
+		infoLabel4.setText("dir.");
 		angleTip.setCenter(center_x+100*Math.cos(angle),center_y-100*Math.sin(angle));
 		line1.setCorners(center_x,center_y,center_x+100*Math.cos(angle),center_y-100*Math.sin(angle));
 		if(angle == Math.PI/2){

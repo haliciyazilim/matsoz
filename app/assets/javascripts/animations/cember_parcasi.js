@@ -4,15 +4,18 @@ function animationInit(){
 	x3 = canvasWidth/2 + 100, y3 = canvasHeight/2;
 	
 	startAngle=0;
-	endAngle = 0;
+	endAngle = Math.PI/2;
 	radius=100;
+	
+	mainCircle=Circle.create(center_x, center_y,radius);
+	mainCircle.strokeStyle='#AAA5A5';
 	
 	cemberYay=Arc.create(center_x, center_y, radius, 0, -Math.PI/2,true);
 	
 
 	tip2 = Circle.create(x2,y2, 7);
 	tip2.fillStyle='red';
-	tip2.movable=false;
+	tip2.movable=true;
 	
 	tip1 = Circle.create(center_x, center_y - radius, 7);
 	tip1.fillStyle='blue';
@@ -104,7 +107,7 @@ function animationInit(){
 
 	}
 	
-	
+	scene.addDrawable(mainCircle);
 	scene.addDrawable(cemberYay);
 	scene.addDrawable(tip1);
 	scene.addDrawable(tip2);
