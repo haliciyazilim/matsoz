@@ -24,80 +24,91 @@ function animationInit(){
 	intersectionBottom_x=center_x-45;
 	intersectionBottom_y=center_y+60;
 
-	arc_a=Sector.create(intersectionTop_x, intersectionTop_y, 20,0,0-angle);
-	arc_b=Sector.create(intersectionTop_x, intersectionTop_y, 15,0-angle,Math.PI);
-	arc_c=Sector.create(intersectionTop_x, intersectionTop_y, 19,Math.PI,Math.PI-angle);
-	arc_d=Sector.create(intersectionTop_x, intersectionTop_y, 16,Math.PI-angle,2*Math.PI);
+	arc_a=Sector.create(intersectionTop_x, intersectionTop_y, 20,0,angle);
+	arc_b=Sector.create(intersectionTop_x, intersectionTop_y, 15,angle,Math.PI);
+	arc_c=Sector.create(intersectionTop_x, intersectionTop_y, 19,Math.PI,Math.PI+angle);
+	arc_d=Sector.create(intersectionTop_x, intersectionTop_y, 16,Math.PI+angle,2*Math.PI);
 
-	arc_e=Sector.create(intersectionBottom_x, intersectionBottom_y, 20,0,0-angle);
-	arc_f=Sector.create(intersectionBottom_x, intersectionBottom_y, 16,0-angle,Math.PI);
-	arc_g=Sector.create(intersectionBottom_x, intersectionBottom_y, 22,Math.PI,Math.PI-angle);
-	arc_h=Sector.create(intersectionBottom_x, intersectionBottom_y, 17,Math.PI-angle,2*Math.PI);
+	arc_e=Sector.create(intersectionBottom_x, intersectionBottom_y, 20,0,angle);
+	arc_f=Sector.create(intersectionBottom_x, intersectionBottom_y, 16,angle,Math.PI);
+	arc_g=Sector.create(intersectionBottom_x, intersectionBottom_y, 22,Math.PI,Math.PI+angle);
+	arc_h=Sector.create(intersectionBottom_x, intersectionBottom_y, 17,Math.PI+angle,2*Math.PI);
+	
+	arc_a.regionNumber = 0;
+	arc_b.regionNumber = 1;
+	arc_c.regionNumber = 2;
+	arc_d.regionNumber = 3;
+	
+	arc_e.regionNumber = 0;
+	arc_f.regionNumber = 1;
+	arc_g.regionNumber = 2;
+	arc_h.regionNumber = 3;
 	
 	var arcs=new Array(arc_a,arc_b,arc_c,arc_d,arc_e,arc_f,arc_g,arc_h);
-	var indexes=new Array();
 	var colors=new Array('#00bfff','#ffa500','#7fff00','#b22222');
-	colorsCount=0;
  	
-	arc_a.onMouseDown = function(x,y){
-		for(i=0; i < arcs.length; i++){
-			if(clickCount == 2){
-				clickCount=0;
-				break;
-			}
-				
-			if( arcs[i].contain(x,y) && arcs[i].regionNumber == (i%4)+1 && arcs[i].isSelectable){
-				labelc.setText("");
-				if(!arcs[i].isClicked){
-					arcs[i].isClicked=true;
-					arcs[i].fillStyle='silver';
-					clickCount++;
-					if(indexes.length == 2){
-						lastSelected=indexes.pop();
-						arcs[lastSelected].fillStyle='white';
-						arcs[lastSelected].isClicked=false;
-						indexes.push(i);
-					}else{
-						indexes.push(i);						
-					}
-				}else{
-					labelc.setText("");
-					arcs[i].isClicked=false;
-					arcs[i].fillStyle='white';
-					loc=indexes.indexOf(i);
-					indexes.splice(loc,1);
+	var anglesFound = 0;
+
+	var previousSelection = null;
+	
+	for (index in arcs) {
+		var arc = arcs[index];
+		
+		arc.onMouseDown = function(x,y) {
+			if (this.contains(x,y) && !this.finalized) {
+				if (!previousSelection) {
+					this.fillStyle = 'silver';
 					
+					previousSelection = this;
+				} else {
+					if (previousSelection == this) {
+						this.fillStyle = 'white';
+					} else {
+						if (this.regionNumber == previousSelection.regionNumber) {
+							this.fillStyle = colors[this.regionNumber];
+							previousSelection.fillStyle = colors[this.regionNumber];
+							
+							this.finalized = true;
+							previousSelection.finalized = true;
+							
+							anglesFound++;
+							
+							if (anglesFound == 4) {
+								labelc.fillStyle='green';
+								labelc.setText("Tebrikler! Bütün açıları buldunuz!");								
+							} else {
+								labelc.fillStyle='green';
+								labelc.setText("Tebrikler!");
+								
+								setTimeout((function() {
+									labelc.setText('');
+									scene.redraw();
+								}), 1000);	
+							}
+						} else {
+							labelc.fillStyle='red';
+							labelc.setText("Yanlış!");
+							this.fillStyle='red';
+							previousSelection.fillStyle='red';
+							
+							thisArc = this;
+							previousArc = previousSelection;
+							
+							setTimeout((function() {
+								thisArc.fillStyle = 'white';
+								previousArc.fillStyle = 'white';
+								labelc.setText('');
+								scene.redraw();
+							}), 1000);
+						}
+					}
+					previousSelection = null;
 				}
+				
+				scene.redraw();
 			}
 		}
-		
-		if(indexes.length == 2){
-			secondIndex=indexes.pop();
-			firstIndex=indexes.pop();
-			if( secondIndex % 4 == firstIndex % 4){
-				if(secondIndex!=firstIndex){
-					if(colorsCount == 4)
-						colorsCount=0;
-					arcs[secondIndex].fillStyle=colors[colorsCount];
-					arcs[secondIndex].isSelectable=false;
-					arcs[firstIndex].fillStyle=colors[colorsCount];
-					arcs[firstIndex].isSelectable=false;
-					labelc.fillStyle='green';
-					labelc.setText("Tebrikler!");	
-					colorsCount++;				
-				}
-			}else{	
-					labelc.fillStyle='red';
-					labelc.setText("Yanlış!");
-					arcs[firstIndex].fillStyle='red';
-					arcs[secondIndex].fillStyle='red';
-					indexes.push(firstIndex);
-					indexes.push(secondIndex);
-					clickCount++;			
-					}		
-			}
-		scene.redraw();
-	}//end of mouse down
+	}
 
 	scene.addDrawable(line_k);
 	scene.addDrawable(line_l);
