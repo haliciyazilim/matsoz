@@ -507,7 +507,7 @@ var Sector = Movable.extend ({
 		context.stroke();
 	},
 	
-	contain: function (x,y) {
+	contains: function (x,y) {
 		var angle = Math.atan((y - this.centerY()) / (x - this.centerX()));
 		var start=0;
 		var end=0;

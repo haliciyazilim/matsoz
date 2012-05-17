@@ -24,7 +24,7 @@ function animationInit(){
 	intersectionBottom_x=center_x-45;
 	intersectionBottom_y=center_y+60;
 
-	arc_a=Sector.create(intersectionTop_x, intersectionTop_y, 20,0,0-angle);
+	arc_a=Sector.create(intersectionTop_x, intersectionTop_y, 20,0,angle);
 	arc_b=Sector.create(intersectionTop_x, intersectionTop_y, 15,0-angle,Math.PI);
 	arc_c=Sector.create(intersectionTop_x, intersectionTop_y, 19,Math.PI,Math.PI-angle);
 	arc_d=Sector.create(intersectionTop_x, intersectionTop_y, 16,Math.PI-angle,2*Math.PI);
