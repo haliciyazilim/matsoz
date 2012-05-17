@@ -332,46 +332,46 @@ var Drawable = {
 var Movable = Drawable.extend ({
 	construct: function (x, y, width, height) {
 		Drawable.construct.call(this, x, y, width, height);
-		
-		this.onMouseDown = function (x, y) {
-			if (this.contains(x, y) && this.movable) {
-				this.moving = true;
-				this.offset_x = x - this.x();
-				this.offset_y = y - this.y();
-				return true;
-			} else {
-				return false;
+	},
+	
+	onMouseDown: function (x, y) {
+		if (this.contains(x, y) && this.movable) {
+			this.moving = true;
+			this.offset_x = x - this.x();
+			this.offset_y = y - this.y();
+			return true;
+		} else {
+			return false;
+		}
+	},
+	
+	onMouseMove: function (x, y) {
+		if (this.moving) {
+			if (!this.lockMovementX) {
+				this.setX(x - this.offset_x);
 			}
-		};
-		
-		this.onMouseMove = function (x, y) {
-			if (this.moving) {
-				if (!this.lockMovementX) {
-					this.setX(x - this.offset_x);
-				}
-				
-				if (!this.lockMovementY) {
-					this.setY(y - this.offset_y);
-				}
-				
-				if (typeof this.onMove == "function") {
-					this.onMove(this.x(), this.y());
-				}
-				scene.redraw();
-				return true;
-			} else {
-				return false;
+			
+			if (!this.lockMovementY) {
+				this.setY(y - this.offset_y);
 			}
-		};
-		
-		this.onMouseUp = function () {
-			if (this.moving) {
-				this.moving = false;
-				return true;
-			} else {
-				return false;
+			
+			if (typeof this.onMove == "function") {
+				this.onMove(this.x(), this.y());
 			}
-		};
+			scene.redraw();
+			return true;
+		} else {
+			return false;
+		}
+	},
+	
+	onMouseUp: function () {
+		if (this.moving) {
+			this.moving = false;
+			return true;
+		} else {
+			return false;
+		}
 	},
 	
 	movable: false,
@@ -431,12 +431,13 @@ var Arc = Movable.extend ({
 		this.setCenter(centerX, centerY);
 		this.setDirection(isCounterClockwise);
 		Movable.construct.call(this, this.x(), this.y(), this.width(), this.height());
+		this.fillStyle = "rgba(0,0,0,0)";
 	},
 			
 	draw: function () {
 		Movable.draw.call(this);
 		context.beginPath();
-		context.arc(this.centerX(), this.centerY(), this.radius(), this.startAngle(), this.endAngle(), this.direction());
+		context.arc(this.centerX(), this.centerY(), this.radius(), -this.startAngle(), -this.endAngle(), this.direction());
 		context.fill();
 		context.stroke();
 	},
@@ -467,11 +468,27 @@ var Arc = Movable.extend ({
 	},
 	
 	setStartAngle: function (startAngle) {
+		while (startAngle < 0) {
+			startAngle += 2*Math.PI;
+		}
+		
+		while (startAngle > 2*Math.PI) {
+			startAngle -= 2*Math.PI;
+		}
+		
 		this._startAngle = startAngle;
 		scene.redraw();
 	},
 	
 	setEndAngle: function (endAngle) {
+		while (endAngle < 0) {
+			endAngle += 2*Math.PI;
+		}
+		
+		while (endAngle > 2*Math.PI) {
+			endAngle -= 2*Math.PI;
+		}
+		
 		this._endAngle = endAngle;
 		scene.redraw();
 	},
@@ -484,100 +501,41 @@ var Arc = Movable.extend ({
 
 var Circle = Arc.extend ({
 	construct: function (centerX, centerY, radius) {
-		Arc.construct.call(this, centerX, centerY, radius, 0, Math.PI * 2,true);
+		Arc.construct.call(this, centerX, centerY, radius, 0, Math.PI * 2, true);
+		this.fillStyle = 'white';
 	}
 });
 
-var Sector = Movable.extend ({
+var Sector = Arc.extend ({
 	construct: function (centerX, centerY, radius, startAngle, endAngle) {
-		this.setRadius(radius);
-		this.setStartAngle(startAngle);
-		this.setEndAngle(endAngle);
-		this.setCenter(centerX, centerY);
-		Movable.construct.call(this, this.x(), this.y(), this.width(), this.height());
+		Arc.construct.call(this, centerX, centerY, radius, startAngle, endAngle, true);
+		this.fillStyle = 'white';
 	},
 			
 	draw: function () {
 		Movable.draw.call(this);
 		context.beginPath();
 		context.moveTo(this.centerX(),this.centerY());
-		context.arc(this.centerX(),this.centerY(),this.radius(),this.startAngle(), this.endAngle(), true);
+		context.arc(this.centerX(), this.centerY(), this.radius(), -this.startAngle(), -this.endAngle(), true);
 		context.closePath();
 		context.fill();
 		context.stroke();
 	},
+<<<<<<< HEAD
 	
 	contains: function (x,y) {
 		var angle = Math.atan((y - this.centerY()) / (x - this.centerX()));
 		var start=0;
 		var end=0;
+=======
+
+	contains: function (x,y) {
+		var angle = findAngle(this.centerX(), this.centerY(), x, y);
+>>>>>>> 9512833a3d7249cb937a35eeb7886499952d97e8
 		var dist=0;
-		var constantAngle=2*Math.PI*53/360;	
-	
-		if (x >= this.centerX() && y < this.centerY()) {
-			angle = 0 - angle;
-			start=0;
-			end=constantAngle;
-			this.regionNumber=1;
-		 } 
-		else if (x < this.centerX() && y <= this.centerY()) {
-			angle = Math.PI - angle ;
-			start=constantAngle;
-			end=Math.PI;
-			this.regionNumber=2;
-		}
-		else if(x <= this.centerX() && y > this.centerY()){
-			angle = Math.PI - angle ;
-			start=Math.PI;
-			end=Math.PI+constantAngle;
-			this.regionNumber=3;
-		}
-		else if(x > this.centerX() && y >= this.centerY()){
-			angle = 2*Math.PI - angle;
-			start=Math.PI+constantAngle;
-			end=2*Math.PI;
-			this.regionNumber=4;
-		}
-		
-		//alert(angle+" "+start+" "+end+" "+this.radius()+" 2 PI "+2*Math.PI);
 		dist=Math.sqrt((x-this.centerX())*(x-this.centerX())+(y-this.centerY())*(y-this.centerY()));
-		return angle > start && angle < end && dist <= this.radius();
-	},
-	
-	// Getters
-	radius: function () {
-		return this._radius;
-	},
-	
-	startAngle: function () {
-		return this._startAngle;
-	},
-	
-	endAngle: function () {
-		return this._endAngle;
-	},
-	
-	// Setters
-	setRadius: function (radius) {
-		this._radius = radius;
-		this._width = 2*radius;
-		this._height = 2*radius;
-		scene.redraw();
-	},
-	
-	setStartAngle: function (startAngle) {
-		this._startAngle = startAngle;
-		scene.redraw();
-	},
-	
-	setEndAngle: function (endAngle) {
-		this._endAngle = endAngle;
-		scene.redraw();
-	},
-	
-	regionNumber:0,
-	isClicked:false,
-	isSelectable:true
+		return angle > this.startAngle() && angle < this.endAngle() && dist <= this.radius();
+	}
 });
 
 var Triangle = Movable.extend ({
@@ -721,6 +679,37 @@ var Label = Movable.extend({
 	_fontSize: 16,
 	_fontFamily: "Helvetica"
 });
+
+// Utility Functions
+
+function findAngle(x1, y1, x2, y2) {
+	if (y1 == y2) {
+		if (x1 > x2) {
+			return Math.PI;
+		} else {
+			return 0;
+		}
+	}
+	
+	if (x1 == x2) {
+		if (y1 > y2) {
+			return Math.PI/2;
+		} else {
+			return 3*Math.PI/2;
+		}
+		
+	}
+	
+	angle = -Math.atan((y2 - y1) / (x2 - x1));
+	
+	if (x2 < x1) {
+		angle += Math.PI;
+	} else if (y2 > y1) {
+		angle += 2 * Math.PI;
+	}
+	
+	return angle;
+}
 
 // function setPixel(imageData, x, y, r, g, b, a) {
 //     index = (x + y * imageData.width) * 4;

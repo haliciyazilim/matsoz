@@ -10,7 +10,7 @@ function animationInit(){
 	mainCircle=Circle.create(center_x, center_y,radius);
 	mainCircle.strokeStyle='#AAA5A5';
 	
-	cemberYay=Arc.create(center_x, center_y, radius, 0, -Math.PI/2,true);
+	cemberYay=Arc.create(center_x, center_y, radius, 0, Math.PI/2,true);
 	
 
 	tip2 = Circle.create(x2,y2, 7);
@@ -47,21 +47,21 @@ function animationInit(){
 			endAngle = 2*Math.PI - endAngle;
 
 		}
-		
-		if (endAngle > Math.PI * 2 - Math.PI / 30 || endAngle < Math.PI / 30) {
-			endAngle = 0;
-		} else if (endAngle < Math.PI / 2 + Math.PI / 30 && endAngle > Math.PI / 2 - Math.PI / 30) {
-			endAngle = Math.PI / 2;
-		} else if (endAngle < Math.PI + Math.PI / 30 && endAngle > Math.PI - Math.PI / 30) {
-			endAngle = Math.PI;
-		} else if (endAngle < Math.PI * 1.5 + Math.PI / 30 && endAngle > Math.PI * 1.5 - Math.PI / 30) {
-			endAngle = Math.PI * 1.5;
-		}
+				// 
+				// if (endAngle > Math.PI * 2 - Math.PI / 30 || endAngle < Math.PI / 30) {
+				// 	endAngle = 0;
+				// } else if (endAngle < Math.PI / 2 + Math.PI / 30 && endAngle > Math.PI / 2 - Math.PI / 30) {
+				// 	endAngle = Math.PI / 2;
+				// } else if (endAngle < Math.PI + Math.PI / 30 && endAngle > Math.PI - Math.PI / 30) {
+				// 	endAngle = Math.PI;
+				// } else if (endAngle < Math.PI * 1.5 + Math.PI / 30 && endAngle > Math.PI * 1.5 - Math.PI / 30) {
+				// 	endAngle = Math.PI * 1.5;
+				// }
 
 		tip1.setCenter(center_x+100*Math.cos(endAngle),center_y-100*Math.sin(endAngle));
 		cemberYay.setDirection(true);
-		cemberYay.setStartAngle(0-startAngle);
-		cemberYay.setEndAngle(0-endAngle);
+		cemberYay.setStartAngle(startAngle);
+		cemberYay.setEndAngle(endAngle);
 		tip2.movable=true;
 
 	}
@@ -89,21 +89,21 @@ function animationInit(){
 			startAngle = 2*Math.PI - startAngle;
 
 		}
-		
-		if (startAngle > Math.PI * 2 - Math.PI / 30 || startAngle < Math.PI / 30) {
-			startAngle = 0;
-		} else if (startAngle < Math.PI / 2 + Math.PI / 30 && startAngle > Math.PI / 2 - Math.PI / 30) {
-			startAngle = Math.PI / 2;
-		} else if (startAngle < Math.PI + Math.PI / 30 && startAngle > Math.PI - Math.PI / 30) {
-			startAngle = Math.PI;
-		} else if (startAngle < Math.PI * 1.5 + Math.PI / 30 && startAngle > Math.PI * 1.5 - Math.PI / 30) {
-			startAngle = Math.PI * 1.5;
-		}
+				// 
+				// if (startAngle > Math.PI * 2 - Math.PI / 30 || startAngle < Math.PI / 30) {
+				// 	startAngle = 0;
+				// } else if (startAngle < Math.PI / 2 + Math.PI / 30 && startAngle > Math.PI / 2 - Math.PI / 30) {
+				// 	startAngle = Math.PI / 2;
+				// } else if (startAngle < Math.PI + Math.PI / 30 && startAngle > Math.PI - Math.PI / 30) {
+				// 	startAngle = Math.PI;
+				// } else if (startAngle < Math.PI * 1.5 + Math.PI / 30 && startAngle > Math.PI * 1.5 - Math.PI / 30) {
+				// 	startAngle = Math.PI * 1.5;
+				// }
 
 		tip2.setCenter(center_x+100*Math.cos(startAngle),center_y-100*Math.sin(startAngle));
 		cemberYay.setDirection(false);
-		cemberYay.setStartAngle(0-endAngle);
-		cemberYay.setEndAngle(0-startAngle);
+		cemberYay.setStartAngle(endAngle);
+		cemberYay.setEndAngle(startAngle);
 
 	}
 	
