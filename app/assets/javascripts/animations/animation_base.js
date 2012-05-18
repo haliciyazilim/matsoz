@@ -423,11 +423,46 @@ var Movable = Drawable.extend ({
 	},
 	
 	draw: function() {
-		
+		if (this.rotatable) {
+			size = 5;
+			context.fillStyle = 'red';
+			context.strokeStyle = 'gray';
+			context.lineWidth = 1;
+			Scene.drawLine(this.x(), this.y(), this.x() + this.width(), this.y());
+			Scene.drawLine(this.x() + this.width(), this.y(), this.x() + this.width(), this.y() + this.height());
+			Scene.drawLine(this.x() + this.width(), this.y() + this.height(), this.x(), this.y() + this.height());
+			Scene.drawLine(this.x(), this.y() + this.height(), this.x(), this.y());									
+			
+			context.strokeStyle = 'black';
+			Scene.drawRectangle(this.x()-size, this.y()-size, 2*size, 2*size);
+			Scene.drawRectangle(this.x()+this.width()-size, this.y()-size, 2*size, 2*size);
+			Scene.drawRectangle(this.x()+this.width()-size, this.y()+this.height()-size, 2*size, 2*size);
+			Scene.drawRectangle(this.x()-size, this.y()+this.height()-size, 2*size, 2*size);
+		}
 	},
 	
 	onMouseDown: function (x, y) {
-		if (this.contains(x, y) && this.movable) {
+		size = 5;
+		
+		rotation_x = x - this.centerX();
+		rotation_y = y - this.centerY();
+		local_x = rotation_x*Math.cos(-this.rotation()) + rotation_y*Math.sin(-this.rotation());
+		local_y = rotation_y*Math.cos(-this.rotation()) - rotation_x*Math.sin(-this.rotation());
+		rotation_x = local_x + this.centerX();
+		rotation_y = local_y + this.centerY();
+		
+		if (	(  rotation_x > this.x()-size && rotation_x < this.x()+size
+		 		&& rotation_y > this.y()-size && rotation_y < this.y()+size) ||
+				(  rotation_x > this.x()+this.width()-size && rotation_x < this.x()+this.width()+size    
+			    && rotation_y > this.y()-size && rotation_y < this.y()+size) ||
+				(  rotation_x > this.x()+this.width()-size && rotation_x < this.x()+this.width()+size
+				&& rotation_y > this.y()+this.height()-size && rotation_y < this.y()+this.height()+size) ||
+				(  rotation_x > this.x()-size && rotation_x < this.x()+size
+				&& rotation_y > this.y()+this.height()-size && rotation_y < this.y()+this.height()+size)) {
+			this.rotating = true;
+			this.rotationAngle = findAngle(this.centerX(), this.centerY(), rotation_x, rotation_y);
+			return true;
+		} else if (this.contains(x, y) && this.movable) {
 			this.moving = true;
 			this.offset_x = x - this.x();
 			this.offset_y = y - this.y();
@@ -438,7 +473,10 @@ var Movable = Drawable.extend ({
 	},
 	
 	onMouseMove: function (x, y) {
-		if (this.moving) {
+		if (this.rotating) {
+			this.setRotation(findAngle(this.centerX(), this.centerY(), x, y) - this.rotationAngle);
+			return true;
+		} else if (this.moving) {
 			if (!this.lockMovementX) {
 				this.setX(x - this.offset_x);
 			}
@@ -458,7 +496,10 @@ var Movable = Drawable.extend ({
 	},
 	
 	onMouseUp: function () {
-		if (this.moving) {
+		if (this.rotating) {
+			this.rotating = false;
+			return true;
+		} else if (this.moving) {
 			this.moving = false;
 			return true;
 		} else {
@@ -469,7 +510,10 @@ var Movable = Drawable.extend ({
 	movable: false,
 	moving: false,
 	lockMovementX: false,
-	lockMovementY: false
+	lockMovementY: false,
+	
+	rotatable: false,
+	rotating: false
 });
 
 var Line = Movable.extend ({
@@ -479,8 +523,8 @@ var Line = Movable.extend ({
 	},
 	
 	draw: function () {
-		Movable.draw.call(this);
 		Scene.drawLine(this.x1(), this.y1(), this.x2(), this.y2());
+		Movable.draw.call(this);
 	},
 	
 	// Getters
@@ -527,11 +571,11 @@ var Arc = Movable.extend ({
 	},
 			
 	draw: function () {
-		Movable.draw.call(this);
 		context.beginPath();
 		context.arc(this.centerX(), this.centerY(), this.radius(), -this.startAngle(), -this.endAngle(), this.direction());
 		context.fill();
 		context.stroke();
+		Movable.draw.call(this);
 	},
 	
 	// Getters
@@ -605,13 +649,13 @@ var Sector = Arc.extend ({
 	},
 			
 	draw: function () {
-		Movable.draw.call(this);
 		context.beginPath();
 		context.moveTo(this.centerX(),this.centerY());
 		context.arc(this.centerX(), this.centerY(), this.radius(), -this.startAngle(), -this.endAngle(), true);
 		context.closePath();
 		context.fill();
 		context.stroke();
+		Movable.draw.call(this);
 	},
 
 	contains: function (x,y) {
@@ -637,8 +681,8 @@ var Triangle = Movable.extend ({
 			
 	// Drawing
 	draw: function () {
-		Movable.draw.call(this);	
 		Scene.drawTriangle(this.x1(), this.y1(), this.x2(), this.y2(), this.x3(), this.y3());
+		Movable.draw.call(this);
 	},
 	
 	// Getters
@@ -695,8 +739,8 @@ var Rectangle = Movable.extend({
 	},
 	
 	draw: function () {
-		Movable.draw.call(this);
 		Scene.drawRectangle(this.x(), this.y(), this.width(), this.height());
+		Movable.draw.call(this);
 	},
 	
 	setCorners: function (x1, y1, x2, y2) {
@@ -717,10 +761,10 @@ var Label = Movable.extend({
 	},
 	
 	draw: function () {
-		Movable.draw.call(this);
 		context.font = this._fontSize + "pt " + this._fontFamily;
 		context.textBaseline="top";
 		context.fillText(this.text(), this.x(), this.y());
+		Movable.draw.call(this);
 	},
 	
 	// Getters
