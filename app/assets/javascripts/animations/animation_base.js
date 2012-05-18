@@ -130,7 +130,9 @@ var Scene = {
 			context.clearRect(0, 0, canvasWidth, canvasHeight);
 			for (var i=0; i<this.drawables.length; i++) {
 				if (this.drawables[i].visible) {
-			    	this.drawables[i].draw();
+					context.save();
+			    	this.drawables[i].drawObject();
+					context.restore();
 				}
 			}
 			
@@ -225,20 +227,40 @@ var Scene = {
 var Drawable = {
 	construct: function (x, y, width, height) {
 		this.setBoundingBox(x, y, width, height);
+		this.setRotation(0);
+		this.children = [];
 	},
 	
 	contains: function (x, y) {
+		x = x - this.centerX();
+		y = y - this.centerY();
+		local_x = x*Math.cos(-this.rotation()) + y*Math.sin(-this.rotation());
+		local_y = y*Math.cos(-this.rotation()) - x*Math.sin(-this.rotation());
+		x = local_x + this.centerX();
+		y = local_y + this.centerY();
+		
 		return (x < (this.x() + this.width()) &&
 		 		x > (this.x()) &&
 		 		y < (this.y() + this.height()) &&
 				y > (this.y()));
 	},
 	
-	draw: function() {
+	drawObject: function() {
 		context.strokeStyle = this.strokeStyle;
 		context.fillStyle = this.fillStyle;
 		context.lineWidth = this.lineWidth;
 		context.lineCap = this.lineCap;
+		context.translate(this.centerX(), this.centerY());
+		context.rotate(-this.rotation());
+		context.translate(-this.centerX(), -this.centerY());
+		
+		this.draw();
+
+		context.translate(this.x(), this.y());
+		for (index = 0; index < this.children.length; index++) {
+			this.children[index].drawObject();
+		}
+		context.translate(-this.x(), -this.y());
 	},		
 	
 	// Getters
@@ -266,6 +288,10 @@ var Drawable = {
 		return this.y() + this.height()/2;
 	},
 	
+	rotation: function() {
+		return this._rotation;
+	},
+	
 	// Setters
 	setBoundingBox: function (x, y, width, height) {
 		this._x = x;
@@ -279,24 +305,58 @@ var Drawable = {
 	setOrigin: function (x, y) {
 		this._x = x;
 		this._y = y;
+		
+		scene.redraw();
 	},
 	
 	setX: function (x) {
 		this._x = x;
+		
+		scene.redraw();
 	},
 	
 	setY: function (y) {
 		this._y = y;
+		
+		scene.redraw();
 	},
 	
 	setCenter: function (centerX, centerY) {
 		this._x = centerX - this.width()/2;
 		this._y = centerY - this.height()/2;
+	
+		scene.redraw();
 	},
 	
+	setRotation: function (angle) {
+		while (angle < 0) {
+			angle += 2*Math.PI;
+		}
+		
+		while (angle > 2*Math.PI) {
+			angle -= 2*Math.PI;
+		}
+		
+		this._rotation = angle;
+		
+		scene.redraw();
+	},
 	
 	// Event Handling
 	mouse_down: function (x, y) {
+		local_x = x - this.centerX();
+		local_y = y - this.centerY();
+		child_x = local_x*Math.cos(-this.rotation()) + local_y*Math.sin(-this.rotation());
+		child_y = local_y*Math.cos(-this.rotation()) - local_x*Math.sin(-this.rotation());
+		child_x = child_x + this.centerX() - this.x();
+		child_y = child_y + this.centerY() - this.y();
+		
+		for (index = 0; index < this.children.length; index++) {
+			if (this.children[index].mouse_down(child_x, child_y)) {
+				return true;
+			}
+		}
+		
 		if (typeof this.onMouseDown == "function") {
 			return this.onMouseDown(x, y);
 		}
@@ -305,6 +365,19 @@ var Drawable = {
 	},
 	
 	mouse_move: function (x, y) {
+		local_x = x - this.centerX();
+		local_y = y - this.centerY();
+		child_x = local_x*Math.cos(-this.rotation()) + local_y*Math.sin(-this.rotation());
+		child_y = local_y*Math.cos(-this.rotation()) - local_x*Math.sin(-this.rotation());
+		child_x = child_x + this.centerX() - this.x();
+		child_y = child_y + this.centerY() - this.y();
+		
+		for (index = 0; index < this.children.length; index++) {
+			if (this.children[index].mouse_move(child_x, child_y)) {
+				return true;
+			}
+		}
+		
 		if (typeof this.onMouseMove == "function") {
 			return this.onMouseMove(x, y);
 		}
@@ -313,6 +386,12 @@ var Drawable = {
 	},
 	
 	mouse_up: function () {
+		for (index = 0; index < this.children.length; index++) {
+			if (this.children[index].mouse_up()) {
+				return true;
+			}
+		}
+		
 		if (typeof this.onMouseUp == "function") {
 			return this.onMouseUp();
 		}
@@ -321,6 +400,15 @@ var Drawable = {
 	},
 		
 	visible: true,
+	
+	// Hierarchy
+	children: null,
+	parent: null,
+	
+	addChild: function(child) {
+		this.children.push(child);
+		child.parent = this;
+	},
 		
 	// Drawing Style		
 	strokeStyle: 'black',
@@ -332,6 +420,10 @@ var Drawable = {
 var Movable = Drawable.extend ({
 	construct: function (x, y, width, height) {
 		Drawable.construct.call(this, x, y, width, height);
+	},
+	
+	draw: function() {
+		
 	},
 	
 	onMouseDown: function (x, y) {
@@ -523,6 +615,13 @@ var Sector = Arc.extend ({
 	},
 
 	contains: function (x,y) {
+		x = x - this.centerX();
+		y = y - this.centerY();
+		local_x = x*Math.cos(-this.rotation()) + y*Math.sin(-this.rotation());
+		local_y = y*Math.cos(-this.rotation()) - x*Math.sin(-this.rotation());
+		x = local_x + this.centerX();
+		y = local_y + this.centerY();
+		
 		var angle = findAngle(this.centerX(), this.centerY(), x, y);
 		var dist=0;
 		dist=Math.sqrt((x-this.centerX())*(x-this.centerX())+(y-this.centerY())*(y-this.centerY()));
