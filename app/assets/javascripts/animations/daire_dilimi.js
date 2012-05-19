@@ -6,6 +6,7 @@ function animationInit(){
 	circleRadius=100;
 	
 	mainCircle=Circle.create(center_x, center_y,circleRadius);
+	mainCircle.strokeStyle='#AAA5A5';
 	
 	sectorArc=Sector.create(center_x,center_y,circleRadius,0,0);
 	sectorArc.fillStyle='pink';
@@ -32,26 +33,7 @@ function animationInit(){
 		
 		new_x=10 + x; 
 		new_y=10 + y; 
-		angle = Math.atan((new_y - center_y) / (new_x - center_x));
-	
-		
-		if (new_x >= center_x && new_y < center_y) {
-			angle = 0 - angle;
-
-		
-		} else if (new_x < center_x && new_y <= center_y) {
-			angle = Math.PI - angle ;
-
-		}else if(new_x <= center_x && new_y > center_y){
-			angle = Math.PI - angle ;
-			if(new_x == center_x)
-				angle=3*Math.PI/2;
-
-		}
-		else if(new_x > center_x && new_y >= center_y){
-			angle = 2*Math.PI - angle;
-
-		}
+		angle = findAngle(center_x, center_y, new_x, new_y);
 		
 		if (angle > Math.PI * 2 - Math.PI / 30 || angle < Math.PI / 30) {
 			angle = 0;
@@ -68,11 +50,11 @@ function animationInit(){
 		label.setText(integerDeg+"°");
 		angleTip.setCenter(center_x+100*Math.cos(angle),center_y-100*Math.sin(angle));
 		line1.setCorners(center_x,center_y,center_x+100*Math.cos(angle),center_y-100*Math.sin(angle));
-		angleArc.setEndAngle(0 - angle);
-		sectorArc.setEndAngle(0 - angle);
+		angleArc.setEndAngle(angle);
+		sectorArc.setEndAngle(angle);
 	}
 	
-		
+	scene.addDrawable(mainCircle);
 	scene.addDrawable(sectorArc);
 	scene.addDrawable(label);
 	scene.addDrawable(angleArc);

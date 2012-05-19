@@ -21,10 +21,10 @@ function animationInit(){
 	angleTip.movable=true;
 	
     line1 = Line.create(center_x, center_y, x2, y2)
-	line1.movable = true;
+	line1.movable = false;
 	
 	line2 = Line.create(center_x, center_y, x2, y2);
-	line2.movable = true;
+	line2.movable = false;
 	
 	line3 = Line.create(center_x, center_y, x3, y3);
 	line3.movable = false;
@@ -49,24 +49,17 @@ function animationInit(){
 		new_x=10 + x; 
 		new_y=10 + y; 
 		
-		angle = Math.atan((new_y - center_y) / (new_x - center_x));
-	
-		
-		if (new_x >= center_x && new_y < center_y) {
-			angle = 0 - angle;
-		} else if (new_x < center_x && new_y <= center_y) {
-			angle = Math.PI - angle ;
-		}else if(new_x <= center_x && new_y > center_y){
-			angle = Math.PI;
-		}else if(new_x > center_x && new_y >= center_y){
-			angle =  0;
-		}
-		
+		angle = findAngle(center_x, center_y, new_x, new_y);
+
 		if (angle < Math.PI / 2 + Math.PI / 30 && angle > Math.PI / 2 - Math.PI / 30) {
 			angle = Math.PI / 2;
-		} else if (angle > Math.PI - Math.PI / 30) {
-			angle = Math.PI;
-		} 
+		} else if (angle > Math.PI) {
+			if (angle > 3 * Math.PI / 2) {
+				angle = 0;
+			} else {
+				angle = Math.PI;
+			}
+		}
 
 		toDegree=angle*180/Math.PI;
 		integerDeg=Math.floor(toDegree+0.5);
@@ -85,8 +78,8 @@ function animationInit(){
 			angleArc2.setStartAngle(0);
 			angleArc2.setEndAngle(0);
 		}else{
-			angleArc.setEndAngle(0 - angle);
-			angleArc2.setStartAngle(0 - angle);
+			angleArc.setEndAngle(angle);
+			angleArc2.setStartAngle(angle);
 			angleArc2.setEndAngle(Math.PI);
 		}
 	}

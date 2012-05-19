@@ -130,7 +130,9 @@ var Scene = {
 			context.clearRect(0, 0, canvasWidth, canvasHeight);
 			for (var i=0; i<this.drawables.length; i++) {
 				if (this.drawables[i].visible) {
-			    	this.drawables[i].draw();
+					context.save();
+			    	this.drawables[i].drawObject();
+					context.restore();
 				}
 			}
 			
@@ -214,30 +216,51 @@ var Scene = {
 	},
 	
 	// Math Functions
-	Math: {
+	Math:{
 		distance: function (x1, y1, x2, y2) {
 			return Math.sqrt((x1-x2) * (x1-x2) + (y1-y2)*(y1-y2));
 		}
 	}
+	
 };
 
 var Drawable = {
 	construct: function (x, y, width, height) {
 		this.setBoundingBox(x, y, width, height);
+		this.setRotation(0);
+		this.children = [];
 	},
 	
 	contains: function (x, y) {
+		x = x - this.centerX();
+		y = y - this.centerY();
+		local_x = x*Math.cos(-this.rotation()) + y*Math.sin(-this.rotation());
+		local_y = y*Math.cos(-this.rotation()) - x*Math.sin(-this.rotation());
+		x = local_x + this.centerX();
+		y = local_y + this.centerY();
+		
 		return (x < (this.x() + this.width()) &&
 		 		x > (this.x()) &&
 		 		y < (this.y() + this.height()) &&
 				y > (this.y()));
 	},
 	
-	draw: function() {
+	drawObject: function() {
 		context.strokeStyle = this.strokeStyle;
 		context.fillStyle = this.fillStyle;
 		context.lineWidth = this.lineWidth;
 		context.lineCap = this.lineCap;
+		context.translate(this.centerX(), this.centerY());
+		context.rotate(-this.rotation());
+		context.translate(-this.centerX(), -this.centerY());
+		
+		this.draw();
+
+		context.translate(this.x(), this.y());
+		for (index = 0; index < this.children.length; index++) {
+			this.children[index].drawObject();
+		}
+		context.translate(-this.x(), -this.y());
 	},		
 	
 	// Getters
@@ -265,6 +288,10 @@ var Drawable = {
 		return this.y() + this.height()/2;
 	},
 	
+	rotation: function() {
+		return this._rotation;
+	},
+	
 	// Setters
 	setBoundingBox: function (x, y, width, height) {
 		this._x = x;
@@ -278,24 +305,58 @@ var Drawable = {
 	setOrigin: function (x, y) {
 		this._x = x;
 		this._y = y;
+		
+		scene.redraw();
 	},
 	
 	setX: function (x) {
 		this._x = x;
+		
+		scene.redraw();
 	},
 	
 	setY: function (y) {
 		this._y = y;
+		
+		scene.redraw();
 	},
 	
 	setCenter: function (centerX, centerY) {
 		this._x = centerX - this.width()/2;
 		this._y = centerY - this.height()/2;
+	
+		scene.redraw();
 	},
 	
+	setRotation: function (angle) {
+		while (angle < 0) {
+			angle += 2*Math.PI;
+		}
+		
+		while (angle > 2*Math.PI) {
+			angle -= 2*Math.PI;
+		}
+		
+		this._rotation = angle;
+		
+		scene.redraw();
+	},
 	
 	// Event Handling
 	mouse_down: function (x, y) {
+		local_x = x - this.centerX();
+		local_y = y - this.centerY();
+		child_x = local_x*Math.cos(-this.rotation()) + local_y*Math.sin(-this.rotation());
+		child_y = local_y*Math.cos(-this.rotation()) - local_x*Math.sin(-this.rotation());
+		child_x = child_x + this.centerX() - this.x();
+		child_y = child_y + this.centerY() - this.y();
+		
+		for (index = 0; index < this.children.length; index++) {
+			if (this.children[index].mouse_down(child_x, child_y)) {
+				return true;
+			}
+		}
+		
 		if (typeof this.onMouseDown == "function") {
 			return this.onMouseDown(x, y);
 		}
@@ -304,6 +365,19 @@ var Drawable = {
 	},
 	
 	mouse_move: function (x, y) {
+		local_x = x - this.centerX();
+		local_y = y - this.centerY();
+		child_x = local_x*Math.cos(-this.rotation()) + local_y*Math.sin(-this.rotation());
+		child_y = local_y*Math.cos(-this.rotation()) - local_x*Math.sin(-this.rotation());
+		child_x = child_x + this.centerX() - this.x();
+		child_y = child_y + this.centerY() - this.y();
+		
+		for (index = 0; index < this.children.length; index++) {
+			if (this.children[index].mouse_move(child_x, child_y)) {
+				return true;
+			}
+		}
+		
 		if (typeof this.onMouseMove == "function") {
 			return this.onMouseMove(x, y);
 		}
@@ -312,6 +386,12 @@ var Drawable = {
 	},
 	
 	mouse_up: function () {
+		for (index = 0; index < this.children.length; index++) {
+			if (this.children[index].mouse_up()) {
+				return true;
+			}
+		}
+		
 		if (typeof this.onMouseUp == "function") {
 			return this.onMouseUp();
 		}
@@ -320,6 +400,15 @@ var Drawable = {
 	},
 		
 	visible: true,
+	
+	// Hierarchy
+	children: null,
+	parent: null,
+	
+	addChild: function(child) {
+		this.children.push(child);
+		child.parent = this;
+	},
 		
 	// Drawing Style		
 	strokeStyle: 'black',
@@ -331,52 +420,100 @@ var Drawable = {
 var Movable = Drawable.extend ({
 	construct: function (x, y, width, height) {
 		Drawable.construct.call(this, x, y, width, height);
+	},
+	
+	draw: function() {
+		if (this.rotatable) {
+			size = 5;
+			context.fillStyle = 'red';
+			context.strokeStyle = 'gray';
+			context.lineWidth = 1;
+			Scene.drawLine(this.x(), this.y(), this.x() + this.width(), this.y());
+			Scene.drawLine(this.x() + this.width(), this.y(), this.x() + this.width(), this.y() + this.height());
+			Scene.drawLine(this.x() + this.width(), this.y() + this.height(), this.x(), this.y() + this.height());
+			Scene.drawLine(this.x(), this.y() + this.height(), this.x(), this.y());									
+			
+			context.strokeStyle = 'black';
+			Scene.drawRectangle(this.x()-size, this.y()-size, 2*size, 2*size);
+			Scene.drawRectangle(this.x()+this.width()-size, this.y()-size, 2*size, 2*size);
+			Scene.drawRectangle(this.x()+this.width()-size, this.y()+this.height()-size, 2*size, 2*size);
+			Scene.drawRectangle(this.x()-size, this.y()+this.height()-size, 2*size, 2*size);
+		}
+	},
+	
+	onMouseDown: function (x, y) {
+		size = 5;
 		
-		this.onMouseDown = function (x, y) {
-			if (this.contains(x, y) && this.movable) {
-				this.moving = true;
-				this.offset_x = x - this.x();
-				this.offset_y = y - this.y();
-				return true;
-			} else {
-				return false;
-			}
-		};
+		rotation_x = x - this.centerX();
+		rotation_y = y - this.centerY();
+		local_x = rotation_x*Math.cos(-this.rotation()) + rotation_y*Math.sin(-this.rotation());
+		local_y = rotation_y*Math.cos(-this.rotation()) - rotation_x*Math.sin(-this.rotation());
+		rotation_x = local_x + this.centerX();
+		rotation_y = local_y + this.centerY();
 		
-		this.onMouseMove = function (x, y) {
-			if (this.moving) {
-				if (!this.lockMovementX) {
-					this.setX(x - this.offset_x);
-				}
-				
-				if (!this.lockMovementY) {
-					this.setY(y - this.offset_y);
-				}
-				
-				if (typeof this.onMove == "function") {
-					this.onMove(this.x(), this.y());
-				}
-				scene.redraw();
-				return true;
-			} else {
-				return false;
+		if (	(  rotation_x > this.x()-size && rotation_x < this.x()+size
+		 		&& rotation_y > this.y()-size && rotation_y < this.y()+size) ||
+				(  rotation_x > this.x()+this.width()-size && rotation_x < this.x()+this.width()+size    
+			    && rotation_y > this.y()-size && rotation_y < this.y()+size) ||
+				(  rotation_x > this.x()+this.width()-size && rotation_x < this.x()+this.width()+size
+				&& rotation_y > this.y()+this.height()-size && rotation_y < this.y()+this.height()+size) ||
+				(  rotation_x > this.x()-size && rotation_x < this.x()+size
+				&& rotation_y > this.y()+this.height()-size && rotation_y < this.y()+this.height()+size)) {
+			this.rotating = true;
+			this.rotationAngle = findAngle(this.centerX(), this.centerY(), rotation_x, rotation_y);
+			return true;
+		} else if (this.contains(x, y) && this.movable) {
+			this.moving = true;
+			this.offset_x = x - this.x();
+			this.offset_y = y - this.y();
+			return true;
+		} else {
+			return false;
+		}
+	},
+	
+	onMouseMove: function (x, y) {
+		if (this.rotating) {
+			this.setRotation(findAngle(this.centerX(), this.centerY(), x, y) - this.rotationAngle);
+			return true;
+		} else if (this.moving) {
+			if (!this.lockMovementX) {
+				this.setX(x - this.offset_x);
 			}
-		};
-		
-		this.onMouseUp = function () {
-			if (this.moving) {
-				this.moving = false;
-				return true;
-			} else {
-				return false;
+			
+			if (!this.lockMovementY) {
+				this.setY(y - this.offset_y);
 			}
-		};
+			
+			if (typeof this.onMove == "function") {
+				this.onMove(this.x(), this.y());
+			}
+			scene.redraw();
+			return true;
+		} else {
+			return false;
+		}
+	},
+	
+	onMouseUp: function () {
+		if (this.rotating) {
+			this.rotating = false;
+			return true;
+		} else if (this.moving) {
+			this.moving = false;
+			return true;
+		} else {
+			return false;
+		}
 	},
 	
 	movable: false,
 	moving: false,
 	lockMovementX: false,
-	lockMovementY: false
+	lockMovementY: false,
+	
+	rotatable: false,
+	rotating: false
 });
 
 var Line = Movable.extend ({
@@ -386,8 +523,8 @@ var Line = Movable.extend ({
 	},
 	
 	draw: function () {
-		Movable.draw.call(this);
 		Scene.drawLine(this.x1(), this.y1(), this.x2(), this.y2());
+		Movable.draw.call(this);
 	},
 	
 	// Getters
@@ -421,6 +558,7 @@ var Line = Movable.extend ({
 	}
 });
 
+
 var Arc = Movable.extend ({
 	construct: function (centerX, centerY, radius, startAngle, endAngle, isCounterClockwise) {
 		this.setRadius(radius);
@@ -429,14 +567,15 @@ var Arc = Movable.extend ({
 		this.setCenter(centerX, centerY);
 		this.setDirection(isCounterClockwise);
 		Movable.construct.call(this, this.x(), this.y(), this.width(), this.height());
+		this.fillStyle = "rgba(0,0,0,0)";
 	},
 			
 	draw: function () {
-		Movable.draw.call(this);
 		context.beginPath();
-		context.arc(this.centerX(), this.centerY(), this.radius(), this.startAngle(), this.endAngle(), this.direction());
+		context.arc(this.centerX(), this.centerY(), this.radius(), -this.startAngle(), -this.endAngle(), this.direction());
 		context.fill();
 		context.stroke();
+		Movable.draw.call(this);
 	},
 	
 	// Getters
@@ -465,11 +604,27 @@ var Arc = Movable.extend ({
 	},
 	
 	setStartAngle: function (startAngle) {
+		while (startAngle < 0) {
+			startAngle += 2*Math.PI;
+		}
+		
+		while (startAngle > 2*Math.PI) {
+			startAngle -= 2*Math.PI;
+		}
+		
 		this._startAngle = startAngle;
 		scene.redraw();
 	},
 	
 	setEndAngle: function (endAngle) {
+		while (endAngle < 0) {
+			endAngle += 2*Math.PI;
+		}
+		
+		while (endAngle > 2*Math.PI) {
+			endAngle -= 2*Math.PI;
+		}
+		
 		this._endAngle = endAngle;
 		scene.redraw();
 	},
@@ -482,61 +637,39 @@ var Arc = Movable.extend ({
 
 var Circle = Arc.extend ({
 	construct: function (centerX, centerY, radius) {
-		Arc.construct.call(this, centerX, centerY, radius, 0, Math.PI * 2);
+		Arc.construct.call(this, centerX, centerY, radius, 0, Math.PI * 2, true);
+		this.fillStyle = 'white';
 	}
 });
 
-var Sector = Movable.extend ({
+var Sector = Arc.extend ({
 	construct: function (centerX, centerY, radius, startAngle, endAngle) {
-		this.setRadius(radius);
-		this.setStartAngle(startAngle);
-		this.setEndAngle(endAngle);
-		this.setCenter(centerX, centerY);
-		Movable.construct.call(this, this.x(), this.y(), this.width(), this.height());
+		Arc.construct.call(this, centerX, centerY, radius, startAngle, endAngle, true);
+		this.fillStyle = 'white';
 	},
 			
 	draw: function () {
-		Movable.draw.call(this);
 		context.beginPath();
 		context.moveTo(this.centerX(),this.centerY());
-		//context.beginPath();
-		//context.lineTo(this.centerX()+this.radius(),this.centerY());
-		context.arc(this.centerX(),this.centerY(),this.radius(),this.startAngle(), this.endAngle(), true);
-		//context.moveTo(this.centerX(),this.centerY());
-		//context.lineTo(this.centerX(),this.centerY());
+		context.arc(this.centerX(), this.centerY(), this.radius(), -this.startAngle(), -this.endAngle(), true);
+		context.closePath();
 		context.fill();
 		context.stroke();
+		Movable.draw.call(this);
 	},
-	
-	// Getters
-	radius: function () {
-		return this._radius;
-	},
-	
-	startAngle: function () {
-		return this._startAngle;
-	},
-	
-	endAngle: function () {
-		return this._endAngle;
-	},
-	
-	// Setters
-	setRadius: function (radius) {
-		this._radius = radius;
-		this._width = 2*radius;
-		this._height = 2*radius;
-		scene.redraw();
-	},
-	
-	setStartAngle: function (startAngle) {
-		this._startAngle = startAngle;
-		scene.redraw();
-	},
-	
-	setEndAngle: function (endAngle) {
-		this._endAngle = endAngle;
-		scene.redraw();
+
+	contains: function (x,y) {
+		x = x - this.centerX();
+		y = y - this.centerY();
+		local_x = x*Math.cos(-this.rotation()) + y*Math.sin(-this.rotation());
+		local_y = y*Math.cos(-this.rotation()) - x*Math.sin(-this.rotation());
+		x = local_x + this.centerX();
+		y = local_y + this.centerY();
+		
+		var angle = findAngle(this.centerX(), this.centerY(), x, y);
+		var dist=0;
+		dist=Math.sqrt((x-this.centerX())*(x-this.centerX())+(y-this.centerY())*(y-this.centerY()));
+		return angle > this.startAngle() && angle < this.endAngle() && dist <= this.radius();
 	}
 });
 
@@ -548,8 +681,8 @@ var Triangle = Movable.extend ({
 			
 	// Drawing
 	draw: function () {
-		Movable.draw.call(this);	
 		Scene.drawTriangle(this.x1(), this.y1(), this.x2(), this.y2(), this.x3(), this.y3());
+		Movable.draw.call(this);
 	},
 	
 	// Getters
@@ -606,8 +739,8 @@ var Rectangle = Movable.extend({
 	},
 	
 	draw: function () {
-		Movable.draw.call(this);
 		Scene.drawRectangle(this.x(), this.y(), this.width(), this.height());
+		Movable.draw.call(this);
 	},
 	
 	setCorners: function (x1, y1, x2, y2) {
@@ -628,10 +761,10 @@ var Label = Movable.extend({
 	},
 	
 	draw: function () {
-		Movable.draw.call(this);
 		context.font = this._fontSize + "pt " + this._fontFamily;
 		context.textBaseline="top";
 		context.fillText(this.text(), this.x(), this.y());
+		Movable.draw.call(this);
 	},
 	
 	// Getters
@@ -681,6 +814,37 @@ var Label = Movable.extend({
 	_fontSize: 16,
 	_fontFamily: "Helvetica"
 });
+
+// Utility Functions
+
+function findAngle(x1, y1, x2, y2) {
+	if (y1 == y2) {
+		if (x1 > x2) {
+			return Math.PI;
+		} else {
+			return 0;
+		}
+	}
+	
+	if (x1 == x2) {
+		if (y1 > y2) {
+			return Math.PI/2;
+		} else {
+			return 3*Math.PI/2;
+		}
+		
+	}
+	
+	angle = -Math.atan((y2 - y1) / (x2 - x1));
+	
+	if (x2 < x1) {
+		angle += Math.PI;
+	} else if (y2 > y1) {
+		angle += 2 * Math.PI;
+	}
+	
+	return angle;
+}
 
 // function setPixel(imageData, x, y, r, g, b, a) {
 //     index = (x + y * imageData.width) * 4;
