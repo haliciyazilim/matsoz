@@ -1,0 +1,1 @@
+function drawDemo(a){var b=new CvsGraphCtx3D(a);b.clearCanvas("#eeeea0"),b.setWorldCoords3D(-200,-200,800);var c=b.arc3D(0,0,100,0,360,!0,"cyan"),d=b.text3D("Ab",0,0,5,100,"white"),e=b.groupPaths(c,d);b.renderGroup3D(e),b.rotateGroup3D(e,20,-30,0),b.translateGroup3D(e,300,200,100),b.renderGroup3D(e)}$(document).ready(function(){drawDemo("#canvas3D")});
