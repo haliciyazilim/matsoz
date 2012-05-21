@@ -521,17 +521,10 @@ var Sector = Arc.extend ({
 		context.fill();
 		context.stroke();
 	},
-<<<<<<< HEAD
 	
 	contains: function (x,y) {
-		var angle = Math.atan((y - this.centerY()) / (x - this.centerX()));
-		var start=0;
-		var end=0;
-=======
-
-	contains: function (x,y) {
 		var angle = findAngle(this.centerX(), this.centerY(), x, y);
->>>>>>> 9512833a3d7249cb937a35eeb7886499952d97e8
+
 		var dist=0;
 		dist=Math.sqrt((x-this.centerX())*(x-this.centerX())+(y-this.centerY())*(y-this.centerY()));
 		return angle > this.startAngle() && angle < this.endAngle() && dist <= this.radius();
