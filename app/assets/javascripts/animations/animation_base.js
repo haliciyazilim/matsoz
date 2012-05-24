@@ -695,7 +695,7 @@ var Sector = Arc.extend ({
 		context.stroke();
 		Movable.draw.call(this);
 	},
-
+	
 	contains: function (x,y) {
 		x = x - this.centerX();
 		y = y - this.centerY();
@@ -705,6 +705,7 @@ var Sector = Arc.extend ({
 		y = local_y + this.centerY();
 		
 		var angle = findAngle(this.centerX(), this.centerY(), x, y);
+
 		var dist=0;
 		dist=Math.sqrt((x-this.centerX())*(x-this.centerX())+(y-this.centerY())*(y-this.centerY()));
 		return angle > this.startAngle() && angle < this.endAngle() && dist <= this.radius();
