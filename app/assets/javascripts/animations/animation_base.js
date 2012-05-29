@@ -236,6 +236,8 @@ var Drawable = {
 		y = y - this.centerY();
 		local_x = x*Math.cos(-this.rotation()) + y*Math.sin(-this.rotation());
 		local_y = y*Math.cos(-this.rotation()) - x*Math.sin(-this.rotation());
+		local_x = local_x / this.scaleX();
+		local_y = local_y / this.scaleY();
 		x = local_x + this.centerX();
 		y = local_y + this.centerY();
 		
@@ -252,6 +254,7 @@ var Drawable = {
 		context.lineCap = this.lineCap;
 		context.translate(this.centerX(), this.centerY());
 		context.rotate(-this.rotation());
+		context.scale(this.scaleX(), this.scaleY());
 		context.translate(-this.centerX(), -this.centerY());
 		
 		this.draw();
@@ -290,6 +293,14 @@ var Drawable = {
 	
 	rotation: function() {
 		return this._rotation;
+	},
+	
+	scaleX: function() {
+		return this._scaleX;
+	},
+	
+	scaleY: function() {
+		return this._scaleY;
 	},
 	
 	// Setters
@@ -342,12 +353,21 @@ var Drawable = {
 		scene.redraw();
 	},
 	
+	setScale: function (scaleX, scaleY) {
+		this._scaleX = scaleX;
+		this._scaleY = scaleY;
+		
+		scene.redraw();
+	},
+	
 	// Event Handling
 	mouse_down: function (x, y) {
 		local_x = x - this.centerX();
 		local_y = y - this.centerY();
 		child_x = local_x*Math.cos(-this.rotation()) + local_y*Math.sin(-this.rotation());
 		child_y = local_y*Math.cos(-this.rotation()) - local_x*Math.sin(-this.rotation());
+		child_x = child_x / this.scaleX();
+		child_y = child_y / this.scaleY();
 		child_x = child_x + this.centerX() - this.x();
 		child_y = child_y + this.centerY() - this.y();
 		
@@ -369,6 +389,8 @@ var Drawable = {
 		local_y = y - this.centerY();
 		child_x = local_x*Math.cos(-this.rotation()) + local_y*Math.sin(-this.rotation());
 		child_y = local_y*Math.cos(-this.rotation()) - local_x*Math.sin(-this.rotation());
+		child_x = child_x / this.scaleX();
+		child_y = child_y / this.scaleY();
 		child_x = child_x + this.centerX() - this.x();
 		child_y = child_y + this.centerY() - this.y();
 		
@@ -414,7 +436,12 @@ var Drawable = {
 	strokeStyle: 'black',
 	fillStyle: 'white',
 	lineWidth: 4,
-	lineCap: 'round'
+	lineCap: 'round',
+	
+	// Transformations
+	_rotation: 0,
+	_scaleX: 1,
+	_scaleY: 1
 };
 
 var Movable = Drawable.extend ({
@@ -448,6 +475,8 @@ var Movable = Drawable.extend ({
 		rotation_y = y - this.centerY();
 		local_x = rotation_x*Math.cos(-this.rotation()) + rotation_y*Math.sin(-this.rotation());
 		local_y = rotation_y*Math.cos(-this.rotation()) - rotation_x*Math.sin(-this.rotation());
+		// local_x = local_x / this.scaleX();
+		// local_y = local_y / this.scaleY();
 		rotation_x = local_x + this.centerX();
 		rotation_y = local_y + this.centerY();
 		
@@ -474,7 +503,20 @@ var Movable = Drawable.extend ({
 	
 	onMouseMove: function (x, y) {
 		if (this.rotating) {
-			this.setRotation(findAngle(this.centerX(), this.centerY(), x, y) - this.rotationAngle);
+			local_x = x;
+			local_y = y;
+			// local_x = x - this.centerX();
+			// local_y = y - this.centerY();
+			// local_x = local_x / this.scaleX();
+			// local_y = local_y / this.scaleY();
+			// local_x = local_x + this.centerX();
+			// local_y = local_y + this.centerY();
+			
+			this.setRotation(findAngle(this.centerX(), this.centerY(), local_x, local_y) - this.rotationAngle);
+			if (typeof this.onRotate == "function") {
+				this.onRotate(this.rotation());
+			}
+			scene.redraw();
 			return true;
 		} else if (this.moving) {
 			if (!this.lockMovementX) {
@@ -757,6 +799,7 @@ var Rectangle = Movable.extend({
 
 var Label = Movable.extend({
 	construct: function (x, y, text) {
+		this.fillStyle = 'black';
 		this.setText(text);
 		Movable.construct.call(this, x, y, this.width(), this.height());
 	},

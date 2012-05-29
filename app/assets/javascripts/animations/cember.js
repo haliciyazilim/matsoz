@@ -6,7 +6,7 @@ function animationInit(){
 	
 	circle=Circle.create(center_x, center_y, 100);
 
-	angleTip = Circle.create(x2,y2, 5);
+	angleTip = Circle.create(x2,y2, 7);
 	angleTip.fillStyle='red';
 	angleTip.movable=true;
 	
@@ -21,26 +21,7 @@ function animationInit(){
 		
 		new_x=10 + x; 
 		new_y=10 + y; 
-		angle = Math.atan((new_y - center_y) / (new_x - center_x));
-	
-		
-		if (new_x >= center_x && new_y < center_y) {
-			angle = 0 - angle;
-
-		
-		} else if (new_x < center_x && new_y <= center_y) {
-			angle = Math.PI - angle ;
-
-		}else if(new_x <= center_x && new_y > center_y){
-			angle = Math.PI - angle ;
-			if(new_x == center_x)
-				angle=3*Math.PI/2;
-
-		}
-		else if(new_x > center_x && new_y >= center_y){
-			angle = 2*Math.PI - angle;
-
-		}
+		angle = findAngle(center_x,center_y,new_x,new_y);
 		
 		if (angle > Math.PI * 2 - Math.PI / 30 || angle < Math.PI / 30) {
 			angle = 0;
@@ -63,5 +44,6 @@ function animationInit(){
 	scene.addDrawable(line2);
 	scene.addDrawable(line1);
 	scene.addDrawable(angleTip);
+
 	
 }
