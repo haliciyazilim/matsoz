@@ -25,8 +25,15 @@ function animationInit(){
 	
 	label = Label.create(100, 100, "R");
 	label.setFontSize(96);
-	label.movable = true;
-	label.rotatable = true;
 	label.setScale(-1, 1);
 	scene.addDrawable(label);
+	
+	label2 = Label.create(300, 100, "R");
+	label2.setFontSize(96);
+	label2.movable = true;
+	label2.rotatable = true;
+	scene.addDrawable(label2);
+	label2.onRotate = function(rotation) {
+		label.setRotation(-rotation);
+	}
 }

@@ -513,6 +513,10 @@ var Movable = Drawable.extend ({
 			// local_y = local_y + this.centerY();
 			
 			this.setRotation(findAngle(this.centerX(), this.centerY(), local_x, local_y) - this.rotationAngle);
+			if (typeof this.onRotate == "function") {
+				this.onRotate(this.rotation());
+			}
+			scene.redraw();
 			return true;
 		} else if (this.moving) {
 			if (!this.lockMovementX) {
