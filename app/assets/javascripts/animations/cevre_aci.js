@@ -4,15 +4,11 @@ function animationInit(){
 	corner_x = canvasWidth/2 - radius, corner_y = canvasHeight/2;
 	angle = 0;
 	
-	label=Label.create(center_x+30,center_y-30,"120°");
+	label=Label.create(center_x+30,center_y-15,"120°");
 	label.fillStyle='blue';
 	
-	//debug
-	label1=Label.create(center_x+30,center_y+110,"60°");
-	label1.fillStyle='blue';
-	label2=Label.create(center_x+30,center_y+150,"-60°");
-	label2.fillStyle='blue';
-	//
+	label2 = Label.create(0, 0, "");
+	label2.fillStyle = 'teal';
 	
 	bigCircle=Circle.create(center_x,center_y,radius);
 	bigCircle.strokeStyle='#AAA5A5';
@@ -21,14 +17,17 @@ function animationInit(){
 	centerPoint.strokeStyle='#AAA5A5';
 	
 	cornerTip = Circle.create(center_x-radius,center_y,7);
+	cornerTip.angle = Math.PI;
 	cornerTip.fillStyle='red';
 	cornerTip.movable=true;
 	
 	tip1 = Circle.create(center_x+radius*Math.cos(Math.PI/3),center_y-radius*Math.sin(Math.PI/3),7);
+	tip1.angle = Math.PI/3;
 	tip1.fillStyle='red';
 	tip1.movable=true;
 	
 	tip2 = Circle.create(center_x+radius*Math.cos(Math.PI/3),center_y+radius*Math.sin(Math.PI/3),7);
+	tip2.angle = 5*Math.PI/3;
 	tip2.fillStyle='red';
 	tip2.movable=true;
 	
@@ -45,121 +44,103 @@ function animationInit(){
 	centerLine1.strokeStyle='#AAA5A5';
 	centerLine2.strokeStyle='#AAA5A5';
 	
-	merkezArc=Arc.create(center_x,center_y,20,0,0,true);
-	merkezArc.strokeStyle='#AAA5A5';
+	centerArc=Arc.create(center_x,center_y, 20, 0, 0, true);
+	centerArc.strokeStyle = 'blue';
 	
-	cornerTip.angle=2*Math.PI/3;
-	tip1.angle=Math.PI/3;
-	tip2.angle=-Math.PI/3;
-	tip1.realAngle=Math.PI/3;
-	tip2.realAngle=5*Math.PI/3;
-	var centerAngle=2*Math.PI/3;
-	cornerTip.newAngle=2*Math.PI/3;
-	cornerTip.isBetween=true;
-	isChanged=false;
+	cevreArc = Arc.create(center_x, center_y, 20, 0, 0, true);
+	cevreArc.strokeStyle = 'teal';
+	
+	calculateAngles = function() {
+		var minTip;
+		var maxTip;
+		var centerAngle;
+		
+		if (tip2.angle > tip1.angle) {
+			if (cornerTip.angle > tip2.angle || cornerTip.angle < tip1.angle) {
+				minTip = tip1;
+				maxTip = tip2;
+				
+				centerAngle = tip2.angle - tip1.angle;
+			} else {
+				minTip = tip2;
+				maxTip = tip1;
+				
+				centerAngle = Math.PI * 2 - tip2.angle + tip1.angle;
+			}
+		} else {
+			if (cornerTip.angle > tip1.angle || cornerTip.angle < tip2.angle) {
+				minTip = tip2;
+				maxTip = tip1;
+				
+				centerAngle = tip1.angle - tip2.angle;
+			} else {
+				minTip = tip1;
+				maxTip = tip2;
+				
+				centerAngle = Math.PI * 2 - tip1.angle + tip2.angle;
+			}
+		}
+		
+		integerAngle = Math.floor(centerAngle / Math.PI * 180 + 0.5); 
+		label.setText(integerAngle+"°");
+		
+		centerArc.setStartAngle(minTip.angle);
+		centerArc.setEndAngle(maxTip.angle);
 
-	cornerTip.onMove = function(x,y){	
-		new_x=3.5 + x;
-		new_y=3.5 + y;
-		angle = findAngle(center_x, center_y, new_x, new_y);
-		this.angle=angle;
-		cornerTip.setCenter(center_x+radius*Math.
-			cos(angle),center_y-radius*Math.sin(angle));
+		angle1 = findAngle(cornerTip.centerX(), cornerTip.centerY(), minTip.centerX(), minTip.centerY());
+		angle2 = findAngle(cornerTip.centerX(), cornerTip.centerY(), maxTip.centerX(), maxTip.centerY());
+		
+		cevreArc.setStartAngle(angle1);
+		cevreArc.setEndAngle(angle2);
+		cevreArc.setCenter(cornerTip.centerX(), cornerTip.centerY());
+		
+		label2.setText(Math.floor(integerAngle/2 + 0.5) + "°");
+		label2.setOrigin(cornerTip.x() + 30, cornerTip.y() - 5);
+	};
+
+	calculateAngles();
+
+	cornerTip.onMove = function(x,y){
+		angle = findAngle(center_x, center_y, this.centerX(), this.centerY());
+		this.angle = angle;
+		cornerTip.setCenter(center_x+radius*Math.cos(angle),center_y-radius*Math.sin(angle));
 		line1.setCorners(cornerTip.centerX(),cornerTip.centerY(),tip1.centerX(),tip1.centerY());
 		line2.setCorners(cornerTip.centerX(),cornerTip.centerY(),tip2.centerX(),tip2.centerY());
-		if(!(angle < tip2.realAngle && angle > tip1.realAngle)){
-				centerA=2*Math.PI-centerAngle;	
-				toDegree=centerA*180/Math.PI;
-				integerDeg=Math.floor(toDegree+0.5);
-				label.setText(integerDeg+"°");
-				cornerTip.newAngle=centerA;
-				cornerTip.isBetween=false;
-		}else{
-			cornerTip.isBetween=true;
-		}		
+
+		calculateAngles();
 	}
 	
 	tip1.onMove = function(x,y){
-		new_x=3.5+x;
-		new_y=3.5+y;	
-		angle = findAngle(center_x, center_y, new_x, new_y);
-		tip1.realAngle=angle;
+		angle = findAngle(center_x, center_y, this.centerX(), this.centerY());
 		this.angle=angle;
-		tip1.setCenter(center_x+radius*Math.cos(angle),center_y-radius*Math.sin(angle));
+		this.setCenter(center_x+radius*Math.cos(angle),center_y-radius*Math.sin(angle));
 		line1.setCorners(cornerTip.centerX(),cornerTip.centerY(),tip1.centerX(),tip1.centerY());
-		/////////////////////////
-		if(!(cornerTip.angle < tip2.realAngle && cornerTip.angle > tip1.realAngle)){
-				cornerTip.isBetween=false;
-		}
-
-		centerAngle=Math.abs(this.angle-tip2.angle);
-		if(centerAngle > 2*Math.PI)
-			centerAngle=-2*Math.PI+centerAngle;
-		if(!cornerTip.isBetween &&  centerAngle>Math.PI)
-			centerAngle=2*Math.PI-centerAngle;
-		
-
-		////////////////////////////
-		toDegree=centerAngle*180/Math.PI;
-		integerDeg=Math.floor(toDegree+0.5);
-		label.setText(integerDeg+"°");
-		//debug
-		todeg=this.angle*180/Math.PI;
-		label1.setText(Math.floor(todeg+0.5));
-		label2.setText(Math.floor(tip2.angle*180/Math.PI+0.5));
-		//
 		centerLine1.setCorners(center_x,center_y,tip1.centerX(), tip1.centerY());
-		
+
+		calculateAngles();
 	}
 
 	tip2.onMove = function(x,y){
-		new_x=3.5+x;
-		new_y=3.5+y;	
-		angle = findAngle(center_x, center_y, new_x, new_y);
-		tip2.realAngle=angle;
-		this.angle=angle-2*Math.PI;
-		tip2.setCenter(center_x+radius*Math.cos(angle),center_y-radius*Math.sin(angle));
+		angle = findAngle(center_x, center_y, this.centerX(), this.centerY());
+		this.angle = angle;
+		this.setCenter(center_x+radius*Math.cos(angle),center_y-radius*Math.sin(angle));
 		line2.setCorners(cornerTip.centerX(),cornerTip.centerY(),tip2.centerX(),tip2.centerY());
-		////////////////////////////////////////////////////
-		if(!(cornerTip.angle < tip2.realAngle && cornerTip.angle > tip1.realAngle)){
-				cornerTip.isBetween=false;
-		}
-
-		centerAngle=Math.abs(tip1.angle-this.angle);
-		if(centerAngle > 2*Math.PI)
-			centerAngle=-2*Math.PI+centerAngle;			
-
-		if(!cornerTip.isBetween && centerAngle>Math.PI)
-			centerAngle=2*Math.PI-centerAngle;
-		
-
-
-		////////////////////////////////////////
-		toDegree=centerAngle*180/Math.PI;
-		//debug
-		todeg=this.angle*180/Math.PI;
-		label2.setText(Math.floor(todeg+0.5));
-		label1.setText(Math.floor(tip1.angle*180/Math.PI+0.5));
-		//
-		integerDeg=Math.floor(toDegree+0.5);
-		label.setText(integerDeg+"°");
 		centerLine2.setCorners(center_x,center_y,tip2.centerX(), tip2.centerY());
 		
+		calculateAngles();
 	}
 	
-	scene.addDrawable(merkezArc);
 	scene.addDrawable(bigCircle);
+	scene.addDrawable(centerArc);
+	scene.addDrawable(cevreArc);
 	scene.addDrawable(centerLine1);
 	scene.addDrawable(centerLine2);
 	scene.addDrawable(centerPoint);
-	scene.addDrawable(label);
 	scene.addDrawable(line2);
 	scene.addDrawable(line1);
 	scene.addDrawable(cornerTip);
 	scene.addDrawable(tip1);
-	scene.addDrawable(tip2);
-	
-	scene.addDrawable(label1);
+	scene.addDrawable(tip2);	
+	scene.addDrawable(label);
 	scene.addDrawable(label2);
-	
 }
