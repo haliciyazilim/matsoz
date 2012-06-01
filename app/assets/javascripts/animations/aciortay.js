@@ -24,7 +24,7 @@ function animationInit(){
 	
 	angleTip = Circle.create(x2,y2,7);
 	angleTip.fillStyle='red';
-	angleTip.movable=true;
+	angleTip.setMovable(true);
 	
     line1 = Line.create(center_x, center_y, x2, y2)
 	line1.strokeStyle = 'black';
@@ -35,7 +35,7 @@ function animationInit(){
 	
 	aciortay = Line.create(center_x,center_y,x2,y2);
 	aciortay.strokeStyle='green';
-	aciortay.movable=false;
+	aciortay.setMovable(false);
 	
 	arrowDegree=2*2*Math.PI/360;
 	

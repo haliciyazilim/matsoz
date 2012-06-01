@@ -21,16 +21,16 @@ function animationInit(){
 	
 	angleTip = Circle.create(x2,y2,10);
 	angleTip.fillStyle='red';
-	angleTip.movable=true;
+	angleTip.setMovable(true);
 	
     line1 = Line.create(center_x, center_y, x2, y2)
-	line1.movable = false;
+	line1.setMovable(false);
 	
 	line2 = Line.create(center_x, center_y, x2, y2);
-	line2.movable = false;
+	line2.setMovable(false);
 	
 	line3 = Line.create(center_x, center_y, x3, y3);
-	line3.movable = false;
+	line3.setMovable(false);
 	
 	//create info label of angles
 	labelAlignmentY = center_y+50;

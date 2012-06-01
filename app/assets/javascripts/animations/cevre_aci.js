@@ -19,28 +19,28 @@ function animationInit(){
 	cornerTip = Circle.create(center_x-radius,center_y,7);
 	cornerTip.angle = Math.PI;
 	cornerTip.fillStyle='red';
-	cornerTip.movable=true;
+	cornerTip.setMovable(true);
 	
 	tip1 = Circle.create(center_x+radius*Math.cos(Math.PI/3),center_y-radius*Math.sin(Math.PI/3),7);
 	tip1.angle = Math.PI/3;
 	tip1.fillStyle='red';
-	tip1.movable=true;
+	tip1.setMovable(true);
 	
 	tip2 = Circle.create(center_x+radius*Math.cos(Math.PI/3),center_y+radius*Math.sin(Math.PI/3),7);
 	tip2.angle = 5*Math.PI/3;
 	tip2.fillStyle='red';
-	tip2.movable=true;
+	tip2.setMovable(true);
 	
     line1 = Line.create(cornerTip.centerX(), cornerTip.centerY(), tip1.centerX(), tip1.centerY());
-	line1.movable = false;
+	line1.setMovable(false);
 	
 	line2 = Line.create(cornerTip.centerX(), cornerTip.centerY(), tip2.centerX(), tip2.centerY());
-	line2.movable = false;
+	line2.setMovable(false);
 	
 	centerLine1=Line.create(center_x,center_y,tip1.centerX(), tip1.centerY());
 	centerLine2=Line.create(center_x,center_y,tip2.centerX(), tip2.centerY());
-	centerLine1.movable=false;
-	centerLine2.movable=false;
+	centerLine1.setMovable(false);
+	centerLine2.setMovable(false);
 	centerLine1.strokeStyle='#AAA5A5';
 	centerLine2.strokeStyle='#AAA5A5';
 	

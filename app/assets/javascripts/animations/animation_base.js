@@ -491,7 +491,7 @@ var Movable = Drawable.extend ({
 			this.rotating = true;
 			this.rotationAngle = findAngle(this.centerX(), this.centerY(), rotation_x, rotation_y);
 			return true;
-		} else if (this.contains(x, y) && this.movable) {
+		} else if (this.contains(x, y) && this.movable()) {
 			this.moving = true;
 			this.offset_x = x - this.x();
 			this.offset_y = y - this.y();
@@ -549,7 +549,17 @@ var Movable = Drawable.extend ({
 		}
 	},
 	
-	movable: false,
+	// Getters
+	movable: function() {
+		return this._movable;
+	},
+	
+	// Setters
+	setMovable: function(movable) {
+		this._movable = movable;
+	},
+	
+	_movable: false,
 	moving: false,
 	lockMovementX: false,
 	lockMovementY: false,

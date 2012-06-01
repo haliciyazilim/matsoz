@@ -14,7 +14,7 @@ function animationInit(){
 	
 	tip = Circle.create(x2,y2, 7);
 	tip.fillStyle='red';
-	tip.movable=true;
+	tip.setMovable(true);
 	
 	linearDist=Math.sqrt((mainCircle.centerX()- x2)*(mainCircle.centerX()- x2)+(mainCircle.centerY()- y2)*(mainCircle.centerY()- y2));
 	angle=findAngle(mainCircle.centerX(),mainCircle.centerY(), x2, y2);

@@ -9,11 +9,11 @@ function animationInit(){
 
 	angleTip = Circle.create(x2,y2, 7);
 	angleTip.fillStyle='red';
-	angleTip.movable=true;
+	angleTip.setMovable(true);
 	
     radiusLine = Line.create(center_x, center_y, x2, y2)
 	radiusLine.strokeStyle = 'green';
-	radiusLine.movable = false;
+	radiusLine.setMovable(false);
 
 	infoLabel=Label.create(20,10,"Aşağıdaki çemberin yarıçapı");
 	infoLabel.fillStyle='black';

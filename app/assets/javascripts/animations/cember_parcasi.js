@@ -15,11 +15,11 @@ function animationInit(){
 
 	tip2 = Circle.create(x2,y2, 7);
 	tip2.fillStyle='red';
-	tip2.movable=true;
+	tip2.setMovable(true);
 	
 	tip1 = Circle.create(center_x, center_y - radius, 7);
 	tip1.fillStyle='blue';
-	tip1.movable=true;
+	tip1.setMovable(true);
 	
 
 	tip1.onMove = function(x,y){		
@@ -53,7 +53,7 @@ function animationInit(){
 		cemberYay.setDirection(true);
 		cemberYay.setStartAngle(startAngle);
 		cemberYay.setEndAngle(endAngle);
-		tip2.movable=true;
+		tip2.setMovable(true);
 
 	}
 	

@@ -11,11 +11,11 @@ function animationInit(){
 	
 	tip1 = Circle.create(center_x+radius*Math.cos(Math.PI/3),center_y-radius*Math.sin(Math.PI/3),7);
 	tip1.fillStyle='red';
-	tip1.movable=true;
+	tip1.setMovable(true);
 	
 	tip2 = Circle.create(center_x+radius*Math.cos(Math.PI/3),center_y+radius*Math.sin(Math.PI/3),7);
 	tip2.fillStyle='red';
-	tip2.movable=true;
+	tip2.setMovable(true);
 
 
 	tip1.angle=Math.PI/3;
@@ -37,8 +37,8 @@ function animationInit(){
 	
 	centerLine1=Line.create(center_x,center_y,line1_x, line1_y);
 	centerLine2=Line.create(center_x,center_y,line2_x, line2_y);
-	centerLine1.movable=false;
-	centerLine2.movable=false;
+	centerLine1.setMovable(false);
+	centerLine2.setMovable(false);
 
 	tip1.onMove = function(x,y){
 		new_x=3.5+x;

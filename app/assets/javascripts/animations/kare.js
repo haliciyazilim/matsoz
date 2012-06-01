@@ -12,7 +12,7 @@ function animationInit () {
 	
 	line = Line.create(xb, yt, xb, yb);
 	line.strokeStyle = 'red';
-	line.movable = true;
+	line.setMovable(true);
 	line.lockMovementY = true;
 	line.onMove = function (x, y) {
 		if ((this.centerX() > xt + rectangle.height() -10 ) && 
