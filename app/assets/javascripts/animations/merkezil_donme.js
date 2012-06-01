@@ -3,8 +3,8 @@ function animationInit(){
 	
 	point=Circle.create(center_x,center_y,4);
 	triangle=Triangle.create(center_x+80,center_y-80,center_x+110,center_y-160,center_x+140,center_y-80);
-	triangle.rotatable=true;
-	triangle.movable=true;
+	triangle.setRotatable(true);
+	triangle.setMovable(true);
 	triReverse=Triangle.create(center_x-80,center_y+80,center_x-110,center_y+160,center_x-140,center_y+80);
 	
 	line1=DashedLine.create(triangle.x1(),triangle.y1(),triReverse.x1(),triReverse.y1());

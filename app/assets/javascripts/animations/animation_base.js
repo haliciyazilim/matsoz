@@ -450,7 +450,7 @@ var Movable = Drawable.extend ({
 	},
 	
 	draw: function() {
-		if (this.rotatable) {
+		if (this.rotatable()) {
 			size = 5;
 			context.fillStyle = 'red';
 			context.strokeStyle = 'gray';
@@ -554,9 +554,17 @@ var Movable = Drawable.extend ({
 		return this._movable;
 	},
 	
+	rotatable: function() {
+		return this._rotatable;
+	},
+	
 	// Setters
 	setMovable: function(movable) {
 		this._movable = movable;
+	},
+	
+	setRotatable: function(rotatable) {
+		this._rotatable = rotatable;
 	},
 	
 	_movable: false,
@@ -564,7 +572,7 @@ var Movable = Drawable.extend ({
 	lockMovementX: false,
 	lockMovementY: false,
 	
-	rotatable: false,
+	_rotatable: false,
 	rotating: false
 });
 

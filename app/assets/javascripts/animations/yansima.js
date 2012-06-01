@@ -5,7 +5,7 @@ function animationInit(){
 	
 	letter=Label.create(center_x+50,center_y-150,"R");
 	letter.setMovable(true);
-	letter.rotatable=true;
+	letter.setRotatable(true);
 	letter.setFontSize(96);
 	
 	revLetter=Label.create(center_x-50-letter.width(),center_y-150,"R");
