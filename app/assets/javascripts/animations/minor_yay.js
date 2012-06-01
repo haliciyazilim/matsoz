@@ -28,7 +28,7 @@ function animationInit(){
 	merkezArc.strokeStyle='blue';
 	
 	minorYay=Arc.create(center_x,center_y,radius,tip2.angle,tip1.angle,true);
-	minorYay.strokeStyle='yellow';
+	minorYay.strokeStyle='#A62A2A';
 	
 	line1_x=tip1.centerX()+60*Math.cos(tip1.angle);
 	line1_y=tip1.centerY()-60*Math.sin(tip1.angle);

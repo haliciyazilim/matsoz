@@ -3,9 +3,15 @@ function animationInit(){
 	angle=2*Math.PI*53/360;
 	center_x=canvasWidth/2;
 	center_y=canvasHeight/2;
+
+	if(!$('#controlPanel').has($('#Button1')).length){
+		$('#controlPanel').append('<input id="Button1" type="button" value="Yeniden Dene" />');
+	}
 	
 	labela=Label.create(10,10,"Aşağıdaki şekilde bulunan yöndeş açıları işaretleyiniz.");
 	labela.fillStyle='black';
+	
+	
 	
 	labelc=Label.create(center_x-110,center_y+150,"");
 	labelc.fillStyle='black';
@@ -13,10 +19,6 @@ function animationInit(){
 	line_k=Line.create(canvasWidth/2-150,canvasHeight/2-60,canvasWidth/2+150,canvasHeight/2-60);
 	line_l=Line.create(canvasWidth/2-150,canvasHeight/2+60,canvasWidth/2+150,canvasHeight/2+60);
 	line_kesen=Line.create(canvasWidth/2+75,canvasHeight/2-100,canvasWidth/2-75,canvasHeight/2+100);
-
-	retryButton=Rectangle.create(20,center_y+150,100,30);
-	retryButton=fillStyle='#C0C0C0';
-	retryLabel=Label.create(20,center_y,"Yeniden Dene");
 	
 	intersectionTop_x=center_x+45;
 	intersectionTop_y=center_y-60;
@@ -52,14 +54,31 @@ function animationInit(){
 
 	var previousSelection = null;
 	
+			
+	$('#Button1').click(function(){
+		for(index in arcs){
+			arcs[index].fillStyle='white';
+			arcs[index].finalized=false;
+			console.debug('button clicked');
+		}
+		anglesFound = 0;
+		//previousSelection = null;
+		labelc.setText("");
+	});
+
+	count=0;
 	for (index in arcs) {
 		var arc = arcs[index];
-		
+	
+		console.debug("arcs[index] is read");
 		arc.onMouseDown = function(x,y) {
+			
+			console.debug("arc is clicked "+count);
+			count++;
 			if (this.contains(x,y) && !this.finalized) {
 				if (!previousSelection) {
 					this.fillStyle = 'silver';
-					
+					console.debug("arc is in boundaires "+count);
 					previousSelection = this;
 				} else {
 					if (previousSelection == this) {

@@ -18,8 +18,9 @@
       = @entry.word
     %p.meaning
       = @entry.meaning
-      
-    %canvas#animation_canvas{'width' => '512', 'height' => '384'}
+    #animation_area
+      #controlPanel 
+      %canvas#animation_canvas{'width' => '512', 'height' => '384','tabindex'=>'1'}
   
 
 = link_to 'Create new entry',  new_entry_path

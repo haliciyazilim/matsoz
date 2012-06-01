@@ -36,29 +36,29 @@ $(document).ready(function() {
 	
 	if (ipad) {
 		$("#animation_canvas").bind('touchstart', function(e) {
-			var x = e.originalEvent.targetTouches[0].pageX - this.offsetLeft;
-			var y = e.originalEvent.targetTouches[0].pageY - this.offsetTop;
+			var x = e.originalEvent.targetTouches[0].pageX - $(this).offset().left;
+			var y = e.originalEvent.targetTouches[0].pageY - $(this).offset().top;
 			scene.mouse_down(x, y);
 		});	
 	} else {
 		$("#animation_canvas").mousedown(function(e) {
-			var x = e.pageX - this.offsetLeft;
-			var y = e.pageY - this.offsetTop;
+			var x = e.pageX - $(this).offset().left;
+			var y = e.pageY - $(this).offset().top;
 			scene.mouse_down(x, y);
 	   	});
 	}
 
 	if (ipad) {
 		$("#animation_canvas").bind('touchmove', function(e) {
-			var x = e.originalEvent.targetTouches[0].pageX - this.offsetLeft;
-			var y = e.originalEvent.targetTouches[0].pageY - this.offsetTop;
+			var x = e.originalEvent.targetTouches[0].pageX - $(this).offset().left;
+			var y = e.originalEvent.targetTouches[0].pageY - $(this).offset().top;
 			scene.smouse_move(x, y);
 			e.originalEvent.preventDefault();
 		});
 	} else {
 		$("#animation_canvas").mousemove(function(e) {
-			var x = e.pageX - this.offsetLeft;
-			var y = e.pageY - this.offsetTop;
+			var x = e.pageX - $(this).offset().left;
+			var y = e.pageY - $(this).offset().top;
 			scene.mouse_move(x, y);
 	   	});
 	}
