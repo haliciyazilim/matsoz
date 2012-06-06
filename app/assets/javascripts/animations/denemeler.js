@@ -31,9 +31,21 @@ function animationInit(){
 	label2 = Label.create(300, 100, "R");
 	label2.setFontSize(96);
 	label2.setMovable(true);
-	label2.rotatable = true;
+	label2.setRotatable(true);
 	scene.addDrawable(label2);
 	label2.onRotate = function(rotation) {
 		label.setRotation(-rotation);
 	}
+	
+	$('#canvas_container').append('<input id="Button1" type="button" value="Yeniden Dene" />');
+	// $('#Button1').css({
+	//     position: 'absolute',
+	//     left: $("canvas").offset().left,
+	//     top: $("canvas").offset().top
+	// });
+	$('#Button1').css({
+//	    position: 'absolute',
+//	    left: 0,
+//	    top: 0
+	});
 }
