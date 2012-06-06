@@ -34,34 +34,34 @@ $(document).ready(function() {
 	              };
 	    })();
 	
-	if (ipad) {
-		$("#animation_canvas").bind('touchstart', function(e) {
-			var x = e.originalEvent.targetTouches[0].pageX - this.offsetLeft;
-			var y = e.originalEvent.targetTouches[0].pageY - this.offsetTop;
-			scene.mouse_down(x, y);
-		});	
-	} else {
-		$("#animation_canvas").mousedown(function(e) {
-			var x = e.pageX - this.offsetLeft;
-			var y = e.pageY - this.offsetTop;
-			scene.mouse_down(x, y);
-	   	});
-	}
+		if (ipad) {
+			$("#animation_canvas").bind('touchstart', function(e) {
+				var x = e.originalEvent.targetTouches[0].pageX - $(this).offset().left;
+				var y = e.originalEvent.targetTouches[0].pageY - $(this).offset().top;
+				scene.mouse_down(x, y);
+			});	
+		} else {
+			$("#animation_canvas").mousedown(function(e) {
+				var x = e.pageX - $(this).offset().left;
+				var y = e.pageY - $(this).offset().top;
+				scene.mouse_down(x, y);
+		   	});
+		}
 
-	if (ipad) {
-		$("#animation_canvas").bind('touchmove', function(e) {
-			var x = e.originalEvent.targetTouches[0].pageX - this.offsetLeft;
-			var y = e.originalEvent.targetTouches[0].pageY - this.offsetTop;
-			scene.smouse_move(x, y);
-			e.originalEvent.preventDefault();
-		});
-	} else {
-		$("#animation_canvas").mousemove(function(e) {
-			var x = e.pageX - this.offsetLeft;
-			var y = e.pageY - this.offsetTop;
-			scene.mouse_move(x, y);
-	   	});
-	}
+		if (ipad) {
+			$("#animation_canvas").bind('touchmove', function(e) {
+				var x = e.originalEvent.targetTouches[0].pageX - $(this).offset().left;
+				var y = e.originalEvent.targetTouches[0].pageY - $(this).offset().top;
+				scene.smouse_move(x, y);
+				e.originalEvent.preventDefault();
+			});
+		} else {
+			$("#animation_canvas").mousemove(function(e) {
+				var x = e.pageX - $(this).offset().left;
+				var y = e.pageY - $(this).offset().top;
+				scene.mouse_move(x, y);
+		   	});
+		}
 
 	if (ipad) {
 		$(document).bind('touchend', function(e) {
@@ -236,6 +236,8 @@ var Drawable = {
 		y = y - this.centerY();
 		local_x = x*Math.cos(-this.rotation()) + y*Math.sin(-this.rotation());
 		local_y = y*Math.cos(-this.rotation()) - x*Math.sin(-this.rotation());
+		local_x = local_x / this.scaleX();
+		local_y = local_y / this.scaleY();
 		x = local_x + this.centerX();
 		y = local_y + this.centerY();
 		
@@ -252,6 +254,7 @@ var Drawable = {
 		context.lineCap = this.lineCap;
 		context.translate(this.centerX(), this.centerY());
 		context.rotate(-this.rotation());
+		context.scale(this.scaleX(), this.scaleY());
 		context.translate(-this.centerX(), -this.centerY());
 		
 		this.draw();
@@ -290,6 +293,14 @@ var Drawable = {
 	
 	rotation: function() {
 		return this._rotation;
+	},
+	
+	scaleX: function() {
+		return this._scaleX;
+	},
+	
+	scaleY: function() {
+		return this._scaleY;
 	},
 	
 	// Setters
@@ -342,12 +353,21 @@ var Drawable = {
 		scene.redraw();
 	},
 	
+	setScale: function (scaleX, scaleY) {
+		this._scaleX = scaleX;
+		this._scaleY = scaleY;
+		
+		scene.redraw();
+	},
+	
 	// Event Handling
 	mouse_down: function (x, y) {
 		local_x = x - this.centerX();
 		local_y = y - this.centerY();
 		child_x = local_x*Math.cos(-this.rotation()) + local_y*Math.sin(-this.rotation());
 		child_y = local_y*Math.cos(-this.rotation()) - local_x*Math.sin(-this.rotation());
+		child_x = child_x / this.scaleX();
+		child_y = child_y / this.scaleY();
 		child_x = child_x + this.centerX() - this.x();
 		child_y = child_y + this.centerY() - this.y();
 		
@@ -369,6 +389,8 @@ var Drawable = {
 		local_y = y - this.centerY();
 		child_x = local_x*Math.cos(-this.rotation()) + local_y*Math.sin(-this.rotation());
 		child_y = local_y*Math.cos(-this.rotation()) - local_x*Math.sin(-this.rotation());
+		child_x = child_x / this.scaleX();
+		child_y = child_y / this.scaleY();
 		child_x = child_x + this.centerX() - this.x();
 		child_y = child_y + this.centerY() - this.y();
 		
@@ -414,7 +436,12 @@ var Drawable = {
 	strokeStyle: 'black',
 	fillStyle: 'white',
 	lineWidth: 4,
-	lineCap: 'round'
+	lineCap: 'round',
+	
+	// Transformations
+	_rotation: 0,
+	_scaleX: 1,
+	_scaleY: 1
 };
 
 var Movable = Drawable.extend ({
@@ -423,7 +450,7 @@ var Movable = Drawable.extend ({
 	},
 	
 	draw: function() {
-		if (this.rotatable) {
+		if (this.rotatable()) {
 			size = 5;
 			context.fillStyle = 'red';
 			context.strokeStyle = 'gray';
@@ -448,6 +475,8 @@ var Movable = Drawable.extend ({
 		rotation_y = y - this.centerY();
 		local_x = rotation_x*Math.cos(-this.rotation()) + rotation_y*Math.sin(-this.rotation());
 		local_y = rotation_y*Math.cos(-this.rotation()) - rotation_x*Math.sin(-this.rotation());
+		// local_x = local_x / this.scaleX();
+		// local_y = local_y / this.scaleY();
 		rotation_x = local_x + this.centerX();
 		rotation_y = local_y + this.centerY();
 		
@@ -462,7 +491,7 @@ var Movable = Drawable.extend ({
 			this.rotating = true;
 			this.rotationAngle = findAngle(this.centerX(), this.centerY(), rotation_x, rotation_y);
 			return true;
-		} else if (this.contains(x, y) && this.movable) {
+		} else if (this.contains(x, y) && this.movable()) {
 			this.moving = true;
 			this.offset_x = x - this.x();
 			this.offset_y = y - this.y();
@@ -474,7 +503,20 @@ var Movable = Drawable.extend ({
 	
 	onMouseMove: function (x, y) {
 		if (this.rotating) {
-			this.setRotation(findAngle(this.centerX(), this.centerY(), x, y) - this.rotationAngle);
+			local_x = x;
+			local_y = y;
+			// local_x = x - this.centerX();
+			// local_y = y - this.centerY();
+			// local_x = local_x / this.scaleX();
+			// local_y = local_y / this.scaleY();
+			// local_x = local_x + this.centerX();
+			// local_y = local_y + this.centerY();
+			
+			this.setRotation(findAngle(this.centerX(), this.centerY(), local_x, local_y) - this.rotationAngle);
+			if (typeof this.onRotate == "function") {
+				this.onRotate(this.rotation());
+			}
+			scene.redraw();
 			return true;
 		} else if (this.moving) {
 			if (!this.lockMovementX) {
@@ -507,12 +549,30 @@ var Movable = Drawable.extend ({
 		}
 	},
 	
-	movable: false,
+	// Getters
+	movable: function() {
+		return this._movable;
+	},
+	
+	rotatable: function() {
+		return this._rotatable;
+	},
+	
+	// Setters
+	setMovable: function(movable) {
+		this._movable = movable;
+	},
+	
+	setRotatable: function(rotatable) {
+		this._rotatable = rotatable;
+	},
+	
+	_movable: false,
 	moving: false,
 	lockMovementX: false,
 	lockMovementY: false,
 	
-	rotatable: false,
+	_rotatable: false,
 	rotating: false
 });
 
@@ -657,7 +717,7 @@ var Sector = Arc.extend ({
 		context.stroke();
 		Movable.draw.call(this);
 	},
-
+	
 	contains: function (x,y) {
 		x = x - this.centerX();
 		y = y - this.centerY();
@@ -667,6 +727,7 @@ var Sector = Arc.extend ({
 		y = local_y + this.centerY();
 		
 		var angle = findAngle(this.centerX(), this.centerY(), x, y);
+
 		var dist=0;
 		dist=Math.sqrt((x-this.centerX())*(x-this.centerX())+(y-this.centerY())*(y-this.centerY()));
 		return angle > this.startAngle() && angle < this.endAngle() && dist <= this.radius();
@@ -756,6 +817,7 @@ var Rectangle = Movable.extend({
 
 var Label = Movable.extend({
 	construct: function (x, y, text) {
+		this.fillStyle = 'black';
 		this.setText(text);
 		Movable.construct.call(this, x, y, this.width(), this.height());
 	},

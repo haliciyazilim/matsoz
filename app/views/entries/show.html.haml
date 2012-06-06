@@ -1,7 +1,7 @@
 
 - content_for(:head) do
   %meta{'name' => 'viewport', 'content' => 'width=device-width, initial-scale=1, user-scalable=no'}
-  = javascript_include_tag 'animations/animation_base.js'
+  = javascript_include_tag 'animations/raphael-min.js'
   = javascript_include_tag @entry.javascript_file
 
 #content
@@ -19,8 +19,9 @@
     %p.meaning
       = @entry.meaning
       
-    %canvas#animation_canvas{'width' => '512', 'height' => '384'}
-  
+    #animation_container  
+    #interaction_container
+
 
 = link_to 'Create new entry',  new_entry_path
 |

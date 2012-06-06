@@ -6,7 +6,7 @@ function animationInit () {
 
 	cornerHandle = Circle.create(x1, y1, 10);
 	cornerHandle.fillStyle = 'red';
-	cornerHandle.movable = true;
+	cornerHandle.setMovable(true);
 	cornerHandle.onMove = function (x, y) {
 		if (this.centerX() < x2 + 10 && this.centerX() > x2 - 10) {
 			x = x2;

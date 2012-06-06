@@ -9,15 +9,15 @@ function animationInit(){
 
 	tip1 = Circle.create(x2,y2, 7);
 	tip1.fillStyle='red';
-	tip1.movable=true;
+	tip1.setMovable(true);
 	
 	tip2 = Circle.create(center_x - radius, center_y, 7);
 	tip2.fillStyle='red';
-	tip2.movable=true;
+	tip2.setMovable(true);
 	
     kiris = Line.create(center_x - radius, center_y, x2, y2)
 	kiris.strokeStyle = 'green';
-	kiris.movable = false;
+	kiris.setMovable(false);
 	
 
 

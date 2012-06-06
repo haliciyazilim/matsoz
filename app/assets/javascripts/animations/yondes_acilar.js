@@ -29,6 +29,7 @@ function animationInit(){
 	arc_c=Sector.create(intersectionTop_x, intersectionTop_y, 19,Math.PI,Math.PI+angle);
 	arc_d=Sector.create(intersectionTop_x, intersectionTop_y, 16,Math.PI+angle,2*Math.PI);
 
+
 	arc_e=Sector.create(intersectionBottom_x, intersectionBottom_y, 20,0,angle);
 	arc_f=Sector.create(intersectionBottom_x, intersectionBottom_y, 16,angle,Math.PI);
 	arc_g=Sector.create(intersectionBottom_x, intersectionBottom_y, 22,Math.PI,Math.PI+angle);

@@ -1,8 +1,8 @@
 
 function animationInit () {
-	cornerHandle = Circle.create(canvasWidth/2 - 20, canvasWidth/2 - 100, 14);
+	cornerHandle = Circle.create(canvasWidth/2 - 20, canvasWidth/2 - 100, 10);
 	cornerHandle.fillStyle = 'red';
-	cornerHandle.movable = true;
+	cornerHandle.setMovable(true);
 	cornerHandle.onMove = function (x, y) {
 		triangle.setCorners(this.centerX(), this.centerY(), triangle.x2(), triangle.y2(), triangle.x3(), triangle.y3());
 	};

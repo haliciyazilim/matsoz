@@ -1,0 +1,128 @@
+function animationInit(){
+	length=150;
+	center_x = canvasWidth/2- 50 , center_y =  canvasHeight/2;
+	x2 = center_x + length, y2 = center_y;
+	angle = 0;
+	
+	
+	angleArc=Arc.create(center_x,center_y,20,0,0,true);
+	angleArc.strokeStyle='blue';
+	
+	angleArc2=Arc.create(center_x,center_y,26,0,0,true);
+	angleArc2.strokeStyle='blue';
+	
+	label1=Label.create(center_x+30,center_y-30,"0°");
+	label1.fillStyle='blue';
+	label1.setFontSize(12);
+	
+	label2=Label.create(center_x+30,center_y-30,"");
+	label2.fillStyle='blue';
+	label2.setFontSize(12);
+	
+	totalLabel=Label.create(center_x-30,center_y+30,"Toplam açı: 0°");
+	totalLabel.fillStyle='black';
+	
+	angleTip = Circle.create(x2,y2,7);
+	angleTip.fillStyle='red';
+	angleTip.setMovable(true);
+	
+    line1 = Line.create(center_x, center_y, x2, y2)
+	line1.strokeStyle = 'black';
+	line1.movable = false;
+	
+	line2 = Line.create(center_x, center_y, x2, y2);
+	line2.movable = false;
+	
+	aciortay = Line.create(center_x,center_y,x2,y2);
+	aciortay.strokeStyle='green';
+	aciortay.setMovable(false);
+	
+	arrowDegree=2*2*Math.PI/360;
+	
+	arrow_x2=aciortay.x2();
+	arrow_y2=aciortay.y2();
+	
+	arrow_x1=center_x+(length-6)*Math.cos(angle+arrowDegree);
+	arrow_y1=center_y-(length-6)*Math.sin(angle+arrowDegree);
+	
+	arrow_x3=center_x+(length-6)*Math.cos(angle+arrowDegree);
+	arrow_y3=center_y-(length-6)*Math.sin(angle-arrowDegree);
+	
+	arrow=Triangle.create(arrow_x1,arrow_y1,arrow_x2,arrow_y2,arrow_x3,arrow_y3);
+	arrow.fillStyle='green';
+	arrow.strokeStyle='green';
+
+	angleTip.onMove = function(x,y){
+		
+		new_x=10 + x;
+		new_y=10 + y;
+		angle = findAngle(center_x, center_y, new_x, new_y);
+		
+		if (angle > Math.PI * 2 - Math.PI / 30 || angle < Math.PI / 30) {
+			angle = 0;
+		} else if (angle < Math.PI / 2 + Math.PI / 30 && angle > Math.PI / 2 - Math.PI / 30) {
+			angle = Math.PI / 2;
+		} else if (angle < Math.PI + Math.PI / 30 && angle > Math.PI - Math.PI / 30) {
+			angle = Math.PI;
+		} else if (angle < Math.PI * 1.5 + Math.PI / 30 && angle > Math.PI * 1.5 - Math.PI / 30) {
+			angle = Math.PI * 1.5;
+		}
+
+		toDegree=angle*180/Math.PI;
+		integerDeg=Math.floor(toDegree+0.5);
+		half=integerDeg/2;
+		label1.setText(half+"°");
+		label2.setText(half+"°");
+		if(half > 24){
+			label1.setX(center_x+length/3*Math.cos(3*angle/8));
+			label1.setY(center_y-length/3*Math.sin(3*angle/8));
+			
+			label2.setX(center_x+length/2*Math.cos(7*angle/8));
+			label2.setY(center_y-length/2*Math.sin(7*angle/8));
+		}else{
+			label1.setX(center_x+length/3*Math.cos(3*angle/8));
+			label2.setX(center_x+length/2*Math.cos(7*angle/8));
+			label2.setY(center_y-length/2*Math.sin(7*angle/8));
+		}
+		
+		if(angle == 0)
+			label2.setText("");
+			
+		totalLabel.setText("Toplam açı: "+integerDeg+"°");
+		
+		angleTip.setCenter(center_x+length*Math.cos(angle),center_y-length*Math.sin(angle));
+		line1.setCorners(center_x,center_y,center_x+length*Math.cos(angle),center_y-length*Math.sin(angle));
+		aciortay.setCorners(center_x,center_y,center_x+length*Math.cos(angle/2),center_y-length*Math.sin(angle/2));
+		angleArc.setEndAngle(angle);
+		angleArc2.setEndAngle(angle);
+		
+		arrow_x2=aciortay.x2();
+		arrow_y2=aciortay.y2();
+		
+		halfAngle=angle/2;
+		
+		arrow_x1=center_x+(length-6)*Math.cos(halfAngle+arrowDegree);
+		arrow_y1=center_y-(length-6)*Math.sin(halfAngle+arrowDegree);
+		
+		arrow_x3=center_x+(length-6)*Math.cos(halfAngle-arrowDegree);
+		arrow_y3=center_y-(length-6)*Math.sin(halfAngle-arrowDegree);
+		
+		arrow.setCorners(arrow_x1,arrow_y1,arrow_x2,arrow_y2,arrow_x3,arrow_y3);
+	}
+	
+	
+	
+	scene.addDrawable(label1);
+	scene.addDrawable(label2);
+	scene.addDrawable(angleArc2);
+	scene.addDrawable(angleArc);
+	
+	scene.addDrawable(aciortay);
+	scene.addDrawable(line2);
+	scene.addDrawable(line1);
+	scene.addDrawable(totalLabel);
+	scene.addDrawable(arrow);
+	scene.addDrawable(angleTip);
+
+	
+}
