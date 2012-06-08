@@ -25,6 +25,7 @@ animations/merkez_aci.js: animations/merkez_aci-76efacca66dcc56462fb8d6a33e12c89
 animations/merkezil_donme.js: animations/merkezil_donme-6439979de7cbef623be8c24ca1dab88d.js
 animations/minor_yay.js: animations/minor_yay-c221cafac4100f87e794a163b5e105dc.js
 animations/raphael-min.js: animations/raphael-min-f063eba771fbb5264693ef2091617199.js
+animations/sirali_ikili.js: animations/sirali_ikili-9ef85bf3864d04b87c6b551a8bd7b199.js
 animations/teget.js: animations/teget-a8b687b07ef5b76bb7a5c721272240d8.js
 animations/tumler_acilar.js: animations/tumler_acilar-869b353abb0a9807123fe273c1bad3ae.js
 animations/ucgen.js: animations/ucgen-3d69c72674d1a1078b334fdbb57083fa.js
@@ -32,4 +33,4 @@ animations/yansima.js: animations/yansima-7101d8d8417cc57fdb86e0a78fb64daa.js
 animations/yaricap.js: animations/yaricap-fbea86dd01e4ba632a46a3585067ea59.js
 animations/yondes_acilar.js: animations/yondes_acilar-593bdadaa135b821a8eb8c6ce75b99ed.js
 application.js: application-30939899585cf2854059a1905b2feb91.js
-application.css: application-373d65afe8101ee58ae79b6952e3b17a.css
+application.css: application-feea38ef38bbd0959d8275de5b8c06f1.css
