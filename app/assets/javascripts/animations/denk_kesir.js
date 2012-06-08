@@ -1,46 +1,5 @@
 
 $(document).ready(function() {
-	animationInit();
-	interactionInit();
-});
-
-function animationInit() {
-	var paper = Raphael("animation_container");
-	
-	var imgArray = [];
-	
-	imgArray.push(paper.image("/assets/animations/denk_kesir/1.png",0,0,512,185).attr({opacity: 0}));
-	imgArray.push(paper.image("/assets/animations/denk_kesir/2.png",0,0,512,185).attr({opacity: 0}));
-	imgArray.push(paper.image("/assets/animations/denk_kesir/3.png",0,0,512,185).attr({opacity: 0}));
-	imgArray.push(paper.image("/assets/animations/denk_kesir/4.png",0,0,512,185).attr({opacity: 0}));
-	
-	var appearAnim = Raphael.animation({opacity: 1}, 1000, ">");
-	var disappearAnim = Raphael.animation({opacity: 0}, 1000, "linear");
-
-
-	// imgArray[0].animate(appearAnim.delay(000));
-	// imgArray[0].attr({opacity: 1});
-	// imgArray[0].animate(disappearAnim.delay(2000));
-	// imgArray[0].animate({opacity: 1}, 1000, function(){
-	// 	imgArray[0].animate(
-	// 	{opacity: 1}, 1000, function() {
-	// 		imgArray[0].animate(
-	// 		{opacity: 0}, 1000)
-	// 	})
-	// });
-	
-	for (i = 0; i < imgArray.length; i++) {
-			imgArray[i].animate(appearAnim.delay(i*2000));
-	}
-		
-	for (i = 0; i < imgArray.length - 1; i++) {
-		imgArray[i].attr({opacity: 1});
-		imgArray[i].animate(disappearAnim.delay((i+1)*2000));
-		imgArray[i].attr({opacity: 0});
-	}
-}
-
-function interactionInit() {
 	Raphael.fn.fraction = function(top_x, top_y, nom, denom,scale) {
 		var st = this.set();
 		c2=top_y+scale;
@@ -105,8 +64,33 @@ function interactionInit() {
 		return st;
 	}
 	
-	var paper = Raphael("interaction_container");
+	animationInit(Raphael("animation_container"));
+	interactionInit(Raphael("interaction_container"));
+});
+
+function animationInit(paper) {
+	var imgArray = [];
 	
+	imgArray.push(paper.image("/assets/animations/denk_kesir/1.png",0,0,512,185).attr({opacity: 0}));
+	imgArray.push(paper.image("/assets/animations/denk_kesir/2.png",0,0,512,185).attr({opacity: 0}));
+	imgArray.push(paper.image("/assets/animations/denk_kesir/3.png",0,0,512,185).attr({opacity: 0}));
+	imgArray.push(paper.image("/assets/animations/denk_kesir/4.png",0,0,512,185).attr({opacity: 0}));
+	
+	var appearAnim = Raphael.animation({opacity: 1}, 1000, ">");
+	var disappearAnim = Raphael.animation({opacity: 0}, 1000, "linear");
+	
+	for (i = 0; i < imgArray.length; i++) {
+			imgArray[i].animate(appearAnim.delay(i*2000));
+	}
+		
+	for (i = 0; i < imgArray.length - 1; i++) {
+		imgArray[i].attr({opacity: 1});
+		imgArray[i].animate(disappearAnim.delay((i+1)*2000));
+		imgArray[i].attr({opacity: 0});
+	}
+}
+
+function interactionInit(paper) {
 	paper.customAttributes.segment = function (x, y, r, a1, a2) {
 	                    var flag = (a2 - a1) > 180,
 	                        clr = (a2 - a1) / 360;
@@ -137,7 +121,8 @@ function interactionInit() {
 		firstFractionDenominator = smallFractionDenominator * factor;
 	}
 	
-	paper.text(256,50,"Aşağıdaki verilen kesre denk kesir oluşturmak\niçin boşluğa uygun sayıyı yazınız. Daha sonra\n“Kontrol” düğmesine basınız.").attr({"font-size": 16});
+	$('#interaction_container').append('<div id="objective">Aşağıdaki verilen kesre denk kesir oluşturmak\niçin boşluğa uygun sayıyı yazınız. Daha sonra\n“Kontrol” düğmesine basınız.</div>');
+	
 	paper.fraction(114, 250, firstFractionNominator, firstFractionDenominator, 24);
 	
 	
@@ -238,7 +223,6 @@ function interactionInit() {
 				return;
 			}
 		
-		
 		var correct;
 		
 		if (missing == 0) {
@@ -258,7 +242,7 @@ function interactionInit() {
 				paper.clear();
 				$('#textInput').remove();
 				$('#submitButton').remove();
-				interactionInit();
+				interactionInit(paper);
 			});
 		} else {
 			tryCount++;
@@ -283,7 +267,7 @@ function interactionInit() {
 					paper.clear();
 					$('#textInput').remove();
 					$('#submitButton').remove();
-					interactionInit();
+					interactionInit(paper);
 				});
 			}
 		}

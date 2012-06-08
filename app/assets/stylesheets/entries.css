@@ -83,6 +83,16 @@ body {
 	left: 10px;
 }
 
+#objective {
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	width: 478px;
+	text-align: center;
+	background-color: #bfced2;
+	padding: 7px;
+}
+
 .input {
 	background-color: white;
 	font: 16pt "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
