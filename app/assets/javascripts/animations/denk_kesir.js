@@ -14,11 +14,29 @@ function animationInit() {
 	imgArray.push(paper.image("/assets/animations/denk_kesir/3.png",0,0,512,185).attr({opacity: 0}));
 	imgArray.push(paper.image("/assets/animations/denk_kesir/4.png",0,0,512,185).attr({opacity: 0}));
 	
-	var appearAnim = Raphael.animation({opacity: 1}, 1000);
-	var disappearAnim = Raphael.animation({opacity: 1}, 1000);
+	var appearAnim = Raphael.animation({opacity: 1}, 1000, ">");
+	var disappearAnim = Raphael.animation({opacity: 0}, 1000, "linear");
+
+
+	// imgArray[0].animate(appearAnim.delay(000));
+	// imgArray[0].attr({opacity: 1});
+	// imgArray[0].animate(disappearAnim.delay(2000));
+	// imgArray[0].animate({opacity: 1}, 1000, function(){
+	// 	imgArray[0].animate(
+	// 	{opacity: 1}, 1000, function() {
+	// 		imgArray[0].animate(
+	// 		{opacity: 0}, 1000)
+	// 	})
+	// });
 	
 	for (i = 0; i < imgArray.length; i++) {
-		imgArray[i].animate(appearAnim.delay(i*2000));
+			imgArray[i].animate(appearAnim.delay(i*2000));
+	}
+		
+	for (i = 0; i < imgArray.length - 1; i++) {
+		imgArray[i].attr({opacity: 1});
+		imgArray[i].animate(disappearAnim.delay((i+1)*2000));
+		imgArray[i].attr({opacity: 0});
 	}
 }
 
@@ -87,7 +105,6 @@ function interactionInit() {
 		return st;
 	}
 	
-	//var paper = Raphael(490, 251, 512, 384);
 	var paper = Raphael("interaction_container");
 	
 	paper.customAttributes.segment = function (x, y, r, a1, a2) {
@@ -138,45 +155,46 @@ function interactionInit() {
 	
 	switch (shapeType) {
 		case 0:
-			pie1 = paper.segmentedRectangle(95,125,70, 70, smallFractionDenominator, firstFractionDenominator/smallFractionDenominator).attr({fill: "#ccc"});
+			pie1 = paper.segmentedRectangle(95,125,70, 70, smallFractionDenominator, firstFractionDenominator/smallFractionDenominator).attr({fill: "#fef8ec"});
 			for (i = 0; i < firstFractionNominator; i++) {
 				pie1[i].attr({fill: "#f55"});
 			}
 	
-			pie2 = paper.segmentedRectangle(345,125,70, 70, smallFractionDenominator, secondFractionDenominator/smallFractionDenominator).attr({fill: "#ccc"});
+			pie2 = paper.segmentedRectangle(345,125,70, 70, smallFractionDenominator, secondFractionDenominator/smallFractionDenominator).attr({fill: "#fef8ec"});
 			for (i = 0; i < secondFractionNominator; i++) {
 				pie2[i].attr({fill: "#f55"});
 			}
 			break;
 			
 		case 1:
-			pie1 = paper.segmentedCircle(130,160,50,firstFractionDenominator).attr({fill: "#ccc"});
+			pie1 = paper.segmentedCircle(130,160,50,firstFractionDenominator).attr({fill: "#fef8ec"});
 			for (i = 0; i < firstFractionNominator; i++) {
 				pie1[i].attr({fill: "#f55"});
 			}
 			
-			pie2 = paper.segmentedCircle(380,160,50,secondFractionDenominator).attr({fill: "#ccc"});
+			pie2 = paper.segmentedCircle(380,160,50,secondFractionDenominator).attr({fill: "#fef8ec"});
 			for (i = 0; i < secondFractionNominator; i++) {
 				pie2[i].attr({fill: "#f55"});
 			}
 		break;
 		
 		case 2:
-			pie1 = paper.segmentedRectangle(80,135,100, 50, smallFractionDenominator, firstFractionDenominator/smallFractionDenominator).attr({fill: "#ccc"});
+			pie1 = paper.segmentedRectangle(80,135,100, 50, smallFractionDenominator, firstFractionDenominator/smallFractionDenominator).attr({fill: "#fef8ec"});
 			for (i = 0; i < firstFractionNominator; i++) {
 				pie1[i].attr({fill: "#f55"});
 			}
 	
-			pie2 = paper.segmentedRectangle(330,135,100, 50, smallFractionDenominator, secondFractionDenominator/smallFractionDenominator).attr({fill: "#ccc"});
+			pie2 = paper.segmentedRectangle(330,135,100, 50, smallFractionDenominator, secondFractionDenominator/smallFractionDenominator).attr({fill: "#fef8ec"});
 			for (i = 0; i < secondFractionNominator; i++) {
 				pie2[i].attr({fill: "#f55"});
 			}
 			break;
 	}
 	
-	var correctText = paper.text(200,350, "Tebrikler!").attr({fill: "#5a5", opacity: 0, "font-size": 24});
-	var retryText = paper.text(200,350, "Tekrar Deneyin!").attr({fill: "#f55", opacity: 0, "font-size": 24});
-	var failText = paper.text(200,350, "Olmadı!").attr({fill: "#f55", opacity: 0, "font-size": 24});
+	var correctText = paper.text(160,350, "Tebrikler!").attr({fill: "#5a5", opacity: 0, "font-size": 24});
+	var retryText = paper.text(160,350, "Tekrar Deneyiniz!").attr({fill: "#f55", opacity: 0, "font-size": 24});
+	var failText = paper.text(160,350, "Olmadı!").attr({fill: "#f55", opacity: 0, "font-size": 24});
+	var errorText = paper.text(160,350, "Lütfen kutucuğa bir sayı giriniz").attr({fill: "#f55", opacity: 0, "font-size": 16});
 	
 	pie2.attr({"opacity": 0});
 	
@@ -196,37 +214,31 @@ function interactionInit() {
 	
 	$('#textInput').addClass('input');
 	$('#textInput').addClass('active');
-	$('#textInput').change(function(){
-	    var val = $(this).val();
-		var intRegex = /^\d+$/;
-	    if(intRegex.test(val)) {
-			$('#submitButton').removeAttr("disabled");
-		} else {
-			$('#submitButton').attr("disabled", "disabled");
-		}
-	});
-	
-	$('#textInput').keyup(function(){
-	    var val = $(this).val();
-		var intRegex = /^\d+$/;
-	    if(intRegex.test(val)) {
-			$('#submitButton').removeAttr("disabled");
-		} else {
-			$('#submitButton').attr("disabled", "disabled");
-		}
-	});
-						
-	$('#interaction_container').append('<input id="submitButton" type="button" value="Kontrol Et" />');
+
+							
+	$('#interaction_container').append('<input id="submitButton" type="button" value="Kontrol" />');
 	$('#submitButton').css("position", "absolute")
 						.css("width", "140px")
 						.css("left", "312px")
 						.css("top", "330px");
 	$('#submitButton').addClass('input');
-	$('#submitButton').attr("disabled", "disabled");
 	
 	var tryCount = 0;
 	
-	$('#submitButton').click(function(){
+	submit = function(){
+		
+
+		    var val = $('#textInput').val();
+			var intRegex = /^\d+$/;
+		    if(!intRegex.test(val)) {
+				retryText.animate({opacity: 0}, 500);
+				failText.animate({opacity: 0}, 500);
+				correctText.animate({opacity: 0}, 500);
+				errorText.animate({opacity: 1}, 500);
+				return;
+			}
+		
+		
 		var correct;
 		
 		if (missing == 0) {
@@ -236,12 +248,12 @@ function interactionInit() {
 		}
 		
 		if (correct) {
+			errorText.animate({opacity: 0}, 500);
 			retryText.animate({opacity: 0}, 500);
 			correctText.animate({opacity: 1}, 500);
 			pie2.animate({opacity: 1}, 500);
 			
 			$('#submitButton').val("Sonraki");
-			$('#textInput').attr("disabled", "disabled");
 			$('#submitButton').click(function() {
 				paper.clear();
 				$('#textInput').remove();
@@ -253,16 +265,20 @@ function interactionInit() {
 			
 			if (tryCount < 2) {
 				$('#textInput').val("");
-				$('#submitButton').attr("disabled", "disabled");
+				errorText.animate({opacity: 0}, 500);
 				retryText.animate({opacity: 1}, 500);
 			} else {
-				$('#textInput').val(secondFractionNominator);
+				if (missing == 0) {
+					$('#textInput').val(secondFractionNominator);
+				} else {
+					$('#textInput').val(secondFractionDenominator);
+				}
+				
 				pie2.animate({opacity: 1}, 500);
+				errorText.animate({opacity: 0}, 500);
 				retryText.animate({opacity: 0}, 500);
 				failText.animate({opacity: 1}, 500);
-				$('#submitButton').removeAttr("disabled");
 				$('#submitButton').val("Sonraki");
-				$('#textInput').attr("disabled", "disabled");
 				$('#submitButton').click(function() {
 					paper.clear();
 					$('#textInput').remove();
@@ -271,5 +287,15 @@ function interactionInit() {
 				});
 			}
 		}
-	})
+	};
+	
+	
+	$('#submitButton').click(submit);
+	
+	$("#textInput").keypress(function(event) {
+		if(event.keyCode == 13) {
+			submit();
+		}
+	});
+		
 }
