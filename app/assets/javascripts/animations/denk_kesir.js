@@ -1,41 +1,5 @@
 
 $(document).ready(function() {
-	animationInit();
-	interactionInit();
-});
-
-function animationInit() {
-	var paper = Raphael("animation_container");
-	
-	var imgArray = [];
-	
-	imgArray.push(paper.image("/assets/animations/denk_kesir/1.png",0,0,512,185).attr({opacity: 0}));
-	imgArray.push(paper.image("/assets/animations/denk_kesir/2.png",0,0,512,185).attr({opacity: 0}));
-	imgArray.push(paper.image("/assets/animations/denk_kesir/3.png",0,0,512,185).attr({opacity: 0}));
-	imgArray.push(paper.image("/assets/animations/denk_kesir/4.png",0,0,512,185).attr({opacity: 0}));
-	
-	var appearAnim = Raphael.animation({opacity: 1}, 1000);
-	var waitAnim = Raphael.animation({}, 1000);
-	var disappearAnim = Raphael.animation({opacity: 0}, 1000);
-
-	// imgArray[0].animate({opacity: 1}, 1000, function(){
-	// 	imgArray[0].animate(
-	// 	{opacity: 1}, 1000, function() {
-	// 		imgArray[0].animate(
-	// 		{opacity: 0}, 1000)
-	// 	})
-	// });
-	
-	for (i = 0; i < imgArray.length; i++) {
-		imgArray[i].animate(appearAnim.delay(i*2000));
-	}
-	
-	// for (i = 0; i < imgArray.length - 1; i++) {
-	// 	imgArray[i].animate(disappearAnim.delay((i+1)*2000));
-	// }
-}
-
-function interactionInit() {
 	Raphael.fn.fraction = function(top_x, top_y, nom, denom,scale) {
 		var st = this.set();
 		c2=top_y+scale;
@@ -100,9 +64,33 @@ function interactionInit() {
 		return st;
 	}
 	
-	//var paper = Raphael(490, 251, 512, 384);
-	var paper = Raphael("interaction_container");
+	animationInit(Raphael("animation_container"));
+	interactionInit(Raphael("interaction_container"));
+});
+
+function animationInit(paper) {
+	var imgArray = [];
 	
+	imgArray.push(paper.image("/assets/animations/denk_kesir/1.png",0,0,512,185).attr({opacity: 0}));
+	imgArray.push(paper.image("/assets/animations/denk_kesir/2.png",0,0,512,185).attr({opacity: 0}));
+	imgArray.push(paper.image("/assets/animations/denk_kesir/3.png",0,0,512,185).attr({opacity: 0}));
+	imgArray.push(paper.image("/assets/animations/denk_kesir/4.png",0,0,512,185).attr({opacity: 0}));
+	
+	var appearAnim = Raphael.animation({opacity: 1}, 1000, ">");
+	var disappearAnim = Raphael.animation({opacity: 0}, 1000, "linear");
+	
+	for (i = 0; i < imgArray.length; i++) {
+			imgArray[i].animate(appearAnim.delay(i*2000));
+	}
+		
+	for (i = 0; i < imgArray.length - 1; i++) {
+		imgArray[i].attr({opacity: 1});
+		imgArray[i].animate(disappearAnim.delay((i+1)*2000));
+		imgArray[i].attr({opacity: 0});
+	}
+}
+
+function interactionInit(paper) {
 	paper.customAttributes.segment = function (x, y, r, a1, a2) {
 	                    var flag = (a2 - a1) > 180,
 	                        clr = (a2 - a1) / 360;
@@ -133,7 +121,8 @@ function interactionInit() {
 		firstFractionDenominator = smallFractionDenominator * factor;
 	}
 	
-	paper.text(256,50,"Aşağıdaki verilen kesre denk kesir oluşturmak\niçin boşluğa uygun sayıyı yazınız. Daha sonra\n“Kontrol” düğmesine basınız.").attr({"font-size": 16});
+	$('#interaction_container').append('<div id="objective">Aşağıdaki verilen kesre denk kesir oluşturmak\niçin boşluğa uygun sayıyı yazınız. Daha sonra\n“Kontrol” düğmesine basınız.</div>');
+	
 	paper.fraction(114, 250, firstFractionNominator, firstFractionDenominator, 24);
 	
 	
@@ -187,10 +176,10 @@ function interactionInit() {
 			break;
 	}
 	
-	var correctText = paper.text(200,350, "Tebrikler!").attr({fill: "#5a5", opacity: 0, "font-size": 24});
-	var retryText = paper.text(200,350, "Tekrar Deneyiniz!").attr({fill: "#f55", opacity: 0, "font-size": 24});
-	var failText = paper.text(200,350, "Olmadı!").attr({fill: "#f55", opacity: 0, "font-size": 24});
-	var errorText = paper.text(200,350, "Lütfen kutucuğa bir sayı giriniz").attr({fill: "#f55", opacity: 0, "font-size": 24});
+	var correctText = paper.text(160,350, "Tebrikler!").attr({fill: "#5a5", opacity: 0, "font-size": 24});
+	var retryText = paper.text(160,350, "Tekrar Deneyiniz!").attr({fill: "#f55", opacity: 0, "font-size": 24});
+	var failText = paper.text(160,350, "Olmadı!").attr({fill: "#f55", opacity: 0, "font-size": 24});
+	var errorText = paper.text(160,350, "Lütfen kutucuğa bir sayı giriniz").attr({fill: "#f55", opacity: 0, "font-size": 16});
 	
 	pie2.attr({"opacity": 0});
 	
@@ -210,28 +199,30 @@ function interactionInit() {
 	
 	$('#textInput').addClass('input');
 	$('#textInput').addClass('active');
-	
-	$('#textInput').keyup(function(){
-	    var val = $(this).val();
-		var intRegex = /^\d+$/;
-	    if(intRegex.test(val)) {
-			$('#submitButton').removeAttr("disabled");
-		} else {
-			$('#submitButton').attr("disabled", "disabled");
-		}
-	});
-						
+
+							
 	$('#interaction_container').append('<input id="submitButton" type="button" value="Kontrol" />');
 	$('#submitButton').css("position", "absolute")
 						.css("width", "140px")
 						.css("left", "312px")
 						.css("top", "330px");
 	$('#submitButton').addClass('input');
-	$('#submitButton').attr("disabled", "disabled");
 	
 	var tryCount = 0;
 	
 	submit = function(){
+		
+
+		    var val = $('#textInput').val();
+			var intRegex = /^\d+$/;
+		    if(!intRegex.test(val)) {
+				retryText.animate({opacity: 0}, 500);
+				failText.animate({opacity: 0}, 500);
+				correctText.animate({opacity: 0}, 500);
+				errorText.animate({opacity: 1}, 500);
+				return;
+			}
+		
 		var correct;
 		
 		if (missing == 0) {
@@ -241,24 +232,24 @@ function interactionInit() {
 		}
 		
 		if (correct) {
+			errorText.animate({opacity: 0}, 500);
 			retryText.animate({opacity: 0}, 500);
 			correctText.animate({opacity: 1}, 500);
 			pie2.animate({opacity: 1}, 500);
 			
 			$('#submitButton').val("Sonraki");
-			$('#textInput').attr("disabled", "disabled");
 			$('#submitButton').click(function() {
 				paper.clear();
 				$('#textInput').remove();
 				$('#submitButton').remove();
-				interactionInit();
+				interactionInit(paper);
 			});
 		} else {
 			tryCount++;
 			
 			if (tryCount < 2) {
 				$('#textInput').val("");
-				$('#submitButton').attr("disabled", "disabled");
+				errorText.animate({opacity: 0}, 500);
 				retryText.animate({opacity: 1}, 500);
 			} else {
 				if (missing == 0) {
@@ -268,16 +259,15 @@ function interactionInit() {
 				}
 				
 				pie2.animate({opacity: 1}, 500);
+				errorText.animate({opacity: 0}, 500);
 				retryText.animate({opacity: 0}, 500);
 				failText.animate({opacity: 1}, 500);
-				$('#submitButton').removeAttr("disabled");
 				$('#submitButton').val("Sonraki");
-				$('#textInput').attr("disabled", "disabled");
 				$('#submitButton').click(function() {
 					paper.clear();
 					$('#textInput').remove();
 					$('#submitButton').remove();
-					interactionInit();
+					interactionInit(paper);
 				});
 			}
 		}
