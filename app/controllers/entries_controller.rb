@@ -11,6 +11,17 @@ class EntriesController < ApplicationController
   
   def show
     @entry = Entry.find(params[:id])
+
+    @meanings = @entry.meaning.split("++")
+    index = -1
+    @meanings = @meanings.map do |meaning|
+      index = index + 1
+      if (index % 2) == 0
+        {meaning => nil}
+      else 
+        {meaning => Entry.find_by_word(meaning)}
+      end
+    end
   end
   
   def new
