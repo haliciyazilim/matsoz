@@ -14,11 +14,18 @@
           = link_to entry.word, entry_path(entry)
           
   #word_content
-    %h1.word
-      = @entry.word
-    %p.meaning
-      = @entry.meaning
-      
+    %p.definition
+      %span.name
+        = @entry.word + ": "
+      - @meanings.each do |entry|
+        - entry.each do |key, value|
+          - if value == nil
+            = key
+          - else
+            = link_to key, entry_path(value)
+            
+    %p.exampleHeader
+      Örnek
     #animation_container  
     #interaction_container
 
