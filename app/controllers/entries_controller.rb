@@ -12,15 +12,41 @@ class EntriesController < ApplicationController
   def show
     @entry = Entry.find(params[:id])
 
-    @meanings = @entry.meaning.split("++")
-    index = -1
-    @meanings = @meanings.map do |meaning|
-      index = index + 1
-      if (index % 2) == 0
-        {meaning => nil}
-      else 
-        {meaning => Entry.find_by_word(meaning)}
+    chunks = @entry.meaning.split(/=>|\*\*/)
+    delimiters = @entry.meaning.scan(/=>|\*\*/)
+    
+    @chunks = []
+
+    errorFound = false
+
+    @chunks.push({chunks.shift => nil})
+    
+    while !(delimiters.empty?)
+      delimiter = delimiters.shift
+  
+      if delimiter = "**"
+        chunk = chunks.shift
+
+        delimiter = delimiters.shift
+        
+        if delimiter == "**"
+          @chunks.push({chunk => Entry.find_by_word(chunk)})
+        elsif delimiter == "=>"
+          destination = chunks.shift
+          @chunks.push({chunk => Entry.find_by_word(destination)})
+          
+          delimiter = delimiters.shift
+          if delimiter != "**"
+            errorFound = true
+          end
+        end
+      elsif
+        errorFound = true
       end
+    end
+    
+    if !(chunks.empty?)
+      @chunks.push({chunks.shift => nil})
     end
   end
   

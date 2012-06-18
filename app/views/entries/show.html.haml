@@ -17,12 +17,12 @@
     %p.definition
       %span.name
         = @entry.word + ": "
-      - @meanings.each do |entry|
+      - @chunks.each do |entry|
         - entry.each do |key, value|
           - if value == nil
-            = key
+            %span>= key.gsub(' ', "\n")
           - else
-            = link_to key, entry_path(value)
+            %span>= link_to key, entry_path(value)
             
     %p.exampleHeader
       Örnek
