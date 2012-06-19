@@ -5,6 +5,7 @@ animations/denk_kesir/3.png: animations/denk_kesir/3-33db60a5fff3f7a639141b54c0d
 animations/denk_kesir/4.png: animations/denk_kesir/4-4036d676f2e749caa8b7ac2c4fcdefa1.png
 rails.png: rails-782b548cc1ba7f898cdad2d9eb8420d2.png
 animations/aci.js: animations/aci-f2c30ca4eb4b12ccd365a50992f572c3.js
+animations/acinim.js: animations/acinim-03fcb6f733b76ca51e6b72378516866e.js
 animations/aciortay.js: animations/aciortay-97234188c8b122285ec1b06d703d8151.js
 animations/animation_base.js: animations/animation_base-abfc947a408ec8e2799843fcd727e4ca.js
 animations/butunler_acilar.js: animations/butunler_acilar-f7256e7cbdb0f218ffc37eec2559ce22.js
