@@ -85,7 +85,7 @@ function Cube (container,width,height){
 			DrawLine(x1+w+k*w,y1-k*h,x1+w+k*w,y1+h-k*h,paper);
 			DrawLine(x1+w,y1+h,x1+w+k*w,y1+h-k*h,paper);
 		};
-		$('').css()
+		
 		this.drawExpansion = function(){
 			var paper = new Raphael(this.container,this.width,this.height);
 			var r1 = Math.floor(Math.random()*4);
