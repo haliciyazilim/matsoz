@@ -7,10 +7,11 @@ function interactionInit(container){
 	
 	Acinim.container = container;
 	Acinim.yonerge = document.createElement('div');
+	Acinim.yonerge.className = 'objective';
 	Acinim.yonerge.text1 = 'Aşağıdaki geometrik cisimlerden açınımını elde etmek istediğinizin üzerine fare ile tıklayın.';
 	Acinim.yonerge.text2 = 'Aşağıdaki açınımın hangi geometrik cisim olduğunu görmek için açınımının üzerine fare ile tıklayın.';
 	Acinim.yonerge.innerHTML = Acinim.yonerge.text1;
-	$(Acinim.yonerge).css({
+	/*$(Acinim.yonerge).css({
 			height:'60px',
 			marginTop:'30px',
 			marginBottom:'50px',
@@ -22,7 +23,7 @@ function interactionInit(container){
 			padding:'5px',
 			textAlign:'center',
 			lineHeight:'25px'
-		});
+		});*/
 	Acinim.yonerge.style.boxSizing
 	Acinim.container.appendChild(Acinim.yonerge);
 	//console.log('Im here');
