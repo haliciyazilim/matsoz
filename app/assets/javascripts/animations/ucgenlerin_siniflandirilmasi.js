@@ -355,7 +355,6 @@ function Triangle(i,j,k,container){
 		}
 		
 		var x1,y1,x2,y2,r,k;
-		r = 1;
 		k = 15;
 		
 		var _p1,_p2;
@@ -364,7 +363,7 @@ function Triangle(i,j,k,container){
 		_p2 = findAPointOn(p1,p3,k);
 		x2=_p2.x; y2=_p2.y;
 		
-		var fa = a > Math.PI ?0 : 1;
+		var fa = a > Math.PI ?1 : 0;
 		var fs = a > 0 ? 0: 1;
 		var _a = FindAngle(p1.x,p1.y,p2.x,p2.y);
 		var _b = FindAngle(p1.x,p1.y,p3.x,p3.y);
@@ -379,6 +378,8 @@ function Triangle(i,j,k,container){
 			this.paper.circle((p1.x+x)*0.5,(p1.y+y)*0.5,1).attr('fill','#CCC');
 		}
 		else{
+			
+			r = FindDistance(p1.x, p1.y, x1, y1);
 			this.paper.path('M'+p1.x+','+p1.y+' L'+x1+','+y1+' A'+r+','+r +
 				   ' 0 '+fa+','+fs+' '+x2+','+y2+'  z').attr(angleStyle);
 		}
