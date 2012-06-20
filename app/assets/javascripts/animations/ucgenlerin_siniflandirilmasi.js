@@ -11,47 +11,11 @@ Raphael.fn.line = function(x1,y1,x2,y2){
 	return this.path('M'+x1+','+y1+'L'+x2+','+y2);
 }
 
-
-var InteractionStyler = function(){
-	InteractionStyler.Init();
-}; 
-InteractionStyler.texts = new Array();
-InteractionStyler.edges = new Array();
-InteractionStyler.angles = new Array();
-InteractionStyler.texts.attr = function(name,value){
-	InteractionStyler.texts.push({name:name,value:value});
-}
-
-InteractionStyler.Init = function(){
-	InteractionStyler.texts.attr('font-size','20px');
-	InteractionStyler.edges.attr('stroke-width','2px');
-	InteractionStyler.angles.attr('stroke-width','2px');
-	InteractionStyler.angles.attr('fill','#888');
-}
-
-InteractionStyler.edges.attr = function(name,value){
-	InteractionStyler.edges.push({name:name,value:value});
-}
-InteractionStyler.angles.attr = function(name,value){
-	InteractionStyler.angles.push({name:name,value:value});
-}
-InteractionStyler.texts.apply = function(e){
-	$(InteractionStyler.texts).each(function(){
-			e.attr(this.name,this.value);
-		});
-}
-
-InteractionStyler.edges.apply = function(e){
-	$(InteractionStyler.edges).each(function(){
-			e.attr(this.name,this.value);
-		});
-}
-InteractionStyler.angles.apply = function(e){
-	$(InteractionStyler.angles).each(function(){
-			e.attr(this.name,this.value);
-		});
-}
-InteractionStyler();
+/*Styles*/
+var textStyle = {'font-size':'16px'};
+var edgeStyle = {'stroke-width':'2px'};
+var angleStyle = {'fill':'#DDD'};
+/*Styles*/
 
 var TestGenerator = function(container){
 	//generate some random numbers to enter a valid state
@@ -368,17 +332,17 @@ function Triangle(i,j,k,container){
 	this.p3.x = this.p1.x + Math.cos(a)*k*_c;
 	this.p3.y = this.p1.y - Math.sin(a)*k*_c;
 	//console.log(this);
-	InteractionStyler.edges.apply(paper.triangle( this.p1.x,
+	paper.triangle( this.p1.x,
 					this.p1.y,
 					this.p2.x,
 					this.p2.y,
 					this.p3.x,
-					this.p3.y ));
+					this.p3.y ).attr(edgeStyle);
 	this.drawEdgeText = function(p,a,k,L){
 		var _x,_y;
 		_x = p.x + k * Math.sin(a);
 		_y = p.y + k * Math.cos(a);
-		InteractionStyler.texts.apply(this.paper.text(_x,_y,L));
+		this.paper.text(_x,_y,L).attr(textStyle);
 	
 	}
 	this.drawAngle = function(p1,p2,p3,a){
@@ -410,18 +374,18 @@ function Triangle(i,j,k,container){
 			var x,y;
 			x = p1.x + Math.sqrt(2) * k * Math.cos(_t);
 			y = p1.y - Math.sqrt(2) * k * Math.sin(_t);
-			InteractionStyler.edges.apply(this.paper.line(x1,y1,x,y));
-			InteractionStyler.edges.apply(this.paper.line(x2,y2,x,y));
-			InteractionStyler.edges.apply(this.paper.circle((p1.x+x)*0.5,(p1.y+y)*0.5,1).attr('fill','#CCC'));
+			this.paper.line(x1,y1,x,y).attr(edgeStyle);
+			this.paper.line(x2,y2,x,y).attr(edgeStyle);
+			this.paper.circle((p1.x+x)*0.5,(p1.y+y)*0.5,1).attr('fill','#CCC');
 		}
 		else{
-			InteractionStyler.angles.apply(this.paper.path('M'+p1.x+','+p1.y+' L'+x1+','+y1+' A'+r+','+r +
-				   ' 0 '+fa+','+fs+' '+x2+','+y2+'  z').attr('fill','#CCC'));
+			this.paper.path('M'+p1.x+','+p1.y+' L'+x1+','+y1+' A'+r+','+r +
+				   ' 0 '+fa+','+fs+' '+x2+','+y2+'  z').attr(angleStyle);
 		}
 		var _x,_y;//for the text
 		_x = p1.x + 2.4 * k * Math.cos(_t);
 		_y = p1.y - 2.4 * k * Math.sin(_t);
-		InteractionStyler.texts.apply(this.paper.text(_x,_y,""+_degree(a)+"°"));
+		this.paper.text(_x,_y,""+_degree(a)+"°").attr(textStyle);
 		
 	}
 	this.showAngle = function(angle){
