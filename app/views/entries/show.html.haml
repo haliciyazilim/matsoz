@@ -1,7 +1,8 @@
 
 - content_for(:head) do
   %meta{'name' => 'viewport', 'content' => 'width=device-width, initial-scale=1, user-scalable=no'}
-  = javascript_include_tag 'animations/raphael-min.js'
+  = javascript_include_tag 'raphael-min.js'
+  = javascript_include_tag 'main.js'
   = javascript_include_tag @entry.javascript_file
 
 #content
