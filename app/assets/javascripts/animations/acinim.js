@@ -1,6 +1,12 @@
 // JavaScript Document
 var Acinim = function(){};
 function animationInit(){}
+
+/*Styles*/
+var shapeStyle = {'stroke-width':'2px'};
+var expandedShapeStyle = {'fill':'#aaa'}; 
+/*Styles*/
+
 function interactionInit(container){
 	
 	Acinim();
@@ -79,12 +85,12 @@ function Cube (container,width,height){
 			k  = 0.37;
 			
 			//draw rect
-			paper.rect(x1,y1,w,h);
-			DrawLine(x1,y1,x1+k*w,y1-k*h,paper);
-			DrawLine(x1+k*w,y1-k*h,x1+w+k*w,y1-k*h,paper);
-			DrawLine(x1+w,y1,x1+w+k*w,y1-k*h,paper);
-			DrawLine(x1+w+k*w,y1-k*h,x1+w+k*w,y1+h-k*h,paper);
-			DrawLine(x1+w,y1+h,x1+w+k*w,y1+h-k*h,paper);
+			paper.rect(x1,y1,w,h).attr(shapeStyle);
+			DrawLine(x1,y1,x1+k*w,y1-k*h,paper).attr(shapeStyle);
+			DrawLine(x1+k*w,y1-k*h,x1+w+k*w,y1-k*h,paper).attr(shapeStyle);
+			DrawLine(x1+w,y1,x1+w+k*w,y1-k*h,paper).attr(shapeStyle);
+			DrawLine(x1+w+k*w,y1-k*h,x1+w+k*w,y1+h-k*h,paper).attr(shapeStyle);
+			DrawLine(x1+w,y1+h,x1+w+k*w,y1+h-k*h,paper).attr(shapeStyle);
 		};
 		
 		this.drawExpansion = function(){
@@ -97,12 +103,12 @@ function Cube (container,width,height){
 			a  = this.width * (1-2*this.scale);
 			y1 -= a;
 			
-			paper.rect(x1,y1+a,4*a,a);
-			DrawLine(x1+a,y1+a,x1+a,y1+2*a,paper);
-			DrawLine(x1+2*a,y1+a,x1+2*a,y1+2*a,paper);
-			DrawLine(x1+3*a,y1+a,x1+3*a,y1+2*a,paper);
-			paper.rect(x1+r1*a,y1,a,a);
-			paper.rect(x1+r2*a,y1+2*a,a,a);
+			paper.rect(x1,y1+a,4*a,a).attr(expandedShapeStyle);
+			DrawLine(x1+a,y1+a,x1+a,y1+2*a,paper).attr(expandedShapeStyle);
+			DrawLine(x1+2*a,y1+a,x1+2*a,y1+2*a,paper).attr(expandedShapeStyle);
+			DrawLine(x1+3*a,y1+a,x1+3*a,y1+2*a,paper).attr(expandedShapeStyle);
+			paper.rect(x1+r1*a,y1,a,a).attr(expandedShapeStyle);
+			paper.rect(x1+r2*a,y1+2*a,a,a).attr(expandedShapeStyle);
 		};
 		
 		return this;
@@ -128,12 +134,12 @@ function RectangularPrism(container,width,height){
 			_w = Math.floor(Math.sin(toRadians(this.a_w))*d);
 			_h = Math.floor(Math.sin(toRadians(this.a_h))*d);
 			
-			paper.rect(x1,y1,w,h);
-			DrawLine(x1,y1,x1+_w,y1-_h,paper);
-			DrawLine(x1+_w,y1-_h,x1+w+_w,y1-_h,paper);
-			DrawLine(x1+w,y1,x1+w+_w,y1-_h,paper);
-			DrawLine(x1+w+_w,y1-_h,x1+w+_w,y1+h-_h,paper);
-			DrawLine(x1+w,y1+h,x1+w+_w,y1+h-_h,paper);
+			paper.rect(x1,y1,w,h).attr(shapeStyle);
+			DrawLine(x1,y1,x1+_w,y1-_h,paper).attr(shapeStyle);
+			DrawLine(x1+_w,y1-_h,x1+w+_w,y1-_h,paper).attr(shapeStyle);
+			DrawLine(x1+w,y1,x1+w+_w,y1-_h,paper).attr(shapeStyle);
+			DrawLine(x1+w+_w,y1-_h,x1+w+_w,y1+h-_h,paper).attr(shapeStyle);
+			DrawLine(x1+w,y1+h,x1+w+_w,y1+h-_h,paper).attr(shapeStyle);
 			
 		};
 		this.drawExpansion = function(){
@@ -151,27 +157,26 @@ function RectangularPrism(container,width,height){
 			var r1 = Math.floor(Math.random()*2);
 			var r2 = Math.floor(Math.random()*2);
 			
-			paper.rect(x1,y1+h,W,w);
-			DrawLine(x1+h,y1+h,x1+h,y1+h+w,paper);
-			DrawLine(x1+h+d,y1+h,x1+h+d,y1+h+w,paper);
-			DrawLine(x1+2*h+d,y1+h,x1+2*h+d,y1+h+w,paper);
+			paper.rect(x1,y1+h,W,w).attr(expandedShapeStyle);;
+			DrawLine(x1+h,y1+h,x1+h,y1+h+w,paper).attr(expandedShapeStyle);
+			DrawLine(x1+h+d,y1+h,x1+h+d,y1+h+w,paper).attr(expandedShapeStyle);
+			DrawLine(x1+2*h+d,y1+h,x1+2*h+d,y1+h+w,paper).attr(expandedShapeStyle);
 			
-			this.DrawSides(x1,y1,w,h,d,paper,r1,true);
-			this.DrawSides(x1,y1,w,h,d,paper,r2,false);
+			this.DrawSides(x1,y1,w,h,d,paper,r1,true).attr(expandedShapeStyle);
+			this.DrawSides(x1,y1,w,h,d,paper,r2,false).attr(expandedShapeStyle);
 			
 			
 		};
 		this.DrawSides = function(x,y,w,h,d,paper,r,isTop){
 				switch(r){
 					case 0:
-						paper.rect(x+h,y+(isTop?h+w:0),d,h);
+						return paper.rect(x+h,y+(isTop?h+w:0),d,h);
 						break;
 					case 1:
-						paper.rect(x+2*h+d,y+(isTop?h+w:0),d,h);
+						return paper.rect(x+2*h+d,y+(isTop?h+w:0),d,h);
 						break;
 				}
 			}
-		return this;
 	};
 
 Acinim.ShowExpansion = function(shape){
