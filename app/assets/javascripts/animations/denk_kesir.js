@@ -121,7 +121,7 @@ function interactionInit(paper) {
 		firstFractionDenominator = smallFractionDenominator * factor;
 	}
 	
-	$('#interaction_container').append('<div id="objective">Aşağıdaki verilen kesre denk kesir oluşturmak\niçin boşluğa uygun sayıyı yazınız. Daha sonra\n“Kontrol” düğmesine basınız.</div>');
+	$('#interaction_container').append('<div class="objective">Aşağıdaki verilen kesre denk kesir oluşturmak\niçin boşluğa uygun sayıyı yazınız. Daha sonra\n“Kontrol” düğmesine basınız.</div>');
 	
 	paper.fraction(114, 250, firstFractionNominator, firstFractionDenominator, 24);
 	
