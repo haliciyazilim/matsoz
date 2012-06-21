@@ -9,4 +9,6 @@ animations/animation_base.js: animations/animation_base-abfc947a408ec8e2799843fc
 animations/denk_kesir.js: animations/denk_kesir-3a4eda856309292edcfadad4b8d8d5b1.js
 animations/ucgenlerin_siniflandirilmasi.js: animations/ucgenlerin_siniflandirilmasi-f6dc9fa90b0ee0f2c01e86dc4195ae0e.js
 application.js: application-30939899585cf2854059a1905b2feb91.js
+main.js: main-08105997f6f398d30d8b498646bf355b.js
+raphael-min.js: raphael-min-f063eba771fbb5264693ef2091617199.js
 application.css: application-04cb8b84a195f64d411132938c6e4592.css
