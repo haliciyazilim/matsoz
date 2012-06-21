@@ -1,15 +1,6 @@
 // JavaScript Document
 
-Raphael.fn.triangle = function(x1,y1,x2,y2,x3,y3){
-	var st = this.set();
-	st.push(this.line(x1,y1,x2,y2));
-	st.push(this.line(x2,y2,x3,y3));
-	st.push(this.line(x3,y3,x1,y1));
-	return st;
-}
-Raphael.fn.line = function(x1,y1,x2,y2){
-	return this.path('M'+x1+','+y1+'L'+x2+','+y2);
-}
+
 
 /*Styles*/
 var textStyle = {'font-size':'16px'};
@@ -17,62 +8,109 @@ var edgeStyle = {'stroke-width':'2px'};
 var angleStyle = {'fill':'#DDD'};
 /*Styles*/
 
+
+var Interaction =function(){};Interaction();
+Interaction.init = function(container){
+	/*var yonerge = document.createElement('div');
+	yonerge.innerHTML = 'Üçgenleri açılarına ve kenarlarına göre soldaki ve sağdaki gruplarda yer alan uygun kutucukları tıklayarak sınıflandırınız.';
+	yonerge.className = "objective";
+	container.appendChild(yonerge);*/
+	Main.setObjective('Üçgenleri açılarına ve kenarlarına göre soldaki ve sağdaki gruplarda yer alan uygun kutucukları tıklayarak sınıflandırınız.');
+	container.innerHTML += '<div><div id="L" style="width:25%" class="tg"></div>'+
+						  '<div id="C" style="width:50%" class="tg"></div>'+
+						  '<div id="R" style="width:25%" class="tg"></div></div>';
+						  
+	$('div.tg',container).css({
+			float:'left',
+			height:'200px',
+			boxSizing:'border-box',
+			fontSize:'12px'
+		});
+	$(container).append('<style>.'+container.className+' ul{list-style:none;padding:0;padding-top:50px;padding-left:5px;margin:0;}</style>');
+	$(container).append('<style>.'+container.className+' ul li{height:35px;line-height:35px;background-color:rgb(214,227,188);padding-left:5px;margin-top:5px;border:1px solid #000;font-weight:bold;cursor:pointer;}</style>');
+	$(container).append('<style>.'+container.className+' ul li.A{background-color:rgb(214,227,188);margin-left:5px;}</style>');
+	$(container).append('<style>.'+container.className+' ul li.E{background-color:rgb(228,184,183);}</style>');
+	$(container).append('<style>.'+container.className+' ul li.shadow{background-color:#DDD !important;}</style>');
+	$(container).append('<style>.'+container.className+' ul li.A_selected{background-color:rgb(118,146,59) !important;color:#FFF !important;}</style>');
+	$(container).append('<style>.'+container.className+' ul li.E_selected{background-color:rgb(147,54,52) !important;color:#FFF !important;}</style>');
+	
+	$('div#L',container).html('<ul>'+
+							  '<li class="A" id="A0" onclick="TestGenerator.checkAnswer(this)">Dar Açılı Üçgen</li>'+
+							  '<li class="A" id="A1" onclick="TestGenerator.checkAnswer(this)">Geniş Açılı Üçgen</li>'+
+							  '<li class="A" id="A2" onclick="TestGenerator.checkAnswer(this)">Dik Açılı Üçgen</li>'+
+							  '</ul>');
+	
+	$('div#R',container).html('<ul>'+
+							  '<li class="E" id="E0" onclick="TestGenerator.checkAnswer(this)">Çeşitkenar Üçgen</li>'+
+							  '<li class="E" id="E1" onclick="TestGenerator.checkAnswer(this)">İkizkenar Üçgen</li>'+
+							  '<li class="E" id="E2" onclick="TestGenerator.checkAnswer(this)">Eşkenar Üçgen</li>'+
+							  '</ul>');
+	
+	$(container).append('<div id="status"></div>');
+	$('#status').css({
+			textAlign:'center'
+		});
+	TestGenerator($('div#C',container).get(0));
+	
+}
+
+
 var TestGenerator = function(container){
 	//generate some random numbers to enter a valid state
 	TestGenerator.container = container;
-	TestGenerator.NextQuestion();
+	TestGenerator.nextQuestion();
 	
 }
-TestGenerator.Shadow = function(li){
+TestGenerator.shadow = function(li){
 	$(li).addClass('shadow');
 }
-TestGenerator.RemoveShadow = function(li){
+TestGenerator.removeShadow = function(li){
 	$(li).removeClass('shadow');
 
 }
-TestGenerator.RemoveAnswer = function(li){
+TestGenerator.removeAnswer = function(li){
 	if(li.className.indexOf("A") > -1){
 		$('.A').removeClass('A_selected');
-		$('.E').each(function(){TestGenerator.RemoveShadow(this)});
+		$('.E').each(function(){TestGenerator.removeShadow(this)});
 		TestGenerator.selectedA = null;
 	}
 	if(li.className.indexOf("E") > -1){
 		$('.E').removeClass('E_selected');
-		$('.A').each(function(){TestGenerator.RemoveShadow(this)});
+		$('.A').each(function(){TestGenerator.removeShadow(this)});
 		TestGenerator.selectedE = null;
 	}
 }
-TestGenerator.CheckAnswer = function(li){
+TestGenerator.checkAnswer = function(li){
 	if(TestGenerator.stopCheckAnswer==true)
 		return;
 	if(li.className.indexOf('A_selected') > -1 || li.className.indexOf('E_selected') > -1){
-		TestGenerator.RemoveAnswer(li);
+		TestGenerator.removeAnswer(li);
 		return;
 	}
 		
 	if(li.className.indexOf("A") == 0){
 		$('.A').removeClass('A_selected');
 		$(li).addClass('A_selected');
-		$('.E').each(function(){TestGenerator.RemoveShadow(this)});
+		$('.E').each(function(){TestGenerator.removeShadow(this)});
 		TestGenerator.selectedA = li.id;
 	}
 	if(li.className.indexOf("E") == 0){
 		$('.E').removeClass('E_selected');
 		$(li).addClass('E_selected');
-		$('.A').each(function(){TestGenerator.RemoveShadow(this)});
+		$('.A').each(function(){TestGenerator.removeShadow(this)});
 		TestGenerator.selectedE = li.id;
 	}
 	
 	switch(li.id){
 		case "A1":
-			TestGenerator.Shadow($('#E2').get(0));
+			TestGenerator.shadow($('#E2').get(0));
 			break;
 		case "A2":
-			TestGenerator.Shadow($('#E2').get(0));
+			TestGenerator.shadow($('#E2').get(0));
 			break;
 		case "E2":
-			TestGenerator.Shadow($('#A2').get(0));
-			TestGenerator.Shadow($('#A1').get(0));
+			TestGenerator.shadow($('#A2').get(0));
+			TestGenerator.shadow($('#A1').get(0));
 			break;
 	}
 	if(TestGenerator.selectedA != null && TestGenerator.selectedE != null){
@@ -83,46 +121,46 @@ TestGenerator.CheckAnswer = function(li){
 		if(answer == TestGenerator.state)
 			isCorrect = true;
 		if(isCorrect == true){
-			$('#status').html('<span style="color:red">Tebrikler!&emsp;</span><input type="button" value="Sonraki" onclick="TestGenerator.NextQuestion();"/>');
+			$('#status').html('<span style="color:red">Tebrikler!&emsp;</span><input type="button" value="Sonraki" onclick="TestGenerator.nextQuestion();"/>');
 		}
 		else if(TestGenerator.trial > 0){
 			TestGenerator.stopCheckAnswer=true;
 			$(".tg ul li").removeClass('A_selected');
 			$(".tg ul li").removeClass('E_selected');
-			$(".tg ul li").each(function(){TestGenerator.RemoveShadow(this);});
+			$(".tg ul li").each(function(){TestGenerator.removeShadow(this);});
 			$('#A'+TestGenerator.state.charAt(0)).addClass('A_selected');
 			$('#E'+TestGenerator.state.charAt(1)).addClass('E_selected');
 			var right_answer = 'Dogru cevap: ' + 
 									$('#A'+TestGenerator.state.charAt(0)).html() + ' ' + 
 									$('#E'+TestGenerator.state.charAt(1)).html() +
 									' olmalıydı.&emsp;';
-			$('#status').html(right_answer + '<input type="button" value="Sonraki" onclick="TestGenerator.NextQuestion();"/>');
+			$('#status').html(right_answer + '<input type="button" value="Sonraki" onclick="TestGenerator.nextQuestion();"/>');
 		}
 		else{
 			TestGenerator.stopCheckAnswer=true;
-			$('#status').html('Yanlış cevap&emsp;<input type="button" value="Tekrar Deneyiniz" onclick="TestGenerator.TryAgain();"/>');
+			$('#status').html('Yanlış cevap&emsp;<input type="button" value="Tekrar Deneyiniz" onclick="TestGenerator.tryAgain();"/>');
 		}
 	
 	}
 	
 }
 
-TestGenerator.TryAgain = function(){
+TestGenerator.tryAgain = function(){
 	$(".tg ul li").removeClass('A_selected');
 	$(".tg ul li").removeClass('E_selected');
-	$(".tg ul li").each(function(){TestGenerator.RemoveShadow(this);});
+	$(".tg ul li").each(function(){TestGenerator.removeShadow(this);});
 	TestGenerator.trial ++;
 	TestGenerator.selectedA = null;
 	TestGenerator.selectedE = null;
 	$('#status').html('');
 	TestGenerator.stopCheckAnswer = false;
 }
-TestGenerator.NextQuestion = function(){
+TestGenerator.nextQuestion = function(){
 	//prepare question
 	$('#status').html('');
 	$(".tg ul li").removeClass('A_selected');
 	$(".tg ul li").removeClass('E_selected');
-	$(".tg ul li").each(function(){TestGenerator.RemoveShadow(this);});
+	$(".tg ul li").each(function(){TestGenerator.removeShadow(this);});
 	var a,e;
 	var container = TestGenerator.container;
 	$(container).html('');
@@ -365,7 +403,7 @@ function Triangle(i,j,k,container){
 	this.drawAngle = function(p1,p2,p3,a){
 		function findAPointOn(p1,p2,k){
 			var x,y,a;
-			a = FindAngle(p1.x,p1.y,p2.x,p2.y);
+			a = Util.findAngle(p1.x,p1.y,p2.x,p2.y);
 			x = p1.x + Math.cos(a)*k ;
 			y = p1.y - Math.sin(a)*k ;
 			return {x:x,y:y}
@@ -382,8 +420,8 @@ function Triangle(i,j,k,container){
 		
 		var fa = a > Math.PI ?1 : 0;
 		var fs = a > 0 ? 0: 1;
-		var _a = FindAngle(p1.x,p1.y,p2.x,p2.y);
-		var _b = FindAngle(p1.x,p1.y,p3.x,p3.y);
+		var _a = Util.findAngle(p1.x,p1.y,p2.x,p2.y);
+		var _b = Util.findAngle(p1.x,p1.y,p3.x,p3.y);
 		var _t = Math.abs(_a-_b)*0.5 + (Math.abs(_a) > Math.abs(_b) ? _b : _a);
 		
 		if(_degree(a)==90){
@@ -396,7 +434,7 @@ function Triangle(i,j,k,container){
 		}
 		else{
 			
-			r = FindDistance(p1.x, p1.y, x1, y1);
+			r = Util.findDistance(p1.x, p1.y, x1, y1);
 			this.paper.path('M'+p1.x+','+p1.y+' L'+x1+','+y1+' A'+r+','+r +
 				   ' 0 '+fa+','+fs+' '+x2+','+y2+'  z').attr(angleStyle);
 		}
@@ -429,15 +467,15 @@ function Triangle(i,j,k,container){
 		var k = 10;
 		switch(edge){
 			case 'a':
-				var a = FindAngle(this.p1.x,this.p1.y,this.p2.x,this.p2.y);
+				var a = Util.findAngle(this.p1.x,this.p1.y,this.p2.x,this.p2.y);
 				this.drawEdgeText({x:(this.p1.x+this.p2.x)*0.5,y:(this.p1.y+this.p2.y)*0.5},a,k,this.i);
 				break;
 			case 'b':
-				var a = FindAngle(this.p2.x,this.p2.y,this.p3.x,this.p3.y);
+				var a = Util.findAngle(this.p2.x,this.p2.y,this.p3.x,this.p3.y);
 				this.drawEdgeText({x:(this.p2.x+this.p3.x)*0.5,y:(this.p2.y+this.p3.y)*0.5},a,k,this.j);
 				break;
 			case 'c':
-				var a = FindAngle(this.p3.x,this.p3.y,this.p1.x,this.p1.y);
+				var a = Util.findAngle(this.p3.x,this.p3.y,this.p1.x,this.p1.y);
 				this.drawEdgeText({x:(this.p3.x+this.p1.x)*0.5,y:(this.p3.y+this.p1.y)*0.5},a,k,this.k);
 				break;
 			default:
@@ -446,86 +484,18 @@ function Triangle(i,j,k,container){
 	}
 	this.paper = paper;
 }
-function animationInit(){}
-function interactionInit(container){
-	var yonerge = document.createElement('div');
-	yonerge.innerHTML = 'Üçgenleri açılarına ve kenarlarına göre soldaki ve sağdaki gruplarda yer alan uygun kutucukları tıklayarak sınıflandırınız.';
-	yonerge.className = "objective";
-	container.appendChild(yonerge);
-	container.innerHTML += '<div><div id="L" style="width:25%" class="tg"></div>'+
-						  '<div id="C" style="width:50%" class="tg"></div>'+
-						  '<div id="R" style="width:25%" class="tg"></div></div>';
-						  
-	$('div.tg',container).css({
-			float:'left',
-			height:'200px',
-			boxSizing:'border-box',
-			fontSize:'12px'
-		});
-	$(container).append('<style>#'+container.id+' ul{list-style:none;padding:0;padding-top:50px;padding-left:5px;margin:0;}</style>');
-	$(container).append('<style>#'+container.id+' ul li{height:35px;line-height:35px;background-color:rgb(214,227,188);padding-left:5px;margin-top:5px;border:1px solid #000;font-weight:bold;cursor:pointer;}</style>');
-	$(container).append('<style>#'+container.id+' ul li.A{background-color:rgb(214,227,188);margin-left:5px;}</style>');
-	$(container).append('<style>#'+container.id+' ul li.E{background-color:rgb(228,184,183);}</style>');
-	$(container).append('<style>#'+container.id+' ul li.shadow{background-color:#DDD !important;}</style>');
-	$(container).append('<style>#'+container.id+' ul li.A_selected{background-color:rgb(118,146,59) !important;color:#FFF !important;}</style>');
-	$(container).append('<style>#'+container.id+' ul li.E_selected{background-color:rgb(147,54,52) !important;color:#FFF !important;}</style>');
-	TestGenerator($('div#C',container).get(0));
-	$('div#L',container).html('<ul>'+
-							  '<li class="A" id="A0" onclick="TestGenerator.CheckAnswer(this)">Dar Açılı Üçgen</li>'+
-							  '<li class="A" id="A1" onclick="TestGenerator.CheckAnswer(this)">Geniş Açılı Üçgen</li>'+
-							  '<li class="A" id="A2" onclick="TestGenerator.CheckAnswer(this)">Dik Açılı Üçgen</li>'+
-							  '</ul>');
-	
-	$('div#R',container).html('<ul>'+
-							  '<li class="E" id="E0" onclick="TestGenerator.CheckAnswer(this)">Çeşitkenar Üçgen</li>'+
-							  '<li class="E" id="E1" onclick="TestGenerator.CheckAnswer(this)">İkizkenar Üçgen</li>'+
-							  '<li class="E" id="E2" onclick="TestGenerator.CheckAnswer(this)">Eşkenar Üçgen</li>'+
-							  '</ul>');
-	
-	$(container).append('<div id="status"></div>');
-	$('#status').css({
-			textAlign:'center'
-		});
-	
-	
-}
-$(document).ready(function(){interactionInit(document.getElementById('interaction_container'))});
 
-function FindDistance(x1,y1,x2,y2){
-	var _i = x1-x2;
-	var _j = y1-y2;
-	return Math.sqrt(_i*_i + _j*_j);
-}
 
-function FindAngle(x1, y1, x2, y2) {
-	if (y1 == y2) {
-		if (x1 > x2) {
-			return Math.PI;
-		} else {
-			return 0;
-		}
-	}
-	if (x1 == x2) {
-		if (y1 > y2) {
-			return Math.PI/2;
-		} else {
-			return 3*Math.PI/2;
-		}
-	}
-	angle = -Math.atan((y2 - y1) / (x2 - x1));
-	if (x2 < x1) {
-		angle += Math.PI;
-	} else if (y2 > y1) {
-		angle += 2 * Math.PI;
-	}
-	return angle;
-}
+
+
+
+
 
 function _degree(a){
-	var d = a * (180/Math.PI);
+	var d = Util.radianToDegree(a);
 	d = Math.floor(d*10);
 	if(d%10 == 5)
-		return Math.floor(a * (180/Math.PI)) + 0.5;
+		return Math.floor(Util.radianToDegree(a)) + 0.5;
 	else
-		return Math.round(a * (180/Math.PI));
+		return Math.round(Util.radianToDegree(a));
 }
