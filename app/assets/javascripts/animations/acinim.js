@@ -118,8 +118,9 @@ var Cube = function(container,width,height){
 			Cube.paper.line(x1+a,y1+a,x1+a,y1+2*a).attr(expandedShapeStyle);
 			Cube.paper.line(x1+2*a,y1+a,x1+2*a,y1+2*a).attr(expandedShapeStyle);
 			Cube.paper.line(x1+3*a,y1+a,x1+3*a,y1+2*a).attr(expandedShapeStyle);
-			Cube.paper.rect(x1+r1*a,y1,a,a).attr(expandedShapeStyle).attr('fill','#AAA');
-			Cube.paper.rect(x1+r2*a,y1+2*a,a,a).attr(expandedShapeStyle).attr('fill','#AAA');
+			Cube.paper.rect(x1+r1*a,y1,a,a).attr(expandedShapeStyle);
+			Cube.paper.rect(x1+r2*a,y1+2*a,a,a).attr(expandedShapeStyle);
+			Cube.paper.rect(x1+a,y1+a,a,a).attr(expandedShapeStyle).attr({'fill':'#AAA','stroke-width':'0px'});
 			Cube.set = Cube.paper.setFinish();
 			showPaperSet(Cube.set,0.7e3);
 			
@@ -151,13 +152,15 @@ var RectangularPrism = function(container,width,height){
 			_h = Math.floor(Math.sin(Util.degreeToRadians(RectangularPrism.a_h))*d);
 			
 			RectangularPrism.paper.setStart();
-			RectangularPrism.paper.rect(x1,y1,w,h).attr(shapeStyle);
+			RectangularPrism.paper.rect(x1,y1,w,h).attr(shapeStyle).attr('fill','#AAA');
 			RectangularPrism.paper.line(x1,y1,x1+_w,y1-_h).attr(shapeStyle);
 			RectangularPrism.paper.line(x1+_w,y1-_h,x1+w+_w,y1-_h).attr(shapeStyle);
 			RectangularPrism.paper.line(x1+w,y1,x1+w+_w,y1-_h).attr(shapeStyle);
 			RectangularPrism.paper.line(x1+w+_w,y1-_h,x1+w+_w,y1+h-_h).attr(shapeStyle);
 			RectangularPrism.paper.line(x1+w,y1+h,x1+w+_w,y1+h-_h).attr(shapeStyle);
+			
 			RectangularPrism.set = RectangularPrism.paper.setFinish();
+			
 			
 			
 		};
@@ -183,7 +186,9 @@ var RectangularPrism = function(container,width,height){
 			RectangularPrism.paper.line(x1+2*h+d,y1+h,x1+2*h+d,y1+h+w).attr(expandedShapeStyle);
 			RectangularPrism.drawSides(x1,y1,w,h,d,RectangularPrism.paper,r1,true).attr(expandedShapeStyle);
 			RectangularPrism.drawSides(x1,y1,w,h,d,RectangularPrism.paper,r2,false).attr(expandedShapeStyle);
+			RectangularPrism.paper.rect(x1,y1+h,h,d+3).attr(expandedShapeStyle).attr({'fill':'#AAA','stroke-width':'0px'});
 			RectangularPrism.set = RectangularPrism.paper.setFinish();
+			
 			showPaperSet(RectangularPrism.set,0.7e3);
 			
 		};
