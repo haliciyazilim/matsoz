@@ -9,6 +9,7 @@ gem 'haml'
 
 # For file storage
 gem 'paperclip'
+gem 'aws-sdk'
 gem 'aws-s3'
 
 group :development, :test do
