@@ -1,6 +1,6 @@
 %h1= "Update #{@entry.word}"
 
-= form_for @entry do
+= form_for @entry do |form|
   = label :entry, :word, 'Word'
   %br
   
@@ -11,7 +11,7 @@
   = text_area :entry, 'meaning'
   %br
   Instruction File:
-  = file_field :instructions, 'instruction file'
+  = form.file_field :instructions
   %br
   
   = submit_tag 'Update Entry'
