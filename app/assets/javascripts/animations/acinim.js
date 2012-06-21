@@ -4,7 +4,7 @@ function animationInit(){}
 
 /*Styles*/
 var shapeStyle = {'stroke-width':'2px'};
-var expandedShapeStyle = {'fill':'#aaa'}; 
+var expandedShapeStyle = {'fill':'#fff'}; 
 /*Styles*/
 var Interaction =function(){};Interaction();
 Interaction.init = function(container){
@@ -91,7 +91,7 @@ var Cube = function(container,width,height){
 			
 			//draw rect
 			Cube.paper.setStart();
-			Cube.paper.rect(x1,y1,w,h).attr(shapeStyle);
+			Cube.paper.rect(x1,y1,w,h).attr(shapeStyle).attr({'fill':'#AAA'});
 			Cube.paper.line(x1,y1,x1+k*w,y1-k*h).attr(shapeStyle);
 			Cube.paper.line(x1+k*w,y1-k*h,x1+w+k*w,y1-k*h).attr(shapeStyle);
 			Cube.paper.line(x1+w,y1,x1+w+k*w,y1-k*h).attr(shapeStyle);
@@ -118,8 +118,8 @@ var Cube = function(container,width,height){
 			Cube.paper.line(x1+a,y1+a,x1+a,y1+2*a).attr(expandedShapeStyle);
 			Cube.paper.line(x1+2*a,y1+a,x1+2*a,y1+2*a).attr(expandedShapeStyle);
 			Cube.paper.line(x1+3*a,y1+a,x1+3*a,y1+2*a).attr(expandedShapeStyle);
-			Cube.paper.rect(x1+r1*a,y1,a,a).attr(expandedShapeStyle);
-			Cube.paper.rect(x1+r2*a,y1+2*a,a,a).attr(expandedShapeStyle);
+			Cube.paper.rect(x1+r1*a,y1,a,a).attr(expandedShapeStyle).attr('fill','#AAA');
+			Cube.paper.rect(x1+r2*a,y1+2*a,a,a).attr(expandedShapeStyle).attr('fill','#AAA');
 			Cube.set = Cube.paper.setFinish();
 			showPaperSet(Cube.set,0.7e3);
 			
@@ -181,8 +181,8 @@ var RectangularPrism = function(container,width,height){
 			RectangularPrism.paper.line(x1+h,y1+h,x1+h,y1+h+w).attr(expandedShapeStyle);
 			RectangularPrism.paper.line(x1+h+d,y1+h,x1+h+d,y1+h+w).attr(expandedShapeStyle);
 			RectangularPrism.paper.line(x1+2*h+d,y1+h,x1+2*h+d,y1+h+w).attr(expandedShapeStyle);
-			RectangularPrism.DrawSides(x1,y1,w,h,d,RectangularPrism.paper,r1,true).attr(expandedShapeStyle);
-			RectangularPrism.DrawSides(x1,y1,w,h,d,RectangularPrism.paper,r2,false).attr(expandedShapeStyle);
+			RectangularPrism.drawSides(x1,y1,w,h,d,RectangularPrism.paper,r1,true).attr(expandedShapeStyle);
+			RectangularPrism.drawSides(x1,y1,w,h,d,RectangularPrism.paper,r2,false).attr(expandedShapeStyle);
 			RectangularPrism.set = RectangularPrism.paper.setFinish();
 			showPaperSet(RectangularPrism.set,0.7e3);
 			
