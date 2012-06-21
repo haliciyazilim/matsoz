@@ -8,6 +8,14 @@ class String
 end
 
 class Entry < ActiveRecord::Base
+  has_attached_file :instructions,
+                    :storage => :s3,
+                    :bucket => ENV['S3_BUCKET_NAME'],
+                    :s3_credentials => {
+                      :access_key_id => ENV['S3_KEY'],
+                      :secret_access_key => ENV['S3_SECRET']
+                    }
+  
   attr_accessible :word, :meaning
 
   validates :word, :presence => true

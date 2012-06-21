@@ -7,6 +7,10 @@ gem 'rails', '3.2.1'
 
 gem 'haml'
 
+# For file storage
+gem 'paperclip'
+gem 'aws-s3'
+
 group :development, :test do
   gem 'sqlite3'
   gem 'cucumber-rails'

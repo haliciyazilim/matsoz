@@ -30,7 +30,8 @@
     #animation_container  
     #interaction_container
 
-
+= link_to "Instruction File", @entry.instructions.url
+%br
 = link_to 'Create new entry',  new_entry_path
 |
 = link_to "Edit #{@entry.word}", edit_entry_path(@entry)
