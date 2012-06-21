@@ -30,16 +30,33 @@ TestGenerator.RemoveShadow = function(li){
 	$(li).removeClass('shadow');
 
 }
+TestGenerator.RemoveAnswer = function(li){
+	if(li.className.indexOf("A") > -1){
+		$('.A').removeClass('A_selected');
+		$('.E').each(function(){TestGenerator.RemoveShadow(this)});
+		TestGenerator.selectedA = null;
+	}
+	if(li.className.indexOf("E") > -1){
+		$('.E').removeClass('E_selected');
+		$('.A').each(function(){TestGenerator.RemoveShadow(this)});
+		TestGenerator.selectedE = null;
+	}
+}
 TestGenerator.CheckAnswer = function(li){
 	if(TestGenerator.stopCheckAnswer==true)
 		return;
-	if(li.className.indexOf("A") > -1){
+	if(li.className.indexOf('A_selected') > -1 || li.className.indexOf('E_selected') > -1){
+		TestGenerator.RemoveAnswer(li);
+		return;
+	}
+		
+	if(li.className.indexOf("A") == 0){
 		$('.A').removeClass('A_selected');
 		$(li).addClass('A_selected');
 		$('.E').each(function(){TestGenerator.RemoveShadow(this)});
 		TestGenerator.selectedA = li.id;
 	}
-	if(li.className.indexOf("E") > -1){
+	if(li.className.indexOf("E") == 0){
 		$('.E').removeClass('E_selected');
 		$(li).addClass('E_selected');
 		$('.A').each(function(){TestGenerator.RemoveShadow(this)});
@@ -445,9 +462,9 @@ function interactionInit(container){
 			boxSizing:'border-box',
 			fontSize:'12px'
 		});
-	$(container).append('<style>#'+container.id+' ul{list-style:none;padding:0;padding-top:50px;margin:0;}</style>');
+	$(container).append('<style>#'+container.id+' ul{list-style:none;padding:0;padding-top:50px;padding-left:5px;margin:0;}</style>');
 	$(container).append('<style>#'+container.id+' ul li{height:35px;line-height:35px;background-color:rgb(214,227,188);padding-left:5px;margin-top:5px;border:1px solid #000;font-weight:bold;cursor:pointer;}</style>');
-	$(container).append('<style>#'+container.id+' ul li.A{background-color:rgb(214,227,188);}</style>');
+	$(container).append('<style>#'+container.id+' ul li.A{background-color:rgb(214,227,188);margin-left:5px;}</style>');
 	$(container).append('<style>#'+container.id+' ul li.E{background-color:rgb(228,184,183);}</style>');
 	$(container).append('<style>#'+container.id+' ul li.shadow{background-color:#DDD !important;}</style>');
 	$(container).append('<style>#'+container.id+' ul li.A_selected{background-color:rgb(118,146,59) !important;color:#FFF !important;}</style>');
