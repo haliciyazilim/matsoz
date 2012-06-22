@@ -52,10 +52,11 @@ Interaction.highlight = function(x,y){
 }
 
 Interaction.isInBowl =function(x,y,bowl){
-	return bowl.attr('x')+Interaction.container.left < x && 
-		bowl.attr('x')+Interaction.container.left+bowl.attr('width') > x &&
-		bowl.attr('y')+Interaction.container.top < y &&
-		bowl.attr('y')+Interaction.container.top+bowl.attr('height') > y;
+	var offset = $(Interaction.container).offset();
+	return bowl.attr('x')+offset.left < x && 
+		bowl.attr('x')+offset.left+bowl.attr('width') > x &&
+		bowl.attr('y')+offset.top < y &&
+		bowl.attr('y')+offset.top+bowl.attr('height') > y;
 }
 
 Interaction.nextQuestion = function(){
