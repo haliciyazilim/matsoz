@@ -16,15 +16,105 @@ Main.init = function(){
 Main.raphaelInit = function(){
 	
 	Raphael.fn.triangle = function(x1,y1,x2,y2,x3,y3){
-		var st = this.set();
-		st.push(this.line(x1,y1,x2,y2));
-		st.push(this.line(x2,y2,x3,y3));
-		st.push(this.line(x3,y3,x1,y1));
-		return st;
+		var pathstring ='';
+		pathstring += 'M'+x1+','+y1+'L'+x2+','+y2;
+		pathstring += 'L'+x3+','+y3+' z';
+		var triangle = this.path(pathstring);
+		triangle.attr({x:x1,y:y3});
+		return triangle;
 	};
 	
 	Raphael.fn.line = function(x1,y1,x2,y2){
-		return this.path('M'+x1+','+y1+'L'+x2+','+y2);
+		var line = this.path('M'+x1+','+y1+'L'+x2+','+y2);
+		line.attr('x',x1);
+		line.attr('y',y1);
+		line.data('isPath',true);
+		return line;
+	};
+	
+	Raphael.fn.bowl = function(x,y,w,h){
+		var bowl = this.path('M'+x+','+y+'L'+(x+w)+','+y+'L'+(x+w*0.8)+','+(y+h)+'L'+(x+0.2*w)+','+(y+h)+' z');
+		bowl.attr('x',x);
+		bowl.attr('y',y);
+		bowl.attr('width',w);
+		bowl.attr('height',h);
+		return bowl;
+	};
+	
+	Raphael.fn.rhomboid = function(x,y,_w,w,h){
+		var pathstring = '';
+		pathstring += 'M'+(x+_w)+','+y+'L'+(x+_w+w)+','+y;
+		pathstring += 'L'+(x+w)+','+(y+h);
+		pathstring += 'L'+x+','+(y+h)+' z';
+		var rhomboid = this.path(pathstring);
+		rhomboid.attr({'x':x,'y':y});
+		return rhomboid;
+	};
+	
+	Raphael.fn.cube = function(x,y,a){
+		var _x=x+a*0.4,_y=y+a*0.2;	
+		var cube = this.path('M'+x+','+_y+'L'+x+','+(_y+a)+'L'+(x+a)+','+(_y+a)+'L'+(x+a)+','+_y+'L'+x+','+_y+'L'+_x+','+y+'L'+(_x+a)+','+y+'L'+(x+a)+','+_y+'L'+(x+a)+','+(_y+a)+'L'+(_x+a)+','+(y+a)+'L'+
+		(_x+a)+','+y);
+		cube.data('isPath',true);
+		cube.attr('x',x);
+		cube.attr('y',y);
+		return cube;
+	};
+	
+	Raphael.fn.sphere = function(x,y,r,fill){
+		var sphere = this.ellipse(x, y, r, r).attr({
+			fill: "r(.3,.25) white-" + fill,
+			stroke: "none"
+		});
+		sphere.data('isEllipse',true);
+		sphere.attr('x',x);
+		sphere.attr('y',y);
+		return sphere;
+	};
+	Raphael.fn.sline = function(x,y,l){
+		var pathstring='';
+		
+		pathstring += 'M'+x+','+y+'L'+(x+10)+','+(y-10);
+		pathstring += 'M'+x+','+y+'L'+(x+10)+','+(y+10);
+		pathstring += 'M'+x+','+y+'L'+(x+l)+','+y;
+		pathstring += 'M'+(x+l)+','+y+'L'+(x+l-10)+','+(y-10);
+		pathstring += 'M'+(x+l)+','+y+'L'+(x+l-10)+','+(y+10);
+		var sline = this.path(pathstring);
+		sline.attr('x',x);
+		sline.attr('y',y);
+		return sline;
+	}
+	Raphael.fn.cylinder = function(x,y,w,h){
+		var x1,y1,x2,y2;
+		var pathstring='';
+		x1 = x+w*0.2;
+		x2 = x+w*0.8;
+		y1 = y-h*0.2;
+		y2 = y-h*0.2;
+		pathstring += 'M'+x+','+y+'C'+x1+','+y1+','+x2+','+y2+','+(x+w)+','+y;
+		x1 = x+w*0.2;
+		x2 = x+w*0.8;
+		y1 = y+h*0.2;
+		y2 = y+h*0.2;
+		pathstring += 'C'+x2+','+y2+','+x1+','+y1+','+x+','+y;
+		pathstring += 'L'+x+','+(y+h);
+		x1 = x+w*0.2;
+		x2 = x+w*0.8;
+		y1 = y+h+h*0.2;
+		y2 = y+h+h*0.2;
+		pathstring += 'C'+x1+','+y1+','+x2+','+y2+','+(x+w)+','+(y+h);
+		pathstring += 'L'+(x+w)+','+y;
+		x1 = x+w*0.2;
+		x2 = x+w*0.8;
+		y1 = y+h*0.2;
+		y2 = y+h*0.2;
+		pathstring += 'C'+x2+','+y2+','+x1+','+y1+','+x+','+y;
+		var cylinder = this.path(pathstring);
+		cylinder.data('isPath',true);
+		cylinder.attr('x',x);
+		cylinder.attr('y',y);
+		cylinder.attr('fill','#fff');
+		return cylinder;
 	};
 	
 	Raphael.fn.fraction = function(top_x, top_y, nom, denom,scale) {
@@ -57,7 +147,7 @@ Main.raphaelInit = function(){
 			);
 		}
 		return st;
-	}
+	};
 	
 	Raphael.fn.segmentedCircle = function (cx, cy, r, numberOfSegments) {
 		var st = this.set();
@@ -70,7 +160,7 @@ Main.raphaelInit = function(){
 			);
 		}
 		return st;
-	}
+	};
 	
 	Raphael.fn.segmentedRectangle = function (x, y, width, height, horizontalSegments, verticalSegments) {
 		var st = this.set();
@@ -83,7 +173,8 @@ Main.raphaelInit = function(){
 			}
 		}
 		return st;
-	}
+	};
+	
 }
 Main.setObjective = function(str){
 	Main.objective.innerHTML = str;
