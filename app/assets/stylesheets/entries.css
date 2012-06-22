@@ -148,3 +148,12 @@ p.exampleHeader {
 	background-color:red;
 	color:white;
 }
+.status{
+
+}
+.status_true{
+color:green;
+}
+.status_false{
+color:red;
+}
