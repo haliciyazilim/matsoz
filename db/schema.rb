@@ -11,11 +11,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120621130732) do
+ActiveRecord::Schema.define(:version => 20120622115130) do
 
   create_table "entries", :force => true do |t|
     t.string   "word"
-    t.string   "meaning"
+    t.text     "meaning"
     t.string   "instructions_file_name"
     t.string   "instructions_content_type"
     t.integer  "instructions_file_size"
