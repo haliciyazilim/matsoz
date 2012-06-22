@@ -115,7 +115,8 @@ p.exampleHeader {
 	line-height:25px;
 }*/
 .objective {
-	margin-top: 10px;
+	position: relative;
+	top: 10px;
 	margin-left: 10px;
 	width: 477px;
 	text-align: center;

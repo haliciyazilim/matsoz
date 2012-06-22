@@ -1,20 +1,31 @@
 // JavaScript Document
 
 Raphael.fn.triangle = function(x1,y1,x2,y2,x3,y3){
-	var st = this.set();
-	st.push(this.line(x1,y1,x2,y2));
-	st.push(this.line(x2,y2,x3,y3));
-	st.push(this.line(x3,y3,x1,y1));
-	return st;
+	return this.path('M'+x1+','+y1+'L'+x2+','+y2+'L'+x3+','+y3+'z');
 }
+
 Raphael.fn.line = function(x1,y1,x2,y2){
 	return this.path('M'+x1+','+y1+'L'+x2+','+y2);
 }
 
 /*Styles*/
-var textStyle = {'font-size':'16px'};
-var edgeStyle = {'stroke-width':'2px'};
-var angleStyle = {'fill':'#DDD'};
+var triangleStyle = {
+	'fill': '#f55',
+	'stroke-width':'2px'
+};
+	
+var textStyle = {
+	'font-size':'16px',
+	'text-color': '#55f'
+};
+
+var edgeStyle = {
+	'stroke-width':'2px'
+};
+
+var angleStyle = {
+	'stroke-width': '2px'
+};
 /*Styles*/
 
 var TestGenerator = function(container){
@@ -337,7 +348,7 @@ function Triangle(i,j,k,container){
 					this.p2.x,
 					this.p2.y,
 					this.p3.x,
-					this.p3.y ).attr(edgeStyle);
+					this.p3.y ).attr(triangleStyle);
 	this.drawEdgeText = function(p,a,k,L){
 		var _x,_y;
 		_x = p.x + k * Math.sin(a);
@@ -355,7 +366,7 @@ function Triangle(i,j,k,container){
 		}
 		
 		var x1,y1,x2,y2,r,k;
-		k = 15;
+		k = 30;
 		
 		var _p1,_p2;
 		_p1 = findAPointOn(p1,p2,k);
@@ -384,8 +395,8 @@ function Triangle(i,j,k,container){
 				   ' 0 '+fa+','+fs+' '+x2+','+y2+'  z').attr(angleStyle);
 		}
 		var _x,_y;//for the text
-		_x = p1.x + 2.4 * k * Math.cos(_t);
-		_y = p1.y - 2.4 * k * Math.sin(_t);
+		_x = p1.x + 1.6 * k * Math.cos(_t);
+		_y = p1.y - 1.6 * k * Math.sin(_t);
 		this.paper.text(_x,_y,""+_degree(a)+"°").attr(textStyle);
 		
 	}
@@ -435,9 +446,9 @@ function interactionInit(container){
 	yonerge.innerHTML = 'Üçgenleri açılarına ve kenarlarına göre soldaki ve sağdaki gruplarda yer alan uygun kutucukları tıklayarak sınıflandırınız.';
 	yonerge.className = "objective";
 	container.appendChild(yonerge);
-	container.innerHTML += '<div><div id="L" style="width:25%" class="tg"></div>'+
+	container.innerHTML += '<div><div id="L" style="width:25%;padding-left:10px" class="tg"></div>'+
 						  '<div id="C" style="width:50%" class="tg"></div>'+
-						  '<div id="R" style="width:25%" class="tg"></div></div>';
+						  '<div id="R" style="width:25%;padding-right:10px" class="tg"></div></div>';
 						  
 	$('div.tg',container).css({
 			float:'left',
