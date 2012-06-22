@@ -66,6 +66,7 @@ TestGenerator.nextQuestion = function(){
 	Interaction.setStatus('');
 	Interaction.button.value = 'Kontrol';
 	Interaction.input.value = '';
+	Interaction.input.style.color = '';
 	Interaction.button.onclick = TestGenerator.checkAnswer;
 	TestGenerator.shape = Math.floor(Math.random()*4);
 	
@@ -147,6 +148,8 @@ TestGenerator.checkAnswer = function(){
 	}
 
 	if(isWrong && TestGenerator.trial > 0){
+		Interaction.input.style.color = 'red';
+		Interaction.input.value = TestGenerator.values.area;
 		Interaction.setStatus('Yanlış. Doğru cevap: '+TestGenerator.values.area+' '+TestGenerator.getMeasure());
 		Interaction.button.onclick = TestGenerator.nextQuestion;
 		Interaction.button.value = 'Sonraki';
