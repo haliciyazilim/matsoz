@@ -44,8 +44,7 @@ class EntriesController < ApplicationController
         else
           errorFound = true
         end
-        
-      elsif
+      else
         errorFound = true
       end
     end
