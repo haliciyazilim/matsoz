@@ -24,7 +24,7 @@ class EntriesController < ApplicationController
     while !(delimiters.empty?)
       delimiter = delimiters.shift
   
-      if delimiter = "**"
+      if delimiter == "**"
         chunk = chunks.shift
         delimiter = delimiters.shift
         
@@ -36,7 +36,7 @@ class EntriesController < ApplicationController
           @chunks.push({chunk => Entry.find_by_word(destination)})
           
           delimiter = delimiters.shift
-          if delimiter = "**"
+          if delimiter == "**"
             @chunks.push({chunks.shift => nil})
           else
             errorFound = true
@@ -44,8 +44,7 @@ class EntriesController < ApplicationController
         else
           errorFound = true
         end
-        
-      elsif
+      else
         errorFound = true
       end
     end

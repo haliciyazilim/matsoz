@@ -1,11 +1,24 @@
 // JavaScript Document
 
 
-
 /*Styles*/
-var textStyle = {'font-size':'16px'};
-var edgeStyle = {'stroke-width':'2px'};
-var angleStyle = {'fill':'#DDD'};
+var triangleStyle = {
+	'fill': '#f55',
+	'stroke-width':'2px'
+};
+	
+var textStyle = {
+	'font-size':'16px',
+	'text-color': '#55f'
+};
+
+var edgeStyle = {
+	'stroke-width':'2px'
+};
+
+var angleStyle = {
+	'stroke-width': '2px'
+};
 /*Styles*/
 
 
@@ -16,9 +29,9 @@ Interaction.init = function(container){
 	yonerge.className = "objective";
 	container.appendChild(yonerge);*/
 	Main.setObjective('Üçgenleri açılarına ve kenarlarına göre soldaki ve sağdaki gruplarda yer alan uygun kutucukları tıklayarak sınıflandırınız.');
-	container.innerHTML += '<div><div id="L" style="width:25%" class="tg"></div>'+
+	container.innerHTML += '<div><div id="L" style="width:25%;padding-left:10px" class="tg"></div>'+
 						  '<div id="C" style="width:50%" class="tg"></div>'+
-						  '<div id="R" style="width:25%" class="tg"></div></div>';
+						  '<div id="R" style="width:25%;padding-right:10px" class="tg"></div></div>';
 						  
 	$('div.tg',container).css({
 			float:'left',
@@ -26,24 +39,24 @@ Interaction.init = function(container){
 			boxSizing:'border-box',
 			fontSize:'12px'
 		});
-	$(container).append('<style>.'+container.className+' ul{list-style:none;padding:0;padding-top:50px;padding-left:5px;margin:0;}</style>');
-	$(container).append('<style>.'+container.className+' ul li{height:35px;line-height:35px;background-color:rgb(214,227,188);padding-left:5px;margin-top:5px;border:1px solid #000;font-weight:bold;cursor:pointer;}</style>');
-	$(container).append('<style>.'+container.className+' ul li.A{background-color:rgb(214,227,188);margin-left:5px;}</style>');
-	$(container).append('<style>.'+container.className+' ul li.E{background-color:rgb(228,184,183);}</style>');
-	$(container).append('<style>.'+container.className+' ul li.shadow{background-color:#DDD !important;}</style>');
-	$(container).append('<style>.'+container.className+' ul li.A_selected{background-color:rgb(118,146,59) !important;color:#FFF !important;}</style>');
-	$(container).append('<style>.'+container.className+' ul li.E_selected{background-color:rgb(147,54,52) !important;color:#FFF !important;}</style>');
-	
+	$(container).append('<style>#'+container.id+' ul{list-style:none;padding:0;padding-top:50px;margin:0;}</style>');
+	$(container).append('<style>#'+container.id+' ul li{height:35px;line-height:35px;background-color:rgb(214,227,188);padding-left:5px;margin-top:5px;border:1px solid #000;font-weight:bold;cursor:pointer;}</style>');
+	$(container).append('<style>#'+container.id+' ul li.A{background-color:rgb(214,227,188);}</style>');
+	$(container).append('<style>#'+container.id+' ul li.E{background-color:rgb(228,184,183);}</style>');
+	$(container).append('<style>#'+container.id+' ul li.shadow{background-color:#DDD !important;}</style>');
+	$(container).append('<style>#'+container.id+' ul li.A_selected{background-color:rgb(118,146,59) !important;color:#FFF !important;}</style>');
+	$(container).append('<style>#'+container.id+' ul li.E_selected{background-color:rgb(147,54,52) !important;color:#FFF !important;}</style>');
+	TestGenerator($('div#C',container).get(0));
 	$('div#L',container).html('<ul>'+
-							  '<li class="A" id="A0" onclick="TestGenerator.checkAnswer(this)">Dar Açılı Üçgen</li>'+
-							  '<li class="A" id="A1" onclick="TestGenerator.checkAnswer(this)">Geniş Açılı Üçgen</li>'+
-							  '<li class="A" id="A2" onclick="TestGenerator.checkAnswer(this)">Dik Açılı Üçgen</li>'+
+							  '<li class="A" id="A0" onclick="TestGenerator.CheckAnswer(this)">Dar Açılı Üçgen</li>'+
+							  '<li class="A" id="A1" onclick="TestGenerator.CheckAnswer(this)">Geniş Açılı Üçgen</li>'+
+							  '<li class="A" id="A2" onclick="TestGenerator.CheckAnswer(this)">Dik Açılı Üçgen</li>'+
 							  '</ul>');
 	
 	$('div#R',container).html('<ul>'+
-							  '<li class="E" id="E0" onclick="TestGenerator.checkAnswer(this)">Çeşitkenar Üçgen</li>'+
-							  '<li class="E" id="E1" onclick="TestGenerator.checkAnswer(this)">İkizkenar Üçgen</li>'+
-							  '<li class="E" id="E2" onclick="TestGenerator.checkAnswer(this)">Eşkenar Üçgen</li>'+
+							  '<li class="E" id="E0" onclick="TestGenerator.CheckAnswer(this)">Çeşitkenar Üçgen</li>'+
+							  '<li class="E" id="E1" onclick="TestGenerator.CheckAnswer(this)">İkizkenar Üçgen</li>'+
+							  '<li class="E" id="E2" onclick="TestGenerator.CheckAnswer(this)">Eşkenar Üçgen</li>'+
 							  '</ul>');
 	
 	$(container).append('<div id="status"></div>');
@@ -393,14 +406,15 @@ function Triangle(i,j,k,container){
 					this.p2.x,
 					this.p2.y,
 					this.p3.x,
-					this.p3.y ).attr(edgeStyle);
+
+					this.p3.y ).attr(triangleStyle);
 	
 	//letters
 	paper.text(this.p1.x-10,this.p1.y+10,TestGenerator.letters.shift()).attr(textStyle);
 	paper.text(this.p2.x+10,this.p2.y+10,TestGenerator.letters.shift()).attr(textStyle);
 	paper.text(this.p3.x+10,this.p3.y-10,TestGenerator.letters.shift()).attr(textStyle);
 	//paper.text(x+_w-16,y+h-16,TestGenerator.letters.shift()).attr(textStyle);
-	
+
 	this.drawEdgeText = function(p,a,k,L){
 		var _x,_y;
 		_x = p.x + k * Math.sin(a);
@@ -427,7 +441,7 @@ function Triangle(i,j,k,container){
 		}
 		
 		var x1,y1,x2,y2,r,k;
-		k = 15;
+		k = 30;
 		
 		var _p1,_p2;
 		_p1 = findAPointOn(p1,p2,k);
@@ -455,9 +469,10 @@ function Triangle(i,j,k,container){
 				   ' 0 '+fa+','+fs+' '+x2+','+y2+'  z').attr(angleStyle);
 		}
 		var _x,_y;//for the text
-		_x = p1.x + 2.4 * k * Math.cos(_t);
-		_y = p1.y - 2.4 * k * Math.sin(_t);
+		_x = p1.x + 1.6 * k * Math.cos(_t);
+		_y = p1.y - 1.6 * k * Math.sin(_t);
 		this.paper.text(_x,_y,""+_A+"°").attr(textStyle);
+
 		
 	}
 	this.showAngle = function(angle){
@@ -498,12 +513,6 @@ function Triangle(i,j,k,container){
 	this.calculateAngles();
 	this.paper = paper;
 }
-
-
-
-
-
-
 
 function _degree(a){
 	var d = Util.radianToDegree(a);

@@ -213,7 +213,6 @@ Interaction.generateRandomShape = function(x,y,w,h){
 				case 2:
 					Interaction.shape = Interaction.paper.cylinder(x+w*0.2,y+h*0.2,w*0.6,h*0.6).attr(edgeStyle).data('isEllipse',false).data('isPath',true);
 					break;
-					
 			}
 			break;
 	}
