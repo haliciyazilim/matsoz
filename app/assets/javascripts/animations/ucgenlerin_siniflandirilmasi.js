@@ -121,7 +121,7 @@ TestGenerator.checkAnswer = function(li){
 		if(answer == TestGenerator.state)
 			isCorrect = true;
 		if(isCorrect == true){
-			$('#status').html('<span style="color:red">Tebrikler!&emsp;</span><input type="button" value="Sonraki" onclick="TestGenerator.nextQuestion();"/>');
+			$('#status').html('<span style="color:red">Tebrikler!&emsp;</span><input type="button" class="control_button" value="Sonraki" onclick="TestGenerator.nextQuestion();"/>');
 		}
 		else if(TestGenerator.trial > 0){
 			TestGenerator.stopCheckAnswer=true;
@@ -134,15 +134,13 @@ TestGenerator.checkAnswer = function(li){
 									$('#A'+TestGenerator.state.charAt(0)).html() + ' ' + 
 									$('#E'+TestGenerator.state.charAt(1)).html() +
 									' olmalıydı.&emsp;';
-			$('#status').html(right_answer + '<input type="button" value="Sonraki" onclick="TestGenerator.nextQuestion();"/>');
+			$('#status').html(right_answer + '<input type="button" class="control_button" value="Sonraki" onclick="TestGenerator.nextQuestion();"/>');
 		}
 		else{
 			TestGenerator.stopCheckAnswer=true;
-			$('#status').html('Yanlış cevap&emsp;<input type="button" value="Tekrar Deneyiniz" onclick="TestGenerator.tryAgain();"/>');
+			$('#status').html('Yanlış cevap&emsp;<input type="button" class="control_button" value="Tekrar Deneyiniz" onclick="TestGenerator.tryAgain();"/>');
 		}
-	
 	}
-	
 }
 
 TestGenerator.tryAgain = function(){
@@ -157,6 +155,7 @@ TestGenerator.tryAgain = function(){
 }
 TestGenerator.nextQuestion = function(){
 	//prepare question
+	TestGenerator.letters = (Math.random()>0.5 ? ["A","B","C"]:["B","C","A"]);
 	$('#status').html('');
 	$(".tg ul li").removeClass('A_selected');
 	$(".tg ul li").removeClass('E_selected');
@@ -304,7 +303,7 @@ TestGenerator.nextQuestion = function(){
 			//two random angles
 			//two equal edges
 			var a,c;
-			a = Math.floor(Math.random()*10)+5;
+			a = Math.floor(Math.random()*5)+5;
 			c = a;
 			while(c == a || c < Math.sqrt(2)*a)
 				c = Math.floor(Math.random()*2+Math.sqrt(2)*a+1);
@@ -338,6 +337,7 @@ TestGenerator.nextQuestion = function(){
 			if(a % 2 ==0){
 				var triangle = new Triangle(a,b,c,container);
 				triangle.showAngle('B');
+				triangle.showEdge('a');
 				triangle.showEdge('b');
 			}
 			else{
@@ -373,6 +373,7 @@ TestGenerator.nextQuestion = function(){
 function Triangle(i,j,k,container){
 	this.i=i,this.j=j,this.k=k;
 	this.p1={x:10,y:0},this.p2={x:0,y:0},this.p3={x:0,y:0};
+	this.a1=null,this.a2=null,this.a3=null;
 	var a = 200;
 	var _c = (a-40)/Math.max(i,j,k);
 	//console.log(_c);
@@ -393,6 +394,13 @@ function Triangle(i,j,k,container){
 					this.p2.y,
 					this.p3.x,
 					this.p3.y ).attr(edgeStyle);
+	
+	//letters
+	paper.text(this.p1.x-10,this.p1.y+10,TestGenerator.letters.shift()).attr(textStyle);
+	paper.text(this.p2.x+10,this.p2.y+10,TestGenerator.letters.shift()).attr(textStyle);
+	paper.text(this.p3.x+10,this.p3.y-10,TestGenerator.letters.shift()).attr(textStyle);
+	//paper.text(x+_w-16,y+h-16,TestGenerator.letters.shift()).attr(textStyle);
+	
 	this.drawEdgeText = function(p,a,k,L){
 		var _x,_y;
 		_x = p.x + k * Math.sin(a);
@@ -400,7 +408,16 @@ function Triangle(i,j,k,container){
 		this.paper.text(_x,_y,L).attr(textStyle);
 	
 	}
-	this.drawAngle = function(p1,p2,p3,a){
+	this.calculateAngles = function(){
+		this.a1 = Math.acos((this.i*this.i + this.k*this.k - this.j*this.j)/(2*this.i*this.k));
+		this.a2 = Math.acos((this.i*this.i + this.j*this.j - this.k*this.k)/(2*this.i*this.j));
+		this.a3 = Math.acos((this.k*this.k + this.j*this.j - this.i*this.i)/(2*this.k*this.j));			
+		
+		this._a1 = Math.floor(Util.radianToDegree(this.a1));
+		this._a2 = Math.round(Util.radianToDegree(this.a2));
+		this._a3 = Math.floor(Util.radianToDegree(this.a3));
+	}
+	this.drawAngle = function(p1,p2,p3,A,_A){
 		function findAPointOn(p1,p2,k){
 			var x,y,a;
 			a = Util.findAngle(p1.x,p1.y,p2.x,p2.y);
@@ -418,13 +435,13 @@ function Triangle(i,j,k,container){
 		_p2 = findAPointOn(p1,p3,k);
 		x2=_p2.x; y2=_p2.y;
 		
-		var fa = a > Math.PI ?1 : 0;
-		var fs = a > 0 ? 0: 1;
+		var fa = A > Math.PI ?1 : 0;
+		var fs = A > 0 ? 0: 1;
 		var _a = Util.findAngle(p1.x,p1.y,p2.x,p2.y);
 		var _b = Util.findAngle(p1.x,p1.y,p3.x,p3.y);
 		var _t = Math.abs(_a-_b)*0.5 + (Math.abs(_a) > Math.abs(_b) ? _b : _a);
 		
-		if(_degree(a)==90){
+		if(_A==90){
 			var x,y;
 			x = p1.x + Math.sqrt(2) * k * Math.cos(_t);
 			y = p1.y - Math.sqrt(2) * k * Math.sin(_t);
@@ -433,7 +450,6 @@ function Triangle(i,j,k,container){
 			this.paper.circle((p1.x+x)*0.5,(p1.y+y)*0.5,1).attr('fill','#CCC');
 		}
 		else{
-			
 			r = Util.findDistance(p1.x, p1.y, x1, y1);
 			this.paper.path('M'+p1.x+','+p1.y+' L'+x1+','+y1+' A'+r+','+r +
 				   ' 0 '+fa+','+fs+' '+x2+','+y2+'  z').attr(angleStyle);
@@ -441,22 +457,19 @@ function Triangle(i,j,k,container){
 		var _x,_y;//for the text
 		_x = p1.x + 2.4 * k * Math.cos(_t);
 		_y = p1.y - 2.4 * k * Math.sin(_t);
-		this.paper.text(_x,_y,""+_degree(a)+"°").attr(textStyle);
+		this.paper.text(_x,_y,""+_A+"°").attr(textStyle);
 		
 	}
 	this.showAngle = function(angle){
 		switch(angle){
 			case 'A':
-				var a = Math.acos((this.i*this.i + this.k*this.k - this.j*this.j)/(2*this.i*this.k));
-				this.drawAngle(this.p1,this.p2,this.p3,a);
+				this.drawAngle(this.p1,this.p2,this.p3,this.a1,this._a1);
 				break;
 			case 'B':
-				var a = Math.acos((this.i*this.i + this.j*this.j - this.k*this.k)/(2*this.i*this.j));
-				this.drawAngle(this.p2,this.p3,this.p1,a);
+				this.drawAngle(this.p2,this.p3,this.p1,this.a2,this._a2);
 				break;
 			case 'C':
-				var a = Math.acos((this.k*this.k + this.j*this.j - this.i*this.i)/(2*this.k*this.j));
-				this.drawAngle(this.p3,this.p1,this.p2,a);
+				this.drawAngle(this.p3,this.p1,this.p2,this.a3,this._a3);
 				break;
 			default:
 				throw 'invalid argument. valid arguments: [ A , B , C ]';
@@ -482,6 +495,7 @@ function Triangle(i,j,k,container){
 				throw 'invalid argument. valid arguments: [ a , b , c ]';
 		}
 	}
+	this.calculateAngles();
 	this.paper = paper;
 }
 
