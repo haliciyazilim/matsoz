@@ -39,24 +39,24 @@ Interaction.init = function(container){
 			boxSizing:'border-box',
 			fontSize:'12px'
 		});
-	$(container).append('<style>#'+container.id+' ul{list-style:none;padding:0;padding-top:50px;margin:0;}</style>');
-	$(container).append('<style>#'+container.id+' ul li{height:35px;line-height:35px;background-color:rgb(214,227,188);padding-left:5px;margin-top:5px;border:1px solid #000;font-weight:bold;cursor:pointer;}</style>');
-	$(container).append('<style>#'+container.id+' ul li.A{background-color:rgb(214,227,188);}</style>');
-	$(container).append('<style>#'+container.id+' ul li.E{background-color:rgb(228,184,183);}</style>');
-	$(container).append('<style>#'+container.id+' ul li.shadow{background-color:#DDD !important;}</style>');
-	$(container).append('<style>#'+container.id+' ul li.A_selected{background-color:rgb(118,146,59) !important;color:#FFF !important;}</style>');
-	$(container).append('<style>#'+container.id+' ul li.E_selected{background-color:rgb(147,54,52) !important;color:#FFF !important;}</style>');
+	$(container).append('<style>ul{list-style:none;padding:0;padding-top:50px;margin:0;}</style>');
+	$(container).append('<style> ul li{height:35px;line-height:35px;background-color:rgb(214,227,188);padding-left:5px;margin-top:5px;border:1px solid #000;font-weight:bold;cursor:pointer;}</style>');
+	$(container).append('<style> ul li.A{background-color:rgb(214,227,188);}</style>');
+	$(container).append('<style> ul li.E{background-color:rgb(228,184,183);}</style>');
+	$(container).append('<style> ul li.shadow{background-color:#DDD !important;}</style>');
+	$(container).append('<style> ul li.A_selected{background-color:rgb(118,146,59) !important;color:#FFF !important;}</style>');
+	$(container).append('<style> ul li.E_selected{background-color:rgb(147,54,52) !important;color:#FFF !important;}</style>');
 	TestGenerator($('div#C',container).get(0));
 	$('div#L',container).html('<ul>'+
-							  '<li class="A" id="A0" onclick="TestGenerator.CheckAnswer(this)">Dar Açılı Üçgen</li>'+
-							  '<li class="A" id="A1" onclick="TestGenerator.CheckAnswer(this)">Geniş Açılı Üçgen</li>'+
-							  '<li class="A" id="A2" onclick="TestGenerator.CheckAnswer(this)">Dik Açılı Üçgen</li>'+
+							  '<li class="A" id="A0" onclick="TestGenerator.checkAnswer(this)">Dar Açılı Üçgen</li>'+
+							  '<li class="A" id="A1" onclick="TestGenerator.checkAnswer(this)">Geniş Açılı Üçgen</li>'+
+							  '<li class="A" id="A2" onclick="TestGenerator.checkAnswer(this)">Dik Açılı Üçgen</li>'+
 							  '</ul>');
 	
 	$('div#R',container).html('<ul>'+
-							  '<li class="E" id="E0" onclick="TestGenerator.CheckAnswer(this)">Çeşitkenar Üçgen</li>'+
-							  '<li class="E" id="E1" onclick="TestGenerator.CheckAnswer(this)">İkizkenar Üçgen</li>'+
-							  '<li class="E" id="E2" onclick="TestGenerator.CheckAnswer(this)">Eşkenar Üçgen</li>'+
+							  '<li class="E" id="E0" onclick="TestGenerator.checkAnswer(this)">Çeşitkenar Üçgen</li>'+
+							  '<li class="E" id="E1" onclick="TestGenerator.checkAnswer(this)">İkizkenar Üçgen</li>'+
+							  '<li class="E" id="E2" onclick="TestGenerator.checkAnswer(this)">Eşkenar Üçgen</li>'+
 							  '</ul>');
 	
 	$(container).append('<div id="status"></div>');
@@ -134,7 +134,7 @@ TestGenerator.checkAnswer = function(li){
 		if(answer == TestGenerator.state)
 			isCorrect = true;
 		if(isCorrect == true){
-			$('#status').html('<span style="color:red">Tebrikler!&emsp;</span><input type="button" class="control_button" value="Sonraki" onclick="TestGenerator.nextQuestion();"/>');
+			$('#status').html('<span class="status_true">Tebrikler!&emsp;</span><input type="button" class="control_button" value="Sonraki" onclick="TestGenerator.nextQuestion();"/>');
 		}
 		else if(TestGenerator.trial > 0){
 			TestGenerator.stopCheckAnswer=true;
@@ -143,15 +143,15 @@ TestGenerator.checkAnswer = function(li){
 			$(".tg ul li").each(function(){TestGenerator.removeShadow(this);});
 			$('#A'+TestGenerator.state.charAt(0)).addClass('A_selected');
 			$('#E'+TestGenerator.state.charAt(1)).addClass('E_selected');
-			var right_answer = 'Dogru cevap: ' + 
-									$('#A'+TestGenerator.state.charAt(0)).html() + ' ' + 
+			var right_answer = '<span class="status_false">Doğru cevap <span style="font-weight:bold">' + 
+									$('#A'+TestGenerator.state.charAt(0)).html() + ', ' + 
 									$('#E'+TestGenerator.state.charAt(1)).html() +
-									' olmalıydı.&emsp;';
+									'</span> olmalıydı.&emsp;</span>';
 			$('#status').html(right_answer + '<input type="button" class="control_button" value="Sonraki" onclick="TestGenerator.nextQuestion();"/>');
 		}
 		else{
 			TestGenerator.stopCheckAnswer=true;
-			$('#status').html('Yanlış cevap&emsp;<input type="button" class="control_button" value="Tekrar Deneyiniz" onclick="TestGenerator.tryAgain();"/>');
+			$('#status').html('<span class="status_false">Yanlış cevap&emsp;</span><input type="button" class="control_button" value="Tekrar Deneyiniz" onclick="TestGenerator.tryAgain();"/>');
 		}
 	}
 }

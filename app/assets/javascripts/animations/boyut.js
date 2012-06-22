@@ -13,6 +13,9 @@ var Interaction =function(){};Interaction();
 Interaction.init = function(container){
 	Main.setObjective('Aşağıdaki nesneleri kaç boyutlu olduğuna göre sınıflandırmak için fare ile sürükleyerek ilgili sepete atınız.');
 	Interaction.paper = new Raphael(container,$(container).width(),$(container).height());
+	Interaction.container = container;
+	Interaction.container.top = $(container).offset().top;
+	Interaction.container.left = $(container).offset().left;
 	var w = Interaction.paper.width;
 	var h = Interaction.paper.height;
 	Interaction.generateBowls(w,h);
@@ -49,10 +52,11 @@ Interaction.highlight = function(x,y){
 }
 
 Interaction.isInBowl =function(x,y,bowl){
-	return bowl.attr('x') < x && 
-		bowl.attr('x')+bowl.attr('width') > x &&
-		bowl.attr('y') < y &&
-		bowl.attr('y')+bowl.attr('height');
+	var offset = $(Interaction.container).offset();
+	return bowl.attr('x')+offset.left < x && 
+		bowl.attr('x')+offset.left+bowl.attr('width') > x &&
+		bowl.attr('y')+offset.top < y &&
+		bowl.attr('y')+offset.top+bowl.attr('height') > y;
 }
 
 Interaction.nextQuestion = function(){
@@ -67,7 +71,7 @@ Interaction.nextQuestion = function(){
         });
 	//Interaction.shapeStoredAttr = Interaction.shape.attr();
 	var P={
-		move:function(dx,dy){
+		move:function(dx,dy,x,y){
 			if(Interaction.preventDrag)
 				return;
 			// move will be called with dx and dy
@@ -77,18 +81,18 @@ Interaction.nextQuestion = function(){
 			this.odx = dx;
 			this.ody = dy;
 			//console.log([nowX,nowY,dx,dy,this.odx,this.ody,this.ox,this.oy]);
-			Interaction.highlight(nowX,nowY);
+			Interaction.highlight(x,y);
 		}
 	}
 	var E={
-		move:function(dx,dy){
+		move:function(dx,dy,x,y){
 			if(Interaction.preventDrag)
 				return;
 			// move will be called with dx and dy
 			var nowX = this.ox + dx;
 			var nowY = this.oy + dy; 
 			this.attr({cx: nowX, cy: nowY });
-			Interaction.highlight(nowX,nowY);
+			Interaction.highlight(x,y);
 		}
 	}
 	var start = function () {
@@ -104,9 +108,9 @@ Interaction.nextQuestion = function(){
         this.oy = y;
 		this.odx = 0;
  		this.ody = 0;
-        this.attr({opacity: 0.5});     
-    },
-    move = function (dx, dy) {
+        this.attr({opacity: 0.5});
+	},
+    move = function (dx, dy,x,y) {
 		if(Interaction.preventDrag)
 			return;
         // move will be called with dx and dy
@@ -114,7 +118,8 @@ Interaction.nextQuestion = function(){
 		var nowY = this.oy + dy; 
 		this.attr({x: nowX, y: nowY });
 		//console.log([nowX,nowY,dx,dy,this.odx,this.ody,this.ox,this.oy]);
-		Interaction.highlight(nowX,nowY);
+		console.log(dx,dy)
+		Interaction.highlight(x,y);
     },
     up = function () {
 		if(Interaction.preventDrag)
