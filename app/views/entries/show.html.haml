@@ -5,7 +5,7 @@
   = javascript_include_tag 'main.js'
   - begin
     = javascript_include_tag @entry.javascript_file
-  - rescue ActionView::Template::Error
+  - rescue
 
 #content
   #words_list
@@ -29,8 +29,10 @@
             
     %p.exampleHeader
       Örnek
-    #animation_container  
+    #animation_container
     #interaction_container
+      .objective
+      .interaction
 
 = link_to "Instruction File", @entry.instructions.url
 %br

@@ -1,72 +1,12 @@
 
-$(document).ready(function() {
-	Raphael.fn.fraction = function(top_x, top_y, nom, denom,scale) {
-		var st = this.set();
-		c2=top_y+scale;
-		c3=top_x+scale*1.5;
-		
-		if (nom) {
-			pay=this.text(top_x+scale*5/7, top_y, nom);
-			pay.attr({"font-size" :scale});
-			st.push(pay);	
-		}
-		
-		if (denom) {
-			payda=this.text(top_x+scale*5/7, c2+scale, denom);
-			payda.attr({"font-size" :scale});
-			st.push(payda);			
-		}
+animationInit(Raphael("animation_container"));
+interactionInit(Raphael("interaction_container"));
 
-		var kesirCizgi="M"+top_x+" "+c2+"L"+c3+" "+c2;
-		st.push(this.path(kesirCizgi));
-		return st;
-	};
-	
-	Raphael.fn.segmentedUmbrella = function (cx, cy, r, numberOfSegments) {
-		var st = this.set();
+var Interaction =function(){};Interaction();
 
-		for (i = 0; i < numberOfSegments; i++) {
-			st.push(
-				this.path().attr({
-					segment:[cx, cy, r, 360*(-i)/numberOfSegments - 90, 360*(-i-1)/numberOfSegments - 90]
-				})
-			);
-		}
-		
-		return st;
-	}
+Interaction.Init = function(container){
 	
-	Raphael.fn.segmentedCircle = function (cx, cy, r, numberOfSegments) {
-		var st = this.set();
-
-		for (i = 0; i < numberOfSegments; i++) {
-			st.push(
-				this.path().attr({
-					segment:[cx, cy, r, 360*(i)/numberOfSegments - 90, 360*(i+1)/numberOfSegments - 90]
-				})
-			);
-		}
-		
-		return st;
-	}
-	
-	Raphael.fn.segmentedRectangle = function (x, y, width, height, horizontalSegments, verticalSegments) {
-		var st = this.set();
-				
-		for (i = 0; i < horizontalSegments; i++) {
-			for (j = 0; j < verticalSegments; j++) {
-				st.push(
-					this.rect(x + i * width/horizontalSegments, y + j * height/verticalSegments, width/horizontalSegments, height/verticalSegments)
-				);
-			}
-		}
-		
-		return st;
-	}
-	
-	animationInit(Raphael("animation_container"));
-	interactionInit(Raphael("interaction_container"));
-});
+}
 
 function animationInit(paper) {
 	var imgArray = [];
