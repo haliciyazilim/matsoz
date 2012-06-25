@@ -1,12 +1,61 @@
 
-animationInit(Raphael("animation_container"));
-interactionInit(Raphael("interaction_container"));
-
 var Interaction =function(){};Interaction();
-
-Interaction.Init = function(container){
+Interaction.init = function(container){
+	Main.setObjective("Aşağıdaki verilen kesre denk kesir oluşturmak\niçin boşluğa uygun sayıyı yazınız. Daha sonra\n“Kontrol” düğmesine basınız.");
 	
-}
+	Raphael.fn.fraction = function(top_x, top_y, nom, denom,scale) {
+		var st = this.set();
+		c2=top_y+scale;
+		c3=top_x+scale*1.5;
+		
+		if (nom) {
+			pay=this.text(top_x+scale*5/7, top_y, nom);
+			pay.attr({"font-size" :scale});
+			st.push(pay);	
+		}
+		
+		if (denom) {
+			payda=this.text(top_x+scale*5/7, c2+scale, denom);
+			payda.attr({"font-size" :scale});
+			st.push(payda);			
+		}
+		
+		var kesirCizgi="M"+top_x+" "+c2+"L"+c3+" "+c2;
+		st.push(this.path(kesirCizgi));
+		return st;
+	}
+	
+	Raphael.fn.segmentedCircle = function (cx, cy, r, numberOfSegments) {
+		var st = this.set();
+
+		for (i = 0; i < numberOfSegments; i++) {
+			st.push(
+				this.path().attr({
+					segment:[cx, cy, r, 360*(i)/numberOfSegments - 90, 360*(i+1)/numberOfSegments - 90]
+				})
+			);
+		}
+		
+		return st;
+	}
+	
+	Raphael.fn.segmentedRectangle = function (x, y, width, height, horizontalSegments, verticalSegments) {
+		var st = this.set();
+				
+		for (i = 0; i < horizontalSegments; i++) {
+			for (j = 0; j < verticalSegments; j++) {
+				st.push(
+					this.rect(x + i * width/horizontalSegments, y + j * height/verticalSegments, width/horizontalSegments, height/verticalSegments)
+				);
+			}
+		}
+		
+		return st;
+	}
+	
+	animationInit(Raphael("animation_container"));
+	interactionInit(Raphael(container));
+};
 
 function animationInit(paper) {
 	var imgArray = [];
@@ -61,17 +110,17 @@ function interactionInit(paper) {
 		firstFractionDenominator = smallFractionDenominator * factor;
 	}
 	
-	$('#interaction_container').append('<div class="objective">Aşağıdaki verilen kesre denk kesir oluşturmak\niçin boşluğa uygun sayıyı yazınız. Daha sonra\n“Kontrol” düğmesine basınız.</div>');
+	//$('#interaction_container').append('<div class="objective"></div>');
 	
-	paper.fraction(114, 250, firstFractionNominator, firstFractionDenominator, 24);
+	paper.fraction(114, 165, firstFractionNominator, firstFractionDenominator, 24);
 	
 	
 	missing = Math.floor(Math.random()*2);
 	
 	if (missing == 0) {
-		paper.fraction(364, 250, null, secondFractionDenominator, 24);
+		paper.fraction(364, 165, null, secondFractionDenominator, 24);
 	} else {
-		paper.fraction(364, 250, secondFractionNominator, null, 24);
+		paper.fraction(364, 165, secondFractionNominator, null, 24);
 	}
 	
 	var shapeType = Math.floor(Math.random() * 3);	
@@ -80,46 +129,46 @@ function interactionInit(paper) {
 	
 	switch (shapeType) {
 		case 0:
-			pie1 = paper.segmentedRectangle(95,125,70, 70, smallFractionDenominator, firstFractionDenominator/smallFractionDenominator).attr({fill: "#fef8ec"});
+			pie1 = paper.segmentedRectangle(95,40,70, 70, smallFractionDenominator, firstFractionDenominator/smallFractionDenominator).attr({fill: "#fef8ec"});
 			for (i = 0; i < firstFractionNominator; i++) {
 				pie1[i].attr({fill: "#f55"});
 			}
 	
-			pie2 = paper.segmentedRectangle(345,125,70, 70, smallFractionDenominator, secondFractionDenominator/smallFractionDenominator).attr({fill: "#fef8ec"});
+			pie2 = paper.segmentedRectangle(345,40,70, 70, smallFractionDenominator, secondFractionDenominator/smallFractionDenominator).attr({fill: "#fef8ec"});
 			for (i = 0; i < secondFractionNominator; i++) {
 				pie2[i].attr({fill: "#f55"});
 			}
 			break;
 			
 		case 1:
-			pie1 = paper.segmentedCircle(130,160,50,firstFractionDenominator).attr({fill: "#fef8ec"});
+			pie1 = paper.segmentedCircle(130,70,50,firstFractionDenominator).attr({fill: "#fef8ec"});
 			for (i = 0; i < firstFractionNominator; i++) {
 				pie1[i].attr({fill: "#f55"});
 			}
 			
-			pie2 = paper.segmentedCircle(380,160,50,secondFractionDenominator).attr({fill: "#fef8ec"});
+			pie2 = paper.segmentedCircle(380,70,50,secondFractionDenominator).attr({fill: "#fef8ec"});
 			for (i = 0; i < secondFractionNominator; i++) {
 				pie2[i].attr({fill: "#f55"});
 			}
 		break;
 		
 		case 2:
-			pie1 = paper.segmentedRectangle(80,135,100, 50, smallFractionDenominator, firstFractionDenominator/smallFractionDenominator).attr({fill: "#fef8ec"});
+			pie1 = paper.segmentedRectangle(80,55,100, 50, smallFractionDenominator, firstFractionDenominator/smallFractionDenominator).attr({fill: "#fef8ec"});
 			for (i = 0; i < firstFractionNominator; i++) {
 				pie1[i].attr({fill: "#f55"});
 			}
 	
-			pie2 = paper.segmentedRectangle(330,135,100, 50, smallFractionDenominator, secondFractionDenominator/smallFractionDenominator).attr({fill: "#fef8ec"});
+			pie2 = paper.segmentedRectangle(330,55,100, 50, smallFractionDenominator, secondFractionDenominator/smallFractionDenominator).attr({fill: "#fef8ec"});
 			for (i = 0; i < secondFractionNominator; i++) {
 				pie2[i].attr({fill: "#f55"});
 			}
 			break;
 	}
 	
-	var correctText = paper.text(160,350, "Tebrikler!").attr({fill: "#5a5", opacity: 0, "font-size": 24});
-	var retryText = paper.text(160,350, "Tekrar Deneyiniz!").attr({fill: "#f55", opacity: 0, "font-size": 24});
-	var failText = paper.text(160,350, "Olmadı!").attr({fill: "#f55", opacity: 0, "font-size": 24});
-	var errorText = paper.text(160,350, "Lütfen kutucuğa bir sayı giriniz").attr({fill: "#f55", opacity: 0, "font-size": 16});
+	var correctText = paper.text(160,260, "Tebrikler!").attr({fill: "#5a5", opacity: 0, "font-size": 24});
+	var retryText = paper.text(160,260, "Tekrar Deneyiniz!").attr({fill: "#f55", opacity: 0, "font-size": 24});
+	var failText = paper.text(160,260, "Olmadı!").attr({fill: "#f55", opacity: 0, "font-size": 24});
+	var errorText = paper.text(160,260, "Lütfen kutucuğa bir sayı giriniz").attr({fill: "#f55", opacity: 0, "font-size": 16});
 	
 	pie2.attr({"opacity": 0});
 	
