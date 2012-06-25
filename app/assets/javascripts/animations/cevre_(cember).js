@@ -35,7 +35,7 @@ Interaction.init = function(container){
 	$('div#B',Interaction.container).html('<div style="text-align:center;">Çevre&nbsp;=&nbsp;<input type="text" style="width:35px;height:30px;font-size:16px;font-weight:bold;text-align:center;" id="input" maxlength="3" />&nbsp;br²</div><div style="text-align:right;"><span id="status"></span>&emsp;<input type="button" id="control" class="control_button" value="Kontrol" onclick="Interaction.checkAnswer()" /></div>');
 	Interaction.control = $('#control',Interaction.container).get(0);
 	Interaction.input = $('#input',Interaction.container).get(0);
-	
+	Interaction.drawRuler();
 	Interaction.nextQuestion();
 }
 Interaction.generateCircle = function(){
@@ -46,12 +46,12 @@ Interaction.generateCircle = function(){
 	do
 		r = Math.floor(Math.min(x,y) * (Math.random()*0.7+0.3) /Interaction.br) * Interaction.br ;
 	while(Interaction.r == r)
-	
-	Interaction.paper.circle(x,y,1).attr(edgeStyle).toBack();
-	Interaction.paper.circle(x,y,r+1).attr(edgeStyle).toBack();
-	Interaction.paper.line(x,y,x+r,y).attr(edgeStyle).toBack();
-	Interaction.paper.text(x-7,y+7,"O").attr(textStyle).toBack();
-	Interaction.paper.text(x+r*0.4,y+7,"r").attr(textStyle).toBack();
+	Interaction.circleSet = Interaction.paper.set();
+	Interaction.circleSet.push(Interaction.paper.circle(x,y,1).attr(edgeStyle).toBack());
+	Interaction.circleSet.push(Interaction.paper.circle(x,y,r+1).attr(edgeStyle).toBack());
+	Interaction.circleSet.push(Interaction.paper.line(x,y,x+r,y).attr(edgeStyle).toBack());
+	Interaction.circleSet.push(Interaction.paper.text(x-7,y+7,"O").attr(textStyle).toBack());
+	Interaction.circleSet.push(Interaction.paper.text(x+r*0.4,y+7,"r").attr(textStyle).toBack());
 	Interaction.r = r;
 	Interaction.input.onkeyup = function(e){
 		console.log(e.keyCode)
@@ -61,19 +61,30 @@ Interaction.generateCircle = function(){
 	
 }
 Interaction.nextQuestion = function(){
-	Interaction.paper.clear();
+	if(Interaction.circleSet)
+		Interaction.circleSet.remove();
 	Interaction.control.onclick = Interaction.checkAnswer;
 	Interaction.control.value = 'Kontrol';
 	Interaction.input.value = '';
 	Interaction.setStatus('');
 	Interaction.trial = 0;
 	Interaction.preventDrag = false;
-	Interaction.drawRuler();
+	
 	Interaction.generateCircle();
+	if(Interaction.odx){
+		var callback = function(){
+			Interaction.preventDrag = false;
+		}
+		var anim = Raphael.animation({transform:'t'+(-Interaction.odx)+' '+(-Interaction.ody)+' ...'},200);
+		for(var i=0; i<Interaction.rulerSet.length ;i++)
+			Interaction.rulerSet[i].animateWith(Interaction.rulerSet[0],anim,anim);
+		setTimeout(callback,200);
+	}
 }
 Interaction.checkAnswer = function(){
 	var answer = Interaction.input.value;
 	var rightAnswer = 2 * Interaction.r * 3 / Interaction.br;
+	
 	if(answer == rightAnswer){
 		Interaction.setStatus('Tebrikler!',true);
 		Interaction.control.value = 'Sonraki';
@@ -81,7 +92,10 @@ Interaction.checkAnswer = function(){
 		Interaction.input.onkeyup = Interaction.nextQuestion;
 	}
 	else if(Interaction.trial == 0){
-		Interaction.setStatus('Yanlış cevap, tekrar deneyiniz',false);
+		if(answer == '' || isNaN(answer))
+			Interaction.setStatus('Lütfen bir sayı giriniz',false);
+		else
+			Interaction.setStatus('Yanlış cevap, tekrar deneyiniz',false);
 		Interaction.trial++;
 	}
 	else{
@@ -145,14 +159,11 @@ Interaction.drawRuler = function(){
     up = function () {
 		if(Interaction.preventDrag)
 			return;
+		Interaction.odx = this.odx;
+		Interaction.ody = this.ody;
 		Interaction.preventDrag = true;
-		var callback = function(){
-			Interaction.preventDrag = false;
-		}
-		var anim = Raphael.animation({transform:'T'+(-this.odx)+' '+(-this.ody)+' ...'},200);
-		for(var i=0; i<Interaction.rulerSet.length ;i++)
-			Interaction.rulerSet[i].animateWith(Interaction.rulerSet[0],anim,anim);
-		setTimeout(callback,200);
+		
+		
     };
 	for(var i=0; i<Interaction.rulerSet.length ; i++){
 		if(Interaction.rulerSet[i]=='undefined' || Interaction.rulerSet[i]==null){
