@@ -457,11 +457,17 @@ function Triangle(i,j,k,container){
 		
 		if(_A==90){
 			var x,y;
-			x = p1.x + Math.sqrt(2) * k * Math.cos(_t);
-			y = p1.y - Math.sqrt(2) * k * Math.sin(_t);
+			_p1 = findAPointOn(p1,p2,k/2);
+			x1=_p1.x; y1=_p1.y;
+			_p2 = findAPointOn(p1,p3,k/2);
+			x2=_p2.x; y2=_p2.y;
+			
+			x = p1.x + Math.sqrt(2) * k/2 * Math.cos(_t);
+			y = p1.y - Math.sqrt(2) * k/2 * Math.sin(_t);
 			this.paper.line(x1,y1,x,y).attr(edgeStyle);
 			this.paper.line(x2,y2,x,y).attr(edgeStyle);
 			this.paper.circle((p1.x+x)*0.5,(p1.y+y)*0.5,1).attr('fill','#CCC');
+			k = k/1.5;
 		}
 		else{
 			r = Util.findDistance(p1.x, p1.y, x1, y1);
