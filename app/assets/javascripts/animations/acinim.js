@@ -4,7 +4,7 @@ function animationInit(){}
 
 /*Styles*/
 var shapeStyle = {'stroke-width':'2px'};
-var expandedShapeStyle = {'fill':'#fff'}; 
+var expandedShapeStyle = {'fill':'#fff','stroke-width':'2px','stroke':'#000'}; 
 /*Styles*/
 var Interaction =function(){};Interaction();
 Interaction.init = function(container){
@@ -16,8 +16,6 @@ Interaction.init = function(container){
 	Acinim.yonergetext2 = 'Aşağıdaki açınımın hangi geometrik cisim olduğunu görmek için açınımının üzerine fare ile tıklayın.';
 	
 	Main.setObjective(Acinim.yonergetext1);
-	////console.log('Im here');
-	
 	Acinim.shapes = document.createElement('div');
 	$(Acinim.shapes).css({
 			height:'200px'
@@ -26,7 +24,7 @@ Interaction.init = function(container){
 	Acinim.shapes.id = 'acinim_shapes';
 	Acinim.shapes.innerHTML = '<div id="acinim_shapes_L"></div><div id="acinim_shapes_R"></div>';
 	Acinim.container.appendChild(Acinim.shapes);
-	$(Acinim.container).append('<style>div#acinim_shapes > div{float:left;width:50%;cursor:pointer;height:100%;}</style>');
+	$(Acinim.container).append('<style>div#acinim_shapes > div{padding-top:50px;float:left;width:50%;cursor:pointer;height:100%;}</style>');
 	//Acinim.ShowShapes();
 	
 
@@ -41,9 +39,10 @@ function showPaperSet(st,animTime){
 		return;
 	st.attr({
 		opacity: 0,
-		transform: "t0, -30 s0.3, 0.3, 100,100"
+	//	transform: "t0, -30 s0.3, 0.3, 100,100"
 		});
-	var anim = Raphael.animation({transform:"t0, 0 s1,1,100,100", opacity:1}, animTime);
+	//var anim = Raphael.animation({transform:"t0, 0 s1,1,100,100", opacity:1}, animTime);
+	var anim = Raphael.animation({opacity:1}, animTime);
 	st.animate(anim);
 }
 function hidePaperSet(st,animTime){
@@ -51,9 +50,10 @@ function hidePaperSet(st,animTime){
 		return;
 	st.attr({
 		opacity: 1,
-		transform: "t0, 0 s1,1,50,100"
+	//	transform: "t0, 0 s1,1,50,100"
 		});
-	var anim = Raphael.animation({transform:"t0, -30 s0.3, 0.3, 50,100", opacity:0}, animTime);
+	//var anim = Raphael.animation({transform:"t0, -30 s0.3, 0.3, 50,100", opacity:0}, animTime);
+	var anim = Raphael.animation({opacity:0}, animTime);
 	st.animate(anim);
 }
 /*
@@ -109,9 +109,9 @@ var Cube = function(container,width,height){
 			var r1 = Math.floor(Math.random()*4);
 			var r2 = Math.floor(Math.random()*4);
 			var x1,y1,a;
-			x1 = 10;
-			y1 = Cube.height * Cube.scale;
-			a  = Cube.width * (1-2*Cube.scale);
+			x1 = 40;
+			y1 = Math.floor(Cube.height * Cube.scale);
+			a  = Math.floor(Cube.width * (1-2*Cube.scale));
 			y1 -= a;
 			Cube.paper.setStart();
 			Cube.paper.rect(x1,y1+a,4*a,a).attr(expandedShapeStyle);
@@ -120,7 +120,7 @@ var Cube = function(container,width,height){
 			Cube.paper.line(x1+3*a,y1+a,x1+3*a,y1+2*a).attr(expandedShapeStyle);
 			Cube.paper.rect(x1+r1*a,y1,a,a).attr(expandedShapeStyle);
 			Cube.paper.rect(x1+r2*a,y1+2*a,a,a).attr(expandedShapeStyle);
-			Cube.paper.rect(x1+a,y1+a,a,a).attr(expandedShapeStyle).attr({'fill':'#AAA','stroke-width':'0px'});
+			Cube.paper.rect(x1+a+1,y1+a+1,a-2,a-2).attr(expandedShapeStyle).attr({'fill':'#AAA','stroke-width':'0px','stroke':''});
 			Cube.set = Cube.paper.setFinish();
 			showPaperSet(Cube.set,0.7e3);
 			
@@ -167,7 +167,7 @@ var RectangularPrism = function(container,width,height){
 		RectangularPrism.drawExpansion = function(){
 			RectangularPrism.paper.clear();
 			var x1,y1,w,h,k,d,W,H;
-			x1 = 1;
+			x1 = 20;
 			y1 = RectangularPrism.height * RectangularPrism.scale;
 			w  = RectangularPrism.width * (1-2*RectangularPrism.scale);
 			h  = RectangularPrism.height * (1-2*RectangularPrism.scale);
@@ -186,7 +186,7 @@ var RectangularPrism = function(container,width,height){
 			RectangularPrism.paper.line(x1+2*h+d,y1+h,x1+2*h+d,y1+h+w).attr(expandedShapeStyle);
 			RectangularPrism.drawSides(x1,y1,w,h,d,RectangularPrism.paper,r1,true).attr(expandedShapeStyle);
 			RectangularPrism.drawSides(x1,y1,w,h,d,RectangularPrism.paper,r2,false).attr(expandedShapeStyle);
-			RectangularPrism.paper.rect(x1,y1+h,h,d+3).attr(expandedShapeStyle).attr({'fill':'#AAA','stroke-width':'0px'});
+			RectangularPrism.paper.rect(x1+1,y1+h+1,h-2,d+2).attr(expandedShapeStyle).attr({'fill':'#AAA','stroke':''});
 			RectangularPrism.set = RectangularPrism.paper.setFinish();
 			
 			showPaperSet(RectangularPrism.set,0.7e3);
