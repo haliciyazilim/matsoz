@@ -1,4 +1,3 @@
-
 body {
 	font-family: "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
 	background-color: #fef8ec;
@@ -21,7 +20,6 @@ body {
 	-webkit-box-shadow: 0px 0px 10px #ccc;
 	background-color: #fef2d9;
 	overflow: auto;
-	
 }
 
 #words_list {
@@ -69,7 +67,6 @@ p.exampleHeader {
 	position: relative;
 	left: -15px;
 	top: 20px;
-	
 	padding-top: 4px;
 	padding-bottom: 2px;
 	width: 70px;
@@ -92,10 +89,8 @@ p.exampleHeader {
 	left: 10px;
 }
 #interaction_container {
-	
 	margin-top: 16px;
 	margin-left: -25px;
-
 	width: 512px;
 	height:400px;
 	-moz-box-shadow: 0px 0px 20px #ddd;
@@ -152,8 +147,8 @@ p.exampleHeader {
 
 }
 .status_true{
-color:green;
+	color:green;
 }
 .status_false{
-color:red;
+	color:red;
 }
