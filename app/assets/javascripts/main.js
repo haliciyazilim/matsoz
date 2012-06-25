@@ -218,5 +218,8 @@ var Util = {
 		},
 	degreeToRadians: function  (angle) {
 			return angle * (Math.PI / 180);
+		},
+	formatNumber: function(number,decimal){
+			return Math.floor(number * decimal * 10) / (decimal * 10);
 		}
 };
