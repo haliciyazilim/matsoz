@@ -150,7 +150,7 @@ TestGenerator.checkAnswer = function(){
 	if(isWrong && TestGenerator.trial > 0){
 		Interaction.input.style.color = 'red';
 		Interaction.input.value = TestGenerator.values.area;
-		Interaction.setStatus('Yanlış. Doğru cevap: '+TestGenerator.values.area+' '+TestGenerator.getMeasure());
+		Interaction.setStatus('Yanlış. Doğru cevap: '+TestGenerator.values.area+' '+TestGenerator.getMeasure() + '²');
 		Interaction.button.onclick = TestGenerator.nextQuestion;
 		Interaction.button.value = 'Sonraki';
 	}	
