@@ -15,15 +15,14 @@ var angleStyle = {
 	'stroke-width': '2px'
 };
 var rulerStyle = {
-	'fill' : '#fff',
-	'cursor' : 'move'
+	'fill' : '#fff'
+	
 };
 var rulerTextStyle = {
-	'cursor' : 'move'
+	
+	
 };
-var rulerLineStyle = {
-	'cursor' : 'move'
-};
+var rulerLineStyle = {};
 /*Styles*/
 
 var Interaction = function(){}; Interaction();
@@ -133,8 +132,9 @@ Interaction.drawRuler = function(){
 		Interaction.rulerSet.push(Interaction.paper.line(_x,_y1,_x,_y2).attr(rulerLineStyle).attr({'x':_x,'y':_y1}));
 		Interaction.rulerSet.push(Interaction.paper.text(_x,_yt,i).attr(rulerTextStyle).attr({'x':_x,'y':_yt}));
 	}
+	Interaction.rulerX=-1;Interaction.rulerY=-1;
 	var start = function () {
-		if(Interaction.preventDrag)
+		if(Interaction.preventDrag === true)
 			return;
         this.ox  = this.attr('x');
         this.oy  = this.attr('y');
@@ -144,27 +144,38 @@ Interaction.drawRuler = function(){
 		this._xw = Interaction.rulerSet[0].data('x') + Interaction.rulerSet[0].data('w');
 		this._y  = Interaction.rulerSet[0].data('y');
 		this._yh = Interaction.rulerSet[0].data('y') + Interaction.rulerSet[0].data('h');
+		//console.log('start ' + new Date().getTime());
+		if(Interaction.odx==null){
+			Interaction.odx=0;
+			Interaction.ody=0;
+			Interaction.odT=-1;
+		}
+		console.log(this.ox,this.oy,this.odx,this.ody,this._x,this._xw,this._y,this._yh,Interaction.odx,Interaction.ody);
+		
 	},
     move = function (dx,dy) {
-		if(Interaction.preventDrag)
+		if(Interaction.preventDrag === true)
 			return;
-		if(this._x + dx <= 0 || this._xw + dx  >= Interaction.paper.width)
+		if(this._x + dx+Interaction.odx <= 0 || this._xw + dx +Interaction.odx >= Interaction.paper.width)
 			dx=this.odx;
-		if(this._y + dy <= 0 || this._yh + dy  >= Interaction.paper.height)
+		if(this._y + dy +Interaction.ody<= 0 || this._yh + dy +Interaction.ody >= Interaction.paper.height)
 			dy=this.ody;
 		for(var i=0; i<Interaction.rulerSet.length ;i++){
-			Interaction.rulerSet[i].transform('T'+(dx-this.odx )+','+(dy-this.ody)+' ...');
+	//		Interaction.rulerSet[i].attr('-webkit-transform':T'+(dx-this.odx )+','+(dy-this.ody)+' ...');
+			Interaction.rulerSet[i].attr('-webkit-transform','translate('+Math.floor(dx+ Interaction.odx)+'px,'+Math.floor(Interaction.ody+dy)+'px)');
 		}
 		this.odx = dx;
 		this.ody = dy;
+		//console.log('move ' + new Date().getTime());
     },
     up = function () {
-		if(Interaction.preventDrag)
+		if(Interaction.preventDrag === true)
 			return;
 		Interaction.odx = this.odx;
 		Interaction.ody = this.ody;
-		Interaction.preventDrag = true;
-		
+		//Interaction.rulerSet[0].data({'x':this._x + this.odx,'y':this._y + this.ody});
+		//Interaction.preventDrag = true;
+		//console.log('up ' + new Date().getTime());
 		
     };
 	for(var i=0; i<Interaction.rulerSet.length ; i++){

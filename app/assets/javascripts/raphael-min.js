@@ -334,7 +334,7 @@
             r: 0,
             rx: 0,
             ry: 0,
-			'shape-rendering' : 'crispEdges',
+			'shape-rendering' : '',
             src: "",
             stroke: "#000",
             "stroke-dasharray": "",
@@ -349,7 +349,9 @@
             transform: "",
             width: 0,
             x: 0,
-            y: 0
+            y: 0,
+			'translate3d':'',
+			'-webkit-transform':''
         },
         availableAnimAttrs = R._availableAnimAttrs = {
             blur: nu,
@@ -4288,6 +4290,15 @@ window.Raphael.svg && function (R) {
                             }
                             break;
                         }
+					case '-webkit-transform':
+						//console.log('webkittransform before');
+						//node.setAttribute("style",node.getAttribute('style')+';-webkit-transform:'+value+';');
+						node.style.webkitTransform = value;
+						//console.log('webkittransform');
+						break;
+					//case 'translate3d':
+					//	node.setAttribute("style",node.getAttribute('style')+';-webkit-transform:translate3d(0,0,0);');
+					//	break;
                     default:
                         att == "font-size" && (value = toInt(value, 10) + "px");
                         var cssrule = att.replace(/(\-.)/g, function (w) {

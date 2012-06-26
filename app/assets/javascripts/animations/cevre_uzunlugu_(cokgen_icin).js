@@ -2,7 +2,8 @@
 
 /*Styles*/
 var textStyle = {'font-size':'16px'};
-var edgeStyle = {'stroke-width':'2px','shape-rendering':'crispEdges'};
+var edgeStyle = {'stroke-width':'2px'};
+var rectangularShapeStyle = {'shape-rendering':'crispEdges'}
 var angleStyle = {'fill':'#DDD'};
 /*Styles*/
 
@@ -70,7 +71,7 @@ TestGenerator.nextQuestion = function(){
 	var m = Math.floor(Math.random()*2);
 	TestGenerator.setMeasure(m);
 	TestGenerator.letters = (Math.random()>0.5 ? ["A","B","C","D","E"]:["X","Y","Z","W","Q"]);
-	/*TEST*/TestGenerator.shape = 3;/*TEST*/
+	///*TEST*/TestGenerator.shape = 3;/*TEST*/
 	switch(TestGenerator.shape){
 		case 0:
 			var a = Math.floor(Math.random()*10)+5;
@@ -185,7 +186,7 @@ function square(a,measure,paper){
 	w = Math.min(paper.width,paper.height) * (3 / 5);
 	x = (paper.width - w) * 0.5;
 	y = (paper.height - w) * 0.5;	
-	paper.rect(x,y,w,w).attr(edgeStyle);
+	paper.rect(x,y,w,w).attr(edgeStyle).attr(rectangularShapeStyle);
 	paper.text(x+(w*0.5),y+w*1.1,""+a+" "+measure).attr(textStyle);
 	paper.text(x+w+25,y+(w*0.5),""+a+" "+measure).attr(textStyle);
 	//letters
@@ -212,7 +213,7 @@ function rectangle(a,b,measure,paper){
 	x = (paper.width - w) * 0.5;
 	y = (paper.height - h) * 0.5;
 	//console.log([x,y,w,h,_t]);
-	paper.rect(x,y,w,h).attr(edgeStyle);
+	paper.rect(x,y,w,h).attr(edgeStyle).attr(rectangularShapeStyle);
 	paper.text(x+(w*0.5),y+10+h,""+a+" "+measure).attr(textStyle);
 	paper.text(x+25+w,y+(h*0.5),""+b+" "+measure).attr(textStyle);
 	//letters
