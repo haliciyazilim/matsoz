@@ -22,19 +22,39 @@ Interaction.init = function(container){
 	var w = Interaction.paper.width;
 	var h = Interaction.paper.height;
 	//Interaction.generateRandomShapes(w,h);
-	Interaction.createDropableShape(Interaction.paper.width*0.8,0,Interaction.paper.width*0.2,Interaction.paper.height);
+	Interaction.createDropableShape(w*0.8,0,w*0.2,h);
+	Interaction.generateRandomShapes(w*0.8,h);
 };
 
 Interaction.generateRandomShapes = function(WIDTH,HEIGHT){
-	
-	var maxW = w*0.2;
-	var maxY = h*0.3;
+	Interaction.shapes = Interaction.paper.set();
+	var maxW = WIDTH*0.2;
+	var maxH = HEIGHT*0.3;
 	do{
 		var x,y,w,h;
-		var p = findSpace();
+		var p = Interaction.findSpace();
 		x = p.x, y = p.y;
-	
-	}while(x+w+maxW < WIDTH && y+h+maxH < HEIGHT)
+		Interaction.shapeType = Math.floor(Math.random()*1);
+		w = maxW*0.8;
+		h = maxH*0.8;
+		var shape;
+		switch(Interaction.shapeType){
+			case 0:
+				shape = Interaction.paper.rect(x,y,w,h);
+				console.log(x,y,w,h)
+				break;
+		}
+		var start = function(){console.log('drag started');},
+		move = function(){console.log('dragging');},
+		up = function(){
+			if(Interaction.dropableShape.isMouseIn())
+				alert('inside');
+			else
+				alert('outside')
+			};
+		shape.drag(move,start,up);
+		Interaction.shapes.push(shape);
+	}while(false && x+w+maxW < WIDTH && y+h+maxH < HEIGHT)
 	
 };
 
@@ -64,6 +84,9 @@ Interaction.createDropableShape = function(X,Y,WIDTH,HEIGHT){
 
 //find left-upper-most empty space to place a shape
 Interaction.findSpace = function(){
-	var e = Interaction.shape[Interaction.shape.length];
-	return {x:e.x+e.w,y:e.y+e.h}
+	var e = Interaction.shapes[Interaction.shapes.length];
+	if(e)
+		return {x:e.x+e.w,y:e.y+e.h};
+	else
+		return {x:0,y:0};
 }
