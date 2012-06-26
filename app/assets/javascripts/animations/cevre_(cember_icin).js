@@ -80,6 +80,8 @@ Interaction.nextQuestion = function(){
 			Interaction.rulerSet[i].animateWith(Interaction.rulerSet[0],anim,anim);
 		setTimeout(callback,200);
 	}
+	Interaction.odx=0;
+	Interaction.ody=0;
 }
 Interaction.checkAnswer = function(){
 	var answer = Interaction.input.value;
