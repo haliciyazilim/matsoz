@@ -60,7 +60,28 @@ Main.raphaelInit = function(){
 		cube.attr('y',y);
 		return cube;
 	};
-	
+	Raphael.fn.rhombus = function(x,y,w,h){
+		var pathstring = '';
+		pathstring += 'M'+x+','+(y+h*0.5);
+		pathstring += 'L'+(x+w*0.5)+','+(y);
+		pathstring += 'L'+(x+w)+','+(y+h*0.5);
+		pathstring += 'L'+(x+w*0.5)+','+(y+h);
+		pathstring += 'z';
+		var rhombus = this.path(pathstring);
+		rhombus.data({'x':x,'y':y,'w':w,'h':h});
+		return rhombus;
+	}
+	Raphael.fn.trapezoid = function(x,y,w,h,_w){
+		var pathstring = '';
+		pathstring += 'M'+x+','+(y+h);
+		pathstring += 'L'+(x+(w-_w)*0.5)+','+y;
+		pathstring += 'L'+(x+(w-_w)*0.5+_w)+','+y;
+		pathstring += 'L'+(x+w)+','+(y+h);
+		pathstring += ' z';
+		var trapezoid = this.path(pathstring);
+		trapezoid.data({'x':x,'y':y,'w':w,'h':h});
+		return trapezoid;
+	}
 	Raphael.fn.sphere = function(x,y,r,fill){
 		var sphere = this.ellipse(x, y, r, r).attr({
 			fill: "r(.3,.25) white-" + fill,
