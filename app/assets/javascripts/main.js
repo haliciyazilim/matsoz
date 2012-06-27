@@ -196,6 +196,32 @@ Main.raphaelInit = function(){
 		return st;
 	};
 	
+	Raphael.fn.regularPolygon = function(x,y,w,h,k,o){
+		var angles = [];
+		for(var i=0; i<k ;i++){
+			angles[i] = 360/k*i;
+		}
+		return this.equiradialPolygon(x,y,w,h,angles,o)
+	};
+	Raphael.fn.equiradialPolygon = function(x,y,w,h,angles,o){
+		var _o=Math.random()*60;
+		if(o != null)
+			_o=o;
+		var a = Math.min(w,h)*0.5;
+		var mx = x + w*0.5;
+		var my = y + h*0.5;
+		var pathstring = '';
+		for(var i=0; i<angles.length ;i++){
+			pathstring += (i==0?'M':'L');
+			var _angle = Util.degreeToRadians(_o+angles[i]);
+			var _x = mx + a*Math.cos(_angle);
+			var _y = my + a*Math.sin(_angle);
+			pathstring += _x + ',' + _y;
+		}
+		pathstring += 'z';
+		return this.path(pathstring);
+	}
+	
 }
 Main.setObjective = function(str){
 	Main.objective.innerHTML = str;
@@ -242,5 +268,8 @@ var Util = {
 		},
 	formatNumber: function(number,decimal){
 			return Math.floor(number * decimal * 10) / (decimal * 10);
+		},
+	rand01: function(){
+			return Math.floor(Math.random()*2);
 		}
 };
