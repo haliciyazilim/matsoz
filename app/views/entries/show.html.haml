@@ -2,6 +2,7 @@
 - content_for(:head) do
   %meta{'name' => 'viewport', 'content' => 'width=device-width, initial-scale=1, user-scalable=yes'}
   = javascript_include_tag 'raphael-min.js'
+  = javascript_include_tag 'paper.js'
   = javascript_include_tag 'main.js'
   - begin
     = javascript_include_tag @entry.javascript_file
