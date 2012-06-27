@@ -48,6 +48,7 @@ Interaction.init = function(container){
 			width:'30px',
 			height:'30px'
 		});
+	Main.setObjective('start');
 	Interaction.container.appendChild(Interaction.radius);
 	Interaction.reinit();
 }
@@ -57,17 +58,19 @@ Interaction.reinit = function(){
 	Interaction.paper.clear();
 	Interaction.r = null;
 	Interaction.drawRuler();
-	Interaction.compassLayer = Interaction.paper.rect(0,0,20,20).attr({'cursor':'e-resize','fill':'#fff','opacity':0});
+	Interaction.compassLayer = Interaction.paper.rect(0,0,20,20).attr({'cursor':'e-resize','fill':'#fff','opacity':1});
 	Interaction.drawCompass();
 	var start = function () {
-		if(Interaction.pause === true)
-			return;
+		//if(Interaction.pause === true)
+		//	return;
+		Main.setObjective('start');
         this.ox  = this.attr('x')+10;
 		this.mx  = this.data('mx');
 	},
     move = function (dx) {
-		if(Interaction.pause === true)
-			return;
+		//if(Interaction.pause === true)
+		//	return;
+		Main.setObjective('move');
 		var _w= - this.mx + (this.ox + dx);
 		;
 		if(_w > Interaction.br * 3 && _w < Interaction.rulerSet[0].data('w')-Interaction.br){
@@ -76,6 +79,8 @@ Interaction.reinit = function(){
 		}
     },
     up = function (){
+		
+		Main.setObjective('up');
     };
 	Interaction.compassLayer.drag(move,start,up);
 	
@@ -104,9 +109,10 @@ Interaction.drawCircle = function(){
 	if(Interaction.drawCircle.textR)
 		Interaction.drawCircle.textR.remove();
 	Interaction._o = 20;
+	Interaction.animationStarted = new Date().getTime();
 	Interaction.t = setInterval(function(){
-		Interaction._o+=10;
-		if(Interaction._o >= 360){
+		Interaction._o = (new Date().getTime() - Interaction.animationStarted) * 0.36;
+		if( Interaction._o >= 360 ){
 			clearTimeout(Interaction.t);
 			Interaction.drawCircle.compass.remove();
 			Interaction.drawCircle.textO = Interaction.paper.text(Interaction.drawCircle.x-10,Interaction.drawCircle.y+10, "O").attr(textStyle);
@@ -135,7 +141,7 @@ Interaction.drawCircle = function(){
 		for(var i=0;i<Interaction.drawCircle.compass.length; i++)
 			Interaction.drawCircle.compass[i].transform('r'+Interaction._o+','+Interaction.drawCircle.x+','+Interaction.drawCircle.y);
 
-	},50 );
+	},1 );
 }
 
 Interaction.compass = function(x,y,R,_o){

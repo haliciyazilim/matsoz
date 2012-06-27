@@ -1,20 +1,47 @@
 // JavaScript Document
 
-
 var Main = function(){
-	Main.raphaelInit();
 	$(document).ready(Main.init);
 }
+
+Main.config = {
+	defaultLibrary: "raphael"
+};
 
 Main.init = function(){
 	Main.interaction = $('#interaction_container > .interaction').get(0);
 	Main.objective = $('#interaction_container > .objective').get(0);
 	Main.objective.className = "objective";
 	//Main.InteractionContainer.appendChild(Main.ObjectiveContainer);
-	Interaction.init(Main.interaction);
-}
-Main.raphaelInit = function(){
+	var framework;
+	if (typeof(Interaction.getFramework) == "function") {
+		framework = Interaction.getFramework();
+	} else {
+		framework = Main.config.defaultLibrary;
+	}
 	
+	if (framework == 'raphael') {
+		Main.raphaelInit();
+		Interaction.init(Main.interaction);
+	} else if (framework == 'paper') {
+		Main.paperInit();
+		Main.scale = 2;
+		paper.install(window);
+		width = 512;
+		height = 320;
+		Main.interaction.innerHTML = "<canvas id='interaction_canvas' class='interaction_canvas' width='"+width*Main.scale+"px' height='"+height*Main.scale+"px'></canvas>"
+		canvas = $('.interaction_canvas').get(0);
+		paper.setup(canvas);
+		
+		Interaction.init(Main.interaction);
+	}
+};
+
+Main.paperInit = function() {
+
+};
+
+Main.raphaelInit = function(){
 	Raphael.fn.triangle = function(x1,y1,x2,y2,x3,y3){
 		var pathstring ='';
 		pathstring += 'M'+x1+','+y1+'L'+x2+','+y2;
@@ -60,7 +87,28 @@ Main.raphaelInit = function(){
 		cube.attr('y',y);
 		return cube;
 	};
-	
+	Raphael.fn.rhombus = function(x,y,w,h){
+		var pathstring = '';
+		pathstring += 'M'+x+','+(y+h*0.5);
+		pathstring += 'L'+(x+w*0.5)+','+(y);
+		pathstring += 'L'+(x+w)+','+(y+h*0.5);
+		pathstring += 'L'+(x+w*0.5)+','+(y+h);
+		pathstring += 'z';
+		var rhombus = this.path(pathstring);
+		rhombus.data({'x':x,'y':y,'w':w,'h':h});
+		return rhombus;
+	}
+	Raphael.fn.trapezoid = function(x,y,w,h,_w){
+		var pathstring = '';
+		pathstring += 'M'+x+','+(y+h);
+		pathstring += 'L'+(x+(w-_w)*0.5)+','+y;
+		pathstring += 'L'+(x+(w-_w)*0.5+_w)+','+y;
+		pathstring += 'L'+(x+w)+','+(y+h);
+		pathstring += ' z';
+		var trapezoid = this.path(pathstring);
+		trapezoid.data({'x':x,'y':y,'w':w,'h':h});
+		return trapezoid;
+	}
 	Raphael.fn.sphere = function(x,y,r,fill){
 		var sphere = this.ellipse(x, y, r, r).attr({
 			fill: "r(.3,.25) white-" + fill,
@@ -175,10 +223,38 @@ Main.raphaelInit = function(){
 		return st;
 	};
 	
-}
+	Raphael.fn.regularPolygon = function(x,y,w,h,k,o){
+		var angles = [];
+		for(var i=0; i<k ;i++){
+			angles[i] = 360/k*i;
+		}
+		return this.equiradialPolygon(x,y,w,h,angles,o)
+	};
+	Raphael.fn.equiradialPolygon = function(x,y,w,h,angles,o){
+		var _o=Math.random()*60;
+		if(o != null)
+			_o=o;
+		var a = Math.min(w,h)*0.5;
+		var mx = x + w*0.5;
+		var my = y + h*0.5;
+		var pathstring = '';
+		for(var i=0; i<angles.length ;i++){
+			pathstring += (i==0?'M':'L');
+			var _angle = Util.degreeToRadians(_o+angles[i]);
+			var _x = mx + a*Math.cos(_angle);
+			var _y = my + a*Math.sin(_angle);
+			pathstring += _x + ',' + _y;
+		}
+		pathstring += 'z';
+		return this.path(pathstring);
+	}
+	
+};
+
 Main.setObjective = function(str){
 	Main.objective.innerHTML = str;
-}
+};
+
 Main();
 
 var Util = {
@@ -221,5 +297,8 @@ var Util = {
 		},
 	formatNumber: function(number,decimal){
 			return Math.floor(number * decimal * 10) / (decimal * 10);
+		},
+	rand01: function(){
+			return Math.floor(Math.random()*2);
 		}
 };

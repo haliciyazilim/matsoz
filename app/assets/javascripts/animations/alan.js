@@ -150,7 +150,7 @@ TestGenerator.checkAnswer = function(){
 	if(isWrong && TestGenerator.trial > 0){
 		Interaction.input.style.color = 'red';
 		Interaction.input.value = TestGenerator.values.area;
-		Interaction.setStatus('Yanlış. Doğru cevap: '+TestGenerator.values.area+' '+TestGenerator.getMeasure());
+		Interaction.setStatus('Yanlış. Doğru cevap: '+TestGenerator.values.area+' '+TestGenerator.getMeasure() + '²');
 		Interaction.button.onclick = TestGenerator.nextQuestion;
 		Interaction.button.value = 'Sonraki';
 	}	
@@ -191,7 +191,7 @@ function rectangle(a,b,measure,paper){
 		h = _t;	
 	}
 	x = (paper.width - w) * 0.5;
-	y = (paper.width - h) * 0.5;
+	y = (paper.height - h) * 0.5;
 	console.log([x,y,w,h,_t]);
 	paper.rect(x,y,w,h).attr(edgeStyle);
 	paper.text(x+(w*0.5),y+10+h,""+a+" "+measure).attr(textStyle);
@@ -217,7 +217,7 @@ function rhomboid(a,b,H,measure,paper){
 		h = _t;
 	}
 	x = (paper.width - (w+_w)) * 0.5;
-	y = (paper.width - h) * 0.5;
+	y = (paper.height - h) * 0.5;
 	console.log([a,b,H]);
 	console.log([_w,w,h]);
 	paper.rhomboid(x,y,_w,w,h).attr(edgeStyle);
@@ -249,7 +249,7 @@ function triangle(a,b,H,measure,paper){
 		h = _t;
 	}
 	x = (paper.width - (w)) * 0.5;
-	y = (paper.width - h) * 0.5;
+	y = (paper.height - h) * 0.5;
 	console.log([a,b,H]);
 	console.log([_w,w,h]);
 	paper.triangle(x,y+h,x+w,y+h,x+_w,y).attr(edgeStyle);
