@@ -111,8 +111,14 @@ p.exampleHeader {
 	padding: 7px;
 }
 .interaction{
-	height:300px;
+	height:320px;
 }
+
+.interaction_canvas {
+	height: 320px;
+	width: 512px;
+}
+
 .input {
 	background-color: white;
 	font: 16pt "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;

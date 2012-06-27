@@ -1,20 +1,47 @@
 // JavaScript Document
 
-
 var Main = function(){
-	Main.raphaelInit();
 	$(document).ready(Main.init);
 }
+
+Main.config = {
+	defaultLibrary: "raphael"
+};
 
 Main.init = function(){
 	Main.interaction = $('#interaction_container > .interaction').get(0);
 	Main.objective = $('#interaction_container > .objective').get(0);
 	Main.objective.className = "objective";
 	//Main.InteractionContainer.appendChild(Main.ObjectiveContainer);
-	Interaction.init(Main.interaction);
-}
-Main.raphaelInit = function(){
+	var framework;
+	if (typeof(Interaction.getFramework) == "function") {
+		framework = Interaction.getFramework();
+	} else {
+		framework = Main.config.defaultLibrary;
+	}
 	
+	if (framework == 'raphael') {
+		Main.raphaelInit();
+		Interaction.init(Main.interaction);
+	} else if (framework == 'paper') {
+		Main.paperInit();
+		Main.scale = 2;
+		paper.install(window);
+		width = 512;
+		height = 320;
+		Main.interaction.innerHTML = "<canvas id='interaction_canvas' class='interaction_canvas' width='"+width*Main.scale+"px' height='"+height*Main.scale+"px'></canvas>"
+		canvas = $('.interaction_canvas').get(0);
+		paper.setup(canvas);
+		
+		Interaction.init(Main.interaction);
+	}
+};
+
+Main.paperInit = function() {
+
+};
+
+Main.raphaelInit = function(){
 	Raphael.fn.triangle = function(x1,y1,x2,y2,x3,y3){
 		var pathstring ='';
 		pathstring += 'M'+x1+','+y1+'L'+x2+','+y2;
@@ -175,10 +202,12 @@ Main.raphaelInit = function(){
 		return st;
 	};
 	
-}
+};
+
 Main.setObjective = function(str){
 	Main.objective.innerHTML = str;
-}
+};
+
 Main();
 
 var Util = {
