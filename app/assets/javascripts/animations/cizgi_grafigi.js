@@ -54,20 +54,65 @@ Interaction.init = function(container) {
 				   .css("left", "376px");
 	$('#textInput').addClass('number_input_field');
 	
-	
-	
 	view.draw();
 }
 
 paperAddOns = function () {
-	Path.OneSidedArrow = function(point1, point2, arrowHeadSize) {
+	Path.OneSidedArrow = function(point1, point2, arrowHeadSize, angle) {
 		if (arrowHeadSize == null) {
 			arrowHeadSize = 3;
 		}
-	
-		path = new Path.Line(point1, point2);
+		if(angle == null && angle == 'undefined')
+			angle = 30;
+		var group = new Group();
+		var path = new Path.Line(point1, point2);
+		
+		var _a = Util.radianToDegree(
+							Math.asin( 
+								(point1.y-point2.y) / 
+								point1.getDistance(point2) 
+								) 
+							);
+		var a1 = Util.degreeToRadians(180 + _a + angle);
+		var a2 = Util.degreeToRadians(180 + _a - angle);
+		var path2 = new Path.Line(
+							point2,
+							new Point( 
+									point2.x + arrowHeadSize*Math.cos(a1),
+									point2.y - arrowHeadSize*Math.sin(a1)
+								) 
+							);
+		var path3 = new Path.Line(
+							point2,
+							new Point( 
+									point2.x + arrowHeadSize*Math.cos(a2) , 
+									point2.y - arrowHeadSize*Math.sin(a2) 
+								) 
+							);
+		var pt = new Path();
+		pt.add(point2);
+		pt.add(new Point( 
+						point2.x + arrowHeadSize*Math.cos(a1),
+						point2.y - arrowHeadSize*Math.sin(a1)
+					));
+		pt.add(new Point( 
+						point2.x + arrowHeadSize*Math.cos(a2) , 
+						point2.y - arrowHeadSize*Math.sin(a2) 
+					) );
+		pt.closed = true;
 		path.strokeColor = 'black';
-		return path;
+		pt.style = {
+			strokeColor: 'black',
+			fillColor : 'black'
+		};
+		//path2.strokeColor = 'black';
+		//path3.strokeColor = 'black';
+		
+		group.addChild(path);
+		group.addChild(pt);
+		//group.addChild(path2);
+		//group.addChild(path3);
+		return group;
 	}
 	
 	Path.LineGraph = function(point, width, height, chart) {
@@ -128,17 +173,17 @@ paperAddOns = function () {
 		// Axes
 		origin = new Point(point.add([0, height]));
 		
-		xAxis = new Path.OneSidedArrow(origin, origin.add([width, 0]));
+		xAxis = new Path.OneSidedArrow(origin, origin.add([width + 20, 0]),15, 30);
 		xAxis.strokeWidth = 4;
 		
-		yAxis = new Path.OneSidedArrow(origin, origin.add([0, -height]));
+		yAxis = new Path.OneSidedArrow(origin, origin.add([0, -height - 20]),15, 30);
 		yAxis.strokeWidth = 4;
 		
 		group.addChild(xAxis);
 		group.addChild(yAxis);
 		
 		// Axis Labels
-		var text = new PointText(new Point(xStart + xStep * numOfXPoints, yStart+10));
+		var text = new PointText(new Point(xStart + xStep * numOfXPoints + 10, yStart+10));
 		text.justification = 'left';
 		text.fillColor = 'black';
 		text.content = chart.xAxisName;
