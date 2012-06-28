@@ -149,12 +149,21 @@ p.exampleHeader {
 	background-color:red;
 	color:white;
 }
-.status{
 
+.status_field {
+	text-align: center;
+	width: 200px;
 }
-.status_true{
+
+.status_true {
 	color:green;
 }
-.status_false{
+
+.status_false {
 	color:red;
+}
+
+.status_alert {
+	color:red;
+	font-size: 12px;
 }

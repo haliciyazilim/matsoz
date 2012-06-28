@@ -25,7 +25,7 @@ Main.init = function(){
 		Interaction.init(Main.interaction);
 	} else if (framework == 'paper') {
 		Main.paperInit();
-		Main.scale = 2;
+		Main.scale = 1;
 		paper.install(window);
 		width = 512;
 		height = 320;
@@ -258,7 +258,11 @@ Main.setObjective = function(str){
 Main();
 
 var Util = {
-	
+	isInteger: function (value) {
+		var intRegex = /^\d+$/;
+		return intRegex.test(val);
+	},
+
 	findDistance:function (x1,y1,x2,y2){
 			var _i = x1-x2;
 			var _j = y1-y2;
