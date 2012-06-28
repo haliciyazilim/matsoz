@@ -1,4 +1,4 @@
-var Acinim = function(){};
+
 function animationInit(){};
 
 /*Styles*/
@@ -12,6 +12,10 @@ Interaction.getFramework = function() {
 }
 
 Interaction.init = function(container) {
+	interactionInit(container);
+}
+
+interactionInit = function(container) {
 	paperAddOns();
 		
 	// Create the random data
@@ -40,12 +44,62 @@ Interaction.init = function(container) {
 	
 	Main.setObjective("Aşağıdaki grafiğe göre altın satış fiyatı "+xLabels[randomDay]+" günü kaç lira olmuştur?");
 	
+	
+	// Status
+	$(container).append('<div id="status" class="status_field"></div>');
+	$('#status').css("position", "absolute")
+					  .css("top", "250px")
+					  .css("left", "300px")
+					  .css("text-align", "center");
+	
+	// Restart
+	restart = function() {
+		$('#textInput').remove();
+		$('#submitButton').remove();
+		$('#status').remove();
+		graph.remove();
+		interactionInit(container);		
+	}
+	
+	
+	// Submit
+	noOfWrongAnswers = 0;
+	
+	submit = function () {
+		val = $('#textInput').val();
+		
+		if (!Util.isInteger(val)) {
+			$('#status').html('<span class="status_alert">Lütfen kutucuğa bir tamsayı giriniz</span>');
+			return;
+		}
+		
+		if (val == correctAnswer) {
+			$('#status').html('<span class="status_true">Tebrikler!</span>');
+			$('#submitButton').val("Sonraki");
+			$('#submitButton').click(restart);
+			submit = restart;
+		} else {
+			if (noOfWrongAnswers == 0) {
+				$('#status').html('<span class="status_false">Tekrar Deneyiniz!</span>');
+				$('#textInput').val('');
+				noOfWrongAnswers = 1;
+			} else {
+				$('#status').html('<span class="status_false">Olmadı!</span>');
+				$('#textInput').val(correctAnswer);
+				$('#submitButton').val("Sonraki");
+				$('#submitButton').click(restart);
+				submit = restart;
+			}
+		}
+	};
+	
 	// Create the control button
 	$('#interaction_container').append('<input id="submitButton" type="button" value="Kontrol" />');
 	$('#submitButton').css("position", "absolute")
 					  .css("top", "200px")
 					  .css("left", "366px");
 	$('#submitButton').addClass('control_button');
+	$('#submitButton').click(submit);
 	
 	// Create the input field
 	$('#interaction_container').append('<input id="textInput" type="textbox" />');
@@ -53,6 +107,11 @@ Interaction.init = function(container) {
 				   .css("top", "150px")
 				   .css("left", "376px");
 	$('#textInput').addClass('number_input_field');
+	$("#textInput").keypress(function(event) {
+		if(event.keyCode == 13) {
+			submit();
+		}
+	});
 	
 	view.draw();
 }
@@ -158,8 +217,8 @@ paperAddOns = function () {
 			text.justification = 'center';
 			text.fillColor = 'black';
 			text.content = chart.xLabels[index];
-			text.scale(Main.scale, new Point(0,0));
 			text.rotate(90);
+			group.addChild(text);
 		}
 		
 		for (index = 0; index < numOfYPoints; index++) {
@@ -167,7 +226,7 @@ paperAddOns = function () {
 			text.justification = 'right';
 			text.fillColor = 'black';
 			text.content = (yMax - yMin) / (numOfYPoints-1) * index + yMin;
-			text.scale(Main.scale, new Point(0,0));
+			group.addChild(text);
 		}
 		
 		// Axes
@@ -187,13 +246,13 @@ paperAddOns = function () {
 		text.justification = 'left';
 		text.fillColor = 'black';
 		text.content = chart.xAxisName;
-		text.scale(Main.scale, new Point(0,0));
+		group.addChild(text);
 		
 		var text = new PointText(new Point(xStart - 10, yStart + yStep * numOfYPoints - 10));
 		text.justification = 'center';
 		text.fillColor = 'black';
 		text.content = chart.yAxisName;
-		text.scale(Main.scale, new Point(0,0));
+		group.addChild(text);
 		
 		// Data Lines
 		index = 0;

@@ -24,7 +24,6 @@ Main.init = function(){
 		Main.raphaelInit();
 		Interaction.init(Main.interaction);
 	} else if (framework == 'paper') {
-		
 		Main.scale = 1;
 		paper.install(window);
 		Main.paperInit();
@@ -323,7 +322,11 @@ Main.setObjective = function(str){
 Main();
 
 var Util = {
-	
+	isInteger: function (value) {
+		var intRegex = /^\d+$/;
+		return intRegex.test(val);
+	},
+
 	findDistance:function (x1,y1,x2,y2){
 			var _i = x1-x2;
 			var _j = y1-y2;
