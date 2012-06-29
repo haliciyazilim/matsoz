@@ -38,6 +38,7 @@ Main.init = function(){
 };
 
 Main.paperInit = function() {
+	// Custom Paths
 	Path.Triangle = function(p1,p2,p3){
 		var triangle = new Path();
 		triangle.add([p1.x,p1.y]);
@@ -102,6 +103,15 @@ Main.paperInit = function() {
 		rhombus.add([x+w*0.5,y+h]);
 		rhombus.closed = true;
 		return rhombus;
+	}
+	
+	// Additions to Item
+	Item.prototype.animate = function (animation) {
+		if ((typeof(animation) != typeof({})) || (animation instanceof Array)) {
+			throw "The argument to Item.animate needs be a Hash";
+		}
+		
+		AnimationManager.animate(new Animation(this, animation));
 	}
 };
 
@@ -326,6 +336,10 @@ var Util = {
 		var intRegex = /^\d+$/;
 		return intRegex.test(val);
 	},
+	
+	isNumber: function (n) {
+	  return !isNaN(parseFloat(n)) && isFinite(n);
+	},
 
 	findDistance:function (x1,y1,x2,y2){
 			var _i = x1-x2;
@@ -373,8 +387,7 @@ var Util = {
 
 var AnimationManager = function(){
 	AnimationManager.animations = [];
-	console.log('AnimationManager is initialized');
-	view.onFrame = AnimationManager.onFrame;
+	view.onFrame = AnimationManager.update;
 }
 
 AnimationManager.onFrame = function(event){
@@ -402,9 +415,7 @@ AnimationManager.onFrame = function(event){
 			anim.shape.position.x = anim.data.first_position.x + anim.data.delta.x * anim.time / 1000;
 			anim.shape.position.y = anim.data.first_position.y + anim.data.delta.y * anim.time / 1000;
 			AnimationManager.animations.splice(i,1);
-			
 		}
-		
 	}
 }
 AnimationManager.translate = function(shape,delta,time){
@@ -422,9 +433,103 @@ AnimationManager.translate = function(shape,delta,time){
 	anim.lastTime = null;
 	AnimationManager.animations.push(anim);
 }
-function Animation(type){
-	this.type = type;
-	this.shape = null;
-	this.time = null;
-	this.data = {};
+
+// function Animation(type){
+// 	this.type = type;
+// 	this.shape = null;
+// 	this.time = null;
+// 	this.data = {};
+// }
+
+function Animation(item, animationHash) {
+	this.item = item;
+	
+	this.style = animationHash.style;
+	this.duration = animationHash.duration;
+	
+	if (animationHash.delay) {
+		this.startTime = new Date().getTime() + animationHash.delay;
+	} else {
+		this.startTime = new Date().getTime();
+	}
+	
+	if (animationHash.animationType) {
+		this.animationType = animationHash.animationType;
+		if (this.animationType == 'custom') {
+			this.mappingFunction = animationHash.mappingFunction;
+		}
+	} else {
+		this.animationType = 'linear';	
+	}
+	
+	if (typeof(animationHash.callback) == "function") {
+		this.callback = animationHash.callback;
+	}
+	
+	this.idle = true;
+	
+	this.map = function(ratio) {
+		if (this.animationType == 'linear') {
+			return ratio;
+		} else if (this.animationType == 'easeInEaseOut') {
+			return (ratio*ratio) * (3-2*ratio);
+		} else if (this.animationType == 'custom') {
+			return this.mappingFunction(ratio);
+		} else {
+			return ratio;
+		}
+	}
+}
+
+
+AnimationManager.animate = function(animation) {
+	AnimationManager.animations.push(animation);
+}
+
+AnimationManager.update = function(event) {
+	for(var i=0; i<AnimationManager.animations.length; i++){
+		var animation = AnimationManager.animations[i];
+			
+		currentTime = new Date().getTime();
+		
+		if (animation.startTime < currentTime) {
+			if (animation.idle) {
+				animation.startHash = {};
+				animation.endHash = {};
+				for (var key in animation.style) {
+					if (animation.style.hasOwnProperty(key)) {
+						animation.startHash[key] = (animation.item[key]);
+					}
+				}
+				
+				animation.idle = false;
+			} else if (animation.startTime + animation.duration < currentTime) {
+				for (var key in animation.startHash) {
+					if (animation.startHash.hasOwnProperty(key)) {
+						animation.item[key] = animation.style[key];
+						AnimationManager.animations.splice(i,1);
+						if (animation.callback) {
+							animation.callback();
+						}
+					}
+				}
+			} else {
+				for (var key in animation.startHash) {
+					if (animation.startHash.hasOwnProperty(key)) {
+				    	startValue = animation.startHash[key];
+						endValue = animation.style[key];
+				
+						ratio = animation.map((currentTime - animation.startTime) / animation.duration);
+						if (Util.isNumber(startValue)) {
+							animation.item[key] = startValue + (endValue - startValue) * ratio;
+						} else if (startValue instanceof Point) {
+							x = startValue.x + (endValue.x - startValue.x) * ratio;
+							y = startValue.y + (endValue.y - startValue.y) * ratio;
+							animation.item[key] = new Point(x, y);
+						}
+					}
+				}
+			}
+		}	
+	}
 }
