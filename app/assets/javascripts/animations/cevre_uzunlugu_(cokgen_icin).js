@@ -2,24 +2,24 @@
 
 /*Styles*/
 var textStyle = {'font-size':'16px'};
-var edgeStyle = {'stroke-width':'2px'};
+var edgeStyle = {strokeColor:'#000',strokeWidth:2,fillColor:'#fff',cursor:'move'};
 var rectangularShapeStyle = {'shape-rendering':'crispEdges'}
 var angleStyle = {'fill':'#DDD'};
 /*Styles*/
 
 var Interaction =function(){};Interaction();
+Interaction.getFramework = function() {
+	return 'paper';
+}
 Interaction.init = function(container){
 	Main.setObjective('Aşağıdaki çokgenin çevre uzunluğunu bulunuz.');
 	Interaction.container = container;
-	$(Interaction.container).html('<div id="T"></div><div id="B"></div>');
+	$(Interaction.container).append('<div id="B"></div>');
 	$(Interaction.container).append('<style>div#L,div#R{float:left;}</style>');
-	$(Interaction.container).append('<style>div#T{height:70%;text-align:center;padding-top:20px;}</style>');
+	$(Interaction.container).append('<style>div#B{position:absolute;top:70%;left:30%;height:30%;width:40%;text-align:center;padding-top:20px;}</style>');
 	$(Interaction.container).append('<style>div#L{width:60%;height:100%;text-align:center;}</style>');
 	$(Interaction.container).append('<style>div#R{width:40%;height:100%;}</style>');
-	//$(Interaction.container).append('<style>div#R > div#B input[type="button"]{height:30px;font-weight:bold;border-radius:20px;border:1px solid #000;cursor:pointer;background-color:red;color:white;}</style>');
 	Interaction.T = $('div#T',Interaction.container).get(0);
-	Interaction.paper = new Raphael(Interaction.T,$(Interaction.T).width()*0.6,$(Interaction.T).height()*0.9);
-	//console.log(Interaction.paper);
 	Interaction.input = document.createElement('input');
 	Interaction.input.className = 'number_input_field';
 	Interaction.input.setAttribute('type','text');
@@ -39,22 +39,21 @@ Interaction.init = function(container){
 	Interaction.status.style.fontSize = '12px';
 	Interaction.status.style.fontWeight = 'bold';
 	Interaction.status.style.paddingTop = '10px';
-	TestGenerator(Interaction.paper);
+	TestGenerator.nextQuestion();
+	
 }
 
 Interaction.setStatus = function(msg){
 	Interaction.status.innerHTML = msg;
 }
 
-var TestGenerator = function(paper){
-	TestGenerator.paper = paper;
-	TestGenerator.nextQuestion();
-}
+var TestGenerator = function(){}; TestGenerator();
+
 TestGenerator.nextQuestion = function(){
+	project.activeLayer.removeChildren();
 	TestGenerator.shape = null;
 	TestGenerator.trial = 0;
 	TestGenerator.values = null;
-	TestGenerator.paper.clear();
 	Interaction.setStatus('');
 	Interaction.button.value = 'Kontrol';
 	Interaction.input.value = '';
@@ -66,18 +65,19 @@ TestGenerator.nextQuestion = function(){
 	Interaction.input.style.color = '';
 	Interaction.button.onclick = TestGenerator.checkAnswer;
 	TestGenerator.shape = Math.floor(Math.random()*4);
+	TestGenerator.paper = {width:500 , height:250}
 	
 	
 	var m = Math.floor(Math.random()*2);
 	TestGenerator.setMeasure(m);
-	TestGenerator.letters = (Math.random()>0.5 ? ["A","B","C","D","E"]:["X","Y","Z","W","Q"]);
-	///*TEST*/TestGenerator.shape = 3;/*TEST*/
+	TestGenerator.letters = (Math.random()>0.5 ? ["A","B","C","D","E"]:["K","L","M","N","P"]);
+	/*TEST*/TestGenerator.shape = 3;/*TEST*/
 	switch(TestGenerator.shape){
 		case 0:
 			var a = Math.floor(Math.random()*10)+5;
 			var cevre = 4*a;
 			TestGenerator.values = {a:a,cevre:cevre};
-			square(a,TestGenerator.getMeasure(),TestGenerator.paper);
+			rectangle(a,a,TestGenerator.getMeasure(),TestGenerator.paper);
 			break;
 		case 1:
 			var a,b;
@@ -105,9 +105,7 @@ TestGenerator.nextQuestion = function(){
 			c = a+b;
 			while(a+b <= c || Math.abs(a-b) >= c)
 				c = Math.floor(Math.random()*5)+5;
-			//console.log(a,b,c);
 			TestGenerator.values = {a:a,b:b,c:c,cevre:(a+b+c)};
-//			triangle(a,b,H,TestGenerator.getMeasure(),TestGenerator.paper);
 			new Triangle(a,b,c,TestGenerator.getMeasure(),TestGenerator.paper).showEdge('a').showEdge('b').showEdge('c');
 			break;
 		case 4:
@@ -123,16 +121,16 @@ TestGenerator.nextQuestion = function(){
 			break;
 		case 5:
 			var a,W;
-			a = Math.floor(Math.random()*6)+4;
+			a = Math.floor(Math.random()*6)+6;
 			W = 2*a;
 			while(W >= 2*a)
-				W = Math.floor(Math.random()*5)+5;
+				W = Math.floor(Math.random()*2)+6;
 			TestGenerator.values = {a:a,cevre:4*a};
 			rhombus(a,W,TestGenerator.getMeasure(),TestGenerator.paper);
 			break;
 	}
 }
-TestGenerator.setMeasure = function(m){
+TestGenerator.setMeasure = function(m){ 
 	TestGenerator.measure = m;
 	$('#input_measure').html(TestGenerator.getMeasure());
 }
@@ -144,10 +142,15 @@ TestGenerator.getMeasure = function(){
 	else
 		return 'm';
 };
-
+TestGenerator.printVertexLetters = function(p){
+	for(var i=0; i<p.length;i++){
+		var text = new PointText(p[i]);
+		text.content = ""+TestGenerator.letters.shift();
+		text.style = textStyle;
+		text=null;
+	}
+}
 TestGenerator.checkAnswer = function(){
-	//check the answer
-	//console.log("Im here");
 	var value = Interaction.input.value;
 	var isWrong = false;
 	if(isNaN(value)){
@@ -181,78 +184,86 @@ TestGenerator.checkAnswer = function(){
 }
 
 
-function square(a,measure,paper){
-	var x,y,w;
-	w = Math.min(paper.width,paper.height) * (3 / 5);
-	x = (paper.width - w) * 0.5;
-	y = (paper.height - w) * 0.5;	
-	paper.rect(x,y,w,w).attr(edgeStyle).attr(rectangularShapeStyle);
-	paper.text(x+(w*0.5),y+w*1.1,""+a+" "+measure).attr(textStyle);
-	paper.text(x+w+25,y+(w*0.5),""+a+" "+measure).attr(textStyle);
-	//letters
-	paper.text(x-10,y+w+10,TestGenerator.letters.shift()).attr(textStyle);
-	paper.text(x+w+10,y+w+10,TestGenerator.letters.shift()).attr(textStyle);
-	paper.text(x+w+10,y-10,TestGenerator.letters.shift()).attr(textStyle);
-	paper.text(x-10,y-10,TestGenerator.letters.shift()).attr(textStyle);
-	
-}
-
 function rectangle(a,b,measure,paper){
 	var x,y,w,h,_t;
-	var length = Math.min(paper.width,paper.height);
+	_t = Math.min(paper.width,paper.height) * (Math.max(a,b) / 20);
 	if(a > b){
-		_t = length * (3 / 5);
 		w = _t;
 		h = _t * (b / a);
 	}
 	else{
-		_t = length * (3 / 5);
 		w = _t * (a / b);
 		h = _t;	
 	}
 	x = (paper.width - w) * 0.5;
 	y = (paper.height - h) * 0.5;
-	//console.log([x,y,w,h,_t]);
-	paper.rect(x,y,w,h).attr(edgeStyle).attr(rectangularShapeStyle);
-	paper.text(x+(w*0.5),y+10+h,""+a+" "+measure).attr(textStyle);
-	paper.text(x+25+w,y+(h*0.5),""+b+" "+measure).attr(textStyle);
+	console.log([x,y,w,h,_t]);
+	var rect = new Path.Rectangle(new Point(x,y),new Size(w,h));
+	rect.style = edgeStyle;
+
+	var t1 = new PointText(new Point(x+w*0.5-10,y+h+15));
+	t1.content = ""+a+" "+measure;
+	var t2 = new PointText(new Point(x+w+5,y+h*0.5));
+	t2.content = ""+b+" "+measure;
+	
 	//letters
-	paper.text(x-10,y+h+10,TestGenerator.letters.shift()).attr(textStyle);
-	paper.text(x+w+10,y+h+10,TestGenerator.letters.shift()).attr(textStyle);
-	paper.text(x+w+10,y-10,TestGenerator.letters.shift()).attr(textStyle);
-	paper.text(x-10,y-10,TestGenerator.letters.shift()).attr(textStyle);
+	TestGenerator.printVertexLetters(
+			[
+				new Point(x-10,y+h+10),
+				new Point(x+w+10,y+h+10),
+				new Point(x+w+10,y-10),
+				new Point(x-10,y-10)
+			]
+		);
 }
 
 function rhomboid(a,b,H,measure,paper){
 	var x,y,w,_w,h,_t;
-	var length = Math.min(paper.width,paper.height);
+	_t = Math.min(paper.width,paper.height) * (Math.max(a+b,H) / 15);
 	if(2*a+b > H){
-		_t = length * (4 / 5);
 		w = _t * ((a+b)/(2*a+b));
 		_w= _t * a / (2*a+b); 
 		h = _t * (H/(2*a+b));	
 	}else{
-		_t = length * (4 / 5);
+		
 		w = _t * ((a+b)/H);
 		_w= _t * a / H; 
 		h = _t;
 	}
 	x = (paper.width - (w+_w)) * 0.5;
 	y = (paper.height - h) * 0.5;
-	paper.rhomboid(x,y,_w,w,h).attr(edgeStyle);
-	paper.text(x+(w*0.5),y+10+h,""+(a+b)+" "+measure).attr(textStyle);
-	paper.text(x+w+_w*0.5+25,y+(h*0.5),""+H+" "+measure).attr(textStyle);
 
-	paper.text(x-10,y+h+10,TestGenerator.letters.shift()).attr(textStyle);
-	paper.text(x+w+10,y+h+10,TestGenerator.letters.shift()).attr(textStyle);
-	paper.text(x+w+_w+10,y-10,TestGenerator.letters.shift()).attr(textStyle);
-	paper.text(x+_w-10,y-10,TestGenerator.letters.shift()).attr(textStyle);
-	//paper.text(x+_w-16,y+h-16,TestGenerator.letters.shift()).attr(textStyle);
+
+	var rhomboid = new Path.Rhomboid(new Point(x,y), new Size(w,h), _w );
+	rhomboid.style = edgeStyle;
+	var line = new Path.Line(new Point(x+_w,y), new Point(x+_w,y+h));
+	line.style = edgeStyle;
+	
+	var t1 = new PointText(new Point(x+w*0.5-10,y+h+15));
+	t1.content = ""+(a+b)+" "+measure;
+	var t2 = new PointText(new Point(x+_w+5,y+h*0.5));
+	t2.content = ""+H+" "+measure;
+	
+	var rect = new Path.Rectangle( new Point(x+_w-10,y+h-10), new Size(10,10) );
+	rect.style = edgeStyle;
+	var circle = new Path.Circle(new Point(x+_w-5,y+h-5),1);
+	circle.style = edgeStyle;
+	
+	TestGenerator.printVertexLetters(
+			[
+				new Point(x-10,y+h+10),
+				new Point(x+w+10,y+h+10),
+				new Point(x+_w+w+10,y-10),
+				new Point(x+_w-10,y-10),
+				new Point(x+_w-16,y+h-16)
+			]
+		);
 }
+
 function rhombus(a,W,measure,paper){
-	var x,y,w,h,_t;
-	var length = Math.min(paper.width,paper.height)* 3.5 / 5 ;
+	var x,y,w,h;
 	H = Math.sqrt(a*a-Math.pow(W*0.5,2));
+	var length = Math.min(paper.width,paper.height)* (Math.max(W,H) / 15) ;
 	if(W > H){
 		w = length;
 		h = length * H / W;
@@ -262,62 +273,75 @@ function rhombus(a,W,measure,paper){
 	}
 	x = (paper.width - w) * 0.5;
 	y = (paper.height - h) * 0.6;
-	paper.rhombus(x,y,w,h).attr(edgeStyle);
-	paper.text(x+w*0.1,y+h*0.20,""+a+" "+measure).attr(textStyle);
-	paper.text(x+w*0.1,y+h*0.80,""+a+" "+measure).attr(textStyle);
-	paper.text(x+w*0.9,y+h*0.20,""+a+" "+measure).attr(textStyle);
-	paper.text(x+w*0.9,y+h*0.80,""+a+" "+measure).attr(textStyle);
-	paper.text(x-10,y+h*0.5,TestGenerator.letters.shift()).attr(textStyle);
-	paper.text(x+w*0.5,y-10,TestGenerator.letters.shift()).attr(textStyle);
-	paper.text(x+w+10,y+h*0.5,TestGenerator.letters.shift()).attr(textStyle);
-	paper.text(x+w*0.5,y+h+10,TestGenerator.letters.shift()).attr(textStyle);
+	
+	var rhombus = new Path.Rhombus(new Point(x,y),new Size(w,h));
+	rhombus.style = edgeStyle;
+	var t1 = new PointText(new Point(x-10,y+h*0.30));
+	t1.content = ""+(a)+" "+measure;
+	var t2 = new PointText(new Point(x-10,y+h*0.80));
+	t2.content = ""+a+" "+measure;
+	var t3 = new PointText(new Point(x+w*0.9,y+h*0.30));
+	t3.content = ""+(a)+" "+measure;
+	var t3 = new PointText(new Point(x+w*0.9,y+h*0.80));
+	t3.content = ""+(a)+" "+measure;
+	
+	TestGenerator.printVertexLetters(
+			[
+				new Point(x-10,y+h*0.5),
+				new Point(x+w*0.5,y-10),
+				new Point(x+w+10,y+h*0.5),
+				new Point(x+w*0.5-5,y+h+15)
+			]
+		);
 }
 function trapezoid(a,_a,b,c,measure,paper){
 	var x,y,w,_w,h,H,_t;
 	H = Math.sqrt( b*b - Math.pow((a-_a)*0.5,2)  );
 	
-	var length = Math.min(paper.width,paper.height);
+	_t = Math.min(paper.width,paper.height) * (Math.max(a,b) / 20);
 	if(a > H){
-		_t = length * (3 / 5);
 		w = _t;
 		_w= _t * _a / a; 
 		h = _t * H / a;	
 	}else{
-		_t = length * (3 / 5);
 		w = _t * a / H;
 		_w= _t * _a / H; 
 		h = _t;
 	}
 	x = (paper.width - w) * 0.5;
 	y = (paper.height - h) * 0.5;
-	//console.log([x,y,w,_w,h,_t,H]);
-	paper.trapezoid(x,y,w,h,_w).attr(edgeStyle);
-	paper.text(x+(w*0.5),y+10+h,""+a+" "+measure).attr(textStyle);
-	paper.text(x+15+w,y+(h*0.5),""+c+" "+measure).attr(textStyle);
-	paper.text(x-15,y+(h*0.5),""+b+" "+measure).attr(textStyle);
-	paper.text(x+(w*0.5),y-15,""+_a+" "+measure).attr(textStyle);
-	
-	paper.text(x-10,y+h+10,TestGenerator.letters.shift()).attr(textStyle);
-	paper.text(x+w+10,y+h+10,TestGenerator.letters.shift()).attr(textStyle);
-	paper.text(x+w-(w-_w)*0.5+10,y-10,TestGenerator.letters.shift()).attr(textStyle);
-	paper.text(x+(w-_w)*0.5-10,y-10,TestGenerator.letters.shift()).attr(textStyle);
-	
+	var trapezoid = new Path.Trapezoid( new Point(x,y) , new Size(w,h), _w );
+	trapezoid.style = edgeStyle;
+	var t1 = new PointText(new Point(x+w*0.5-10,y+15+h));
+	t1.content = ""+(a)+" "+measure;
+	var t2 = new PointText(new Point(x+w,y+h*0.5));
+	t2.content = ""+c+" "+measure;
+	var t3 = new PointText(new Point(x-25,y+h*0.5));
+	t3.content = ""+(b)+" "+measure;
+	var t3 = new PointText(new Point(x+w*0.5-10,y-5));
+	t3.content = ""+_a+" "+measure;
+	TestGenerator.printVertexLetters(
+			[
+				new Point(x-10,y+h+10),
+				new Point(x+w+10,y+h+10),
+				new Point(x+w-(w-_w)*0.5+10,y-10),
+				new Point(x+(w-_w)*0.5-10,y-10)
+			]
+		);
 }
 
 function Triangle(i,j,k,measure,paper){
-	var _x=10,_y=-20;
+	var _x=100,_y=20;
 	this.i=i,this.j=j,this.k=k;
 	this.p1={x:10,y:0},this.p2={x:0,y:0},this.p3={x:0,y:0};
 	this.a1=null,this.a2=null,this.a3=null;
-	var a = paper.height;
+	var a = Math.min(paper.width,paper.height)*0.8;
 	var _c = (a-40)/Math.max(i,j,k);
-	//console.log(_c);
 	this.p1.x = 60;
 	this.p1.y = a-20;
 	this.p2.x = this.p1.x + this.i*_c;
 	this.p2.y = this.p1.y;
 	var a = Math.acos((this.i*this.i + this.k*this.k - this.j*this.j)/(2*this.i*this.k));
-	//console.log('this.i:'+this.i+' this.j:'+this.j+' k:'+k+' a:'+a);
 	this.p3.x = this.p1.x + Math.cos(a)*k*_c;
 	this.p3.y = this.p1.y - Math.sin(a)*k*_c;
 	this.p1.x += _x;
@@ -326,25 +350,27 @@ function Triangle(i,j,k,measure,paper){
 	this.p1.y += _y;
 	this.p2.y += _y;
 	this.p3.y += _y;
-	//console.log(this);
-	paper.triangle( this.p1.x,
-					this.p1.y,
-					this.p2.x,
-					this.p2.y,
-					this.p3.x,
-					this.p3.y ).attr(edgeStyle);
+	var triangle = new Path.Triangle( 
+					this.p1,
+					this.p2,
+					this.p3);
+	triangle.style = edgeStyle;
 	
-	//letters
-	paper.text(this.p1.x-10,this.p1.y+10,TestGenerator.letters.shift()).attr(textStyle);
-	paper.text(this.p2.x+10,this.p2.y+10,TestGenerator.letters.shift()).attr(textStyle);
-	paper.text(this.p3.x+10,this.p3.y-10,TestGenerator.letters.shift()).attr(textStyle);
-	//paper.text(x+_w-16,y+h-16,TestGenerator.letters.shift()).attr(textStyle);
+	TestGenerator.printVertexLetters(
+			[
+				new Point(this.p1.x-10,this.p1.y+10),
+				new Point(this.p2.x+10,this.p2.y+10),
+				new Point(this.p3.x+10,this.p3.y-10)
+			]
+		);
 
 	this.drawEdgeText = function(p,a,k,L){
 		var _x,_y;
 		_x = p.x + k * Math.sin(a);
 		_y = p.y + k * Math.cos(a);
-		this.paper.text(_x,_y,L).attr(textStyle);
+		var t1 = new PointText(new Point(_x,_y));
+		t1.content = L;
+	
 	
 	}
 	this.calculateAngles = function(){
@@ -425,15 +451,15 @@ function Triangle(i,j,k,measure,paper){
 		switch(edge){
 			case 'a':
 				var a = Util.findAngle(this.p1.x,this.p1.y,this.p2.x,this.p2.y);
-				this.drawEdgeText({x:(this.p1.x+this.p2.x)*0.5,y:(this.p1.y+this.p2.y)*0.5},a,k,this.i+" "+measure);
+				this.drawEdgeText({x:(this.p1.x+this.p2.x)*0.5,y:(this.p1.y+this.p2.y)*0.5+5},a,k,this.i+" "+measure);
 				break;
 			case 'b':
 				var a = Util.findAngle(this.p2.x,this.p2.y,this.p3.x,this.p3.y);
-				this.drawEdgeText({x:(this.p2.x+this.p3.x)*0.5+10,y:(this.p2.y+this.p3.y)*0.5},a,k,this.j+" "+measure);
+				this.drawEdgeText({x:(this.p2.x+this.p3.x)*0.5-5,y:(this.p2.y+this.p3.y)*0.5},a,k,this.j+" "+measure);
 				break;
 			case 'c':
 				var a = Util.findAngle(this.p3.x,this.p3.y,this.p1.x,this.p1.y);
-				this.drawEdgeText({x:(this.p3.x+this.p1.x)*0.5-10,y:(this.p3.y+this.p1.y)*0.5},a,k,this.k+" "+measure);
+				this.drawEdgeText({x:(this.p3.x+this.p1.x)*0.5-15,y:(this.p3.y+this.p1.y)*0.5},a,k,this.k+" "+measure);
 				break;
 			default:
 				throw 'invalid argument. valid arguments: [ a , b , c ]';
