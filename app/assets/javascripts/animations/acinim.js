@@ -7,6 +7,9 @@ var shapeStyle = {'stroke-width':'2px'};
 var expandedShapeStyle = {'fill':'#fff','stroke-width':'2px','stroke':'#000'}; 
 /*Styles*/
 var Interaction =function(){};Interaction();
+Interaction.getFramework = function() {
+	return 'paper';
+}
 Interaction.init = function(container){
 	Acinim();
 	Acinim.firstCall = true;

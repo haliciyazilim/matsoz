@@ -41,14 +41,13 @@ Main.paperInit = function() {
 	// Custom Paths
 	Path.Triangle = function(p1,p2,p3){
 		var triangle = new Path();
-		triangle.add([p1.x,p1.y]);
-		triangle.add([p2.x,p2.y]);
-		triangle.add([p3.x,p3.y]);
+		triangle.add(p3);
+		triangle.add(p1);
+		triangle.add(p2);
 		triangle.closed = true;
 		return triangle;
 	}
 	Path.Bowl = function(x,y,w,h){
-		//this.path('M'+x+','+y+'L'+(x+w)+','+y+'L'+(x+w*0.8)+','+(y+h)+'L'+(x+0.2*w)+','+(y+h)+' z');
 		var bowl = new Path();
 		bowl.add([x,y]);
 		bowl.add([x+w,y]);
@@ -88,14 +87,6 @@ Main.paperInit = function() {
 	}
 	Path.Rhombus = function(p,s){
 		var x=p.x,y=p.y,w=s.width,h=s.height;
-		/*
-		var pathstring = '';
-		pathstring += 'M'+x+','+(y+h*0.5);
-		pathstring += 'L'+(x+w*0.5)+','+(y);
-		pathstring += 'L'+(x+w)+','+(y+h*0.5);
-		pathstring += 'L'+(x+w*0.5)+','+(y+h);
-		pathstring += 'z';
-		*/
 		var rhombus = new Path();
 		rhombus.add([x,y+h*0.5]);
 		rhombus.add([x+w*0.5,y]);
@@ -103,6 +94,42 @@ Main.paperInit = function() {
 		rhombus.add([x+w*0.5,y+h]);
 		rhombus.closed = true;
 		return rhombus;
+	}
+	Path.Trapezoid = function(p,s,_w){
+		var x=p.x,y=p.y,w=s.width,h=s.height;
+		var trapezoid = new Path();
+		trapezoid.add([x,y+h]);
+		trapezoid.add([x+(w-_w)*0.5,y]);
+		trapezoid.add([x+(w-_w)*0.5+_w,y]);
+		trapezoid.add([x+w,y+h]);
+		trapezoid.closed = true;
+		return trapezoid;
+	}
+	Path.RegularPolygon = function(p,s,k,o){
+		var angles = [];
+		for(var i=0; i<k ;i++){
+			angles[i] = 360/k*i;
+		}
+		return new Path.EquiradialPolygon(p,s,angles,o);
+	};
+	Path.EquiradialPolygon = function(p,s,angles,o){
+		console.log(angles);
+		var x=p.x,y=p.y,w=s.width,h=s.height;
+		var _o=Math.random()*60;
+		if(o != null)
+			_o=o;
+		var a = Math.min(w,h)*0.5;
+		var mx = x + w*0.5;
+		var my = y + h*0.5;
+		var polygon = new Path();
+		for(var i=0; i<angles.length ;i++){
+			var _angle = Util.degreeToRadians(_o+angles[i]);
+			var _x = mx + a*Math.cos(_angle);
+			var _y = my + a*Math.sin(_angle);
+			polygon.add([_x,_y]);
+		};
+		polygon.closed=true;
+		return polygon;
 	}
 	
 	// Additions to Item
@@ -195,7 +222,6 @@ Main.raphaelInit = function(){
 	};
 	Raphael.fn.sline = function(x,y,l){
 		var pathstring='';
-		
 		pathstring += 'M'+x+','+y+'L'+(x+10)+','+(y-10);
 		pathstring += 'M'+x+','+y+'L'+(x+10)+','+(y+10);
 		pathstring += 'M'+x+','+y+'L'+(x+l)+','+y;
@@ -260,7 +286,6 @@ Main.raphaelInit = function(){
 	
 	Raphael.fn.segmentedUmbrella = function (cx, cy, r, numberOfSegments) {
 		var st = this.set();
-
 		for (i = 0; i < numberOfSegments; i++) {
 			st.push(
 				this.path().attr({
@@ -273,7 +298,6 @@ Main.raphaelInit = function(){
 	
 	Raphael.fn.segmentedCircle = function (cx, cy, r, numberOfSegments) {
 		var st = this.set();
-
 		for (i = 0; i < numberOfSegments; i++) {
 			st.push(
 				this.path().attr({
@@ -286,7 +310,6 @@ Main.raphaelInit = function(){
 	
 	Raphael.fn.segmentedRectangle = function (x, y, width, height, horizontalSegments, verticalSegments) {
 		var st = this.set();
-				
 		for (i = 0; i < horizontalSegments; i++) {
 			for (j = 0; j < verticalSegments; j++) {
 				st.push(
@@ -391,6 +414,7 @@ var AnimationManager = function(){
 }
 
 AnimationManager.onFrame = function(event){
+	
 	for(var i=0; i<AnimationManager.animations.length ; i++){
 		var anim = AnimationManager.animations[i];
 			
@@ -410,13 +434,14 @@ AnimationManager.onFrame = function(event){
 				anim.shape.position = [x,y];
 				break;
 		}
-			console.log(event.time,anim.startTime,anim.time);
+			//console.log(event.time,anim.startTime,anim.time);
 		if(event.time - anim.startTime > anim.time/1000){
 			anim.shape.position.x = anim.data.first_position.x + anim.data.delta.x * anim.time / 1000;
 			anim.shape.position.y = anim.data.first_position.y + anim.data.delta.y * anim.time / 1000;
 			AnimationManager.animations.splice(i,1);
 		}
 	}
+	view.draw();
 }
 AnimationManager.translate = function(shape,delta,time){
 	
@@ -427,7 +452,7 @@ AnimationManager.translate = function(shape,delta,time){
 	anim.data.delta.x = delta.x/time*1000;
 	anim.data.delta.y = delta.y/time*1000;
 		
-	console.log(anim.data.first_position)
+	//console.log(anim.data.first_position)
 	anim.time = time;
 	anim.startTime = null;
 	anim.lastTime = null;
