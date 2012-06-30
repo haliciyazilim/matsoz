@@ -5,32 +5,44 @@ var triangleStyle = {
 	'stroke-width':'2px'
 };
 var textStyle = {
-	'font-size':'16px',
-	'text-color': '#55f'
+	fontSize : 14,
+	strokeColor : "#000",
+	fillColor : "#000"
 };
 var edgeStyle = {
-	'stroke-width':'2px'
+	strokeWidth : 2,
+	strokeColor : "#000",
+	fillColor: '#fff'
 };
 var angleStyle = {
 	'stroke-width': '2px'
 };
 var rulerStyle = {
-	'fill' : '#fff'
+	strokeColor:'#000',
+	strokeWidth: 2,
+	fillColor : '#EED'
 	
 };
 var rulerTextStyle = {
 	
 	
 };
-var rulerLineStyle = {};
+var rulerLineStyle = {
+	strokeWidth: 2,
+	strokeColor:'#000'
+};
 /*Styles*/
 
 var Interaction = function(){}; Interaction();
+Interaction.getFramework = function() {
+	return 'paper';
+}
 Interaction.init = function(container){
 	Main.setObjective('Aşağıdaki çemberin yarıçapını cetvel yardımıyla ölçünüz ve çevresini hesaplayınız. Bulduğunuz sonucu aşağıdaki kutucuğa yazınız ve “Kontrol” düğmesine basınız. <span style="font-weight:bold;">(π = 3 alınız.)</span>');
 	Interaction.container = container;
-	Interaction.container.innerHTML = '<div id="T" style="padding-top:5px;"></div><div id="B"></div>';
-	Interaction.paper = new Raphael( $('div#T',Interaction.container).get(0) ,$('div#T',Interaction.container).width(),$(Interaction.container).height()*0.6);
+	$(Interaction.container).append('<div id="B" style="position:absolute; top:70%; left:0%; width:100%; "></div>');
+	//Interaction.paper = new Raphael( $('div#T',Interaction.container).get(0) ,$('div#T',Interaction.container).width(),$(Interaction.container).height()*0.6);
+	Interaction.paper = {width:500,height:200}
 	$('div#B',Interaction.container).html('<div style="text-align:center;">Çevre&nbsp;=&nbsp;<input type="text" style="width:35px;height:30px;font-size:16px;font-weight:bold;text-align:center;" id="input" maxlength="3" />&nbsp;br²</div><div style="text-align:right;"><span id="status"></span>&emsp;<input type="button" id="control" class="control_button" value="Kontrol" onclick="Interaction.checkAnswer()" /></div>');
 	Interaction.control = $('#control',Interaction.container).get(0);
 	Interaction.input = $('#input',Interaction.container).get(0);
@@ -40,17 +52,29 @@ Interaction.init = function(container){
 Interaction.generateCircle = function(){
 	var x,y,r;
 	x = Interaction.paper.width*0.4;
-	y = Interaction.paper.height*0.5;
-	
+	y = Interaction.paper.height*0.5+10;
 	do
 		r = Math.floor(Math.min(x,y) * (Math.random()*0.7+0.3) /Interaction.br) * Interaction.br ;
 	while(Interaction.r == r)
-	Interaction.circleSet = Interaction.paper.set();
-	Interaction.circleSet.push(Interaction.paper.circle(x,y,1).attr(edgeStyle).toBack());
-	Interaction.circleSet.push(Interaction.paper.circle(x,y,r+1).attr(edgeStyle).toBack());
-	Interaction.circleSet.push(Interaction.paper.line(x,y,x+r,y).attr(edgeStyle).toBack());
-	Interaction.circleSet.push(Interaction.paper.text(x-7,y+7,"O").attr(textStyle).toBack());
-	Interaction.circleSet.push(Interaction.paper.text(x+r*0.4,y+7,"r").attr(textStyle).toBack());
+	Interaction.circleSet = new Group();
+	var point = new Path.Circle(new Point(x,y),1);
+	point.style = edgeStyle;
+	var circle = new Path.Circle(new Point(x,y),r+1);
+	circle.style = edgeStyle;
+	var line = new Path.Line(new Point(x,y), new Point(x+r,y));
+	line.style = edgeStyle;
+	var text1 = new PointText(new Point(x-15,y+15));
+	text1.content = "O";
+	text1.style = textStyle;
+	var text2 = new PointText(new Point(x+r*0.5-5,y+15));
+	text2.content = "r";
+	text2.style = textStyle;
+	Interaction.circleSet.addChild(circle);
+	Interaction.circleSet.addChild(point);
+	Interaction.circleSet.addChild(line);
+	Interaction.circleSet.addChild(text1);
+	Interaction.circleSet.addChild(text2);
+	Interaction.circleSet.insertBelow(Interaction.rulerSet);
 	Interaction.r = r;
 	Interaction.input.onkeyup = function(e){
 		console.log(e.keyCode)
@@ -70,15 +94,21 @@ Interaction.nextQuestion = function(){
 	Interaction.preventDrag = false;
 	
 	Interaction.generateCircle();
-	if(Interaction.odx){
-		var callback = function(){
-			Interaction.preventDrag = false;
-		}
-		var anim = Raphael.animation({transform:'t'+(-Interaction.odx)+' '+(-Interaction.ody)+' ...'},200);
-		for(var i=0; i<Interaction.rulerSet.length ;i++)
-			Interaction.rulerSet[i].animateWith(Interaction.rulerSet[0],anim,anim);
-		setTimeout(callback,200);
+
+	var callback = function(){
+		Interaction.preventDrag = false;
 	}
+	var anim = Raphael.animation({transform:'t'+(-Interaction.odx)+' '+(-Interaction.ody)+' ...'},200);
+	AnimationManager.translate(
+		Interaction.rulerSet,
+		new Point(
+			Interaction.rulerSet.firstPosition.x - Interaction.rulerSet.position.x,
+			Interaction.rulerSet.firstPosition.y - Interaction.rulerSet.position.y
+			),
+		500
+	);
+	setTimeout(callback,200);
+
 	Interaction.odx=0;
 	Interaction.ody=0;
 }
@@ -117,71 +147,67 @@ Interaction.setStatus = function(str,cls){
 }
 Interaction.drawRuler = function(){
 	var x,y,w,h,b,st;
-	Interaction.rulerSet = Interaction.paper.set();
+	Interaction.rulerSet = new Group();
+	Interaction.rulerSet.name = 'rulerSet';
 	x = Interaction.paper.width*0.7;
 	y = Interaction.paper.height*0.2;
 	w = Interaction.paper.width*0.2;
 	Interaction.br = Math.floor(w*0.1);
 	h = Interaction.paper.height*0.2;
-	Interaction.rulerSet.push(Interaction.paper.rect(x,y,w,h).attr(rulerStyle).data({'x':x,'y':y,'w':w,'h':h}));
+	var rect = new Path.Rectangle(new Point(x,y), new Size(w,h));
+	rect.style = rulerStyle;
+	Interaction.rulerSet.addChild(rect);
 	var _y1 = y+h*0.6;
 	var _yt = y+h*0.4;
 	var _y2 = y+h; 
 	for(var i=0; i<10; i++){
 		var _x = x+Interaction.br*(0.5+i);
-		Interaction.rulerSet.push(Interaction.paper.line(_x,_y1,_x,_y2).attr(rulerLineStyle).attr({'x':_x,'y':_y1}));
-		Interaction.rulerSet.push(Interaction.paper.text(_x,_yt,i).attr(rulerTextStyle).attr({'x':_x,'y':_yt}));
+		var line = new Path.Line(new Point(_x,_y1), new Point(_x,_y2));
+		line.style = rulerLineStyle;
+		Interaction.rulerSet.addChild(line);
+		var text = new PointText(new Point(_x-4,_yt));
+		text.style= rulerTextStyle;
+		text.content = i;
+		Interaction.rulerSet.addChild(text);
 	}
 	Interaction.rulerX=-1;Interaction.rulerY=-1;
-	var start = function () {
-		if(Interaction.preventDrag === true)
-			return;
-        this.ox  = this.attr('x');
-        this.oy  = this.attr('y');
-		this.odx = 0;
- 		this.ody = 0;
-		this._x  = Interaction.rulerSet[0].data('x');
-		this._xw = Interaction.rulerSet[0].data('x') + Interaction.rulerSet[0].data('w');
-		this._y  = Interaction.rulerSet[0].data('y');
-		this._yh = Interaction.rulerSet[0].data('y') + Interaction.rulerSet[0].data('h');
-		//console.log('start ' + new Date().getTime());
-		if(Interaction.odx==null){
-			Interaction.odx=0;
-			Interaction.ody=0;
-			Interaction.odT=-1;
-		}
-		console.log(this.ox,this.oy,this.odx,this.ody,this._x,this._xw,this._y,this._yh,Interaction.odx,Interaction.ody);
-		
-	},
-    move = function (dx,dy) {
+	var move = function (dx,dy) {
 		if(Interaction.preventDrag === true)
 			return;
 		if(this._x + dx+Interaction.odx <= 0 || this._xw + dx +Interaction.odx >= Interaction.paper.width)
-			dx=this.odx;
+			dx=0;
 		if(this._y + dy +Interaction.ody<= 0 || this._yh + dy +Interaction.ody >= Interaction.paper.height)
-			dy=this.ody;
-		for(var i=0; i<Interaction.rulerSet.length ;i++){
-	//		Interaction.rulerSet[i].attr('-webkit-transform':T'+(dx-this.odx )+','+(dy-this.ody)+' ...');
-			Interaction.rulerSet[i].attr('-webkit-transform','translate('+Math.floor(dx+ Interaction.odx)+'px,'+Math.floor(Interaction.ody+dy)+'px)');
-		}
-		this.odx = dx;
-		this.ody = dy;
-		//console.log('move ' + new Date().getTime());
+			dy=0;
+		
+		Interaction.rulerSet.position = [Interaction.rulerSet.position.x + dx, Interaction.rulerSet.position.y+ dy];
+
     },
     up = function () {
 		if(Interaction.preventDrag === true)
 			return;
 		Interaction.odx = this.odx;
 		Interaction.ody = this.ody;
-		//Interaction.rulerSet[0].data({'x':this._x + this.odx,'y':this._y + this.ody});
-		//Interaction.preventDrag = true;
-		//console.log('up ' + new Date().getTime());
 		
     };
-	for(var i=0; i<Interaction.rulerSet.length ; i++){
-		if(Interaction.rulerSet[i]=='undefined' || Interaction.rulerSet[i]==null){
-			continue;
+	var drag = new Tool();
+	drag.onMouseDown = function(event){
+		this.drag = false;
+		if(event.item.name == 'rulerSet'){
+			this.drag = true;
 		}
-		Interaction.rulerSet[i].drag(move,start,up);
 	}
+
+	drag.onMouseDrag = function(event){
+		if(this.drag==true){
+			Interaction.rulerSet.move(event.delta.x,event.delta.y);
+		}
+	}
+	drag.onMouseUp  = function(){
+		this.drag = false;
+	}
+	drag.activate();
+	Interaction.rulerSet.move = move;
+	Interaction.rulerSet.up = up;
+	Interaction.rulerSet.firstPosition = new Point(Interaction.rulerSet.position.x,Interaction.rulerSet.position.y);
+
 }

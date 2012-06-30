@@ -24,7 +24,8 @@
       - @chunks.each do |entry|
         - entry.each do |key, value|
           - if value == nil
-            %span>= key.gsub(' ', "\n")
+            - if key != nil
+              %span>= key.gsub(' ', "\n")
           - else
             %span>= link_to key, entry_path(value)
             

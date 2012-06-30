@@ -33,21 +33,27 @@ Main.init = function(){
 		canvas = $('.interaction_canvas').get(0);
 		paper.setup(canvas);
 		AnimationManager();
+		view.onFrame = function(event) {
+			AnimationManager.update(event);
+			if (typeof(Interaction.onFrame) == 'function') {
+				Interaction.onFrame(event);
+			}
+		}
 		Interaction.init(Main.interaction);
 	}
 };
 
 Main.paperInit = function() {
+	// Custom Paths
 	Path.Triangle = function(p1,p2,p3){
 		var triangle = new Path();
-		triangle.add([p1.x,p1.y]);
-		triangle.add([p2.x,p2.y]);
-		triangle.add([p3.x,p3.y]);
+		triangle.add(p3);
+		triangle.add(p1);
+		triangle.add(p2);
 		triangle.closed = true;
 		return triangle;
 	}
 	Path.Bowl = function(x,y,w,h){
-		//this.path('M'+x+','+y+'L'+(x+w)+','+y+'L'+(x+w*0.8)+','+(y+h)+'L'+(x+0.2*w)+','+(y+h)+' z');
 		var bowl = new Path();
 		bowl.add([x,y]);
 		bowl.add([x+w,y]);
@@ -87,14 +93,6 @@ Main.paperInit = function() {
 	}
 	Path.Rhombus = function(p,s){
 		var x=p.x,y=p.y,w=s.width,h=s.height;
-		/*
-		var pathstring = '';
-		pathstring += 'M'+x+','+(y+h*0.5);
-		pathstring += 'L'+(x+w*0.5)+','+(y);
-		pathstring += 'L'+(x+w)+','+(y+h*0.5);
-		pathstring += 'L'+(x+w*0.5)+','+(y+h);
-		pathstring += 'z';
-		*/
 		var rhombus = new Path();
 		rhombus.add([x,y+h*0.5]);
 		rhombus.add([x+w*0.5,y]);
@@ -102,6 +100,51 @@ Main.paperInit = function() {
 		rhombus.add([x+w*0.5,y+h]);
 		rhombus.closed = true;
 		return rhombus;
+	}
+	Path.Trapezoid = function(p,s,_w){
+		var x=p.x,y=p.y,w=s.width,h=s.height;
+		var trapezoid = new Path();
+		trapezoid.add([x,y+h]);
+		trapezoid.add([x+(w-_w)*0.5,y]);
+		trapezoid.add([x+(w-_w)*0.5+_w,y]);
+		trapezoid.add([x+w,y+h]);
+		trapezoid.closed = true;
+		return trapezoid;
+	}
+	Path.RegularPolygon = function(p,s,k,o){
+		var angles = [];
+		for(var i=0; i<k ;i++){
+			angles[i] = 360/k*i;
+		}
+		return new Path.EquiradialPolygon(p,s,angles,o);
+	};
+	Path.EquiradialPolygon = function(p,s,angles,o){
+		console.log(angles);
+		var x=p.x,y=p.y,w=s.width,h=s.height;
+		var _o=Math.random()*60;
+		if(o != null)
+			_o=o;
+		var a = Math.min(w,h)*0.5;
+		var mx = x + w*0.5;
+		var my = y + h*0.5;
+		var polygon = new Path();
+		for(var i=0; i<angles.length ;i++){
+			var _angle = Util.degreeToRadians(_o+angles[i]);
+			var _x = mx + a*Math.cos(_angle);
+			var _y = my + a*Math.sin(_angle);
+			polygon.add([_x,_y]);
+		};
+		polygon.closed=true;
+		return polygon;
+	}
+	
+	// Additions to Item
+	Item.prototype.animate = function (animation) {
+		if ((typeof(animation) != typeof({})) || (animation instanceof Array)) {
+			throw "The argument to Item.animate needs be a Hash";
+		}
+		
+		AnimationManager.animate(new Animation(this, animation));
 	}
 };
 
@@ -185,7 +228,6 @@ Main.raphaelInit = function(){
 	};
 	Raphael.fn.sline = function(x,y,l){
 		var pathstring='';
-		
 		pathstring += 'M'+x+','+y+'L'+(x+10)+','+(y-10);
 		pathstring += 'M'+x+','+y+'L'+(x+10)+','+(y+10);
 		pathstring += 'M'+x+','+y+'L'+(x+l)+','+y;
@@ -250,7 +292,6 @@ Main.raphaelInit = function(){
 	
 	Raphael.fn.segmentedUmbrella = function (cx, cy, r, numberOfSegments) {
 		var st = this.set();
-
 		for (i = 0; i < numberOfSegments; i++) {
 			st.push(
 				this.path().attr({
@@ -263,7 +304,6 @@ Main.raphaelInit = function(){
 	
 	Raphael.fn.segmentedCircle = function (cx, cy, r, numberOfSegments) {
 		var st = this.set();
-
 		for (i = 0; i < numberOfSegments; i++) {
 			st.push(
 				this.path().attr({
@@ -276,7 +316,6 @@ Main.raphaelInit = function(){
 	
 	Raphael.fn.segmentedRectangle = function (x, y, width, height, horizontalSegments, verticalSegments) {
 		var st = this.set();
-				
 		for (i = 0; i < horizontalSegments; i++) {
 			for (j = 0; j < verticalSegments; j++) {
 				st.push(
@@ -326,6 +365,10 @@ var Util = {
 		var intRegex = /^\d+$/;
 		return intRegex.test(val);
 	},
+	
+	isNumber: function (n) {
+	  return !isNaN(parseFloat(n)) && isFinite(n);
+	},
 
 	findDistance:function (x1,y1,x2,y2){
 			var _i = x1-x2;
@@ -368,63 +411,125 @@ var Util = {
 		},
 	rand01: function(){
 			return Math.floor(Math.random()*2);
+		},
+	
+	loadImages: function(imageArray, callback) {
+		totalNoOfImages = imageArray.length;
+		for (var key in imageArray) {
+			image = imageArray[key];
+			var img = $("<img id='"+image.id+"' />").attr('src', image.src).load(function() {
+				if (!this.complete || typeof this.naturalWidth == "undefined" || this.naturalWidth == 0 || this.naturalWidth == null) {
+					throw "Broken Image: " + image;
+					totalNoOfImages--;
+				} else {
+					totalNoOfImages--;
+					if (totalNoOfImages == 0) {
+						callback();
+					}
+				}
+			});
+			$("head").append(img);
 		}
+	}
 };
 
 var AnimationManager = function(){
 	AnimationManager.animations = [];
-	console.log('AnimationManager is initialized');
-	view.onFrame = AnimationManager.onFrame;
 }
 
-AnimationManager.onFrame = function(event){
-	for(var i=0; i<AnimationManager.animations.length ; i++){
-		var anim = AnimationManager.animations[i];
-			
-		if(anim.startTime == null){
-			anim.startTime = event.time;
-			
+function Animation(item, animationHash) {
+	this.item = item;
+	
+	this.style = animationHash.style;
+	this.duration = animationHash.duration;
+	
+	if (animationHash.delay) {
+		this.startTime = new Date().getTime() + animationHash.delay;
+	} else {
+		this.startTime = new Date().getTime();
+	}
+	
+	if (animationHash.animationType) {
+		this.animationType = animationHash.animationType;
+		if (this.animationType == 'custom') {
+			this.mappingFunction = animationHash.mappingFunction;
 		}
-		var animate = false;
-		anim.count++;
-		anim.lastTime=event.time;
-		switch(anim.type){
-			case 'translate':
-				var x,y;
-				x  = anim.data.first_position.x + anim.data.delta.x*(event.time - anim.startTime);
-				y  = anim.data.first_position.y + anim.data.delta.y*(event.time - anim.startTime);
-				//console.log(anim.data.first_position.x, anim.data.delta.x,event.time , anim.startTime)
-				anim.shape.position = [x,y];
-				break;
+	} else {
+		this.animationType = 'linear';	
+	}
+	
+	if (typeof(animationHash.callback) == "function") {
+		this.callback = animationHash.callback;
+	}
+	
+	this.idle = true;
+	
+	this.map = function(ratio) {
+		if (this.animationType == 'linear') {
+			return ratio;
+		} else if (this.animationType == 'easeInEaseOut') {
+			return (ratio*ratio) * (3-2*ratio);
+		} else if (this.animationType == 'custom') {
+			return this.mappingFunction(ratio);
+		} else {
+			return ratio;
 		}
-			console.log(event.time,anim.startTime,anim.time);
-		if(event.time - anim.startTime > anim.time/1000){
-			anim.shape.position.x = anim.data.first_position.x + anim.data.delta.x * anim.time / 1000;
-			anim.shape.position.y = anim.data.first_position.y + anim.data.delta.y * anim.time / 1000;
-			AnimationManager.animations.splice(i,1);
-			
-		}
-		
 	}
 }
-AnimationManager.translate = function(shape,delta,time){
-	
-	var anim = new Animation('translate');
-	anim.shape = shape;
-	anim.data.first_position = {x:shape.position.x,y:shape.position.y};
-	anim.data.delta = {};
-	anim.data.delta.x = delta.x/time*1000;
-	anim.data.delta.y = delta.y/time*1000;
-		
-	console.log(anim.data.first_position)
-	anim.time = time;
-	anim.startTime = null;
-	anim.lastTime = null;
-	AnimationManager.animations.push(anim);
+
+
+AnimationManager.animate = function(animation) {
+	AnimationManager.animations.push(animation);
 }
-function Animation(type){
-	this.type = type;
-	this.shape = null;
-	this.time = null;
-	this.data = {};
+
+AnimationManager.clearAnimations = function () {
+	AnimationManager.animations = [];
+}
+
+AnimationManager.update = function(event) {
+	for(var i=0; i<AnimationManager.animations.length; i++){
+		var animation = AnimationManager.animations[i];
+			
+		currentTime = new Date().getTime();
+		
+		if (animation.startTime < currentTime) {
+			if (animation.idle) {
+				animation.startHash = {};
+				animation.endHash = {};
+				for (var key in animation.style) {
+					if (animation.style.hasOwnProperty(key)) {
+						animation.startHash[key] = (animation.item[key]);
+					}
+				}
+				
+				animation.idle = false;
+			} else if (animation.startTime + animation.duration < currentTime) {
+				for (var key in animation.startHash) {
+					if (animation.startHash.hasOwnProperty(key)) {
+						animation.item[key] = animation.style[key];
+						AnimationManager.animations.splice(i,1);
+						if (animation.callback) {
+							animation.callback();
+						}
+					}
+				}
+			} else {
+				for (var key in animation.startHash) {
+					if (animation.startHash.hasOwnProperty(key)) {
+				    	startValue = animation.startHash[key];
+						endValue = animation.style[key];
+				
+						ratio = animation.map((currentTime - animation.startTime) / animation.duration);
+						if (Util.isNumber(startValue)) {
+							animation.item[key] = startValue + (endValue - startValue) * ratio;
+						} else if (startValue instanceof Point) {
+							x = startValue.x + (endValue.x - startValue.x) * ratio;
+							y = startValue.y + (endValue.y - startValue.y) * ratio;
+							animation.item[key] = new Point(x, y);
+						}
+					}
+				}
+			}
+		}	
+	}
 }
