@@ -33,6 +33,12 @@ Main.init = function(){
 		canvas = $('.interaction_canvas').get(0);
 		paper.setup(canvas);
 		AnimationManager();
+		view.onFrame = function(event) {
+			AnimationManager.update(event);
+			if (typeof(Interaction.onFrame) == 'function') {
+				Interaction.onFrame(event);
+			}
+		}
 		Interaction.init(Main.interaction);
 	}
 };
@@ -405,66 +411,31 @@ var Util = {
 		},
 	rand01: function(){
 			return Math.floor(Math.random()*2);
+		},
+	
+	loadImages: function(imageArray, callback) {
+		totalNoOfImages = imageArray.length;
+		for (var key in imageArray) {
+			image = imageArray[key];
+			var img = $("<img id='"+image.id+"' />").attr('src', image.src).load(function() {
+				if (!this.complete || typeof this.naturalWidth == "undefined" || this.naturalWidth == 0 || this.naturalWidth == null) {
+					throw "Broken Image: " + image;
+					totalNoOfImages--;
+				} else {
+					totalNoOfImages--;
+					if (totalNoOfImages == 0) {
+						callback();
+					}
+				}
+			});
+			$("head").append(img);
 		}
+	}
 };
 
 var AnimationManager = function(){
 	AnimationManager.animations = [];
-	view.onFrame = AnimationManager.update;
 }
-
-AnimationManager.onFrame = function(event){
-	
-	for(var i=0; i<AnimationManager.animations.length ; i++){
-		var anim = AnimationManager.animations[i];
-			
-		if(anim.startTime == null){
-			anim.startTime = event.time;
-			
-		}
-		var animate = false;
-		anim.count++;
-		anim.lastTime=event.time;
-		switch(anim.type){
-			case 'translate':
-				var x,y;
-				x  = anim.data.first_position.x + anim.data.delta.x*(event.time - anim.startTime);
-				y  = anim.data.first_position.y + anim.data.delta.y*(event.time - anim.startTime);
-				//console.log(anim.data.first_position.x, anim.data.delta.x,event.time , anim.startTime)
-				anim.shape.position = [x,y];
-				break;
-		}
-			//console.log(event.time,anim.startTime,anim.time);
-		if(event.time - anim.startTime > anim.time/1000){
-			anim.shape.position.x = anim.data.first_position.x + anim.data.delta.x * anim.time / 1000;
-			anim.shape.position.y = anim.data.first_position.y + anim.data.delta.y * anim.time / 1000;
-			AnimationManager.animations.splice(i,1);
-		}
-	}
-	view.draw();
-}
-AnimationManager.translate = function(shape,delta,time){
-	
-	var anim = new Animation('translate');
-	anim.shape = shape;
-	anim.data.first_position = {x:shape.position.x,y:shape.position.y};
-	anim.data.delta = {};
-	anim.data.delta.x = delta.x/time*1000;
-	anim.data.delta.y = delta.y/time*1000;
-		
-	//console.log(anim.data.first_position)
-	anim.time = time;
-	anim.startTime = null;
-	anim.lastTime = null;
-	AnimationManager.animations.push(anim);
-}
-
-// function Animation(type){
-// 	this.type = type;
-// 	this.shape = null;
-// 	this.time = null;
-// 	this.data = {};
-// }
 
 function Animation(item, animationHash) {
 	this.item = item;
@@ -509,6 +480,10 @@ function Animation(item, animationHash) {
 
 AnimationManager.animate = function(animation) {
 	AnimationManager.animations.push(animation);
+}
+
+AnimationManager.clearAnimations = function () {
+	AnimationManager.animations = [];
 }
 
 AnimationManager.update = function(event) {

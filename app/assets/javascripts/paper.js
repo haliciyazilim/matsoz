@@ -2472,7 +2472,7 @@ var Item = this.Item = Base.extend({
 			var tempCanvas, parentCtx;
 			if (item._blendMode !== 'normal'
 					|| item._opacity < 1
-					&& !(item._segments && (!item.getFillColor()
+					&& !((item._segments || item._content) && (!item.getFillColor()
 							|| !item.getStrokeColor()))) {
 				var bounds = item.getStrokeBounds() || item.getBounds();
 				if (!bounds.width || !bounds.height)
