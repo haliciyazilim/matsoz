@@ -112,8 +112,6 @@ interactionInit = function(container) {
 			submit();
 		}
 	});
-	
-	view.draw();
 }
 
 paperAddOns = function () {
