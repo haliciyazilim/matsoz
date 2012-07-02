@@ -128,62 +128,7 @@ interactionInit = function(container) {
 }
 
 paperAddOns = function () {
-	Path.OneSidedArrow = function(point1, point2, arrowHeadSize, angle) {
-		if (arrowHeadSize == null) {
-			arrowHeadSize = 3;
-		}
-		if(angle == null && angle == 'undefined')
-			angle = 30;
-		var group = new Group();
-		var path = new Path.Line(point1, point2);
-		
-		var _a = Util.radianToDegree(
-							Math.asin( 
-								(point1.y-point2.y) / 
-								point1.getDistance(point2) 
-								) 
-							);
-		var a1 = Util.degreeToRadians(180 + _a + angle);
-		var a2 = Util.degreeToRadians(180 + _a - angle);
-		var path2 = new Path.Line(
-							point2,
-							new Point( 
-									point2.x + arrowHeadSize*Math.cos(a1),
-									point2.y - arrowHeadSize*Math.sin(a1)
-								) 
-							);
-		var path3 = new Path.Line(
-							point2,
-							new Point( 
-									point2.x + arrowHeadSize*Math.cos(a2) , 
-									point2.y - arrowHeadSize*Math.sin(a2) 
-								) 
-							);
-		var pt = new Path();
-		pt.add(point2);
-		pt.add(new Point( 
-						point2.x + arrowHeadSize*Math.cos(a1),
-						point2.y - arrowHeadSize*Math.sin(a1)
-					));
-		pt.add(new Point( 
-						point2.x + arrowHeadSize*Math.cos(a2) , 
-						point2.y - arrowHeadSize*Math.sin(a2) 
-					) );
-		pt.closed = true;
-		path.strokeColor = 'black';
-		pt.style = {
-			strokeColor: 'black',
-			fillColor : 'black'
-		};
-		//path2.strokeColor = 'black';
-		//path3.strokeColor = 'black';
-		
-		group.addChild(path);
-		group.addChild(pt);
-		//group.addChild(path2);
-		//group.addChild(path3);
-		return group;
-	}
+	
 	
 	Path.LineGraph = function(point, width, height, chart) {
 		var group = new Group();
