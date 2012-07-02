@@ -53,7 +53,8 @@ Main.paperInit = function() {
 		triangle.closed = true;
 		return triangle;
 	}
-	Path.Bowl = function(x,y,w,h){
+	Path.Bowl = function(p,s){
+		var x=p.x,y=p.y,w=s.width,h=s.height;
 		var bowl = new Path();
 		bowl.add([x,y]);
 		bowl.add([x+w,y]);
@@ -119,7 +120,6 @@ Main.paperInit = function() {
 		return new Path.EquiradialPolygon(p,s,angles,o);
 	};
 	Path.EquiradialPolygon = function(p,s,angles,o){
-		console.log(angles);
 		var x=p.x,y=p.y,w=s.width,h=s.height;
 		var _o=Math.random()*60;
 		if(o != null)
@@ -137,7 +137,127 @@ Main.paperInit = function() {
 		polygon.closed=true;
 		return polygon;
 	}
-	
+	Path.OneSidedArrow = function(point1, point2, arrowHeadSize, angle) {
+		if (arrowHeadSize == null) {
+			arrowHeadSize = 3;
+		}
+		if(angle == null && angle == 'undefined')
+			angle = 30;
+		var group = new Group();
+		var path = new Path.Line(point1, point2);
+		
+		var _a = Util.radianToDegree(
+							Math.asin( 
+								(point1.y-point2.y) / 
+								point1.getDistance(point2) 
+								) 
+							);
+		var a1 = Util.degreeToRadians(180 + _a + angle);
+		var a2 = Util.degreeToRadians(180 + _a - angle);
+		var path2 = new Path.Line(
+							point2,
+							new Point( 
+									point2.x + arrowHeadSize*Math.cos(a1),
+									point2.y - arrowHeadSize*Math.sin(a1)
+								) 
+							);
+		var path3 = new Path.Line(
+							point2,
+							new Point( 
+									point2.x + arrowHeadSize*Math.cos(a2) , 
+									point2.y - arrowHeadSize*Math.sin(a2) 
+								) 
+							);
+		var pt = new Path();
+		pt.add(point2);
+		pt.add(new Point( 
+						point2.x + arrowHeadSize*Math.cos(a1),
+						point2.y - arrowHeadSize*Math.sin(a1)
+					));
+		pt.add(new Point( 
+						point2.x + arrowHeadSize*Math.cos(a2) , 
+						point2.y - arrowHeadSize*Math.sin(a2) 
+					) );
+		pt.closed = true;
+		path.strokeColor = 'black';
+		pt.style = {
+			strokeColor: 'black',
+			fillColor : 'black'
+		};
+		group.addChild(path);
+		group.addChild(pt);
+		return group;
+	}
+	Path.Cylinder = function(p,s){
+		var x=p.x,y=p.y,w=s.width,h=s.height;
+		var x1,y1,x2,y2;		
+		x1 = x+w*0.2;
+		x2 = x+w*0.8;
+		y1 = y-h*0.2;
+		y2 = y-h*0.2;
+		var cylinder = new Path();
+		cylinder.add(new Point(x,y) );
+		cylinder.cubicCurveTo( 
+			new Point(x1,y1), 
+			new Point(x2,y2), 
+			new Point(x+w,y)
+		);
+		x1 = x+w*0.2;
+		x2 = x+w*0.8;
+		y1 = y+h*0.2;
+		y2 = y+h*0.2;
+		cylinder.cubicCurveTo(
+			new Point(x2,y2), 
+			new Point(x1,y1), 
+			new Point(x,y)
+		);
+		cylinder.lineTo( new Point(x,y+h) );
+		x1 = x+w*0.2;
+		x2 = x+w*0.8;
+		y1 = y+h+h*0.2;
+		y2 = y+h+h*0.2;
+		cylinder.cubicCurveTo(
+			new Point(x1,y1), 
+			new Point(x2,y2),
+			new Point(x+w,y+h)
+		);
+		cylinder.lineTo(new Point(x+w,y) );
+		x1 = x+w*0.2;
+		x2 = x+w*0.8;
+		y1 = y+h*0.2;
+		y2 = y+h*0.2;
+		cylinder.cubicCurveTo(
+			new Point(x2,y2),
+			new Point(x1,y1),	
+			new Point(x,y) 
+		);
+		cylinder.closed = true;
+		return cylinder;
+	}
+	Path.Pyramid = function(p,s){
+		var pyramid = new Group();
+		var path = new Path();
+		var p1 = new Point(p.x+s.width*0,p.y+s.height*0.8);
+		var p2 = new Point(p.x+s.width*0.45,p.y+s.height);
+		var p3 = new Point(p.x+s.width,p.y+s.height*0.8);
+		var p4 = new Point(p.x+s.width*0.5,p.y);
+		var px = new Point(p.x+s.width*0.55,p.y+s.height*0.6);
+		path.add(p1);
+		path.add(p2);
+		path.add(p3);
+		path.add(p4);
+		path.closed = true;
+		pyramid.addChild(path);
+		pyramid.addChild( new Path.Line(p2,p4) );
+		var dline1 = new Path.Line(p1,px);
+		dline1.style = {dashArray:[10,4]};
+		pyramid.addChild(dline1);
+		var dline2 = new Path.Line(p3,px);
+		var dline3 = new Path.Line(p4,px);
+		pyramid.addChild(dline2);
+		pyramid.addChild(dline3);
+		return pyramid;
+	}
 	// Additions to Item
 	Item.prototype.animate = function (animation) {
 		if ((typeof(animation) != typeof({})) || (animation instanceof Array)) {
@@ -145,6 +265,8 @@ Main.paperInit = function() {
 		}
 		
 		AnimationManager.animate(new Animation(this, animation));
+	}
+	Item.prototype.setStyle = function(style){
 	}
 };
 
@@ -430,6 +552,24 @@ var Util = {
 			});
 			$("head").append(img);
 		}
+	},
+	getShuffledArray : function(to,from){
+		if(from == null || from == undefined )
+			from = 0;
+		var a = [];
+		for(var i=from,index=0; i<to ;i++,index++){
+			a[index] = i;
+		}
+		var len = Math.floor(to - from);
+		
+		for(var i = len-1; i>=0 ; i--) {
+			var p = parseInt(Math.random()*len);
+			var t = a[i];
+			a[i] = a[p];
+			a[p] = t;
+		}
+		return a;	
+	
 	}
 };
 
@@ -459,7 +599,7 @@ function Animation(item, animationHash) {
 	}
 	
 	if (typeof(animationHash.callback) == "function") {
-		this.callback = animationHash.callback;
+		this.item.callback = animationHash.callback;
 	}
 	
 	this.idle = true;
@@ -508,8 +648,8 @@ AnimationManager.update = function(event) {
 					if (animation.startHash.hasOwnProperty(key)) {
 						animation.item[key] = animation.style[key];
 						AnimationManager.animations.splice(i,1);
-						if (animation.callback) {
-							animation.callback();
+						if (animation.item.callback) {
+							animation.item.callback();
 						}
 					}
 				}
