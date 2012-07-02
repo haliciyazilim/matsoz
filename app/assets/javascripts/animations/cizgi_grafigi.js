@@ -16,6 +16,9 @@ Interaction.init = function(container) {
 }
 
 interactionInit = function(container) {
+	// Variables
+	var correctCircle;
+
 	paperAddOns();
 		
 	// Create the random data
@@ -54,6 +57,10 @@ interactionInit = function(container) {
 	
 	// Restart
 	restart = function() {
+		if (correctCircle) {
+			correctCircle.remove();
+		}
+		
 		$('#textInput').remove();
 		$('#submitButton').remove();
 		$('#status').remove();
@@ -74,9 +81,13 @@ interactionInit = function(container) {
 		}
 		
 		if (val == correctAnswer) {
+			correctCircle = new Path.Circle(graph.getXYCoordinate(randomDay, data[randomDay] - 91), 6);
+			correctCircle.fillColor = 'red';
+			
 			$('#status').html('<span class="status_true">Tebrikler!</span>');
 			$('#submitButton').val("Sonraki");
 			$('#submitButton').click(restart);
+			
 			submit = restart;
 		} else {
 			if (noOfWrongAnswers == 0) {
@@ -84,6 +95,8 @@ interactionInit = function(container) {
 				$('#textInput').val('');
 				noOfWrongAnswers = 1;
 			} else {
+				correctCircle = new Path.Circle(graph.getXYCoordinate(randomDay, data[randomDay] - 91), 6);
+				correctCircle.fillColor = 'red';
 				$('#status').html('<span class="status_false">Olmadı!</span>');
 				$('#textInput').val(correctAnswer);
 				$('#submitButton').val("Sonraki");
@@ -264,6 +277,10 @@ paperAddOns = function () {
 		path.strokeColor = 'black';
 		
 		group.addChild(path);
+		
+		group.getXYCoordinate = function(x, y) {
+			return new Point((xStep * x + xStart), yStep * y + yStart);
+		}
 		
 		return group;
 	};
