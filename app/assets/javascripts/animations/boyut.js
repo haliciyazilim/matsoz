@@ -160,12 +160,12 @@ Interaction.nextQuestion = function(){
 }
 
 Interaction.generateRandomShape = function(x,y,w,h){
-	var NUMBER_OF_SHAPES  = 19;
+	var NUMBER_OF_SHAPES  = 26;
 	Interaction.shapeCount = Interaction.shapeCount%NUMBER_OF_SHAPES;
 	if(Interaction.shuffledArray == null || Interaction.shuffledArray == undefined)
 		Interaction.shuffledArray = Util.getShuffledArray(NUMBER_OF_SHAPES);
 	shapeType = Interaction.shuffledArray[Interaction.shapeCount];
-	/*TEST*/shapeType = 18; /*TEST*/
+	///*TEST*/shapeType = 11; /*TEST*/
 	switch(shapeType){
 		case 0:
 			Interaction.shape = new Path.Circle(new Point(x+w*0.5,y+h*0.5),5);
@@ -205,7 +205,7 @@ Interaction.generateRandomShape = function(x,y,w,h){
 		case 7:
 			Interaction.shape = new Path.Rhomboid(new Point(x+w*0.2,y+h*0.2), new Size(w*0.6,y*0.6),w*0.2 );
 			Interaction.shape.dimension = 2;
-			break;1
+			break;
 		case 8:
 			Interaction.shape = new Path.Triangle(new Point(x+w*0.2,y+h*0.8), new Point(x+w*0.8,y+h*0.8), new Point(x+w*0.5,y+h*0.2));
 			Interaction.shape.dimension = 2;
@@ -217,14 +217,7 @@ Interaction.generateRandomShape = function(x,y,w,h){
 			break;
 		case 10:
 			var a = Math.min(w,h);
-			var path = new Path.Circle(new Point(x+w*0.5,y+h*0.5 * 0.4),a*0.6);
-			var gradient = new Gradient(['#999', '#666', '#000'], 'radial');
-			var from = path.position;
-			var to = path.bounds.rightCenter;
-			var gradientColor = new GradientColor(gradient, from, to);
-			path.fillColor = gradientColor;
-			path.fillColor.hilite = new Point(x+w*0.7,y+h*0.2 * 0.4);
-			Interaction.shape = path;
+			Interaction.shape = new Path.Sphere(new Point(x+w*0.5,y+h*0.5),a*0.5);
 			Interaction.shape.dimension = 3;
 			break;
 		case 11:
@@ -259,13 +252,42 @@ Interaction.generateRandomShape = function(x,y,w,h){
 			Interaction.shape = new Path.Pyramid(new Point(x,y),new Size(w,h));
 			Interaction.shape.dimension = 3;
 			break;
+		case 19:
+			Interaction.shape = new Path.Cone(new Point(x+w*0.1,y),new Size(w*0.8,h));
+			Interaction.shape.dimension = 3;
+			break;
+		case 20:
+			Interaction.shape = new Path.Rhombus(new Point(x+w*0.2,y+h*0.2), new Size(w*0.6,y*0.6) );
+			Interaction.shape.dimension = 1;
+			break;
+		case 21:
+			Interaction.shape = new Path.Rhombus(new Point(x+w*0.2,y+h*0.2), new Size(w*0.6,y*0.6) );
+			Interaction.shape.dimension = 2;
+			break;
+		case 22:
+			Interaction.shape = new Path.Rhomboid(new Point(x+w*0.2,y+h*0.2), new Size(w*0.6,y*0.6),w*0.2 );
+			Interaction.shape.dimension = 1;
+			break;
+		case 23:
+			var a =Math.min(x,y);
+			Interaction.shape = new Path.SquarePrisim(new Point(x,y),a*0.7,a*0.4);
+			Interaction.shape.dimension = 3;
+			break;
+		case 24:
+			Interaction.shape = new Path.RectanglePrisim(new Point(x,y),new Size(w*0.7,h*0.7),new Size(w*0.3,h*0.3));
+			Interaction.shape.dimension = 3;
+			break;
+		case 25:
+			Interaction.shape = new Path.TrianglePrisim(new Point(x,y),new Size(w,h));
+			Interaction.shape.dimension = 3;
+			break;
 	}
 	if(Interaction.shape.dimension == 1)
-		Interaction.shape.style = edgeStyle;
+		Interaction.shape.setStyle(edgeStyle);
 	else if(Interaction.shape.dimension == 2)
-		Interaction.shape.style = twoDimensionalShapeStyle;
-	else if(Interaction.shape.dimension == 3 && shapeType != 10)
-		Interaction.shape.style = threeDimensionalShapeStyle;
+		Interaction.shape.setStyle(twoDimensionalShapeStyle);
+	else if(Interaction.shape.dimension == 3)
+		Interaction.shape.setStyle(threeDimensionalShapeStyle);
 	
 }
 
