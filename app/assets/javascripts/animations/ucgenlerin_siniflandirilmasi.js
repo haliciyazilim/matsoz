@@ -3,17 +3,20 @@
 
 /*Styles*/
 var triangleStyle = {
-	'fill': '#f55',
-	'stroke-width':'2px'
+	fillColor: '#fff' ,
+	strokeWidth: 2,
+	strokeColor: '#000'
 };
 	
 var textStyle = {
-	'font-size':'16px',
-	'text-color': '#55f'
+	fontSize : 16,
+	fillColor:"#55f",
+	strokeColor: "#55f" 
 };
 
 var edgeStyle = {
-	'stroke-width':'2px'
+	strokeWidth : 2,
+	strokeColor : "#000"
 };
 
 var angleStyle = {
@@ -23,15 +26,18 @@ var angleStyle = {
 
 
 var Interaction =function(){};Interaction();
+Interaction.getFramework = function() {
+	return 'paper';
+}
 Interaction.init = function(container){
 	/*var yonerge = document.createElement('div');
 	yonerge.innerHTML = 'Üçgenleri açılarına ve kenarlarına göre soldaki ve sağdaki gruplarda yer alan uygun kutucukları tıklayarak sınıflandırınız.';
 	yonerge.className = "objective";
 	container.appendChild(yonerge);*/
 	Main.setObjective('Üçgenleri açılarına ve kenarlarına göre soldaki ve sağdaki gruplarda yer alan uygun kutucukları tıklayarak sınıflandırınız.');
-	container.innerHTML += '<div><div id="L" style="width:25%;padding-left:10px" class="tg"></div>'+
+	$(container).append('<div style="position:absolute;top:0px;left:0px;width:100%;"><div id="L" style="width:25%;padding-left:10px" class="tg"></div>'+
 						  '<div id="C" style="width:50%" class="tg"></div>'+
-						  '<div id="R" style="width:25%;padding-right:10px" class="tg"></div></div>';
+						  '<div id="R" style="width:25%;padding-right:10px" class="tg"></div></div>');
 						  
 	$('div.tg',container).css({
 			float:'left',
@@ -46,7 +52,8 @@ Interaction.init = function(container){
 	$(container).append('<style> ul li.shadow{background-color:#DDD !important;}</style>');
 	$(container).append('<style> ul li.A_selected{background-color:rgb(118,146,59) !important;color:#FFF !important;}</style>');
 	$(container).append('<style> ul li.E_selected{background-color:rgb(147,54,52) !important;color:#FFF !important;}</style>');
-	TestGenerator($('div#C',container).get(0));
+	$(container).append('<style> #status{position:absolute; top:70%;width:100%;}</style>');
+
 	$('div#L',container).html('<ul>'+
 							  '<li class="A" id="A0" onclick="TestGenerator.checkAnswer(this)">Dar Açılı Üçgen</li>'+
 							  '<li class="A" id="A1" onclick="TestGenerator.checkAnswer(this)">Geniş Açılı Üçgen</li>'+
@@ -133,6 +140,7 @@ TestGenerator.checkAnswer = function(li){
 		//console.log(answer);
 		if(answer == TestGenerator.state)
 			isCorrect = true;
+		console.log(isCorrect);
 		if(isCorrect == true){
 			$('#status').html('<span class="status_true">Tebrikler!&emsp;</span><input type="button" class="control_button" value="Sonraki" onclick="TestGenerator.nextQuestion();"/>');
 		}
@@ -166,16 +174,25 @@ TestGenerator.tryAgain = function(){
 	$('#status').html('');
 	TestGenerator.stopCheckAnswer = false;
 }
+TestGenerator.printVertexLetters = function(p){
+	for(var i=0; i<p.length;i++){
+		var text = new PointText(p[i]);
+		text.content = ""+TestGenerator.letters.shift();
+		text.style = textStyle;
+		text=null;
+	}
+}
+
 TestGenerator.nextQuestion = function(){
 	//prepare question
 	TestGenerator.letters = (Math.random()>0.5 ? ["A","B","C"]:["B","C","A"]);
 	$('#status').html('');
+	project.activeLayer.removeChildren();
 	$(".tg ul li").removeClass('A_selected');
 	$(".tg ul li").removeClass('E_selected');
 	$(".tg ul li").each(function(){TestGenerator.removeShadow(this);});
 	var a,e;
-	var container = TestGenerator.container;
-	$(container).html('');
+	var container = {width:$(TestGenerator.container).width(), height:$(TestGenerator.container).height()};
 	a = Math.floor(Math.random()*3);
 	e = Math.floor(Math.random()*(a>0?2:3));
 	TestGenerator.state = "" + a + e;
@@ -383,50 +400,54 @@ TestGenerator.nextQuestion = function(){
 			break;
 	}
 }
-function Triangle(i,j,k,container){
+function Triangle(i,j,k,paper){
+	var _x=140,_y=20;
 	this.i=i,this.j=j,this.k=k;
 	this.p1={x:10,y:0},this.p2={x:0,y:0},this.p3={x:0,y:0};
 	this.a1=null,this.a2=null,this.a3=null;
-	var a = 200;
+	var a = Math.min(paper.width,paper.height)*0.8;
 	var _c = (a-40)/Math.max(i,j,k);
-	//console.log(_c);
-	var paper = new Raphael(container,a+50,a);
-	
 	this.p1.x = 60;
 	this.p1.y = a-20;
 	this.p2.x = this.p1.x + this.i*_c;
 	this.p2.y = this.p1.y;
 	var a = Math.acos((this.i*this.i + this.k*this.k - this.j*this.j)/(2*this.i*this.k));
-	//console.log('this.i:'+this.i+' this.j:'+this.j+' k:'+k+' a:'+a);
 	this.p3.x = this.p1.x + Math.cos(a)*k*_c;
 	this.p3.y = this.p1.y - Math.sin(a)*k*_c;
-	//console.log(this);
-	paper.triangle( this.p1.x,
-					this.p1.y,
-					this.p2.x,
-					this.p2.y,
-					this.p3.x,
-
-					this.p3.y ).attr(triangleStyle);
+	this.p1.x += _x;
+	this.p2.x += _x;
+	this.p3.x += _x;
+	this.p1.y += _y;
+	this.p2.y += _y;
+	this.p3.y += _y;
+	console.log("I'm here")
+	var triangle = new Path.Triangle( 
+					this.p1,
+					this.p2,
+					this.p3);
+	triangle.style = edgeStyle;
 	
-	//letters
-	paper.text(this.p1.x-10,this.p1.y+10,TestGenerator.letters.shift()).attr(textStyle);
-	paper.text(this.p2.x+10,this.p2.y+10,TestGenerator.letters.shift()).attr(textStyle);
-	paper.text(this.p3.x+10,this.p3.y-10,TestGenerator.letters.shift()).attr(textStyle);
-	//paper.text(x+_w-16,y+h-16,TestGenerator.letters.shift()).attr(textStyle);
+	TestGenerator.printVertexLetters(
+			[
+				new Point(this.p1.x-10,this.p1.y+10),
+				new Point(this.p2.x+10,this.p2.y+10),
+				new Point(this.p3.x+10,this.p3.y-10)
+			]
+		);
 
 	this.drawEdgeText = function(p,a,k,L){
 		var _x,_y;
 		_x = p.x + k * Math.sin(a);
 		_y = p.y + k * Math.cos(a);
-		this.paper.text(_x,_y,L).attr(textStyle);
+		var t1 = new PointText(new Point(_x,_y));
+		t1.content = L;
+	
 	
 	}
 	this.calculateAngles = function(){
 		this.a1 = Math.acos((this.i*this.i + this.k*this.k - this.j*this.j)/(2*this.i*this.k));
 		this.a2 = Math.acos((this.i*this.i + this.j*this.j - this.k*this.k)/(2*this.i*this.j));
 		this.a3 = Math.acos((this.k*this.k + this.j*this.j - this.i*this.i)/(2*this.k*this.j));			
-		
 		this._a1 = Math.floor(Util.radianToDegree(this.a1));
 		this._a2 = Math.round(Util.radianToDegree(this.a2));
 		this._a3 = Math.floor(Util.radianToDegree(this.a3));
@@ -439,9 +460,8 @@ function Triangle(i,j,k,container){
 			y = p1.y - Math.sin(a)*k ;
 			return {x:x,y:y}
 		}
-		
 		var x1,y1,x2,y2,r,k;
-		k = 30;
+		k = 20;
 		
 		var _p1,_p2;
 		_p1 = findAPointOn(p1,p2,k);
@@ -455,30 +475,46 @@ function Triangle(i,j,k,container){
 		var _b = Util.findAngle(p1.x,p1.y,p3.x,p3.y);
 		var _t = Math.abs(_a-_b)*0.5 + (Math.abs(_a) > Math.abs(_b) ? _b : _a);
 		
+		
+		
 		if(_A==90){
 			var x,y;
 			_p1 = findAPointOn(p1,p2,k/2);
 			x1=_p1.x; y1=_p1.y;
 			_p2 = findAPointOn(p1,p3,k/2);
 			x2=_p2.x; y2=_p2.y;
-			
 			x = p1.x + Math.sqrt(2) * k/2 * Math.cos(_t);
 			y = p1.y - Math.sqrt(2) * k/2 * Math.sin(_t);
-			this.paper.line(x1,y1,x,y).attr(edgeStyle);
-			this.paper.line(x2,y2,x,y).attr(edgeStyle);
-			this.paper.circle((p1.x+x)*0.5,(p1.y+y)*0.5,1).attr('fill','#CCC');
+			//this.paper.line(x1,y1,x,y).attr(edgeStyle);
+			//this.paper.line(x2,y2,x,y).attr(edgeStyle);
+			//this.paper.circle((p1.x+x)*0.5,(p1.y+y)*0.5,1).attr('fill','#CCC');
+			var line1 = new Path.Line(new Point(x1,y1), new Point(x,y));
+			line1.setStyle(edgeStyle);
+			var line2 = new Path.Line(new Point(x2,y2), new Point(x,y));
+			line2.setStyle(edgeStyle)
+			var circle= new Path.Circle(new Point((p1.x+x)*0.5,(p1.y+y)*0.5),1);
+			circle.setStyle({fillColor:'#000'});
+			
 			k = k/1.5;
 		}
 		else{
+			x = p1.x + Math.sqrt(2) * k*0.7 * Math.cos(_t);
+			y = p1.y - Math.sqrt(2) * k*0.7 * Math.sin(_t);
 			r = Util.findDistance(p1.x, p1.y, x1, y1);
-			this.paper.path('M'+p1.x+','+p1.y+' L'+x1+','+y1+' A'+r+','+r +
-				   ' 0 '+fa+','+fs+' '+x2+','+y2+'  z').attr(angleStyle);
+			//this.paper.path('M'+p1.x+','+p1.y+' L'+x1+','+y1+' A'+r+','+r +
+			//	   ' 0 '+fa+','+fs+' '+x2+','+y2+'  z').attr(angleStyle);
+			var path = new Path();
+			path.add(_p1);
+			path.arcTo([x,y],_p2);
+			path.setStyle(edgeStyle);
 		}
 		var _x,_y;//for the text
-		_x = p1.x + 1.6 * k * Math.cos(_t);
-		_y = p1.y - 1.6 * k * Math.sin(_t);
-		this.paper.text(_x,_y,""+_A+"°").attr(textStyle);
-
+		_x = p1.x + Math.sqrt(2) * k * Math.cos(_t);
+		_y = p1.y - Math.sqrt(2) * k * Math.sin(_t);
+		//this.paper.text(_x,_y,""+_A+"°").attr(textStyle);
+		var text = new PointText(_x,_y);
+		text.content = ""+_A+"°";
+		text.setStyle(textStyle);
 		
 	}
 	this.showAngle = function(angle){
@@ -502,23 +538,25 @@ function Triangle(i,j,k,container){
 		switch(edge){
 			case 'a':
 				var a = Util.findAngle(this.p1.x,this.p1.y,this.p2.x,this.p2.y);
-				this.drawEdgeText({x:(this.p1.x+this.p2.x)*0.5,y:(this.p1.y+this.p2.y)*0.5},a,k,this.i);
+				this.drawEdgeText({x:(this.p1.x+this.p2.x)*0.5,y:(this.p1.y+this.p2.y)*0.5+5},a,k,this.i);
 				break;
 			case 'b':
 				var a = Util.findAngle(this.p2.x,this.p2.y,this.p3.x,this.p3.y);
-				this.drawEdgeText({x:(this.p2.x+this.p3.x)*0.5,y:(this.p2.y+this.p3.y)*0.5},a,k,this.j);
+				this.drawEdgeText({x:(this.p2.x+this.p3.x)*0.5-5,y:(this.p2.y+this.p3.y)*0.5},a,k,this.j);
 				break;
 			case 'c':
 				var a = Util.findAngle(this.p3.x,this.p3.y,this.p1.x,this.p1.y);
-				this.drawEdgeText({x:(this.p3.x+this.p1.x)*0.5,y:(this.p3.y+this.p1.y)*0.5},a,k,this.k);
+				this.drawEdgeText({x:(this.p3.x+this.p1.x)*0.5-15,y:(this.p3.y+this.p1.y)*0.5},a,k,this.k);
 				break;
 			default:
 				throw 'invalid argument. valid arguments: [ a , b , c ]';
 		}
+		return this;
 	}
 	this.calculateAngles();
 	this.paper = paper;
 }
+
 
 function _degree(a){
 	var d = Util.radianToDegree(a);

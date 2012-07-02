@@ -53,7 +53,7 @@ var TestGenerator = function(){}; TestGenerator();
 
 TestGenerator.nextQuestion = function(){
 	Interaction.input.onkeyup = function(e){
-		console.log(e.keyCode)
+		//console.log(e.keyCode)
 		if(e.keyCode == 13)
 			TestGenerator.checkAnswer();		
 	}
@@ -87,7 +87,6 @@ TestGenerator.nextQuestion = function(){
 			while(a==b)
 				b = Math.floor(Math.random()*10)+5;
 			TestGenerator.values = {a:a,b:b,area:a*b};
-			
 			rectangle(a,b,TestGenerator.getMeasure(),TestGenerator.paper);
 			break;
 		case 2:
@@ -106,13 +105,15 @@ TestGenerator.nextQuestion = function(){
 			b = a;
 			while(a==b)
 				b = Math.floor(Math.random()*5)+5;
-			H = Math.floor(Math.random()*5)+5;
+			H = 1;
+			while(H%2==1)
+				H = Math.floor(Math.random()*5)+5;
 			TestGenerator.values = {a:a,b:b,H:H,area:(a+b)*H*0.5};
 			triangle(a,b,H,TestGenerator.getMeasure(),TestGenerator.paper);
 			break;
 	}
 	if(Interaction.viewDrawCalled == null || Interaction.viewDrawCalled == 'undefined'){
-		console.log('draw');
+		//console.log('draw');
 		paper.view.draw();
 		Interaction.viewDrawCalled = true;
 	}
@@ -132,7 +133,7 @@ TestGenerator.getMeasure = function(){
 
 TestGenerator.checkAnswer = function(){
 	//check the answer
-	console.log("Im here");
+	//console.log("Im here");
 	var value = Interaction.input.value;
 	var isWrong = false;
 	if(isNaN(value)){
@@ -149,9 +150,7 @@ TestGenerator.checkAnswer = function(){
 	else{
 		Interaction.setStatus('Tekrar deneyiniz. ');
 		isWrong = true;
-		
 	}
-
 	if(isWrong && TestGenerator.trial > 0){
 		Interaction.input.style.color = 'red';
 		Interaction.input.value = TestGenerator.values.area;
@@ -217,7 +216,6 @@ function rhomboid(a,b,H,measure,paper){
 		_w= _t * a / (2*a+b); 
 		h = _t * (H/(2*a+b));	
 	}else{
-		
 		w = _t * ((a+b)/H);
 		_w= _t * a / H; 
 		h = _t;
@@ -277,7 +275,6 @@ function triangle(a,b,H,measure,paper){
 	t1.content = ""+(a+b)+" "+measure;
 	var t2 = new PointText(new Point(x+_w+5,y+h*0.5));
 	t2.content = ""+H+" "+measure;
-	
 	var rect = new Path.Rectangle( new Point(x+_w-10,y+h-10), new Size(10,10) );
 	rect.style = edgeStyle;
 	var circle = new Path.Circle(new Point(x+_w-5,y+h-5),1);
