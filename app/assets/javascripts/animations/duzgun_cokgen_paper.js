@@ -18,7 +18,6 @@ Interaction.getFramework = function() {
 }
 
 Interaction.init = function(container){
-	
 	Main.setObjective('Aşağıdaki çokgenlerden düzgün olanları seçiniz.');
 	Interaction.container = container;
 	Interaction.container.top = $(container).offset().top;
@@ -26,14 +25,10 @@ Interaction.init = function(container){
 	var w = $(Interaction.container).width();
 	var h = $(Interaction.container).height();
 	project.activeLayer.removeChildren();
-	
 	Interaction.createDropableShape(w*0.8,0,w*0.2,h);
-
 	Interaction.generateRandomShapes(w*0.05,h*0.2,w*0.7,h*0.8);
-	Interaction.paper = {width:500,height:300}
-
+	Interaction.paper = {width:500,height:300};
 	Interaction.preventDrag = false;
-	
 	if(Interaction.status == null || Interaction.status == 'undefined'){
 		Interaction.status = document.createElement('div');
 		Interaction.status.className = 'status_true';
@@ -54,9 +49,9 @@ Interaction.init = function(container){
 			event.item.start();
 		}
 	};
-	drag.onMouseMove = function(event){
+	drag.onMouseDrag = function(event){
 		//Interaction.circleSet.move(event.delta.x,event.delta.y,event.point.x,event.point.y)
-		console.log(event.item);
+		//console.log(event.item);
 		if(drag.shape)
 			drag.shape.move(event.delta.x,event.delta.y,event.point.x,event.point.y);
 	};
@@ -66,11 +61,10 @@ Interaction.init = function(container){
 		drag.shape = null;
 	}
 	drag.activate();
-	
-	
 };
 
 var start = function(){
+		//console.log('start preventDrag: '+this.preventDrag);
 		this.ox = this.position.x;
 		this.oy = this.position.y;
 		this.odx = 0;
@@ -104,7 +98,8 @@ var start = function(){
 	up = function(){
 		if(this.preventDrag == true)
 			return;
-		//this.preventDrag=true;
+		//console.log("abc");
+		this.preventDrag=true;
 		Interaction.dropableShape.style = dropableShapeDefaultStyle;
 		
 		var revert = false;
@@ -134,10 +129,17 @@ var start = function(){
 			var distance = Math.sqrt(this.odx*this.odx + this.ody*this.ody);
 			var velocity = 1;// px/ms
 			var time  = distance / velocity;
-			
-			//Interaction.dropableShape.animate(dropableShapeDroppedFalseStyle,time);
-			//this.animate({transform:'T'+(-this.odx)+','+(-this.ody)+'...'},time*4,this.callback);
-			AnimationManager.translate(this,new Point(this.ox - this.position.x,this.oy - this.position.y),500)
+			/*this.callback = function(){
+				this.preventDrag = false;
+				console.log(this.preventDrag);
+			}*/
+			this.animate({
+					style:{
+						position:new Point(this.ox,this.oy)
+						},
+					duration: time,
+					callback:this.callback
+				});
 		}
 		var isExist=false;
 		for(var i=0; i < Interaction.shapes.length ;i++)
@@ -150,12 +152,9 @@ Interaction.generateRandomShapes = function(X,Y,WIDTH,HEIGHT){
 	Interaction.shapes = [];
 	var maxW = WIDTH*0.2;
 	var maxH = HEIGHT*0.3;
-	
-	
 	do{///generate shapes randomly
 		var x,y,w,h;
 		var p = Interaction.findSpace(WIDTH,HEIGHT);
-
 		x = p.x+X, y = p.y+Y;
 		Interaction.shapeType = Math.floor(Math.random()*6);
 		//Interaction.shapeType = 2;
@@ -216,17 +215,19 @@ Interaction.generateRandomShapes = function(X,Y,WIDTH,HEIGHT){
 		shape.start = start;
 		shape.move = move;
 		shape.up = up;
-		//shape.callback = function(){Interaction.dropableShape.style = dropableShapeDefaultStyle;  this.remove(); }
+		shape.callback = function(){
+			//console.log(this)
+			this.preventDrag = false; 
+			//console.log("I'm here");
+			
+		};
 		shape.order = Interaction.shapes.length;
 		Interaction.shapes.push(shape);
-		
 	}while( Interaction.shapes.length < 15 )
-	
-	
+
 };
 
-Interaction.createDropableShape = function(X,Y,WIDTH,HEIGHT){
-	
+Interaction.createDropableShape = function(X,Y,WIDTH,HEIGHT){	
 	var x,y,rx,ry,length;
 	length = Math.min(WIDTH,HEIGHT);
 	w = length * 0.90;
@@ -241,7 +242,7 @@ Interaction.createDropableShape = function(X,Y,WIDTH,HEIGHT){
 	var t1 = new PointText(new Point(x+w*0.2,y+h*0.4+20));
 	t1.style = textStyle;
 	t1.content = "Çokgen";
-	
+
 };
 
 //find left-upper-most empty space to place a shape
@@ -253,7 +254,6 @@ Interaction.findSpace = function(w,h){
 		};
 	return p;
 }
-
 function Triangle(i,j,k,x,y,maxW,maxH){
 	this.i=i,this.j=j,this.k=k;
 	this.p1={x:0,y:0},this.p2={x:0,y:0},this.p3={x:0,y:0};

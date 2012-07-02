@@ -1,240 +1,292 @@
 /*Styles*/
-var textStyle = {'font-size':'16px'};
-var edgeStyle = {'stroke-width':'2px'};
+var textStyle = {strokeColor : '#000', fillColor: '#000' };
+var edgeStyle = {strokeColor : "#000", fillColor : '#fff'};
+var twoDimensionalShapeStyle = {
+	strokeColor : "#000",
+	fillColor : "#ccc",
+	strokeWidth : 2
+};
+var oneDimensionalShapeStyle = {
+	strokeColor : "#000",
+	fillColor : "#fff",
+	strokeWidth : 2
+};
+var threeDimensionalShapeStyle = {
+	strokeColor : "#000",
+	fillColor : "#ccc",
+	strokeWidth : 2
+};
 var angleStyle = {'fill':'#DDD'};
-var bowlHoverStyle = {'stroke':'#999','fill':'#ff9'};
-var bowlDefaultStyle = {'stroke':'#000','fill':'#fff'};
+//var bowlHoverStyle = {'stroke':'#999','fill':'#ff9'};
+var bowlHoverStyle = {strokeColor : '#000', fillColor :'#ff9' , strokeWidth : 2}
+//var bowlDefaultStyle = {'stroke':'#000','fill':'#fff'};
 var bowlDroppedTrueStyle = {'stroke':'#0f0','fill':'#afa'};
 var bowlDroppedFalseStyle = {'stroke':'#f00','fill':'#faa'};
+var bowlDefaultStyle = {fillColor: '#fff', strokeColor : '#000' , strokeWidth : 2}
 /*Styles*/
 
 var Interaction =function(){};Interaction();
-
+Interaction.getFramework = function() {
+	return 'paper';
+}
 Interaction.init = function(container){
 	Main.setObjective('Aşağıdaki nesneleri kaç boyutlu olduğuna göre sınıflandırmak için fare ile sürükleyerek ilgili sepete atınız.');
-	Interaction.paper = new Raphael(container,$(container).width(),$(container).height());
 	Interaction.container = container;
 	Interaction.container.top = $(container).offset().top;
 	Interaction.container.left = $(container).offset().left;
+	Interaction.paper = {width:$(container).width(), height: $(container).height()}
 	var w = Interaction.paper.width;
 	var h = Interaction.paper.height;
+	Interaction.shapeCount = 1;
 	Interaction.generateBowls(w,h);
 	Interaction.nextQuestion();
+	var drag = new Tool();
+	drag.setHitTestOptions({ fill: true, stroke: true, segments: true, tolerance: 15 });
+	drag.onMouseDown = function(event){
+		if(event.item){
+			drag.shape = event.item;
+			event.item.start();
+		}
+	};
+	drag.onMouseDrag = function(event){
+		if(drag.shape)
+			drag.shape.move(event.delta.x,event.delta.y,event.point.x,event.point.y);
+	};
+	drag.onMouseUp = function(event){
+		if(drag.shape)
+			drag.shape.up();
+		drag.shape = null;
+	}
+	drag.activate();
 }
-
 Interaction.setStatus = function(msg){
 	Interaction.status.innerHTML = msg;
 }
-
-Interaction.highlight = function(x,y){
-	Interaction.droppedBowl = null;
-	Interaction.dim0.attr(bowlDefaultStyle);
-	Interaction.dim1.attr(bowlDefaultStyle);
-	Interaction.dim2.attr(bowlDefaultStyle);
-	Interaction.dim3.attr(bowlDefaultStyle);
-	var bowl;
-	if(Interaction.isInBowl(x,y,Interaction.dim0)){
-		bowl = Interaction.dim0.attr(bowlHoverStyle);
-	}
-	else if(Interaction.isInBowl(x,y,Interaction.dim1)){
-		bowl = Interaction.dim1.attr(bowlHoverStyle);
-	}
-	else if(Interaction.isInBowl(x,y,Interaction.dim2)){
-		bowl = Interaction.dim2.attr(bowlHoverStyle);
-	}
-	else if(Interaction.isInBowl(x,y,Interaction.dim3)){
-		bowl = Interaction.dim3.attr(bowlHoverStyle);
-	}
-	else
-		bowl = null;
-	Interaction.droppedBowl = bowl;
-		
-}
-
-Interaction.isInBowl =function(x,y,bowl){
-	var offset = $(Interaction.container).offset();
-	return bowl.attr('x')+offset.left < x && 
-		bowl.attr('x')+offset.left+bowl.attr('width') > x &&
-		bowl.attr('y')+offset.top < y &&
-		bowl.attr('y')+offset.top+bowl.attr('height') > y;
-}
-
 Interaction.nextQuestion = function(){
 	if(Interaction.shape != 'undefined' && Interaction.shape != null)
 		Interaction.shape.remove();
+	Interaction.shapeCount++;
 	Interaction.preventDrag = false;
 	var w = Interaction.paper.width;
 	var h = Interaction.paper.height;
 	Interaction.generateRandomShape(0.4*w,0.19*h,0.2*w,0.22*h);
-	Interaction.shape.attr({
-            cursor: "move"
-        });
-	//Interaction.shapeStoredAttr = Interaction.shape.attr();
-	var P={
-		move:function(dx,dy,x,y){
-			if(Interaction.preventDrag)
-				return;
-			// move will be called with dx and dy
-			var nowX = this.ox + dx;
-			var nowY = this.oy + dy;
-			this.translate(dx - this.odx, dy - this.ody);
-			this.odx = dx;
-			this.ody = dy;
-			//console.log([nowX,nowY,dx,dy,this.odx,this.ody,this.ox,this.oy]);
-			Interaction.highlight(x,y);
-		}
-	}
-	var E={
-		move:function(dx,dy,x,y){
-			if(Interaction.preventDrag)
-				return;
-			// move will be called with dx and dy
-			var nowX = this.ox + dx;
-			var nowY = this.oy + dy; 
-			this.attr({cx: nowX, cy: nowY });
-			Interaction.highlight(x,y);
-		}
-	}
 	var start = function () {
 		if(Interaction.preventDrag)
 			return;
-        // storing original coordinates
-		this.isEllipse = this.data('isEllipse') || false;
-		this.isPath = this.data('isPath') || false;
-		//console.log(this.data('isEllipse'));
-		var x = (this.isEllipse?this.attr('cx'):this.attr('x')),
-		y = (this.isEllipse?this.attr('cy'):this.attr('y'));
-        this.ox = x;
-        this.oy = y;
+		this.ox = this.position.x;
+		this.oy = this.position.y;
 		this.odx = 0;
- 		this.ody = 0;
-        this.attr({opacity: 0.5});
+		this.ody = 0;
+		var svg_offset = $(Interaction.container).offset();
+		this.s_left = svg_offset.left;
+		this.s_top = svg_offset.top;
+		this.inDropableShape = false;
+		if(this.preventDrag == null || this.preventDrag == undefined)
+			this.preventDrag = false;
+		return true;
 	},
     move = function (dx, dy,x,y) {
 		if(Interaction.preventDrag)
 			return;
-        // move will be called with dx and dy
-		var nowX = this.ox + dx;
-		var nowY = this.oy + dy; 
-		this.attr({x: nowX, y: nowY });
-		//console.log([nowX,nowY,dx,dy,this.odx,this.ody,this.ox,this.oy]);
-		console.log(dx,dy)
-		Interaction.highlight(x,y);
+		this.odx += dx;
+		this.ody += dy;
+		this.position = [this.position.x + dx,this.position.y + dy];
+		var hitResult = project.activeLayer.hitTest([x,y], { fill: true, stroke: true, segments: true, tolerance: 2 , class: 'bowl'});
+		for(var d in Interaction.dim){
+				Interaction.dim[d].style = bowlDefaultStyle;		
+			}
+		Interaction.droppedBowl = null;
+		if(hitResult){	
+			Interaction.droppedBowl = hitResult.item;
+			Interaction.droppedBowl.style = bowlHoverStyle;
+		}
     },
     up = function () {
 		if(Interaction.preventDrag)
 			return;
-        // restoring state
-        this.attr({opacity: 1}); 
-		if(Interaction.droppedBowl!=null && Interaction.droppedBowl!='undefined' && Interaction.shapeDimension == Interaction.droppedBowl.data('dim')){
+			
+		if(Interaction.droppedBowl!=null 
+			&& Interaction.droppedBowl!= undefined
+			&& Interaction.shape.dimension == Interaction.droppedBowl.dimension
+			){
 			Interaction.preventDrag = true;
-			Interaction.shape.animate({opacity:0},500);
-			Interaction.droppedBowl.animate(bowlDroppedTrueStyle,500,function(){
-					Interaction.droppedBowl.animate(bowlDefaultStyle,500,function(){
-						Interaction.nextQuestion();
-					});
-				});
+			Interaction.shape.animate({
+				style:{opacity:0},
+				duration:500
+			});
+			Interaction.droppedBowl.animate({
+				style:bowlDroppedTrueStyle,
+				duration:500,
+				callback:function(){
+					
+					Interaction.droppedBowl.animate({
+						style:bowlDefaultStyle,
+						duration:500,
+						callback:function(){
+							Interaction.droppedBowl.style = bowlDefaultStyle;
+							Interaction.nextQuestion();
+							}
+						}
+					)
+				}
+			});
 		}  
 		else{
 			Interaction.preventDrag = true;
-			Interaction.shape.animate({opacity:1},500);
 			var callback = function(){
 				Interaction.preventDrag = false;
-				
-				}
-			//console.log(Interaction.shapeStoredAttr);
-			if(Interaction.droppedBowl!=null && Interaction.droppedBowl!='undefined')
+			}
+			if(Interaction.droppedBowl!= null 
+			&& Interaction.droppedBowl!= undefined)
 				Interaction.droppedBowl.animate(bowlDroppedFalseStyle,500);
-			if(this.isEllipse)
-				this.animate({cx: this.ox, cy: this.oy,delay:500 },500,callback);
-			else if(this.isPath)
-				this.animate({transform:'T'+(-this.odx)+' '+(-this.ody)+' ...',delay:500},500,callback);
-			else
-				this.animate({x: this.ox, y: this.oy, delay:500 },500,callback);
+				
+			var distance = Math.sqrt(this.odx*this.odx + this.ody*this.ody);
+			var velocity = 1;// px/ms
+			var time  = distance / velocity;
+			
+			this.animate({
+				style:{
+					position:new Point(this.ox,this.oy)
+				},
+				duration:time,
+				callback:callback
+			});
 			
 		}        
     };
-	if(Interaction.shape.data('isEllipse'))
-		Interaction.shape.drag(E.move,start,up);
-	else if(Interaction.shape.data('isPath'))
-		Interaction.shape.drag(P.move,start,up);
-	else
-		Interaction.shape.drag(move,start,up);
+	Interaction.shape.move = move;
+	Interaction.shape.up = up;
+	Interaction.shape.start = start;
 }
 
 Interaction.generateRandomShape = function(x,y,w,h){
-	Interaction.shapeDimension = Math.floor(Math.random()*4);
-	///*TEST*/Interaction.shapeDimension = 3; /*TEST*/
-	switch(Interaction.shapeDimension ){
+	var NUMBER_OF_SHAPES  = 19;
+	Interaction.shapeCount = Interaction.shapeCount%NUMBER_OF_SHAPES;
+	if(Interaction.shuffledArray == null || Interaction.shuffledArray == undefined)
+		Interaction.shuffledArray = Util.getShuffledArray(NUMBER_OF_SHAPES);
+	shapeType = Interaction.shuffledArray[Interaction.shapeCount];
+	/*TEST*/shapeType = 18; /*TEST*/
+	switch(shapeType){
 		case 0:
-			var r = Math.min(w,h);
-			Interaction.shape = Interaction.paper.circle(x+w*0.5,y+h*0.5,5).attr({'fill':'#000','stroke':'#000'}).data('isEllipse',true);
+			Interaction.shape = new Path.Circle(new Point(x+w*0.5,y+h*0.5),5);
+			Interaction.shape.style = {
+					fillColor : '#000',
+					strokeColor : '#000'
+				}
+			Interaction.shape.dimension = 0;
 			break;
 		case 1:
-			switch( Math.floor(Math.random()*4) ){
-				case 0:
-					Interaction.shape = Interaction.paper.rect(x+w*0.2,y+h*0.2,w*0.6,h*0.6).attr(edgeStyle).data('isEllipse',false).data('isPath',false);
-					break;
-				case 1:
-					var a = Math.min(w,h)*0.5;
-					Interaction.shape = Interaction.paper.circle(x+w*0.5,y+h*0.5,a).data('isEllipse',true).attr(edgeStyle);
-					break;
-				case 2:
-					var l = Math.min(w,h);
-					Interaction.shape = Interaction.paper.line(x+w*0.2,y+h*0.2,x+w*0.8,y+h*0.8).attr(edgeStyle).data('isEllipse',false);
-					break;
-				case 3:
-					Interaction.shape = Interaction.paper.sline(x+w*0.1,y+h*0.5,w*0.8).attr(edgeStyle).data('isEllipse',false).data('isPath',true);
-					break;
-			}
+			Interaction.shape = new Path.Rectangle(new Point(x+w*0.2,y+h*0.2), new Size(w*0.6,h*0.6));
+			Interaction.shape.dimension = 1;
 			break;
 		case 2:
-			switch(Math.floor(Math.random()*4)){
-				case 0:
-					Interaction.shape = Interaction.paper.rect(x+w*0.2,y+h*0.2,w*0.6,h*0.6).attr(edgeStyle).data('isEllipse',false).data('isPath',false).attr('fill','#999');
-					break;
-				case 1:
-					var a = Math.min(w,h)*0.5;
-					Interaction.shape = Interaction.paper.circle(x+w*0.5,y+h*0.5,a).attr({'fill':'#fff','stroke':'#000'}).data('isEllipse',true).attr(edgeStyle).attr('fill','#999');
-					break;
-				case 2:
-					Interaction.shape = Interaction.paper.rhomboid(x+w*0.2,y+h*0.2,w*0.2,w*0.6,y*0.6).attr(edgeStyle).data({'isEllipse':false,'isPath':true}).attr('fill','#999');
-					break;
-				case 3:
-					Interaction.shape = Interaction.paper.triangle(x+w*0.2,y+h*0.8,x+w*0.8,y+h*0.8,x+w*0.5,y+h*0.2).attr(edgeStyle).data({'isEllipse':false,'isPath':true}).attr('fill','#999');
-					break;
-			}
+			var a = Math.min(w,h)*0.5;
+			Interaction.shape = new Path.Circle(new Point(x+w*0.5,y+h*0.5),a);
+			Interaction.shape.dimension = 1;
 			break;
-		case 3://
-			switch(Math.floor(Math.random()*3)){
-				case 0:
-					var a = Math.min(w,h)*0.6;
-					Interaction.shape = Interaction.paper.cube(x+w*0.5-a*0.5,y+h*0.5-a*0.5,a).attr(edgeStyle).data('isEllipse',false).data('isPath',true).attr('fill','#FFF');
-					break;
-				case 1:
-					var a = Math.min(w,h);
-					Interaction.shape = Interaction.paper.sphere(x+w*0.5,y+h*0.5,a*0.6,'#aaa').attr(edgeStyle).data('isEllipse',false).data('isPath',true);
-					break;
-				case 2:
-					Interaction.shape = Interaction.paper.cylinder(x+w*0.2,y+h*0.2,w*0.6,h*0.6).attr(edgeStyle).data('isEllipse',false).data('isPath',true);
-					break;
-			}
+		case 3:
+			var l = Math.min(w,h);
+			Interaction.shape = new Path.Line(new Point(x+w*0.2,y+h*0.2), new Point(x+w*0.8,y+h*0.8));
+			Interaction.shape.dimension = 1;
+			break;
+		case 4:
+			Interaction.shape = new Path.OneSidedArrow(new Point(x+w*0.1,y+h*0.5), new Point(x+w*0.8,y+h*0.5), 10, 30);
+			Interaction.shape.dimension = 1;
+			break;
+		case 5:
+			Interaction.shape = new Path.Rectangle(new Point(x+w*0.2,y+h*0.2),new Size(w*0.6,h*0.6));
+			Interaction.shape.dimension = 2;
+			break;
+		case 6:
+			var a = Math.min(w,h)*0.5;
+			Interaction.shape = new Path.Circle(new Point(x+w*0.5,y+h*0.5), a );
+			Interaction.shape.dimension =2 ;
+			break;
+		case 7:
+			Interaction.shape = new Path.Rhomboid(new Point(x+w*0.2,y+h*0.2), new Size(w*0.6,y*0.6),w*0.2 );
+			Interaction.shape.dimension = 2;
+			break;1
+		case 8:
+			Interaction.shape = new Path.Triangle(new Point(x+w*0.2,y+h*0.8), new Point(x+w*0.8,y+h*0.8), new Point(x+w*0.5,y+h*0.2));
+			Interaction.shape.dimension = 2;
+			break;
+		case 9:
+			var a = Math.min(w,h)*0.6;
+			Interaction.shape = new Path.Cube(new Point(x+w*0.5-a*0.5,y+h*0.5-a*0.5),a);
+			Interaction.shape.dimension = 3;
+			break;
+		case 10:
+			var a = Math.min(w,h);
+			var path = new Path.Circle(new Point(x+w*0.5,y+h*0.5 * 0.4),a*0.6);
+			var gradient = new Gradient(['#999', '#666', '#000'], 'radial');
+			var from = path.position;
+			var to = path.bounds.rightCenter;
+			var gradientColor = new GradientColor(gradient, from, to);
+			path.fillColor = gradientColor;
+			path.fillColor.hilite = new Point(x+w*0.7,y+h*0.2 * 0.4);
+			Interaction.shape = path;
+			Interaction.shape.dimension = 3;
+			break;
+		case 11:
+			Interaction.shape = new Path.Cylinder(new Point(x+w*0.2,y+h*0.2), new Size(w*0.6,h*0.6));
+			Interaction.shape.dimension = 3;
+			break;
+		case 12:
+			Interaction.shape = new Path.RegularPolygon(new Point(x,y),new Size(w,h),5,30);
+			Interaction.shape.dimension = 2;
+			break;
+		case 13:
+			Interaction.shape = new Path.RegularPolygon(new Point(x,y),new Size(w,h),5,60);
+			Interaction.shape.dimension = 1;
+			break;
+		case 14:
+			Interaction.shape = new Path.RegularPolygon(new Point(x,y),new Size(w,h),6,90);
+			Interaction.shape.dimension = 2;
+			break;
+		case 15:
+			Interaction.shape = new Path.RegularPolygon(new Point(x,y),new Size(w,h),6,120);
+			Interaction.shape.dimension = 1;
+			break;
+		case 16:
+			Interaction.shape = new Path.Trapezoid(new Point(x,y),new Size(w,h),w*0.6);
+			Interaction.shape.dimension = 1;
+			break;
+		case 17:
+			Interaction.shape = new Path.Trapezoid(new Point(x,y),new Size(w,h),w*0.4);
+			Interaction.shape.dimension = 2;
+			break;
+		case 18:
+			Interaction.shape = new Path.Pyramid(new Point(x,y),new Size(w,h));
+			Interaction.shape.dimension = 3;
 			break;
 	}
+	if(Interaction.shape.dimension == 1)
+		Interaction.shape.style = edgeStyle;
+	else if(Interaction.shape.dimension == 2)
+		Interaction.shape.style = twoDimensionalShapeStyle;
+	else if(Interaction.shape.dimension == 3 && shapeType != 10)
+		Interaction.shape.style = threeDimensionalShapeStyle;
+	
 }
 
 Interaction.generateBowls = function(w,h){
-	Interaction.dim0 = Interaction.paper.bowl(0+0.025*w,0.6*h+0.04*h,0.20*w,0.22*h).attr(edgeStyle);
-	Interaction.dim1 = Interaction.paper.bowl(0.25*w+0.025*w,0.6*h+0.04*h,0.20*w,0.22*h).attr(edgeStyle);
-	Interaction.dim2 = Interaction.paper.bowl(0.50*w+0.025*w,0.6*h+0.04*h,0.20*w,0.22*h).attr(edgeStyle);
-	Interaction.dim3 = Interaction.paper.bowl(0.75*w+0.025*w,0.6*h+0.04*h,0.20*w,0.22*h).attr(edgeStyle);
-	//console.log(Interaction.dim0.data('cx'))
-	Interaction.paper.text(Interaction.dim0.attr('x')+Interaction.dim0.attr('width')*0.5,Interaction.dim0.attr('y')+Interaction.dim0.attr('height')*0.5,'Boyutu\nyok').attr(textStyle);
-	Interaction.paper.text(Interaction.dim1.attr('x')+Interaction.dim1.attr('width')*0.5,Interaction.dim1.attr('y')+Interaction.dim1.attr('height')*0.5,'1\nBoyultu').attr(textStyle);
-	Interaction.paper.text(Interaction.dim2.attr('x')+Interaction.dim2.attr('width')*0.5,Interaction.dim2.attr('y')+Interaction.dim2.attr('height')*0.5,'2\nBoyutlu').attr(textStyle);
-	Interaction.paper.text(Interaction.dim3.attr('x')+Interaction.dim3.attr('width')*0.5,Interaction.dim3.attr('y')+Interaction.dim3.attr('height')*0.5,'3\nBoyutlu').attr(textStyle);
-	Interaction.dim0.data('dim',0);	
-	Interaction.dim1.data('dim',1);
-	Interaction.dim2.data('dim',2);
-	Interaction.dim3.data('dim',3);
+	var _w = 0.20*w, _h =0.22*h;
+	var dim = [];	
+	for(var i=0; i< 4 ; i++){
+		dim[i] = new Path.Bowl(new Point(i*0.25*w+0.025*w,0.6*h+0.04*h), new Size(_w,_h)) ;
+		dim[i].style = bowlDefaultStyle;
+		dim[i].dimension = i;
+		dim[i].class = "bowl";
+		var t;
+		if(i == 0 ){
+			t = new PointText(new Point(dim[i].position.x-_w*0.3,dim[i].position.y));
+			t.content = "Boyutu\nyok";
+		}
+		else{
+			t = new PointText(new Point(dim[i].position.x-_w*0.25,dim[i].position.y));
+			t.content = ""+i+" Boyutlu";
+		};
+		t.style = textStyle;
+	}
+	Interaction.dim = dim;
 }
