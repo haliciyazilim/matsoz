@@ -146,6 +146,18 @@ Main.paperInit = function() {
 		
 		AnimationManager.animate(new Animation(this, animation));
 	}
+	
+	Item.prototype.setStyle = function (style) {
+		if ((typeof(style) != typeof({})) || (style instanceof Array)) {
+			throw "The argument to Item.setStyle needs be a Hash";
+		}
+		
+		for (var key in style) {
+			if (style.hasOwnProperty(key)) {
+				this.style[key] = style[key];
+			}
+		}
+	}
 };
 
 Main.raphaelInit = function(){
