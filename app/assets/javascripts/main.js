@@ -39,12 +39,20 @@ Main.init = function(){
 				Interaction.onFrame(event);
 			}
 		}
-		Interaction.init(Main.interaction);
+		if(Interaction.images == null || Interaction.images == undefined)
+			Interaction.init(Main.interaction);
+		else
+			Util.loadImages(Interaction.images,function(){Interaction.init(Main.interaction)});
 	}
 };
 
 Main.paperInit = function() {
 	// Custom Paths
+	Path.Point = function(p){
+		var circle = new Path.Circle(p,2);
+		circle.setStyle({fillColor:'#000'});
+		return circle;
+	}
 	Path.Triangle = function(p1,p2,p3){
 		var triangle = new Path();
 		triangle.add(p3);
@@ -691,6 +699,13 @@ var Util = {
 		},
 	formatNumber: function(number,decimal){
 			return Math.floor(number * decimal * 10) / (decimal * 10);
+		},
+	numberTurkishFloating: function(number,decimal){
+			if(decimal==null || decimal==undefined)
+				decimal = 1;
+			var float = number - Math.floor(number);
+			float = Math.floor(float*Math.pow(10,decimal)); 
+			return ""+Math.floor(number)+","+float;
 		},
 	rand01: function(){
 			return Math.floor(Math.random()*2);
