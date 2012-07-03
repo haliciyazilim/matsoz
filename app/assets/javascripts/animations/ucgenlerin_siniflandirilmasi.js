@@ -34,6 +34,7 @@ Interaction.init = function(container){
 	yonerge.innerHTML = 'Üçgenleri açılarına ve kenarlarına göre soldaki ve sağdaki gruplarda yer alan uygun kutucukları tıklayarak sınıflandırınız.';
 	yonerge.className = "objective";
 	container.appendChild(yonerge);*/
+
 	Main.setObjective('Üçgenleri açılarına ve kenarlarına göre soldaki ve sağdaki gruplarda yer alan uygun kutucukları tıklayarak sınıflandırınız.');
 	$(container).append('<div style="position:absolute;top:0px;left:0px;width:100%;"><div id="L" style="width:25%;padding-left:10px" class="tg"></div>'+
 						  '<div id="C" style="width:50%" class="tg"></div>'+
@@ -200,7 +201,8 @@ TestGenerator.nextQuestion = function(){
 	TestGenerator.selectedE = null;
 	TestGenerator.trial = 0;
 	TestGenerator.stopCheckAnswer = false;
-	console.log(TestGenerator.state);
+	//console.log(TestGenerator.state);
+	///*TEST */ TestGenerator.state = "20";/*TEST*/
 	//switch to a state
 	switch(TestGenerator.state){
 		case '00':
@@ -364,16 +366,22 @@ TestGenerator.nextQuestion = function(){
 			while(b == a)
 				b = Math.floor(Math.random()*5)+10;
 			c = Math.sqrt(a*a+b*b);
-			if(a % 2 ==0){
+			if(a % 3 ==0){
 				var triangle = new Triangle(a,b,c,container);
 				triangle.showAngle('B');
 				triangle.showEdge('a');
 				triangle.showEdge('b');
 			}
-			else{
+			else if(a % 3==1){
 				var triangle = new Triangle(c,b,a,container);
+				triangle.showAngle('C');
 				triangle.showAngle('B');
+				triangle.showEdge('b');
+			}
+			else{
+				var triangle = new Triangle(b,c,a,container);
 				triangle.showAngle('A');
+				triangle.showAngle('B');
 				triangle.showEdge('c');
 			}
 			break;
@@ -392,10 +400,10 @@ TestGenerator.nextQuestion = function(){
 				triangle.showEdge('b');
 			}
 			else{
-				var triangle = new Triangle(c,b,a,container);
+				var triangle = new Triangle(b,c,a,container);
 				triangle.showAngle('C');
+				triangle.showEdge('a');
 				triangle.showEdge('c');
-				triangle.showEdge('b');
 			}
 			break;
 	}
@@ -440,9 +448,7 @@ function Triangle(i,j,k,paper){
 		_x = p.x + k * Math.sin(a);
 		_y = p.y + k * Math.cos(a);
 		var t1 = new PointText(new Point(_x,_y));
-		t1.content = L;
-	
-	
+		t1.content = L;	
 	}
 	this.calculateAngles = function(){
 		this.a1 = Math.acos((this.i*this.i + this.k*this.k - this.j*this.j)/(2*this.i*this.k));
@@ -462,21 +468,16 @@ function Triangle(i,j,k,paper){
 		}
 		var x1,y1,x2,y2,r,k;
 		k = 20;
-		
 		var _p1,_p2;
 		_p1 = findAPointOn(p1,p2,k);
 		x1=_p1.x; y1=_p1.y;
 		_p2 = findAPointOn(p1,p3,k);
 		x2=_p2.x; y2=_p2.y;
-		
 		var fa = A > Math.PI ?1 : 0;
 		var fs = A > 0 ? 0: 1;
 		var _a = Util.findAngle(p1.x,p1.y,p2.x,p2.y);
 		var _b = Util.findAngle(p1.x,p1.y,p3.x,p3.y);
 		var _t = Math.abs(_a-_b)*0.5 + (Math.abs(_a) > Math.abs(_b) ? _b : _a);
-		
-		
-		
 		if(_A==90){
 			var x,y;
 			_p1 = findAPointOn(p1,p2,k/2);
@@ -485,37 +486,35 @@ function Triangle(i,j,k,paper){
 			x2=_p2.x; y2=_p2.y;
 			x = p1.x + Math.sqrt(2) * k/2 * Math.cos(_t);
 			y = p1.y - Math.sqrt(2) * k/2 * Math.sin(_t);
-			//this.paper.line(x1,y1,x,y).attr(edgeStyle);
-			//this.paper.line(x2,y2,x,y).attr(edgeStyle);
-			//this.paper.circle((p1.x+x)*0.5,(p1.y+y)*0.5,1).attr('fill','#CCC');
 			var line1 = new Path.Line(new Point(x1,y1), new Point(x,y));
 			line1.setStyle(edgeStyle);
 			var line2 = new Path.Line(new Point(x2,y2), new Point(x,y));
 			line2.setStyle(edgeStyle)
 			var circle= new Path.Circle(new Point((p1.x+x)*0.5,(p1.y+y)*0.5),1);
 			circle.setStyle({fillColor:'#000'});
-			
 			k = k/1.5;
 		}
 		else{
 			x = p1.x + Math.sqrt(2) * k*0.7 * Math.cos(_t);
 			y = p1.y - Math.sqrt(2) * k*0.7 * Math.sin(_t);
 			r = Util.findDistance(p1.x, p1.y, x1, y1);
-			//this.paper.path('M'+p1.x+','+p1.y+' L'+x1+','+y1+' A'+r+','+r +
-			//	   ' 0 '+fa+','+fs+' '+x2+','+y2+'  z').attr(angleStyle);
 			var path = new Path();
 			path.add(_p1);
 			path.arcTo([x,y],_p2);
 			path.setStyle(edgeStyle);
 		}
 		var _x,_y;//for the text
-		_x = p1.x + Math.sqrt(2) * k * Math.cos(_t);
+		_x = p1.x + Math.sqrt(2) * k* Math.cos(_t);
 		_y = p1.y - Math.sqrt(2) * k * Math.sin(_t);
-		//this.paper.text(_x,_y,""+_A+"°").attr(textStyle);
+		if(_x < p1.x)
+			_x -= 15;
+		if(_y > p1.y)
+			_y += 10;
+		//var circle = new Path.Circle([_x,_y],2);
+		//circle.setStyle({fillColor:'#000'});
 		var text = new PointText(_x,_y);
 		text.content = ""+_A+"°";
 		text.setStyle(textStyle);
-		
 	}
 	this.showAngle = function(angle){
 		switch(angle){
