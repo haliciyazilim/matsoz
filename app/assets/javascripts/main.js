@@ -438,9 +438,9 @@ Main.paperInit = function() {
 		var segRec = new Group();
 		var Rec = new Path();
 		
-		for(i = 0; i < horizontalSegments; i++)
+		for(j = 0; j < verticalSegments; j++)
 		{
-			for(j = 0; j < verticalSegments; j++)
+			for(i = 0; i < horizontalSegments; i++)
 			{
 				Rec = Path.Rectangle(new Point(x + i * width/horizontalSegments, y + j * height/verticalSegments), new Size(width/horizontalSegments, height/verticalSegments));
 				Rec.strokeColor = '#000';
@@ -448,19 +448,20 @@ Main.paperInit = function() {
 			}
 		}
 		return segRec;
+		
 	};
 	
 	Path.SegmentedCircle = function (center, radius, paintedPieces, totalPieces) {
 		var segCirc = new Group();
-		var Circ = new Path();
-
-		var angle = 360/totalPieces;
+		var i;
+		var angle =  2 * Math.PI / totalPieces;
 		var startAngle = 0;
-		var endAngle = startAngle + angle;
+		var endAngle = angle;
 		var paint = 0;
-		
+
 		for(i=0; i < totalPieces; i++)
 		{
+			var Circ = new Path();
 			var point1 = new Point(center.x + Math.cos(startAngle) * radius,
 							   center.y + Math.sin(startAngle) * radius);
 							
@@ -469,25 +470,26 @@ Main.paperInit = function() {
 							
 			var point3 = new Point(center.x + Math.cos(endAngle) * radius,
 							   center.y + Math.sin(endAngle) * radius);
-							   
+						   
 			Circ.moveTo(center);
 			Circ.lineTo(point1);
 			Circ.arcTo(point2, point3);
-			Circ.lineTo(center)
-			//Circ.closePath();
+			Circ.lineTo(center);
+			Circ.closePath();
 			startAngle += angle;
 			endAngle += angle;
-			if(paint < paintedPieces)
-			{//33AA11
-				Circ.fillColor = "#33AA11";
-				paint += 1;
-			}
 			Circ.strokeColor = 'black';
 			segCirc.addChild(Circ);
+			if(paint < paintedPieces)
+			{
+				Circ.fillColor = "#00AF33";
+				paint += 1;
+			}
+
 		}
 		
 		return segCirc;
-	}
+	};
 	
 	Path.Fraction = function(top_x, top_y, nom, denom,scale)
 	{
@@ -497,19 +499,16 @@ Main.paperInit = function() {
 		c3=top_x+scale*1.5;
 		if (nom) {
 			pay=new PointText(top_x+scale*5/7, top_y);
-		//	pay.attr({"font-size" :scale});
 			pay.content = nom;
 			pay.style = textStyle;
 			frag.addChild(pay);	
 		}
 		if (denom) {
 			payda=new PointText(top_x+scale*5/7, c2+scale);
-		//	payda.attr({"font-size" :scale});
 			payda.content = denom;
 			payda.style = textStyle;
 			frag.addChild(payda);			
 		}
-	//	cizgi="M"+top_x+" "+c2+"L"+c3+" "+c2;
 		cizgi.strokeColor = 'black' ;
 		cizgi.add(new Point(top_x, top_y+scale));
 		cizgi.add(new Point(top_x+scale*1.8, top_y+scale));
