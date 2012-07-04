@@ -39,10 +39,28 @@ Main.init = function(){
 				Interaction.onFrame(event);
 			}
 		}
+		try{
+			if(Example.images == null || Example.images == undefined)
+				Example.init(Main.animation);
+			else
+				Util.loadImages(
+					Example.images, 
+					function(){
+						Animation.init(Main.animation);
+						
+					}
+				);
+			}
+		catch(e){}
 		if(Interaction.images == null || Interaction.images == undefined)
 			Interaction.init(Main.interaction);
 		else
-			Util.loadImages(Interaction.images,function(){Interaction.init(Main.interaction)});
+			Util.loadImages(
+				Interaction.images,
+				function(){
+					Interaction.init(Main.interaction);
+				}
+			);
 	}
 };
 
