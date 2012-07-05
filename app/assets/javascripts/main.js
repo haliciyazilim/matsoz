@@ -434,9 +434,10 @@ Main.paperInit = function() {
 		return trianglePrisim;
 	}
 	
-	Path.SegmentedRectangle = function (x, y, width, height, horizontalSegments, verticalSegments) {
+	Path.SegmentedRectangle = function (x, y, width, height, horizontalSegments, verticalSegments, paintedSegments) {
 		var segRec = new Group();
 		var Rec = new Path();
+		var paint = 0;
 		
 		for(j = 0; j < verticalSegments; j++)
 		{
@@ -445,6 +446,11 @@ Main.paperInit = function() {
 				Rec = Path.Rectangle(new Point(x + i * width/horizontalSegments, y + j * height/verticalSegments), new Size(width/horizontalSegments, height/verticalSegments));
 				Rec.strokeColor = '#000';
 				segRec.addChild(Rec);
+				if(paint < paintedSegments)
+				{
+					Rec.fillColor = "#00AF33";
+					paint += 1;
+				}
 			}
 		}
 		return segRec;
@@ -753,7 +759,7 @@ Main();
 var Util = {
 	isInteger: function (value) {
 		var intRegex = /^\d+$/;
-		return intRegex.test(val);
+		return intRegex.test(value);
 	},
 	
 	isNumber: function (n) {
@@ -793,9 +799,16 @@ var Util = {
 	radianToDegree: function(a){
 			return Math.round(a * (180/Math.PI));
 		},
-	degreeToRadians: function  (angle) {
+	
+	//keep these two functions
+	degreeToRadian : function (angle){
 			return angle * (Math.PI / 180);
 		},
+	degreeToRadians: function (angle){
+			return angle * (Math.PI / 180);
+		},
+		
+		
 	formatNumber: function(number,decimal){
 			return Math.floor(number * decimal * 10) / (decimal * 10);
 		},

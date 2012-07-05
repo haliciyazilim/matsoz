@@ -22,7 +22,7 @@ Interaction.getFramework = function() {
 }
 
 Interaction.init = function(container){
-	Main.setObjective('Aşağıdaki çokgenlerden düzgün olanları seçiniz.');
+	Main.setObjective('Aşağıdaki çokgenleri sınıflandırınız.');
 	Interaction.container = container;
 	Interaction.container.top = $(container).offset().top;
 	Interaction.container.left = $(container).offset().left;
@@ -56,7 +56,7 @@ Interaction.init = function(container){
 	if(Interaction.status == null || Interaction.status == 'undefined'){
 		Interaction.status = document.createElement('div');
 		Interaction.status.className = 'status_true';
-		$(Interaction.status).css({'position':'absolute','top':''+(h-20)+'px','left':'0px','padding-left':'20px'});
+		$(Interaction.status).css({'position':'absolute','top':''+(h-20)+'px','left':'0px','padding-left':'20px','width':'100%'});
 		Interaction.container.appendChild(Interaction.status);
 	}
 	else
@@ -179,7 +179,7 @@ var start = function(){
 				if(Interaction.shapes[i].class == "draggable")
 					isExist=true;
 		if(isExist == false)
-			Interaction.setStatus('Tebrikler bütün çokgenleri doğru şekilde yerleştirdiniz. <input type="button" onclick="Interaction.init(Interaction.container);" value="Baştan Başla" class="control_button"/>');
+			Interaction.setStatus('Tebrikler bütün çokgenleri doğru şekilde sınıflandırdınız. <input type="button" onclick="Interaction.init(Interaction.container);" value="Baştan Başla" class="control_button"/>');
 	};
 Interaction.generateRandomShapes = function(X,Y,WIDTH,HEIGHT){
 	Interaction.shapes = [];
@@ -264,7 +264,7 @@ Interaction.generateRandomShapes = function(X,Y,WIDTH,HEIGHT){
 		};
 		shape.order = Interaction.shapes.length;
 		Interaction.shapes.push(shape);
-	}while( Interaction.shapes.length < 20 )
+	}while( Interaction.shapes.length < 15 )
 
 };
 Interaction.createDropableShape = function(x,y,w,h,text){

@@ -11,8 +11,8 @@ Interaction.getFramework = function() {
 Interaction.init = function(paper){
 	
 	Main.setObjective('Aşağıda verilen renkli bölgeyi kesir, ondalık kesir ve yüzde olarak yazınız.');
-	var rect;
-	var frag;
+	var rect, rect2, rect3;
+	var frag1, frag2;
 	var circ;
 
 	
@@ -34,19 +34,64 @@ Interaction.init = function(paper){
 	while(firstNominator >= firstDenominator || firstNominator == 0)
 	
 	
-	frag = new Path.Fraction(10, 222, null, null, 18);
-	frag = new Path.Fraction(70, 222, null, null, 18);
-	circ = new Path.SegmentedCircle(new Point(60, 86), 56, firstNominator, firstDenominator);
+	frag1 = new Path.Fraction(60, 222, null, null, 18);
+	frag2 = new Path.Fraction(120, 222, null, null, 18);
+
+	var randomize = Math.round(Math.random()*10);
+	if (randomize % 3 == 0) // get circle
+	{
+		circ = new Path.SegmentedCircle(new Point(116, 86), 56, firstNominator, firstDenominator);
+	}
+	else if(randomize % 3 == 1) // get square
+	{
+		if(firstDenominator == 20)
+		{
+			rect2 = new Path.SegmentedRectangle(60, 30, 120, 120, 4, 5, firstNominator);
+		}
+		else if(firstDenominator == 10)
+		{
+			rect2 = new Path.SegmentedRectangle(60, 30, 120, 120, 2, 5, firstNominator);
+		}
+		else if(firstDenominator == 5)
+		{
+			rect2 = new Path.SegmentedRectangle(60, 30, 120, 120, 1, 5, firstNominator);
+		}
+		else
+		{
+			rect2 = new Path.SegmentedRectangle(60,30, 120, 120, firstDenominator/2, 2, firstNominator);
+		}
+	}
+	else // get rectangle
+	{
+		if(firstDenominator == 20)
+		{
+			rect3 = new Path.SegmentedRectangle(60, 30, 80, 120, 4, 5, firstNominator);
+		}
+		else if(firstDenominator == 10)
+		{
+			rect3 = new Path.SegmentedRectangle(60, 30, 80, 120, 2, 5, firstNominator);
+		}
+		else if(firstDenominator == 5)
+		{
+			rect3 = new Path.SegmentedRectangle(60, 30, 80, 120, 1, 5, firstNominator);
+		}
+		else
+		{
+			rect3 = new Path.SegmentedRectangle(60, 30, 80, 120, firstDenominator/2, 2, firstNominator);
+		}
+	}
 	
-	rect = new Path.SegmentedRectangle(360, 30, 120, 120, 10, 10);
+	rect = new Path.SegmentedRectangle(360, 30, 120, 120, 10, 10, 0);
 	
-	$('#interaction_container').append('<input id="textInput1" type="textbox" />');
-	$('#textInput1').css("width", "27")
-					.css("height", "25")
+	$('#interaction_container').append('<input id="textInput1" type="text" pattern="[0-9]*" maxlength="2"/>');
+	$('#textInput1').css("width", "32")
+					.css("box-sizing","border-box")
+					.css("padding", "0")
+					.css("height", "30")
 					.css("font-size", 22)
 					.css("font-family", "Helvetica Neue")
 					.css("position", "absolute")
-					.css("left", "10px")
+					.css("left", "60px")
 					.css("top", "262px")
 					.css("text-align", "center")
 					.css("color", "green");
@@ -54,13 +99,15 @@ Interaction.init = function(paper){
 	$('#textInput1').addClass('input');
 	$('#textInput1').addClass('active');
 	
-	$('#interaction_container').append('<input id="textInput2" type="textbox" />');
-	$('#textInput2').css("width", "27")
-					.css("height", "25")
+	$('#interaction_container').append('<input id="textInput2" type="text" pattern="[0-9]*" maxlength="2"/>');
+	$('#textInput2').css("width", "32")
+					.css("height", "30")
+					.css("box-sizing","border-box")
+					.css("padding", "0")
 					.css("font-size", 22)
 					.css("font-family", "Helvetica Neue")
 					.css("position", "absolute")
-					.css("left", "10px")
+					.css("left", "60px")
 					.css("top", "314px")
 					.css("text-align", "center")
 					.css("color", "green");
@@ -68,13 +115,15 @@ Interaction.init = function(paper){
 	$('#textInput2').addClass('input');
 	$('#textInput2').addClass('active');
 	
-	$('#interaction_container').append('<input id="textInput3" type="textbox" />');
-	$('#textInput3').css("width", "27")
-					.css("height", "25")
+	$('#interaction_container').append('<input id="textInput3" type="text" pattern="[0-9]*" maxlength="2"/>');
+	$('#textInput3').css("width", "32")
+					.css("height", "30")
+					.css("box-sizing","border-box")
+					.css("padding", "0")
 					.css("font-size", 22)
 					.css("font-family", "Helvetica Neue")
 					.css("position", "absolute")
-					.css("left", "70px")
+					.css("left", "120px")
 					.css("top", "262px")
 					.css("text-align", "center")
 					.css("color", "green");
@@ -82,13 +131,15 @@ Interaction.init = function(paper){
 	$('#textInput3').addClass('input');
 	$('#textInput3').addClass('active');
 	
-	$('#interaction_container').append('<input id="textInput5" type="textbox" />');
-	$('#textInput5').css("width", "27")
-					.css("height", "25")
+	$('#interaction_container').append('<input id="textInput5" type="text" pattern="[0-9]*" maxlength="2"/>');
+	$('#textInput5').css("width", "32")
+					.css("height", "30")
+					.css("box-sizing","border-box")
+					.css("padding", "0")
 					.css("font-size", 22)
 					.css("font-family", "Helvetica Neue")
 					.css("position", "absolute")
-					.css("left", "150px")
+					.css("left", "200px")
 					.css("top", "288px")
 					.css("text-align", "center")
 					.css("color", "green");
@@ -96,24 +147,28 @@ Interaction.init = function(paper){
 	$('#textInput5').addClass('input');
 	$('#textInput5').addClass('active');
 					
-	$('#interaction_container').append('<input id="textInput4" type="textbox" value = "100"  readonly="readonly"/>');
-	$('#textInput4').css("width", "27")
-					.css("height", "25")
-					.css("font-size", 16)
-					.css("font-family", "Helvetica Neue")
-					.css("position", "absolute")
-					.css("left", "70px")
-					.css("top", "314px")
-					.css("text-align", "center")
-					.css("border", "none");
-					
-	$('#interaction_container').append('<input id="textInput6" type="textbox" />');
-	$('#textInput6').css("width", "27")
-					.css("height", "25")
+	$('#interaction_container').append('<p id="textInput4" >100<p/>');
+	$('#textInput4').css("width", "32")
+					.css("height", "30")
+					.css("box-sizing","border-box")
+					.css("padding", "0")
 					.css("font-size", 22)
 					.css("font-family", "Helvetica Neue")
 					.css("position", "absolute")
-					.css("left", "230px")
+					.css("left", "120px")
+					.css("top", "294px")
+					.css("text-align", "center")
+					.css("border", "none");
+					
+	$('#interaction_container').append('<input id="textInput6" type="text" pattern="[0-9]*" maxlength="2"/>');
+	$('#textInput6').css("width", "32")
+					.css("height", "30")
+					.css("box-sizing","border-box")
+					.css("padding", "0")
+					.css("font-size", 22)
+					.css("font-family", "Helvetica Neue")
+					.css("position", "absolute")
+					.css("left", "280px")
 					.css("top", "288px")
 					.css("text-align", "center")
 					.css("color", "green");
@@ -123,29 +178,39 @@ Interaction.init = function(paper){
 
 	
 	$('#interaction_container').append('<p id="equal1" >=</p>');
-	$('#equal1').css("position", "absolute")
-				.css("left", "50px")
-				.css("top", "272px");
+	$('#equal1').css("font-size", 22)
+				.css("font-family", "Helvetica Neue")
+				.css("position", "absolute")
+				.css("left", "100px")
+				.css("top", "270px");
 				
 	$('#interaction_container').append('<p id="equal2" >=</p>');
-	$('#equal2').css("position", "absolute")
-				.css("left", "112px")
-				.css("top", "272px");
+	$('#equal2').css("font-size", 22)
+				.css("font-family", "Helvetica Neue")
+				.css("position", "absolute")
+				.css("left", "162px")
+				.css("top", "270px");
 	
 	$('#interaction_container').append('<p id="equal3" >=</p>');
-	$('#equal3').css("position", "absolute")
-				.css("left", "188px")
-				.css("top", "272px");
+	$('#equal3').css("font-size", 22)
+				.css("font-family", "Helvetica Neue")
+				.css("position", "absolute")
+				.css("left", "238px")
+				.css("top", "270px");
 	
 	$('#interaction_container').append('<p id="zero" >0,</p>');
-	$('#zero').css("position", "absolute")
-				.css("left", "128px")
-				.css("top", "272px");
+	$('#zero').css("font-size", 22)
+				.css("font-family", "Helvetica Neue")
+				.css("position", "absolute")
+				.css("left", "178px")
+				.css("top", "270px");
 				
 	$('#interaction_container').append('<p id="percent_sign" >%</p>');
-	$('#percent_sign').css("position", "absolute")
-				.css("left", "204px")
-				.css("top", "272px");
+	$('#percent_sign').css("font-size", 22)
+					.css("font-family", "Helvetica Neue")
+					.css("position", "absolute")
+					.css("left", "254px")
+					.css("top", "272px");
 				
 	$('#interaction_container').append('<button id="checkBtn" class="control_button">Kontrol</button>');
 	$('#checkBtn').css("position", "absolute")
@@ -169,11 +234,12 @@ Interaction.init = function(paper){
 					.css("top", "360px");
 			
 							
-	$('#interaction_container').append('<p id="percentage"></p>');
+	$('#interaction_container').append('<div id="percentage"></div>');
 	$('#percentage').css("position", "absolute")
-					.css("left", "344px")
-					.css("top", "200px")
-					.css("text-align", "right");
+					.css("width", "150px")
+					.css("left", "342px")
+					.css("top", "220px")
+					.css("text-align", "center");
 	
 	function ConvertPercentage(firstNum, secondNum)
 	{
@@ -252,10 +318,20 @@ Interaction.init = function(paper){
 	var trial = 0;				
 	submit = function()
 		{
-			if($('#textInput1').val() == "" || $('#textInput2').val() == "" || $('#textInput3').val() == "" || $('#textInput5').val() == "" || $('#textInput6').val() == "")
+			if(trial == 2)
+				return;
+			var ans1, ans2, ans3, ans5, ans6;
+			ans1 = $('#textInput1').val();
+			ans2 = $('#textInput2').val();
+			ans3 = $('#textInput3').val();
+			ans5 = $('#textInput5').val();
+			ans6 = $('#textInput6').val();
+			if(ans1 == "" || ans2 == "" || ans3 == "" || ans5 == "" || ans6 == ""
+					|| !Util.isInteger(ans1) || !Util.isInteger(ans2) || !Util.isInteger(ans3)
+					|| !Util.isInteger(ans5) || !Util.isInteger(ans6))
 			{
 				$('#statuss').get(0).className = "status_alert";
-				$('#statuss').html("Lütfen kutucukları doldurun!");
+				$('#statuss').html("Lütfen kutucuklara sayı giriniz.");
 			}
 			else
 			{
@@ -274,14 +350,13 @@ Interaction.init = function(paper){
 			}
 			var fractionn = $('#textInput5').val();
 			
-			if(fractionn < 10)
+			if(secondNominatorAns % 10 == 0)
 			{
-				fractionn *= 10;
+				fractionAns /= 10;
 			}
 			
-			
-			if($('#textInput1').val() == firstNominatorAns && $('#textInput2').val() == firstDenominatorAns && $('#textInput3').val() == secondNominatorAns && 
-				fractionn == fractionAns && $('#textInput6').val() == percentageAns)
+			if(ans1 == firstNominatorAns && ans2 == firstDenominatorAns && ans3 == secondNominatorAns && 
+				(fractionn == fractionAns || fractionn == fractionAns*10) && ans6 == percentageAns)
 			{
 				$('#statuss').get(0).className = "status_true";
 				$('#statuss').html("Tebrikler!");
@@ -295,7 +370,14 @@ Interaction.init = function(paper){
 				var firstStr = secondNominatorAns.toString();
 				var secondNum = firstStr.charAt(1);
 				var firstNum = firstStr.charAt(0);
-				var percent = ConvertPercentage(firstNum, secondNum);
+				if(ans3 == 5)
+				{
+					var percent = ConvertPercentage("0", "5");
+				}
+				else
+				{
+					var percent = ConvertPercentage(firstNum, secondNum);
+				}
 				$('#percentage').html("yüzde "+percent);
 			}
 			else if(trial == 1)
@@ -318,12 +400,13 @@ Interaction.init = function(paper){
 				$('#percentage').html("yüzde "+percent);
 				$('#checkBtn').hide();
 				$('#nextBtn').show();
+				trial += 1;
 			}
 			else if(trial == 0)
 			{
 				trial += 1;
 				$('#statuss').get(0).className = "status_false";
-				$('#statuss').html("Tekrar deneyin!");
+				$('#statuss').html("Tekrar deneyiniz.");
 			}
 			}
 		};
@@ -346,7 +429,20 @@ Interaction.init = function(paper){
 		$('#statuss').remove();
 		$('#statuss_field').remove();
 		$('#percentage').remove();
-		circ.remove();
+		frag1.remove();
+		frag2.remove();
+		if(randomize % 3 == 0)
+		{
+			circ.remove();
+		}
+		else if(randomize % 3 == 1)
+		{
+			rect2.remove();
+		}
+		else
+		{
+			rect3.remove();
+		}
 		rect.remove();
 		Interaction.init(paper);
 	});
