@@ -264,7 +264,7 @@ Interaction.generateRandomShapes = function(X,Y,WIDTH,HEIGHT){
 		};
 		shape.order = Interaction.shapes.length;
 		Interaction.shapes.push(shape);
-	}while( Interaction.shapes.length < 20 )
+	}while( Interaction.shapes.length < 15 )
 
 };
 Interaction.createDropableShape = function(x,y,w,h,text){

@@ -49,7 +49,7 @@ Interaction.init = function(container){
 	Interaction._3d.y=100;
 	Interaction._3d.z=0;
 	Interaction._3d.xAngle = 90;
-	Interaction._3d.zAngle = 75;
+	Interaction._3d.zAngle = 90;
 	Interaction._3d.R_constant = 150;
 	function changeXAngle(){
 		Interaction._3d.x = Interaction._3d.R * Math.cos(Util.degreeToRadians(Interaction._3d.xAngle)) * Math.sin(Util.degreeToRadians(Interaction._3d.zAngle)) ;
@@ -98,7 +98,7 @@ Interaction.init = function(container){
 
 function loop(x,y,z) {
 	ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-
+	//console.log(x,y,z);
 	scene.camera.x = x;
 	scene.camera.y = y;
 	scene.camera.z = z;
@@ -125,14 +125,14 @@ function load() {
 	scene.shapes['box'] = new Shape();
 	var p = scene.shapes['box'].points; // for convenience
 
-	p[0] = new Point3(-10, -15, -10); // left  bottom front
-	p[1] = new Point3(10, -15, -10);  // right bottom front
-	p[2] = new Point3(10, 15, -10);   // right top    front
-	p[3] = new Point3(-10, 15, -10);  // left  top    front
+	p[0] = new Point3(-12, -15, -10); // left  bottom front
+	p[1] = new Point3(8, -15, -10);  // right bottom front
+	p[2] = new Point3(8, 15, -10);   // right top    front
+	p[3] = new Point3(-12, 15, -10);  // left  top    front
 
-	p[4] = new Point3(-5, -15, 10);  // left  bottom back
-	p[5] = new Point3(5, -15, 10);   // right bottom back
-	p[6] = new Point3(5, 15, 10);    // right top    back
+	p[4] = new Point3(-7, -15, 10);  // left  bottom back
+	p[5] = new Point3(3, -15, 10);   // right bottom back
+	p[6] = new Point3(3, 15, 10);    // right top    back
 	p[7] = new Point3(-5, 15, 10);   // left  top    back
 	
 	p[4] = p[5];
@@ -145,17 +145,19 @@ function load() {
 		new Point(0, 0, -1),
 		true /* double-sided */,
 		Polygon.SOLID,
-		[100, 100, 100]
+		[100, 100, 100,0.8]
 	));
-//
-//	// Front
-//	scene.shapes['box'].polygons.push(new Polygon(
-//		[ p[4], p[5], p[6], p[7] ],
-//		new Point(0, 0, 1),
-//		true /* double-sided */,
-//		Polygon.SOLID,
-//		[100, 100, 100]
-//	));
+
+	
+	
+	// Front
+	scene.shapes['box'].polygons.push(new Polygon(
+		[ p[4], p[5], p[6], p[7] ],
+		new Point(0, 0, 1),
+		true /* double-sided */,
+		Polygon.SOLID,
+		[100, 100, 100,0.8]
+	));
 
 
 	// Top
@@ -164,24 +166,24 @@ function load() {
 		new Point(0, 1, 0),
 		false /* single-sided */,
 		Polygon.WIRE,
-		[200, 200, 200]
+		[200, 200, 200,0.8]
 	));
 	// Transparent Top
 	scene.shapes['box'].polygons.push(new Polygon(
 		[ p[2], p[3], p[7], p[6] ],
 		new Point(0, 1, 0),
-		false /* single-sided */,
+		true /* single-sided */,
 		Polygon.SOLID,
-		[200, 200, 200]
+		[200, 200, 200,0.8]
 	));
-
+	
 	// Left
 	scene.shapes['box'].polygons.push(new Polygon(
 		[ p[0], p[4], p[7], p[3] ],
 		new Point(-1, 0, 0),
 		true /* double-sided */,
 		Polygon.SOLID,
-		[150, 150, 150]
+		[150, 150, 150,0.8]
 	));
 
 	// Right
@@ -190,7 +192,7 @@ function load() {
 		new Point(1, 0, 0),
 		true /* double-sided */,
 		Polygon.SOLID,
-		[50, 50, 50]
+		[50, 50, 50,0.8]
 	));
 
 	// Create a floor shape and add it to the scene
@@ -206,11 +208,29 @@ function load() {
 	scene.shapes['box'].polygons.push(new Polygon(
 		[ p[0], p[1], p[5], p[4] ],
 		new Point(0, 1, 0),
-		false /* single-sided */,
+		true /* single-sided */,
 		Polygon.SOLID,
-		[200, 200, 200]
+		[200, 200, 200,0.8]
 	));
 
+
+	//Create a floor shape and add it to the scene
+//	scene.shapes['floor'] = new Shape();
+//	var p = scene.shapes['floor'].points; // for convenience
+//
+//	p[0]  = new Point3(-10, -10, -10);
+//	p[1]  = new Point3(-10, -10,  10);
+//	p[2] = new Point3( 10, -10,  10);
+//	p[3] = new Point3( 10, -10, -10);
+//
+//
+//	scene.shapes['floor'].polygons.push(new Polygon(
+//		[ p[0], p[1], p[2], p[3] ],
+//		new Point(0, 1, 0),
+//		true /* single-sided */,
+//		Polygon.SOLID,
+//		[200, 200, 200,0.8]
+//	));
 	//setInterval('loop()', 20);
 }
 

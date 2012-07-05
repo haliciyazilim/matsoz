@@ -71,7 +71,7 @@ TestGenerator.nextQuestion = function(){
 	var m = Math.floor(Math.random()*2);
 	TestGenerator.setMeasure(m);
 	TestGenerator.letters = (Math.random()>0.5 ? ["A","B","C","D","E"]:["K","L","M","N","P"]);
-	/*TEST*/TestGenerator.shape = 3;/*TEST*/
+	///*TEST*/TestGenerator.shape = 3;/*TEST*/
 	switch(TestGenerator.shape){
 		case 0:
 			var a = Math.floor(Math.random()*10)+5;
@@ -153,10 +153,10 @@ TestGenerator.printVertexLetters = function(p){
 TestGenerator.checkAnswer = function(){
 	var value = Interaction.input.value;
 	var isWrong = false;
-	if(isNaN(value)){
+	if(value == "" || isNaN(value)){
 		isWrong = true;
-		Interaction.setStatus('Lütfen sayı giriniz.');
-
+		Interaction.setStatus('Lütfen bir sayı giriniz.');
+		return ;
 	}
 	else if(value == TestGenerator.values.cevre){
 		Interaction.setStatus('Tebrikler !');

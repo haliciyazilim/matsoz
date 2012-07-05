@@ -793,9 +793,16 @@ var Util = {
 	radianToDegree: function(a){
 			return Math.round(a * (180/Math.PI));
 		},
-	degreeToRadians: function  (angle) {
+	
+	//keep these two functions
+	degreeToRadian : function (angle){
 			return angle * (Math.PI / 180);
 		},
+	degreeToRadians: function (angle){
+			return angle * (Math.PI / 180);
+		},
+		
+		
 	formatNumber: function(number,decimal){
 			return Math.floor(number * decimal * 10) / (decimal * 10);
 		},
