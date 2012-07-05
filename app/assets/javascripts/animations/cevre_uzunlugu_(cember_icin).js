@@ -37,13 +37,19 @@ var Interaction = function(){}; Interaction();
 Interaction.getFramework = function() {
 	return 'paper';
 }
+Interaction.images = [
+	{
+		id: "ruler",
+		src: '/assets/animations/ruler.png'
+	}
+];
 Interaction.init = function(container){
 	Main.setObjective('Aşağıdaki çemberin yarıçapını cetvel yardımıyla ölçünüz ve çevresini hesaplayınız. Bulduğunuz sonucu aşağıdaki kutucuğa yazınız ve “Kontrol” düğmesine basınız. <span style="font-weight:bold;">(π = 3 alınız.)</span>');
 	Interaction.container = container;
 	$(Interaction.container).append('<div id="B" style="position:absolute; top:70%; left:0%; width:100%; "></div>');
 	//Interaction.paper = new Raphael( $('div#T',Interaction.container).get(0) ,$('div#T',Interaction.container).width(),$(Interaction.container).height()*0.6);
 	Interaction.paper = {width:500,height:200}
-	$('div#B',Interaction.container).html('<div style="text-align:center;">Çevre&nbsp;=&nbsp;<input type="text" style="width:35px;height:30px;font-size:16px;font-weight:bold;text-align:center;" id="input" maxlength="3" />&nbsp;br²</div><div style="text-align:right;"><span id="status"></span>&emsp;<input type="button" id="control" class="control_button" value="Kontrol" onclick="Interaction.checkAnswer()" /></div>');
+	$('div#B',Interaction.container).html('<div style="text-align:center;">Çevre&nbsp;=&nbsp;<input type="text" style="width:35px;height:30px;font-size:16px;font-weight:bold;text-align:center;" id="input" maxlength="3" />&nbsp;br</div><div style="text-align:right;"><span id="status"></span>&emsp;<input type="button" id="control" class="control_button" value="Kontrol" onclick="Interaction.checkAnswer()" /></div>');
 	Interaction.control = $('#control',Interaction.container).get(0);
 	Interaction.input = $('#input',Interaction.container).get(0);
 	Interaction.drawRuler();
@@ -98,16 +104,13 @@ Interaction.nextQuestion = function(){
 	var callback = function(){
 		Interaction.preventDrag = false;
 	}
-	var anim = Raphael.animation({transform:'t'+(-Interaction.odx)+' '+(-Interaction.ody)+' ...'},200);
-	AnimationManager.translate(
-		Interaction.rulerSet,
-		new Point(
-			Interaction.rulerSet.firstPosition.x - Interaction.rulerSet.position.x,
-			Interaction.rulerSet.firstPosition.y - Interaction.rulerSet.position.y
-			),
-		500
-	);
-	setTimeout(callback,200);
+	Interaction.rulerSet.animate({
+		style:{
+			position:Interaction.rulerSet.firstPosition
+		},
+		duration:300,
+		callback:callback
+	})
 
 	Interaction.odx=0;
 	Interaction.ody=0;
@@ -123,8 +126,10 @@ Interaction.checkAnswer = function(){
 		Interaction.input.onkeyup = Interaction.nextQuestion;
 	}
 	else if(Interaction.trial == 0){
-		if(answer == '' || isNaN(answer))
+		if(answer == '' || isNaN(answer)){
 			Interaction.setStatus('Lütfen bir sayı giriniz',false);
+			return;
+		}
 		else
 			Interaction.setStatus('Yanlış cevap, tekrar deneyiniz',false);
 		Interaction.trial++;
@@ -147,29 +152,16 @@ Interaction.setStatus = function(str,cls){
 }
 Interaction.drawRuler = function(){
 	var x,y,w,h,b,st;
-	Interaction.rulerSet = new Group();
-	Interaction.rulerSet.name = 'rulerSet';
+	//Interaction.rulerSet = new Group();
 	x = Interaction.paper.width*0.7;
 	y = Interaction.paper.height*0.2;
 	w = Interaction.paper.width*0.2;
 	Interaction.br = Math.floor(w*0.1);
 	h = Interaction.paper.height*0.2;
-	var rect = new Path.Rectangle(new Point(x,y), new Size(w,h));
-	rect.style = rulerStyle;
-	Interaction.rulerSet.addChild(rect);
-	var _y1 = y+h*0.6;
-	var _yt = y+h*0.4;
-	var _y2 = y+h; 
-	for(var i=0; i<10; i++){
-		var _x = x+Interaction.br*(0.5+i);
-		var line = new Path.Line(new Point(_x,_y1), new Point(_x,_y2));
-		line.style = rulerLineStyle;
-		Interaction.rulerSet.addChild(line);
-		var text = new PointText(new Point(_x-4,_yt));
-		text.style= rulerTextStyle;
-		text.content = i;
-		Interaction.rulerSet.addChild(text);
-	}
+	Interaction.rulerSet = new Raster('ruler');
+	Interaction.rulerSet.name = 'rulerSet';
+	Interaction.rulerSet.position = [x,y];
+	Interaction.br = (Interaction.rulerSet.bounds.width-8) * 0.1
 	Interaction.rulerX=-1;Interaction.rulerY=-1;
 	var move = function (dx,dy) {
 		if(Interaction.preventDrag === true)
@@ -192,7 +184,7 @@ Interaction.drawRuler = function(){
 	var drag = new Tool();
 	drag.onMouseDown = function(event){
 		this.drag = false;
-		if(event.item.name == 'rulerSet'){
+		if(Interaction.rulerSet.bounds.contains(event.point)){
 			this.drag = true;
 		}
 	}
@@ -208,6 +200,6 @@ Interaction.drawRuler = function(){
 	drag.activate();
 	Interaction.rulerSet.move = move;
 	Interaction.rulerSet.up = up;
-	Interaction.rulerSet.firstPosition = new Point(Interaction.rulerSet.position.x,Interaction.rulerSet.position.y);
+	Interaction.rulerSet.firstPosition = new Point(x,y);
 
 }
