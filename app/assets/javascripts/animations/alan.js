@@ -49,7 +49,6 @@ Interaction.init = function(container){
 	Interaction.status.style.fontWeight = 'bold';
 	Interaction.status.style.paddingTop = '10px';
 	TestGenerator.nextQuestion();
-	
 }
 
 Interaction.setStatus = function(msg){
@@ -80,6 +79,7 @@ TestGenerator.nextQuestion = function(){
 	TestGenerator.setMeasure(m);
 	TestGenerator.letters = (Math.random()>0.5 ? ["A","B","C","D","E"]:["K","L","M","N","P"]);
 	///*TEST*/TestGenerator.shape = 3;/*TEST*/
+	
 	switch(TestGenerator.shape){
 		case 0:
 			var a = Math.floor(Math.random()*10)+5;
@@ -119,11 +119,6 @@ TestGenerator.nextQuestion = function(){
 			triangle(a,b,H,TestGenerator.getMeasure(),TestGenerator.paper);
 			break;
 	}
-	if(Interaction.viewDrawCalled == null || Interaction.viewDrawCalled == 'undefined'){
-		//console.log('draw');
-		paper.view.draw();
-		Interaction.viewDrawCalled = true;
-	}
 }
 TestGenerator.setMeasure = function(m){
 	TestGenerator.measure = m;
@@ -140,7 +135,6 @@ TestGenerator.getMeasure = function(){
 
 TestGenerator.checkAnswer = function(){
 	//check the answer
-	//console.log("Im here");
 	var value = Interaction.input.value;
 	var isWrong = false;
 	if(value == "" ||isNaN(value)){
