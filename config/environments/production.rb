@@ -46,9 +46,7 @@ Matsoz::Application.configure do
   # config.action_controller.asset_host = "http://assets.example.com"
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
-  config.assets.precompile += %w(main.js)
-  config.assets.precompile += %w(raphael-min.js)
-  config.assets.precompile += %w(paper.js)
+  config.assets.precompile += %w(*.js)
   config.assets.precompile += %w( animations/*.js )
 
   # Disable delivery errors, bad email addresses will be ignored

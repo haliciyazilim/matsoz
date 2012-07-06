@@ -196,7 +196,7 @@ Shape.prototype.draw = function(drawlist) {
 		space.flatten(poly.origin);
 
 		// lazy backface culling
-		if (poly.normal && this.backface) {
+		if (false || poly.normal && this.backface) {
 			space.flatten(poly.normal);
 
 			var originDist = Math.pow(poly.origin.tx, 2)
