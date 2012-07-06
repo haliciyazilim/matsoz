@@ -1,16 +1,23 @@
+// kesirleri birbirine çevirme interaction
+
+// styles
 var textStyle = {fontSize:16,strokeColor:'#fff',strokeWidth:0,fillColor:'#fff'};
 var edgeStyle = {'stroke-width':'2px'};
 var angleStyle = {'fill':'#DDD'};
 
+var Animation =function(){};Animation();
 var Interaction =function(){};Interaction();
 Interaction.getFramework = function() {
 	return 'paper';
 }
 
+// interaction init func.
 Interaction.init = function(paper){
 	
+	// set interaction title
 	Main.setObjective('Aşağıda gelecek olan bileşik kesri tam sayılı kesre, tam sayılı kesri bileşik kesre çeviriniz ve kontrol ediniz.');
 	
+	// neccessary variables
 	var randomize = Math.floor(Math.random() * 10);
 	var frac, frac2;
 
@@ -29,11 +36,12 @@ Interaction.init = function(paper){
 	}
 	while(denominator >= nominator || denominator < 2 || (nominator % denominator) == 0)
 	
+	// make (bileşik kesir -> tam sayılı kesir convertion
 	if(randomize % 2 == 0)
 	{	
+		// creating neccessary html elements
 		$('#interaction_container').append('<p id="nom" ></p>');
 		$('#nom').css("position", "absolute")
-		//		.css("left", "90px")
 				.css("top", "134px");
 		$('#nom').html(nominator);
 		
@@ -48,7 +56,6 @@ Interaction.init = function(paper){
 		
 		$('#interaction_container').append('<p id="denom" ></p>');
 		$('#denom').css("position", "absolute")
-			//	.css("left", "90px")
 				.css("top", "160px");
 		$('#denom').html(denominator);
 		if(denominator < 10)
@@ -60,14 +67,23 @@ Interaction.init = function(paper){
 			$('#denom').css("left", "164px")
 		}
 		
-		frac = new Path.Fraction(160, 72, null, null, 18);
+	//	frac = new Path.Fraction(160, 72, null, null, 18, 1.8);
+	
+		$('#interaction_container').append('<div id="line1"></div>');
+		$('#line1').css("position","absolute")
+				.css("left", "160px")
+				.css("top", "180px")
+				.css("width", "36px")
+				.css("height", "1px")
+				.css("padding", 0)
+				.css("border-top", "2px solid")
 		
 		$('#interaction_container').append('<p id="equal1" >=</p>');
 		$('#equal1').css("position", "absolute")
 				.css("left", "200px")
 				.css("top", "148px");
 		
-		$('#interaction_container').append('<input id="textInput1" type="text" pattern="[0-9]*" maxlength="2"/>');
+		$('#interaction_container').append('<input id="textInput1" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
 		$('#textInput1').css("width", "32")
 					.css("height", "30")
 					.css("font-size", 22)
@@ -81,9 +97,14 @@ Interaction.init = function(paper){
 					.css("color", "green");
 					
 		$('#textInput1').addClass('input');
-		$('#textInput1').addClass('active');
+		$('#textInput1').focusin(function(e) {
+            $('#textInput1').addClass('active');
+        });
+		$('#textInput1').focusout(function(e) {
+            $('#textInput1').removeClass('active');
+        });
 	
-		$('#interaction_container').append('<input id="textInput2" type="text" pattern="[0-9]*" maxlength="2"/>');
+		$('#interaction_container').append('<input id="textInput2" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
 		$('#textInput2').css("width", "32")
 					.css("height", "30")
 					.css("font-size", 22)
@@ -97,9 +118,14 @@ Interaction.init = function(paper){
 					.css("color", "green");
 					
 		$('#textInput2').addClass('input');
-		$('#textInput2').addClass('active');
+		$('#textInput2').focusin(function(e) {
+            $('#textInput2').addClass('active');
+        });
+		$('#textInput2').focusout(function(e) {
+            $('#textInput2').removeClass('active');
+        });
 	
-		$('#interaction_container').append('<input id="textInput3" type="text" pattern="[0-9]*" maxlength="2"/>');
+		$('#interaction_container').append('<input id="textInput3" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
 		$('#textInput3').css("width", "32")
 					.css("height", "30")
 					.css("font-size", 22)
@@ -113,11 +139,28 @@ Interaction.init = function(paper){
 					.css("color", "green");
 	
 		$('#textInput3').addClass('input');
-		$('#textInput3').addClass('active');
+		$('#textInput3').focusin(function(e) {
+            $('#textInput3').addClass('active');
+        });
+		$('#textInput3').focusout(function(e) {
+            $('#textInput3').removeClass('active');
+        });
 		
-		frac1 = new Path.Fraction(264, 74, null, null, 18);
+	//	frac1 = new Path.Fraction(264, 74, null, null, 18, 1.8);
+	
+	
+	
+		$('#interaction_container').append('<div id="line2"></div>');
+		$('#line2').css("position","absolute")
+				.css("left", "262px")
+				.css("top", "180px")
+				.css("width", "36px")
+				.css("height", "1px")
+				.css("padding", 0)
+				.css("border-top", "2px solid")
 		
 	}
+	// make (tam sayılı kesir -> bileşik kesir convertion
 	else
 	{
 		var wh = Math.floor(nominator/denominator);
@@ -125,7 +168,6 @@ Interaction.init = function(paper){
 		var denom = denominator;
 		$('#interaction_container').append('<p id="wh" ></p>');
 		$('#wh').css("position", "absolute")
-		//		.css("left", "60px")
 				.css("top", "146px");
 		$('#wh').html(wh);
 		
@@ -140,7 +182,6 @@ Interaction.init = function(paper){
 		
 		$('#interaction_container').append('<p id="nom" ></p>');
 		$('#nom').css("position", "absolute")
-		//		.css("left", "90px")
 				.css("top", "134px");
 		$('#nom').html(nom);
 		
@@ -155,7 +196,6 @@ Interaction.init = function(paper){
 		
 		$('#interaction_container').append('<p id="denom" ></p>');
 		$('#denom').css("position", "absolute")
-		//		.css("left", "130px")
 				.css("top", "160px");
 		$('#denom').html(denom);
 		
@@ -168,14 +208,22 @@ Interaction.init = function(paper){
 			$('#denom').css("left", "184px")
 		}
 		
-		frac2 = new Path.Fraction(180, 72, null, null, 18);
+	//	frac2 = new Path.Fraction(180, 72, null, null, 18, 1.8);
+	$('#interaction_container').append('<div id="line1"></div>');
+		$('#line1').css("position","absolute")
+				.css("left", "180px")
+				.css("top", "180px")
+				.css("width", "36px")
+				.css("height", "1px")
+				.css("padding", 0)
+				.css("border-top", "2px solid")
 		
 		$('#interaction_container').append('<p id="equal1" >=</p>');
 		$('#equal1').css("position", "absolute")
 				.css("left", "220px")
 				.css("top", "148px");
 		
-		$('#interaction_container').append('<input id="textInput2" type="text" pattern="[0-9]*" maxlength="2"/>');
+		$('#interaction_container').append('<input id="textInput2" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
 		$('#textInput2').css("width", "32")
 					.css("height", "30")
 					.css("font-size", 22)
@@ -189,9 +237,14 @@ Interaction.init = function(paper){
 					.css("color", "green");
 					
 		$('#textInput2').addClass('input');
-		$('#textInput2').addClass('active');
+		$('#textInput2').focusin(function(e) {
+            $('#textInput2').addClass('active');
+        });
+		$('#textInput2').focusout(function(e) {
+            $('#textInput2').removeClass('active');
+        });
 	
-		$('#interaction_container').append('<input id="textInput3" type="text" pattern="[0-9]*" maxlength="2"/>');
+		$('#interaction_container').append('<input id="textInput3" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
 		$('#textInput3').css("width", "32")
 					.css("height", "30")
 					.css("font-size", 22)
@@ -205,9 +258,21 @@ Interaction.init = function(paper){
 					.css("color", "green");
 	
 		$('#textInput3').addClass('input');
-		$('#textInput3').addClass('active');
+		$('#textInput3').focusin(function(e) {
+            $('#textInput3').addClass('active');
+        });
+		$('#textInput3').focusout(function(e) {
+            $('#textInput3').removeClass('active');
+        });
 		
-		frac3 = new Path.Fraction(244, 74, null, null, 18);
+		$('#interaction_container').append('<div id="line2"></div>');
+		$('#line2').css("position","absolute")
+				.css("left", "242px")
+				.css("top", "180px")
+				.css("width", "36px")
+				.css("height", "1px")
+				.css("padding", 0)
+				.css("border-top", "2px solid")
 	}
 	
 	$('#interaction_container').append('<div id="statuss_field" class="status_field"></div>');
@@ -238,19 +303,23 @@ Interaction.init = function(paper){
 					.css("top", "340px");
 	$('#nextBtn').hide();
 	
+	// submit func. -> check whether input field is filled and give neccessary feedbacks
 	var trial = 0;				
 	submit = function()
 		{
+			// if this is the 3rd trial or more do nothing
 			if(trial == 2)
 				return;
 			
 			var ans1, ans2, ans3;
+			// (bileşik kesir -> tam sayılı kesir) convertion  submission
 			if(randomize % 2 == 0)
 			{
 				ans1 = $('#textInput1').val();
 				ans2 = $('#textInput2').val();
 				ans3 = $('#textInput3').val();
-			
+				
+				// check whether input field is empty or not (also given input is integer or not)
 				if(ans1 == "" || ans2 == "" || ans3 == "" || !Util.isInteger(ans1) || !Util.isInteger(ans2) || !Util.isInteger(ans3))		
 				{
 					$('#statuss').get(0).className = "status_alert";
@@ -258,9 +327,12 @@ Interaction.init = function(paper){
 				}
 				else
 				{
+					// generate answers wrt. given numbers
 					ans11 = Math.floor(nominator/denominator);
 					ans22 = nominator % denominator;
 					ans33 = denominator;
+					
+					// correct answer state
 					if(ans1 == ans11 && ans2 == ans22 && ans3 == ans33)
 					{
 						$('#statuss').get(0).className = "status_true";
@@ -269,6 +341,8 @@ Interaction.init = function(paper){
 						$('#checkBtn').hide();
 						$('#nextBtn').show();
 					}
+					
+					// second wrong answer state
 					else if(trial == 1)
 					{
 						$('#statuss').get(0).className = "status_false";
@@ -281,6 +355,8 @@ Interaction.init = function(paper){
 						$('#nextBtn').show();
 						trial += 1;
 					}
+					
+					// first wrong answer state
 					else if(trial == 0)
 					{		
 						trial += 1;
@@ -289,11 +365,14 @@ Interaction.init = function(paper){
 					}
 				}
 			}
+			
+			// (tam sayılı kesir -> bileşik kesir convertion)
 			else
 			{
 				ans2 = $('#textInput2').val();
 				ans3 = $('#textInput3').val();
-			
+				
+				// check whether input field is empty or not (also given input is integer or not)
 				if(ans2 == "" || ans3 == "" || !Util.isInteger(ans2) || !Util.isInteger(ans3))		
 				{
 					$('#statuss').get(0).className = "status_alert";
@@ -301,8 +380,11 @@ Interaction.init = function(paper){
 				}
 				else
 				{
+					// generate answers wrt. given numbers
 					ans22 = nominator;
 					ans33 = denominator;
+					
+					// correct answer state
 					if(ans2 == ans22 && ans3 == ans33)
 					{
 						$('#statuss').get(0).className = "status_true";
@@ -311,6 +393,8 @@ Interaction.init = function(paper){
 						$('#checkBtn').hide();
 						$('#nextBtn').show();
 					}
+					
+					// second wrong answer state
 					else if(trial == 1)
 					{
 						$('#statuss').get(0).className = "status_false";
@@ -322,6 +406,8 @@ Interaction.init = function(paper){
 						$('#nextBtn').show();
 						trial += 1;
 					}
+					
+					// first wrong answer state
 					else if(trial == 0)
 					{		
 						trial += 1;
@@ -331,9 +417,11 @@ Interaction.init = function(paper){
 				}
 			}
 		}
-	
-	
+		
+		// checkBtn click func. -> call submit	
 		$('#checkBtn').click(submit);
+		
+		// nextBtn click func. -> remove whole html elements and call interaction init again
 		$('#nextBtn').click(function() {
 			$('#textInput3').remove();
 			$('#textInput2').remove();
@@ -341,6 +429,10 @@ Interaction.init = function(paper){
 			if(randomize % 2 == 0)
 			{
 				$('#textInput1').remove();
+			}
+			
+			if(randomize % 2 == 1) {
+				$('#wh').remove();
 			}
 
 			$('#equal1').remove();
@@ -350,21 +442,16 @@ Interaction.init = function(paper){
 			$('#answer').remove();
 			$('#statuss').remove();
 			$('#statuss_field').remove();
-			if(randomize % 2 == 0)
-			{
-				frac.remove();
-				frac1.remove();
-			}
-			else
-			{
-				$('#wh').remove();
-				frac2.remove();
-				frac3.remove();
-			}
+			$('#line1').remove();
+			$('#line2').remove();
 			Interaction.init(paper);
 		});
-	
-	
+		
+	$('.inp').keydown(function() {
+		$('#statuss').html("");
+	});
+		
+	// enter keypress action
 	$("#textInput1").keypress(function(event) {
 		if(event.keyCode == 13) {
 			submit();

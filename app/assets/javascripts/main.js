@@ -544,7 +544,7 @@ Main.paperInit = function() {
 		return segCirc;
 	};
 	
-	Path.Fraction = function(top_x, top_y, nom, denom,scale)
+	Path.Fraction = function(top_x, top_y, nom, denom,scale, length)
 	{
 		var frag = new Group();
 		var cizgi = new Path();
@@ -563,8 +563,8 @@ Main.paperInit = function() {
 			frag.addChild(payda);			
 		}
 		cizgi.strokeColor = 'black' ;
-		cizgi.add(new Point(top_x, top_y+scale));
-		cizgi.add(new Point(top_x+scale*1.8, top_y+scale));
+		cizgi.add(new Point(top_x, Math.floor(top_y+scale)+0.5));
+		cizgi.add(new Point(top_x+scale*length, Math.floor(top_y+scale)+0.5));
 		frag.addChild(cizgi);
 		return frag;
 
