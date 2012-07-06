@@ -1,4 +1,5 @@
 
+var Animation = function(){};Animation();
 var Interaction =function(){};Interaction();
 Interaction.init = function(container){
 	Main.setObjective("Aşağıdaki verilen kesre denk kesir oluşturmak\niçin boşluğa uygun sayıyı yazınız. Daha sonra\n“Kontrol” düğmesine basınız.");

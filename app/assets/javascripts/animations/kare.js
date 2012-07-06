@@ -1,43 +1,35 @@
 
-function animationInit(){};
-
 var Interaction = function(){};Interaction();
+var Animation = function(){};Animation();
+
 Interaction.getFramework = function() {
 	return 'paper';
 }
 
+Interaction.images = [{
+	id: "fullImage",
+	src: '/assets/animations/kare/kare01.png'
+},
+{
+	id: "cornerA",
+	src: '/assets/animations/kare/soru_KARE_kose_a.png'
+},
+{
+	id: "cornerB",
+	src: '/assets/animations/kare/soru_KARE_kose_b.png'
+}
+,{
+	id: "cornerC",
+	src: '/assets/animations/kare/soru_KARE_kose_c.png'
+}
+,{
+	id: "cornerD",
+	src: '/assets/animations/kare/soru_KARE_kose_d.png'
+}]
+
 Interaction.init = function(container) {
-	loadAssets();
 	paperAddOns();
-}
-
-loadAssets = function(container) {
-	Util.loadImages([{
-		id: "fullImage",
-		src: '/assets/animations/kare/kare01.png'
-	},
-	{
-		id: "cornerA",
-		src: '/assets/animations/kare/soru_KARE_kose_a.png'
-	},
-	{
-		id: "cornerB",
-		src: '/assets/animations/kare/soru_KARE_kose_b.png'
-	}
-	,{
-		id: "cornerC",
-		src: '/assets/animations/kare/soru_KARE_kose_c.png'
-	}
-	,{
-		id: "cornerD",
-		src: '/assets/animations/kare/soru_KARE_kose_d.png'
-	}], function() {
-		interactionInit(container);
-	});
-}
-
-
-interactionInit = function(container) {
+	
 	Main.setObjective("Karenin iç açıları toplamı 360° dir.")
 	
 	// Images
@@ -236,14 +228,6 @@ paperAddOns = function () {
 			circle.fillColor = 'black';
 		}
 		
-		// 
-		// var _a = Util.radianToDegree(
-		// 					Math.asin( 
-		// 						(point1.y-point2.y) / 
-		// 						point1.getDistance(point2) 
-		// 						) 
-		// 					);
-		
 		var arrowHeadSize = options.arrowHeadSize;
 		
 		var _a = -90+Util.radianToDegree(Util.findAngle(center.x, center.y, point3.x, point3.y));
@@ -289,4 +273,8 @@ paperAddOns = function () {
 				group.addChild(path3);
 		return group;
 	}
+}
+
+Animation.init = function (container) {
+
 }

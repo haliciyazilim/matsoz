@@ -16,6 +16,7 @@ var dropableShapeDroppedTrueStyle = {strokeColor:'#0f0',fillColor:'#afa'};
 var dropableShapeDroppedFalseStyle = {strokeColor:'#f00',fillColor:'#f00'};
 //Styles
 
+var Animation = function(){};Animation();
 var Interaction =function(){};Interaction();
 Interaction.getFramework = function() {
 	return 'paper';
@@ -47,10 +48,10 @@ Interaction.init = function(container){
 		}
 		
 	};
-	Interaction.createDropableShapesLeft(w*0.0,0,w*0.2,h);
+	Interaction.createDropableShapesLeft(0,0,w*0.2,h);
 	Interaction.createDropableShapesRight(w*0.8,0,w*0.2,h);
 	Interaction.dropableShapes.setStyle(dropableShapeDefaultStyle);
-	Interaction.generateRandomShapes(w*0.2,h*0.1,w*0.6,h*0.8);
+	Interaction.generateRandomShapes(w*0.2,h*0.1,w*0.6,h);
 	Interaction.paper = {width:500,height:300};
 	Interaction.preventDrag = false;
 	if(Interaction.status == null || Interaction.status == 'undefined'){
@@ -185,6 +186,7 @@ Interaction.generateRandomShapes = function(X,Y,WIDTH,HEIGHT){
 	Interaction.shapes = [];
 	var maxW = WIDTH*0.2;
 	var maxH = HEIGHT*0.3;
+	Interaction.shapeCount = -1;
 	do{///generate shapes randomly
 		var x,y,w,h;
 		var p = Interaction.findSpace(WIDTH,HEIGHT);
@@ -196,59 +198,73 @@ Interaction.generateRandomShapes = function(X,Y,WIDTH,HEIGHT){
 		var shape = {};
 		var isRegular;
 		var edgeNumber;
-		if(Util.rand01() == 0)
-			isRegular = true;
-		else
-			isRegular = false;
+//		if(Util.rand01() == 0)
+//			isRegular = true;
+//		else
+//			isRegular = false;
+		
+		var NUMBER_OF_SHAPES  = 10;
+		Interaction.shapeCount++;
+		Interaction.shapeCount = Interaction.shapeCount%NUMBER_OF_SHAPES;
+		if(Interaction.shuffledArray == null || Interaction.shuffledArray == undefined)
+			Interaction.shuffledArray = Util.getShuffledArray(NUMBER_OF_SHAPES);
+		Interaction.shapeType = Interaction.shuffledArray[Interaction.shapeCount];
+		
 		switch(Interaction.shapeType){
 			case 0:
 				h = w = Math.min(w,h);
-				if(isRegular == false){
-					while(h == w || h > maxH)
-						h = Math.floor(Math.random()*2)*10+w-20;
-				}
 				shape = new Path.Rectangle(new Point(x,y),new Size(w,h));
 				edgeNumber = 4;
 				break;
-				
 			case 1:
 				var a,b,c;
-					a = b = c = 5;
-				if(isRegular == false){
-					if(Util.rand01() == 0)
-						a = 4, b = 3;
-					else
-						a = 3, b = 4;
-				}	
+				a = b = c = 5;
 				shape = new Triangle(a,b,c,x,y,w,h);
 				edgeNumber = 3;
 				break;
 			case 2:
-				if(isRegular == false)
-					shape = pentagon(new Point(x,y), new Size(w,h));
-				else
-					shape = regularpentagon(new Point(x,y), new Size(w,h));
+				shape = regularpentagon(new Point(x,y), new Size(w,h));
 				edgeNumber = 5;
 				break;
 			case 3:
-				if(isRegular == false)
-					shape = hexagon(new Point(x,y), new Size(w,h));
-				else
-					shape = regularhexagon(new Point(x,y), new Size(w,h));
+				shape = hexagon(new Point(x,y), new Size(w,h));
 				edgeNumber = 6;
 				break;
 			case 4:
-				if(isRegular == true)
-					continue;
 				shape = new Path.Rhomboid(new Point(x,y+h*0.1), new Size(w*0.8,h*0.7), w*0.2);
 				edgeNumber = 4;
 				break;
 			case 5:
-				if(isRegular == true)
-					continue;
 				shape = new Path.Rhombus(new Point(x,y+h*0.1),new Size(w,h*0.7) );
 				edgeNumber = 4;
 				break;
+			case 6:
+				h = w = Math.min(w,h);
+				while(h == w || h > maxH)
+					h = Math.floor(Math.random()*2)*10+w-20;
+				shape = new Path.Rectangle(new Point(x,y),new Size(w,h));
+				edgeNumber = 4;
+				break;
+			case 7:
+				var a,b,c;
+				a = b = c = 5;
+				if(Util.rand01() == 0)
+					a = 4, b = 3;
+				else
+					a = 3, b = 4;
+					
+				shape = new Triangle(a,b,c,x,y,w,h);
+				edgeNumber = 3;
+				break;
+			case 8:
+				shape = pentagon(new Point(x,y), new Size(w,h));
+				edgeNumber = 5;
+				break;
+			case 9:
+				shape = regularhexagon(new Point(x,y), new Size(w,h));
+				edgeNumber = 6;
+				break;
+
 		}
 		shape.numberOfEdges = edgeNumber;
 		shape.class = "draggable";
@@ -256,12 +272,11 @@ Interaction.generateRandomShapes = function(X,Y,WIDTH,HEIGHT){
 		shape.start = start;
 		shape.move = move;
 		shape.up = up;
+		
 		shape.callback = function(){
-			//console.log(this)
 			this.preventDrag = false; 
-			//console.log("I'm here");
-			
 		};
+		
 		shape.order = Interaction.shapes.length;
 		Interaction.shapes.push(shape);
 	}while( Interaction.shapes.length < 15 )

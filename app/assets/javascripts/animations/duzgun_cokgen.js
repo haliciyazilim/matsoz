@@ -12,6 +12,7 @@ var dropableShapeDroppedTrueStyle = {strokeColor:'#0f0',fillColor:'#afa'};
 var dropableShapeDroppedFalseStyle = {strokeColor:'#f00',fillColor:'#f00'};
 //Styles
 
+var Animation = function(){};Animation();
 var Interaction =function(){};Interaction();
 Interaction.getFramework = function() {
 	return 'paper';

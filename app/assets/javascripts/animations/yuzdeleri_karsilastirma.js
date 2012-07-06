@@ -1,10 +1,10 @@
 /*
- Yüzdeyi Ondalık KEsre Çevirme
- Kılavuz: mat-5-yüzdeyi ondalık kesre çevirme.pdf
+ Yüzdeleri Karşılaştırma
+ Kılavuz: mat-5-yüzdeleri karşılaştırma.pdf
    
  Halıcı Yazılım
  Abdullah Karacabey
- 04.07.2012
+ 04.07.2012 - 05.07.2012
  */
 
 var dogruCevapGosterimRengi="green";
@@ -15,6 +15,7 @@ var kareBoyaliFillColor="red";
 var divSonrakiYaziRenk="white";
 var divSonrakiFillRenk="#4682b4";
 
+var Animation = function(){};Animation();
 var Interaction = function(){};Interaction();
 Interaction.getFramework = function() {
 	return 'paper';
@@ -32,15 +33,16 @@ Interaction.init = function(container){
 	
 	
 	$("#sol",container).append("<input id='girisSol' type='text' maxlength=3 onkeypress='return SadeceRakam(event)'/>");
-	$("#sol",container).append("<div id='kesir'>");
-	$("#sol #kesir",container).append("_____");
+	//$("#sol",container).append("<div id='kesir'>");
+	//$("#sol #kesir",container).append("_____");
+	Path.Fraction(57,170,0,0,25);
 	$("#sol",container).append("<div id='payda'>");
 	$("#sol #payda",container).append("100");
-	$(container).append("<style>#girisSol{width:30px; height:30px; margin:auto;position:absolute;  left:0; right:0; } #kesir{margin:auto;position:absolute; top: 20px; left:0; right:0; width:60px; height:10px;} #payda{margin:auto;position:absolute; top: 50px; left:0; right:0; width:35px; height:10px</style>");
+	$(container).append("<style>#girisSol{width:30px; height:30px; margin:auto;position:absolute;  left:0; right:0; } #payda{margin:auto;position:absolute; top: 50px; left:0; right:0; width:35px; height:10px</style>");
 	
 	//orta div bilgileri
 	$(container).append("<div id='orta'>");
-	$(container).append("<style>#orta{position:absolute; top:30px; left:155px; width:200px; height:100px; border:solid 1px black}</style>");
+	$(container).append("<style>#orta{position:absolute; top:30px; left:145px; width:300px; height:100px; border:solid 1px black}</style>");
 	$("#orta", container).append("<div id='buyukKucuk'>");
 	$("#orta", container).append("<style> #buyukKucuk{margin:auto;position:absolute;  left:0; right:0; height:30px; width:70px;}</style>");
 	$("#orta #buyukKucuk", container).append("<div id='kucuk'>");
@@ -88,8 +90,9 @@ Interaction.init = function(container){
 	
 	
 	$("#sag",container).append("<input id='girisSag' type='text' maxlength=3 onkeypress='return SadeceRakam(event)'/>");
-	$("#sag",container).append("<div id='kesir'>");
-	$("#sag #kesir",container).append("_____");
+	//$("#sag",container).append("<div id='kesir'>");
+	Path.Fraction(409,170,0,0,25);
+	//$("#sag #kesir",container).append("_____");
 	$("#sag",container).append("<div id='payda'>");
 	$("#sag #payda",container).append("100");
 	$(container).append("<style>#girisSag{width:30px; height:30px; margin:auto;position:absolute;  left:0; right:0; } #kesir{margin:auto;position:absolute; top: 20px; left:0; right:0; width:60px; height:10px;} #payda{margin:auto;position:absolute; top: 50px; left:0; right:0; width:35px; height:10px</style>");
@@ -98,7 +101,7 @@ Interaction.init = function(container){
 	// kontrol butonu
 	
 	$(container).append("<button class='control_button' id='btnKontrol'>Kontrol</button>");
-	$(container).append("<style>.control_button{position:absolute; top:250px; margin:auto;right:220px; left:220px; }</style>");
+	$(container).append("<style>.control_button{position:absolute; top:250px; margin:auto;right:220px; }</style>");
 	
 	//sonraki divi
 	$(container).append("<div id='sonraki'>");
@@ -195,14 +198,22 @@ Interaction.init = function(container){
 	// girdi kontrolleri
 	$("#girisSol").keyup(
 		function(){
+			$("#geriBildirim").hide();
 	    	var input=parseInt(this.value);
 	    	if(input<0 || input>100){
-    			alert("0 ile 100 arasında bir sayı giriniz.");
+    			//alert("0 ile 100 arasında bir sayı giriniz.");
+    			$('#geriBildirimText').attr("class","status_alert");
+				$('#geriBildirimText').html("0 ile 100 arasında bir sayı giriniz.");
+				$("#geriBildirim").show();
     			bosKareSol.yap();
-    			$("#girisSol").val("");
+    			//$("#girisSol").val("");
     		}
-    		if($("#girisSol").val()==$("#girisSag").val()){
-    			alert("Sayılar birbirine eşit olmamalıdır. Lütfen yeniden sayı giriniz.");
+    		if(   $("#girisSol").val()==$("#girisSag").val()){
+    			//alert("Sayılar birbirine eşit olmamalıdır. Lütfen yeniden sayı giriniz.");
+    			console.log("sol: "+$("#girisSol").val()+ " sag: "+$("#girisSag").val());
+    			$('#geriBildirimText').attr("class","status_alert");
+				$('#geriBildirimText').html("Sayılar birbirine eşit olmamalıdır. Lütfen yeniden sayı giriniz.");
+				$("#geriBildirim").show();
     			$(this).val("");
     			$("#girdiCevap1").val("");
     		}
@@ -211,16 +222,23 @@ Interaction.init = function(container){
 	
 	$("#girisSag").keyup(
 		function(){
+			$("#geriBildirim").hide();
 	    	var input=parseInt(this.value);
 	    	if(input<0 || input>100){
-    			alert("0 ile 100 arasında bir sayı giriniz.");
+    			//alert("0 ile 100 arasında bir sayı giriniz.");
+    			$('#geriBildirimText').attr("class","status_alert");
+				$('#geriBildirimText').html("0 ile 100 arasında bir sayı giriniz.");
+				$("#geriBildirim").show();
     			bosKareSag.yap();
-    			$("#girisSag").val("");
+    			//$("#girisSag").val("");
     		}
-    		if($("#girisSol").val()==$("#girisSag").val()){
-    			alert("Sayılar birbirine eşit olmamalıdır. Lütfen yeniden sayı giriniz.");
+    		if( $("#girisSol").val()==$("#girisSag").val()){
+    			//alert("Sayılar birbirine eşit olmamalıdır. Lütfen yeniden sayı giriniz.");
+    			$('#geriBildirimText').attr("class","status_alert");
+				$('#geriBildirimText').html("Sayılar birbirine eşit olmamalıdır. Lütfen yeniden sayı giriniz.");
+				$("#geriBildirim").show();
     			$(this).val("");
-    			$("#girdiCevap3").val("");
+    			//$("#girdiCevap3").val("");
     		}
 	    	return;
 		});  
@@ -229,6 +247,7 @@ Interaction.init = function(container){
 		function(){
 			$("#girdiCevap2").val("");
 			$("#girdiCevap2").val(">");
+			$("#geriBildirim").hide();
 		}
 	);
 	
@@ -236,6 +255,7 @@ Interaction.init = function(container){
 		function(){
 			$("#girdiCevap2").val("");
 			$("#girdiCevap2").val("<");
+			$("#geriBildirim").hide();
 		}
 	);
 	
@@ -246,20 +266,55 @@ Interaction.init = function(container){
 			
 			console.log("kontrole basıldı");
 			
-			var girdi1=$("#girdiCevap1").val();
+			kontrol();
+		}
+	);
+	
+	function kontrol(){
+		
+		var girdi1=$("#girdiCevap1").val();
 			var girdi2=$("#girdiCevap3").val();
 			var isaret=$("#girdiCevap2").val();
 			
-			if(isaret=="<"){
-				if(girdi1<girdi2){
-					$("#btnKontrol").hide();
-					$("#sonraki").show();
-					//$("#geriBildirim").hide();
-					//$("#geriBildirim").removeClass("status_false").addClass("status_true").html("Tebrikler");
-					$("#geriBildirimText").attr("class","status_true").html("Tebrikler");
-					$("#geriBildirim").show();
-					
-				}
+			
+			
+			if(girdi1 == "" || girdi1 == undefined || girdi2 == "" || girdi2 == undefined || isaret == ""|| isaret == undefined)
+			{
+				$('#geriBildirimText').attr("class","status_alert");
+				$('#geriBildirimText').html("Lütfen kutucukları doldurun!");
+				$("#geriBildirim").show();
+			}
+			else{
+				
+				var input=parseInt(this.value);
+	    	if(input<0 || input>100){
+    			//alert("0 ile 100 arasında bir sayı giriniz.");
+    			$('#geriBildirimText').attr("class","status_alert");
+				$('#geriBildirimText').html("0 ile 100 arasında bir sayı giriniz.");
+				$("#geriBildirim").show();
+    			bosKareSag.yap();
+    			}
+    			/*
+    		else if(($("#girisSol").val()==" "  || $("#girisSol").val()==" ") && $("#girisSol").val()==$("#girisSag").val()){
+    			alert("Sayılar birbirine eşit olmamalıdır. Lütfen yeniden sayı giriniz.");
+    			$('#geriBildirimText').attr("class","status_alert");
+				$('#geriBildirimText').html("Sayılar birbirine eşit olmamalıdır. Lütfen yeniden sayı giriniz.");
+				$("#geriBildirim").show();
+    			$(this).val("");
+    			$("#girdiCevap3").val("");
+    		}
+    		*/
+    		else{	
+				if(isaret=="<"){
+					if(girdi1<girdi2){
+						$("#btnKontrol").hide();
+						$("#sonraki").show();
+						//$("#geriBildirim").hide();
+						//$("#geriBildirim").removeClass("status_false").addClass("status_true").html("Tebrikler");
+						$("#geriBildirimText").attr("class","status_true").html("Tebrikler");
+						$("#geriBildirim").show();
+						
+					}
 				else
 				{
 					$("#geriBildirimText").attr("class","status_false").html("Yanlış. Cevap:");
@@ -272,7 +327,7 @@ Interaction.init = function(container){
 					$("#btnKontrol").hide();
 					$("#sonraki").show();
 				}
-			}
+			
 			
 			if(isaret==">"){
 				if(girdi1>girdi2){
@@ -284,6 +339,8 @@ Interaction.init = function(container){
 					$("#geriBildirim").show();
 					
 				}
+			}
+			}
 				else
 				{
 					$("#geriBildirimText").attr("class","status_false").html("Yanlış. Cevap:");
@@ -300,9 +357,23 @@ Interaction.init = function(container){
 					$("#btnKontrol").hide();
 					$("#sonraki").show();
 				}
-			}
+		}	}
+		
+	}
+	
+	
+	$("#girisSol").keyup(function(event) {
+		if(event.keyCode == 13) {
+			console.log("Key"+event.keyCode);
+			kontrol();
 		}
-	);
+	});
+	
+	$("#girisSag").keyup(function(event) {
+		if(event.keyCode == 13) {
+			kontrol();
+		}
+	});
 	
 	
 	

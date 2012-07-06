@@ -1,7 +1,7 @@
 // JavaScript Document
 var kucultButtonStyle = {fillColor: "#456"}
 
-
+var Animation = function(){};Animation();
 var Interaction =function(){};Interaction();
 Interaction.getFramework = function() {
 	return 'paper';
@@ -26,20 +26,28 @@ Interaction.init = function(container){
 //	);
 	inc = 15;
 	$(container).append(
-		'<div style="position:absolute;top:40%;right:10px;text-align:center;">'+
-			'<input type="button" value="UP" onclick="Interaction._3d.zAngle-=inc;return false;" /><br />'+
-			'<input type="button" value="LEFT"  onclick="Interaction._3d.xAngle-=inc;return false;" />'+
-			'<input type="button" value="RIGHT"   onclick="Interaction._3d.xAngle+=inc;return false;" /><br />'+
-			'<input type="button" value="DOWN"   onclick="Interaction._3d.zAngle+=inc;return false;" />'+
+		'<div class="ezd_btn_rotate" style="position:absolute;top:40%;right:10px;text-align:center;">'+
+			'<div class="ezd_btn_rotate_top" onclick="Interaction._3d.zAngle+=inc;return false;" >'+
+				'<img src="/assets/animations/3d_navigation/btn_gray_top.png" width="32" height="31" alt="Yukarı">'+
+			'</div>'+
+			'<div class="ezd_btn_rotate_right"  onclick="Interaction._3d.xAngle-=inc;return false;" >'+
+				'<img src="/assets/animations/3d_navigation/btn_gray_right.png" width="32" height="31" alt="Sağa">'+
+			'</div>'+
+			'<div class="ezd_btn_rotate_bottom" onclick="Interaction._3d.zAngle-=inc;return false;" >'+
+				'<img src="/assets/animations/3d_navigation/btn_gray_bottom.png" width="32" height="31" alt="Aşağı">'+
+			'</div>'+
+			'<div class="ezd_btn_rotate_left"  onclick="Interaction._3d.xAngle+=inc;return false;" >'+
+				'<img src="/assets/animations/3d_navigation/btn_gray_left.png" width="32" height="31" alt="Sola">'+
+			'</div>'+
 		'</div>'
 	);
 	$(container).append(
 		'<div style="position:absolute;top:50%;left:10px;text-align:center;font-size:12px;line-height:20px;">'+
-			'<div style="position:relative;top:10px;width:35px;border:1px solid #000;height:20px;float:left;" onclick="$(\'#distance\').val($(\'#distance\').val()-1);return false;">Küçült</div>'+
+			'<div style="position:relative;padding-top:5px;float:left;" onclick="$(\'#distance\').val($(\'#distance\').val()-1);return false;"><img src="/assets/animations/3d_navigation/btn_gray_small.png" /></div>'+
 			'<div style="position:relative;top:10px;width:60px;float:left;" id="slider">'+
 				'<input type="range" min="0" max="10" value="5" id="distance"  style="width:60px;background:none" />'+
 			'</div>'+
-			'<div style="user-select:none;position:relative;left:1px;width:50px;border:1px solid #000;height:25px;float:left;padding-top:5px;" onclick="$(\'#distance\').val(parseInt($(\'#distance\').val())+1);return false;">Büyüt</div>'+
+			'<div style="user-select:none;position:relative;left:1px;float:left;padding-top:5px;" onclick="$(\'#distance\').val(parseInt($(\'#distance\').val())+1);return false;"><img src="/assets/animations/3d_navigation/btn_gray_large.png" /></div>'+
 		'</div>'
 	);
 	//$('#slider').slider();
