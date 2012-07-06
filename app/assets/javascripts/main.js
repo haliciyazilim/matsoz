@@ -10,6 +10,7 @@ Main.config = {
 
 Main.init = function(){
 	Main.interaction = $('#interaction_container > .interaction').get(0);
+	Main.animation = $('#animation_container > .animation').get(0);
 	Main.objective = $('#interaction_container > .objective').get(0);
 	Main.objective.className = "objective";
 	//Main.InteractionContainer.appendChild(Main.ObjectiveContainer);
@@ -27,40 +28,87 @@ Main.init = function(){
 		Main.scale = 1;
 		paper.install(window);
 		Main.paperInit();
-		width = 512;
-		height = 320;
-		Main.interaction.innerHTML = "<canvas id='interaction_canvas' class='interaction_canvas' width='"+width*Main.scale+"px' height='"+height*Main.scale+"px'></canvas>"
+		
+		interactionWidth = 512;
+		interactionHeight = 320;
+		Main.interaction.innerHTML = "<canvas id='interaction_canvas' class='interaction_canvas' keepalive='true' width='"+interactionWidth*Main.scale+"px' height='"+interactionHeight*Main.scale+"px'></canvas>"
 		canvas = $('.interaction_canvas').get(0);
 		paper.setup(canvas);
+		Main.interactionProject = paper.project;
+		interactionView = paper.view;
+		paper.defaultProject = Main.interactionProject;
+		
+		animationWidth = 512;
+		animationHeight = 200;
+		Main.animation.innerHTML = "<canvas id='animation_canvas' class='animation_canvas' keepalive='true' width='"+animationWidth*Main.scale+"px' height='"+animationHeight*Main.scale+"px'></canvas>"
+		canvas = $('.animation_canvas').get(0);
+		paper.setup(canvas);
+		Main.animationProject = paper.project;
+		animationView = paper.view;
+		
 		AnimationManager();
-		view.onFrame = function(event) {
-			AnimationManager.update(event);
-			if (typeof(Interaction.onFrame) == 'function') {
-				Interaction.onFrame(event);
+		
+		animationReady = false;
+		interactionReady = false;
+		
+		initializeRunLoop = function () {
+			if (animationReady === true && interactionReady === true) {
+				interactionView.onFrame = function(event) {
+					Main.interactionProject.activate();
+					AnimationManager.update(event);
+					if (typeof(Interaction.onFrame) == 'function') {
+						Interaction.onFrame(event);
+					}
+				}
+				animationView.onFrame = function(event) {
+					Main.animationProject.activate();
+					AnimationManager.update(event);
+					if (typeof(Animation.onFrame) == 'function') {
+						Animation.onFrame(event);
+					}
+				}
 			}
 		}
-		try{
-			if(Example.images == null || Example.images == undefined)
-				Example.init(Main.animation);
-			else
-				Util.loadImages(
-					Example.images, 
-					function(){
-						Animation.init(Main.animation);
-						
-					}
-				);
+	
+		if(Animation.images == null || Animation.images == undefined) {
+			Main.animationProject.activate();
+			if (Animation.init) {
+				Animation.init(Main.animation);
 			}
-		catch(e){}
-		if(Interaction.images == null || Interaction.images == undefined)
+			animationReady = true;
+			initializeRunLoop();
+		}
+		else {
+			Util.loadImages(
+				Animation.images, 
+				function(){
+					Main.animationProject.activate();
+					if (Animation.init) {
+						Animation.init(Main.animation);
+					}
+					animationReady = true;
+					initializeRunLoop();
+				}
+			);
+		}
+			
+		if(Interaction.images == null || Interaction.images == undefined) {
+			Main.interactionProject.activate();
 			Interaction.init(Main.interaction);
-		else
+			interactionReady = true;
+			initializeRunLoop();
+		}
+		else {
 			Util.loadImages(
 				Interaction.images,
 				function(){
+					Main.interactionProject.activate();
 					Interaction.init(Main.interaction);
+					interactionReady = true;
+					initializeRunLoop();
 				}
 			);
+		}
 	}
 };
 
@@ -321,7 +369,6 @@ Main.paperInit = function() {
 		path2.add(p1);
 		path2.arcTo(px,p3);
 		path2.style = {dashArray:[3,2]};
-		console.log('asdasdasdasd');
 		cone.addChild(path);
 		cone.addChild(path2);
 		return cone;
@@ -529,7 +576,7 @@ Main.paperInit = function() {
 			throw "The argument to Item.animate needs be a Hash";
 		}
 		
-		AnimationManager.animate(new Animation(this, animation));
+		AnimationManager.animate(new AnimationManager.Animation(this, animation));
 	}
 	Item.prototype.setStyle = function (style) {
 		if ((typeof(style) != typeof({})) || (style instanceof Array)) {
@@ -862,10 +909,11 @@ var Util = {
 };
 
 var AnimationManager = function(){
-	AnimationManager.animations = [];
+	AnimationManager.animationAnimations = [];
+	AnimationManager.interactionAnimations = [];	
 }
 
-function Animation(item, animationHash) {
+AnimationManager.Animation = function (item, animationHash) {
 	this.item = item;
 	
 	this.style = animationHash.style;
@@ -907,17 +955,33 @@ function Animation(item, animationHash) {
 
 
 AnimationManager.animate = function(animation) {
-	AnimationManager.animations.push(animation);
+	if (paper.project == Main.animationProject) {
+		AnimationManager.animationAnimations.push(animation);
+	} else if (paper.project == Main.interactionProject) {
+		AnimationManager.interactionAnimations.push(animation);
+	}
 }
 
 AnimationManager.clearAnimations = function () {
-	AnimationManager.animations = [];
+	if (paper.project == Main.animationProject) {
+		AnimationManager.animationAnimations = [];
+	} else if (paper.project == Main.interactionProject) {
+		AnimationManager.interactionAnimations = [];
+	}
 }
 
 AnimationManager.update = function(event) {
-	for(var i=0; i<AnimationManager.animations.length; i++){
-		var animation = AnimationManager.animations[i];
-			
+	var animations;
+	
+	if (paper.project == Main.animationProject) {
+		animations = AnimationManager.animationAnimations;
+	} else if (paper.project == Main.interactionProject) {
+		animations = AnimationManager.interactionAnimations;
+	}
+	
+	for(var i=0; i<animations.length; i++){		
+		var animation = animations[i];
+		
 		currentTime = new Date().getTime();
 		
 		if (animation.startTime < currentTime) {
@@ -935,7 +999,7 @@ AnimationManager.update = function(event) {
 				for (var key in animation.startHash) {
 					if (animation.startHash.hasOwnProperty(key)) {
 						animation.item[key] = animation.style[key];
-						AnimationManager.animations.splice(i,1);
+						animations.splice(i,1);
 						if (animation.item.callback) {
 							animation.item.callback();
 						}
@@ -960,4 +1024,4 @@ AnimationManager.update = function(event) {
 			}
 		}	
 	}
-}
+};

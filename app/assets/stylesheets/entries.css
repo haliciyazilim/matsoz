@@ -113,9 +113,15 @@ p.exampleHeader {
 	background-color: #bfced2;
 	padding: 7px;
 }
-.interaction{
-	position:relative;
-	height:320px;
+
+.animation {
+	position: relative;
+	height: 200px;
+}
+
+.interaction {
+	position: relative;
+	height: 320px;
 }
 
 .interaction_canvas {
