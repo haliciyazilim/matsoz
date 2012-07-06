@@ -7,6 +7,12 @@ var angleStyle = {'fill':'#DDD'};
 /*Styles*/
 
 var Interaction =function(){};Interaction();
+Interaction.images = [
+	{
+		id : 'curve',
+		src : '/assets/animations/curve_thin.png'
+	}
+]
 Interaction.getFramework = function() {
 	return 'paper';
 }
@@ -271,7 +277,7 @@ function triangle(a,b,H,measure,paper){
 	triangle.style = edgeStyle;
 	var line = new Path.Line(new Point(x+_w,y), new Point(x+_w,y+h));
 	line.style = edgeStyle;
-	var t1 = new PointText(new Point(x+w*0.5-10,y+h+15));
+	var t1 = new PointText(new Point(x+w*0.5-10,y+h+45));
 	t1.content = ""+(a+b)+" "+measure;
 	var t2 = new PointText(new Point(x+_w+5,y+h*0.5));
 	t2.content = ""+H+" "+measure;
@@ -279,13 +285,17 @@ function triangle(a,b,H,measure,paper){
 	rect.style = edgeStyle;
 	var circle = new Path.Circle(new Point(x+_w-5,y+h-5),1);
 	circle.style = edgeStyle;
-
+	
+	//curve for bottom edges
+	var curve = new Raster('curve');
+	curve.position= new Point(x+w*0.5,y+h+20)
+	curve.size = new Size(w,curve.height);
 	TestGenerator.printVertexLetters(
 			[
 				new Point(x-10,y+h+10),
 				new Point(x+w+10,y+h+10),
 				new Point(x+_w-10,y-10),
-				new Point(x+_w-16,y+h-16)
+				new Point(x+_w,y+h+12)
 			]
 		);
 }
