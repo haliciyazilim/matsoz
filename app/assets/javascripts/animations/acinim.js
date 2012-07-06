@@ -1,3 +1,6 @@
+
+var Animation = function(){};Animation();
+
 // JavaScript Document
 var Acinim = function(){};
 function animationInit(){}

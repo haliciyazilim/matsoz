@@ -15,6 +15,7 @@ var kareBoyaliFillColor="red";
 var divSonrakiYaziRenk="white";
 var divSonrakiFillRenk="#4682b4";
 
+var Animation = function(){};Animation();
 var Interaction = function(){};Interaction();
 Interaction.getFramework = function() {
 	return 'paper';

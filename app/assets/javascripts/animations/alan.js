@@ -6,6 +6,7 @@ var edgeStyle = {strokeColor:'#000',strokeWidth:2,fillColor:'#ff0',cursor:'move'
 var angleStyle = {'fill':'#DDD'};
 /*Styles*/
 
+var Animation = function(){};Animation();
 var Interaction =function(){};Interaction();
 Interaction.getFramework = function() {
 	return 'paper';
