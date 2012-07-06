@@ -62,10 +62,6 @@ Interaction.init = function(container){
 	}
 	else
 		Interaction.setStatus('');
-	if(Interaction.viewDrawCalled == null || Interaction.viewDrawCalled == 'undefined'){
-		paper.view.draw();
-		Interaction.viewDrawCalled = true;
-	}
 	var drag = new Tool();
 	drag.setHitTestOptions({ 
 		fill: true, 
