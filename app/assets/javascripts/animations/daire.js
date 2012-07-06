@@ -218,8 +218,8 @@ Interaction.drawCircle = function(){
 				});
 				Interaction.scissor = new Raster('scissor');
 				Interaction.scissor.position = new Point(
-					Interaction.drawCircle.x+Interaction.br*9+Interaction.scissor.bounds.width*0.5+5,
-					Interaction.drawCircle.y+Interaction.scissor.bounds.height*0.5			
+					Math.floor(Interaction.drawCircle.x+Interaction.br*9+Interaction.scissor.bounds.width*0.5)+5,
+					Math.floor(Interaction.drawCircle.y+Interaction.scissor.bounds.height*0.5)			
 				);
 				Interaction.status.innerHTML = "O merkezli ve "+(Interaction.radius.innerHTML)+" birim yarıçaplı çember. Daire elde etmek icin makasa tiklayiniz.";
 				Interaction.scissor.tool = new Tool();
