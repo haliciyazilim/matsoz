@@ -6762,6 +6762,9 @@ var View = this.View = PaperScopeItem.extend({
 			}));
 			before = now;
 			that.draw(true);
+			if (paper.defaultProject) {
+				paper.defaultProject.activate();
+			}
 		};
 		if (!requested)
 			this._onFrameCallback();
