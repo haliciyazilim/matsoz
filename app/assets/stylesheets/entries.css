@@ -98,7 +98,8 @@ p.exampleHeader {
 	-moz-box-shadow: 0px 0px 20px #ddd;
 	-webkit-box-shadow: 0px 0px 20px #eee;
 	border: 0px solid white;
-	background-color: #fef8ec;
+	/*background-color: #fef8ec;*/
+	background-color:#fff;
 	position: relative;
 	left: 10px;
 	overflow:hidden;
@@ -137,7 +138,11 @@ p.exampleHeader {
 	border-color: #333b3e;
 	border-style: solid;
 }
+.input:focus{
+	-moz-box-shadow: 0px 0px 10px #f55;
+	-webkit-box-shadow: 0px 0px 10px #f55;
 
+}
 .active {
 	-moz-box-shadow: 0px 0px 10px #f55;
 	-webkit-box-shadow: 0px 0px 10px #f55;
@@ -150,7 +155,12 @@ p.exampleHeader {
 	text-align:center;
 	font-weight:bold;
 }
+.number_input_field:focus{
+	-moz-box-shadow: 0px 0px 10px #f55;
+	-webkit-box-shadow: 0px 0px 10px #f55;
+	box-shadow: 0px 0px 10px #f55;
 
+}
 .control_button{
 	height:30px;
 	font-weight:bold;
@@ -178,3 +188,49 @@ p.exampleHeader {
 	color:red;
 	font-size: 12px;
 }
+
+
+/*Egemen's classes*/
+img {
+	clear:both;
+	display:block;
+	padding:0px;
+	margin:0px;
+	border:0px;
+	}
+div.ezd_btn_rotate{
+	width:108px;
+	height:105px;
+	z-index:1;
+	background:url(/assets/animations/3d_navigation/btn_orange_rt_bg.png) 50% 50% no-repeat transparent;
+}
+div.ezd_btn_rotate_top {
+	position:absolute;
+	width:32px;
+	height:31px;
+	left:38px;
+	top:0;
+	}
+div.ezd_btn_rotate_right {
+	position:absolute;
+	width:32px;
+	height:31px;
+	left:76px;
+	top:37px;
+	}
+div.ezd_btn_rotate_bottom {
+	position:absolute;
+	width:32px;
+	height:31px;
+	left:38px;
+	top:74px;
+	}
+div.ezd_btn_rotate_left {
+	position:absolute;
+	width:32px;
+	height:31px;
+	left:0px;
+	top:37px;
+	}
+
+/**/
