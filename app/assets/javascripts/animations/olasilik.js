@@ -89,8 +89,8 @@ Interaction.nextQuestion = function(){
 	helper.animate({
 		style:{angle:Math.PI*10},
 		duration:3000,
-		animationType: 'easeInEaseOut',
-		callback:function(){
+		animationType: 'easeOut',
+		callback:function() {
 			Interaction.updateProbability();
 		}
 	});
