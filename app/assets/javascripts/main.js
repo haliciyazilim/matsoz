@@ -943,6 +943,10 @@ AnimationManager.Animation = function (item, animationHash) {
 	this.map = function(ratio) {
 		if (this.animationType == 'linear') {
 			return ratio;
+		} else if (this.animationType == 'easeIn') {
+			return ratio * ratio;
+		} else if (this.animationType == 'easeOut') {
+			return ratio * (-ratio+2);
 		} else if (this.animationType == 'easeInEaseOut') {
 			return (ratio*ratio) * (3-2*ratio);
 		} else if (this.animationType == 'custom') {
