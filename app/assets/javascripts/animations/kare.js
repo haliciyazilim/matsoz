@@ -180,7 +180,7 @@ Interaction.init = function(container) {
 	runAnimation();
 		
 	// Create the control button
-	$('#interaction_container').append('<input id="replayButton" type="button" value="Yeniden" />');
+	$(container).append('<input id="replayButton" type="button" value="Yeniden" />');
 	$('#replayButton').css("position", "absolute")
 					  .css("top", "200px")
 					  .css("left", "366px");
@@ -275,6 +275,38 @@ paperAddOns = function () {
 	}
 }
 
-Animation.init = function (container) {
+// Animation.images = [{
+// 	id: "kare01",
+// 	src: '/assets/animations/kare/kare_ornek_01.png'
+// },
+// {
+// 	id: "kare02",
+// 	src: '/assets/animations/kare/kare_ornek_02.png'
+// },
+// {
+// 	id: "kare03",
+// 	src: '/assets/animations/kare/kare_ornek_03.png'
+// },
+// {
+// 	id: "kare04",
+// 	src: '/assets/animations/kare/kare_ornek_04.png'
+// }]
 
+Animation.init = function (container) {
+	// 
+	// var imageGroup = new Group();
+	// 
+	// var kare01 = new Raster("kare01");
+	// var kare02 = new Raster("kare02");
+	// var kare03 = new Raster("kare03");
+	// var kare04 = new Raster("kare04");
+	// 
+	// imageGroup.addChild(kare01);
+	// imageGroup.addChild(kare02);
+	// imageGroup.addChild(kare03);
+	// imageGroup.addChild(kare04);
+	// 
+	// imageGroup.opacity = 1;
+
+	
 }
