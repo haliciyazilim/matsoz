@@ -492,6 +492,7 @@ Main.paperInit = function() {
 			{
 				Rec = Path.Rectangle(new Point(x + i * width/horizontalSegments, y + j * height/verticalSegments), new Size(width/horizontalSegments, height/verticalSegments));
 				Rec.strokeColor = '#000';
+				Rec.strokeWidth = 2;
 				segRec.addChild(Rec);
 				if(paint < paintedSegments)
 				{
@@ -532,6 +533,7 @@ Main.paperInit = function() {
 			startAngle += angle;
 			endAngle += angle;
 			Circ.strokeColor = 'black';
+			Circ.strokeWidth = 1.5;
 			segCirc.addChild(Circ);
 			if(paint < paintedPieces)
 			{
