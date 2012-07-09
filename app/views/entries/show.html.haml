@@ -9,18 +9,18 @@
     = javascript_include_tag @entry.javascript_file
   - rescue
 
-#content
-  #words_list
-    - @all_entries.each do |entry|
-      - if entry == @entry
-        %p.selected= link_to entry.word, entry_path(entry)
-      - else
-        %p
-          = link_to entry.word, entry_path(entry)
+#container
+  #navigation
+    .sozcuktasiyici
+      - @all_entries.each do |entry|
+        - if entry == @entry
+          = link_to entry.word, entry_path(entry), {:class => 'sozcuklink selected'}
+        - else
+          = link_to entry.word, entry_path(entry), {:class => 'sozcuklink'}
           
-  #word_content
-    %p.definition
-      %span.name
+  #inter_container.back
+    %div.tanim
+      %strong.name
         = @entry.word + ": "
       - @chunks.each do |entry|
         - entry.each do |key, value|
@@ -29,14 +29,13 @@
               %span>= key.gsub(' ', "\n")
           - else
             %span>= link_to key, entry_path(value)
-            
-    %p.exampleHeader
-      Örnek
-    #animation_container
-      .animation
-    #interaction_container
-      .objective
-      .interaction
+    %div{:class=>'ornek ornek_border'}
+      #div{:class => 'ornekbaslik ornekbaslik_bg'}
+      
+    %div.mavikontrol
+    %div.etkilesimalan
+    
+    
 
 = link_to "Instruction File", @entry.instructions.url
 %br
