@@ -107,7 +107,7 @@ interactionInit = function(container) {
 	};
 	
 	// Create the control button
-	$('#interaction_container').append('<input id="submitButton" type="button" value="Kontrol" />');
+	$(container).append('<input id="submitButton" type="button" value="Kontrol" />');
 	$('#submitButton').css("position", "absolute")
 					  .css("top", "200px")
 					  .css("left", "366px");
@@ -115,7 +115,7 @@ interactionInit = function(container) {
 	$('#submitButton').click(submit);
 	
 	// Create the input field
-	$('#interaction_container').append('<input id="textInput" type="textbox" />');
+	$(container).append('<input id="textInput" type="textbox" />');
 	$('#textInput').css("position", "absolute")
 				   .css("top", "150px")
 				   .css("left", "376px");
