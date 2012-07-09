@@ -30,16 +30,17 @@ Main.init = function(){
 		
 		interactionWidth = $(Main.interaction).width();
 		interactionHeight = $(Main.interaction).height();
-		Main.interaction.innerHTML = "<canvas id='interaction_canvas' class='interaction_canvas' keepalive='true' width='"+interactionWidth*Main.scale+"px' height='"+interactionHeight*Main.scale+"px'></canvas>"
+
+		Main.interaction.innerHTML += "<canvas id='interaction_canvas' class='interaction_canvas' keepalive='true' width='"+interactionWidth*Main.scale+"px' height='"+interactionHeight*Main.scale+"px'></canvas>"
 		canvas = $('.interaction_canvas').get(0);
 		paper.setup(canvas);
 		Main.interactionProject = paper.project;
 		interactionView = paper.view;
 		paper.defaultProject = Main.interactionProject;
 		
-		animationWidth = 512;
-		animationHeight = 200;
-		Main.animation.innerHTML = "<canvas id='animation_canvas' class='animation_canvas' keepalive='true' width='"+animationWidth*Main.scale+"px' height='"+animationHeight*Main.scale+"px'></canvas>"
+		animationWidth = $(Main.animation).width();
+		animationHeight = $(Main.animation).height();
+		Main.animation.innerHTML += "<canvas id='animation_canvas' class='animation_canvas' keepalive='true' width='"+animationWidth*Main.scale+"px' height='"+animationHeight*Main.scale+"px'></canvas>"
 		canvas = $('.animation_canvas').get(0);
 		paper.setup(canvas);
 		Main.animationProject = paper.project;
@@ -872,7 +873,7 @@ var Util = {
 		},
 	
 	loadImages: function(imageArray, callback) {
-		totalNoOfImages = imageArray.length;
+		var totalNoOfImages = imageArray.length;
 		for (var key in imageArray) {
 			image = imageArray[key];
 			var img = $("<img id='"+image.id+"' />").attr('src', image.src).load(function() {
