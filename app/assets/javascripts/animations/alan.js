@@ -45,14 +45,19 @@ Interaction.init = function(container){
 	$('div#B',Interaction.R).append(Interaction.button);
 	$('div#B',Interaction.R).append('<div id="status"></div>');
 	Interaction.status = $('div#B > div#status',Interaction.R).get(0);
-	Interaction.status.style.fontSize = '12px';
 	Interaction.status.style.fontWeight = 'bold';
 	Interaction.status.style.paddingTop = '10px';
 	TestGenerator.nextQuestion();
 }
 
-Interaction.setStatus = function(msg){
-	Interaction.status.innerHTML = msg;
+Interaction.setStatus = function(str,cls){
+	$(Interaction.status ).html(str);
+	if(cls === true)
+		$(Interaction.status ).get(0).className = 'status_true';
+	else if(cls === false)
+		$(Interaction.status ).get(0).className = 'status_false';
+	else
+		$(Interaction.status ).get(0).className = 'status';
 }
 
 var TestGenerator = function(){}; TestGenerator();
@@ -143,27 +148,25 @@ TestGenerator.checkAnswer = function(){
 		return;
 	}
 	else if(value == TestGenerator.values.area){
-		Interaction.setStatus('Tebrikler !');
+		Interaction.setStatus('Tebrikler !',true);
 		Interaction.button.onclick = TestGenerator.nextQuestion;
 		Interaction.input.onkeyup = TestGenerator.nextQuestion;
 		Interaction.button.value = 'Sonraki';
 	}
 	else{
-		Interaction.setStatus('Tekrar deneyiniz. ');
+		Interaction.setStatus('Tekrar deneyiniz. ',false);
+		TestGenerator.trial++;
 		isWrong = true;
 	}
-	if(isWrong && TestGenerator.trial > 0){
+	if(isWrong && TestGenerator.trial > 1){
 		Interaction.input.style.color = 'red';
 		Interaction.input.value = TestGenerator.values.area;
-		Interaction.setStatus('Yanlış. Doğru cevap: '+TestGenerator.values.area+' '+TestGenerator.getMeasure() + '²');
+		Interaction.setStatus('Yanlış. Doğru cevap: '+TestGenerator.values.area+' '+TestGenerator.getMeasure() + '²',false);
 		Interaction.button.onclick = TestGenerator.nextQuestion;
 		Interaction.input.onkeyup = TestGenerator.nextQuestion;
 		Interaction.button.value = 'Sonraki';
 	}	
 	else{
-		Interaction.button.onlick = TestGenerator.nextQuestion;
-		Interaction.input.onkeyup = TestGenerator.nextQuestion;
-		TestGenerator.trial++;
 		TestGenerator.trial++;
 	}
 }
@@ -197,7 +200,6 @@ function rectangle(a,b,measure,paper){
 	t1.content = ""+a+" "+measure;
 	var t2 = new PointText(new Point(x+w+5,y+h*0.5));
 	t2.content = ""+b+" "+measure;
-	
 	//letters
 	TestGenerator.printVertexLetters(
 			[

@@ -17,7 +17,7 @@ Interaction.init = function(container){
 	Interaction.container = container;
 	$(Interaction.container).append('<div id="B"></div>');
 	$(Interaction.container).append('<style>div#L,div#R{float:left;}</style>');
-	$(Interaction.container).append('<style>div#B{position:absolute;top:70%;left:30%;height:30%;width:40%;text-align:center;padding-top:20px;}</style>');
+	$(Interaction.container).append('<style>div#B{position:absolute;top:30%;left:50%;height:30%;width:40%;text-align:center;padding-top:20px;}</style>');
 	$(Interaction.container).append('<style>div#L{width:60%;height:100%;text-align:center;}</style>');
 	$(Interaction.container).append('<style>div#R{width:40%;height:100%;}</style>');
 	Interaction.T = $('div#T',Interaction.container).get(0);
@@ -37,15 +37,28 @@ Interaction.init = function(container){
 	$('div#B > div#R',Interaction.container).append(Interaction.button);
 	$('div#B > div#R',Interaction.container).append('<div id="status"></div>');
 	Interaction.status = $('div#B > div#R > div#status',Interaction.R).get(0);
-	Interaction.status.style.fontSize = '12px';
+	Interaction.status.style.fontSize = '16px';
 	Interaction.status.style.fontWeight = 'bold';
 	Interaction.status.style.paddingTop = '10px';
 	TestGenerator.nextQuestion();
 	
 }
 
-Interaction.setStatus = function(msg){
-	Interaction.status.innerHTML = msg;
+Interaction.setStatus = function(msg,isCorrect){
+	if(isCorrect === null || isCorrect === undefined){
+		Interaction.status.innerHTML = msg;
+		Interaction.status.className = '';
+	}
+	else if(isCorrect === true){
+		Interaction.status.innerHTML = msg;
+		Interaction.status.className = 'status_true';		
+	}
+	else if(isCorrect === false){
+		Interaction.status.innerHTML = msg;
+		Interaction.status.className = 'status_false';
+	
+	}
+		
 }
 
 var TestGenerator = function(){}; TestGenerator();
@@ -59,15 +72,15 @@ TestGenerator.nextQuestion = function(){
 	Interaction.button.value = 'Kontrol';
 	Interaction.input.value = '';
 	Interaction.input.onkeyup = function(e){
-		console.log(e.keyCode)
+		//console.log(e.keyCode)
 		if(e.keyCode == 13)
 			TestGenerator.checkAnswer();		
 	}
 	Interaction.input.style.color = '';
 	Interaction.button.onclick = TestGenerator.checkAnswer;
 	TestGenerator.shape = Math.floor(Math.random()*4);
-	TestGenerator.paper = {width:500 , height:250}
-	
+	TestGenerator.paper = {width:$(Interaction.container).width()*0.4 , height:$(Interaction.container).height()}
+	//console.log(TestGenerator.paper)
 	
 	var m = Math.floor(Math.random()*2);
 	TestGenerator.setMeasure(m);
@@ -160,20 +173,20 @@ TestGenerator.checkAnswer = function(){
 		return ;
 	}
 	else if(value == TestGenerator.values.cevre){
-		Interaction.setStatus('Tebrikler !');
+		Interaction.setStatus('Tebrikler !',true);
 		Interaction.button.onclick = TestGenerator.nextQuestion;
 		Interaction.button.value = 'Sonraki';
 		Interaction.input.onkeyup = TestGenerator.nextQuestion;
 	}
 	else{
-		Interaction.setStatus('Tekrar deneyiniz. ');
+		Interaction.setStatus('Tekrar deneyiniz. ',false);
 		isWrong = true;
 	}
 	if(isWrong && TestGenerator.trial > 0){
 		Interaction.input.style.color = 'red';
 		Interaction.input.value = TestGenerator.values.cevre;
 		Interaction.input.onkeyup = TestGenerator.nextQuestion;
-		Interaction.setStatus('Yanlış. Doğru cevap: '+TestGenerator.values.cevre+' '+TestGenerator.getMeasure());
+		Interaction.setStatus('Yanlış. Doğru cevap: '+TestGenerator.values.cevre+' '+TestGenerator.getMeasure(),false);
 		Interaction.button.onclick = TestGenerator.nextQuestion;
 		Interaction.button.value = 'Sonraki';
 	}	
@@ -196,9 +209,9 @@ function rectangle(a,b,measure,paper){
 		w = _t * (a / b);
 		h = _t;	
 	}
-	x = (paper.width - w) * 0.5;
+	x = paper.width* 0.5 - w * 0.5 ;
 	y = (paper.height - h) * 0.5;
-	console.log([x,y,w,h,_t]);
+	//console.log([x,y,w,h,_t]);
 	var rect = new Path.Rectangle(new Point(x,y),new Size(w,h));
 	rect.style = edgeStyle;
 
@@ -220,7 +233,7 @@ function rectangle(a,b,measure,paper){
 
 function rhomboid(a,b,H,measure,paper){
 	var x,y,w,_w,h,_t;
-	_t = Math.min(paper.width,paper.height) * (Math.max(a+b,H) / 15);
+	_t = Math.min(paper.width,paper.height) * (Math.max(a+b,H) / 20);
 	if(2*a+b > H){
 		w = _t * ((a+b)/(2*a+b));
 		_w= _t * a / (2*a+b); 
@@ -264,7 +277,7 @@ function rhomboid(a,b,H,measure,paper){
 function rhombus(a,W,measure,paper){
 	var x,y,w,h;
 	H = Math.sqrt(a*a-Math.pow(W*0.5,2));
-	var length = Math.min(paper.width,paper.height)* (Math.max(W,H) / 15) ;
+	var length = Math.min(paper.width,paper.height)* (Math.max(W,H) / 20) ;
 	if(W > H){
 		w = length;
 		h = length * H / W;
@@ -273,7 +286,7 @@ function rhombus(a,W,measure,paper){
 		h = length;
 	}
 	x = (paper.width - w) * 0.5;
-	y = (paper.height - h) * 0.6;
+	y = (paper.height - h) * 0.5;
 	
 	var rhombus = new Path.Rhombus(new Point(x,y),new Size(w,h));
 	rhombus.style = edgeStyle;
@@ -332,7 +345,7 @@ function trapezoid(a,_a,b,c,measure,paper){
 }
 
 function Triangle(i,j,k,measure,paper){
-	var _x=100,_y=20;
+	var _x=0,_y=20;
 	this.i=i,this.j=j,this.k=k;
 	this.p1={x:10,y:0},this.p2={x:0,y:0},this.p3={x:0,y:0};
 	this.a1=null,this.a2=null,this.a3=null;

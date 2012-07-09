@@ -30,15 +30,11 @@ Interaction.getFramework = function() {
 	return 'paper';
 }
 Interaction.init = function(container){
-	/*var yonerge = document.createElement('div');
-	yonerge.innerHTML = 'Üçgenleri açılarına ve kenarlarına göre soldaki ve sağdaki gruplarda yer alan uygun kutucukları tıklayarak sınıflandırınız.';
-	yonerge.className = "objective";
-	container.appendChild(yonerge);*/
-
+	Interaction.container = container;
 	Main.setObjective('Üçgenleri açılarına ve kenarlarına göre soldaki ve sağdaki gruplarda yer alan uygun kutucukları tıklayarak sınıflandırınız.');
-	$(container).append('<div style="position:absolute;top:0px;left:0px;width:100%;"><div id="L" style="width:25%;padding-left:10px" class="tg"></div>'+
+	$(container).append('<div style="position:absolute;top:0px;left:0px;width:100%;"><div id="L" style="width:25%;padding-top:10px;padding-left:10px" class="tg"></div>'+
 						  '<div id="C" style="width:50%" class="tg"></div>'+
-						  '<div id="R" style="width:25%;padding-right:10px" class="tg"></div></div>');
+						  '<div id="R" style="width:25%;padding-top:10px;padding-right:10px" class="tg"></div></div>');
 						  
 	$('div.tg',container).css({
 			float:'left',
@@ -53,7 +49,7 @@ Interaction.init = function(container){
 	$(container).append('<style> ul li.shadow{background-color:#DDD !important;}</style>');
 	$(container).append('<style> ul li.A_selected{background-color:rgb(118,146,59) !important;color:#FFF !important;}</style>');
 	$(container).append('<style> ul li.E_selected{background-color:rgb(147,54,52) !important;color:#FFF !important;}</style>');
-	$(container).append('<style> #status{position:absolute; top:70%;width:100%;}</style>');
+	$(container).append('<style> #status{position:absolute; top:70%;width:100%;text-align:center;}</style>');
 
 	$('div#L',container).html('<ul>'+
 							  '<li class="A" id="A0" onclick="TestGenerator.checkAnswer(this)">Dar Açılı Üçgen</li>'+
@@ -66,15 +62,19 @@ Interaction.init = function(container){
 							  '<li class="E" id="E1" onclick="TestGenerator.checkAnswer(this)">İkizkenar Üçgen</li>'+
 							  '<li class="E" id="E2" onclick="TestGenerator.checkAnswer(this)">Eşkenar Üçgen</li>'+
 							  '</ul>');
-	
-	$(container).append('<div id="status"></div>');
-	$('#status').css({
-			textAlign:'center'
-		});
+	Interaction.status = document.createElement('div');
+	Interaction.status.setAttribute('id','status')
+	$(container).append(Interaction.status);
 	TestGenerator($('div#C',container).get(0));
 	
 }
-
+Interaction.setStatus = function(str){
+	Interaction.status.innerHTML = str;
+	$(Interaction.status).show();
+}	
+Interaction.hideStatus = function(){
+	$(Interaction.status).hide();
+}
 
 var TestGenerator = function(container){
 	//generate some random numbers to enter a valid state
@@ -141,9 +141,9 @@ TestGenerator.checkAnswer = function(li){
 		//console.log(answer);
 		if(answer == TestGenerator.state)
 			isCorrect = true;
-		console.log(isCorrect);
+		//console.log(isCorrect);
 		if(isCorrect == true){
-			$('#status').html('<span class="status_true">Tebrikler!&emsp;</span><input type="button" class="control_button" value="Sonraki" onclick="TestGenerator.nextQuestion();"/>');
+			Interaction.setStatus('<span class="status_true">Tebrikler!&emsp;</span><input type="button" class="control_button" value="Sonraki" onclick="TestGenerator.nextQuestion();"/>');
 		}
 		else if(TestGenerator.trial > 0){
 			TestGenerator.stopCheckAnswer=true;
@@ -156,11 +156,11 @@ TestGenerator.checkAnswer = function(li){
 									$('#A'+TestGenerator.state.charAt(0)).html() + ', ' + 
 									$('#E'+TestGenerator.state.charAt(1)).html() +
 									'</span> olmalıydı.&emsp;</span>';
-			$('#status').html(right_answer + '<input type="button" class="control_button" value="Sonraki" onclick="TestGenerator.nextQuestion();"/>');
+			Interaction.setStatus(right_answer + '<input type="button" class="control_button" value="Sonraki" onclick="TestGenerator.nextQuestion();"/>')
 		}
 		else{
 			TestGenerator.stopCheckAnswer=true;
-			$('#status').html('<span class="status_false">Yanlış cevap&emsp;</span><input type="button" class="control_button" value="Tekrar Deneyiniz" onclick="TestGenerator.tryAgain();"/>');
+			Interaction.setStatus('<span class="status_false">Yanlış cevap&emsp;</span><input type="button" class="control_button" value="Tekrar Deneyiniz" onclick="TestGenerator.tryAgain();"/>');
 		}
 	}
 }
@@ -172,7 +172,7 @@ TestGenerator.tryAgain = function(){
 	TestGenerator.trial ++;
 	TestGenerator.selectedA = null;
 	TestGenerator.selectedE = null;
-	$('#status').html('');
+	Interaction.hideStatus();
 	TestGenerator.stopCheckAnswer = false;
 }
 TestGenerator.printVertexLetters = function(p){
@@ -187,13 +187,13 @@ TestGenerator.printVertexLetters = function(p){
 TestGenerator.nextQuestion = function(){
 	//prepare question
 	TestGenerator.letters = (Math.random()>0.5 ? ["A","B","C"]:["B","C","A"]);
-	$('#status').html('');
+	Interaction.hideStatus();
 	project.activeLayer.removeChildren();
 	$(".tg ul li").removeClass('A_selected');
 	$(".tg ul li").removeClass('E_selected');
 	$(".tg ul li").each(function(){TestGenerator.removeShadow(this);});
 	var a,e;
-	var container = {width:$(TestGenerator.container).width(), height:$(TestGenerator.container).height()};
+	var container = {width:$(Interaction.container).width(), height:$(Interaction.container).height()*0.8};
 	a = Math.floor(Math.random()*3);
 	e = Math.floor(Math.random()*(a>0?2:3));
 	TestGenerator.state = "" + a + e;
@@ -339,9 +339,7 @@ TestGenerator.nextQuestion = function(){
 			c = a;
 			while(c == a || c < Math.sqrt(2)*a)
 				c = Math.floor(Math.random()*2+Math.sqrt(2)*a+1);
-			console.log([a,c]);
-			
-			
+			//console.log([a,c]);
 			if(a % 2 ==0){
 				var triangle = new Triangle(a,a,c,container);
 				triangle.showEdge('a');
@@ -409,7 +407,7 @@ TestGenerator.nextQuestion = function(){
 	}
 }
 function Triangle(i,j,k,paper){
-	var _x=140,_y=20;
+	var _x=160,_y=20;
 	this.i=i,this.j=j,this.k=k;
 	this.p1={x:10,y:0},this.p2={x:0,y:0},this.p3={x:0,y:0};
 	this.a1=null,this.a2=null,this.a3=null;
@@ -428,7 +426,7 @@ function Triangle(i,j,k,paper){
 	this.p1.y += _y;
 	this.p2.y += _y;
 	this.p3.y += _y;
-	console.log("I'm here")
+	//console.log("I'm here")
 	var triangle = new Path.Triangle( 
 					this.p1,
 					this.p2,
@@ -439,7 +437,7 @@ function Triangle(i,j,k,paper){
 			[
 				new Point(this.p1.x-10,this.p1.y+10),
 				new Point(this.p2.x+10,this.p2.y+10),
-				new Point(this.p3.x+10,this.p3.y-10)
+				new Point(this.p3.x,this.p3.y-10)
 			]
 		);
 
@@ -531,7 +529,6 @@ function Triangle(i,j,k,paper){
 				throw 'invalid argument. valid arguments: [ A , B , C ]';
 		}
 	}
-	
 	this.showEdge = function(edge){
 		var k = 10;
 		switch(edge){
@@ -545,7 +542,7 @@ function Triangle(i,j,k,paper){
 				break;
 			case 'c':
 				var a = Util.findAngle(this.p3.x,this.p3.y,this.p1.x,this.p1.y);
-				this.drawEdgeText({x:(this.p3.x+this.p1.x)*0.5-15,y:(this.p3.y+this.p1.y)*0.5},a,k,this.k);
+				this.drawEdgeText({x:(this.p3.x+this.p1.x)*0.5-10,y:(this.p3.y+this.p1.y)*0.5},a,k,this.k);
 				break;
 			default:
 				throw 'invalid argument. valid arguments: [ a , b , c ]';
@@ -555,8 +552,6 @@ function Triangle(i,j,k,paper){
 	this.calculateAngles();
 	this.paper = paper;
 }
-
-
 function _degree(a){
 	var d = Util.radianToDegree(a);
 	d = Math.floor(d*10);
