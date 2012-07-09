@@ -871,7 +871,7 @@ var Util = {
 		},
 	
 	loadImages: function(imageArray, callback) {
-		totalNoOfImages = imageArray.length;
+		var totalNoOfImages = imageArray.length;
 		for (var key in imageArray) {
 			image = imageArray[key];
 			var img = $("<img id='"+image.id+"' />").attr('src', image.src).load(function() {
