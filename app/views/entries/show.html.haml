@@ -1,6 +1,8 @@
 
 - content_for(:head) do
   %meta{'name' => 'viewport', 'content' => 'width=device-width, initial-scale=1, user-scalable=yes'}
+  = stylesheet_link_tag 'theme/blue/matsoz_blue.css'
+  = stylesheet_link_tag 'theme/matsoz_yedi.css'
   = javascript_include_tag 'raphael-min.js'
   = javascript_include_tag 'paper.js'
   = javascript_include_tag 'main.js'
