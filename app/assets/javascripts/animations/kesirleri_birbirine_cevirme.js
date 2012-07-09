@@ -18,7 +18,7 @@ Interaction.getFramework = function() {
 Interaction.init = function(container){
 	Interaction.container = container;
 	// set interaction title
-	Main.setObjective('Aşağıda gelecek olan bileşik kesri tam sayılı kesre, tam sayılı kesri bileşik kesre çeviriniz ve kontrol ediniz.');
+	Main.setObjective('Yanda gelecek olan bileşik kesri tam sayılı kesre, tam sayılı kesri bileşik kesre çeviriniz ve kontrol ediniz.');
 	
 	// neccessary variables
 	var randomize = Math.floor(Math.random() * 10);
@@ -45,62 +45,60 @@ Interaction.init = function(container){
 		// creating neccessary html elements
 
 		
-		$('#interaction_container').append('<div id="questionDiv"></div>');
+		$(container).append('<div id="questionDiv"></div>');
 		$('#questionDiv').css("position", "absolute")
-						.css("left", "154px")
-						.css("top", "134px")
+						.css("left", "180px")
+						.css("top", "34px")
 						.css("width", "150")
-						.css("height", "90")
-						.css("border", "solid");
+						.css("height", "76")
 		
 		$('#questionDiv').append('<p id="nom" ></p>');
-
-		
-		
 		$('#nom').css("position", "absolute")
-				.css("top", "-2px");
+				.css("font-size", 22)
+				.css("font-family", "Helvetica Neue")
+				.css("top", "14px");
 		$('#nom').html(nominator);
 		
 		if(nominator < 10)
 		{
-			$('#nom').css("left", "14px")
+			$('#nom').css("left", "16px")
 		}
 		else
 		{
-			$('#nom').css("left", "8px")
+			$('#nom').css("left", "10px")
 		}
-		
-		$('#questionDiv').append('<p id="denom" ></p>');
-
-		$('#denom').css("position", "absolute")
-				.css("top", "24px");
-		$('#denom').html(denominator);
-		if(denominator < 10)
-		{
-			$('#denom').css("left", "14px")
-		}
-		else
-		{
-			$('#denom').css("left", "8px")
-		}
-		
-	
+				
 		$('#questionDiv').append('<div id="line1"></div>');
-
 		$('#line1').css("position","absolute")
-				.css("left", "14px")
-				.css("top", "14px")
+				.css("left", "4px")
+				.css("top", "37px")
 				.css("width", "36px")
 				.css("height", "1px")
 				.css("padding", 0)
 				.css("border-top", "2px solid")
+				
+		$('#questionDiv').append('<p id="denom" ></p>');
+		$('#denom').css("position", "absolute")
+				.css("font-size", 22)
+				.css("font-family", "Helvetica Neue")
+				.css("top", "40px");
+		$('#denom').html(denominator);
+		if(denominator < 10)
+		{
+			$('#denom').css("left", "16px")
+		}
+		else
+		{
+			$('#denom').css("left", "10px")
+		}
+
 		
-		$(container).append('<p id="equal1" >=</p>');
+		$('#questionDiv').append('<p id="equal1" >=</p>');
 		$('#equal1').css("position", "absolute")
-				.css("left", "200px")
-				.css("top", "148px");
+				.css("left", "46px")
+				.css("top", "31px");
 		
-		$(container).append('<input id="textInput1" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
+		$('#questionDiv').append('<input id="textInput1" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
 		$('#textInput1').css("width", "32")
 					.css("height", "30")
 					.css("font-size", 22)
@@ -108,13 +106,13 @@ Interaction.init = function(container){
 					.css("padding", "0")
 					.css("font-family", "Helvetica Neue")
 					.css("position", "absolute")
-					.css("left", "220px")
-					.css("top", "166px")
+					.css("left", "60px")
+					.css("top", "22px")
 					.css("text-align", "center");
 					
 		$('#textInput1').addClass('input');
 	
-		$(container).append('<input id="textInput2" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
+		$('#questionDiv').append('<input id="textInput2" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
 		$('#textInput2').css("width", "32")
 					.css("height", "30")
 					.css("font-size", 22)
@@ -122,13 +120,13 @@ Interaction.init = function(container){
 					.css("padding", "0")
 					.css("font-family", "Helvetica Neue")
 					.css("position", "absolute")
-					.css("left", "264px")
-					.css("top", "144px")
+					.css("left", "102px")
+					.css("top", "2px")
 					.css("text-align", "center");
 					
 		$('#textInput2').addClass('input');
 	
-		$(container).append('<input id="textInput3" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
+		$('#questionDiv').append('<input id="textInput3" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
 		$('#textInput3').css("width", "32")
 					.css("height", "30")
 					.css("font-size", 22)
@@ -136,16 +134,16 @@ Interaction.init = function(container){
 					.css("padding", "0")
 					.css("font-family", "Helvetica Neue")
 					.css("position", "absolute")
-					.css("left", "264px")
-					.css("top", "190px")
+					.css("left", "102px")
+					.css("top", "44px")
 					.css("text-align", "center");
 	
 		$('#textInput3').addClass('input');
 	
-		$(container).append('<div id="line2"></div>');
+		$('#questionDiv').append('<div id="line2"></div>');
 		$('#line2').css("position","absolute")
-				.css("left", "262px")
-				.css("top", "180px")
+				.css("left", "100px")
+				.css("top", "37px")
 				.css("width", "36px")
 				.css("height", "1px")
 				.css("padding", 0)
@@ -158,64 +156,80 @@ Interaction.init = function(container){
 		var wh = Math.floor(nominator/denominator);
 		var nom = nominator % denominator;
 		var denom = denominator;
-		$(container).append('<p id="wh" ></p>');
+		
+		$(container).append('<div id="questionDiv"></div>');
+		$('#questionDiv').css("position", "absolute")
+						.css("left", "170px")
+						.css("top", "34px")
+						.css("width", "128")
+						.css("height", "76");
+		
+		$('#questionDiv').append('<p id="wh" ></p>');
 		$('#wh').css("position", "absolute")
-				.css("top", "146px");
+				.css("font-size", 22)
+				.css("font-family", "Helvetica Neue")
+				.css("top", "27px");
 		$('#wh').html(wh);
 		
 		if(wh < 10)
 		{
-			$('#wh').css("left", "160px")
+			$('#wh').css("left", "8px")
 		}
 		else
 		{
-			$('#wh').css("left", "154px")
+			$('#wh').css("left", "-2px")
 		}
 		
-		$(container).append('<p id="nom" ></p>');
+		$('#questionDiv').append('<p id="nom" ></p>');
 		$('#nom').css("position", "absolute")
-				.css("top", "134px");
+				.css("font-size", 22)
+				.css("font-family", "Helvetica Neue")
+				.css("top", "14px");
 		$('#nom').html(nom);
 		
 		if(nom < 10)
 		{
-			$('#nom').css("left", "190px")
+			$('#nom').css("left", "36px")
 		}
 		else
 		{
-			$('#nom').css("left", "184px")
+			$('#nom').css("left", "30px")
 		}
 		
-		$(container).append('<p id="denom" ></p>');
+		$('#questionDiv').append('<p id="denom" ></p>');
 		$('#denom').css("position", "absolute")
-				.css("top", "160px");
+					.css("font-size", 22)
+					.css("font-family", "Helvetica Neue")
+					.css("top", "40px");
 		$('#denom').html(denom);
 		
 		if(denom < 10)
 		{
-			$('#denom').css("left", "190px")
+			$('#denom').css("left", "36px")
 		}
 		else
 		{
-			$('#denom').css("left", "184px")
+			$('#denom').css("left", "30px")
 		}
 		
 	//	frac2 = new Path.Fraction(180, 72, null, null, 18, 1.8);
-	$(container).append('<div id="line1"></div>');
+	$('#questionDiv').append('<div id="line1"></div>');
 		$('#line1').css("position","absolute")
-				.css("left", "180px")
-				.css("top", "180px")
+				.css("left", "24px")
+				.css("top", "37px")
 				.css("width", "36px")
 				.css("height", "1px")
 				.css("padding", 0)
 				.css("border-top", "2px solid")
 		
-		$(container).append('<p id="equal1" >=</p>');
+		$('#questionDiv').append('<p id="equal1" >=</p>');
 		$('#equal1').css("position", "absolute")
-				.css("left", "220px")
-				.css("top", "148px");
+				.css("left", "68px")
+				.css("top", "28px")
+				.css("font-size", 22)
+				.css("font-family", "Helvetica Neue");
 		
-		$(container).append('<input id="textInput2" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
+		$('#questionDiv').append('<input id="textInput2" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
 		$('#textInput2').css("width", "32")
 					.css("height", "30")
 					.css("font-size", 22)
@@ -223,13 +237,13 @@ Interaction.init = function(container){
 					.css("padding", "0")
 					.css("font-family", "Helvetica Neue")
 					.css("position", "absolute")
-					.css("left", "244px")
-					.css("top", "144px")
+					.css("left", "90px")
+					.css("top", "2px")
 					.css("text-align", "center");
 					
 		$('#textInput2').addClass('input');
 	
-		$(container).append('<input id="textInput3" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
+		$('#questionDiv').append('<input id="textInput3" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
 		$('#textInput3').css("width", "32")
 					.css("height", "30")
 					.css("font-size", 22)
@@ -237,48 +251,51 @@ Interaction.init = function(container){
 					.css("padding", "0")
 					.css("font-family", "Helvetica Neue")
 					.css("position", "absolute")
-					.css("left", "244px")
-					.css("top", "190px")
+					.css("left", "90px")
+					.css("top", "44px")
 					.css("text-align", "center");
 	
 		$('#textInput3').addClass('input');
 		
-		$(container).append('<div id="line2"></div>');
+		$('#questionDiv').append('<div id="line2"></div>');
 		$('#line2').css("position","absolute")
-				.css("left", "242px")
-				.css("top", "180px")
+				.css("left", "88px")
+				.css("top", "37px")
 				.css("width", "36px")
 				.css("height", "1px")
 				.css("padding", 0)
 				.css("border-top", "2px solid")
 	}
-	
-	$(container).append('<div id="statuss_field" class="status_field"></div>');
-	$('#statuss_field').css("position", "absolute")
-					.css("left", "120px")
-					.css("top", "340px");
 					
-	$(container).append('<div id="statuss" class="status_false"></div>');
+	$(container).append('<div id="statuss"></div>');
 	$('#statuss').css("position", "absolute")
-					.css("left", "180px")
-					.css("top", "340px");
-					
+					.css("left", "154px")
+					.css("top", "240px")
+					.css("width", "200px")
+					.css("height", "20px")
+					.css("text-align", "center")
+
+										
 	$(container).append('<div id="answer"></div>');
 	$('#answer').css("position", "absolute")
-					.css("left", "130px")
-					.css("top", "266px")
-					.css("text-align", "right")
+					.css("left", "144px")
+					.css("top", "164px")
+					.css("width", "240px")
+					.css("height", "30px")
+					.css("font-size", 22)
+					.css("font-family", "Helvetica Neue")
+					.css("text-align", "center")
 					.css("color", answerColor);
 					
 	$(container).append('<button id="checkBtn" class="control_button">Kontrol</button>');
 	$('#checkBtn').css("position", "absolute")
-					.css("left", "400px")
-					.css("top", "340px");
+					.css("left", "460px")
+					.css("top", "240px");
 	
 	$(container).append('<button id="nextBtn" class="control_button">Sonraki</button>');
 	$('#nextBtn').css("position", "absolute")
-					.css("left", "400px")
-					.css("top", "340px");
+					.css("left", "460px")
+					.css("top", "240px");
 	$('#nextBtn').hide();
 	
 	// submit func. -> check whether input field is filled and give neccessary feedbacks
@@ -382,6 +399,8 @@ Interaction.init = function(container){
 						$('#statuss').html("Olmadı!");
 						$('#textInput2').val(ans22);
 						$('#textInput3').val(ans33);
+						$('#textInput2').css("color", inputBoxAnswerColor);
+						$('#textInput3').css("color", inputBoxAnswerColor);
 						$('#answer').html("Cevap: ("+wh+" x "+denom+") + "+nom+" = "+ans2);
 						$('#checkBtn').hide();
 						$('#nextBtn').show();
@@ -422,10 +441,9 @@ Interaction.init = function(container){
 			$('#nextBtn').remove();
 			$('#answer').remove();
 			$('#statuss').remove();
-			$('#statuss_field').remove();
 			$('#line1').remove();
 			$('#line2').remove();
-			Interaction.init(paper);
+			Interaction.init(container);
 		});
 		
 	$('.inp').keydown(function() {

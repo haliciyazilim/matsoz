@@ -480,7 +480,7 @@ Main.paperInit = function() {
 		return trianglePrisim;
 	}
 	
-	Path.SegmentedRectangle = function (x, y, width, height, horizontalSegments, verticalSegments, paintedSegments) {
+	Path.SegmentedRectangle = function (x, y, width, height, horizontalSegments, verticalSegments, paintedSegments, fillColor) {
 		var segRec = new Group();
 		var Rec = new Path();
 		var paint = 0;
@@ -491,11 +491,11 @@ Main.paperInit = function() {
 			{
 				Rec = Path.Rectangle(new Point(x + i * width/horizontalSegments, y + j * height/verticalSegments), new Size(width/horizontalSegments, height/verticalSegments));
 				Rec.strokeColor = '#000';
-				Rec.strokeWidth = 2;
+				Rec.strokeWidth = 1.5;
 				segRec.addChild(Rec);
 				if(paint < paintedSegments)
 				{
-					Rec.fillColor = "#00AF33";
+					Rec.fillColor = fillColor;
 					paint += 1;
 				}
 			}
@@ -504,7 +504,7 @@ Main.paperInit = function() {
 		
 	};
 	
-	Path.SegmentedCircle = function (center, radius, paintedPieces, totalPieces) {
+	Path.SegmentedCircle = function (center, radius, paintedPieces, totalPieces, fillColor) {
 		var segCirc = new Group();
 		var i;
 		var angle =  2 * Math.PI / totalPieces;
@@ -532,11 +532,11 @@ Main.paperInit = function() {
 			startAngle += angle;
 			endAngle += angle;
 			Circ.strokeColor = 'black';
-			Circ.strokeWidth = 1.5;
+			Circ.strokeWidth = 1.4;
 			segCirc.addChild(Circ);
 			if(paint < paintedPieces)
 			{
-				Circ.fillColor = "#00AF33";
+				Circ.fillColor = fillColor;
 				paint += 1;
 			}
 

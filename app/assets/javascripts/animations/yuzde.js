@@ -14,15 +14,17 @@ Interaction.getFramework = function() {
 }
 
 // interaction init
-Interaction.init = function(paper){
+Interaction.init = function(container){
+	Interaction.container = container;
 	
 	// set interaction title
-	Main.setObjective('Aşağıda verilen renkli bölgeyi kesir, ondalık kesir ve yüzde olarak yazınız.');
+	Main.setObjective('Yanda verilen renkli bölgeyi kesir, ondalık kesir ve yüzde olarak yazınız.');
 	
 	// neccessary shape variables
 	var rect, rect2, rect3;
 	var frag1, frag2;
 	var circ;
+	var fillColor = "#00AF33";
 
 	// neccessary nom and denom variables
 	var firstNominator;
@@ -52,56 +54,56 @@ Interaction.init = function(paper){
 	var randomize = Math.round(Math.random()*10);
 	if (randomize % 3 == 0) // get circle
 	{
-		circ = new Path.SegmentedCircle(new Point(116, 86), 56, firstNominator, firstDenominator);
+		circ = new Path.SegmentedCircle(new Point(116, 70), 56, firstNominator, firstDenominator, fillColor);
 	}
 	else if(randomize % 3 == 1) // get square
 	{
 		if(firstDenominator == 20)
 		{
-			rect2 = new Path.SegmentedRectangle(60, 30, 120, 120, 4, 5, firstNominator);
+			rect2 = new Path.SegmentedRectangle(60, 14, 120, 120, 4, 5, firstNominator, fillColor);
 		}
 		else if(firstDenominator == 10)
 		{
-			rect2 = new Path.SegmentedRectangle(60, 30, 120, 120, 2, 5, firstNominator);
+			rect2 = new Path.SegmentedRectangle(60, 14, 120, 120, 2, 5, firstNominator, fillColor);
 		}
 		else if(firstDenominator == 5)
 		{
-			rect2 = new Path.SegmentedRectangle(60, 30, 120, 120, 1, 5, firstNominator);
+			rect2 = new Path.SegmentedRectangle(60, 14, 120, 120, 1, 5, firstNominator, fillColor);
 		}
 		else
 		{
-			rect2 = new Path.SegmentedRectangle(60,30, 120, 120, firstDenominator/2, 2, firstNominator);
+			rect2 = new Path.SegmentedRectangle(60,14, 120, 120, firstDenominator/2, 2, firstNominator, fillColor);
 		}
 	}
 	else // get rectangle
 	{
 		if(firstDenominator == 20)
 		{
-			rect3 = new Path.SegmentedRectangle(60, 30, 80, 120, 4, 5, firstNominator);
+			rect3 = new Path.SegmentedRectangle(60, 14, 80, 120, 4, 5, firstNominator, fillColor);
 		}
 		else if(firstDenominator == 10)
 		{
-			rect3 = new Path.SegmentedRectangle(60, 30, 80, 120, 2, 5, firstNominator);
+			rect3 = new Path.SegmentedRectangle(60, 14, 80, 120, 2, 5, firstNominator, fillColor);
 		}
 		else if(firstDenominator == 5)
 		{
-			rect3 = new Path.SegmentedRectangle(60, 30, 80, 120, 1, 5, firstNominator);
+			rect3 = new Path.SegmentedRectangle(60, 14, 80, 120, 1, 5, firstNominator, fillColor);
 		}
 		else
 		{
-			rect3 = new Path.SegmentedRectangle(60, 30, 80, 120, firstDenominator/2, 2, firstNominator);
+			rect3 = new Path.SegmentedRectangle(60, 14, 80, 120, firstDenominator/2, 2, firstNominator, fillColor);
 		}
 	}
 	
-	rect = new Path.SegmentedRectangle(360, 30, 120, 120, 10, 10, 0);
+	rect = new Path.SegmentedRectangle(400, 14, 120, 120, 10, 10, 0);
 	
 	// creating neccessary html element
-	$('#interaction_container').append('<div id="questionDiv"></div>');
+	$(container).append('<div id="questionDiv"></div>');
 	$('#questionDiv').css("position", "absolute")
 						.css("left", "54px")
-						.css("top", "244px")
+						.css("top", "152px")
 						.css("width", "266")
-						.css("height", "100");
+						.css("height", "100")
 	
 	$('#questionDiv').append('<input id="textInput1" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
 	$('#textInput1').css("width", "32")
@@ -186,13 +188,13 @@ Interaction.init = function(paper){
 					.css("font-family", "Helvetica Neue")
 					.css("position", "absolute")
 					.css("left", "66px")
-					.css("top", "39px")
+					.css("top", "60px")
 					.css("text-align", "center")
 					.css("border", "none");
 					
 	$('#questionDiv').append('<input id="textInput6" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
-	$('#textInput6').css("width", "32")
-					.css("height", "30")
+	$('#textInput6').css("width", "32px")
+					.css("height", "30px")
 					.css("box-sizing","border-box")
 					.css("padding", "0")
 					.css("font-size", 22)
@@ -210,63 +212,64 @@ Interaction.init = function(paper){
 				.css("font-family", "Helvetica Neue")
 				.css("position", "absolute")
 				.css("left", "46px")
-				.css("top", "20px");
+				.css("top", "42px");
 				
 	$('#questionDiv').append('<p id="equal2" >=</p>');
 	$('#equal2').css("font-size", 22)
 				.css("font-family", "Helvetica Neue")
 				.css("position", "absolute")
 				.css("left", "106px")
-				.css("top", "20px");
+				.css("top", "42px");
 	
 	$('#questionDiv').append('<p id="equal3" >=</p>');
 	$('#equal3').css("font-size", 22)
 				.css("font-family", "Helvetica Neue")
 				.css("position", "absolute")
 				.css("left", "184px")
-				.css("top", "20px");
+				.css("top", "42px");
 	
 	$('#questionDiv').append('<p id="zero" >0,</p>');
 	$('#zero').css("font-size", 22)
 				.css("font-family", "Helvetica Neue")
 				.css("position", "absolute")
 				.css("left", "122px")
-				.css("top", "20px");
+				.css("top", "42px");
 				
 	$('#questionDiv').append('<p id="percent_sign" >%</p>');
 	$('#percent_sign').css("font-size", 22)
 					.css("font-family", "Helvetica Neue")
 					.css("position", "absolute")
 					.css("left", "202px")
-					.css("top", "20px");
+					.css("top", "42px");
 				
-	$('#interaction_container').append('<button id="checkBtn" class="control_button">Kontrol</button>');
+	$(container).append('<button id="checkBtn" class="control_button">Kontrol</button>');
 	$('#checkBtn').css("position", "absolute")
-					.css("left", "400px")
-					.css("top", "340px");
+					.css("left", "460px")
+					.css("top", "240px");
 	
-	$('#interaction_container').append('<button id="nextBtn" class="control_button">Sonraki</button>');
+	$(container).append('<button id="nextBtn" class="control_button">Sonraki</button>');
 	$('#nextBtn').css("position", "absolute")
-					.css("left", "400px")
-					.css("top", "340px");
+					.css("left", "460px")
+					.css("top", "240px");
 	$('#nextBtn').hide();
 					
-	$('#interaction_container').append('<div id="statuss_field" class="status_field"></div>');
-	$('#statuss_field').css("position", "absolute")
-					.css("left", "120px")
-					.css("top", "340px");
-					
-	$('#interaction_container').append('<div id="statuss" class="status_false"></div>');
+	$(container).append('<div id="statuss"></div>');
 	$('#statuss').css("position", "absolute")
-					.css("left", "170px")
-					.css("top", "360px");
+					.css("left", "160px")
+					.css("top", "260px")
+					.css("width", "200px")
+					.css("height", "20px")
+					.css("text-align", "center")
 			
 							
-	$('#interaction_container').append('<div id="percentage"></div>');
+	$(container).append('<div id="percentage"></div>');
 	$('#percentage').css("position", "absolute")
 					.css("width", "150px")
-					.css("left", "342px")
-					.css("top", "220px")
+					.css("height", "20px")
+					.css("font-size", 22)
+					.css("font-family", "Helvetica Neue")
+					.css("left", "386px")
+					.css("top", "136px")
 					.css("text-align", "center");
 	
 	// convertPercentage func. -> 25 = "yüzde yirmi beş"
@@ -476,7 +479,6 @@ Interaction.init = function(paper){
 		$('#checkBtn').remove();
 		$('#nextBtn').remove();
 		$('#statuss').remove();
-		$('#statuss_field').remove();
 		$('#percentage').remove();
 		$('#line1').remove();
 		$('#line2').remove();
@@ -493,7 +495,7 @@ Interaction.init = function(paper){
 			rect3.remove();
 		}
 		rect.remove();
-		Interaction.init(paper);
+		Interaction.init(container);
 	});
 	
 	$('.inp').keydown(function() {
