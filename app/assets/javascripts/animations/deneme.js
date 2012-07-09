@@ -1,49 +1,65 @@
 
-function animationInit(){};
+Animation = {}
+Interaction = {}
 
-var Interaction = function(){};Interaction();
-Interaction.getFramework = function() {
+Interaction.getFramework = function () {
 	return 'paper';
 }
 
-Interaction.init = function(container) {
-	interactionInit(container);
-}
-
-interactionInit = function(container) {
-	var group = new Group();
-	var circle = new Path.Circle(new Point(100, 100), 50);
+Interaction.init = function () {
+	circ1 = new Path.Circle(new Point(50, 60), 20);
+	circ1.strokeWidth = 2;
+	circ1.strokeColor = 'black';
+	circ1.fillColor = '#f55';
 	
-	var circle2 = new Path.Circle(new Point(200, 100), 50);
+	circ1.animate({
+		style: {
+			position: new Point(400, 60)
+		},
+		duration: 4000,
+		delay: 1000,
+		animationType: 'linear'
+	})
 	
-	group.addChild(circle);
-	group.addChild(circle2);
-	group.strokeColor = 'black';
-	group.strokeWidth = 45;
+	circ2 = new Path.Circle(new Point(50, 120), 20);
+	circ2.strokeWidth = 2;
+	circ2.strokeColor = 'black';
+	circ2.fillColor = '#f55';
 	
+	circ2.animate({
+		style: {
+			position: new Point(400, 120)
+		},
+		duration: 4000,
+		delay: 1000,
+		animationType: 'easeInEaseOut'
+	})
 	
+	circ3 = new Path.Circle(new Point(50, 180), 20);
+	circ3.strokeWidth = 2;
+	circ3.strokeColor = 'black';
+	circ3.fillColor = '#f55';
 	
-	var text = new PointText(new Point(150, 200));
-	text.justification = 'center';
-	text.fillColor = 'black';
-	text.content = "deneme";
-//	text.position = (new Point(50, 200));
-	group.addChild(text);
+	circ3.animate({
+		style: {
+			position: new Point(400, 180)
+		},
+		duration: 4000,
+		delay: 1000,
+		animationType: 'easeIn'
+	})
 	
-//	group.position = new Point(300,300);
+	circ4 = new Path.Circle(new Point(50, 240), 20);
+	circ4.strokeWidth = 2;
+	circ4.strokeColor = 'black';
+	circ4.fillColor = '#f55';
 	
-	var tool = new Tool();
-	
-	tool.onMouseDown = function (event) {
-		if (event.item) {
-			event.item.strokeColor = 'red';
-			event.item.position = new Point(300,0);
-		}
-	}
-	
-	var path = new Path.Line(new Point(10,10), new Point(100,100))
-	
-	path.strokeColor = 'black';
-	
-	group.rotate(90);
+	circ4.animate({
+		style: {
+			position: new Point(400, 240)
+		},
+		duration: 4000,
+		delay: 1000,
+		animationType: 'easeOut'
+	})
 }
