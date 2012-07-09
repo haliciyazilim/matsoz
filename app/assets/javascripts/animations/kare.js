@@ -307,6 +307,4 @@ Animation.init = function (container) {
 	// imageGroup.addChild(kare04);
 	// 
 	// imageGroup.opacity = 1;
-
-	
 }
