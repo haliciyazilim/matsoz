@@ -28,22 +28,23 @@ Interaction.getFramework = function() {
 
 
 Interaction.init = function(container){
-	Main.setObjective("Aşağıdaki saylar için istenilen yuvarlamayı yaparak klavyeden sayıyı yazınız ve kontrol ediniz.");
+	Main.setObjective("Yandaki saylar için istenilen yuvarlamayı yaparak klavyeden sayıyı yazınız ve kontrol ediniz.");
 	
 	
 	
 	$(container).append("<div id='cerceve'>");
-		$("#cerceve").css("width","490px");
-		$("#cerceve").css("height","60px");
-		$("#cerceve").css("position","absolute");
-		$("#cerceve").css("top","0");
-		$("#cerceve").css("bottom","0");
-		$("#cerceve").css("left","0");
-		$("#cerceve").css("right","0");
-		$("#cerceve").css("margin","auto");
-		$("#cerceve").css("border","solid 1px black");
-		$("#cerceve").css("font-size","medium");
-		$("#cerceve").css("font-weight","bold");
+		$("#cerceve").css("width","490px")
+		.css("height","60px")
+		.css("position","absolute")
+		.css("top","0")
+		.css("bottom","0")
+		.css("left","0")
+		.css("right","0")
+		.css("margin","auto")
+		//.css("border","solid 1px black")
+		.css("font-size","medium");
+		//.css("font-weight","bold");
+		
 	
 
 	function rastgeleSayi(){
@@ -52,10 +53,46 @@ Interaction.init = function(container){
 	}
 	
 	var sayi=rastgeleSayi();
+	
+	$("#cerceve").html(sayi+" en yakın onluğa yuvarlanırsa <input type='text' id='girdi' maxlength=4  onkeypress='return SadeceRakam(event)'> olur.");
 	console.log("Sayi: "+sayi);
 	
 	
+	$("#girdi").css("width","60px")
+			.css("height","40px")
+			.css("border","solid 1px black")
+			.css("bottom","0px")
+			.css("left","0px")
+			.css("margin","auto").addClass("input").addClass("number_input_field");
 	
+	$(container).append("<div class='status_field' id='geriBildirim'>");
+	$("#geriBildirim", container).append("<div id='geriBildirimText'>");
+	$(container).append("<style>#geriBildirim{  position:absolute; top:150px; right:10px; width:100px !important;}</style>");
+	
+	
+	// kontrol butonu
+	$(container).append("<button class='control_button'id='btnKontrol'>Kontrol</button>");
+	$(container).append("<style>.control_button{position:absolute; top:230px; right:25px;  }</style>");
+	
+	// sonraki divi
+	$(container).append("<div id='sonraki'>");
+	$("#sonraki", container).append("<div id='dikdortgen'>");
+	$("#dikdortgen", container).append("<div id='yazi'>Sonraki</div>");
+	$("#sonraki", container).append("<div id='ucgen'>");
+	$(container).append("<style>#sonraki{position:absolute; top:230px; right:110px; height: 30px;cursor:pointer;color:"+divSonrakiYaziRenk+";</style>");
+	$(container).append("<style> #dikdortgen{position:absolute; margin:auto; bottom: 0px; right:0px; top:0px; left:0px; width:70px; height:30px; background:"+divSonrakiFillRenk + "}</style>");
+	$(container).append("<style>#ucgen{position:absolute; top:0px; left:70px; width:0, height:0; border-left: 30px solid "+divSonrakiFillRenk+";border-top: 15px solid transparent;border-bottom: 15px solid transparent;}</style>");
+	$("#yazi").css("width","50px")
+	.css("position","absolute")
+	.css("height","13px")
+	.css("top","0")
+	.css("bottom","0")
+	.css("left","0")
+	.css("right","0")
+	.css("margin","auto");
+
+	
+	$("#sonraki").hide();
 	
 /*
 $("#inputYuzMilyonlar, #inputOnMilyonlar, #inputMilyonlar, #inputYuzBinler, #inputOnBinler, #inputBinler, #inputYuzler, #inputOnlar, #inputBirler").keyup(function(event) {

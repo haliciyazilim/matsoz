@@ -22,29 +22,78 @@ Interaction.getFramework = function() {
 }
 
 
+Animation.init=function(container){
 
+	
+	// Sağdaki ve soldaki boş kareler çiziliyor.
+	var bosKareSol= new Kare(100, kareIlkFillColor, kareIlkStrokeColor,40.5,30.5);
+		bosKareSol.opacity=0;
+		bosKareSol.animate({
+			style: {
+				opacity: 1
+			},
+			duration: 1000,
+			delay: 1000
+		});
+	
+	var boyaliKareSol=new Kare(25, kareBoyaliFillColor, kareBoyaliStrokeColor,40.5,30.5);
+	boyaliKareSol.opacity=0;
+		boyaliKareSol.animate({
+			style: {
+				opacity: 1
+			},
+			duration: 1000,
+			delay: 2000,
+			callback: function () {
+				//bosKareSol.remove();
+			}
+		});
+
+
+	$(container).append("<div id='yaziSol'>");
+	$("#yaziSol").css("position","absolute")
+				.css("left", "60px")
+				.css("top", "150px")
+				.css("width", "100px")
+				.css("height", "12px").html("yüzde yirmi beş").css("opacity","0");
+				
+	$("#yaziSol").animate({opacity:1, duration:100});
+				
+				
+	var bosKareSag= new Kare(100, kareIlkFillColor, kareIlkStrokeColor,500,30);
+
+
+};
 
 Interaction.init = function(container){
-	Main.setObjective("Aşağıdaki yüzlük tabloların altındaki kutulara istediğiniz sayıları yazınız. “<” (küçük)  ya da “>” (büyük) işaretlerinden uygun olanına fare ile tıklayarak yüzdeleri karşılaştırınız. Daha sonra doğruluğunu kontrol ediniz");
+	Main.setObjective("Yandaki yüzlük tabloların altındaki kutulara istediğiniz sayıları yazınız. “<” (küçük)  ya da “>” (büyük) işaretlerinden uygun olanına fare ile tıklayarak yüzdeleri karşılaştırınız. Daha sonra doğruluğunu kontrol ediniz");
 	
 	//sol div bilgileri	
 	$(container).append("<div id='sol'>");
-	$(container).append("<style>#sol{position:absolute; top:150px; left:30px; width:100px; height:100px}</style>");
+	$(container).append("<style>#sol{position:absolute; top:150px; left:40px; width:100px; height:100px}</style>");
 	
 	
-	$("#sol",container).append("<input id='girisSol' type='text' maxlength=3 onkeypress='return SadeceRakam(event)'/>");
-	//$("#sol",container).append("<div id='kesir'>");
+	$("#sol",container).append("<input id='girisSol' type='text'  width: 30px; height:30px; maxlength=3 onkeypress='return SadeceRakam(event)'/>");
+	$("#sol",container).append("<div id='kesir1'>");
+	$('#kesir1').css("position","absolute")
+				.css("left", "30px")
+				.css("top", "40px")
+				.css("width", "40px")
+				.css("height", "1px")
+				.css("padding", 0)
+				.css("border-top", "2px solid")
+				.css("box-sizing","border-box");
 	//$("#sol #kesir",container).append("_____");
-	Path.Fraction(57,170,0,0,25);
-	$("#sol",container).append("<div id='payda'>");
-	$("#sol #payda",container).append("100");
-	$(container).append("<style>#girisSol{width:30px; height:30px; margin:auto;position:absolute;  left:0; right:0; } #payda{margin:auto;position:absolute; top: 50px; left:0; right:0; width:35px; height:10px</style>");
+	//Path.Fraction(57,170,0,0,25);
+	$("#sol",container).append("<div class='payda'>");
+	$("#sol .payda",container).append("100");
+	$(container).append("<style>#girisSol{width:30px; height:30px; margin:auto;position:absolute;  left:0; right:0; }</style>");
 	
 	//orta div bilgileri
 	$(container).append("<div id='orta'>");
-	$(container).append("<style>#orta{position:absolute; top:30px; left:145px; width:220px; height:100px; border:solid 1px black}</style>");
+	$(container).append("<style>#orta{position:absolute; top:30px; left:0; right:0; margin: auto;width:220px; height:100px; border:solid 1px black}</style>");
 	$("#orta", container).append("<div id='buyukKucuk'>");
-	$("#orta", container).append("<style> #buyukKucuk{margin:auto;position:absolute;  left:0; right:0; height:30px; width:70px;}</style>");
+	$("#orta", container).append("<style> #buyukKucuk{margin:auto;position:absolute; top:5px; left:0; right:0; height:30px; width:70px;}</style>");
 	$("#orta #buyukKucuk", container).append("<div id='kucuk'>");
 	$("#orta", container).append("<style> #kucuk{position: absolute; left:0px; top:0px;height:30px; width:30px ;font-weight:bold;border-radius:20px;border:1px solid #000;cursor:pointer;background-color:red;color:white;}</style>");
 	
@@ -54,7 +103,7 @@ Interaction.init = function(container){
 	
 	$("#orta #buyukKucuk #kucuk", container).append("<div class='isaret'><</div>");
 	$("#orta #buyukKucuk #buyuk", container).append("<div class='isaret'>></div>");
-	$("#orta #buyukKucuk", container).append("<style>.isaret{width:15px; height:20px;margin:auto;position:absolute; left:0; right:0; top:0; bottom:0;}");
+	$("#orta #buyukKucuk", container).append("<style>.isaret{width:10px; height:13px;margin:auto;position:absolute; left:0; right:0; top:0; bottom:0;}");
 	
 	$("#orta", container).append("<div id='girdiler'>");
 	$("#orta", container).append("<style> #girdiler{margin:auto;position:absolute; left:0; right:0; top:50px; width:200px ;font-weight:bold;float:left; text-align:center}</style>");
@@ -86,22 +135,40 @@ Interaction.init = function(container){
 	
 	//sağ div bilgileri	
 	$(container).append("<div id='sag'>");
-	$(container).append("<style>#sag{position:absolute; top:150px; right:30px; width:100px; height:100px}</style>");
+	$(container).append("<style>#sag{position:absolute; top:150px; right:40px; width:100px; height:100px}</style>");
 	
 	
 	$("#sag",container).append("<input id='girisSag' type='text' maxlength=3 onkeypress='return SadeceRakam(event)'/>");
-	//$("#sag",container).append("<div id='kesir'>");
-	Path.Fraction(409,170,0,0,25);
+	$("#sag",container).append("<div id='kesir2'>");
+	$('#kesir2').css("position","absolute")
+				.css("left", "30px")
+				.css("top", "40px")
+				.css("width", "40px")
+				.css("height", "1px")
+				.css("padding", 0)
+				.css("border-top", "2px solid")
+	//Path.Fraction(409,170,0,0,25);
 	//$("#sag #kesir",container).append("_____");
-	$("#sag",container).append("<div id='payda'>");
-	$("#sag #payda",container).append("100");
-	$(container).append("<style>#girisSag{width:30px; height:30px; margin:auto;position:absolute;  left:0; right:0; } #kesir{margin:auto;position:absolute; top: 20px; left:0; right:0; width:60px; height:10px;} #payda{margin:auto;position:absolute; top: 50px; left:0; right:0; width:35px; height:10px</style>");
+	$("#sag",container).append("<div class='payda'>");
+	$("#sag .payda",container).append("100");
+	$(container).append("<style>#girisSag{width:30px; height:30px; margin:auto;position:absolute;  left:0; right:0; }</style>");
+	
+	$(".payda").css("margin","auto")
+	.css("position","absolute")
+	.css("top","50px")
+	.css("left","0")
+	.css("right","0")
+	.css("width","35px")
+	.css("height","10px")
+	.css("text-align","center");
+	
+	
 	
 	
 	// kontrol butonu
 	
 	$(container).append("<button class='control_button' id='btnKontrol'>Kontrol</button>");
-	$(container).append("<style>.control_button{position:absolute; top:250px; margin:auto;right:220px; }</style>");
+	$(container).append("<style>.control_button{position:absolute; top:250px; margin:auto;right:0px; left:0px; width:80px }</style>");
 	
 	//sonraki divi
 	$(container).append("<div id='sonraki'>");
@@ -120,52 +187,17 @@ Interaction.init = function(container){
 	$("#orta", container).append("<style>.cevapİsaret{color:"+dogruCevapGosterimRengi+"}");
 
 	$("input").addClass("input");
-	var kare= function(kareSayisi, dolguRengi, hatRengi, x,y){
-		this.kareSayisi=kareSayisi;
-		this.dolguRengi=dolguRengi;
-		this.hatRengi=hatRengi;
-		this.x=x;
-		this.y=y;
-		this.yap=kareYap;
-		
-	}
+	$("input").addClass("number_input_field");
 	
-	function kareYap(){
-		
-		var girdi=this.kareSayisi;
-			
-			var onluk=Math.floor(girdi/10)==0?1:Math.floor(girdi/10+1);
-			var birlik=Math.floor(girdi%10);
-			
-			var girilenKareSayisi=10;
-			
-			for(j=0;j<onluk && j<10;j++){
-				
-				if(j==(onluk-1))
-					girilenKareSayisi=birlik;
-				else
-					var girilenKareSayisi=10;
-					
-				for(i=0; i<girilenKareSayisi && i<10;i++){
-					
-					boyaliKare = new Rectangle((this.x+i*10),(this.y+j*10),10,10); //x,y,width,height
-					var path = new Path.Rectangle(boyaliKare);
-					path.fillColor = this.dolguRengi;
-					path.strokeColor=this.hatRengi;
-					
-					
-				}	
-			}
-		
-	}
+	
 	
 	
 	// Sağdaki ve soldaki boş kareler çiziliyor.
-	bosKareSol= new kare(100, kareIlkFillColor, kareIlkStrokeColor,30,30);
-	bosKareSol.yap();
+	bosKareSol= new Kare(100, kareIlkFillColor, kareIlkStrokeColor,40,30);
+	//bosKareSol.yap();
 	
-	bosKareSag= new kare(100, kareIlkFillColor, kareIlkStrokeColor,380,30);
-	bosKareSag.yap();
+	bosKareSag= new Kare(100, kareIlkFillColor, kareIlkStrokeColor,450,30);
+	//bosKareSag.yap();
 	
 	/*
 	girdi=$("#giris").val();
@@ -181,7 +213,7 @@ Interaction.init = function(container){
 			bosKareSol.yap();
 			girdi=$("#girisSol").val();
 			$("#girdiCevap1").val(girdi);
-			boyaliKareSol=new kare(girdi,kareBoyaliFillColor, kareBoyaliStrokeColor,30,30);
+			boyaliKareSol=new kare(girdi,kareBoyaliFillColor, kareBoyaliStrokeColor,40,30);
 			boyaliKareSol.yap();
 	});
 	
@@ -191,7 +223,7 @@ Interaction.init = function(container){
 			bosKareSag.yap();
 			girdi=$("#girisSag").val();
 			$("#girdiCevap3").val(girdi);
-			boyaliKareSag=new kare(girdi,kareBoyaliFillColor, kareBoyaliStrokeColor,380,30);
+			boyaliKareSag=new kare(girdi,kareBoyaliFillColor, kareBoyaliStrokeColor,450,30);
 			boyaliKareSag.yap();
 	});
 	
@@ -385,7 +417,15 @@ Interaction.init = function(container){
 	// Geri bildirim
 	$(container).append("<div class='status_field' id='geriBildirim'>");
 	$("#geriBildirim", container).append("<div id='geriBildirimText'></div>");
-	$(container).append("<style>#geriBildirim{position:absolute; top:150px; right:150px; display:none}</style>");
+	$("#geriBildirim").css("margin","auto")
+	.css("position","absolute")
+	.css("top","0")
+	.css("left","0")
+	.css("right","0")
+	.css("bottom","0")
+	.css("width","200px")
+	.css("height","20px")
+	.css("text-align","center");
 	
 	//$("#geriBildirimText", container).append("Naber?");
 	
@@ -409,6 +449,56 @@ Interaction.init = function(container){
 	
 	
 };
+// kare sınıfı
+
+var Kare = function(kareSayisi, dolguRengi, hatRengi, x,y) {
+	this.animate = Item.prototype.animate;
+	this.kareSayisi=kareSayisi;
+	this.dolguRengi=dolguRengi;
+	this.hatRengi=hatRengi;
+	this.x=x;
+	this.y=y;
+	
+	var group = new Group();	
+
+	var girdi=this.kareSayisi;
+			
+	var onluk=Math.floor(girdi/10)==0?1:Math.floor(girdi/10+1);
+	var birlik=Math.floor(girdi%10);
+		
+	var girilenKareSayisi=10;
+	
+	for(j=0;j<onluk && j<10;j++){
+				
+		if(j==(onluk-1))
+			girilenKareSayisi=birlik;
+		else
+			var girilenKareSayisi=10;
+					
+		for(i=0; i<girilenKareSayisi && i<10;i++){
+					
+			boyaliKare = new Rectangle((this.x+i*10),(this.y+j*10),10,10); //x,y,width,height
+			var path = new Path.Rectangle(boyaliKare);
+			path.fillColor = this.dolguRengi;
+			path.strokeColor=this.hatRengi;
+			
+			if(dolguRengi!="white"){
+				path.opacity = 0;
+				path.animate({
+					style: {
+						opacity: 1
+					},
+					duration: 250,
+					delay: 20 * (j*10 + i)
+				})
+			}
+			
+			group.addChild(path);
+		}	
+	}
+	
+	return group;
+}
 
 // Sadece rakam girilmesini sağlanıyor.
 	function SadeceRakam(e,allowedchars){var key=e.charCode==undefined?e.keyCode:e.charCode;if((/^[0-9]+$/.test(String.fromCharCode(key)))||key==0||key==13||isPassKey(key,allowedchars)){return true;}else{return false;}}
