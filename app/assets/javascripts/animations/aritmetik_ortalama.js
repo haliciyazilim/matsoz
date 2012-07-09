@@ -4,6 +4,8 @@
 var textStyle = {fontSize:16,strokeColor:'#fff',strokeWidth:0,fillColor:'#fff'};
 var edgeStyle = {'stroke-width':'2px'};
 var angleStyle = {'fill':'#DDD'};
+var inputBoxAnswerColor = "green";
+var inputBoxColor = "black";
 
 var Animation =function(){};Animation();
 var Interaction =function(){};Interaction();
@@ -12,10 +14,10 @@ Interaction.getFramework = function() {
 }
 
 // interaction init func.
-Interaction.init = function(paper){
-	
+Interaction.init = function(container){
+	Interaction.container = container;
 	// set interaction title
-	Main.setObjective('Aşağıdaki dizide yer alan sayıları ilgili kutucuklara giriniz ve aritmetik ortalamayı bulunuz. “Kontrol” düğmesine fare ile tıklayarak ya da “Enter” tuşuna basarak kontrol ediniz.');
+	Main.setObjective('Yandaki dizide yer alan sayıları ilgili kutucuklara giriniz ve aritmetik ortalamayı bulunuz. “Kontrol” düğmesine fare ile tıklayarak ya da “Enter” tuşuna basarak kontrol ediniz.');
 	
 	var total;
 	var fraction1, fraction2;
@@ -29,45 +31,43 @@ Interaction.init = function(paper){
 		total = datas[0] + datas[1] + datas[2] + datas[3] + datas[4];
 	}
 	while(total % 5 != 0)
-	
-	for(i = 0; i < 5; i++) {
-		console.log("data"+i+": "+datas[i]);
-	}
 
-	$('#interaction_container').append('<div id="datasDiv"></div>');
+	$(container).append('<div id="datasDiv"></div>');
 	$('#datasDiv').css("position", "absolute")
-						.css("left", "150px")
-						.css("top", "126px")
+						.css("left", "180px")
+						.css("top", "6px")
 						.css("width", "200px")
-						.css("height", "30px")
-						.css("text-align", "center")
-		//				.css("border", "solid")
+						.css("height", "20px")
+						.css("text-align", "center");
 	
-	$('#interaction_container').append('<div id="questionDiv"></div>');
+	$(container).append('<div id="questionDiv"></div>');
 	$('#questionDiv').css("position", "absolute")
-						.css("left", "10px")
-						.css("top", "165px")
+						.css("left", "40px")
+						.css("top", "35px")
 						.css("width", "400px")
-						.css("height", "220px")
-			//			.css("border", "solid")
+						.css("height", "210px");
 	
 	$('#questionDiv').append('<div id="avgText">Aritmetik Ortalama</div>');
 	$('#avgText').css("position", "absolute")
 					.css("left", "0px")
 					.css("top", "30px")
+					.css("font-size", 22)
+					.css("font-family", "Helvetica Neue")
 					.css("text-align", "center")
 					.css("width", "100px");
 					
 	$('#questionDiv').append('<p id="equal1" >=</p>');
 		$('#equal1').css("position", "absolute")
 				.css("left", "120px")
-				.css("top", "22px");
+				.css("top", "46px")
+				.css("font-size", 22)
+				.css("font-family", "Helvetica Neue");
 				
 	//fraction1 = new Path.Fraction(154, 89, null, null, 18, 14.2);
 	$('#questionDiv').append('<div id="line1"></div>');
 	$('#line1').css("position","absolute")
 				.css("left", "144px")
-				.css("top", "54px")
+				.css("top", "56px")
 				.css("width", "252px")
 				.css("height", "1px")
 				.css("padding", 0)
@@ -83,21 +83,16 @@ Interaction.init = function(paper){
 					.css("position", "absolute")
 					.css("left", "146px")
 					.css("top", "20px")
-					.css("text-align", "center")
-					.css("color", "green");
+					.css("text-align", "center");
 					
 	$('#textInput1').addClass('input');
-	$('#textInput1').focusin(function(e) {
-            $('#textInput1').addClass('active');
-        });
-		$('#textInput1').focusout(function(e) {
-            $('#textInput1').removeClass('active');
-        });
 			
 	$('#questionDiv').append('<p id="plus1" >+</p>');
 		$('#plus1').css("position", "absolute")
-				.css("left", "184px")
-				.css("top", "6px");
+					.css("font-size", 22)
+					.css("font-family", "Helvetica Neue")
+					.css("left", "182px")
+					.css("top", "28px");
 	
 	$('#questionDiv').append('<input id="textInput2" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
 	$('#textInput2').css("width", "32")
@@ -109,21 +104,16 @@ Interaction.init = function(paper){
 					.css("position", "absolute")
 					.css("left", "200px")
 					.css("top", "20px")
-					.css("text-align", "center")
-					.css("color", "green");
+					.css("text-align", "center");
 					
 	$('#textInput2').addClass('input');
-	$('#textInput2').focusin(function(e) {
-            $('#textInput2').addClass('active');
-        });
-		$('#textInput2').focusout(function(e) {
-            $('#textInput2').removeClass('active');
-        });
 		
 	$('#questionDiv').append('<p id="plus2" >+</p>');
 		$('#plus2').css("position", "absolute")
-				.css("left", "238px")
-				.css("top", "6px");
+					.css("font-size", 22)
+					.css("font-family", "Helvetica Neue")
+					.css("left", "236px")
+					.css("top", "28px");
 	
 	$('#questionDiv').append('<input id="textInput3" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
 	$('#textInput3').css("width", "32")
@@ -135,21 +125,16 @@ Interaction.init = function(paper){
 					.css("position", "absolute")
 					.css("left", "254px")
 					.css("top", "20px")
-					.css("text-align", "center")
-					.css("color", "green");
+					.css("text-align", "center");
 	
 	$('#textInput3').addClass('input');
-	$('#textInput3').focusin(function(e) {
-            $('#textInput3').addClass('active');
-        });
-		$('#textInput3').focusout(function(e) {
-            $('#textInput3').removeClass('active');
-        });
 		
 	$('#questionDiv').append('<p id="plus3" >+</p>');
 		$('#plus3').css("position", "absolute")
-				.css("left", "292px")
-				.css("top", "6px");
+					.css("font-size", 22)
+					.css("font-family", "Helvetica Neue")
+					.css("left", "290px")
+					.css("top", "28px");
 		
 	$('#questionDiv').append('<input id="textInput4" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
 	$('#textInput4').css("width", "32")
@@ -161,21 +146,16 @@ Interaction.init = function(paper){
 					.css("position", "absolute")
 					.css("left", "308px")
 					.css("top", "20px")
-					.css("text-align", "center")
-					.css("color", "green");
+					.css("text-align", "center");
 	
 	$('#textInput4').addClass('input');
-	$('#textInput4').focusin(function(e) {
-            $('#textInput4').addClass('active');
-        });
-		$('#textInput4').focusout(function(e) {
-            $('#textInput4').removeClass('active');
-        });
 		
 	$('#questionDiv').append('<p id="plus4" >+</p>');
 		$('#plus4').css("position", "absolute")
-				.css("left", "346px")
-				.css("top", "6px");
+					.css("font-size", 22)
+					.css("font-family", "Helvetica Neue")
+					.css("left", "344px")
+					.css("top", "28px");
 	
 	$('#questionDiv').append('<input id="textInput5" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
 	$('#textInput5').css("width", "32")
@@ -187,16 +167,9 @@ Interaction.init = function(paper){
 					.css("position", "absolute")
 					.css("left", "362px")
 					.css("top", "20px")
-					.css("text-align", "center")
-					.css("color", "green");
+					.css("text-align", "center");
 	
 	$('#textInput5').addClass('input');
-	$('#textInput5').focusin(function(e) {
-            $('#textInput5').addClass('active');
-        });
-		$('#textInput5').focusout(function(e) {
-            $('#textInput5').removeClass('active');
-        });
 		
 	$('#questionDiv').append('<input id="textInput6" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
 	$('#textInput6').css("width", "32")
@@ -208,28 +181,22 @@ Interaction.init = function(paper){
 					.css("position", "absolute")
 					.css("left", "254px")
 					.css("top", "62px")
-					.css("text-align", "center")
-					.css("color", "green");
+					.css("text-align", "center");
 	
 	$('#textInput6').addClass('input');
-	$('#textInput6').focusin(function(e) {
-            $('#textInput6').addClass('active');
-        });
-		$('#textInput6').focusout(function(e) {
-            $('#textInput6').removeClass('active');
-        });
 		
 	$('#questionDiv').append('<p id="equal2" >=</p>');
 		$('#equal2').css("position", "absolute")
-				.css("left", "120px")
-				.css("top", "134px");
-				
-	//fraction2 = new Path.Fraction(154, 201, null, null, 18, 2.2);
+					.css("font-size", 22)
+					.css("font-family", "Helvetica Neue")
+					.css("left", "120px")
+					.css("top", "158px");
+
 	
 	$('#questionDiv').append('<div id="line2"></div>');
 	$('#line2').css("position","absolute")
 				.css("left", "144px")
-				.css("top", "166px")
+				.css("top", "168px")
 				.css("width", "36px")
 				.css("height", "1px")
 				.css("padding", 0)
@@ -245,16 +212,9 @@ Interaction.init = function(paper){
 					.css("position", "absolute")
 					.css("left", "146px")
 					.css("top", "132px")
-					.css("text-align", "center")
-					.css("color", "green");
+					.css("text-align", "center");
 					
 	$('#textInput7').addClass('input');
-	$('#textInput7').focusin(function(e) {
-            $('#textInput7').addClass('active');
-        });
-		$('#textInput7').focusout(function(e) {
-            $('#textInput7').removeClass('active');
-        });
 					
 	$('#questionDiv').append('<input id="textInput8" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
 	$('#textInput8').css("width", "32")
@@ -266,21 +226,16 @@ Interaction.init = function(paper){
 					.css("position", "absolute")
 					.css("left", "146px")
 					.css("top", "174px")
-					.css("text-align", "center")
-					.css("color", "green");
+					.css("text-align", "center");
 	
 	$('#textInput8').addClass('input');
-	$('#textInput8').focusin(function(e) {
-            $('#textInput8').addClass('active');
-        });
-		$('#textInput8').focusout(function(e) {
-            $('#textInput8').removeClass('active');
-        });
 		
 	$('#questionDiv').append('<p id="equal3" >=</p>');
 		$('#equal3').css("position", "absolute")
-				.css("left", "190px")
-				.css("top", "134px");
+					.css("font-size", 22)
+					.css("font-family", "Helvetica Neue")
+					.css("left", "190px")
+					.css("top", "158px");
 		
 	$('#questionDiv').append('<input id="textInput9" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
 	$('#textInput9').css("width", "32")
@@ -292,43 +247,27 @@ Interaction.init = function(paper){
 					.css("position", "absolute")
 					.css("left", "210px")
 					.css("top", "150px")
-					.css("text-align", "center")
-					.css("color", "green");
+					.css("text-align", "center");
 	$('#textInput9').addClass('input');
-	$('#textInput9').focusin(function(e) {
-            $('#textInput9').addClass('active');
-        });
-		$('#textInput9').focusout(function(e) {
-            $('#textInput9').removeClass('active');
-        });
-		
-	$('#interaction_container').append('<div id="statuss_field" class="status_field"></div>');
-	$('#statuss_field').css("position", "absolute")
-					.css("left", "120px")
-					.css("top", "394px")
-					.css("width", "200px")
-					.css("height", "30px")
-			//		.css("border", "solid")
 					
-	$('#statuss_field').append('<div id="statuss" class="status_false"></div>');
+	$(container).append('<div id="statuss"></div>');
 	$('#statuss').css("position", "absolute")
-					.css("left", "0px")
-					.css("top", "0px")
+					.css("left", "204px")
+					.css("top", "260px")
 					.css("width", "200px")
-					.css("height", "30px")
-				//	.css("border", "solid")
+					.css("height", "30px");
 					
-	$('#interaction_container').append('<button id="checkBtn" class="control_button">Kontrol</button>');
+	$(container).append('<button id="checkBtn" class="control_button">Kontrol</button>');
 	$('#checkBtn').css("position", "absolute")
-					.css("left", "430px")
-					.css("top", "360px");
+					.css("left", "460px")
+					.css("top", "250px");
 					
 	$('#checkBtn').show();
 	
-	$('#interaction_container').append('<button id="nextBtn" class="control_button">Sonraki</button>');
+	$(container).append('<button id="nextBtn" class="control_button">Sonraki</button>');
 	$('#nextBtn').css("position", "absolute")
-					.css("left", "430px")
-					.css("top", "360px");
+					.css("left", "460px")
+					.css("top", "250px");
 	$('#nextBtn').hide();
 	
 	
@@ -343,7 +282,7 @@ Interaction.init = function(paper){
 		$('#datasDiv').append('<p id="data'+i+'"></p>');
 		$('#data'+i).css("position", "absolute")
 						.css("left", leftStr)
-						.css("top", "-12px")
+						.css("top", "0px")
 						.css("text-align", "center")
 						.css("font-size", 18)
 		if(i != 4) {
@@ -401,6 +340,15 @@ Interaction.init = function(paper){
 			else if(trial == 1) {
 				$('#statuss').get(0).className = "status_false";
 				$('#statuss').html("Olmadı!");
+				$('#textInput1').css("color", inputBoxAnswerColor);
+				$('#textInput2').css("color", inputBoxAnswerColor);
+				$('#textInput3').css("color", inputBoxAnswerColor);
+				$('#textInput4').css("color", inputBoxAnswerColor);
+				$('#textInput5').css("color", inputBoxAnswerColor);
+				$('#textInput6').css("color", inputBoxAnswerColor);
+				$('#textInput7').css("color", inputBoxAnswerColor);
+				$('#textInput8').css("color", inputBoxAnswerColor);
+				$('#textInput9').css("color", inputBoxAnswerColor);
 				$('#textInput1').val(answer1);
 				$('#textInput2').val(answer2);
 				$('#textInput3').val(answer3);
@@ -434,10 +382,9 @@ Interaction.init = function(paper){
 			$('#nextBtn').remove();
 			$('#answer').remove();
 			$('#statuss').remove();
-			$('#statuss_field').remove();
 			$('#line1').remove();
 			$('#line2').remove();
-			Interaction.init(paper);
+			Interaction.init(container);
 		});
 	
 	$('.inp').keydown(function() {

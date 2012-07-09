@@ -4,6 +4,8 @@
 var textStyle = {fontSize:16,strokeColor:'#fff',strokeWidth:0,fillColor:'#fff'};
 var edgeStyle = {'stroke-width':'2px'};
 var angleStyle = {'fill':'#DDD'};
+var inputBoxAnswerColor = "green";
+var inputBoxColor = "black";
 
 var Animation =function(){};Animation();
 var Interaction =function(){};Interaction();
@@ -12,7 +14,7 @@ Interaction.getFramework = function() {
 }
 
 // interaction init
-Interaction.init = function(paper){
+Interaction.init = function(container){
 	
 	// set interaction title
 	Main.setObjective('Bir apartmanda yaşayan ailelerin çocuk sayıları araştırma sonuçları verilmiştir. Bu sonuçlara göre soruları cevaplayınız.');
@@ -45,20 +47,20 @@ Interaction.init = function(paper){
 	}
 	
 	// adding neccesary html element -> images, datas, question, input box and buttons
-	$('#interaction_container').append('<img id="paper" src="/assets/animations/veri/paper.png" />');
+	$(container).append('<img id="paper" src="/assets/animations/veri/paper.png" />');
 	$('#paper').css("width", "180px")
 				.css("height", "150px")
 				.css("position", "absolute")
-				.css("left", "120px")
-				.css("top", "150px");
+				.css("left", "160px")
+				.css("top", "50px");
 	
 	for(i = 0; i < 5; i++)
 	{
-		var topStr = ""+(138+24*i)+"px";
+		var topStr = ""+(64+24*i)+"px";
 		for(j = 0; j < 6; j++)
 		{
-			var leftStr = ""+(136+26*j)+"px";
-			$('#interaction_container').append('<p id="data'+i*6+j+'"></p>');
+			var leftStr = ""+(170+26*j)+"px";
+			$(container).append('<p id="data'+i*6+j+'"></p>');
 			$('#data'+i*6+j).html(datas[i*6+j]);
 			$('#data'+i*6+j).css("position", "absolute")
 						.css("left", leftStr)
@@ -67,22 +69,22 @@ Interaction.init = function(paper){
 		}
 	}
 				
-	$('#interaction_container').append('<img id="apartment" src="/assets/animations/veri/apartment.png" />');
-	$('#apartment').css("width", "120px")
+	$(container).append('<img id="apartment" src="/assets/animations/veri/apartment.png" />');
+	$('#apartment').css("width", "140px")
 				.css("height", "150px")
 				.css("position", "absolute")
 				.css("left", "0px")
-				.css("top", "150px");
+				.css("top", "50px");
 				
-	$('#interaction_container').append('<p id="question" >Apartmanda 1 çocuğu olan kaç aile vardır?</p>');
+	$(container).append('<p id="question" ></p>');
 	$('#question').css("position", "absolute")
-				.css("left", "310px")
-				.css("top", "140px")
+				.css("left", "360px")
+				.css("top", "60px")
 				.css("width", "190px")
 				.css("font-size", 18)
 				.css("text-align", "center");
 				
-	$('#interaction_container').append('<input id="textInput1" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
+	$(container).append('<input id="textInput1" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
 		$('#textInput1').css("width", "32")
 					.css("height", "30")
 					.css("box-sizing","border-box")
@@ -90,38 +92,29 @@ Interaction.init = function(paper){
 					.css("font-size", 22)
 					.css("font-family", "Helvetica Neue")
 					.css("position", "absolute")
-					.css("left", "380px")
-					.css("top", "240px")
-					.css("text-align", "center")
-					.css("color", "green");
+					.css("left", "434px")
+					.css("top", "140px")
+					.css("text-align", "center");
 					
 	$('#textInput1').addClass('input');
-	$('#textInput1').focusin(function(e) {
-            $('#textInput1').addClass('active');
-        });
-		$('#textInput1').focusout(function(e) {
-            $('#textInput1').removeClass('active');
-        });
-	
-	$('#interaction_container').append('<div id="statuss_field" class="status_field"></div>');
-	$('#statuss_field').css("position", "absolute")
-					.css("left", "120px")
-					.css("top", "340px");
-					
-	$('#interaction_container').append('<div id="statuss" class="status_false">Deneme</div>');
+
+	$(container).append('<div id="statuss"></div>');
 	$('#statuss').css("position", "absolute")
-					.css("left", "180px")
-					.css("top", "340px");
+					.css("left", "160px")
+					.css("top", "240px")
+					.css("width", "200px")
+					.css("height", "20px")
+					.css("text-align", "center")
 					
-	$('#interaction_container').append('<button id="checkBtn" class="control_button">Kontrol</button>');
+	$(container).append('<button id="checkBtn" class="control_button">Kontrol</button>');
 	$('#checkBtn').css("position", "absolute")
-					.css("left", "400px")
-					.css("top", "340px");
+					.css("left", "490px")
+					.css("top", "240px");
 	
-	$('#interaction_container').append('<button id="nextBtn" class="control_button">Sonraki</button>');
+	$(container).append('<button id="nextBtn" class="control_button">Sonraki</button>');
 	$('#nextBtn').css("position", "absolute")
-					.css("left", "400px")
-					.css("top", "340px");
+					.css("left", "490px")
+					.css("top", "240px");
 	$('#nextBtn').hide();
 	nextQuestion();
 	
@@ -133,6 +126,7 @@ Interaction.init = function(paper){
 		$('#checkBtn').show();
 		$('#statuss').html("");
 		$('#textInput1').val("");
+		$('#textInput1').css("color", inputBoxColor);
 		var randQuestion = Math.floor(Math.random() * 15);
 		questionIndex = randQuestion;
 		$('#question').html("");
@@ -300,6 +294,187 @@ Interaction.init = function(paper){
 					$('#statuss').html("Tebrikler!");
 					$('#checkBtn').hide();
 					$('#nextBtn').show();
+					switch(questionIndex)
+					{
+						// if answer is true, make the answer datas green
+						case 0:
+							for(i = 0; i < 5; i++)
+							{
+								for(j = 0; j < 6; j++)
+								{
+									if(datas[i*6+j] == 1)
+									{
+										$('#data'+i*6+j).css("color", "green");
+									}
+								}
+							}
+							break;
+						case 1:
+							for(i = 0; i < 5; i++)
+							{
+								for(j = 0; j < 6; j++)
+								{
+									if(datas[i*6+j] == 2)
+									{
+										$('#data'+i*6+j).css("color", "green");
+									}
+								}
+							}
+						break;
+				  		case 2:
+				 			for(i = 0; i < 5; i++)
+							{
+								for(j = 0; j < 6; j++)
+								{
+									if(datas[i*6+j] == 3)
+									{
+										$('#data'+i*6+j).css("color", "green");
+									}
+								}
+							}
+							break;
+				  		case 3:
+				 			for(i = 0; i < 5; i++)
+							{
+								for(j = 0; j < 6; j++)
+								{
+									if(datas[i*6+j] == 4)
+									{
+										$('#data'+i*6+j).css("color", "green");
+									}
+								}
+							}
+							break;
+				  		case 4:
+				  			for(i = 0; i < 5; i++)
+							{
+								for(j = 0; j < 6; j++)
+								{
+									if(datas[i*6+j] == 5)
+									{
+										$('#data'+i*6+j).css("color", "green");
+									}
+								}
+							}
+							break;
+				  		case 5:
+				 			for(i = 0; i < 5; i++)
+							{
+								for(j = 0; j < 6; j++)
+								{
+									if(datas[i*6+j] == 0)
+									{
+										$('#data'+i*6+j).css("color", "green");
+									}
+								}
+							}
+							break;
+				  		case 6:
+				  			for(i = 0; i < 5; i++)
+							{
+								for(j = 0; j < 6; j++)
+								{
+									if(datas[i*6+j] != 0)
+									{
+										$('#data'+i*6+j).css("color", "green");
+									}
+								}
+							}
+							break;
+				  		case 7:
+				  			for(i = 0; i < 5; i++)
+							{
+								for(j = 0; j < 6; j++)
+								{
+									$('#data'+i*6+j).css("color", "green");
+								}
+							}
+							break;
+				 	 	case 8:
+				 			for(i = 0; i < 5; i++)
+						 	{
+								for(j = 0; j < 6; j++)
+								{
+									if(datas[i*6+j] > 1)
+									{
+										$('#data'+i*6+j).css("color", "green");
+									}
+								}
+							}
+							break;
+				  		case 9:
+				 			for(i = 0; i < 5; i++)
+							{
+								for(j = 0; j < 6; j++)
+								{
+									if(datas[i*6+j] > 2)
+									{
+										$('#data'+i*6+j).css("color", "green");
+									}
+								}
+							}
+							break;
+				  		case 10:
+				  			for(i = 0; i < 5; i++)
+							{
+								for(j = 0; j < 6; j++)
+								{
+									if(datas[i*6+j] > 3)
+									{
+										$('#data'+i*6+j).css("color", "green");
+									}
+								}
+							}
+							break;
+				  		case 11:
+				  			for(i = 0; i < 5; i++)
+							{
+								for(j = 0; j < 6; j++)
+								{
+									if(datas[i*6+j] < 2)
+									{
+										$('#data'+i*6+j).css("color", "green");
+									}
+								}
+							}
+							break;
+				  		case 12:
+				  			for(i = 0; i < 5; i++)
+							{
+								for(j = 0; j < 6; j++)
+								{
+									if(datas[i*6+j] < 3)
+									{
+										$('#data'+i*6+j).css("color", "green");
+									}
+								}
+							}
+							break;
+				  		case 13:
+				  			for(i = 0; i < 5; i++)
+							{
+								for(j = 0; j < 6; j++)
+								{
+									if(datas[i*6+j] < 4)
+									{
+										$('#data'+i*6+j).css("color", "green");
+									}
+								}
+							}
+							break;
+				  		case 14:
+				  			for(i = 0; i < 5; i++)
+							{
+								for(j = 0; j < 6; j++)
+								{
+									if(datas[i*6+j] < 5)
+									{
+										$('#data'+i*6+j).css("color", "green");
+									}
+								}
+							}
+							break;
+						}
 				}
 				// second wrong answer state
 				else if(trial == 1)
@@ -307,6 +482,7 @@ Interaction.init = function(paper){
 					$('#statuss').get(0).className = "status_false";
 					$('#statuss').html("Olmadı!");
 					$('#textInput1').val(answer);
+					$('#textInput1').css("color", inputBoxAnswerColor);
 
 					switch(questionIndex)
 					{
