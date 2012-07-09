@@ -497,6 +497,7 @@ Interaction.init = function(container){
 			.css("height","30px")
 			.css("width","30px");
 	$("input").css("text-align","center");
+	$("input").addClass("input");
 	
 		
 	// cevap inputları
@@ -618,13 +619,14 @@ Interaction.init = function(container){
 	 
 	
 	if(rastgeleBasamak==1)
-		rastgeleSayi="xx"+rastgele7;
+		rastgeleSayi="xw"+rastgele7;
 	if(rastgeleBasamak==2)
 		rastgeleSayi="x"+rastgele8;
 	if(rastgeleBasamak==3)
 		rastgeleSayi=rastgele9;
-	rastgeleSayi=String(Math.floor((Math.random()*900000000)+100000000));
+	//rastgeleSayi=String(Math.floor((Math.random()*900000000)+100000000));
 	//rastgeleSayi="964345019";
+	rastgeleSayi="xw"+rastgele7;
 	var yaziyla= new Array();
 	console.log("denemeSayısı: "+rastgeleSayi+" basamak: "+rastgeleSayi.length);
 	var degisken;
@@ -693,23 +695,41 @@ Interaction.init = function(container){
 				yaziyla.push(degisken); console.log("2: "+birlerBasamagi[rakam]);
 				break;
 			case 1:
-			if(onlarBasamagi[rakam]=="sifir")
-					degisken="";
-				else
-					degisken=onlarBasamagi[rakam];
-				yaziyla.push(degisken); console.log("1: "+onlarBasamagi[rakam]);
+				if(rakam=="w"){
+					rakam=" ";
+					rastgeleSayi=rastgeleSayi.replace("w",rakam);
+					
+					console.log( "sonraki rakam"+rastgeleSayi);
+				}
+				else{
+					if(onlarBasamagi[rakam]=="sifir")
+							degisken="";
+						else
+							degisken=onlarBasamagi[rakam];
+						yaziyla.push(degisken); console.log("1: "+onlarBasamagi[rakam]);
+					}
 				break;
 			case 0:
 				
-				if(birlerBasamagi[rakam]=="bir" ||birlerBasamagi[rakam]=="sifir")
-					degisken="yüz";
-				else
-					degisken=birlerBasamagi[rakam]+" yüz";
-				yaziyla.push(degisken); console.log("0: "+birlerBasamagi[rakam]);
+				if(rakam=="x"){
+					rakam=" ";
+					rastgeleSayi=rastgeleSayi.replace("x",rakam);
+					
+					console.log( "sonraki rakam"+rastgeleSayi);
+				}
+				else{
+					if(birlerBasamagi[rakam]=="bir" ||birlerBasamagi[rakam]=="sifir")
+						degisken="yüz";
+					else
+						degisken=birlerBasamagi[rakam]+" yüz";
+					yaziyla.push(degisken); console.log("0: "+birlerBasamagi[rakam]);
+				}
 				break;
 		}
 		}
 	}
+	
+	
 	var strYazi="";
 	for(var k=yaziyla.length-1;k>=0;k--)
 		strYazi+=" "+yaziyla[k];
@@ -739,7 +759,7 @@ Interaction.init = function(container){
 		
 		console.log("inputlardaki sayı "+yuzMilyon+onMilyon+milyon+yuzBin+onBin+bin+yuz+on+bir);
 		
-		if (yuzMilyon=="" || onMilyon=="" ||milyon=="" || yuzBin==""||onBin==""||bin==""|| yuz==""|| on==""|| bir==""){
+		if (milyon=="" || yuzBin==""||onBin==""||bin==""|| yuz==""|| on==""|| bir==""){
 			$("#geriBildirimText").attr("class","status_alert").html("Bütün kutucukları doldurunuz.");
 			
 			$("input").keydown(
@@ -750,8 +770,15 @@ Interaction.init = function(container){
 		
 		}
 		else{
+			
+			if (yuzMilyon=="")
+				yuzMilyon=" ";
+			if (onMilyon=="")
+				onMilyon=" ";
+				
 			var cevapSayisi=yuzMilyon+onMilyon+milyon+yuzBin+onBin+bin+yuz+on+bir;
-			console.log(cevapSayisi);
+			console.log("Girdi:'"+cevapSayisi+"'");
+			console.log("cevap:'"+rastgeleSayi+"'");
 			if(rastgeleSayi==cevapSayisi){
 				$("#geriBildirimText").attr("class","status_true").html("Tebrikler");
 				$("#btnKontrol").hide();

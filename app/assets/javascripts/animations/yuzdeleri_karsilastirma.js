@@ -42,7 +42,7 @@ Interaction.init = function(container){
 	
 	//orta div bilgileri
 	$(container).append("<div id='orta'>");
-	$(container).append("<style>#orta{position:absolute; top:30px; left:145px; width:300px; height:100px; border:solid 1px black}</style>");
+	$(container).append("<style>#orta{position:absolute; top:30px; left:145px; width:220px; height:100px; border:solid 1px black}</style>");
 	$("#orta", container).append("<div id='buyukKucuk'>");
 	$("#orta", container).append("<style> #buyukKucuk{margin:auto;position:absolute;  left:0; right:0; height:30px; width:70px;}</style>");
 	$("#orta #buyukKucuk", container).append("<div id='kucuk'>");
@@ -57,7 +57,7 @@ Interaction.init = function(container){
 	$("#orta #buyukKucuk", container).append("<style>.isaret{width:15px; height:20px;margin:auto;position:absolute; left:0; right:0; top:0; bottom:0;}");
 	
 	$("#orta", container).append("<div id='girdiler'>");
-	$("#orta", container).append("<style> #girdiler{margin:auto;position:absolute; left:0; right:0; top:50px; width:170px ;font-weight:bold;float:left;}</style>");
+	$("#orta", container).append("<style> #girdiler{margin:auto;position:absolute; left:0; right:0; top:50px; width:200px ;font-weight:bold;float:left; text-align:center}</style>");
 	
 	//$("#orta #girdiler", container).append("<div id='yuzde1'>");
 	$("#orta", container).append("<style> #yuzde1{font-weight:bold;}</style>");
@@ -119,7 +119,7 @@ Interaction.init = function(container){
 	$("#orta", container).append("<style> #gCevaplar{margin:auto;position:absolute; left:55px; right:0; top:150px; width:170px ;font-weight:bold;float:left;}</style>");
 	$("#orta", container).append("<style>.cevapİsaret{color:"+dogruCevapGosterimRengi+"}");
 
-
+	$("input").addClass("input");
 	var kare= function(kareSayisi, dolguRengi, hatRengi, x,y){
 		this.kareSayisi=kareSayisi;
 		this.dolguRengi=dolguRengi;
@@ -315,7 +315,8 @@ Interaction.init = function(container){
 						$("#geriBildirim").show();
 						
 					}
-				else
+					
+				else if(girdi1>girdi2)
 				{
 					$("#geriBildirimText").attr("class","status_false").html("Yanlış. Cevap:");
 					
@@ -328,7 +329,7 @@ Interaction.init = function(container){
 					$("#sonraki").show();
 				}
 			
-			
+			}
 			if(isaret==">"){
 				if(girdi1>girdi2){
 					$("#btnKontrol").hide();
@@ -339,9 +340,7 @@ Interaction.init = function(container){
 					$("#geriBildirim").show();
 					
 				}
-			}
-			}
-				else
+				else if(girdi1<girdi2)
 				{
 					$("#geriBildirimText").attr("class","status_false").html("Yanlış. Cevap:");
 					
@@ -357,6 +356,12 @@ Interaction.init = function(container){
 					$("#btnKontrol").hide();
 					$("#sonraki").show();
 				}
+			}
+			
+			
+			
+				
+				
 		}	}
 		
 	}
