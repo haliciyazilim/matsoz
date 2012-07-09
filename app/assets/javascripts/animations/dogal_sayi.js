@@ -497,6 +497,7 @@ Interaction.init = function(container){
 			.css("height","30px")
 			.css("width","30px");
 	$("input").css("text-align","center");
+	$("input").addClass("input");
 	
 		
 	// cevap inputları

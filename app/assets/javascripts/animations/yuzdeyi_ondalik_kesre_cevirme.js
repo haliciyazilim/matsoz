@@ -151,6 +151,7 @@ Interaction.init = function(container){
 	$(container).append("<style> #Cevap1, #Cevap2, #Cevap3{text-align:center} </style>");
 
 	$("input").css("text-align","center");
+	$("input").addClass("input");
 	/*
 	// 10*10'luk büyük kare çiziliyor.
 	function bosKareCiz(){
