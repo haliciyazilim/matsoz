@@ -13,6 +13,226 @@ Interaction.getFramework = function() {
 	return 'paper';
 }
 
+Animation.init = function(container){
+	Animation.container = container;
+	var rectt, rectt2;;
+	var fillColor = "#DD7500";
+	rectt = new Path.SegmentedRectangle(10, 50, 80, 80, 2, 2, 1, fillColor);
+	rectt2 = new Path.SegmentedRectangle(610, 24, 120, 120, 10, 10, 25, fillColor);
+	
+	$(container).append('<div id="exampleHolderDiv"></div>');
+	$('#exampleHolderDiv').css("position", "absolute")
+						.css("left", "180px")
+						.css("top", "52px")
+						.css("width", "328")
+						.css("height", "100")
+						//.css("border", "solid")
+	
+	// firstFractionDiv
+	$('#exampleHolderDiv').append('<div id="firstFracDiv"></div>');
+	$('#firstFracDiv').css("position", "absolute")
+						.css("left", "4px")
+						.css("top", "8px")
+						.css("width", "44")
+						.css("height", "80")
+					//	.css("border", "solid")
+	
+	$('#firstFracDiv').append('<p id="firstFracNom" >1</p>');
+	$('#firstFracNom').css("position", "absolute")
+						.css("font-size", 22)
+						.css("font-family", "Helvetica Neue")
+						.css("top", "16px")
+						.css("left", "16px");
+	
+	$('#firstFracDiv').append('<div id="firstFracLine"></div>')
+	$('#firstFracLine').css("position","absolute")
+						.css("left", "4px")
+						.css("top", "40px")
+						.css("width", "36px")
+						.css("height", "1px")
+						.css("padding", 0)
+						.css("border-top", "2px solid");
+	
+	$('#firstFracDiv').append('<p id="firstFracDenom" >4</p>');
+	$('#firstFracDenom').css("position", "absolute")
+						.css("font-size", 22)
+						.css("font-family", "Helvetica Neue")
+						.css("top", "46px")
+						.css("left", "16px");
+	
+	// secondFractionDiv
+	
+	$('#exampleHolderDiv').append('<div id="secondFracDiv"></div>');
+	$('#secondFracDiv').css("position", "absolute")
+						.css("left", "52px")
+						.css("top", "8px")
+						.css("width", "82")
+						.css("height", "80")
+					//	.css("border", "solid")
+	
+	$('#secondFracDiv').append('<p id="firstEq" >=</p>');
+	$('#firstEq').css("position", "absolute")
+				.css("left", "0px")
+				.css("top", "30px")
+				.css("font-size", 22)
+				.css("font-family", "Helvetica Neue");
+	
+	$('#secondFracDiv').append('<p id="secondFracNom" >1 x 25</p>');
+	$('#secondFracNom').css("position", "absolute")
+						.css("font-size", 22)
+						.css("font-family", "Helvetica Neue")
+						.css("top", "16px")
+						.css("left", "20px");
+	
+	$('#secondFracDiv').append('<div id="secondFracLine"></div>')
+	$('#secondFracLine').css("position","absolute")
+						.css("left", "18px")
+						.css("top", "40px")
+						.css("width", "60px")
+						.css("height", "1px")
+						.css("padding", 0)
+						.css("border-top", "2px solid");
+	
+	$('#secondFracDiv').append('<p id="secondFracDenom" >4 x 25</p>');
+	$('#secondFracDenom').css("position", "absolute")
+						.css("font-size", 22)
+						.css("font-family", "Helvetica Neue")
+						.css("top", "46px")
+						.css("left", "20px");
+						
+	// thirdFractionDiv
+	
+	$('#exampleHolderDiv').append('<div id="thirdFracDiv"></div>');
+	$('#thirdFracDiv').css("position", "absolute")
+						.css("left", "138px")
+						.css("top", "8px")
+						.css("width", "58")
+						.css("height", "80")
+				//		.css("border", "solid")
+						
+	$('#thirdFracDiv').append('<p id="secondEq" >=</p>');
+	$('#secondEq').css("position", "absolute")
+				.css("left", "0px")
+				.css("top", "30px")
+				.css("font-size", 22)
+				.css("font-family", "Helvetica Neue");
+	
+	$('#thirdFracDiv').append('<p id="thirdFracNom" >25</p>');
+	$('#thirdFracNom').css("position", "absolute")
+						.css("font-size", 22)
+						.css("font-family", "Helvetica Neue")
+						.css("top", "16px")
+						.css("left", "26px");
+	
+	$('#thirdFracDiv').append('<div id="thirdFracLine"></div>')
+	$('#thirdFracLine').css("position","absolute")
+						.css("left", "18px")
+						.css("top", "40px")
+						.css("width", "36px")
+						.css("height", "1px")
+						.css("padding", 0)
+						.css("border-top", "2px solid");
+	
+	$('#thirdFracDiv').append('<p id="thirdFracDenom" >100</p>');
+	$('#thirdFracDenom').css("position", "absolute")
+						.css("font-size", 22)
+						.css("font-family", "Helvetica Neue")
+						.css("top", "46px")
+						.css("left", "20px");
+	
+	// fracDiv
+	
+	$('#exampleHolderDiv').append('<div id="fracDiv"></div>');
+	$('#fracDiv').css("position", "absolute")
+						.css("left", "200px")
+						.css("top", "8px")
+						.css("width", "58")
+						.css("height", "80")
+				//		.css("border", "solid")
+						
+	$('#fracDiv').append('<p id="thirdEq" >=</p>');
+	$('#thirdEq').css("position", "absolute")
+				.css("left", "0px")
+				.css("top", "30px")
+				.css("font-size", 22)
+				.css("font-family", "Helvetica Neue");
+	
+	$('#fracDiv').append('<p id="fracc" >0,25</p>');
+	$('#fracc').css("position", "absolute")
+				.css("left", "18px")
+				.css("top", "28px")
+				.css("font-size", 22)
+				.css("font-family", "Helvetica Neue");
+				
+	// percentDiv
+	
+	$('#exampleHolderDiv').append('<div id="percentDiv"></div>');
+	$('#percentDiv').css("position", "absolute")
+						.css("left", "260px")
+						.css("top", "8px")
+						.css("width", "58")
+						.css("height", "80")
+				//		.css("border", "solid")
+						
+	$('#percentDiv').append('<p id="fourthEq" >=</p>');
+	$('#fourthEq').css("position", "absolute")
+				.css("left", "0px")
+				.css("top", "30px")
+				.css("font-size", 22)
+				.css("font-family", "Helvetica Neue");
+	
+	$('#percentDiv').append('<p id="percc" >%25</p>');
+	$('#percc').css("position", "absolute")
+				.css("left", "18px")
+				.css("top", "28px")
+				.css("font-size", 22)
+				.css("font-family", "Helvetica Neue");
+	
+	
+	// percentageTextDiv
+	
+	$('#exampleHolderDiv').append('<div id="percentageTextDiv">yüzde yirmi beş</div>');
+	$('#percentageTextDiv').css("position", "absolute")
+					.css("width", "150px")
+					.css("height", "20px")
+					.css("font-size", 22)
+					.css("font-family", "Helvetica Neue")
+					.css("left", "431px")
+					.css("top", "114px")
+			//		.css("border", "solid")
+					.css("text-align", "center");
+					
+	
+	
+	exampleHelper = {
+		firstFracOpacity: 0,
+		secondFracOpacity: 0,
+		thirdFracOpacity: 0,
+		fracOpacity: 0,
+		percentOpacity: 0
+	};
+	
+	exampleHelper.animate = Item.prototype.animate;
+	
+	Animation.onFrame = function(event){
+		$('#firstFracDiv').css("opacity", exampleHelper.firstFracOpacity);
+		$('#secondFracDiv').css("opacity", exampleHelper.secondFracOpacity);
+		$('#thirdFracDiv').css("opacity", exampleHelper.thirdFracOpacity);
+		$('#fracDiv').css("opacity", exampleHelper.fracOpacity);
+		$('#percentDiv').css("opacity", exampleHelper.percentOpacity);
+	}
+	
+	exampleHelper.animate({
+		style: {
+			firstFracOpacity: 1
+		},
+		duration: 2000,
+		delay: 1000,
+		animationType: 'easeInEaseOut'
+	});
+	
+}
+
 // interaction init
 Interaction.init = function(container){
 	Interaction.container = container;

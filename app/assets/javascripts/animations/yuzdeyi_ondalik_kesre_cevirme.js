@@ -26,7 +26,7 @@ Interaction.getFramework = function() {
 
 
 Interaction.init = function(container){
-	Main.setObjective("Aşağıdaki yüzlük tablonun altındaki kutuya istediğiniz sayıyı yazınız. Oluşan yüzdeyi ondalık kesir olarak kutuya yazınız ve “Kontrol” düğmesine fare ile tıklayınız.");
+	Main.setObjective("Yandaki yüzlük tablonun altındaki kutuya istediğiniz sayıyı yazınız. Oluşan yüzdeyi ondalık kesir olarak kutuya yazınız ve “Kontrol” düğmesine fare ile tıklayınız.");
 	//Interaction.container = container;
 	
 	/*
@@ -38,27 +38,35 @@ Interaction.init = function(container){
 	
 	//sol div bilgileri	
 	$(container).append("<div id='sol'>");
-	$(container).append("<style>#sol{position:absolute; top:150px; left:30px; width:100px; height:100px}</style>");
+	$(container).append("<style>#sol{position:absolute; top:150px; left:100px; width:100px; height:100px}</style>");
 	
 	
 	$("#sol",container).append("<input id='giris' type='text' maxlength=3  onkeypress='return SadeceRakam(event)' min='0' max='100'/>");
-	//$("#sol",container).append("<div id='kesir'>");
-	//$("#sol #kesir",container).append("_____");
-	Path.Fraction(58,170,0,0,25);
 	
-	$("#sol",container).append("<div id='payda'>");
-	$("#sol #payda",container).append("100");
-	$(container).append("<style>#giris{width:30px; height:30px; margin:auto;position:absolute;  left:0; right:0; z-index:2}  #payda{margin:auto;position:absolute; top: 50px; left:0; right:0; width:35px; height:10px}</style>");
+	$("#sol",container).append("<div id='kesir1'>");
+	$('#kesir1').css("position","absolute")
+				.css("left", "30px")
+				.css("top", "40px")
+				.css("width", "40px")
+				.css("height", "1px")
+				.css("padding", 0)
+				.css("border-top", "2px solid");
+	//$("#sol #kesir",container).append("_____");
+	//Path.Fraction(58,170,0,0,25);
+	
+	$("#sol",container).append("<div class='payda'>");
+	$("#sol .payda",container).append("100");
+	$(container).append("<style>#giris{width:30px; height:30px; margin:auto;position:absolute;  left:0; right:0; z-index:2} </style>");
 	
 	
 	// orta divlerin bilgileri
 	
 	$(container).append("<div id='orta1'>");
-	$(container).append("<style>#orta1{position:absolute; top:70px; left:150px; width:100px; height:40px}</style>");
+	$(container).append("<style>#orta1{position:absolute; top:70px; left:270px; width:100px; height:40px}</style>");
 	$(container).append("<div id='orta2'>");
-	$(container).append("<style>#orta2{position:absolute; top:50px; left:230px; width:100px; height:100px}</style>");
+	$(container).append("<style>#orta2{position:absolute; top:50px; left:340px; width:100px; height:100px}</style>");
 	$(container).append("<div id='orta3'>");
-	$(container).append("<style>#orta3{position:absolute; top:70px; left:330px; width:100px; height:40px}</style>");
+	$(container).append("<style>#orta3{position:absolute; top:70px; left:420px; width:100px; height:40px}</style>");
 	
 	// orta1'in içindeki nesnelerin bilgieri
 	$("#orta1",container).append("<input id='girdiCevap1' type='text' maxlength=3 onkeypress='return SadeceRakam(event)'/>");
@@ -67,22 +75,29 @@ Interaction.init = function(container){
 	$("#orta1 #yuzde1",container).append("%");
 	$("#orta1 #esit1",container).append("=");
 	$(container).append("<style>#girdiCevap1{width:30px; height:30px; margin:auto;position:absolute; left:0; right:0;}</style>");
-	$(container).append("<style>#yuzde1{position:absolute; top: 10px; left:5px;  width:20px; height:20px;}</style>"); 
+	$(container).append("<style>#yuzde1{position:absolute; top: 10px; left:15px;  width:20px; height:20px;}</style>"); 
 	$(container).append("<style>#esit1{position:absolute; top: 10px; left:75px;  width:20px; height:20px;}</style>");
 	
 	// orta2'in içindeki nesnelerin bilgieri
 	$("#orta2",container).append("<input id='girdiCevap2' type='text' maxlength=3 onkeypress='return SadeceRakam(event)'/>");
-	$("#orta2",container).append("<div id='kesir'>");
-	//$("#orta2 #kesir",container).append("_____");
+	//$("#orta2",container).append("<div id='kesir'>");
+	$("#orta2",container).append("<div id='kesir2'>");
+	$('#kesir2').css("position","absolute")
+				.css("left", "30px")
+				.css("top", "40px")
+				.css("width", "40px")
+				.css("height", "1px")
+				.css("padding", 0)
+				.css("border-top", "2px solid");
 	
-	Path.Fraction(258,70,0,0,25);
+	//Path.Fraction(258,70,0,0,25);
 	
-	$("#orta2",container).append("<div id='payda'>");
+	$("#orta2",container).append("<div class='payda'>");
 	$("#orta2",container).append("<div id='esit2'>");
-	$("#orta2 #payda",container).append("100");
+	$("#orta2 .payda",container).append("100");
 	$("#orta2 #esit2",container).append("=");
-	$(container).append("<style>#esit2{position:absolute; top: 30px; left:90px;  width:20px; height:20px;}</style>");
-	$(container).append("<style>#girdiCevap2{width:30px; height:30px; margin:auto;position:absolute;  left:0; right:0; z-index:2} #payda{margin:auto;position:absolute; top: 50px; left:0; right:0; width:35px; height:10px</style>");
+	$(container).append("<style>#esit2{position:absolute; top: 30px; left:80px;  width:20px; height:20px;}</style>");
+	$(container).append("<style>#girdiCevap2{width:30px; height:30px; margin:auto;position:absolute;  left:0; right:0; z-index:2} .payda{margin:auto;position:absolute; top: 50px; left:0; right:0; width:35px; height:10px; text-align:center}</style>");
 	
 	// orta3'in içindeki nesnelerin bilgieri
 	$("#orta3",container).append("<input id='girdiCevap3' type='text' maxlength=2 onkeypress='return SadeceRakam(event)'/>");
@@ -90,12 +105,12 @@ Interaction.init = function(container){
 	$("#orta3",container).append("<div id='esit1'>");
 	$("#orta3 #yuzde2",container).append("0,");
 	$(container).append("<style>#girdiCevap3{width:30px; height:30px; margin:auto;position:absolute;  left:0; right:0;}</style>");
-	$(container).append("<style>#yuzde2{position:absolute; top: 10px; left:10px;  width:20px; height:20px;}</style>");
+	$(container).append("<style>#yuzde2{position:absolute; top: 10px; left:20px;  width:20px; height:20px;}</style>");
 	
 	// Geri bildirim
 	$(container).append("<div class='status_field' id='geriBildirim'>");
 	$("#geriBildirim", container).append("<div id='geriBildirimText'></div>");
-	$(container).append("<style>#geriBildirim{position:absolute; top:200px; right:150px; display:none}</style>");
+	$(container).append("<style>#geriBildirim{position:absolute; top:150px; right:100px; display:none}</style>");
 	
 	
 	// kontrol butonu
@@ -114,11 +129,11 @@ Interaction.init = function(container){
 	
 	// Cevap divleri 3 ana div var.
 	$(container).append("<div id='Corta1'>");
-	$(container).append("<style>#Corta1{position:absolute; top:240px; left:150px; width:80px; height:40px; display:none}</style>");
+	$(container).append("<style>#Corta1{position:absolute; top:180px; left:280px; width:80px; height:40px; display:none}</style>");
 	$(container).append("<div id='Corta2'>");
-	$(container).append("<style>#Corta2{position:absolute; top:220px; left:230px; width:80px; height:100px;display:none}</style>");
+	$(container).append("<style>#Corta2{position:absolute; top:160px; left:350px; width:80px; height:100px;display:none}</style>");
 	$(container).append("<div id='Corta3'>");
-	$(container).append("<style>#Corta3{position:absolute; top:240px; left:320px; width:80px; height:40px;display:none}</style>");
+	$(container).append("<style>#Corta3{position:absolute; top:180px; left:430px; width:80px; height:40px;display:none}</style>");
 	
 	// cevap div 1
 	$("#Corta1",container).append("<div id='Cevap1'>");
@@ -134,14 +149,22 @@ Interaction.init = function(container){
 	// cevap div 2
 	$("#Corta2",container).append("<div id='Cevap2'>");
 	$("#Corta2 #Cevap2",container).append("100");
-	$("#Corta2",container).append("<div id='kesir'>");
-	$("#Corta2 #kesir",container).append("_____");
+	//$("#Corta2",container).append("<div id='kesir'>");
+	$("#Corta2",container).append("<div id='kesir3'>");
+	$('#kesir3').css("position","absolute")
+				.css("left", "20px")
+				.css("top", "40px")
+				.css("width", "40px")
+				.css("height", "1px")
+				.css("padding", 0)
+				.css("border-top", "2px solid")
+	//$("#Corta2 #kesir",container).append("_____");
 	$("#Corta2",container).append("<div id='payda'>");
 	$("#Corta2",container).append("<div id='esit2'>");
 	$("#Corta2 #payda",container).append("100");
 	$("#Corta2 #esit2",container).append("=");
-	$(container).append("<style>#Corta2 #esit2{position:absolute; top: 30px; left:80px;  width:20px; height:20px;}</style>");
-	$(container).append("<style>#Cevap2{width:40px; height:30px; margin:auto; position:absolute;  left:0; right:0; top:15px} #kesir{margin:auto;position:absolute; top: 20px; left:0; right:0; width:60px; height:10px;} #payda{margin:auto;position:absolute; top: 50px; left:0; right:0; width:35px; height:10px</style>");
+	$(container).append("<style>#Corta2 #esit2{position:absolute; top: 30px; left:70px;  width:20px; height:20px;}</style>");
+	$(container).append("<style>#Cevap2{width:40px; height:30px; margin:auto; position:absolute;  left:0; right:0; top:15px} #payda{margin:auto;position:absolute; top: 50px; left:0; right:0; width:35px; height:10px; text-align:center}</style>");
 	
 	// cevap div 3 
 	$("#Corta3",container).append("<div id='Cevap3'>");
@@ -149,9 +172,12 @@ Interaction.init = function(container){
 	
 	// 3 cevap divin yazı ayarı
 	$(container).append("<style> #Cevap1, #Cevap2, #Cevap3{text-align:center} </style>");
+	
 
 	$("input").css("text-align","center");
 	$("input").addClass("input");
+	$("input").addClass("number_input_field");
+	$("#sol, #orta1, #orta2, #orta3, #Corta1, #Corta2, #Corta3").css("font-size","16px");
 	/*
 	// 10*10'luk büyük kare çiziliyor.
 	function bosKareCiz(){
@@ -211,7 +237,7 @@ Interaction.init = function(container){
 			}
 		
 	}
-	bosKare= new kare(100, kareIlkFillColor, kareIlkStrokeColor,30,30);
+	bosKare= new kare(100, kareIlkFillColor, kareIlkStrokeColor,100,30);
 	bosKare.yap();
 	// Kareler boyanıyor.
 	var girdi;
@@ -223,7 +249,7 @@ Interaction.init = function(container){
 			girdi=parseInt($("#giris").val());
 			
 			
-			boyaliKareSol=new kare(girdi,kareBoyaliFillColor, kareBoyaliStrokeColor,30,30);
+			boyaliKareSol=new kare(girdi,kareBoyaliFillColor, kareBoyaliStrokeColor,100,30);
 	boyaliKareSol.yap();
 			
 			

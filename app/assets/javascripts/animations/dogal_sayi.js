@@ -28,26 +28,27 @@ Interaction.getFramework = function() {
 
 
 Interaction.init = function(container){
-	Main.setObjective("Aşağıdaki doğal sayıları tabloya yerleştiriniz.");
+	Main.setObjective("Yandaki doğal sayıları tabloya yerleştiriniz.");
 	
 	$(container).append("<div id='sayilar'>");
-		$("#sayilar").css("width","490px");
-		$("#sayilar").css("height","60px");
+		$("#sayilar").css("width","570px");
+		$("#sayilar").css("height","30px");
 		$("#sayilar").css("position","absolute");
-		$("#sayilar").css("top","20px");
+		$("#sayilar").css("top","5px");
+		//$("#sayilar").css("bottom","0");
 		$("#sayilar").css("left","0");
 		$("#sayilar").css("right","0");
 		$("#sayilar").css("margin","auto");
 		$("#sayilar").css("border","solid 1px black");
-		$("#sayilar").css("font-size","medium");
+		$("#sayilar").css("font-size","small");
 		$("#sayilar").css("font-weight","bold");
 		
 	
 	$("#sayilar", container).append("<div class='yazi'>");
 		$(".yazi").css("text-align","center");
 		$(".yazi").css("position","absolute");
-		//$(".yazi").css("width","120px");
-		$(".yazi").css("height","30px");
+		$(".yazi").css("width","570px");
+		$(".yazi").css("height","10px");
 		//$(".yazi").css("height","210px");
 		$(".yazi").css("top","0");
 		$(".yazi").css("bottom","0");
@@ -59,9 +60,9 @@ Interaction.init = function(container){
 		$("#aksiyon").css("width","360px");
 		$("#aksiyon").css("height","220px");
 		$("#aksiyon").css("position","absolute");
-		$("#aksiyon").css("top","90px");
-		$("#aksiyon").css("left","30px");
-		//$("#milyonlarYuz").css("right","0");
+		$("#aksiyon").css("top","40px");
+		$("#aksiyon").css("left","0");
+		$("#aksiyon").css("right","0");
 		$("#aksiyon").css("margin","auto");
 		$("#aksiyon").css("border","solid 1px black");
 		$("#aksiyon").css("font-size","medium");
@@ -531,9 +532,11 @@ Interaction.init = function(container){
 			.css("margin","auto")
 			.css("position","absolute")
 			//.css("bottom","20px")
-			.css("left","30px")
+			.css("left","113px")
 			//.css("right","0")
-			.css("top","320px")
+			.css("top","270px")
+			.css("font-size","medium");
+			
 			//.css("border","solid 1px black");
 			
 			for(i=0;i<9;i++){
@@ -584,16 +587,26 @@ Interaction.init = function(container){
 	
 	// kontrol butonu
 	$(container).append("<button class='control_button'id='btnKontrol'>Kontrol</button>");
-	$(container).append("<style>.control_button{position:absolute; top:270px; right:30px;  }</style>");
+	$(container).append("<style>.control_button{position:absolute; top:230px; right:25px;  }</style>");
 	
 	// sonraki divi
 	$(container).append("<div id='sonraki'>");
 	$("#sonraki", container).append("<div id='dikdortgen'>");
 	$("#dikdortgen", container).append("<div id='yazi'>Sonraki</div>");
 	$("#sonraki", container).append("<div id='ucgen'>");
-	$(container).append("<style>#sonraki{position:absolute; top:270px; right:110px; height: 30px;cursor:pointer;color:"+divSonrakiYaziRenk+";</style>");
-	$(container).append("<style>#yazi{ position:absolute; vertical-align:middle; height:30px; top:3px;} #dikdortgen{position:absolute; margin:auto; bottom: 0px; right:0px; top:0px; left:0px; width:70px; height:30px; background:"+divSonrakiFillRenk + "}</style>");
+	$(container).append("<style>#sonraki{position:absolute; top:230px; right:110px; height: 30px;cursor:pointer;color:"+divSonrakiYaziRenk+";</style>");
+	$(container).append("<style> #dikdortgen{position:absolute; margin:auto; bottom: 0px; right:0px; top:0px; left:0px; width:70px; height:30px; background:"+divSonrakiFillRenk + "}</style>");
 	$(container).append("<style>#ucgen{position:absolute; top:0px; left:70px; width:0, height:0; border-left: 30px solid "+divSonrakiFillRenk+";border-top: 15px solid transparent;border-bottom: 15px solid transparent;}</style>");
+	$("#yazi").css("width","50px")
+	.css("position","absolute")
+	.css("height","13px")
+	.css("top","0")
+	.css("bottom","0")
+	.css("left","0")
+	.css("right","0")
+	.css("margin","auto");
+
+	
 	$("#sonraki").hide();
 		
 		//$("#yatay").css("width","40px  !important");
@@ -625,8 +638,8 @@ Interaction.init = function(container){
 	if(rastgeleBasamak==3)
 		rastgeleSayi=rastgele9;
 	//rastgeleSayi=String(Math.floor((Math.random()*900000000)+100000000));
-	//rastgeleSayi="964345019";
-	rastgeleSayi="xw"+rastgele7;
+	rastgeleSayi="999999999";
+	//rastgeleSayi="xw"+rastgele7;
 	var yaziyla= new Array();
 	console.log("denemeSayısı: "+rastgeleSayi+" basamak: "+rastgeleSayi.length);
 	var degisken;
@@ -679,8 +692,9 @@ Interaction.init = function(container){
 				yaziyla.push(degisken); console.log("4: "+onlarBasamagi[rakam]);
 				break;
 			case 3:
-				
-				if(birlerBasamagi[rakam]=="bir" ||birlerBasamagi[rakam]=="sifir")
+				if(birlerBasamagi[rakam]=="sifir")
+					degisken="";
+				else if(birlerBasamagi[rakam]=="bir" ||birlerBasamagi[rakam]=="sifir")
 					degisken="yüz";
 				else
 					degisken=birlerBasamagi[rakam]+" yüz";

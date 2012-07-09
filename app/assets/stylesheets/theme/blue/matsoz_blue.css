@@ -89,20 +89,20 @@ div.sozcuktasiyici{
 	left:20px;
 	position:absolute;
 	overflow:auto;
+	
 	}
 
 a.sozcuklink {
 	display:block;
 	padding:10px;
 	margin:1px;
-
+	text-align:right;
 	
 	font-size:16px;
 	font-weight:bold;
 	color:#FFF;
 	text-shadow: 1px 1px 0px rgba(0,0,0,0.5);
 	text-decoration:none;
-	text-align:left;
 	
 	background-color:#36567f;
 }

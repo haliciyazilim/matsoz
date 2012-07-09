@@ -140,7 +140,6 @@ Interaction.init = function(container) {
 			arrow.opacity = arrowHelper.opacity;
 			arrow.strokeColor = 'black';
 			arrow.strokeWidth = 2.5;
-		
 			if (angleText) {
 				angleText.remove();
 			}
@@ -163,7 +162,12 @@ Interaction.init = function(container) {
 			},
 			duration: 2000,
 			delay: 7000,
-			animationType: 'easeInEaseOut'
+			animationType: 'easeInEaseOut',
+			callback: function() {
+				$('#replayButton').fadeTo('fast', 1, function() {
+				      $('#replayButton').removeAttr('disabled');
+				});
+			}
 		});
 	
 		arrowHelper.animate({
@@ -177,17 +181,21 @@ Interaction.init = function(container) {
 	};
 
 	initializeAnimation();
-	runAnimation();
+//	runAnimation();
 		
 	// Create the control button
-	$(container).append('<input id="replayButton" type="button" value="Yeniden" />');
+	$(container).append('<input id="replayButton" type="button" value="Başlat" />');
 	$('#replayButton').css("position", "absolute")
-					  .css("top", "200px")
-					  .css("left", "366px");
+	  				  .css("left", "380px")
+					  .css("top", "130px");
 	$('#replayButton').addClass('control_button');
 	$('#replayButton').click(function () {
 		initializeAnimation();
-		runAnimation();	
+		runAnimation();
+		$('#replayButton').fadeTo('fast', 0, function() {
+			$('#replayButton').attr('disabled', 'disabled');
+			$('#replayButton').attr('value', 'Yeniden');
+		});
 	});
 }
 
@@ -275,36 +283,257 @@ paperAddOns = function () {
 	}
 }
 
-// Animation.images = [{
-// 	id: "kare01",
-// 	src: '/assets/animations/kare/kare_ornek_01.png'
-// },
-// {
-// 	id: "kare02",
-// 	src: '/assets/animations/kare/kare_ornek_02.png'
-// },
-// {
-// 	id: "kare03",
-// 	src: '/assets/animations/kare/kare_ornek_03.png'
-// },
-// {
-// 	id: "kare04",
-// 	src: '/assets/animations/kare/kare_ornek_04.png'
-// }]
+Animation.images = [{
+	id: "kare01",
+	src: '/assets/animations/kare/kare_ornek_01.png'
+},
+{
+	id: "kare02",
+	src: '/assets/animations/kare/kare_ornek_02.png'
+},
+{
+	id: "kare03",
+	src: '/assets/animations/kare/kare_ornek_03.png'
+},
+{
+	id: "kare03",
+	src: '/assets/animations/kare/kare_ornek_03.png'
+},
+{
+	id: "kare04",
+	src: '/assets/animations/kare/kare_ornek_04.png'
+},
+{
+	id: "kare05",
+	src: '/assets/animations/kare/kare_ornek_05.png'
+},
+{
+	id: "kare06",
+	src: '/assets/animations/kare/kare_ornek_06.png'
+},
+{
+	id: "kare07",
+	src: '/assets/animations/kare/kare_ornek_07.png'
+},
+{
+	id: "kare08",
+	src: '/assets/animations/kare/kare_ornek_08.png'
+},
+{
+	id: "kare09",
+	src: '/assets/animations/kare/kare_ornek_09.png'
+}]
 
 Animation.init = function (container) {
-	// 
-	// var imageGroup = new Group();
-	// 
-	// var kare01 = new Raster("kare01");
-	// var kare02 = new Raster("kare02");
-	// var kare03 = new Raster("kare03");
-	// var kare04 = new Raster("kare04");
-	// 
-	// imageGroup.addChild(kare01);
-	// imageGroup.addChild(kare02);
-	// imageGroup.addChild(kare03);
-	// imageGroup.addChild(kare04);
-	// 
-	// imageGroup.opacity = 1;
+	var imageGroup = new Group();
+	
+	var kare01 = new Raster("kare01");
+	var kare02 = new Raster("kare02");
+	var kare03 = new Raster("kare03");
+	var kare04 = new Raster("kare04");
+	var kare05 = new Raster("kare05");
+	var kare06 = new Raster("kare06");
+	var kare07 = new Raster("kare07");
+	var kare08 = new Raster("kare08");
+	var kare09 = new Raster("kare09");
+	
+	imageGroup.addChild(kare01);
+	imageGroup.addChild(kare02);
+	imageGroup.addChild(kare03);
+	imageGroup.addChild(kare04);
+	imageGroup.addChild(kare05);
+	imageGroup.addChild(kare06);
+	imageGroup.addChild(kare07);
+	imageGroup.addChild(kare08);
+	imageGroup.addChild(kare09);
+	
+	kare01.opacity = 0;
+	kare02.opacity = 0;
+	kare03.opacity = 0;
+	kare04.opacity = 0;
+	kare05.opacity = 0;
+	kare06.opacity = 0;
+	kare07.opacity = 0;
+	kare08.opacity = 0;
+	kare09.opacity = 0;
+	
+	imageGroup.position = new Point(200, 84);
+	
+	textGroup = new Group();
+	
+	text01 = new PointText(new Point(370, 40));
+	text02 = new PointText(new Point(370, 65));
+	text03 = new PointText(new Point(370, 90));
+	text04 = new PointText(new Point(370, 115));
+	text05 = new PointText(new Point(370, 140));
+				
+	text01.content = "Bütün açıları diktir.";
+	text02.content = "Bütün kenar uzunlukları eşittir.";
+	text03.content = "Karşılıklı kenarları paraleldir.";
+	text04.content = "Köşegen uzunlukları eşittir.";
+	text05.content = "Köşegenleri birbirini dik olarak ortalar.";
+
+	text01.opacity = 0;
+	text02.opacity = 0;
+	text03.opacity = 0;
+	text04.opacity = 0;
+	text05.opacity = 0;
+
+	textGroup.addChild(text01);
+	textGroup.addChild(text02);
+	textGroup.addChild(text03);
+	textGroup.addChild(text04);
+	textGroup.addChild(text05);
+
+	textGroup.fillColor = 'black';
+	
+	kare01.animate({
+		style: {
+			opacity: 1
+		},
+		duration: 1000,
+		delay: 0,
+		animationType: 'easeInEaseOut'
+	});
+	
+	///
+	
+	kare03.animate({
+		style: {
+			opacity: 1
+		},
+		duration: 1000,
+		delay: 1500,
+		animationType: 'easeInEaseOut',
+		callback: function () {
+			kare01.remove();
+		}
+	});
+	
+	///
+	
+	text01.animate({
+		style: {
+			opacity: 1
+		},
+		duration: 1000,
+		delay: 3000,
+		animationType: 'easeInEaseOut',
+	});
+	
+	kare04.animate({
+		style: {
+			opacity: 1
+		},
+		duration: 1000,
+		delay: 3000,
+		animationType: 'easeInEaseOut',
+		callback: function () {
+			kare03.remove();
+		}
+	});
+	
+	///
+	
+	text02.animate({
+		style: {
+			opacity: 1
+		},
+		duration: 1000,
+		delay: 5000,
+		animationType: 'easeInEaseOut',
+	});
+	
+	kare05.animate({
+		style: {
+			opacity: 1
+		},
+		duration: 1000,
+		delay: 5000,
+		animationType: 'easeInEaseOut',
+		callback: function () {
+			kare04.remove();
+		}
+	});
+	
+	///
+	
+	text03.animate({
+		style: {
+			opacity: 1
+		},
+		duration: 1000,
+		delay: 7000,
+		animationType: 'easeInEaseOut',
+	});
+	
+	kare06.animate({
+		style: {
+			opacity: 1
+		},
+		duration: 1000,
+		delay: 7000,
+		animationType: 'easeInEaseOut',
+		callback: function () {
+			kare05.remove();
+		}
+	});
+	
+	kare07.animate({
+		style: {
+			opacity: 1
+		},
+		duration: 1000,
+		delay: 9000,
+		animationType: 'easeInEaseOut',
+		callback: function () {
+			kare06.remove();
+		}
+	});
+	
+	///
+	
+	text04.animate({
+		style: {
+			opacity: 1
+		},
+		duration: 1000,
+		delay: 11000,
+		animationType: 'easeInEaseOut',
+	});
+	
+	kare08.animate({
+		style: {
+			opacity: 1
+		},
+		duration: 1000,
+		delay: 11000,
+		animationType: 'easeInEaseOut',
+		callback: function () {
+			kare07.remove();
+		}
+	});
+	
+	///
+	
+	text05.animate({
+		style: {
+			opacity: 1
+		},
+		duration: 1000,
+		delay: 13000,
+		animationType: 'easeInEaseOut',
+	});
+	
+	kare09.animate({
+		style: {
+			opacity: 1
+		},
+		duration: 1000,
+		delay: 13000,
+		animationType: 'easeInEaseOut',
+		callback: function () {
+			kare08.remove();
+		}
+	});
 }
