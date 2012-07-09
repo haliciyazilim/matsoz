@@ -380,7 +380,7 @@ Main.paperInit = function() {
 			{
 				Rec = Path.Rectangle(new Point(x + i * width/horizontalSegments, y + j * height/verticalSegments), new Size(width/horizontalSegments, height/verticalSegments));
 				Rec.strokeColor = '#000';
-				Rec.strokeWidth = 1.5;
+				Rec.strokeWidth = 2;
 				segRec.addChild(Rec);
 				if(paint < paintedSegments)
 				{

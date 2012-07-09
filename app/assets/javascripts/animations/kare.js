@@ -140,7 +140,6 @@ Interaction.init = function(container) {
 			arrow.opacity = arrowHelper.opacity;
 			arrow.strokeColor = 'black';
 			arrow.strokeWidth = 2.5;
-		
 			if (angleText) {
 				angleText.remove();
 			}
