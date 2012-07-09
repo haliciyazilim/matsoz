@@ -49,8 +49,8 @@ Interaction.init = function(container){
 	Interaction.container = container;
 	$(Interaction.container).append('<div id="B" style="position:absolute; top:70%; left:0%; width:100%; "></div>');
 	//Interaction.paper = new Raphael( $('div#T',Interaction.container).get(0) ,$('div#T',Interaction.container).width(),$(Interaction.container).height()*0.6);
-	Interaction.paper = {width:500,height:200}
-	$('div#B',Interaction.container).html('<div style="text-align:center;">Çevre&nbsp;=&nbsp;<input type="text" style="width:35px;height:30px;font-size:16px;font-weight:bold;text-align:center;" id="input" maxlength="3" />&nbsp;br</div><div style="text-align:right;"><span id="status"></span>&emsp;<input type="button" id="control" class="control_button" value="Kontrol" onclick="Interaction.checkAnswer()" /></div>');
+	Interaction.paper = {width:$(container).width(),height:$(container).height()}
+	$('div#B',Interaction.container).html('<div style="text-align:right;padding-right:130px;">Çevre&nbsp;=&nbsp;<input type="text" style="width:35px;height:30px;font-size:16px;font-weight:bold;text-align:center;" id="input" maxlength="3" />&nbsp;br</div><div style="text-align:right;"><span id="status"></span>&emsp;<input type="button" id="control" class="control_button" value="Kontrol" onclick="Interaction.checkAnswer()" /></div>');
 	Interaction.control = $('#control',Interaction.container).get(0);
 	Interaction.input = $('#input',Interaction.container).get(0);
 	Interaction.drawRuler();
@@ -58,8 +58,8 @@ Interaction.init = function(container){
 }
 Interaction.generateCircle = function(){
 	var x,y,r;
-	x = Interaction.paper.width*0.4;
-	y = Interaction.paper.height*0.5+10;
+	x = Interaction.paper.width*0.3;
+	y = Interaction.paper.height*0.5;
 	do
 		r = Math.floor(Math.min(x,y) * (Math.random()*0.7+0.3) /Interaction.br) * Interaction.br ;
 	while(Interaction.r == r)
@@ -136,7 +136,7 @@ Interaction.checkAnswer = function(){
 		Interaction.trial++;
 	}
 	else{
-		Interaction.setStatus('Yanlış cevap. Doğru cevap '+rightAnswer+' olacaktı.',false);
+		Interaction.setStatus('Yanlış, doğru cevap: '+rightAnswer,false);
 		Interaction.control.onclick = Interaction.nextQuestion;
 		Interaction.input.onkeyup = Interaction.nextQuestion;
 		Interaction.input.value = rightAnswer;

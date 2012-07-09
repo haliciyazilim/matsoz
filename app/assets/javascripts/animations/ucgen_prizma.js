@@ -56,8 +56,8 @@ Interaction.init = function(container){
 	Interaction._3d.x=100;
 	Interaction._3d.y=100;
 	Interaction._3d.z=0;
-	Interaction._3d.xAngle = 90;
-	Interaction._3d.zAngle = 90;
+	Interaction._3d.xAngle = 681;
+	Interaction._3d.zAngle = 63;
 	Interaction._3d.R_constant = 150;
 	function changeXAngle(){
 		Interaction._3d.x = Interaction._3d.R * Math.cos(Util.degreeToRadians(Interaction._3d.xAngle)) * Math.sin(Util.degreeToRadians(Interaction._3d.zAngle)) ;
@@ -80,16 +80,6 @@ Interaction.init = function(container){
 	}
 	setInterval(
 		function(){
-			
-			//if( Interaction.UP == true)
-//				Interaction._3d.zAngle-=inc;
-//			else if(Interaction.DOWN == true)
-//				Interaction._3d.zAngle+=inc;
-//			else if(Interaction.LEFT == true)
-//				Interaction._3d.xAngle-=inc;
-//			else if(Interaction.RIGHT == true)
-//				Interaction._3d.xAngle+=inc;
-//			else return;
 			Interaction._3d.R = Interaction._3d.R_constant - $('#distance').val()*6;
 			Interaction._3d.zAngle = Interaction._3d.zAngle > 160 ? 160 : (Interaction._3d.zAngle < 20 ? 20: Interaction._3d.zAngle);
 			changeXAngle();
