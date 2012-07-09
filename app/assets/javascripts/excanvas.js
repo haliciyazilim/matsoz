@@ -194,16 +194,25 @@ function Shape() {
 	this.points = [];
 	this.polygons = [];
 }
-
+Shape.prototype.remove = function(){
+	this.points = [];
+	this.polygons = [];
+}
 /**
  * Draws the shape
  */
 Shape.prototype.draw = function(drawlist) {
 	for (var i = 0; i< this.points.length; i++) {
+		if(this.points[i] == undefined)
+			continue;
 		space.flatten(this.points[i]);
 	}
 
 	for (var i = 0; i< this.polygons.length; i++) {
+		if(this.polygons[i] == undefined){
+			console.log(i + ' is undefined ')
+			continue;
+		}
 		var poly = this.polygons[i]; // convenience
 
 		space.flatten(poly.origin);
@@ -279,7 +288,7 @@ Polygon.prototype.draw = function() {
 
 	var color = this.color;
 
-	/*
+/*	
 	// Do lighting here
 	lightvector = Math.abs(this.normal.x + this.normal.y);
 	if(lightvector > 1) {
