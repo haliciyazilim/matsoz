@@ -15,8 +15,8 @@ Interaction.getFramework = function() {
 }
 
 // interaction init func.
-Interaction.init = function(paper){
-	
+Interaction.init = function(container){
+	Interaction.container = container;
 	// set interaction title
 	Main.setObjective('Aşağıda gelecek olan bileşik kesri tam sayılı kesre, tam sayılı kesri bileşik kesre çeviriniz ve kontrol ediniz.');
 	
@@ -43,6 +43,7 @@ Interaction.init = function(paper){
 	if(randomize % 2 == 0)
 	{	
 		// creating neccessary html elements
+
 		
 		$('#interaction_container').append('<div id="questionDiv"></div>');
 		$('#questionDiv').css("position", "absolute")
@@ -53,6 +54,9 @@ Interaction.init = function(paper){
 						.css("border", "solid");
 		
 		$('#questionDiv').append('<p id="nom" ></p>');
+
+		
+		
 		$('#nom').css("position", "absolute")
 				.css("top", "-2px");
 		$('#nom').html(nominator);
@@ -67,6 +71,7 @@ Interaction.init = function(paper){
 		}
 		
 		$('#questionDiv').append('<p id="denom" ></p>');
+
 		$('#denom').css("position", "absolute")
 				.css("top", "24px");
 		$('#denom').html(denominator);
@@ -81,6 +86,7 @@ Interaction.init = function(paper){
 		
 	
 		$('#questionDiv').append('<div id="line1"></div>');
+
 		$('#line1').css("position","absolute")
 				.css("left", "14px")
 				.css("top", "14px")
@@ -89,12 +95,12 @@ Interaction.init = function(paper){
 				.css("padding", 0)
 				.css("border-top", "2px solid")
 		
-		$('#interaction_container').append('<p id="equal1" >=</p>');
+		$(container).append('<p id="equal1" >=</p>');
 		$('#equal1').css("position", "absolute")
 				.css("left", "200px")
 				.css("top", "148px");
 		
-		$('#interaction_container').append('<input id="textInput1" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
+		$(container).append('<input id="textInput1" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
 		$('#textInput1').css("width", "32")
 					.css("height", "30")
 					.css("font-size", 22)
@@ -108,7 +114,7 @@ Interaction.init = function(paper){
 					
 		$('#textInput1').addClass('input');
 	
-		$('#interaction_container').append('<input id="textInput2" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
+		$(container).append('<input id="textInput2" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
 		$('#textInput2').css("width", "32")
 					.css("height", "30")
 					.css("font-size", 22)
@@ -122,7 +128,7 @@ Interaction.init = function(paper){
 					
 		$('#textInput2').addClass('input');
 	
-		$('#interaction_container').append('<input id="textInput3" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
+		$(container).append('<input id="textInput3" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
 		$('#textInput3').css("width", "32")
 					.css("height", "30")
 					.css("font-size", 22)
@@ -136,7 +142,7 @@ Interaction.init = function(paper){
 	
 		$('#textInput3').addClass('input');
 	
-		$('#interaction_container').append('<div id="line2"></div>');
+		$(container).append('<div id="line2"></div>');
 		$('#line2').css("position","absolute")
 				.css("left", "262px")
 				.css("top", "180px")
@@ -152,7 +158,7 @@ Interaction.init = function(paper){
 		var wh = Math.floor(nominator/denominator);
 		var nom = nominator % denominator;
 		var denom = denominator;
-		$('#interaction_container').append('<p id="wh" ></p>');
+		$(container).append('<p id="wh" ></p>');
 		$('#wh').css("position", "absolute")
 				.css("top", "146px");
 		$('#wh').html(wh);
@@ -166,7 +172,7 @@ Interaction.init = function(paper){
 			$('#wh').css("left", "154px")
 		}
 		
-		$('#interaction_container').append('<p id="nom" ></p>');
+		$(container).append('<p id="nom" ></p>');
 		$('#nom').css("position", "absolute")
 				.css("top", "134px");
 		$('#nom').html(nom);
@@ -180,7 +186,7 @@ Interaction.init = function(paper){
 			$('#nom').css("left", "184px")
 		}
 		
-		$('#interaction_container').append('<p id="denom" ></p>');
+		$(container).append('<p id="denom" ></p>');
 		$('#denom').css("position", "absolute")
 				.css("top", "160px");
 		$('#denom').html(denom);
@@ -195,7 +201,7 @@ Interaction.init = function(paper){
 		}
 		
 	//	frac2 = new Path.Fraction(180, 72, null, null, 18, 1.8);
-	$('#interaction_container').append('<div id="line1"></div>');
+	$(container).append('<div id="line1"></div>');
 		$('#line1').css("position","absolute")
 				.css("left", "180px")
 				.css("top", "180px")
@@ -204,12 +210,12 @@ Interaction.init = function(paper){
 				.css("padding", 0)
 				.css("border-top", "2px solid")
 		
-		$('#interaction_container').append('<p id="equal1" >=</p>');
+		$(container).append('<p id="equal1" >=</p>');
 		$('#equal1').css("position", "absolute")
 				.css("left", "220px")
 				.css("top", "148px");
 		
-		$('#interaction_container').append('<input id="textInput2" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
+		$(container).append('<input id="textInput2" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
 		$('#textInput2').css("width", "32")
 					.css("height", "30")
 					.css("font-size", 22)
@@ -223,7 +229,7 @@ Interaction.init = function(paper){
 					
 		$('#textInput2').addClass('input');
 	
-		$('#interaction_container').append('<input id="textInput3" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
+		$(container).append('<input id="textInput3" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
 		$('#textInput3').css("width", "32")
 					.css("height", "30")
 					.css("font-size", 22)
@@ -237,7 +243,7 @@ Interaction.init = function(paper){
 	
 		$('#textInput3').addClass('input');
 		
-		$('#interaction_container').append('<div id="line2"></div>');
+		$(container).append('<div id="line2"></div>');
 		$('#line2').css("position","absolute")
 				.css("left", "242px")
 				.css("top", "180px")
@@ -247,29 +253,29 @@ Interaction.init = function(paper){
 				.css("border-top", "2px solid")
 	}
 	
-	$('#interaction_container').append('<div id="statuss_field" class="status_field"></div>');
+	$(container).append('<div id="statuss_field" class="status_field"></div>');
 	$('#statuss_field').css("position", "absolute")
 					.css("left", "120px")
 					.css("top", "340px");
 					
-	$('#interaction_container').append('<div id="statuss" class="status_false"></div>');
+	$(container).append('<div id="statuss" class="status_false"></div>');
 	$('#statuss').css("position", "absolute")
 					.css("left", "180px")
 					.css("top", "340px");
 					
-	$('#interaction_container').append('<div id="answer"></div>');
+	$(container).append('<div id="answer"></div>');
 	$('#answer').css("position", "absolute")
 					.css("left", "130px")
 					.css("top", "266px")
 					.css("text-align", "right")
 					.css("color", answerColor);
 					
-	$('#interaction_container').append('<button id="checkBtn" class="control_button">Kontrol</button>');
+	$(container).append('<button id="checkBtn" class="control_button">Kontrol</button>');
 	$('#checkBtn').css("position", "absolute")
 					.css("left", "400px")
 					.css("top", "340px");
 	
-	$('#interaction_container').append('<button id="nextBtn" class="control_button">Sonraki</button>');
+	$(container).append('<button id="nextBtn" class="control_button">Sonraki</button>');
 	$('#nextBtn').css("position", "absolute")
 					.css("left", "400px")
 					.css("top", "340px");

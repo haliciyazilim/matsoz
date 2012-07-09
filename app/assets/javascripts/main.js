@@ -9,10 +9,9 @@ Main.config = {
 };
 
 Main.init = function(){
-	Main.interaction = $('#interaction_container > .interaction').get(0);
-	Main.animation = $('#animation_container > .animation').get(0);
-	Main.objective = $('#interaction_container > .objective').get(0);
-	Main.objective.className = "objective";
+	Main.interaction = $('.etkilesimalan').get(0);
+	Main.animation = $('.ornek').get(0);
+	Main.objective = $('.mavikontrol').get(0);
 	//Main.InteractionContainer.appendChild(Main.ObjectiveContainer);
 	var framework;
 	if (typeof(Interaction.getFramework) == "function") {
@@ -29,8 +28,8 @@ Main.init = function(){
 		paper.install(window);
 		Main.paperInit();
 		
-		interactionWidth = 512;
-		interactionHeight = 320;
+		interactionWidth = $(Main.interaction).width();
+		interactionHeight = $(Main.interaction).height();
 		Main.interaction.innerHTML = "<canvas id='interaction_canvas' class='interaction_canvas' keepalive='true' width='"+interactionWidth*Main.scale+"px' height='"+interactionHeight*Main.scale+"px'></canvas>"
 		canvas = $('.interaction_canvas').get(0);
 		paper.setup(canvas);
