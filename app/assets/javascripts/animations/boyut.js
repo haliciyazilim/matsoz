@@ -25,11 +25,24 @@ var bowlDroppedFalseStyle = {'stroke':'#f00','fill':'#faa'};
 var bowlDefaultStyle = {fillColor: '#fff', strokeColor : '#000' , strokeWidth : 2}
 /*Styles*/
 
-var Animation = function(){};Animation();
-var Interaction =function(){};Interaction();
+var Animation = {};
+
+Animation.init = function(container){
+	var w=$(container).width(), h=$(continer).height();
+	
+	x = w *0.5;
+	y = h*0.5;
+	
+	var p1 = new Point(x,y)	
+	
+}
+
+var Interaction = {};
+
 Interaction.getFramework = function() {
 	return 'paper';
 }
+
 Interaction.init = function(container){
 	Main.setObjective('Aşağıdaki nesneleri kaç boyutlu olduğuna göre sınıflandırmak için fare ile sürükleyerek ilgili sepete atınız.');
 	Interaction.container = container;
@@ -119,7 +132,6 @@ Interaction.nextQuestion = function(){
 				style:bowlDroppedTrueStyle,
 				duration:500,
 				callback:function(){
-					
 					Interaction.droppedBowl.animate({
 						style:bowlDefaultStyle,
 						duration:500,

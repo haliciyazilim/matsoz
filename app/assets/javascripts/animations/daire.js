@@ -68,7 +68,7 @@ Interaction.init = function(container){
 	Interaction.button.className = 'control_button'
 	$(Interaction.button).css({
 			position:'absolute',
-			top:'30px',
+			top:'20px',
 			left:Interaction.paper.width * 0.5
 		});
 	Interaction.container.appendChild(Interaction.button);
@@ -184,10 +184,6 @@ Interaction.drawCircle = function(){
 				Interaction.drawCircle.lineR = new Path.Line(new Point(Interaction.drawCircle.x,Interaction.drawCircle.y),new Point(Interaction.drawCircle.x+Interaction.r,Interaction.drawCircle.y));
 				Interaction.drawCircle.lineR.setStyle(lineStyle);
 				
-				//Interaction.drawCircle.group = new Group();
-				//Interaction.drawCircle.group.addChild(Interaction.drawCircle.textO);
-				//Interaction.drawCircle.group.addChild(Interaction.drawCircle.textR);
-				//Interaction.drawCircle.group.addChild(Interaction.drawCircle.lineR);
 				Interaction.drawCircle.textO.opacity=0;
 				Interaction.drawCircle.textO.animate({
 					style:{
@@ -266,11 +262,6 @@ Interaction.drawCircle = function(){
 Interaction.showCircularRegion = function(){
 	Interaction.scissor_half.remove();
 	Interaction.circlePaper.remove();
-	/*Interaction.circlePaper.animate({
-		style:{opacity:0},
-		duration:200,
-		callback:function(){Interaction.circlePaper.remove();}
-	});*/
 	Interaction.status.innerHTML = "O merkezli ve "+(Interaction.radius.innerHTML)+" birim yarıçaplı daire. <br />"
 				
 	if(Interaction.splitCircularRegion.circle)
