@@ -315,7 +315,8 @@ Interaction.init = function(container){
 						$("#geriBildirim").show();
 						
 					}
-				else
+					
+				else if(girdi1>girdi2)
 				{
 					$("#geriBildirimText").attr("class","status_false").html("Yanlış. Cevap:");
 					
@@ -328,7 +329,7 @@ Interaction.init = function(container){
 					$("#sonraki").show();
 				}
 			
-			
+			}
 			if(isaret==">"){
 				if(girdi1>girdi2){
 					$("#btnKontrol").hide();
@@ -339,9 +340,7 @@ Interaction.init = function(container){
 					$("#geriBildirim").show();
 					
 				}
-			}
-			}
-				else
+				else if(girdi1<girdi2)
 				{
 					$("#geriBildirimText").attr("class","status_false").html("Yanlış. Cevap:");
 					
@@ -357,6 +356,12 @@ Interaction.init = function(container){
 					$("#btnKontrol").hide();
 					$("#sonraki").show();
 				}
+			}
+			
+			
+			
+				
+				
 		}	}
 		
 	}
