@@ -145,20 +145,21 @@ div.tanim {
 	position:absolute;
 	
 	overflow:hidden;
-	}
-	div.tanim strong{
-		color:#d42b19;
-		text-shadow: 1px 1px 0px rgba(255,255,255,0.8);
-		margin-right:8px;
-	}
+}
 	
-	div.tanim em{
-		color:#4c4c4c;
-		font-size:16px;
-		display:block;
-		padding-left:10px;
-		padding-top:5px;
-	}
+div.tanim strong{
+	color:#d42b19;
+	text-shadow: 1px 1px 0px rgba(255,255,255,0.8);
+	margin-right:8px;
+}
+	
+div.tanim em{
+	color:#4c4c4c;
+	font-size:16px;
+	display:block;
+	padding-left:10px;
+	padding-top:5px;
+}
 
 div.ornek {
 	font-size:14px;
@@ -179,15 +180,16 @@ div.ornek {
 	padding:15px;
 	
 }
-	div.ornekbaslik{
-		width:69px;
-		height:34px;
-		position:absolute;
-		left: 50%;
-		top: -16px;
-		margin-left:-35px;
-	
-	}
+
+div.ornekbaslik {
+	width:69px;
+	height:34px;
+	position:absolute;
+	left: 50%;
+	top: -16px;
+	margin-left:-35px;
+}
+
 div.mavikontrol {
 	font-size:16px;
 	color:#000;
@@ -232,6 +234,4 @@ div.etkilesimalan {
 	
 	overflow:hidden;
 	float:right;
-	}
-
-
+}

@@ -164,8 +164,9 @@ Interaction.init = function(container) {
 			delay: 7000,
 			animationType: 'easeInEaseOut',
 			callback: function() {
+				$('#replayButton').css('visibility', 'visible');
 				$('#replayButton').fadeTo('fast', 1, function() {
-				      $('#replayButton').removeAttr('disabled');
+					  
 				});
 			}
 		});
@@ -186,14 +187,14 @@ Interaction.init = function(container) {
 	// Create the control button
 	$(container).append('<input id="replayButton" type="button" value="Başlat" />');
 	$('#replayButton').css("position", "absolute")
-	  				  .css("left", "380px")
-					  .css("top", "130px");
+					  .css("bottom", "20px")
+					  .css("right", "20px");
 	$('#replayButton').addClass('control_button');
 	$('#replayButton').click(function () {
 		initializeAnimation();
 		runAnimation();
 		$('#replayButton').fadeTo('fast', 0, function() {
-			$('#replayButton').attr('disabled', 'disabled');
+			$('#replayButton').css('visibility', 'hidden');
 			$('#replayButton').attr('value', 'Yeniden');
 		});
 	});
@@ -359,34 +360,47 @@ Animation.init = function (container) {
 	
 	imageGroup.position = new Point(200, 84);
 	
-	textGroup = new Group();
+	$(container).append('<div id="textHolder"></div>');
+	$('#textHolder').css("line-height", "24px")
+					.css("color", "#262626")
+					.css("position", "absolute")
+					.css("left", "400px")
+					.css("top", "38px")
+					.css("width", "330")
+					.css("height", "100");
+
+	$('#textHolder').append('<div id="text01">Bütün açıları diktir.</div>');
+	$('#textHolder').append('<div id="text02">Bütün kenar uzunlukları eşittir.</div>');
+	$('#textHolder').append('<div id="text03">Karşılıklı kenarları paraleldir.</div>');
+	$('#textHolder').append('<div id="text04">Köşegen uzunlukları eşittir.</div>');
+	$('#textHolder').append('<div id="text05">Köşegenleri birbirini dik olarak ortalar.</div>');
+
+	$('#text01').css('opacity', 0);
+	$('#text02').css('opacity', 0);
+	$('#text03').css('opacity', 0);
+	$('#text04').css('opacity', 0);
+	$('#text05').css('opacity', 0);
+
+	textHelper = {
+		text01Opacity: 0,
+		text02Opacity: 0,
+		text03Opacity: 0,
+		text04Opacity: 0,
+		text05Opacity: 0
+	};
 	
-	text01 = new PointText(new Point(370, 40));
-	text02 = new PointText(new Point(370, 65));
-	text03 = new PointText(new Point(370, 90));
-	text04 = new PointText(new Point(370, 115));
-	text05 = new PointText(new Point(370, 140));
-				
-	text01.content = "Bütün açıları diktir.";
-	text02.content = "Bütün kenar uzunlukları eşittir.";
-	text03.content = "Karşılıklı kenarları paraleldir.";
-	text04.content = "Köşegen uzunlukları eşittir.";
-	text05.content = "Köşegenleri birbirini dik olarak ortalar.";
+	Animation.onFrame = function(event){
+		$('#text01').css('opacity', textHelper.text01Opacity);
+		$('#text02').css('opacity', textHelper.text02Opacity);
+		$('#text03').css('opacity', textHelper.text03Opacity);
+		$('#text04').css('opacity', textHelper.text04Opacity);
+		$('#text05').css('opacity', textHelper.text05Opacity);
+	}
 
-	text01.opacity = 0;
-	text02.opacity = 0;
-	text03.opacity = 0;
-	text04.opacity = 0;
-	text05.opacity = 0;
-
-	textGroup.addChild(text01);
-	textGroup.addChild(text02);
-	textGroup.addChild(text03);
-	textGroup.addChild(text04);
-	textGroup.addChild(text05);
-
-	textGroup.fillColor = 'black';
 	
+	textHelper.animate = Item.prototype.animate;
+
+
 	kare01.animate({
 		style: {
 			opacity: 1
@@ -412,9 +426,9 @@ Animation.init = function (container) {
 	
 	///
 	
-	text01.animate({
+	textHelper.animate({
 		style: {
-			opacity: 1
+			text01Opacity: 1
 		},
 		duration: 1000,
 		delay: 3000,
@@ -432,12 +446,12 @@ Animation.init = function (container) {
 			kare03.remove();
 		}
 	});
-	
+
 	///
 	
-	text02.animate({
+	textHelper.animate({
 		style: {
-			opacity: 1
+			text02Opacity: 1
 		},
 		duration: 1000,
 		delay: 5000,
@@ -458,9 +472,9 @@ Animation.init = function (container) {
 	
 	///
 	
-	text03.animate({
+	textHelper.animate({
 		style: {
-			opacity: 1
+			text03Opacity: 1
 		},
 		duration: 1000,
 		delay: 7000,
@@ -493,9 +507,9 @@ Animation.init = function (container) {
 	
 	///
 	
-	text04.animate({
+	textHelper.animate({
 		style: {
-			opacity: 1
+			text04Opacity: 1
 		},
 		duration: 1000,
 		delay: 11000,
@@ -516,9 +530,9 @@ Animation.init = function (container) {
 	
 	///
 	
-	text05.animate({
+	textHelper.animate({
 		style: {
-			opacity: 1
+			text05Opacity: 1
 		},
 		duration: 1000,
 		delay: 13000,
