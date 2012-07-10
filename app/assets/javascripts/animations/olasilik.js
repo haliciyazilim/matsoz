@@ -6,7 +6,245 @@ var edgeStyle = {strokeColor:'#000',strokeWidth:2,fillColor:'#ff0',cursor:'move'
 var angleStyle = {'fill':'#DDD'};
 /*Styles*/
 
-var Animation = {};
+var Animation = {
+	images:[
+		{
+			id:'piechart',
+			src:'/assets/animations/olasilik/pie_chart.png'
+		}
+	],
+	showResult:function(){
+		$(Animation.container).append(
+			'<div id="result">'+
+				'<div style="width:150px;line-height:50px;">Yeşil Gelme Olasılığı = </div>'+
+				'<div style="width:120px;line-height:25px;text-align:center;">'+
+					'<div>Yeşil Gelme Sayısı</div>'+
+					'<div style="height:1px;border-top:2px solid #000;"></div>'+
+					'<div>Dönme Sayısı</div>'+
+				'</div>'+
+				'<div style="width:20px;line-height:50px;">&nbsp;=&nbsp;</div>'+
+				'<div style="width:35px;line-height:25px;text-align:center;">'+
+					'<div>186</div>'+
+					'<div style="height:1px;border-top:2px solid #000;"></div>'+
+					'<div>500</div>'+
+				'</div>'+
+				'<div style="width:40px;line-height:50px;text-align:left">&nbsp;=&nbsp;%37</div>'+
+			'</div>'
+		);	
+		$('div#result',Animation.container).css({
+			position:'absolute',
+			overflow:'hidden',
+			top:'70%',
+			height:'50px',
+			width:'420px',
+			left:'40%',
+			opacity:0
+		});
+		$('div#result > div',Animation.container).css({
+			float:'left'
+		});
+		$('div#result',Animation.container).animate({opacity:1},1000);
+		Animation.onFrame = undefined;
+	},
+	init:function(container){
+		Animation.container = container;
+		var w=$(container).width(), h=$(container).height();
+		var x = w *0.5;
+		var y = h*0.5;
+		$(container).append(
+			'<div id="olasilik_table_container">'+
+				'<table id="olasilik_table">'+
+					'<tr>'+
+						'<th>Dönme Sayısı</th>'+
+						'<th>Beyaz Gelme Sayısı</th>'+
+						'<th>Yeşil Gelme Sayısı</th>'+
+					'</tr>'+
+					'<tr id="1">'+
+						'<td id="1">&emsp;</td>'+
+						'<td id="2">&emsp;</td>'+
+						'<td id="3">&emsp;</td>'+
+					'</tr>'+
+					'<tr id="2">'+
+						'<td id="1">&emsp;</td>'+
+						'<td id="2">&emsp;</td>'+
+						'<td id="3">&emsp;</td>'+
+					'</tr>'+
+					'<tr id="3">'+
+						'<td id="1">&emsp;</td>'+
+						'<td id="2">&emsp;</td>'+
+						'<td id="3">&emsp;</td>'+
+					'</tr>'+
+				'</table>'+
+			'</div>'
+		);
+		Animation.table = $('table#olasilik_table',container).get(0);
+		$('div#olasilik_table_container',container).css({
+			position:'absolute',
+			width:'300px',
+			height:'150px',
+			top:'20px',
+			left:'50%'
+		});
+		$('table#olasilik_table td,table#olasilik_table th',container).css({
+			border:'1px solid #000',
+			borderCollapse:'hidden',
+			height:'23px',
+			textAlign:'center',
+			verticalAlign:'middle'
+		});
+		
+		var p1 = new Point(x-150,y);
+		var piechart = new Raster('piechart');
+		piechart.position = p1;
+		
+		Animation.arrow = new Path.OneSidedArrow(
+			new Point(
+				p1.x-10,
+				p1.y
+			),
+			new Point(
+				p1.x+piechart.bounds.width*0.4,
+				p1.y
+			),
+			20,
+			30
+		);
+		Animation.arrow.setStyle({
+			strokeWidth:6,
+			strokeColor:'#f00',
+			fillColor:'#f00'
+		})
+		Animation.arrowPoint = new Path.Circle(p1,5);
+		Animation.arrowPoint.setStyle({
+			strokeColor:'#000',
+			fillColor:'#000'
+		});
+		animationHelper = {
+			angle:0,
+			oldAngle:0,
+			firstStop:0,
+			secondStop:0,
+			thirdStart:0,
+			thirdStop:0,
+			tr11:0,
+			tr12:0,
+			tr13:0,
+			tr21:0,
+			tr22:0,
+			tr23:0,
+			tr31:0,
+			tr32:0,
+			tr33:0
+		}	
+		
+		Animation.onFrame = function(event){
+			var dA = ( animationHelper.angle - animationHelper.oldAngle );
+			Animation.arrow.rotate( - dA ,p1)
+			//console.log(animationHelper.thirdStart);
+			animationHelper.oldAngle = animationHelper.angle;	
+			if(animationHelper.firstStop == 1){
+				$('tr#1 td#1',Animation.table).html(animationHelper.tr11);
+				$('tr#1 td#2',Animation.table).html(animationHelper.tr12);
+				$('tr#1 td#3',Animation.table).html(animationHelper.tr13);
+				animationHelper.firstStop = 0;
+			}
+			else if(animationHelper.secondStop == 1){
+				$('tr#1 td#1',Animation.table).html(animationHelper.tr11);
+				$('tr#1 td#2',Animation.table).html(animationHelper.tr12);
+				$('tr#1 td#3',Animation.table).html(animationHelper.tr13);
+				animationHelper.secondStop = 0;
+			}
+			else if(animationHelper.thirdStop == 1){
+				animationHelper.thirdStart = 0;
+				animationHelper.thirdStop = 0;
+				Animation.showResult();
+				
+			}
+			else if(animationHelper.thirdStart > 0){
+				$('tr#1 td#1',Animation.table).html(Math.floor(animationHelper.tr11));
+				$('tr#1 td#2',Animation.table).html(Math.floor(animationHelper.tr12));
+				$('tr#1 td#3',Animation.table).html(Math.floor(animationHelper.tr13));
+				if(animationHelper.tr21 > 0){
+					$('tr#2 td#1',Animation.table).html(Math.floor(animationHelper.tr21));
+					$('tr#2 td#2',Animation.table).html(Math.floor(animationHelper.tr22));
+					$('tr#2 td#3',Animation.table).html(Math.floor(animationHelper.tr23));
+				}
+				if(animationHelper.tr31 > 0){
+					$('tr#3 td#1',Animation.table).html(Math.floor(animationHelper.tr31));
+					$('tr#3 td#2',Animation.table).html(Math.floor(animationHelper.tr32));
+					$('tr#3 td#3',Animation.table).html(Math.floor(animationHelper.tr33));
+				}
+			}
+		}
+		
+		animationHelper.animate = Item.prototype.animate;
+		animationHelper.animate({
+			style:{
+				angle:6000,
+				thirdStart:100,
+				thirdStop:1,
+			},
+			duration:4500,
+			delay:4000,
+			animationType: 'easeInEaseOut'
+		});
+		animationHelper.animate({
+			style:{
+				tr31:500,
+				tr32:314,
+				tr33:186
+			},
+			duration:1500,
+			delay:6500,
+			animationType: 'easeInEaseOut'
+		});
+		animationHelper.animate({
+			style:{
+				tr21:100,
+				tr22:63,
+				tr23:37
+			},
+			duration:1500,
+			delay:5000,
+			animationType: 'easeInEaseOut'
+		});
+		animationHelper.animate({
+			style:{
+				tr11:50,
+				tr12:36,
+				tr13:14,
+			animationType: 'easeInEaseOut'
+			},
+			duration:1000,
+			delay:4000
+		});
+		animationHelper.animate({
+			style:{
+				angle:1030,
+				tr11:2,
+				tr12:1,
+				tr13:1,
+				secondStop:1
+			},
+			duration:1000,
+			delay:2500,
+			animationType: 'easeInEaseOut'
+		});
+		animationHelper.animate({
+			style:{
+				angle:480,
+				tr11:1,
+				tr12:0,
+				tr13:1,
+				firstStop:1
+			},
+			duration:1000,
+			delay:500,
+			animationType: 'easeInEaseOut'
+		});
+		
+	}
+};
 var Interaction = {};
 
 Interaction.images = [
@@ -138,17 +376,3 @@ Interaction.bindTool = function(){
 	tool.activate();
 	Interaction.tool = tool;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
