@@ -25,6 +25,171 @@ Interaction.getFramework = function() {
 }
 
 
+Animation.init=function(container){
+	
+		
+	
+		
+	$(container).append("<div class='sayilar' id='sayi'>");
+	//$(container).append("<div class='sayilar' id='sayi2'>");
+	//$(container).append("<div class='sayilar' id='sayi3'>");
+	$(".sayilar").css("position","absolute")
+				.css("margin", "auto")
+				.css("right", "0")
+				.css("top", "0")
+				.css("bottom", "0")
+				.css("left", "0")
+				.css("width", "210px")
+				.css("height", "60px")
+				.css("text-align","center")
+				.css("line-height","60px")
+				.css("font-size","large");
+				//.css("border","solid 1px black");
+	var deger=format(999999999, {point:'.'});
+	//$("#sayi").html(deger);
+	
+	
+	
+	
+		
+		
+		
+	exampleHelper={
+		sayi:1,
+		sayi1:1,
+		sayi2:1
+	};
+	var deger=format(exampleHelper.sayi, {point:'.'});
+	Animation.onFrame = function(event){
+		$('#sayi').html(format(exampleHelper.sayi, {point:'.'}));
+		//$('#sayi').html(Math.floor(exampleHelper.sayi2)+" "+Math.floor(exampleHelper.sayi1)+" "+Math.floor(exampleHelper.sayi));
+		//$('#sayi2').html(Math.floor(exampleHelper.sayi2));
+		//$('#sayi').html(Math.floor(exampleHelper.sayi));	
+	}
+	
+	exampleHelper.animate = Item.prototype.animate;
+	
+	
+	
+	//1-3 saniye arasında 1-10 arasında sayı gelir.
+	exampleHelper.animate({
+		style:{
+			sayi:10
+		},
+		duration:3000,
+		delay:1000,
+		animationType: 'easeIn',
+		callback: function () {
+			
+		}
+	});
+	
+	
+	
+	//4. saniyede 50'ye çıkıyor 
+	exampleHelper.animate({
+		style:{
+			sayi:100
+		},
+		duration:3000,
+		delay:4000,
+		//animationType: 'easeInEaseOut',
+		callback: function () {
+			//$("#sayi3").show();
+			//$("#sayi2").hide();
+		}
+	});
+	
+	//7. saniyede 500'e çıkıyor 
+	exampleHelper.animate({
+		style:{
+			sayi:1000000
+		},
+		duration:3000,
+		delay:7000,
+		//animationType: 'easeInEaseOut',
+		callback: function () {
+			//$("#sayi2").hide();
+			//$("#sayi3").show();
+		}
+	});
+	
+	//7. saniyede 500'e çıkıyor 
+	exampleHelper.animate({
+		style:{
+			sayi:10000000
+		},
+		duration:3000,
+		delay:10000,
+		animationType: 'easeInEaseOut',
+		callback: function () {
+			//$("#sayi2").hide();
+			//$("#sayi3").show();
+		}
+	});
+	
+	//4. saniyede 50'ye çıkıyor 
+	exampleHelper.animate({
+		style:{
+			sayi:10000010
+		},
+		duration:3000,
+		delay:13000,
+		animationType: 'easeInEaseOut',
+		callback: function () {
+			//$("#sayi3").show();
+			//$("#sayi2").hide();
+		}
+	});
+	
+	//7. saniyede 500'e çıkıyor 
+	exampleHelper.animate({
+		style:{
+			sayi:100000000
+		},
+		duration:3000,
+		delay:16000,
+		animationType: 'easeInEaseOut',
+		callback: function () {
+			//$("#sayi2").hide();
+			//$("#sayi3").show();
+		}
+	});
+	
+	//4. saniyede 50'ye çıkıyor 
+	exampleHelper.animate({
+		style:{
+			sayi:100000010
+		},
+		duration:3000,
+		delay:19000,
+		animationType: 'easeInEaseOut',
+		callback: function () {
+			//$("#sayi3").show();
+			//$("#sayi2").hide();
+		}
+	});
+	
+	//4. saniyede 50'ye çıkıyor 
+	exampleHelper.animate({
+		style:{
+			sayi:999999999
+		},
+		duration:3000,
+		delay:22000,
+		animationType: 'easeInEaseOut',
+		callback: function () {
+			//$("#sayi3").show();
+			//$("#sayi2").hide();
+		}
+	});
+	
+	
+	
+	
+	
+	
+};
 
 
 Interaction.init = function(container){
@@ -869,4 +1034,17 @@ Interaction.init = function(container){
 	function isPassKey(key,allowedchars){if(allowedchars!=null){for(var i=0;i<allowedchars.length;i++){if(allowedchars[i]==String.fromCharCode(key))return true;}}return false;}
 	function SadeceRakamBlur(e,clear){var nesne=e.target?e.target:e.srcElement;var val=nesne.value;val=val.replace(/^\s+|\s+$/g,"");if(clear)val=val.replace(/\s{2,}/g," ");nesne.value=val;}
 	
+var format = function(num, options) {
+	options.point=options.point ||',';
+	options.group=options.group ||' ';
+	options.places=options.places||0;
+	options.suffix=options.suffix||'';
+	options.prefix=options.prefix||'';
+	
+	regex = /(\d+)(\d{3})/;
+	result = ((isNaN(num) ? 0 : Math.abs(num)).toFixed(options.places)) + '';
+	
+	for (result = result.replace('.', options.point); regex.test(result) && options.group; result=result.replace(regex, '$1'+options.group+'$2')) {};
+	return (num < 0 ? '-' : '') + options.prefix + result + options.suffix;
+};
 	

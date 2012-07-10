@@ -24,11 +24,15 @@ Interaction.getFramework = function() {
 
 Animation.init=function(container){
 
+
+	
+	
 	
 	// Sağdaki ve soldaki boş kareler çiziliyor.
-	var bosKareSol= new Kare(100, kareIlkFillColor, kareIlkStrokeColor,40.5,30.5);
-		bosKareSol.opacity=0;
-		bosKareSol.animate({
+	var ornekBosKareSol= new OrnekKare(100, kareIlkFillColor, kareIlkStrokeColor,40.5,30.5);
+		ornekBosKareSol.opacity=0;
+	
+		ornekBosKareSol.animate({
 			style: {
 				opacity: 1
 			},
@@ -36,9 +40,10 @@ Animation.init=function(container){
 			delay: 1000
 		});
 	
-	var boyaliKareSol=new Kare(25, kareBoyaliFillColor, kareBoyaliStrokeColor,40.5,30.5);
-	boyaliKareSol.opacity=0;
-		boyaliKareSol.animate({
+	var ornekBoyaliKareSol=new OrnekKare(25, kareBoyaliFillColor, kareBoyaliStrokeColor,40.5,30.5);
+	ornekBoyaliKareSol.opacity=0;
+
+		ornekBoyaliKareSol.animate({
 			style: {
 				opacity: 1
 			},
@@ -52,15 +57,126 @@ Animation.init=function(container){
 
 	$(container).append("<div id='yaziSol'>");
 	$("#yaziSol").css("position","absolute")
-				.css("left", "60px")
+				.css("left", "55px")
 				.css("top", "150px")
 				.css("width", "100px")
-				.css("height", "12px").html("yüzde yirmi beş").css("opacity","0");
+				.css("font-size","12px")
+				.css("text-align","center")
+				.css("height", "12px").html("yüzde yirmi beş");
+	
+	$(container).append("<div id='yaziSag'>");
+	$("#yaziSag").css("position","absolute")
+				.css("right", "40px")
+				.css("top", "150px")
+				.css("width", "100px")
+				.css("font-size","12px")
+				.css("text-align","center")
+				.css("height", "12px").html("yüzde otuz iki");
 				
-	$("#yaziSol").animate({opacity:1, duration:100});
+	$(container).append("<div id='yaziOrta'>");
+	$("#yaziOrta").css("position","absolute")
+				.css("margin", "auto")
+				.css("right", "0")
+				.css("top", "0")
+				.css("bottom", "0")
+				.css("left", "0")
+				.css("width", "210px")
+				.css("height", "40px");
+				//.css("border","solid 1px black");	
+	$("#yaziOrta", container).append("<div class='karsilastirma' id='yuzdeSol'>");
+	$("#yaziOrta", container).append("<div class='karsilastirma' id='isaret'>");
+	$("#yaziOrta", container).append("<div class='karsilastirma' id='yuzdeSag'>");
+	$(".karsilastirma").css("float","left")
+				.css("margin-left", "2px")
+				.css("width", "32%")
+				.css("height", "40px")
+				//.css("border","solid 1px black")
+				.css("font-size","20px")
+				.css("text-align","center");
+				
+	$("#yuzdeSol").html("%25");
+	$("#isaret").html("<");
+	$("#yuzdeSag").html("%32");
+							
+				
+		
+	exampleHelper={
+		
+		yaziSol:0,
+		yaziSag:0,
+		yuzdeSol:0,
+		yuzdeSag:0,
+		isaret:0
+		
+		
+	};
 				
 				
-	var bosKareSag= new Kare(100, kareIlkFillColor, kareIlkStrokeColor,500,30);
+	var ornekBosKareSag= new OrnekKare(100, kareIlkFillColor, kareIlkStrokeColor,630.5,30.5);
+	
+	
+	ornekBosKareSag.opacity=0;
+	ornekBosKareSag.animate({
+		style: {
+			opacity: 1
+		},
+		duration: 1000,			
+		delay: 1000
+	});
+	var ornekBoyaliKareSag=new OrnekKare(32, kareBoyaliFillColor, kareBoyaliStrokeColor,630.5,30.5);
+	ornekBoyaliKareSag.opacity=0;
+	
+		ornekBoyaliKareSag.animate({
+			style: {
+				opacity: 1
+			},
+			duration: 1000,
+			delay: 2000,
+			callback: function () {
+				//bosKareSol.remove();
+			}
+		});
+	
+	Animation.onFrame = function(event){
+		$('#yaziSol').css("opacity", exampleHelper.yaziSol);
+		$('#yaziSag').css("opacity", exampleHelper.yaziSag);
+		$('#yuzdeSol').css("opacity", exampleHelper.yuzdeSol);
+		$('#isaret').css("opacity", exampleHelper.isaret);
+		$('#yuzdeSag').css("opacity", exampleHelper.yuzdeSag);
+	}
+	exampleHelper.animate = Item.prototype.animate;
+	
+	exampleHelper.animate({
+		style:{
+			isaret:1
+		},
+		duration:1000,
+		delay:5000
+	});
+	
+	exampleHelper.animate({
+		style:{
+			
+			yaziSol:1,
+			yaziSag:1,
+		},
+		duration:1000,
+		delay:4000
+	});
+	
+	exampleHelper.animate({
+		style:{
+			yuzdeSol:1,
+			yuzdeSag:1,
+		},
+		duration:1000,
+		delay:3000
+	});
+	
+	
+	
+
+		
 
 
 };
@@ -183,7 +299,7 @@ Interaction.init = function(container){
 	
 	// Gösterilecek gCevaplar
 	$("#orta", container).append("<div id='gCevaplar'>");
-	$("#orta", container).append("<style> #gCevaplar{margin:auto;position:absolute; left:55px; right:0; top:150px; width:170px ;font-weight:bold;float:left;}</style>");
+	$("#orta", container).append("<style> #gCevaplar{margin:auto;position:absolute; left:; right:0; top:150px; width:200px ;font-weight:bold;float:left; text-align:center}</style>");
 	$("#orta", container).append("<style>.cevapİsaret{color:"+dogruCevapGosterimRengi+"}");
 
 	$("input").addClass("input");
@@ -194,10 +310,10 @@ Interaction.init = function(container){
 	
 	// Sağdaki ve soldaki boş kareler çiziliyor.
 	bosKareSol= new Kare(100, kareIlkFillColor, kareIlkStrokeColor,40,30);
-	//bosKareSol.yap();
+	bosKareSol.yap();
 	
 	bosKareSag= new Kare(100, kareIlkFillColor, kareIlkStrokeColor,450,30);
-	//bosKareSag.yap();
+	bosKareSag.yap();
 	
 	/*
 	girdi=$("#giris").val();
@@ -213,7 +329,7 @@ Interaction.init = function(container){
 			bosKareSol.yap();
 			girdi=$("#girisSol").val();
 			$("#girdiCevap1").val(girdi);
-			boyaliKareSol=new kare(girdi,kareBoyaliFillColor, kareBoyaliStrokeColor,40,30);
+			boyaliKareSol=new Kare(girdi,kareBoyaliFillColor, kareBoyaliStrokeColor,40,30);
 			boyaliKareSol.yap();
 	});
 	
@@ -223,7 +339,7 @@ Interaction.init = function(container){
 			bosKareSag.yap();
 			girdi=$("#girisSag").val();
 			$("#girdiCevap3").val(girdi);
-			boyaliKareSag=new kare(girdi,kareBoyaliFillColor, kareBoyaliStrokeColor,450,30);
+			boyaliKareSag=new Kare(girdi,kareBoyaliFillColor, kareBoyaliStrokeColor,450,30);
 			boyaliKareSag.yap();
 	});
 	
@@ -246,8 +362,8 @@ Interaction.init = function(container){
     			$('#geriBildirimText').attr("class","status_alert");
 				$('#geriBildirimText').html("Sayılar birbirine eşit olmamalıdır. Lütfen yeniden sayı giriniz.");
 				$("#geriBildirim").show();
-    			$(this).val("");
-    			$("#girdiCevap1").val("");
+    			//$(this).val("");
+    			//$("#girdiCevap1").val("");
     		}
 	    	return;
 		});  
@@ -269,7 +385,7 @@ Interaction.init = function(container){
     			$('#geriBildirimText').attr("class","status_alert");
 				$('#geriBildirimText').html("Sayılar birbirine eşit olmamalıdır. Lütfen yeniden sayı giriniz.");
 				$("#geriBildirim").show();
-    			$(this).val("");
+    			//$(this).val("");
     			//$("#girdiCevap3").val("");
     		}
 	    	return;
@@ -451,7 +567,7 @@ Interaction.init = function(container){
 };
 // kare sınıfı
 
-var Kare = function(kareSayisi, dolguRengi, hatRengi, x,y) {
+var OrnekKare = function(kareSayisi, dolguRengi, hatRengi, x,y) {
 	this.animate = Item.prototype.animate;
 	this.kareSayisi=kareSayisi;
 	this.dolguRengi=dolguRengi;
@@ -500,6 +616,61 @@ var Kare = function(kareSayisi, dolguRengi, hatRengi, x,y) {
 	return group;
 }
 
+
+var Kare= function(kareSayisi, dolguRengi, hatRengi, x,y){
+		this.animate = Item.prototype.animate;
+		this.kareSayisi=kareSayisi;
+		this.dolguRengi=dolguRengi;
+		this.hatRengi=hatRengi;
+		this.x=x;
+		this.y=y;
+		this.yap=kareYap;
+		
+	}
+	
+	function kareYap(){
+		
+		//var group = new Group();	
+
+		var girdi=this.kareSayisi;
+				
+		var onluk=Math.floor(girdi/10)==0?1:Math.floor(girdi/10+1);
+		var birlik=Math.floor(girdi%10);
+			
+		var girilenKareSayisi=10;
+		
+		for(j=0;j<onluk && j<10;j++){
+					
+			if(j==(onluk-1))
+				girilenKareSayisi=birlik;
+			else
+				var girilenKareSayisi=10;
+						
+			for(i=0; i<girilenKareSayisi && i<10;i++){
+						
+				boyaliKare = new Rectangle((this.x+i*10)+0.5,(this.y+j*10)+0.5,10,10); //x,y,width,height
+				var path = new Path.Rectangle(boyaliKare);
+				path.fillColor = this.dolguRengi;
+				path.strokeColor=this.hatRengi;
+				
+					if(this.dolguRengi!="white"){
+						path.opacity = 0;
+						path.animate({
+							style: {
+								opacity: 1
+							},
+							duration: 250,
+							delay: 20 * (j*10 + i)
+						})
+					}
+				
+				//group.addChild(path);
+			}	
+		}
+		
+		//return group;
+		
+	}
 // Sadece rakam girilmesini sağlanıyor.
 	function SadeceRakam(e,allowedchars){var key=e.charCode==undefined?e.keyCode:e.charCode;if((/^[0-9]+$/.test(String.fromCharCode(key)))||key==0||key==13||isPassKey(key,allowedchars)){return true;}else{return false;}}
 	function isPassKey(key,allowedchars){if(allowedchars!=null){for(var i=0;i<allowedchars.length;i++){if(allowedchars[i]==String.fromCharCode(key))return true;}}return false;}
