@@ -103,7 +103,7 @@ Main.paperInit = function() {
 		if (arrowHeadSize == null) {
 			arrowHeadSize = 3;
 		}
-		if(angle == null && angle == 'undefined')
+		if(angle == null && angle == undefined)
 			angle = 30;
 		var group = new Group();
 		var path = new Path.Line(point1, point2);
@@ -148,8 +148,11 @@ Main.paperInit = function() {
 		};
 		group.addChild(path);
 		group.addChild(pt);
+		group.strokeWidth = 2;
 		return group;
 	}
+	
+	
 	Path.Cylinder = function(p,s){
 		var x=p.x,y=p.y,w=s.width,h=s.height;
 		var x1,y1,x2,y2;		
@@ -380,7 +383,7 @@ Main.paperInit = function() {
 			{
 				Rec = Path.Rectangle(new Point(x + i * width/horizontalSegments, y + j * height/verticalSegments), new Size(width/horizontalSegments, height/verticalSegments));
 				Rec.strokeColor = '#000';
-				Rec.strokeWidth = 2;
+				Rec.strokeWidth = 1;
 				segRec.addChild(Rec);
 				if(paint < paintedSegments)
 				{
@@ -397,8 +400,8 @@ Main.paperInit = function() {
 		var segCirc = new Group();
 		var i;
 		var angle =  2 * Math.PI / totalPieces;
-		var startAngle = 0;
-		var endAngle = angle;
+		var startAngle = -Math.PI/2;
+		var endAngle = startAngle + angle;
 		var paint = 0;
 
 		for(i=0; i < totalPieces; i++)
@@ -420,8 +423,8 @@ Main.paperInit = function() {
 			Circ.closePath();
 			startAngle += angle;
 			endAngle += angle;
-			Circ.strokeColor = 'black';
-			Circ.strokeWidth = 1.4;
+			Circ.strokeColor = '#000';
+			Circ.strokeWidth = 1;
 			segCirc.addChild(Circ);
 			if(paint < paintedPieces)
 			{

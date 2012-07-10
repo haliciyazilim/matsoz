@@ -14,6 +14,114 @@ Interaction.getFramework = function() {
 	return 'paper';
 }
 
+Animation.init = function(container){
+	Animation.container = container;
+	
+	var arr = new Group(); 
+	var arrow = new Path.OneSidedArrow(new Point(10, 100), new Point(500, 100), 10, 30);
+	var arrow2 = new Path.OneSidedArrow(new Point(500,100), new Point(501,100), 10, 30);
+	arrow.rotate(180);
+	arr.addChild(arrow);
+	arr.addChild(arrow2);
+	
+	var dotGroup = new Group();
+	var firstDot = new Path.Circle(new Point(60, 100), 5)
+	firstDot.fillColor = "black";
+	var secondDot = new Path.Circle(new Point(195, 100), 5)
+	secondDot.fillColor = "black";
+	var thirdDot = new Path.Circle(new Point(330, 100), 5)
+	thirdDot.fillColor = "black";
+	var fourthDot = new Path.Circle(new Point(465, 100), 5)
+	fourthDot.fillColor = "black";
+	dotGroup.addChild(firstDot);
+	dotGroup.addChild(secondDot);
+	dotGroup.addChild(thirdDot);
+	dotGroup.addChild(fourthDot);
+	//dotGroup.opacity = 0;
+	
+	var firstRect = new Group();
+	var secondRect = new Group();
+	
+	var one = new Path.Rectangle(new Point(60.5, 35.5), new Size(135, 15));
+	one.fillColor = "#88ACE0";
+	one.strokeColor = "black";
+	
+	var two = new Path.Rectangle(new Point(195.5, 35.5), new Size(135, 15));
+	two.fillColor = "#88ACE0";
+	two.strokeColor = "black";
+	
+	var firstPiece = new Path.Rectangle(new Point(330.5, 35.5), new Size(15,15));
+	firstPiece.fillColor = "#88ACE0";
+	firstPiece.strokeColor = "black";
+	
+	var secondPiece = new Path.Rectangle(new Point(345.5, 35.5), new Size(15,15));
+	secondPiece.fillColor = "#88ACE0";
+	secondPiece.strokeColor = "black";
+	
+	var thirdPiece = new Path.Rectangle(new Point(360.5, 35.5), new Size(15,15));
+	thirdPiece.fillColor = "#88ACE0";
+	thirdPiece.strokeColor = "black";
+	
+	var fourthPiece = new Path.Rectangle(new Point(375.5, 35.5), new Size(15,15));
+	fourthPiece.fillColor = "#88ACE0";
+	fourthPiece.strokeColor = "black";
+	
+	firstRect.addChild(one);
+	firstRect.addChild(two);
+	firstRect.addChild(firstPiece);
+	firstRect.addChild(secondPiece);
+	firstRect.addChild(thirdPiece);
+	firstRect.addChild(fourthPiece);
+	
+	for(i = 0; i < 22; i++) {
+		var exRect = new Path.Rectangle(new Point(60.5 + (15 * i), 150.5), new Size(15, 15));
+		exRect.fillColor = "#88ACE0";
+		exRect.strokeColor = "black";
+		secondRect.addChild(exRect);
+	}
+	
+	arr.opacity = 0;
+	firstRect.opacity = 0;
+	secondRect.opacity = 0;
+	dotGroup.opacity = 0;
+	
+	arr.animate({
+		style: {
+			opacity: 1
+		},
+		duration: 1000,
+		delay: 500,
+		animationType: 'easeInEaseOut'
+	});
+	
+	dotGroup.animate({
+		style: {
+			opacity: 1
+		},
+		duration: 1000,
+		delay: 1500,
+		animationType: 'easeInEaseOut'
+	});
+	
+	firstRect.animate({
+		style: {
+			opacity: 1
+		},
+		duration: 1000,
+		delay: 2500,
+		animationType: 'easeInEaseOut'
+	});
+	
+	secondRect.animate({
+		style: {
+			opacity: 1
+		},
+		duration: 1000,
+		delay: 3500,
+		animationType: 'easeInEaseOut'
+	});
+}
+
 // interaction init func.
 Interaction.init = function(container){
 	Interaction.container = container;
