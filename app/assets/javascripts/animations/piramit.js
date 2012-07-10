@@ -70,8 +70,8 @@ Interaction.init = function(container){
 	Interaction._3d.x=100;
 	Interaction._3d.y=100;
 	Interaction._3d.z=0;
-	Interaction._3d.xAngle = 75;
-	Interaction._3d.zAngle = 120;
+	Interaction._3d.xAngle = 146;
+	Interaction._3d.zAngle = 60;
 	Interaction._3d.R_constant = 150;
 	function changeXAngle(){
 		Interaction._3d.x = Interaction._3d.R * Math.cos(Util.degreeToRadians(Interaction._3d.xAngle)) * Math.sin(Util.degreeToRadians(Interaction._3d.zAngle)) ;
@@ -164,7 +164,7 @@ function load_square_pyramid() {
 		new Point(0, 0, -1),
 		true /* double-sided */,
 		Polygon.SOLID,
-		[100, 100, 100,0.8]
+		[100, 100, 100, 0.9]
 	));
 
 	// Front
@@ -173,7 +173,7 @@ function load_square_pyramid() {
 		new Point(0, 0, 1),
 		true /* double-sided */,
 		Polygon.SOLID,
-		[100, 100, 100,0.8]
+		[100, 100, 100, 0.9]
 	));
 
 	// Top
@@ -182,7 +182,7 @@ function load_square_pyramid() {
 		new Point(0, 1, 0),
 		false /* single-sided */,
 		Polygon.WIRE,
-		[200, 200, 200,0.8]
+		[200, 200, 200, 0.9]
 	));
 
 	// Transparent Top
@@ -191,7 +191,7 @@ function load_square_pyramid() {
 		new Point(0, 1, 0),
 		false /* single-sided */,
 		Polygon.SOLID,
-		[200, 200, 200,0.8]
+		[200, 200, 200, 0.9]
 	));
 
 	// Left
@@ -200,7 +200,7 @@ function load_square_pyramid() {
 		new Point(-1, 0, 0),
 		true /* double-sided */,
 		Polygon.SOLID,
-		[150, 150, 150,0.8]
+		[150, 150, 150, 0.9]
 	));
 
 	// Right
@@ -209,7 +209,7 @@ function load_square_pyramid() {
 		new Point(1, 0, 0),
 		true /* double-sided */,
 		Polygon.SOLID,
-		[50, 50, 50,0.8]
+		[50, 50, 50, 0.9]
 	));
 	
 
@@ -219,7 +219,7 @@ function load_square_pyramid() {
 		new Point(0, 1, 0),
 		false /* single-sided */,
 		Polygon.SOLID,
-		[200, 200, 200,0.8]
+		[200, 200, 200, 0.9]
 	));
 
 	//setInterval('loop()', 20);
@@ -244,15 +244,15 @@ function load_triangle_pyramid(){
 	scene.shapes['box'] = new Shape();
 	var p = scene.shapes['box'].points; // for convenience
 
-	p[0] = new Point3(-10, 0, -20*Math.sqrt(3)); // left  bottom front
-	p[1] = new Point3(-10, 0, 20*Math.sqrt(3));  // right bottom front
-	p[2] = new Point3(0, 20*Math.sqrt(3), 0);   // right top    front
-	p[3] = new Point3(-10, 20*Math.sqrt(3), -5);  // left  top    front
-
+	p[0] = new Point3(-10, 0, -10*Math.sqrt(3)); // left  bottom front
+	p[1] = new Point3(-10, 0, 10*Math.sqrt(3));  // right bottom front
 	p[4] = new Point3(20 ,0, 0);  // left  bottom back
 	p[5] = new Point3(20, 0, 0);   // right bottom back
-	p[6] = new Point3(10, 20*Math.sqrt(3), 10);    // right top    back
-	p[7] = new Point3(-10, 20*Math.sqrt(3), 10);   // left  top    back
+	
+	p[2] = new Point3(0, 20, 0);   // right top    front
+	//p[3] = new Point3(-10, 20*Math.sqrt(3), -5);  // left  top    front
+	//p[6] = new Point3(10, 20*Math.sqrt(3), 10);    // right top    back
+	//p[7] = new Point3(-10, 20*Math.sqrt(3), 10);   // left  top    back
 	
 	p[3] = p[2];
 	p[6] = p[2];
@@ -274,10 +274,6 @@ function load_triangle_pyramid(){
 		Polygon.SOLID,
 		[100, 100, 100]
 	));
-
-
-	
-
 	// Left
 	scene.shapes['box'].polygons.push(new Polygon(
 		[ p[0], p[4], p[7], p[3] ],
