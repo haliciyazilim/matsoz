@@ -8,7 +8,7 @@ var twoDimensionalShapeStyle = {
 };
 var oneDimensionalShapeStyle = {
 	strokeColor : "#000",
-	fillColor : "#fff",
+	fillColor : '#fff',
 	strokeWidth : 2
 };
 var threeDimensionalShapeStyle = {
@@ -144,7 +144,7 @@ Animation.init = function(container){
 		style:{
 			count:10
 		},
-		duration:1000	
+		duration:2000	
 	});
 	animationHelper.animate({
 		style:{
@@ -213,6 +213,7 @@ Interaction.init = function(container){
 	Interaction.paper = {width:$(container).width(), height: $(container).height()}
 	var w = Interaction.paper.width;
 	var h = Interaction.paper.height;
+	oneDimensionalShapeStyle.fillColor = new RgbColor(255,255,255,0);
 	Interaction.shapeCount = 1;
 	Interaction.generateBowls(w,h);
 	Interaction.nextQuestion();
@@ -335,12 +336,12 @@ Interaction.nextQuestion = function(){
 }
 
 Interaction.generateRandomShape = function(x,y,w,h){
-	var NUMBER_OF_SHAPES  = 26;
+	var NUMBER_OF_SHAPES  = 35;
 	Interaction.shapeCount = Interaction.shapeCount%NUMBER_OF_SHAPES;
 	if(Interaction.shuffledArray == null || Interaction.shuffledArray == undefined)
 		Interaction.shuffledArray = Util.getShuffledArray(NUMBER_OF_SHAPES);
 	shapeType = Interaction.shuffledArray[Interaction.shapeCount];
-	///*TEST*/shapeType = 11; /*TEST*/
+	///*TEST*/shapeType = 34; /*TEST*/
 	switch(shapeType){
 		case 0:
 			Interaction.shape = new Path.Circle(new Point(x+w*0.5,y+h*0.5),5);
@@ -367,6 +368,7 @@ Interaction.generateRandomShape = function(x,y,w,h){
 		case 4:
 			Interaction.shape = new Path.OneSidedArrow(new Point(x+w*0.1,y+h*0.5), new Point(x+w*0.8,y+h*0.5), 10, 30);
 			Interaction.shape.dimension = 1;
+			Interaction.shape.arrow = true;
 			break;
 		case 5:
 			Interaction.shape = new Path.Rectangle(new Point(x+w*0.2,y+h*0.2),new Size(w*0.6,h*0.6));
@@ -456,14 +458,56 @@ Interaction.generateRandomShape = function(x,y,w,h){
 			Interaction.shape = new Path.TrianglePrisim(new Point(x,y),new Size(w,h));
 			Interaction.shape.dimension = 3;
 			break;
+		case 26:
+			Interaction.shape = new Path.Triangle(new Point(x+w*0.3,y+h*0.7), new Point(x+w*0.9,y+h*0.6), new Point(x+w*0.5,y+h*0.1));
+			Interaction.shape.dimension = 2;
+			break;
+		case 27:
+			Interaction.shape = new Path.Triangle(new Point(x+w*0.3,y+h*0.7), new Point(x+w*0.9,y+h*0.6), new Point(x+w*0.5,y+h*0.1));
+			Interaction.shape.dimension = 1;
+			break;
+		case 28:
+			Interaction.shape = new Path.Triangle(new Point(x+w*0.2,y+h), new Point(x+w,y+h), new Point(x+w,y));
+			Interaction.shape.dimension = 1;
+			break;
+		case 29:
+			Interaction.shape = new Path.Triangle(new Point(x+w*0.2,y+h), new Point(x+w,y+h), new Point(x+w*0.2,y));
+			Interaction.shape.dimension = 2;
+			break;
+		case 30:
+			Interaction.shape = new Path.Triangle(new Point(x+w*0.2,y+h), new Point(x+w*0.8,y+h), new Point(x+w,y));
+			Interaction.shape.dimension = 2;
+			break;
+		case 31:
+			var l = Math.min(w,h);
+			Interaction.shape = new Path.Line( new Point(x+w,y), new Point(x,y+h) );
+			Interaction.shape.dimension = 1;
+			break;
+		case 32:
+			Interaction.shape = new Path.OneSidedArrow(new Point(x,y), new Point(x+w,y+h*0.5), 10, 30);
+			Interaction.shape.dimension = 1;
+			Interaction.shape.arrow = true;
+			break;
+		case 33:
+			Interaction.shape = new Path.OneSidedArrow(new Point(x+w*0.5,y+h), new Point(x+w*0.5,y), 10, 30);
+			Interaction.shape.dimension = 1;
+			Interaction.shape.arrow = true;
+			break;
+		case 34:
+			Interaction.shape = new Path.OneSidedArrow(new Point(x+w*0.5,y), new Point(x+w*0.5,y+h), 10, 30);
+			Interaction.shape.dimension = 1;
+			Interaction.shape.arrow = true;
+			break;
+		
 	}
 	if(Interaction.shape.dimension == 1)
-		Interaction.shape.setStyle(edgeStyle);
+		Interaction.shape.setStyle(oneDimensionalShapeStyle);
 	else if(Interaction.shape.dimension == 2)
 		Interaction.shape.setStyle(twoDimensionalShapeStyle);
 	else if(Interaction.shape.dimension == 3)
 		Interaction.shape.setStyle(threeDimensionalShapeStyle);
-	
+	if(Interaction.shape.arrow == true)
+		Interaction.shape.setStyle({fillColor:'#000'})
 }
 
 Interaction.generateBowls = function(w,h){
