@@ -30,7 +30,7 @@ Interaction.images = [{
 Interaction.init = function(container) {
 	paperAddOns();
 	
-	Main.setObjective("Karenin iç açıları toplamı 360° dir.")
+	Main.setObjective('Karenin iç açıları toplamı 360° dir. Bunu görmek için "Göster" düğmesine tıklayınız.')
 	
 	// Images
 	var fullImage = new Raster('fullImage');
@@ -144,7 +144,7 @@ Interaction.init = function(container) {
 				angleText.remove();
 			}
 		
-			angleText = new PointText(new Point(308, 96));
+			angleText = new PointText(new Point(312, 96));
 			angleText.justification = 'left';
 			angleText.fillColor = 'black';
 			angleText.content = Math.floor(arrowHelper.angle) + "°";
@@ -157,7 +157,7 @@ Interaction.init = function(container) {
 	
 		arrowHelper.animate({
 			style: {
-				endAngle: Math.PI*2 -Math.PI/3 + 0.2,
+				endAngle: Math.PI*2 -Math.PI/3 + 0.33,
 				angle: 360
 			},
 			duration: 2000,
@@ -185,7 +185,7 @@ Interaction.init = function(container) {
 //	runAnimation();
 		
 	// Create the control button
-	$(container).append('<input id="replayButton" type="button" value="Başlat" />');
+	$(container).append('<input id="replayButton" type="button" value="Göster" />');
 	$('#replayButton').css("position", "absolute")
 					  .css("bottom", "20px")
 					  .css("right", "20px");
@@ -195,7 +195,6 @@ Interaction.init = function(container) {
 		runAnimation();
 		$('#replayButton').fadeTo('fast', 0, function() {
 			$('#replayButton').css('visibility', 'hidden');
-			$('#replayButton').attr('value', 'Yeniden');
 		});
 	});
 }
