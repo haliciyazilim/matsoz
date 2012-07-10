@@ -13,6 +13,584 @@ Interaction.getFramework = function() {
 	return 'paper';
 }
 
+Animation.init = function(container){
+	Animation.container = container;
+			
+	$(container).append('<img id="calendar" src="/assets/animations/aritmetik_ortalama/calendar.png" />');
+	$('#calendar').css("width", "80px")
+				.css("height", "60px")
+				.css("position", "absolute")
+				.css("left", "90px")
+				.css("top", "40px");
+	
+	$(container).append('<img id="rainbow" src="/assets/animations/aritmetik_ortalama/rainbow.png" />');
+	$('#rainbow').css("width", "80px")
+				.css("height", "60px")
+				.css("position", "absolute")
+				.css("left", "640px")
+				.css("top", "40px");
+	
+		
+	$(container).append('<div id="datasHolderDiv"></div>');
+	$('#datasHolderDiv').css("position", "absolute")
+						.css("left", "206px")
+						.css("top", "28px")
+						.css("width", "400")
+						.css("height", "100")
+			//			.css("border", "solid")
+	
+	$('#datasHolderDiv').append('<div id="context">Bir haftalık hava sıcaklığı sonuçları</div>');
+	$('#context').css("position", "absolute")
+					.css("left", "28px")
+					.css("top", "0px")
+					.css("font-size", 22)
+			//		.css("font-family", "Helvetica Neue")
+					.css("text-align", "center")
+			//		.css("border", "solid")
+					.css("width", "320x");
+	
+	$('#datasHolderDiv').append('<div id="monday">Pazartesi 25°</div>');
+	$('#monday').css("position", "absolute")
+					.css("left", "2px")
+					.css("top", "28px")
+					.css("font-size", 12)
+			//		.css("font-family", "Helvetica Neue")
+					.css("text-align", "center")
+			//		.css("border", "solid")
+					.css("width", "50px")
+					.css("height", "26px");
+	
+	$('#datasHolderDiv').append('<div id="tuesday">Salı 27°</div>');
+	$('#tuesday').css("position", "absolute")
+					.css("left", "60px")
+					.css("top", "28px")
+					.css("font-size", 12)
+			//		.css("font-family", "Helvetica Neue")
+					.css("text-align", "center")
+			//		.css("border", "solid")
+					.css("width", "40px")
+					.css("height", "26px");
+	
+	$('#datasHolderDiv').append('<div id="wednesday">Çarşamba 30°</div>');
+	$('#wednesday').css("position", "absolute")
+					.css("left", "104px")
+					.css("top", "28px")
+					.css("font-size", 12)
+			//		.css("font-family", "Helvetica Neue")
+					.css("text-align", "center")
+			//		.css("border", "solid")
+					.css("width", "54px")
+					.css("height", "26px");
+	
+	$('#datasHolderDiv').append('<div id="thursday">Perşembe 29°</div>');
+	$('#thursday').css("position", "absolute")
+					.css("left", "172px")
+					.css("top", "28px")
+					.css("font-size", 12)
+			//		.css("font-family", "Helvetica Neue")
+					.css("text-align", "center")
+			//		.css("border", "solid")
+					.css("width", "54px")
+					.css("height", "26px");
+					
+	$('#datasHolderDiv').append('<div id="friday">Cuma 32°</div>');
+	$('#friday').css("position", "absolute")
+					.css("left", "234px")
+					.css("top", "28px")
+					.css("font-size", 12)
+			//		.css("font-family", "Helvetica Neue")
+					.css("text-align", "center")
+			//		.css("border", "solid")
+					.css("width", "44px")
+					.css("height", "26px");
+					
+	$('#datasHolderDiv').append('<div id="saturday">Cumartesi 28°</div>');
+	$('#saturday').css("position", "absolute")
+					.css("left", "286px")
+					.css("top", "28px")
+					.css("font-size", 12)
+			//		.css("font-family", "Helvetica Neue")
+					.css("text-align", "center")
+			//		.css("border", "solid")
+					.css("width", "54px")
+					.css("height", "26px");
+					
+	$('#datasHolderDiv').append('<div id="sunday">Pazar 26°</div>');
+	$('#sunday').css("position", "absolute")
+					.css("left", "348px")
+					.css("top", "28px")
+					.css("font-size", 12)
+			//		.css("font-family", "Helvetica Neue")
+					.css("text-align", "center")
+			//		.css("border", "solid")
+					.css("width", "46px")
+					.css("height", "26px");
+					
+	$(container).append('<div id="executionDiv"></div>');
+	$('#executionDiv').css("position", "absolute")
+						.css("left", "102px")
+						.css("top", "128px")
+						.css("width", "600")
+						.css("height", "60")
+				//		.css("border", "solid")
+					
+	$('#executionDiv').append('<div id="averageText">Aritmetik Ortalama</div>');
+	$('#averageText').css("position", "absolute")
+					.css("left", "2px")
+					.css("top", "20px")
+					.css("font-size", 20)
+			//		.css("font-family", "Helvetica Neue")
+					.css("text-align", "center")
+			//		.css("border", "solid")
+					.css("width", "320x");
+					
+	$('#executionDiv').append('<p id="execEq">=</p>');
+	$('#execEq').css("position", "absolute")
+				.css("left", "176px")
+				.css("top", "20px")
+				.css("font-size", 24)
+				.css("font-family", "Helvetica Neue");
+	
+	$('#executionDiv').append('<div id="numerator"></div>');
+	$('#numerator').css("position", "absolute")
+					.css("left", "198px")
+					.css("top", "8px")
+					.css("font-size", 20)
+			//		.css("font-family", "Helvetica Neue")
+					.css("text-align", "center")
+			//		.css("border", "solid")
+					.css("width", "320x");
+	
+	$('#numerator').append('<div id="firstN">25</div>')
+	$('#firstN').css("position", "absolute")
+				.css("left", "0px")
+				.css("top", "0px")
+				.css("font-size", 20)
+				.css("text-align", "center")
+	
+	$('#numerator').append('<div id="secondN">+ 27</div>')
+	$('#secondN').css("position", "absolute")
+				.css("left", "28px")
+				.css("top", "0px")
+				.css("font-size", 20)
+				.css("text-align", "center")
+				.css("width", "40px")
+	
+	$('#numerator').append('<div id="thirdN">+ 30</div>')
+	$('#thirdN').css("position", "absolute")
+				.css("left", "72px")
+				.css("top", "0px")
+				.css("font-size", 20)
+				.css("text-align", "center")
+				.css("width", "40px")
+				
+	$('#numerator').append('<div id="fourthN">+ 29</div>')
+	$('#fourthN').css("position", "absolute")
+				.css("left", "116px")
+				.css("top", "0px")
+				.css("font-size", 20)
+				.css("text-align", "center")
+				.css("width", "40px")
+				
+	$('#numerator').append('<div id="fifthN">+ 32</div>')
+	$('#fifthN').css("position", "absolute")
+				.css("left", "158px")
+				.css("top", "0px")
+				.css("font-size", 20)
+				.css("text-align", "center")
+				.css("width", "40px")
+				
+	$('#numerator').append('<div id="sixthN">+ 28</div>')
+	$('#sixthN').css("position", "absolute")
+				.css("left", "202px")
+				.css("top", "0px")
+				.css("font-size", 20)
+				.css("text-align", "center")
+				.css("width", "40px")
+				
+	$('#numerator').append('<div id="seventhN">+ 26</div>')
+	$('#seventhN').css("position", "absolute")
+				.css("left", "246px")
+				.css("top", "0px")
+				.css("font-size", 20)
+				.css("text-align", "center")
+				.css("width", "40px")
+					
+	$('#executionDiv').append('<div id="execLine"></div>');
+	$('#execLine').css("position","absolute")
+				.css("left", "196px")
+				.css("top", "30px")
+				.css("width", "292px")
+				.css("height", "1px")
+				.css("padding", 0)
+				.css("border-top", "2px solid");
+				
+	$('#executionDiv').append('<div id="denumerator">7</div>');
+	$('#denumerator').css("position", "absolute")
+					.css("left", "336px")
+					.css("top", "36px")
+					.css("font-size", 20)
+			//		.css("font-family", "Helvetica Neue")
+					.css("text-align", "center")
+		//			.css("border", "solid")
+					.css("width", "20x");
+					
+	$('#executionDiv').append('<p id="execEq2" >=</p>');
+	$('#execEq2').css("position", "absolute")
+				.css("left", "492px")
+				.css("top", "20px")
+				.css("font-size", 24)
+				.css("font-family", "Helvetica Neue");
+	
+	$('#executionDiv').append('<div id="numerator2">196</div>');
+	$('#numerator2').css("position", "absolute")
+					.css("left", "512px")
+					.css("top", "6px")
+					.css("font-size", 20)
+			//		.css("font-family", "Helvetica Neue")
+					.css("text-align", "center")
+			//		.css("border", "solid")
+					.css("width", "320x");
+					
+	$('#executionDiv').append('<div id="execLine2"></div>');
+	$('#execLine2').css("position","absolute")
+				.css("left", "510px")
+				.css("top", "30px")
+				.css("width", "40px")
+				.css("height", "1px")
+				.css("padding", 0)
+				.css("border-top", "2px solid");
+	
+	$('#executionDiv').append('<div id="denumerator2">7</div>');
+	$('#denumerator2').css("position", "absolute")
+					.css("left", "524px")
+					.css("top", "36px")
+					.css("font-size", 20)
+			//		.css("font-family", "Helvetica Neue")
+					.css("text-align", "center")
+			//		.css("border", "solid")
+					.css("width", "20x");
+					
+	$('#executionDiv').append('<p id="execEq3" >=</p>');
+	$('#execEq3').css("position", "absolute")
+				.css("left", "556px")
+				.css("top", "20px")
+				.css("font-size", 24)
+				.css("font-family", "Helvetica Neue");
+				
+	$('#executionDiv').append('<div id="lastNum">28</div>');
+	$('#lastNum').css("position", "absolute")
+					.css("left", "576px")
+					.css("top", "20px")
+					.css("font-size", 20)
+			//		.css("font-family", "Helvetica Neue")
+					.css("text-align", "center")
+			//		.css("border", "solid")
+					.css("width", "20x");
+	
+	exampleHelper = {
+		averageTextOpacity: 0,
+		firstNOpacity: 0,
+		secondNOpacity: 0,
+		thirdNOpacity: 0,
+		fourthNOpacity: 0,
+		fifthNOpacity:0,
+		sixthNOpacity:0,
+		seventhNOpacity:0,
+		execLineOpacity: 0,
+		execLine2Opacity: 0,
+		execEqOpacity: 0,
+		execEq2Opacity: 0,
+		execEq3Opacity: 0,
+		denumeratorOpacity: 0,
+		denumerator2Opacity: 0,
+		numerator2Opacity: 0,
+		lastNumOpacity: 0,
+		calendarOpacity: 0,
+		rainbowOpacity: 0,
+		contextOpacity: 0,
+		mondayOpacity: 0,
+		tuesdayOpacity: 0,
+		wednesdayOpacity: 0,
+		thursdayOpacity: 0,
+		fridayOpacity: 0,
+		saturdayOpacity: 0,
+		sundayOpacity:0
+	}
+	
+	exampleHelper.animate = Item.prototype.animate;
+	
+	Animation.onFrame = function(event) {
+		$('#calendar').css("opacity", exampleHelper.calendarOpacity);
+		$('#rainbow').css("opacity", exampleHelper.calendarOpacity);
+		$('#context').css("opacity", exampleHelper.contextOpacity);
+		$('#monday').css("opacity", exampleHelper.mondayOpacity);
+		$('#tuesday').css("opacity", exampleHelper.tuesdayOpacity);
+		$('#wednesday').css("opacity", exampleHelper.wednesdayOpacity);
+		$('#thursday').css("opacity", exampleHelper.thursdayOpacity);
+		$('#friday').css("opacity", exampleHelper.fridayOpacity);
+		$('#saturday').css("opacity", exampleHelper.saturdayOpacity);
+		$('#sunday').css("opacity", exampleHelper.sundayOpacity);
+		$('#averageText').css("opacity", exampleHelper.averageTextOpacity);
+		$('#execEq').css("opacity", exampleHelper.execEqOpacity);
+		$('#execLine').css("opacity", exampleHelper.execLineOpacity);
+		$('#firstN').css("opacity", exampleHelper.firstNOpacity);
+		$('#secondN').css("opacity", exampleHelper.secondNOpacity);
+		$('#thirdN').css("opacity", exampleHelper.thirdNOpacity);
+		$('#fourthN').css("opacity", exampleHelper.fourthNOpacity);
+		$('#fifthN').css("opacity", exampleHelper.fifthNOpacity);
+		$('#sixthN').css("opacity", exampleHelper.sixthNOpacity);
+		$('#seventhN').css("opacity", exampleHelper.seventhNOpacity);
+		$('#denumerator').css("opacity", exampleHelper.denumeratorOpacity);
+		$('#execEq2').css("opacity", exampleHelper.execEq2Opacity);
+		$('#numerator2').css("opacity", exampleHelper.numerator2Opacity);
+		$('#execLine2').css("opacity", exampleHelper.execLine2Opacity);
+		$('#denumerator2').css("opacity", exampleHelper.denumerator2Opacity);
+		$('#execEq3').css("opacity", exampleHelper.execEq3Opacity);
+		$('#lastNum').css("opacity", exampleHelper.lastNumOpacity);
+	}
+	
+	exampleHelper.animate({
+		style: {
+			calendarOpacity: 1
+		},
+		duration: 1000,
+		delay: 1000,
+		animationType: 'easeInEaseOut'
+	});
+	
+	exampleHelper.animate({
+		style: {
+			contextOpacity: 1
+		},
+		duration: 1000,
+		delay: 2000,
+		animationType: 'easeInEaseOut'
+	});
+	
+
+	
+	console.log("contextOpacity: "+exampleHelper.contextOpacity);
+	
+	exampleHelper.animate({
+		style: {
+			mondayOpacity: 1
+		},
+		duration: 400,
+		delay: 3000,
+		animationType: 'easeInEaseOut'
+	});
+	
+	exampleHelper.animate({
+		style: {
+			tuesdayOpacity: 1
+		},
+		duration: 400,
+		delay: 3400,
+		animationType: 'easeInEaseOut'
+	});
+	
+	exampleHelper.animate({
+		style: {
+			wednesdayOpacity: 1
+		},
+		duration: 400,
+		delay: 3800,
+		animationType: 'easeInEaseOut'
+	});
+	
+	exampleHelper.animate({
+		style: {
+			thursdayOpacity: 1
+		},
+		duration: 400,
+		delay: 4200,
+		animationType: 'easeInEaseOut'
+	});
+	
+	exampleHelper.animate({
+		style: {
+			fridayOpacity: 1
+		},
+		duration: 400,
+		delay: 4600,
+		animationType: 'easeInEaseOut'
+	});
+	
+	exampleHelper.animate({
+		style: {
+			saturdayOpacity: 1
+		},
+		duration: 400,
+		delay: 5000,
+		animationType: 'easeInEaseOut'
+	});
+	
+	exampleHelper.animate({
+		style: {
+			sundayOpacity: 1
+		},
+		duration: 400,
+		delay: 5400,
+		animationType: 'easeInEaseOut'
+	});
+	
+	exampleHelper.animate({
+		style: {
+			averageTextOpacity: 1
+		},
+		duration: 1000,
+		delay: 6000,
+		animationType: 'easeInEaseOut'
+	});
+	
+	exampleHelper.animate({
+		style: {
+			execEqOpacity: 1
+		},
+		duration: 1000,
+		delay: 7000,
+		animationType: 'easeInEaseOut'
+	});
+	
+	exampleHelper.animate({
+		style: {
+			execLineOpacity: 1
+		},
+		duration: 1000,
+		delay: 8000,
+		animationType: 'easeInEaseOut'
+	});
+	
+		
+	exampleHelper.animate({
+		style: {
+			firstNOpacity: 1
+		},
+		duration: 500,
+		delay: 9000,
+		animationType: 'easeInEaseOut'
+	});
+	
+	exampleHelper.animate({
+		style: {
+			secondNOpacity: 1
+		},
+		duration: 500,
+		delay: 9500,
+		animationType: 'easeInEaseOut'
+	});
+	
+	exampleHelper.animate({
+		style: {
+			thirdNOpacity: 1
+		},
+		duration: 500,
+		delay: 10000,
+		animationType: 'easeInEaseOut'
+	});
+	
+	exampleHelper.animate({
+		style: {
+			fourthNOpacity: 1
+		},
+		duration: 300,
+		delay: 10500,
+		animationType: 'easeInEaseOut'
+	});
+	
+	exampleHelper.animate({
+		style: {
+			fifthNOpacity: 1
+		},
+		duration: 500,
+		delay: 11000,
+		animationType: 'easeInEaseOut'
+	});
+	
+	exampleHelper.animate({
+		style: {
+			sixthNOpacity: 1
+		},
+		duration: 500,
+		delay: 11500,
+		animationType: 'easeInEaseOut'
+	});
+	
+	exampleHelper.animate({
+		style: {
+			seventhNOpacity: 1
+		},
+		duration: 500,
+		delay: 12000,
+		animationType: 'easeInEaseOut'
+	});
+	
+	exampleHelper.animate({
+		style: {
+			denumeratorOpacity: 1
+		},
+		duration: 1000,
+		delay: 12500,
+		animationType: 'easeInEaseOut'
+	});
+	
+	exampleHelper.animate({
+		style: {
+			execEq2Opacity: 1
+		},
+		duration: 1000,
+		delay: 13500,
+		animationType: 'easeInEaseOut'
+	});
+	
+	exampleHelper.animate({
+		style: {
+			execLine2Opacity: 1
+		},
+		duration: 1000,
+		delay: 14500,
+		animationType: 'easeInEaseOut'
+	});
+	
+	exampleHelper.animate({
+		style: {
+			numerator2Opacity: 1
+		},
+		duration: 1000,
+		delay: 15500,
+		animationType: 'easeInEaseOut'
+	});
+	
+	exampleHelper.animate({
+		style: {
+			denumerator2Opacity: 1
+		},
+		duration: 1000,
+		delay: 16500,
+		animationType: 'easeInEaseOut'
+	});
+	
+	exampleHelper.animate({
+		style: {
+			execEq3Opacity: 1
+		},
+		duration: 1000,
+		delay: 17500,
+		animationType: 'easeInEaseOut'
+	});
+	
+	exampleHelper.animate({
+		style: {
+			lastNumOpacity: 1
+		},
+		duration: 1000,
+		delay: 18500,
+		animationType: 'easeInEaseOut'
+	});
+	
+}
+
 // interaction init func.
 Interaction.init = function(container){
 	Interaction.container = container;
@@ -259,15 +837,15 @@ Interaction.init = function(container){
 					
 	$(container).append('<button id="checkBtn" class="control_button">Kontrol</button>');
 	$('#checkBtn').css("position", "absolute")
-					.css("left", "460px")
-					.css("top", "250px");
+					.css("bottom", "20px")
+					.css("right", "66px");
 					
 	$('#checkBtn').show();
 	
 	$(container).append('<button id="nextBtn" class="control_button">Sonraki</button>');
 	$('#nextBtn').css("position", "absolute")
-					.css("left", "460px")
-					.css("top", "250px");
+					.css("bottom", "20px")
+					.css("right", "66px");
 	$('#nextBtn').hide();
 	
 	

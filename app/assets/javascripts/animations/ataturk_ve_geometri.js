@@ -13,6 +13,10 @@ Interaction.images = [
 	{
 		id:'cap',
 		src: '/assets/animations/ataturk_ve_geometri/cap.png'
+	},
+	{
+		id:'dortgen',
+		src: '/assets/animations/ataturk_ve_geometri/dortgen.png'
 	}
 ]
 
@@ -71,7 +75,7 @@ Interaction.nextQuestion = function(){
 	project.activeLayer.removeChildren();
 	var count = (Interaction.count++)%Interaction.shuffledArray.length;
 	var wordOrder = Interaction.shuffledArray[count];
-	/*TEST*/wordOrder=2;/*TEST*/
+	/*TEST*/wordOrder=3;/*TEST*/
 	var word = Interaction.words[wordOrder];
 	$(Interaction.old_word).html(word.oldName);
 	$(Interaction.new_word).html(word.newName);
@@ -138,7 +142,13 @@ Interaction.words = [
 	{
 		oldName:'zu-erbaat-ül-adlâ\'',
 		newName:'dörtgen',
-		shape: function(){}
+		shape: function(){
+			var shape = new Raster('dortgen');
+			shape.position = [
+				Math.floor(Interaction.shapeLimits.x+Interaction.shapeLimits.w*0.5),
+				Math.floor(Interaction.shapeLimits.y+Interaction.shapeLimits.h*0.5)
+			];
+		}
 	},
 	{
 		oldName:'müselles',

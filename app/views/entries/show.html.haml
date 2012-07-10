@@ -28,13 +28,17 @@
     %div.tanim
       %strong.name
         = @entry.word + ": "
-      - @chunks.each do |entry|
-        - entry.each do |key, value|
+      - @chunks.each do |chunk|
+        - chunk.each do |key, value|
           - if value == nil
             - if key != nil
               %span>=key.gsub(' ', "\n")
           - else
             %span>= link_to key, entry_path(value)
+      - if @entry.additionalInfo
+        %em
+          = @entry.additionalInfo
+          
     %div{:class=>'ornek ornek_border'}
       #div{:class => 'ornekbaslik ornekbaslik_bg'}
       

@@ -8,7 +8,7 @@ var twoDimensionalShapeStyle = {
 };
 var oneDimensionalShapeStyle = {
 	strokeColor : "#000",
-	fillColor : "#fff",
+	fillColor : '#fff',
 	strokeWidth : 2
 };
 var threeDimensionalShapeStyle = {
@@ -28,12 +28,174 @@ var bowlDefaultStyle = {fillColor: '#fff', strokeColor : '#000' , strokeWidth : 
 var Animation = {};
 
 Animation.init = function(container){
-	var w=$(container).width(), h=$(continer).height();
-	
-	x = w *0.5;
+	var w=$(container).width(), h=$(container).height();
+	var a = Math.min(w,h) * 0.3;
+	var i = a*0.4;
+	var j = a*0.6;
+	x = w *0.5-10;
 	y = h*0.5;
+	console.log(x,y)
+	var p1 = new Point(x-a,y+a);
+	var p2 = new Point(x+a,y+a);
+	var p3 = new Point(x+a,y-a);
+	var p4 = new Point(x-a,y-a);
+	var p5 = new Point(x-a+j,y-a-i);
+	var p6 = new Point(p5.x+2*a,p5.y);
+	var p7 = new Point(p6.x,p6.y+2*a);
+	Animation.path = new Path();
+	Animation.path.setStyle({
+		strokeColor:'#000',
+		strokeWidth:2
+	});
+	Animation.line1 = new Path.Line(
+		p1,
+		p4
+	);
+	Animation.line2 = new Path.Line(
+		p1,
+		p2
+	);
 	
-	var p1 = new Point(x,y)	
+	Animation.line3 = new Path.Line(
+		p2,
+		p7
+	);
+	Animation.text1 = new PointText(
+		new Point(
+			p1.x-20,
+			(p1.y+p4.y)*0.5
+		)
+	);
+	Animation.text2 = new PointText(
+		new Point(
+			(p1.x+p2.x)*0.5,
+			p1.y+20
+		)
+	);
+	Animation.text3 = new PointText(
+		new Point(
+			(p7.x+p2.x)*0.5+10,
+			(p7.y+p2.y)*0.5+10
+		)
+	);
+	Animation.text1.content = '1';
+	Animation.text2.content = '2';
+	Animation.text3.content = '3';
+	var animationHelper = {
+		
+		count:0,
+		opacity:0,
+		line1Opacity:0,
+		line2Opacity:0,
+		line3Opacity:0,
+		text1Opacity:0,
+		text2Opacity:0,
+		text3Opacity:0
+	}
+	var lineStyle = {
+		strokeWidth:3,
+		strokeColor:'#f00'
+	};
+	var textStyle = {
+		fillColor:'#f00',
+		strokeColor:'#f00'
+	}
+	Animation.text1.setStyle(textStyle);
+	Animation.text2.setStyle(textStyle);
+	Animation.text3.setStyle(textStyle);
+	
+	Animation.line1.setStyle(lineStyle);
+	Animation.line2.setStyle(lineStyle);
+	Animation.line3.setStyle(lineStyle);
+	animationHelper.animate = Item.prototype.animate;
+	Animation.onFrame = function(){
+		var count = Math.floor(animationHelper.count);
+		if(count == 0 ){
+			Animation.path.add(p4);
+			Animation.path.add(p1);
+		}
+		if(count == 2)
+			Animation.path.add(p2);
+		if(count == 3)
+			Animation.path.add(p3);
+		if(count == 4)
+			Animation.path.add(p4);
+		if(count == 5)
+			Animation.path.add(p5);
+		if(count == 6)
+			Animation.path.add(p6);
+		if(count == 7)
+			Animation.path.add(p7);
+		if(count == 8)
+			Animation.path.add(p2);
+		if(count == 9)
+			Animation.path.add(p3);
+		if(count == 10)
+			Animation.path.add(p6);
+		Animation.path.opacity = animationHelper.opacity;
+		Animation.line1.opacity = animationHelper.line1Opacity;
+		Animation.line2.opacity = animationHelper.line2Opacity;
+		Animation.line3.opacity = animationHelper.line3Opacity;
+		Animation.text1.opacity = animationHelper.text1Opacity;
+		Animation.text2.opacity = animationHelper.text2Opacity;
+		Animation.text3.opacity = animationHelper.text3Opacity;
+	}
+	animationHelper.animate({
+		style:{
+			count:10
+		},
+		duration:2000	
+	});
+	animationHelper.animate({
+		style:{
+			opacity:1
+		},
+		duration:2000
+	});
+	animationHelper.animate({
+		style:{
+			line1Opacity:1
+		},
+		duration:1000,
+		delay:2000
+	});
+	animationHelper.animate({
+		style:{
+			line2Opacity:1
+		},
+		duration:1000,
+		delay:3000
+	});
+	animationHelper.animate({
+		style:{
+			line3Opacity:1
+		},
+		duration:1000,
+		delay:4000
+	});
+	animationHelper.animate({
+		style:{
+			text1Opacity:1
+		},
+		duration:1000,
+		delay:5000
+	});
+	animationHelper.animate({
+		style:{
+			text2Opacity:1
+		},
+		duration:1000,
+		delay:6000
+	});
+	animationHelper.animate({
+		style:{
+			text3Opacity:1
+		},
+		duration:1000,
+		delay:7000
+	});
+	//console.log('asd');
+	
 	
 }
 
@@ -51,6 +213,7 @@ Interaction.init = function(container){
 	Interaction.paper = {width:$(container).width(), height: $(container).height()}
 	var w = Interaction.paper.width;
 	var h = Interaction.paper.height;
+	oneDimensionalShapeStyle.fillColor = new RgbColor(255,255,255,0);
 	Interaction.shapeCount = 1;
 	Interaction.generateBowls(w,h);
 	Interaction.nextQuestion();
@@ -173,12 +336,12 @@ Interaction.nextQuestion = function(){
 }
 
 Interaction.generateRandomShape = function(x,y,w,h){
-	var NUMBER_OF_SHAPES  = 26;
+	var NUMBER_OF_SHAPES  = 35;
 	Interaction.shapeCount = Interaction.shapeCount%NUMBER_OF_SHAPES;
 	if(Interaction.shuffledArray == null || Interaction.shuffledArray == undefined)
 		Interaction.shuffledArray = Util.getShuffledArray(NUMBER_OF_SHAPES);
 	shapeType = Interaction.shuffledArray[Interaction.shapeCount];
-	///*TEST*/shapeType = 11; /*TEST*/
+	///*TEST*/shapeType = 34; /*TEST*/
 	switch(shapeType){
 		case 0:
 			Interaction.shape = new Path.Circle(new Point(x+w*0.5,y+h*0.5),5);
@@ -205,6 +368,7 @@ Interaction.generateRandomShape = function(x,y,w,h){
 		case 4:
 			Interaction.shape = new Path.OneSidedArrow(new Point(x+w*0.1,y+h*0.5), new Point(x+w*0.8,y+h*0.5), 10, 30);
 			Interaction.shape.dimension = 1;
+			Interaction.shape.arrow = true;
 			break;
 		case 5:
 			Interaction.shape = new Path.Rectangle(new Point(x+w*0.2,y+h*0.2),new Size(w*0.6,h*0.6));
@@ -294,14 +458,56 @@ Interaction.generateRandomShape = function(x,y,w,h){
 			Interaction.shape = new Path.TrianglePrisim(new Point(x,y),new Size(w,h));
 			Interaction.shape.dimension = 3;
 			break;
+		case 26:
+			Interaction.shape = new Path.Triangle(new Point(x+w*0.3,y+h*0.7), new Point(x+w*0.9,y+h*0.6), new Point(x+w*0.5,y+h*0.1));
+			Interaction.shape.dimension = 2;
+			break;
+		case 27:
+			Interaction.shape = new Path.Triangle(new Point(x+w*0.3,y+h*0.7), new Point(x+w*0.9,y+h*0.6), new Point(x+w*0.5,y+h*0.1));
+			Interaction.shape.dimension = 1;
+			break;
+		case 28:
+			Interaction.shape = new Path.Triangle(new Point(x+w*0.2,y+h), new Point(x+w,y+h), new Point(x+w,y));
+			Interaction.shape.dimension = 1;
+			break;
+		case 29:
+			Interaction.shape = new Path.Triangle(new Point(x+w*0.2,y+h), new Point(x+w,y+h), new Point(x+w*0.2,y));
+			Interaction.shape.dimension = 2;
+			break;
+		case 30:
+			Interaction.shape = new Path.Triangle(new Point(x+w*0.2,y+h), new Point(x+w*0.8,y+h), new Point(x+w,y));
+			Interaction.shape.dimension = 2;
+			break;
+		case 31:
+			var l = Math.min(w,h);
+			Interaction.shape = new Path.Line( new Point(x+w,y), new Point(x,y+h) );
+			Interaction.shape.dimension = 1;
+			break;
+		case 32:
+			Interaction.shape = new Path.OneSidedArrow(new Point(x,y), new Point(x+w,y+h*0.5), 10, 30);
+			Interaction.shape.dimension = 1;
+			Interaction.shape.arrow = true;
+			break;
+		case 33:
+			Interaction.shape = new Path.OneSidedArrow(new Point(x+w*0.5,y+h), new Point(x+w*0.5,y), 10, 30);
+			Interaction.shape.dimension = 1;
+			Interaction.shape.arrow = true;
+			break;
+		case 34:
+			Interaction.shape = new Path.OneSidedArrow(new Point(x+w*0.5,y), new Point(x+w*0.5,y+h), 10, 30);
+			Interaction.shape.dimension = 1;
+			Interaction.shape.arrow = true;
+			break;
+		
 	}
 	if(Interaction.shape.dimension == 1)
-		Interaction.shape.setStyle(edgeStyle);
+		Interaction.shape.setStyle(oneDimensionalShapeStyle);
 	else if(Interaction.shape.dimension == 2)
 		Interaction.shape.setStyle(twoDimensionalShapeStyle);
 	else if(Interaction.shape.dimension == 3)
 		Interaction.shape.setStyle(threeDimensionalShapeStyle);
-	
+	if(Interaction.shape.arrow == true)
+		Interaction.shape.setStyle({fillColor:'#000'})
 }
 
 Interaction.generateBowls = function(w,h){

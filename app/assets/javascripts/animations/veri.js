@@ -13,6 +13,12 @@ Interaction.getFramework = function() {
 	return 'paper';
 }
 
+Animation.init = function(container){
+	Animation.container = container;
+	
+	
+}
+
 // interaction init
 Interaction.init = function(container){
 	

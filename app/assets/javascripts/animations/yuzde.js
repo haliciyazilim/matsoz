@@ -15,18 +15,30 @@ Interaction.getFramework = function() {
 
 Animation.init = function(container){
 	Animation.container = container;
-	var rectt, rectt2;;
+	var emptyRect, segmentedRect, rectt, rectt2;
 	var fillColor = "#DD7500";
-	rectt = new Path.SegmentedRectangle(10, 50, 80, 80, 2, 2, 1, fillColor);
-	rectt2 = new Path.SegmentedRectangle(610, 24, 120, 120, 10, 10, 25, fillColor);
+	
+	// empty 4
+	emptyRect = new Path.Rectangle(new Point(80.5, 50.5), new Size(80, 80));
+	emptyRect.strokeColor = '#000';
+	emptyRectstrokeWidth = 1;
+	// empty-segmented 4
+	segmentedRect = new Path.SegmentedRectangle(80.5, 50.5, 80, 80, 2, 2, 0, fillColor);
+	// filled-segmented 4
+	rectt = new Path.SegmentedRectangle(80.5, 50.5, 80, 80, 2, 2, 1, fillColor);
+	// empty-segmented 100
+	rectt2 = new Path.SegmentedRectangle(540.5, 24.5, 120, 120, 10, 10, 0, fillColor);
+	// filled-segmented 100
+	rectt3 = new Path.SegmentedRectangle(540.5, 24.5, 120, 120, 10, 10, 25, fillColor);
+	
 	
 	$(container).append('<div id="exampleHolderDiv"></div>');
 	$('#exampleHolderDiv').css("position", "absolute")
-						.css("left", "180px")
-						.css("top", "52px")
-						.css("width", "328")
+						.css("left", "200px")
+						.css("top", "58px")
+						.css("width", "330")
 						.css("height", "100")
-						//.css("border", "solid")
+				//		.css("border", "solid")
 	
 	// firstFractionDiv
 	$('#exampleHolderDiv').append('<div id="firstFracDiv"></div>');
@@ -35,7 +47,7 @@ Animation.init = function(container){
 						.css("top", "8px")
 						.css("width", "44")
 						.css("height", "80")
-					//	.css("border", "solid")
+				//		.css("border", "solid")
 	
 	$('#firstFracDiv').append('<p id="firstFracNom" >1</p>');
 	$('#firstFracNom').css("position", "absolute")
@@ -68,7 +80,7 @@ Animation.init = function(container){
 						.css("top", "8px")
 						.css("width", "82")
 						.css("height", "80")
-					//	.css("border", "solid")
+				//		.css("border", "solid")
 	
 	$('#secondFracDiv').append('<p id="firstEq" >=</p>');
 	$('#firstEq').css("position", "absolute")
@@ -168,7 +180,7 @@ Animation.init = function(container){
 	
 	$('#exampleHolderDiv').append('<div id="percentDiv"></div>');
 	$('#percentDiv').css("position", "absolute")
-						.css("left", "260px")
+						.css("left", "262px")
 						.css("top", "8px")
 						.css("width", "58")
 						.css("height", "80")
@@ -193,42 +205,163 @@ Animation.init = function(container){
 	
 	$('#exampleHolderDiv').append('<div id="percentageTextDiv">yüzde yirmi beş</div>');
 	$('#percentageTextDiv').css("position", "absolute")
-					.css("width", "150px")
+					.css("width", "180px")
 					.css("height", "20px")
 					.css("font-size", 22)
 					.css("font-family", "Helvetica Neue")
-					.css("left", "431px")
-					.css("top", "114px")
+					.css("left", "325px")
+					.css("top", "112px")
 			//		.css("border", "solid")
 					.css("text-align", "center");
 					
 	
 	
 	exampleHelper = {
+		emptyRectOpacity: 0,
+		segmentedRectOpacity: 0,
+		firstRectOpacity: 0,
 		firstFracOpacity: 0,
 		secondFracOpacity: 0,
 		thirdFracOpacity: 0,
 		fracOpacity: 0,
-		percentOpacity: 0
+		percentOpacity: 0,
+		secondRectOpacity: 0,
+		percentTextOpacity:0
 	};
 	
 	exampleHelper.animate = Item.prototype.animate;
 	
 	Animation.onFrame = function(event){
+	//	emptyRect.opacity = exampleHelper.emptyRectOpacity;
+	//	segmentedRect.opacity = exampleHelper.segmentedRectOpacity;
+	//	rectt.opacity = exampleHelper.firstRectOpacity;
 		$('#firstFracDiv').css("opacity", exampleHelper.firstFracOpacity);
 		$('#secondFracDiv').css("opacity", exampleHelper.secondFracOpacity);
 		$('#thirdFracDiv').css("opacity", exampleHelper.thirdFracOpacity);
 		$('#fracDiv').css("opacity", exampleHelper.fracOpacity);
 		$('#percentDiv').css("opacity", exampleHelper.percentOpacity);
+	//	rectt2.opacity = exampleHelper.secondRectOpacity;
+		$('#percentageTextDiv').css("opacity", exampleHelper.percentTextOpacity);
 	}
+	
+	emptyRect.opacity = 0;
+	segmentedRect.opacity = 0;
+	rectt.opacity = 0;
+	rectt2.opacity = 0;
+	rectt3.opacity = 0;
+	
+	emptyRect.animate({
+		style: {
+			opacity: 1
+		},
+		duration: 1000,
+		delay: 500,
+		animationType: 'easeInEaseOut'
+	});	
+	
+	segmentedRect.animate({
+		style: {
+			opacity: 1
+		},
+		duration: 1000,
+		delay: 1500,
+		animationType: 'easeInEaseOut',
+		callback: function () {
+			emptyRect.remove();
+		}
+	});
+	
+	rectt.animate({
+		style: {
+			opacity: 1
+		},
+		duration: 1000,
+		delay: 2500,
+		animationType: 'easeInEaseOut',
+		callback: function () {
+			segmentedRect.remove();
+		}
+	});
 	
 	exampleHelper.animate({
 		style: {
 			firstFracOpacity: 1
 		},
-		duration: 2000,
-		delay: 1000,
-		animationType: 'easeInEaseOut'
+		duration: 1500,
+		delay: 4000,
+		animationType: 'easeIn'
+	//	animationType: 'easeOut'
+	});
+	
+	exampleHelper.animate({
+		style: {
+			secondFracOpacity: 1
+		},
+		duration: 1500,
+		delay: 5500,
+		animationType: 'easeIn'
+	//	animationType: 'easeOut'
+	});
+	
+	exampleHelper.animate({
+		style: {
+			thirdFracOpacity: 1
+		},
+		duration: 1500,
+		delay: 7000,
+		animationType: 'easeIn'
+	//	animationType: 'easeOut'
+	});
+	
+	exampleHelper.animate({
+		style: {
+			fracOpacity: 1
+		},
+		duration: 1500,
+		delay: 8500,
+		animationType: 'easeIn'
+	//	animationType: 'easeOut'
+	});
+	
+	exampleHelper.animate({
+		style: {
+			percentOpacity: 1
+		},
+		duration: 1500,
+		delay: 10000,
+		animationType: 'easeIn'
+	//	animationType: 'easeOut'
+	});
+	
+	rectt2.animate({
+		style: {
+			opacity: 1
+		},
+		duration: 1500,
+		delay: 11500,
+		animationType: 'easeIn',
+	});
+	
+	rectt3.animate({
+		style: {
+			opacity: 1
+		},
+		duration: 1000,
+		delay: 13000,
+		animationType: 'easeIn',
+		callback: function () {
+			rectt2.remove();
+		}
+	});
+	
+	exampleHelper.animate({
+		style: {
+			percentTextOpacity: 1
+		},
+		duration: 1000,
+		delay: 14000,
+		animationType: 'easeIn'
+	//	animationType: 'easeOut'
 	});
 	
 }
@@ -251,7 +384,7 @@ Interaction.init = function(container){
 	var firstDenominator;
  	var secondNominator;
 	var secondDenominator = 100;
-	
+
 	// generate firstDenominator -> must be 2 or 4 or 5 or 10 or 20 (100/firstDenominator must be integer)
 	do
 	{
@@ -274,48 +407,48 @@ Interaction.init = function(container){
 	var randomize = Math.round(Math.random()*10);
 	if (randomize % 3 == 0) // get circle
 	{
-		circ = new Path.SegmentedCircle(new Point(116, 70), 56, firstNominator, firstDenominator, fillColor);
+		circ = new Path.SegmentedCircle(new Point(116.5, 70.5), 56, firstNominator, firstDenominator, fillColor);
 	}
 	else if(randomize % 3 == 1) // get square
 	{
 		if(firstDenominator == 20)
 		{
-			rect2 = new Path.SegmentedRectangle(60, 14, 120, 120, 4, 5, firstNominator, fillColor);
+			rect2 = new Path.SegmentedRectangle(60.5, 15.5, 120, 120, 4, 5, firstNominator, fillColor);
 		}
 		else if(firstDenominator == 10)
 		{
-			rect2 = new Path.SegmentedRectangle(60, 14, 120, 120, 2, 5, firstNominator, fillColor);
+			rect2 = new Path.SegmentedRectangle(60.5, 15.5, 120, 120, 2, 5, firstNominator, fillColor);
 		}
 		else if(firstDenominator == 5)
 		{
-			rect2 = new Path.SegmentedRectangle(60, 14, 120, 120, 1, 5, firstNominator, fillColor);
+			rect2 = new Path.SegmentedRectangle(60.5, 15.5, 120, 120, 1, 5, firstNominator, fillColor);
 		}
 		else
 		{
-			rect2 = new Path.SegmentedRectangle(60,14, 120, 120, firstDenominator/2, 2, firstNominator, fillColor);
+			rect2 = new Path.SegmentedRectangle(60.5, 15.5, 120, 120, firstDenominator/2, 2, firstNominator, fillColor);
 		}
 	}
 	else // get rectangle
 	{
 		if(firstDenominator == 20)
 		{
-			rect3 = new Path.SegmentedRectangle(60, 14, 80, 120, 4, 5, firstNominator, fillColor);
+			rect3 = new Path.SegmentedRectangle(60.5, 15.5, 80, 120, 4, 5, firstNominator, fillColor);
 		}
 		else if(firstDenominator == 10)
 		{
-			rect3 = new Path.SegmentedRectangle(60, 14, 80, 120, 2, 5, firstNominator, fillColor);
+			rect3 = new Path.SegmentedRectangle(60.5, 15.5, 80, 120, 2, 5, firstNominator, fillColor);
 		}
 		else if(firstDenominator == 5)
 		{
-			rect3 = new Path.SegmentedRectangle(60, 14, 80, 120, 1, 5, firstNominator, fillColor);
+			rect3 = new Path.SegmentedRectangle(60.5, 15.5, 80.5, 120, 1, 5, firstNominator, fillColor);
 		}
 		else
 		{
-			rect3 = new Path.SegmentedRectangle(60, 14, 80, 120, firstDenominator/2, 2, firstNominator, fillColor);
+			rect3 = new Path.SegmentedRectangle(60.5, 15.5, 80, 120, firstDenominator/2, 2, firstNominator, fillColor);
 		}
 	}
 	
-	rect = new Path.SegmentedRectangle(400, 14, 120, 120, 10, 10, 0);
+	rect = new Path.SegmentedRectangle(400.5, 15.5, 120, 120, 10, 10, 0);
 	
 	// creating neccessary html element
 	$(container).append('<div id="questionDiv"></div>');
@@ -335,8 +468,7 @@ Interaction.init = function(container){
 					.css("position", "absolute")
 					.css("left", "6px")
 					.css("top", "16px")
-					.css("text-align", "center");
-					
+					.css("text-align", "center");					
 	$('#textInput1').addClass('input');
 		
 	$('#questionDiv').append('<div id="line1"></div>');
@@ -464,13 +596,13 @@ Interaction.init = function(container){
 				
 	$(container).append('<button id="checkBtn" class="control_button">Kontrol</button>');
 	$('#checkBtn').css("position", "absolute")
-					.css("left", "460px")
-					.css("top", "240px");
+					.css("bottom", "20px")
+					.css("right", "66px");
 	
 	$(container).append('<button id="nextBtn" class="control_button">Sonraki</button>');
 	$('#nextBtn').css("position", "absolute")
-					.css("left", "460px")
-					.css("top", "240px");
+					.css("bottom", "20px")
+					.css("right", "66px");
 	$('#nextBtn').hide();
 					
 	$(container).append('<div id="statuss"></div>');
@@ -489,7 +621,7 @@ Interaction.init = function(container){
 					.css("font-size", 22)
 					.css("font-family", "Helvetica Neue")
 					.css("left", "386px")
-					.css("top", "136px")
+					.css("top", "142px")
 					.css("text-align", "center");
 	
 	// convertPercentage func. -> 25 = "yüzde yirmi beş"

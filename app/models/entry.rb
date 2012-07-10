@@ -16,7 +16,7 @@ class Entry < ActiveRecord::Base
                       :secret_access_key => ENV['S3_SECRET']
                     }
   
-  attr_accessible :word, :meaning, :instructions
+  attr_accessible :word, :meaning, :instructions, :additionalInfo
 
   validates :word, :presence => true
   
