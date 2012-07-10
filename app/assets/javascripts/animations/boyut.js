@@ -28,12 +28,174 @@ var bowlDefaultStyle = {fillColor: '#fff', strokeColor : '#000' , strokeWidth : 
 var Animation = {};
 
 Animation.init = function(container){
-	var w=$(container).width(), h=$(continer).height();
-	
-	x = w *0.5;
+	var w=$(container).width(), h=$(container).height();
+	var a = Math.min(w,h) * 0.3;
+	var i = a*0.4;
+	var j = a*0.6;
+	x = w *0.5-10;
 	y = h*0.5;
+	console.log(x,y)
+	var p1 = new Point(x-a,y+a);
+	var p2 = new Point(x+a,y+a);
+	var p3 = new Point(x+a,y-a);
+	var p4 = new Point(x-a,y-a);
+	var p5 = new Point(x-a+j,y-a-i);
+	var p6 = new Point(p5.x+2*a,p5.y);
+	var p7 = new Point(p6.x,p6.y+2*a);
+	Animation.path = new Path();
+	Animation.path.setStyle({
+		strokeColor:'#000',
+		strokeWidth:2
+	});
+	Animation.line1 = new Path.Line(
+		p1,
+		p4
+	);
+	Animation.line2 = new Path.Line(
+		p1,
+		p2
+	);
 	
-	var p1 = new Point(x,y)	
+	Animation.line3 = new Path.Line(
+		p2,
+		p7
+	);
+	Animation.text1 = new PointText(
+		new Point(
+			p1.x-20,
+			(p1.y+p4.y)*0.5
+		)
+	);
+	Animation.text2 = new PointText(
+		new Point(
+			(p1.x+p2.x)*0.5,
+			p1.y+20
+		)
+	);
+	Animation.text3 = new PointText(
+		new Point(
+			(p7.x+p2.x)*0.5+10,
+			(p7.y+p2.y)*0.5+10
+		)
+	);
+	Animation.text1.content = '1';
+	Animation.text2.content = '2';
+	Animation.text3.content = '3';
+	var animationHelper = {
+		
+		count:0,
+		opacity:0,
+		line1Opacity:0,
+		line2Opacity:0,
+		line3Opacity:0,
+		text1Opacity:0,
+		text2Opacity:0,
+		text3Opacity:0
+	}
+	var lineStyle = {
+		strokeWidth:3,
+		strokeColor:'#f00'
+	};
+	var textStyle = {
+		fillColor:'#f00',
+		strokeColor:'#f00'
+	}
+	Animation.text1.setStyle(textStyle);
+	Animation.text2.setStyle(textStyle);
+	Animation.text3.setStyle(textStyle);
+	
+	Animation.line1.setStyle(lineStyle);
+	Animation.line2.setStyle(lineStyle);
+	Animation.line3.setStyle(lineStyle);
+	animationHelper.animate = Item.prototype.animate;
+	Animation.onFrame = function(){
+		var count = Math.floor(animationHelper.count);
+		if(count == 0 ){
+			Animation.path.add(p4);
+			Animation.path.add(p1);
+		}
+		if(count == 2)
+			Animation.path.add(p2);
+		if(count == 3)
+			Animation.path.add(p3);
+		if(count == 4)
+			Animation.path.add(p4);
+		if(count == 5)
+			Animation.path.add(p5);
+		if(count == 6)
+			Animation.path.add(p6);
+		if(count == 7)
+			Animation.path.add(p7);
+		if(count == 8)
+			Animation.path.add(p2);
+		if(count == 9)
+			Animation.path.add(p3);
+		if(count == 10)
+			Animation.path.add(p6);
+		Animation.path.opacity = animationHelper.opacity;
+		Animation.line1.opacity = animationHelper.line1Opacity;
+		Animation.line2.opacity = animationHelper.line2Opacity;
+		Animation.line3.opacity = animationHelper.line3Opacity;
+		Animation.text1.opacity = animationHelper.text1Opacity;
+		Animation.text2.opacity = animationHelper.text2Opacity;
+		Animation.text3.opacity = animationHelper.text3Opacity;
+	}
+	animationHelper.animate({
+		style:{
+			count:10
+		},
+		duration:1000	
+	});
+	animationHelper.animate({
+		style:{
+			opacity:1
+		},
+		duration:2000
+	});
+	animationHelper.animate({
+		style:{
+			line1Opacity:1
+		},
+		duration:1000,
+		delay:2000
+	});
+	animationHelper.animate({
+		style:{
+			line2Opacity:1
+		},
+		duration:1000,
+		delay:3000
+	});
+	animationHelper.animate({
+		style:{
+			line3Opacity:1
+		},
+		duration:1000,
+		delay:4000
+	});
+	animationHelper.animate({
+		style:{
+			text1Opacity:1
+		},
+		duration:1000,
+		delay:5000
+	});
+	animationHelper.animate({
+		style:{
+			text2Opacity:1
+		},
+		duration:1000,
+		delay:6000
+	});
+	animationHelper.animate({
+		style:{
+			text3Opacity:1
+		},
+		duration:1000,
+		delay:7000
+	});
+	//console.log('asd');
+	
 	
 }
 
