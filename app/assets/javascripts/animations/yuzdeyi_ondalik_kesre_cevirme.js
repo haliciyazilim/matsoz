@@ -23,7 +23,146 @@ Interaction.getFramework = function() {
 }
 
 
+Animation.init=function(container){
+	// Sağdaki ve soldaki boş kareler çiziliyor.
+	var ornekBosKareSol= new OrnekKare(100, kareIlkFillColor, kareIlkStrokeColor,40.5,30.5);
+		ornekBosKareSol.opacity=0;
+	
+		ornekBosKareSol.animate({
+			style: {
+				opacity: 1
+			},
+			duration: 1000,
+			delay: 1000
+		});
+	
+	var ornekBoyaliKareSol=new OrnekKare(29, kareBoyaliFillColor, kareBoyaliStrokeColor,40.5,30.5);
+	ornekBoyaliKareSol.opacity=0;
 
+		ornekBoyaliKareSol.animate({
+			style: {
+				opacity: 1
+			},
+			duration: 1000,
+			delay: 2000,
+			callback: function () {
+				//bosKareSol.remove();
+			}
+		});
+		
+	$(container).append("<div id='yaziSol'>");
+	$("#yaziSol").css("position","absolute")
+		.css("left", "53px")
+		.css("top", "150px")
+		.css("width", "150px")
+		.css("height", "12px").html("yüzde yirmi dokuz");
+		
+	$(container).append("<div id='yaziOrta'>");
+	$("#yaziOrta").css("position","absolute")
+				.css("margin", "auto")
+				.css("right", "0")
+				.css("top", "0")
+				.css("bottom", "0")
+				.css("left", "0")
+				.css("width", "210px")
+				.css("height", "60px")
+				//.css("border","solid 1px black");	
+	$("#yaziOrta", container).append("<div class='karsilastirma' id='ornekYuzde'>");
+	$("#yaziOrta", container).append("<div class='karsilastirma' id='ornekKesir'>");
+	$("#yaziOrta", container).append("<div class='karsilastirma' id='ornekOndalik'>");
+	
+	$(".karsilastirma").css("float","left")
+				.css("margin-left", "2px")
+				.css("width", "30%")
+				.css("height", "58px")
+				//.css("border","solid 1px black")
+				.css("font-size","large");
+				$("#ornekYuzde").css("text-align","center")
+				.css("line-height","58px");
+				//.css("display","table-cell");
+	
+	
+				
+	$("#ornekYuzde").html("%29 =");
+	//$("#ornekKesir").html("29<br /> 100");
+	$("#ornekOndalik").html("= 0,29");
+	$("#ornekOndalik").css("text-align","center").css("line-height","58px");
+	
+	
+	$("#yaziOrta #ornekKesir",container).append("<div id='ornekKesirPay'>");
+	$("#yaziOrta #ornekKesir #ornekKesirPay",container).append("29");
+	$("#ornekKesirPay").css("text-align","center").css("line-height","35px");
+	//$("#Corta2",container).append("<div id='kesir'>");
+	$("#yaziOrta #ornekKesir #ornekKesirPay",container).append("<div id='ornekKesir1'>");
+	$('#ornekKesir1').css("position","absolute")
+				.css("left", "79px")
+				.css("top", "30px")
+				.css("width", "40px")
+				.css("height", "1px")
+				.css("padding", 0)
+				.css("border-top", "2px solid");
+	$("#yaziOrta #ornekKesir",container).append("<div id='ornekKesirPayda'>");
+	$("#yaziOrta #ornekKesir #ornekKesirPayda",container).append("100");
+	$("#ornekKesirPayda").css("text-align","center");
+	
+	
+	
+		
+		
+		
+	exampleHelper={
+		
+		yaziSol:0,
+		yuzde:0,
+		kesir:0,
+		ondalik:0
+	};
+	
+	Animation.onFrame = function(event){
+		$('#yaziSol').css("opacity", exampleHelper.yaziSol);
+		$('#ornekYuzde').css("opacity", exampleHelper.yuzde);
+		$('#ornekKesir').css("opacity", exampleHelper.kesir);
+		$('#ornekOndalik').css("opacity", exampleHelper.ondalik);
+		
+	}
+	
+	exampleHelper.animate = Item.prototype.animate;
+	
+	
+	exampleHelper.animate({
+		style:{
+			ondalik:1
+		},
+		duration:1000,
+		delay:6000
+	});
+	
+	exampleHelper.animate({
+		style:{
+			kesir:1
+		},
+		duration:1000,
+		delay:5000
+	});
+	
+	exampleHelper.animate({
+		style:{
+			
+			yuzde:1
+		},
+		duration:1000,
+		delay:4000
+	});
+	
+	exampleHelper.animate({
+		style:{
+			yaziSol:1
+		},
+		duration:1000,
+		delay:3000
+	});
+	
+};
 
 Interaction.init = function(container){
 	Main.setObjective("Yandaki yüzlük tablonun altındaki kutuya istediğiniz sayıyı yazınız. Oluşan yüzdeyi ondalık kesir olarak kutuya yazınız ve “Kontrol” düğmesine fare ile tıklayınız.");
@@ -199,45 +338,8 @@ Interaction.init = function(container){
 	bosKareCiz();
 	*/
 	
-	var kare= function(kareSayisi, dolguRengi, hatRengi, x,y){
-		this.kareSayisi=kareSayisi;
-		this.dolguRengi=dolguRengi;
-		this.hatRengi=hatRengi;
-		this.x=x;
-		this.y=y;
-		this.yap=kareYap;
-		
-	}
 	
-	function kareYap(){
-		
-		var girdi=this.kareSayisi;
-			
-			var onluk=Math.floor(girdi/10)==0?1:Math.floor(girdi/10+1);
-			var birlik=Math.floor(girdi%10);
-			
-			var girilenKareSayisi=10;
-			
-			for(j=0;j<onluk && j<10;j++){
-				
-				if(j==(onluk-1))
-					girilenKareSayisi=birlik;
-				else
-					var girilenKareSayisi=10;
-					
-				for(i=0; i<girilenKareSayisi && i<10;i++){
-					
-					boyaliKare = new Rectangle((this.x+i*10),(this.y+j*10),10,10); //x,y,width,height
-					var path = new Path.Rectangle(boyaliKare);
-					path.fillColor = this.dolguRengi;
-					path.strokeColor=this.hatRengi;
-					
-					
-				}	
-			}
-		
-	}
-	bosKare= new kare(100, kareIlkFillColor, kareIlkStrokeColor,100,30);
+	bosKare= new Kare(100, kareIlkFillColor, kareIlkStrokeColor,100,30);
 	bosKare.yap();
 	// Kareler boyanıyor.
 	var girdi;
@@ -249,7 +351,7 @@ Interaction.init = function(container){
 			girdi=parseInt($("#giris").val());
 			
 			
-			boyaliKareSol=new kare(girdi,kareBoyaliFillColor, kareBoyaliStrokeColor,100,30);
+			boyaliKareSol=new Kare(girdi,kareBoyaliFillColor, kareBoyaliStrokeColor,100,30);
 	boyaliKareSol.yap();
 			
 			
@@ -423,6 +525,113 @@ Interaction.init = function(container){
 	
 	
 };
+
+// kare sınıfı
+
+var OrnekKare = function(kareSayisi, dolguRengi, hatRengi, x,y) {
+	this.animate = Item.prototype.animate;
+	this.kareSayisi=kareSayisi;
+	this.dolguRengi=dolguRengi;
+	this.hatRengi=hatRengi;
+	this.x=x;
+	this.y=y;
+	
+	var group = new Group();	
+
+	var girdi=this.kareSayisi;
+			
+	var onluk=Math.floor(girdi/10)==0?1:Math.floor(girdi/10+1);
+	var birlik=Math.floor(girdi%10);
+		
+	var girilenKareSayisi=10;
+	
+	for(j=0;j<onluk && j<10;j++){
+				
+		if(j==(onluk-1))
+			girilenKareSayisi=birlik;
+		else
+			var girilenKareSayisi=10;
+					
+		for(i=0; i<girilenKareSayisi && i<10;i++){
+					
+			boyaliKare = new Rectangle((this.x+i*10),(this.y+j*10),10,10); //x,y,width,height
+			var path = new Path.Rectangle(boyaliKare);
+			path.fillColor = this.dolguRengi;
+			path.strokeColor=this.hatRengi;
+			
+			if(dolguRengi!="white"){
+				path.opacity = 0;
+				path.animate({
+					style: {
+						opacity: 1
+					},
+					duration: 250,
+					delay: 20 * (j*10 + i)
+				})
+			}
+			
+			group.addChild(path);
+		}	
+	}
+	
+	return group;
+}
+
+
+var Kare= function(kareSayisi, dolguRengi, hatRengi, x,y){
+		this.animate = Item.prototype.animate;
+		this.kareSayisi=kareSayisi;
+		this.dolguRengi=dolguRengi;
+		this.hatRengi=hatRengi;
+		this.x=x;
+		this.y=y;
+		this.yap=kareYap;
+		
+	}
+	
+	function kareYap(){
+		
+		//var group = new Group();	
+
+		var girdi=this.kareSayisi;
+				
+		var onluk=Math.floor(girdi/10)==0?1:Math.floor(girdi/10+1);
+		var birlik=Math.floor(girdi%10);
+			
+		var girilenKareSayisi=10;
+		
+		for(j=0;j<onluk && j<10;j++){
+					
+			if(j==(onluk-1))
+				girilenKareSayisi=birlik;
+			else
+				var girilenKareSayisi=10;
+						
+			for(i=0; i<girilenKareSayisi && i<10;i++){
+						
+				boyaliKare = new Rectangle((this.x+i*10)+0.5,(this.y+j*10)+0.5,10,10); //x,y,width,height
+				var path = new Path.Rectangle(boyaliKare);
+				path.fillColor = this.dolguRengi;
+				path.strokeColor=this.hatRengi;
+				
+					if(this.dolguRengi!="white"){
+						path.opacity = 0;
+						path.animate({
+							style: {
+								opacity: 1
+							},
+							duration: 250,
+							delay: 20 * (j*10 + i)
+						})
+					}
+				
+				//group.addChild(path);
+			}	
+		}
+		
+		//return group;
+		
+	}
 
 	// Sadece rakam girilmesini sağlanıyor.
 	function SadeceRakam(e,allowedchars){var key=e.charCode==undefined?e.keyCode:e.charCode;if((/^[0-9]+$/.test(String.fromCharCode(key)))||key==0||key==13||isPassKey(key,allowedchars)){return true;}else{return false;}}
