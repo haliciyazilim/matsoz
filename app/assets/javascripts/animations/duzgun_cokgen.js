@@ -12,7 +12,70 @@ var dropableShapeDroppedTrueStyle = {strokeColor:'#0f0',fillColor:'#afa'};
 var dropableShapeDroppedFalseStyle = {strokeColor:'#f00',fillColor:'#f00'};
 //Styles
 
-var Animation = function(){};Animation();
+var Animation = {
+	init: function(container){
+		Animation.container = container;
+		var w=$(container).width(), h=$(container).height();
+		var x = w *0.5;
+		var y = h*0.5;
+		
+		var p1 = new Point(
+			w*0.125   ,
+			20
+		);
+		var p2 = new Point(
+			x*0.375 ,
+			20 
+		);
+		var p3 = new Point(
+			x*0.625,
+			20
+		);
+		var p4 = new Point(
+			x*0.875,
+			20 
+		);
+		
+		var animationHelper = {
+			animate: Item.prototype.animate,
+			t1:60,
+			t2:180,
+			t3:330,
+		}
+		function PolygonInterface(P,S,angles){
+			this.setAngles = function(angles){
+				if(angles instanceof Array)
+					this.angles = angles;
+				else
+					throw 'argument `angles` is not an array';
+			}
+			this.draw = function(){
+				if(this.shape)
+					this.shape.remove();
+				this.shape = new Path.EquiradialPolygon(this.center,this.size,this.angles);
+				this.shape.setStyle(shapeStyle)
+			}
+			this.redraw = function(angles){
+				this.setAngles(angles);
+				this.draw();
+			}
+			
+			this.center = P;
+			this.size = S
+			
+			if(angles){
+				this.setAngles(angles);
+			}
+		}
+		
+		Animation.triangle = new PolygonInterface(p1,new Size(w*0.20,h),[animationHelper.t1,animationHelper.t2,animationHelper.t3]);
+		//console.log(p1)
+		Animation.triangle.draw();
+		//new Path.EquiradialPolygon(p1,new Size(w*0.20,h),[animationHelper.t1,animationHelper.t2,animationHelper.t3]);
+		//new Path.Line(new Point(10,10),new Point(700,100))
+		//console.log('asdasd')
+	}
+};
 var Interaction =function(){};Interaction();
 Interaction.getFramework = function() {
 	return 'paper';
