@@ -27,7 +27,11 @@ AnimationManager.Animation = function (item, animationHash) {
 	}
 	
 	if (typeof(animationHash.callback) == "function") {
-		this.item.callback = animationHash.callback;
+		this.callback = animationHash.callback;
+	}
+	
+	if (typeof(animationHash.update) == "function") {
+		this.update = animationHash.update;
 	}
 	
 	this.idle = true;
@@ -87,37 +91,56 @@ AnimationManager.update = function(event) {
 				for (var key in animation.style) {
 					if (animation.style.hasOwnProperty(key)) {
 						animation.startHash[key] = (animation.item[key]);
+							
 					}
 				}
 				
 				animation.idle = false;
 			} else if (animation.startTime + animation.duration < currentTime) {
+				animations.splice(i,1);
 				for (var key in animation.startHash) {
 					if (animation.startHash.hasOwnProperty(key)) {
 						animation.item[key] = animation.style[key];
-						animations.splice(i,1);
-						if (animation.item.callback) {
-							animation.item.callback();
-						}
 					}
 				}
+				if (animation.update) {
+					animation.item.update = animation.update;
+					animation.item.update();
+				}
+				if (animation.callback) {
+						animation.item.callback = animation.callback;
+						animation.item.callback();
+				}
+				
 			} else {
 				for (var key in animation.startHash) {
 					if (animation.startHash.hasOwnProperty(key)) {
-				    	startValue = animation.startHash[key];
-						endValue = animation.style[key];
+				    	var startValue = animation.startHash[key];
+						var endValue = animation.style[key];
 				
-						ratio = animation.map((currentTime - animation.startTime) / animation.duration);
+						var ratio = animation.map((currentTime - animation.startTime) / animation.duration);
 						if (Util.isNumber(startValue)) {
 							animation.item[key] = startValue + (endValue - startValue) * ratio;
 						} else if (startValue instanceof Point) {
-							x = startValue.x + (endValue.x - startValue.x) * ratio;
-							y = startValue.y + (endValue.y - startValue.y) * ratio;
+							var x = startValue.x + (endValue.x - startValue.x) * ratio;
+							var y = startValue.y + (endValue.y - startValue.y) * ratio;
 							animation.item[key] = new Point(x, y);
 						}
 					}
+				}
+				
+				if (animation.update) {
+					animation.item.update = animation.update;
+					animation.item.update();
 				}
 			}
 		}	
 	}
 };
+
+function AnimationHelper(values){
+	this.animate = Item.prototype.animate;
+	for (var key in values) {
+		this[key] = values[key];
+	}
+}
