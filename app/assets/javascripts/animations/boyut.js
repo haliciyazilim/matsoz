@@ -92,6 +92,7 @@ Animation.init = function(container){
 		text2Opacity:0,
 		text3Opacity:0
 	}
+	
 	var lineStyle = {
 		strokeWidth:3,
 		strokeColor:'#f00'
@@ -103,35 +104,23 @@ Animation.init = function(container){
 	Animation.text1.setStyle(textStyle);
 	Animation.text2.setStyle(textStyle);
 	Animation.text3.setStyle(textStyle);
-	
+	Animation.path.add(p4);
+	Animation.path.add(p1);
+	Animation.path.add(p2);
+	Animation.path.add(p3);
+	Animation.path.add(p4);
+	Animation.path.add(p5);
+	Animation.path.add(p6);
+	Animation.path.add(p7);
+	Animation.path.add(p2);
+	Animation.path.add(p3);
+	Animation.path.add(p6);
 	Animation.line1.setStyle(lineStyle);
 	Animation.line2.setStyle(lineStyle);
 	Animation.line3.setStyle(lineStyle);
 	animationHelper.animate = Item.prototype.animate;
+
 	Animation.onFrame = function(){
-		var count = Math.floor(animationHelper.count);
-		if(count == 0 ){
-			Animation.path.add(p4);
-			Animation.path.add(p1);
-		}
-		if(count == 2)
-			Animation.path.add(p2);
-		if(count == 3)
-			Animation.path.add(p3);
-		if(count == 4)
-			Animation.path.add(p4);
-		if(count == 5)
-			Animation.path.add(p5);
-		if(count == 6)
-			Animation.path.add(p6);
-		if(count == 7)
-			Animation.path.add(p7);
-		if(count == 8)
-			Animation.path.add(p2);
-		if(count == 9)
-			Animation.path.add(p3);
-		if(count == 10)
-			Animation.path.add(p6);
 		Animation.path.opacity = animationHelper.opacity;
 		Animation.line1.opacity = animationHelper.line1Opacity;
 		Animation.line2.opacity = animationHelper.line2Opacity;
@@ -140,12 +129,9 @@ Animation.init = function(container){
 		Animation.text2.opacity = animationHelper.text2Opacity;
 		Animation.text3.opacity = animationHelper.text3Opacity;
 	}
-	animationHelper.animate({
-		style:{
-			count:10
-		},
-		duration:2000	
-	});
+	
+	
+	
 	animationHelper.animate({
 		style:{
 			opacity:1
@@ -193,10 +179,7 @@ Animation.init = function(container){
 		},
 		duration:1000,
 		delay:7000
-	});
-	//console.log('asd');
-	
-	
+	});	
 }
 
 var Interaction = {};
@@ -206,7 +189,7 @@ Interaction.getFramework = function() {
 }
 
 Interaction.init = function(container){
-	Main.setObjective('Aşağıdaki nesneleri kaç boyutlu olduğuna göre sınıflandırmak için fare ile sürükleyerek ilgili sepete atınız.');
+	Main.setObjective('Yandaki nesneleri kaç boyutlu olduğuna göre sınıflandırmak için fare ile sürükleyerek ilgili sepete atınız.');
 	Interaction.container = container;
 	Interaction.container.top = $(container).offset().top;
 	Interaction.container.left = $(container).offset().left;
