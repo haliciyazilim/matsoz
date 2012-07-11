@@ -16,6 +16,513 @@ Interaction.getFramework = function() {
 Animation.init = function(container){
 	Animation.container = container;
 	
+	// 1.38
+	$(container).append('<img id="firstBoy" src="/assets/animations/veri/1.41-child.png" />');
+	$('#firstBoy').css("width", "60px")
+				.css("height", "100px")
+				.css("position", "absolute")
+				.css("left", "110px")
+				.css("bottom", "50px");
+	 // 1.39
+	$(container).append('<img id="secondBoy" src="/assets/animations/veri/1.41-child.png" />');
+	$('#secondBoy').css("width", "60px")
+				.css("height", "106px")
+				.css("position", "absolute")
+				.css("left", "110px")
+				.css("bottom", "50px");
+	// 1.40
+	$(container).append('<img id="thirdBoy" src="/assets/animations/veri/1.41-child.png" />');
+	$('#thirdBoy').css("width", "60px")
+				.css("height", "112px")
+				.css("position", "absolute")
+				.css("left", "110px")
+				.css("bottom", "50px");
+	// 1.41
+	$(container).append('<img id="fourthBoy" src="/assets/animations/veri/1.41-child.png" />');
+	$('#fourthBoy').css("width", "60px")
+				.css("height", "118px")
+				.css("position", "absolute")
+				.css("left", "110px")
+				.css("bottom", "50px");
+	// 1.42
+	$(container).append('<img id="fifthBoy" src="/assets/animations/veri/1.41-child.png" />');
+	$('#fifthBoy').css("width", "60px")
+				.css("height", "124px")
+				.css("position", "absolute")
+				.css("left", "110px")
+				.css("bottom", "50px");
+	
+	// paper2
+	$(container).append('<img id="paper2" src="/assets/animations/veri/paper2.png" />');
+	$('#paper2').css("width", "100px")
+				.css("height", "194px")
+				.css("position", "absolute")
+				.css("left", "584px")
+				.css("top", "6px");
+				
+	$(container).append('<div id="paper2Div"></div>');
+	$('#paper2Div').css("position", "absolute")
+					.css("top", "10px")
+					.css("left", "590px")
+					.css("width", "80px")
+					.css("height", "160px")
+					.css("text-align", "center")
+			//		.css("border", "solid")
+	
+	// player's length text
+	$('#paper2Div').append('<p id="firstLength">1.41</p>');
+	$('#firstLength').css("position", "absolute")
+						.css("top", "2px")
+						.css("left", "2px")
+						.css("font-size", 12)
+						.css("font-family", "Helvetica Neue");
+	
+	$('#paper2Div').append('<p id="secondLength">1.40</p>');
+	$('#secondLength').css("position", "absolute")
+						.css("top", "18px")
+						.css("left", "2px")
+						.css("font-size", 12)
+						.css("font-family", "Helvetica Neue");
+	
+	$('#paper2Div').append('<p id="thirdLength">1.39</p>');
+	$('#thirdLength').css("position", "absolute")
+						.css("top", "34px")
+						.css("left", "2px")
+						.css("font-size", 12)
+						.css("font-family", "Helvetica Neue");
+	
+	$('#paper2Div').append('<p id="fourthLength">1.40</p>');
+	$('#fourthLength').css("position", "absolute")
+						.css("top", "50px")
+						.css("left", "2px")
+						.css("font-size", 12)
+						.css("font-family", "Helvetica Neue");
+						
+	$('#paper2Div').append('<p id="fifthLength">1.40</p>');
+	$('#fifthLength').css("position", "absolute")
+						.css("top", "66px")
+						.css("left", "2px")
+						.css("font-size", 12)
+						.css("font-family", "Helvetica Neue");
+	
+	$('#paper2Div').append('<p id="sixthLength">1.41</p>');
+	$('#sixthLength').css("position", "absolute")
+						.css("top", "82px")
+						.css("left", "2px")
+						.css("font-size", 12)
+						.css("font-family", "Helvetica Neue");
+	
+	$('#paper2Div').append('<p id="seventhLength">1.38</p>');
+	$('#seventhLength').css("position", "absolute")
+						.css("top", "98px")
+						.css("left", "2px")
+						.css("font-size", 12)
+						.css("font-family", "Helvetica Neue");
+	
+	$('#paper2Div').append('<p id="eighthLength">1.40</p>');
+	$('#eighthLength').css("position", "absolute")
+						.css("top", "114px")
+						.css("left", "2px")
+						.css("font-size", 12)
+						.css("font-family", "Helvetica Neue");
+	
+	$('#paper2Div').append('<p id="ninthLength">1.42</p>');
+	$('#ninthLength').css("position", "absolute")
+						.css("top", "130px")
+						.css("left", "2px")
+						.css("font-size", 12)
+						.css("font-family", "Helvetica Neue");
+	
+	$('#paper2Div').append('<p id="tenthLength">1.39</p>');
+	$('#tenthLength').css("position", "absolute")
+						.css("top", "146px")
+						.css("left", "2px")
+						.css("font-size", 12)
+						.css("font-family", "Helvetica Neue");
+	
+	$('#paper2Div').append('<p id="eleventhLength">1.41</p>');
+	$('#eleventhLength').css("position", "absolute")
+						.css("top", "162px")
+						.css("left", "2px")
+						.css("font-size", 12)
+						.css("font-family", "Helvetica Neue");
+	
+	$(container).append('<div id="infoText">Okul futbol takımındaki öğrencilerin boy uzunlukları ölçüm sonuçları.</div>')
+	$('#infoText').css("position", "absolute")
+					.css("top", "72px")
+					.css("left", "194px")
+					.css("width", "357px")
+					.css("height", "60px")
+					.css("text-align", "center")
+					.css("color", "#29088A")
+					.css("font-size", 22)
+					.css("font-family", "Helvetica Neue");
+					
+	exampleHelper = {
+		firstBoyOpacity: 0,
+		secondBoyOpacity: 0,
+		thirdBoyOpacity: 0,
+		fourthBoyOpacity: 0,
+		fifthBoyOpacity: 0,
+		infoTextOpacity: 0,
+		paper2Opacity: 0,
+		firstLengthOpacity: 0,
+		secondLengthOpacity: 0,
+		thirdLengthOpacity: 0,
+		fourthLengthOpacity: 0,
+		fifthLengthOpacity: 0,
+		sixthLengthOpacity: 0,
+		seventhLengthOpacity: 0,
+		eighthLengthOpacity: 0,
+		ninthLengthOpacity: 0,
+		tenthLengthOpacity: 0,
+		eleventhLengthOpacity: 0
+	};
+	
+	exampleHelper.animate = Item.prototype.animate;
+	
+	Animation.onFrame = function(event){
+		$('#firstBoy').css("opacity", exampleHelper.firstBoyOpacity);
+		$('#secondBoy').css("opacity", exampleHelper.secondBoyOpacity);
+		$('#thirdBoy').css("opacity", exampleHelper.thirdBoyOpacity);
+		$('#fourthBoy').css("opacity", exampleHelper.fourthBoyOpacity);
+		$('#fifthBoy').css("opacity", exampleHelper.fifthBoyOpacity);
+		$('#paper2').css("opacity", exampleHelper.paper2Opacity);
+		$('#infoText').css("opacity", exampleHelper.infoTextOpacity);
+		$('#firstLength').css("opacity", exampleHelper.firstLengthOpacity);
+		$('#secondLength').css("opacity", exampleHelper.secondLengthOpacity);
+		$('#thirdLength').css("opacity", exampleHelper.thirdLengthOpacity);
+		$('#fourthLength').css("opacity", exampleHelper.fourthLengthOpacity);
+		$('#fifthLength').css("opacity", exampleHelper.fifthLengthOpacity);
+		$('#sixthLength').css("opacity", exampleHelper.sixthLengthOpacity);
+		$('#seventhLength').css("opacity", exampleHelper.seventhLengthOpacity);
+		$('#eighthLength').css("opacity", exampleHelper.eighthLengthOpacity);
+		$('#ninthLength').css("opacity", exampleHelper.ninthLengthOpacity);
+		$('#tenthLength').css("opacity", exampleHelper.tenthLengthOpacity);
+		$('#eleventhLength').css("opacity", exampleHelper.eleventhLengthOpacity);
+	}
+	
+	// info text
+	exampleHelper.animate({
+		style: {
+			infoTextOpacity: 1
+		},
+		duration: 1000,
+		delay: 1000,
+		animationType: 'easeInEaseOut'
+	});
+	
+	// paper comes
+	exampleHelper.animate({
+		style: {
+			paper2Opacity: 1
+		},
+		duration: 1000,
+		delay: 2000,
+		animationType: 'easeInEaseOut'
+	});
+	
+	
+	// first player
+	exampleHelper.animate({
+		style: {
+			fourthBoyOpacity: 1
+		},
+		duration: 1000,
+		delay: 4000,
+		animationType: 'easeInEaseOut'
+	});
+	
+	exampleHelper.animate({
+		style: {
+			firstLengthOpacity: 1
+		},
+		duration: 1000,
+		delay: 4500,
+		animationType: 'easeInEaseOut'
+	});
+	
+	// second player
+	exampleHelper.animate({
+		style: {
+			fourthBoyOpacity: 0
+		},
+		duration: 1000,
+		delay: 6000,
+		animationType: 'easeInEaseOut'
+	});
+	
+	exampleHelper.animate({
+		style: {
+			thirdBoyOpacity: 1
+		},
+		duration: 1000,
+		delay: 6000,
+		animationType: 'easeInEaseOut'
+	});
+	
+	exampleHelper.animate({
+		style: {
+			secondLengthOpacity: 1
+		},
+		duration: 1000,
+		delay: 6500,
+		animationType: 'easeInEaseOut'
+	});
+	
+	// third player
+	exampleHelper.animate({
+		style: {
+			thirdBoyOpacity: 0
+		},
+		duration: 1000,
+		delay: 8000,
+		animationType: 'easeInEaseOut'
+	})
+	
+	exampleHelper.animate({
+		style: {
+			secondBoyOpacity: 1
+		},
+		duration: 1000,
+		delay: 8000,
+		animationType: 'easeInEaseOut'
+	});
+	
+	exampleHelper.animate({
+		style: {
+			thirdLengthOpacity: 1
+		},
+		duration: 1000,
+		delay: 8500,
+		animationType: 'easeInEaseOut'
+	});
+	
+	// fourth player
+	exampleHelper.animate({
+		style: {
+			secondBoyOpacity: 0
+		},
+		duration: 1000,
+		delay: 10000,
+		animationType: 'easeInEaseOut'
+	})
+	
+	exampleHelper.animate({
+		style: {
+			thirdBoyOpacity: 1
+		},
+		duration: 1000,
+		delay: 10000,
+		animationType: 'easeInEaseOut'
+	});
+	
+	exampleHelper.animate({
+		style: {
+			fourthLengthOpacity: 1
+		},
+		duration: 1000,
+		delay: 10500,
+		animationType: 'easeInEaseOut'
+	});
+	
+	//fifth player
+	exampleHelper.animate({
+		style: {
+			thirdBoyOpacity: 0
+		},
+		duration: 1000,
+		delay: 12000,
+		animationType: 'easeInEaseOut'
+	})
+	
+	exampleHelper.animate({
+		style: {
+			thirdBoyOpacity: 1
+		},
+		duration: 1000,
+		delay: 12020,
+		animationType: 'easeInEaseOut'
+	});
+	
+	exampleHelper.animate({
+		style: {
+			fifthLengthOpacity: 1
+		},
+		duration: 1000,
+		delay: 12500,
+		animationType: 'easeInEaseOut'
+	});
+	
+	// sixth player
+	exampleHelper.animate({
+		style: {
+			thirdBoyOpacity: 0
+		},
+		duration: 1000,
+		delay: 14000,
+		animationType: 'easeInEaseOut'
+	})
+	
+	exampleHelper.animate({
+		style: {
+			fourthBoyOpacity: 1
+		},
+		duration: 1000,
+		delay: 14000,
+		animationType: 'easeInEaseOut'
+	});
+	
+	exampleHelper.animate({
+		style: {
+			sixthLengthOpacity: 1
+		},
+		duration: 1000,
+		delay: 14500,
+		animationType: 'easeInEaseOut'
+	});
+	
+	// seventh player
+	exampleHelper.animate({
+		style: {
+			fourthBoyOpacity: 0
+		},
+		duration: 1000,
+		delay: 16000,
+		animationType: 'easeInEaseOut'
+	})
+	
+	exampleHelper.animate({
+		style: {
+			firstBoyOpacity: 1
+		},
+		duration: 1000,
+		delay: 16000,
+		animationType: 'easeInEaseOut'
+	});
+	
+	exampleHelper.animate({
+		style: {
+			seventhLengthOpacity: 1
+		},
+		duration: 1000,
+		delay: 16500,
+		animationType: 'easeInEaseOut'
+	});
+	
+	// eighth player
+	exampleHelper.animate({
+		style: {
+			firstBoyOpacity: 0
+		},
+		duration: 1000,
+		delay: 18000,
+		animationType: 'easeInEaseOut'
+	})
+	
+	exampleHelper.animate({
+		style: {
+			thirdBoyOpacity: 1
+		},
+		duration: 1000,
+		delay: 18000,
+		animationType: 'easeInEaseOut'
+	});
+	
+	exampleHelper.animate({
+		style: {
+			eighthLengthOpacity: 1
+		},
+		duration: 1000,
+		delay: 18500,
+		animationType: 'easeInEaseOut'
+	});
+	
+	
+	// ninth player
+	exampleHelper.animate({
+		style: {
+			thirdBoyOpacity: 0
+		},
+		duration: 1000,
+		delay: 20000,
+		animationType: 'easeInEaseOut'
+	})
+	
+	exampleHelper.animate({
+		style: {
+			fifthBoyOpacity: 1
+		},
+		duration: 1000,
+		delay: 20000,
+		animationType: 'easeInEaseOut'
+	});
+	
+	exampleHelper.animate({
+		style: {
+			ninthLengthOpacity: 1
+		},
+		duration: 1000,
+		delay: 20500,
+		animationType: 'easeInEaseOut'
+	});
+	
+	// tenth player
+	exampleHelper.animate({
+		style: {
+			fifthBoyOpacity: 0
+		},
+		duration: 1000,
+		delay: 22000,
+		animationType: 'easeInEaseOut'
+	})
+	
+	exampleHelper.animate({
+		style: {
+			secondBoyOpacity: 1
+		},
+		duration: 1000,
+		delay: 22000,
+		animationType: 'easeInEaseOut'
+	});
+	
+	exampleHelper.animate({
+		style: {
+			tenthLengthOpacity: 1
+		},
+		duration: 1000,
+		delay: 22500,
+		animationType: 'easeInEaseOut'
+	});
+	
+	// eleventh player
+	exampleHelper.animate({
+		style: {
+			secondBoyOpacity: 0
+		},
+		duration: 1000,
+		delay: 24000,
+		animationType: 'easeInEaseOut'
+	})
+	
+	exampleHelper.animate({
+		style: {
+			fourthBoyOpacity: 1
+		},
+		duration: 1000,
+		delay: 24000,
+		animationType: 'easeInEaseOut'
+	});
+	
+	exampleHelper.animate({
+		style: {
+			eleventhLengthOpacity: 1
+		},
+		duration: 1000,
+		delay: 24500,
+		animationType: 'easeInEaseOut'
+	});
+
 	
 }
 
