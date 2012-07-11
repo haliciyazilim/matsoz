@@ -5,9 +5,164 @@ var textStyle = {'font-size':'16px'};
 var edgeStyle = {strokeColor:'#000',strokeWidth:2,fillColor:'#fff',cursor:'move'};
 var rectangularShapeStyle = {'shape-rendering':'crispEdges'}
 var angleStyle = {'fill':'#DDD'};
+var animationEdgeStyle = {strokeColor:'#000',strokeWidth:2}
 /*Styles*/
 
-var Animation = function(){};Animation();
+var Animation = {
+	
+	init:function(container){
+		
+		Animation.container = container;
+		var w=$(container).width(), h=$(container).height();
+		var size = new Size(100,100);
+		var _h = 30;
+		var p1 = new Point(
+			0,
+			25+_h
+		);
+		var p2 = new Point(
+			w*0.166 ,
+			0+_h
+		);
+		var p3 = new Point(
+			w*0.33,
+			0+_h
+		);
+		var p4 = new Point(
+			w*5,
+			0+_h
+		);
+		var p5 = new Point(
+			w*0.66,
+			25+_h
+		);
+		var p6 = new Point(
+			w*0.83 ,
+			0+_h
+		);
+		
+		var triangle = new Path.EquiradialPolygon(
+			p1,
+			size,
+			[120,210,330],
+			0
+		)
+		triangle.setStyle(animationEdgeStyle);
+		
+		var t = triangle.rasterize();
+		t.vertexArray = triangle.vertexArray;
+		
+		triangle.remove();
+		triangle = t;
+		triangle.angle = 0;
+		triangle.lastTransformation = triangle.matrix;
+		console.log(triangle.vertexArray[1])
+		console.log(triangle.vertexArray[2].x,triangle.vertexArray[2].y);
+		triangle.animate({
+			style:{
+				angle:135	
+			},
+			duration:1000,
+			delay:500,
+			update:function(){
+				var matrix = new Matrix();
+				matrix.rotate(this.angle, this.vertexArray[2]);
+				matrix.concatenate(this.lastTransformation);
+				this.setMatrix(matrix);
+			},
+			callback:function(){
+				for(var i=0; i<this.vertexArray.length ; i++)
+					this.vertexArray[i] = this.vertexArray[i].getRotatedPoint(this.angle,this.vertexArray[2])
+				triangle.lastTransformation = triangle.matrix;
+				new Path.Circle(this.vertexArray[0],2).setStyle({fillColor:"#000"})
+				new Path.Line(
+					this.vertexArray[0],
+					this.vertexArray[2]
+				).setStyle({strokeColor:'#000',strokeWidth:2});
+				
+				console.log(this.vertexArray[1])
+				triangle.angle = 0;
+			}
+		});
+		triangle.animate({
+			style:{
+				angle:120
+			},
+			duration:1000,
+			delay:1600,
+			update:function(){
+				//console.log(this.firstPosition.x,this.firstPosition.y);
+				var matrix = new Matrix();
+				matrix.rotate(this.angle, this.vertexArray[0]);
+				matrix.concatenate(this.lastTransformation);
+				this.setMatrix(matrix);
+			},
+			callback:function(){
+				for(var i=0; i<this.vertexArray.length ; i++)
+					this.vertexArray[i] = this.vertexArray[i].getRotatedPoint(this.angle,this.vertexArray[0])
+				triangle.lastTransformation = triangle.matrix;
+				new Path.Circle(this.vertexArray[1],2).setStyle({fillColor:"#000"})
+				new Path.Line(
+					this.vertexArray[1],
+					this.vertexArray[0]
+				).setStyle({strokeColor:'#000',strokeWidth:2});
+				console.log(this.vertexArray[1])
+				triangle.angle = 0;
+			}
+		});
+		triangle.animate({
+			style:{
+				angle:105
+			},
+			duration:1000,
+			delay:2700,
+			update:function(){
+				//console.log(this.firstPosition.x,this.firstPosition.y);
+				var matrix = new Matrix();
+				matrix.rotate(this.angle, this.vertexArray[1]);
+				matrix.concatenate(this.lastTransformation);
+				this.setMatrix(matrix);
+			},
+			callback:function(){
+				for(var i=0; i<this.vertexArray.length ; i++)
+					this.vertexArray[i] = this.vertexArray[i].getRotatedPoint(this.angle,this.vertexArray[1])
+				
+				new Path.Circle(this.vertexArray[0],2).setStyle({fillColor:"#000"})
+				new Path.Line(
+					this.vertexArray[1],
+					this.vertexArray[2]
+				).setStyle({strokeColor:'#000',strokeWidth:2});
+				triangle.angle = 0;
+			}
+		});
+		triangle.animate({
+			style:{
+				angle:120
+			},
+			duration:1000,
+			delay:3800,
+			update:function(){
+				//console.log(this.firstPosition.x,this.firstPosition.y);
+				var matrix = new Matrix();
+				matrix.rotate(this.angle, this.vertexArray[0]);
+				matrix.concatenate(this.lastTransformation);
+				this.setMatrix(matrix);
+			},
+			callback:function(){
+				for(var i=0; i<this.vertexArray.length ; i++)
+					this.vertexArray[i] = this.vertexArray[i].getRotatedPoint(this.angle,this.vertexArray[1])
+				
+				new Path.Circle(this.vertexArray[0],2).setStyle({fillColor:"#000"})
+				new Path.Line(
+					this.vertexArray[1],
+					this.vertexArray[0]
+				).setStyle({strokeColor:'#000',strokeWidth:2});
+			}
+		});
+		
+	}
+	
+};
 var Interaction =function(){};Interaction();
 Interaction.getFramework = function() {
 	return 'paper';
