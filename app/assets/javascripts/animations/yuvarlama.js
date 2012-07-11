@@ -153,7 +153,7 @@ Animation.init=function(container){
 
 
 Interaction.init = function(container){
-	Main.setObjective("Yandaki saylar için istenilen yuvarlamayı yaparak klavyeden sayıyı yazınız ve kontrol ediniz.");
+	Main.setObjective("Yandaki sayılar için istenilen yuvarlamayı yaparak klavyeden sayıyı yazınız ve kontrol ediniz.");
 	
 	
 	
@@ -321,7 +321,7 @@ Interaction.init = function(container){
 	);
 	var tiklama=0;
 	function kontrol(){
-		tiklama++;
+		
 		console.log("kontrole girdim."+girdi+" "+yuvarlak);
 		if ($("#girdi").val()==""){
 			console.log("if girdi boşsa girdim."+girdi+" "+yuvarlak);
@@ -335,25 +335,27 @@ Interaction.init = function(container){
 			);
 		
 		}
-		else if(girdi==yuvarlak){
-		console.log("if doğruysa girdim."+girdi+" "+yuvarlak);
-			$("#geriBildirimText").attr("class","status_true").html("Tebrikler");
-			$("#btnKontrol").hide();
-			$("#sonraki").show();
-		}
-		else if(tiklama<2 && girdi!=yuvarlak){
-			$("#geriBildirimText").attr("class","status_false").html("Tekrar deneyin");
-		}
-		
-		else if(tiklama>2 ||girdi!=yuvarlak){
-		console.log("if doğruysa girdim."+girdi+" "+yuvarlak);
-			$("#geriBildirimText").attr("class","status_false").html("Yanlış. Doğru Cevap:");
-			$("#cerceveCevap").show();
-			$("#btnKontrol").hide();
-			$("#sonraki").show();
+		else{
+			tiklama++;
+			if(girdi==yuvarlak){
+			console.log("if doğruysa girdim."+girdi+" "+yuvarlak);
+				$("#geriBildirimText").attr("class","status_true").html("Tebrikler");
+				$("#btnKontrol").hide();
+				$("#sonraki").show();
+			}
+			else if(tiklama<2 && girdi!=yuvarlak){
+				$("#geriBildirimText").attr("class","status_false").html("Tekrar deneyin");
+			}
+			
+			else if(tiklama>2 ||girdi!=yuvarlak){
+			console.log("if doğruysa girdim."+girdi+" "+yuvarlak);
+				$("#geriBildirimText").attr("class","status_false").html("Yanlış. Doğru Cevap:");
+				$("#cerceveCevap").show();
+				$("#btnKontrol").hide();
+				$("#sonraki").show();
+			}
 		}
 	}
-
 
 	
 	
