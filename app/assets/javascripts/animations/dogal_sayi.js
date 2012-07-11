@@ -803,7 +803,7 @@ Interaction.init = function(container){
 	if(rastgeleBasamak==3)
 		rastgeleSayi=rastgele9;
 	//rastgeleSayi=String(Math.floor((Math.random()*900000000)+100000000));
-	rastgeleSayi="999999999";
+	//rastgeleSayi="999999999";
 	//rastgeleSayi="xw"+rastgele7;
 	var yaziyla= new Array();
 	console.log("denemeSayısı: "+rastgeleSayi+" basamak: "+rastgeleSayi.length);

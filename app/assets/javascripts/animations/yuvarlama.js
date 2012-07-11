@@ -26,6 +26,35 @@ Interaction.getFramework = function() {
 
 
 Animation.init=function(container){
+	//Animation.container = container;
+	//var ok= new Path.OneSidedArrow(100,120,10,30);
+	var oklar= new Group();
+	var okYukari = new Path.OneSidedArrow(new Point(110, 83), new Point(110, 0), 10, 30);
+	okYukari.strokeColor="red";
+	
+	var okAsagi = new Path.OneSidedArrow(new Point(170, 83), new Point(170, 170), 10, 30);
+	okAsagi.strokeColor="red";
+	var cizgi= new Path.Line(new Point(110, 83),new Point(170, 83));
+	cizgi.strokeColor="red";
+	cizgi.strokeWidth=2;
+	
+	oklar.addChild(okYukari);
+	oklar.addChild(cizgi);
+	oklar.addChild(okAsagi);
+	oklar.opacity=0;
+	oklar.fillColor="red";
+	oklar.animate({
+			style: {
+				opacity: 1
+			},
+			duration: 2000,
+			delay: 4700,
+			callback: function () {
+				//bosKareSol.remove();
+			}
+		});
+
+	
 	$(container).append("<div id='ornekSayilar'>");
 		$('#ornekSayilar').css("position","absolute")
 					.css("left", "150px")
@@ -45,7 +74,7 @@ Animation.init=function(container){
 					//.css("bottom", "0")
 					.css("width", "100px")
 					.css("height", "90px")
-					.css("margin", "auto")
+					.css("margin", "auto").hide()
 					//.css("border", "1px solid black")
 					//.css("box-sizing","border-box")
 					.css("font-size","15px").html("Basamaktaki sayı 5 ya da 5'ten büyük ise yukarıya yuvarlanır");
@@ -57,11 +86,44 @@ Animation.init=function(container){
 					.css("bottom", "10px")
 					.css("width", "100px")
 					.css("height", "80px")
-					.css("margin", "auto")
+					.css("margin", "auto").hide()
 					//.css("border", "1px solid black")
 					//.css("box-sizing","border-box")
 					.css("font-size","15px").html("Basamaktaki sayı  5'ten küçük ise aşağıya yuvarlanır.");
 	
+	$(container).append("<div id='ornekCumleOnluk'>");
+		$("#ornekCumleOnluk").css("width","400px")
+		.css("height","45px")
+		.css("position","absolute")
+		.css("top","60px")
+		//.css("bottom","0")
+		.css("left","260px")
+		.css("right","0")
+		.css("margin","auto")
+		//.css("border","solid 1px black")
+		.css("font-size","16px")
+		//.css("font-weight","bold");
+		
+		.html("<strong class='sayi' id='ornekSayi1'>1246</strong> <span class='ornekYazi' id='ornekYazi1_1'>en yakın onluğa yuvarlanırsa </span><strong class='sayi' id='ornekSayi2'>1250</strong><span class='ornekYazi' id='ornekYazi1_2'> olur.</span>");
+	
+	$(container).append("<div id='ornekCumleYuzluk'>");
+		$("#ornekCumleYuzluk").css("width","400px")
+		.css("height","45px")
+		.css("position","absolute")
+		.css("top","120px")
+		//.css("bottom","0")
+		.css("left","260px")
+		.css("right","0")
+		.css("margin","auto")
+		//.css("border","solid 1px black")
+		.css("font-size","16px")
+		//.css("font-weight","bold");
+		
+		.html("<strong class='sayi' id='ornekSayi3'>1246</strong> <span class='ornekYazi' id='ornekYazi2_1'>en yakın yüzlüğe yuvarlanırsa </span><strong class='sayi' id='ornekSayi4'>1200</strong> <span class='ornekYazi' id='ornekYazi2_2'>olur.</span>");
+	
+	
+	$(".sayi").css("color","#0070c0","!important").css("font-size","20px").hide();
+	$(".ornekYazi").hide();
 	
 	for(var i=9;i>=0;i--){
 		id="sayi_"+i;
@@ -74,6 +136,18 @@ Animation.init=function(container){
 		$(deger).delay(4500-(i*500)).fadeIn(400);
 	}
 	
+	$("#aciklamaYukari").delay(4500).fadeIn(500);
+	$("#aciklamaAsagi").delay(5000).fadeIn(500);
+	
+	$("#ornekSayi1").delay(5500).fadeIn(500);
+	$("#ornekYazi1_1").delay(6000).fadeIn(500);
+	$("#ornekSayi2").delay(6500).fadeIn(500);
+	$("#ornekYazi1_2").delay(6500).fadeIn(500);
+	
+	$("#ornekSayi3").delay(7000).fadeIn(500);
+	$("#ornekYazi2_1").delay(7500).fadeIn(500);
+	$("#ornekSayi4").delay(8000).fadeIn(500);
+	$("#ornekYazi2_2").delay(8500).fadeIn(500);
 	
 };
 
@@ -97,7 +171,7 @@ Interaction.init = function(container){
 		//.css("font-weight","bold");
 		
 	$(container).append("<div id='cerceveCevap'>");
-		$("#cerceveCevap").css("width","340px")
+		$("#cerceveCevap").css("width","370px")
 		.css("height","45px")
 		.css("position","absolute")
 		.css("top","180px")
@@ -106,9 +180,9 @@ Interaction.init = function(container){
 		.css("right","0")
 		.css("margin","auto")
 		//.css("border","solid 1px black")
-		.css("font-size","16px").hide();
+		.css("font-size","16px").hide()
 		//.css("font-weight","bold");
-	
+		.html("<strong class='sayi'>"+sayi+"</strong> en yakın "+yazi +" yuvarlanırsa <strong class='sayi' id='dogruCevap'>"+yuvarlak+"</strong> olur.");
 	var yuvarlak, yuvarlakOn, yuvarlakYuz, yazi,sayi;
 	var sira=0;
 	function rastgeleSayi(){
@@ -132,8 +206,8 @@ Interaction.init = function(container){
 	sayi=rastgeleSayi();
 	
 	
-	$("#cerceve").html(sayi+" en yakın "+yazi +" yuvarlanırsa <input type='text' id='girdi' maxlength=4  onkeypress='return SadeceRakam(event)'> olur.");
-	$("#cerceveCevap").html(sayi+" en yakın "+yazi +" yuvarlanırsa <strong id='dogruCevap'>"+yuvarlak+"</strong> olur.");
+	$("#cerceve").html("<strong class='sayi'>"+sayi+"</strong> en yakın "+yazi +" yuvarlanırsa <input type='text' class='sayi' id='girdi' maxlength=4  onkeypress='return SadeceRakam(event)'> olur.");
+	$("#cerceveCevap").html("<strong class='sayi'>"+sayi+"</strong> en yakın "+yazi +" yuvarlanırsa <strong class='sayi' id='dogruCevap'>"+yuvarlak+"</strong> olur.");
 	$("#dogruCevap").css("color",dogruCevapGosterimRengi);
 
 	
@@ -144,6 +218,12 @@ Interaction.init = function(container){
 			.css("bottom","0px")
 			.css("left","0px")
 			.css("margin","auto").addClass("input").addClass("number_input_field");
+	$(".sayi").live("yeniSayi",
+		function(){
+			
+			$(this).css("color","#0070c0","!important").css("font-size","20px")
+		}
+	);
 		$(this).keyup(
 			function(event){
 				
@@ -162,7 +242,7 @@ Interaction.init = function(container){
 
 	console.log("Sayi: "+sayi);
 	
-	
+	$(".sayi").css("color","#0070c0","!important").css("font-size","20px");
 	
 	
 	$("#girdi").css("width","60px")
@@ -213,8 +293,9 @@ Interaction.init = function(container){
 	$("#sonraki").click(
 		function(){
 			sayi=rastgeleSayi();
-			$("#cerceve").html(sayi+" en yakın "+yazi +" yuvarlanırsa <input type='text' id='girdi' maxlength=4  onkeypress='return SadeceRakam(event)'> olur.");
+			$("#cerceve").html("<strong class='sayi'>"+sayi+"</strong> en yakın "+yazi +" yuvarlanırsa <input type='text' class='sayi' id='girdi' maxlength=4  onkeypress='return SadeceRakam(event)'> olur.");
 			$("input").trigger("yeniSoru");
+			$(".sayi").trigger("yeniSayi");
 			$("#dogruCevap").html(yuvarlak);
 			$("#cerceveCevap").hide();
 			$("#sonraki").hide();
