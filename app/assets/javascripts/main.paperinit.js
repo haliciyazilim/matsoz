@@ -89,13 +89,18 @@ Main.paperInit = function() {
 		var a = Math.min(w,h)*0.5;
 		var mx = x + w*0.5;
 		var my = y + h*0.5;
+		var points = [];
 		var polygon = new Path();
 		for(var i=0; i<angles.length ;i++){
-			var _angle = Util.degreeToRadians(_o+angles[i]);
+			var _angle = Util.degreeToRadians(-_o-angles[i]);
 			var _x = mx + a*Math.cos(_angle);
 			var _y = my + a*Math.sin(_angle);
+			var p = new Point(_x,_y);
 			polygon.add([_x,_y]);
+			points.push(p);
 		};
+		polygon.vertexArray = points;
+		polygon.centerPoint = new Point(mx,my);
 		polygon.closed=true;
 		return polygon;
 	}
@@ -482,4 +487,12 @@ Main.paperInit = function() {
 			}
 		}
 	}
+	
+	Point.prototype.getRotatedPoint = function(angle,oP){
+			return new Point(
+				Math.cos(Util.degreeToRadian(angle))*(this.x - oP.x) - Math.sin(Util.degreeToRadian(angle))*(this.y - oP.y) + oP.x,
+				Math.sin(Util.degreeToRadian(angle))*(this.x - oP.x) + Math.cos(Util.degreeToRadian(angle))*(this.y - oP.y) + oP.y
+			);
+	}
+	
 };
