@@ -238,7 +238,7 @@ Interaction.images = [
 ];
 
 Interaction.init = function(container){
-	Main.setObjective('Aşağıdaki cetvel ve pergeli kullanarak seçeceğiniz yarıçap uzunluğuna sahip çemberi aşağıdaki “Çiz” düğmesine tıklayarak çiziniz. Daha sonra daire oluşturunuz.');
+	Main.setObjective('Yandaki cetvel ve pergeli kullanarak seçeceğiniz yarıçap uzunluğuna sahip çemberi aşağıdaki “Çiz” düğmesine tıklayarak çiziniz. Daha sonra daire oluşturunuz.');
 
 	Interaction.container = container;
 	Interaction.paper = {width:$(container).width(),height:$(container).height()};
