@@ -5,6 +5,7 @@ var textStyle = {fontSize:16,strokeColor:'#fff',strokeWidth:0,fillColor:'#fff'};
 var edgeStyle = {'stroke-width':'2px'};
 var angleStyle = {'fill':'#DDD'};
 //var shapeStyle = {'fill':'#fff','shape-rendering':'crispEdges'};
+var animationEdgeStyle = {strokeColor:'#000',strokeWidth:2}
 var shapeStyle = {strokeColor:'#000',strokeWidth:2,fillColor:'#fff'};
 var dropableShapeHoverStyle = {strokeColor:'#000',fillColor:'#dd9',strokeWidth:2};
 var dropableShapeDefaultStyle = "default";
@@ -16,14 +17,134 @@ var dropableShapeDroppedTrueStyle = {strokeColor:'#0f0',fillColor:'#afa'};
 var dropableShapeDroppedFalseStyle = {strokeColor:'#f00',fillColor:'#f00'};
 //Styles
 
-var Animation = function(){};Animation();
+var Animation = {
+
+	init:function(container){
+		
+		function animationWithDefaultTransform(shape,duration,delay,callback){
+			if(shape.vertexArray == null || shape.vertexArray == undefined)
+				return;
+			for(var i=0,length = shape.vertexArray.length; i<length; i++){
+				var line = new Path.Line(
+					shape.vertexArray[i],
+					shape.vertexArray[(i+1)%length]
+				)
+				//console.log("I'm here");
+				line.setStyle(animationEdgeStyle);
+				var tline = line.rasterize();
+				line.remove();
+				line = tline;
+				var angle = Math.floor(Math.random()*90)-90;
+				var x = Math.floor(Math.random()*500)-250;
+				var y = Math.floor(Math.random()*300)-150;
+				line.angle = angle;
+				//line.rotate(angle);
+				line.opacity = 0;
+				line.translate(x,y);
+				line.animate({
+					style:{
+						opacity:1,
+						angle:0,
+						position:new Point(line.position.x-x,line.position.y-y)
+					},
+					duration:duration,
+					delay:delay,
+					animationType:'easeInEaseOut',
+					update:function(){
+						var matrix = new Matrix();
+						matrix.rotate(this.angle, this.matrix.translateX, this.matrix.translateY);
+						matrix.translate(this.matrix.translateX, this.matrix.translateY);
+						this.setMatrix(matrix);
+					}
+				})	
+			}
+			setTimeout(callback,duration+delay);
+		}
+		Animation.container = container;
+		var w=$(container).width(), h=$(container).height();
+		var size = new Size(140,140);
+		var p1 = new Point(
+			0,
+			25
+		);
+		var p2 = new Point(
+			w*0.25 ,
+			0 
+		);
+		var p3 = new Point(
+			w*0.5,
+			0
+		);
+		var p4 = new Point(
+			w*0.75,
+			0
+		);
+		animationWithDefaultTransform(
+			new Path.EquiradialPolygon(
+				p1,
+				size,
+				[90,170,330],
+				0
+			),
+			1500,
+			500,
+			function(){
+				$(Animation.container).append('<span style="position:absolute;bottom:20px;left:50px">Üçgen</span>');
+			}
+		);
+		animationWithDefaultTransform(
+			new Path.EquiradialPolygon(
+				p2,
+				size,
+				[10,120,170,250],
+				0
+			),
+			2500,
+			100,
+			function(){
+				$(Animation.container).append('<span style="position:absolute;bottom:20px;left:30%">Dörtgen</span>');
+			}
+		);
+		animationWithDefaultTransform(
+			new Path.EquiradialPolygon(
+				p3,
+				size,
+				[10,60,150,180,260],
+				0
+			),
+			3000,
+			300,
+			function(){
+				$(Animation.container).append('<span style="position:absolute;bottom:20px;left:53.5%">Beşgen</span>');
+			}
+		);
+		animationWithDefaultTransform(
+			new Path.EquiradialPolygon(
+				p4,
+				size,
+				[20,70,99,136,240,342],
+				0
+			),
+			3000,
+			900,
+			function(){
+				$(Animation.container).append('<span style="position:absolute;bottom:20px;left:80%">Altıgen</span>');
+			}
+		);
+		
+		
+		
+		
+	}
+
+};
 var Interaction =function(){};Interaction();
 Interaction.getFramework = function() {
 	return 'paper';
 }
 
 Interaction.init = function(container){
-	Main.setObjective('Aşağıdaki çokgenleri sınıflandırınız.');
+	Main.setObjective('Yandaki çokgenleri sınıflandırınız.');
 	Interaction.container = container;
 	Interaction.container.top = $(container).offset().top;
 	Interaction.container.left = $(container).offset().left;
@@ -180,7 +301,7 @@ var start = function(){
 	};
 Interaction.generateRandomShapes = function(X,Y,WIDTH,HEIGHT){
 	Interaction.shapes = [];
-	var maxW = WIDTH*0.2;
+	var maxW = WIDTH*0.25;
 	var maxH = HEIGHT*0.3;
 	Interaction.shapeCount = -1;
 	do{///generate shapes randomly
@@ -199,7 +320,7 @@ Interaction.generateRandomShapes = function(X,Y,WIDTH,HEIGHT){
 //		else
 //			isRegular = false;
 		
-		var NUMBER_OF_SHAPES  = 10;
+		var NUMBER_OF_SHAPES  = 12;
 		Interaction.shapeCount++;
 		Interaction.shapeCount = Interaction.shapeCount%NUMBER_OF_SHAPES;
 		if(Interaction.shuffledArray == null || Interaction.shuffledArray == undefined)
@@ -237,18 +358,14 @@ Interaction.generateRandomShapes = function(X,Y,WIDTH,HEIGHT){
 			case 6:
 				h = w = Math.min(w,h);
 				while(h == w || h > maxH)
-					h = Math.floor(Math.random()*2)*10+w-20;
+					h =- Math.floor(Math.random()*3)*30+w+30;
 				shape = new Path.Rectangle(new Point(x,y),new Size(w,h));
 				edgeNumber = 4;
 				break;
 			case 7:
 				var a,b,c;
 				a = b = c = 5;
-				if(Util.rand01() == 0)
-					a = 4, b = 3;
-				else
-					a = 3, b = 4;
-					
+				a = 3, b = 4;				
 				shape = new Triangle(a,b,c,x,y,w,h);
 				edgeNumber = 3;
 				break;
@@ -260,6 +377,20 @@ Interaction.generateRandomShapes = function(X,Y,WIDTH,HEIGHT){
 				shape = regularhexagon(new Point(x,y), new Size(w,h));
 				edgeNumber = 6;
 				break;
+			case 10:
+				var a,b,c;
+				a = b = c = 5;
+				a = 6, b = 8;
+				shape = new Triangle(a,b,c,x,y,w,h);
+				edgeNumber = 3;
+				break;
+			case 11:
+				var a,b,c;
+				a = b = c = 5;
+				a = 4, b = 3;
+				shape = new Triangle(a,b,c,x,y,w,h);
+				edgeNumber = 3;
+				break
 
 		}
 		shape.numberOfEdges = edgeNumber;
@@ -275,7 +406,7 @@ Interaction.generateRandomShapes = function(X,Y,WIDTH,HEIGHT){
 		
 		shape.order = Interaction.shapes.length;
 		Interaction.shapes.push(shape);
-	}while( Interaction.shapes.length < 15 )
+	}while( Interaction.shapes.length < 12 )
 
 };
 Interaction.createDropableShape = function(x,y,w,h,text){
@@ -322,8 +453,8 @@ Interaction.createDropableShapesRight = function(X,Y,WIDTH,HEIGHT){
 Interaction.findSpace = function(w,h){
 	var n = Interaction.shapes.length;
 	var p = {
-			x:Math.floor(n%5)*w*0.2,
-			y:Math.floor(n/5)*h*0.3
+			x:Math.floor(n%4)*w*0.25,
+			y:Math.floor(n/4)*h*0.3
 		};
 	return p;
 }
