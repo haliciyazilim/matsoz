@@ -44,7 +44,7 @@ Animation.init = function(container){
 					.css("left", "28px")
 					.css("top", "0px")
 					.css("font-size", 22)
-			//		.css("font-family", "Helvetica Neue")
+			//		//.css("font-family", "Helvetica Neue")
 					.css("text-align", "center")
 			//		.css("border", "solid")
 					.css("width", "320x");
@@ -54,7 +54,7 @@ Animation.init = function(container){
 					.css("left", "2px")
 					.css("top", "28px")
 					.css("font-size", 12)
-			//		.css("font-family", "Helvetica Neue")
+			//		//.css("font-family", "Helvetica Neue")
 					.css("text-align", "center")
 			//		.css("border", "solid")
 					.css("width", "50px")
@@ -65,7 +65,7 @@ Animation.init = function(container){
 					.css("left", "60px")
 					.css("top", "28px")
 					.css("font-size", 12)
-			//		.css("font-family", "Helvetica Neue")
+			//		//.css("font-family", "Helvetica Neue")
 					.css("text-align", "center")
 			//		.css("border", "solid")
 					.css("width", "40px")
@@ -76,7 +76,7 @@ Animation.init = function(container){
 					.css("left", "104px")
 					.css("top", "28px")
 					.css("font-size", 12)
-			//		.css("font-family", "Helvetica Neue")
+			//		//.css("font-family", "Helvetica Neue")
 					.css("text-align", "center")
 			//		.css("border", "solid")
 					.css("width", "54px")
@@ -87,7 +87,7 @@ Animation.init = function(container){
 					.css("left", "172px")
 					.css("top", "28px")
 					.css("font-size", 12)
-			//		.css("font-family", "Helvetica Neue")
+			//		//.css("font-family", "Helvetica Neue")
 					.css("text-align", "center")
 			//		.css("border", "solid")
 					.css("width", "54px")
@@ -98,7 +98,7 @@ Animation.init = function(container){
 					.css("left", "234px")
 					.css("top", "28px")
 					.css("font-size", 12)
-			//		.css("font-family", "Helvetica Neue")
+			//		//.css("font-family", "Helvetica Neue")
 					.css("text-align", "center")
 			//		.css("border", "solid")
 					.css("width", "44px")
@@ -109,7 +109,7 @@ Animation.init = function(container){
 					.css("left", "286px")
 					.css("top", "28px")
 					.css("font-size", 12)
-			//		.css("font-family", "Helvetica Neue")
+			//		//.css("font-family", "Helvetica Neue")
 					.css("text-align", "center")
 			//		.css("border", "solid")
 					.css("width", "54px")
@@ -120,7 +120,7 @@ Animation.init = function(container){
 					.css("left", "348px")
 					.css("top", "28px")
 					.css("font-size", 12)
-			//		.css("font-family", "Helvetica Neue")
+			//		//.css("font-family", "Helvetica Neue")
 					.css("text-align", "center")
 			//		.css("border", "solid")
 					.css("width", "46px")
@@ -139,7 +139,7 @@ Animation.init = function(container){
 					.css("left", "2px")
 					.css("top", "20px")
 					.css("font-size", 20)
-			//		.css("font-family", "Helvetica Neue")
+			//		//.css("font-family", "Helvetica Neue")
 					.css("text-align", "center")
 			//		.css("border", "solid")
 					.css("width", "320x");
@@ -149,14 +149,14 @@ Animation.init = function(container){
 				.css("left", "176px")
 				.css("top", "20px")
 				.css("font-size", 24)
-				.css("font-family", "Helvetica Neue");
+				//.css("font-family", "Helvetica Neue");
 	
 	$('#executionDiv').append('<div id="numerator"></div>');
 	$('#numerator').css("position", "absolute")
 					.css("left", "198px")
 					.css("top", "8px")
 					.css("font-size", 20)
-			//		.css("font-family", "Helvetica Neue")
+			//		//.css("font-family", "Helvetica Neue")
 					.css("text-align", "center")
 			//		.css("border", "solid")
 					.css("width", "320x");
@@ -230,7 +230,7 @@ Animation.init = function(container){
 					.css("left", "336px")
 					.css("top", "36px")
 					.css("font-size", 20)
-			//		.css("font-family", "Helvetica Neue")
+			//		//.css("font-family", "Helvetica Neue")
 					.css("text-align", "center")
 		//			.css("border", "solid")
 					.css("width", "20x");
@@ -240,14 +240,14 @@ Animation.init = function(container){
 				.css("left", "492px")
 				.css("top", "20px")
 				.css("font-size", 24)
-				.css("font-family", "Helvetica Neue");
+				//.css("font-family", "Helvetica Neue");
 	
 	$('#executionDiv').append('<div id="numerator2">196</div>');
 	$('#numerator2').css("position", "absolute")
 					.css("left", "512px")
 					.css("top", "6px")
 					.css("font-size", 20)
-			//		.css("font-family", "Helvetica Neue")
+			//		//.css("font-family", "Helvetica Neue")
 					.css("text-align", "center")
 			//		.css("border", "solid")
 					.css("width", "320x");
@@ -266,7 +266,7 @@ Animation.init = function(container){
 					.css("left", "524px")
 					.css("top", "36px")
 					.css("font-size", 20)
-			//		.css("font-family", "Helvetica Neue")
+			//		//.css("font-family", "Helvetica Neue")
 					.css("text-align", "center")
 			//		.css("border", "solid")
 					.css("width", "20x");
@@ -276,14 +276,14 @@ Animation.init = function(container){
 				.css("left", "556px")
 				.css("top", "20px")
 				.css("font-size", 24)
-				.css("font-family", "Helvetica Neue");
+				//.css("font-family", "Helvetica Neue");
 				
 	$('#executionDiv').append('<div id="lastNum">28</div>');
 	$('#lastNum').css("position", "absolute")
 					.css("left", "576px")
 					.css("top", "20px")
 					.css("font-size", 20)
-			//		.css("font-family", "Helvetica Neue")
+			//		//.css("font-family", "Helvetica Neue")
 					.css("text-align", "center")
 			//		.css("border", "solid")
 					.css("width", "20x");
@@ -630,7 +630,7 @@ Interaction.init = function(container){
 					.css("left", "0px")
 					.css("top", "30px")
 					.css("font-size", 22)
-					.css("font-family", "Helvetica Neue")
+		//			//.css("font-family", "Helvetica Neue")
 					.css("text-align", "center")
 					.css("width", "100px");
 					
@@ -639,7 +639,7 @@ Interaction.init = function(container){
 				.css("left", "120px")
 				.css("top", "46px")
 				.css("font-size", 22)
-				.css("font-family", "Helvetica Neue");
+			//	//.css("font-family", "Helvetica Neue");
 				
 	//fraction1 = new Path.Fraction(154, 89, null, null, 18, 14.2);
 	$('#questionDiv').append('<div id="line1"></div>');
@@ -657,7 +657,7 @@ Interaction.init = function(container){
 					.css("padding", "0")
 					.css("height", "30")
 					.css("font-size", 22)
-					.css("font-family", "Helvetica Neue")
+					//.css("font-family", "Helvetica Neue")
 					.css("position", "absolute")
 					.css("left", "146px")
 					.css("top", "20px")
@@ -668,7 +668,7 @@ Interaction.init = function(container){
 	$('#questionDiv').append('<p id="plus1" >+</p>');
 		$('#plus1').css("position", "absolute")
 					.css("font-size", 22)
-					.css("font-family", "Helvetica Neue")
+					//.css("font-family", "Helvetica Neue")
 					.css("left", "182px")
 					.css("top", "28px");
 	
@@ -678,7 +678,7 @@ Interaction.init = function(container){
 					.css("box-sizing","border-box")
 					.css("padding", "0")
 					.css("font-size", 22)
-					.css("font-family", "Helvetica Neue")
+					//.css("font-family", "Helvetica Neue")
 					.css("position", "absolute")
 					.css("left", "200px")
 					.css("top", "20px")
@@ -689,7 +689,7 @@ Interaction.init = function(container){
 	$('#questionDiv').append('<p id="plus2" >+</p>');
 		$('#plus2').css("position", "absolute")
 					.css("font-size", 22)
-					.css("font-family", "Helvetica Neue")
+					//.css("font-family", "Helvetica Neue")
 					.css("left", "236px")
 					.css("top", "28px");
 	
@@ -699,7 +699,7 @@ Interaction.init = function(container){
 					.css("box-sizing","border-box")
 					.css("padding", "0")
 					.css("font-size", 22)
-					.css("font-family", "Helvetica Neue")
+					//.css("font-family", "Helvetica Neue")
 					.css("position", "absolute")
 					.css("left", "254px")
 					.css("top", "20px")
@@ -710,7 +710,7 @@ Interaction.init = function(container){
 	$('#questionDiv').append('<p id="plus3" >+</p>');
 		$('#plus3').css("position", "absolute")
 					.css("font-size", 22)
-					.css("font-family", "Helvetica Neue")
+					//.css("font-family", "Helvetica Neue")
 					.css("left", "290px")
 					.css("top", "28px");
 		
@@ -720,7 +720,7 @@ Interaction.init = function(container){
 					.css("box-sizing","border-box")
 					.css("padding", "0")
 					.css("font-size", 22)
-					.css("font-family", "Helvetica Neue")
+					//.css("font-family", "Helvetica Neue")
 					.css("position", "absolute")
 					.css("left", "308px")
 					.css("top", "20px")
@@ -731,7 +731,7 @@ Interaction.init = function(container){
 	$('#questionDiv').append('<p id="plus4" >+</p>');
 		$('#plus4').css("position", "absolute")
 					.css("font-size", 22)
-					.css("font-family", "Helvetica Neue")
+					//.css("font-family", "Helvetica Neue")
 					.css("left", "344px")
 					.css("top", "28px");
 	
@@ -741,7 +741,7 @@ Interaction.init = function(container){
 					.css("box-sizing","border-box")
 					.css("padding", "0")
 					.css("font-size", 22)
-					.css("font-family", "Helvetica Neue")
+					//.css("font-family", "Helvetica Neue")
 					.css("position", "absolute")
 					.css("left", "362px")
 					.css("top", "20px")
@@ -755,7 +755,7 @@ Interaction.init = function(container){
 					.css("box-sizing","border-box")
 					.css("padding", "0")
 					.css("font-size", 22)
-					.css("font-family", "Helvetica Neue")
+					//.css("font-family", "Helvetica Neue")
 					.css("position", "absolute")
 					.css("left", "254px")
 					.css("top", "62px")
@@ -766,7 +766,7 @@ Interaction.init = function(container){
 	$('#questionDiv').append('<p id="equal2" >=</p>');
 		$('#equal2').css("position", "absolute")
 					.css("font-size", 22)
-					.css("font-family", "Helvetica Neue")
+					//.css("font-family", "Helvetica Neue")
 					.css("left", "120px")
 					.css("top", "158px");
 
@@ -786,7 +786,7 @@ Interaction.init = function(container){
 					.css("padding", "0")
 					.css("height", "30")
 					.css("font-size", 22)
-					.css("font-family", "Helvetica Neue")
+					//.css("font-family", "Helvetica Neue")
 					.css("position", "absolute")
 					.css("left", "146px")
 					.css("top", "132px")
@@ -800,7 +800,7 @@ Interaction.init = function(container){
 					.css("box-sizing","border-box")
 					.css("padding", "0")
 					.css("font-size", 22)
-					.css("font-family", "Helvetica Neue")
+					//.css("font-family", "Helvetica Neue")
 					.css("position", "absolute")
 					.css("left", "146px")
 					.css("top", "174px")
@@ -811,7 +811,7 @@ Interaction.init = function(container){
 	$('#questionDiv').append('<p id="equal3" >=</p>');
 		$('#equal3').css("position", "absolute")
 					.css("font-size", 22)
-					.css("font-family", "Helvetica Neue")
+					//.css("font-family", "Helvetica Neue")
 					.css("left", "190px")
 					.css("top", "158px");
 		
@@ -821,7 +821,7 @@ Interaction.init = function(container){
 					.css("box-sizing","border-box")
 					.css("padding", "0")
 					.css("font-size", 22)
-					.css("font-family", "Helvetica Neue")
+					//.css("font-family", "Helvetica Neue")
 					.css("position", "absolute")
 					.css("left", "210px")
 					.css("top", "150px")
@@ -842,7 +842,7 @@ Interaction.init = function(container){
 					
 	$('#checkBtn').show();
 	
-	$(container).append('<button id="nextBtn" class="control_button">Sonraki</button>');
+	$(container).append('<button id="nextBtn" class="next_button">Sonraki</button>');
 	$('#nextBtn').css("position", "absolute")
 					.css("bottom", "20px")
 					.css("right", "66px");

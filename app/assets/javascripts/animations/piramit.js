@@ -126,7 +126,7 @@ function load_square_pyramid() {
 	};
 	// Init drawing system
 	canvas = $('canvas',Interaction.container).get(0);
-	console.log(canvas);
+	// console.log(canvas);
 	ctx = canvas.getContext("2d");
 
 	canvasWidth = canvas.width*1;

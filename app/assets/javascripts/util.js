@@ -58,9 +58,18 @@ var Util = {
 	numberTurkishFloating: function(number,decimal){
 			if(decimal==null || decimal==undefined)
 				decimal = 1;
+			
+			if (decimal < 1) {
+				return ""+Math.floor(number+0.5);
+			}
+			
 			var float = number - Math.floor(number);
-			float = Math.floor(float*Math.pow(10,decimal)); 
-			return ""+Math.floor(number)+","+float;
+			var result = ""+Math.floor(number)+",";
+			for(var i=0;i<decimal;i++) {
+				result += Math.floor(float*Math.pow(10,i+1) + (i==decimal-1?0.5000000001:0)) % 10; 
+			}
+			
+			return result;
 		},
 	rand01: function(){
 			return Math.floor(Math.random()*2);

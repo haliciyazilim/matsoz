@@ -17,12 +17,12 @@ Interaction.images = [{
 {
 	id: "cornerB",
 	src: '/assets/animations/kare/soru_KARE_kose_b.png'
-}
-,{
+},
+{
 	id: "cornerC",
 	src: '/assets/animations/kare/soru_KARE_kose_c.png'
-}
-,{
+},
+{
 	id: "cornerD",
 	src: '/assets/animations/kare/soru_KARE_kose_d.png'
 }]
