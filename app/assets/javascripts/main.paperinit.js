@@ -7,6 +7,21 @@ Main.paperInit = function() {
 		circle.setStyle({fillColor:'#000'});
 		return circle;
 	}
+	Path.ArcByAngle = function(p,r,angle,startAngle){
+		if(startAngle == null || startAngle == undefined)
+			startAngle = 0;
+		var p1 = new Point(p.x + Math.cos(Util.degreeToRadians(startAngle)) * r,
+							   p.y + Math.sin(Util.degreeToRadians(startAngle)) * r);
+		var p2 = new Point(p.x + Math.cos(Util.degreeToRadians(startAngle+angle)/2) * r,
+							   p.y + Math.sin(Util.degreeToRadians(startAngle+angle)/2) * r);
+		var p3 = new Point(p.x + Math.cos(Util.degreeToRadians(angle)) * r,
+							   p.y + Math.sin(Util.degreeToRadians(angle)) * r);
+			
+		//var p1 = new Point(p.x+r,p.y);
+//		var p2 = p1.getRotatedPoint(angle,p);
+//		var p3 = p1.getRotatedPoint(angle*0.5,p);
+		return new Path.Arc(p1, p2, p3);
+	}
 	Path.Triangle = function(p1,p2,p3){
 		var triangle = new Path();
 		triangle.add(p3);
@@ -251,10 +266,10 @@ Main.paperInit = function() {
 	Path.Cone = function(p,s){
 		var x=p.x,y=p.y,w=s.width,h=s.height;
 		var p1 = new Point(x,y+h*0.9),
-		p2 = new Point(x+w*0.5,y+h),
+		p2 = new Point(x+w*0.5,y+h*1.1),
 		p3 = new Point(x+w,y+h*0.9),
 		p4 = new Point(x+w*0.5,y),
-		px = new Point(x+w*0.5,y+h*0.8);
+		px = new Point(x+w*0.5,y+h*0.7);
 		var cone = new Group();
 		var path = new Path();
 		path.add(p1);
@@ -264,6 +279,7 @@ Main.paperInit = function() {
 		var path2 = new Path();
 		path2.add(p1);
 		path2.arcTo(px,p3);
+		path2.class = "dashed";
 		path2.style = {dashArray:[3,2]};
 		cone.addChild(path);
 		cone.addChild(path2);
@@ -331,12 +347,20 @@ Main.paperInit = function() {
 		dline3.style = {dashArray:[3,2]};
 		dline2.style = {dashArray:[3,2]};
 		
+		dline1.class = "dashed";
+		dline3.class = "dashed";
+		dline2.class = "dashed";
+		
+		dline1.insertBelow(side);
+		dline2.insertBelow(side);
+		dline3.insertBelow(side);
+		
 		//squarePrisim.addChild(square);
-		squarePrisim.addChild(side);
-		squarePrisim.addChild(line1);
 		squarePrisim.addChild(dline1);
 		squarePrisim.addChild(dline2);
 		squarePrisim.addChild(dline3);
+		squarePrisim.addChild(side);
+		squarePrisim.addChild(line1);
 		
 		return squarePrisim;
 		
@@ -493,6 +517,15 @@ Main.paperInit = function() {
 				Math.cos(Util.degreeToRadian(angle))*(this.x - oP.x) - Math.sin(Util.degreeToRadian(angle))*(this.y - oP.y) + oP.x,
 				Math.sin(Util.degreeToRadian(angle))*(this.x - oP.x) + Math.cos(Util.degreeToRadian(angle))*(this.y - oP.y) + oP.y
 			);
-	}
+	};
+	
+	Point.prototype.showOnCanvas = function(){
+		var p = new Path.Circle(this,3);
+		p.setStyle({fillColor:'#000'});
+		this.canvasPoint = p;
+		return p;
+	};
+
+
 	
 };
