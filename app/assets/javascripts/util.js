@@ -103,7 +103,7 @@ var Util = {
 		var len = Math.floor(to - from);
 		
 		for(var i = len-1; i>=0 ; i--) {
-			var p = parseInt(Math.random()*len);
+			var p = parseInt(Math.random()*len,10);
 			var t = a[i];
 			a[i] = a[p];
 			a[p] = t;
