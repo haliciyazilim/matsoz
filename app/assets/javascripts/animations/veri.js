@@ -624,7 +624,7 @@ Interaction.init = function(container){
 					.css("left", "490px")
 					.css("top", "240px");
 	
-	$(container).append('<button id="nextBtn" class="control_button">Sonraki</button>');
+	$(container).append('<button id="nextBtn" class="next_button">Sonraki</button>');
 	$('#nextBtn').css("position", "absolute")
 					.css("left", "490px")
 					.css("top", "240px");
