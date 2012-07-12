@@ -1,10 +1,9 @@
 /**
- * Yuvarlama
- * kaynak: mat-5-yuvarlama.pdf
+ * Oran
  * 
  * Halıcı Yazılım
  * Abdullah Karacabey
- * 09.07.2012
+ * 11.07.2012
  * 
  * 
  */
@@ -29,23 +28,159 @@ Interaction.getFramework = function() {
 
 
 Animation.init=function(container){
+function gulGetir(){
+	var j=0;
+	for(var i=0; i<5; i++){
+		var isim="gul"+i;
+		var left=(i*40+50)+"px";		
+		$(container).append("<img class='cicekler' id='"+isim+"' src='/assets/animations/oran/gul.png' />");
+		$("#"+isim).css("position", "absolute");
+			if(i>=4){
+				$("#"+isim).css("top","130px");
+				$("#"+isim).css("left", "60px");
+				
+			}
+			else if(i>=2 && i<4){
+			
+			left=(j*40+50)+"px";
+				$("#"+isim).css("top","70px");
+				$("#"+isim).css("left", left)
+				j++;
+			}
+			else{
+				$("#"+isim).css("top", "0px");
+				$("#"+isim).css("left", left);
+			}
 
-$(container).append('<img id="gul1" src="/assets/animations/oran/gul.png" />');
-$(container).append('<img id="gul2" src="/assets/animations/oran/gul.png" />');
+	}
+}
 
-$("#gul1")
-	.css("position", "absolute")
-	.css("left", "0px")
-	.css("top", "50px");
-$("#gul2")
-	.css("position", "absolute")
-	.css("left", "50px")
-	.css("top", "50px");
+function laleGetir(){
+	var j=0;
+	for(var i=0; i<4; i++){
+		var isim="lale"+i;
+		var left=(i*40+660)+"px";		
+		$(container).append("<img class='cicekler' id='"+isim+"' src='/assets/animations/oran/lale.png' />");
+		$("#"+isim).css("position", "absolute");
+			if(i>=4){
+				$("#"+isim).css("top","105px");
+				$("#"+isim).css("left", "625px");
+				
+			}
+			else if(i>=2 && i<4){
+			
+			left=(j*40+660)+"px";
+				$("#"+isim).css("top","100px");
+				$("#"+isim).css("left", left)
+				j++;
+			}
+			else{
+				$("#"+isim).css("top", "20px");
+				$("#"+isim).css("left", left);
+			}
 
+	}
+}
 
-$(container).append("<div id='ornekCerceve'>");
-
+gulGetir();
+laleGetir();
+function aciklamalariGetir(){
+	var aciklama=Array();
+		aciklama[0]="Güllerin lalere oranı";
+		aciklama[1]="Lalelerin güllere oranı";
+		aciklama[2]="Güllerin tüm çiçeklere oranı";
+		aciklama[3]="Lalelerin tüm çiçeklere oranı";
+	var aciklamaPay=[5,4,5,4];
+	var aciklamaPayda=[4,5,9,9];
 	
+	
+	var siraSaayac=0;
+	for(var i=0; i<4; i++){
+		var cerceveId="cerceve"+i;
+		var soruId="soru"+i;
+		var payId="pay"+i;
+		var paydaId="payda"+i;
+		
+		if(i>1){
+				var top=(i-2)*70+40;
+				var left="420px";
+				var soruUzunlugu="180px";
+			}
+		else{
+			var top=i*70+40;
+			var left="170px";
+			var soruUzunlugu="140px";
+			}
+		$(container).append("<div id='"+cerceveId+"' class='ornekCerceve'>");
+			$("#"+cerceveId,container).append("<div class='soru' id='"+soruId+"'>");
+			$("#"+cerceveId,container).append("<div class='girdiler'>");
+			$("#"+cerceveId+" .girdiler",container).append("<div id='"+payId+"'>");
+			$("#"+cerceveId+" .girdiler",container).append("<div class='kesir'>");
+			$("#"+cerceveId+" .girdiler",container).append("<div id='"+paydaId+"'>");
+				$(".ornekCerceve")
+					.css("width","210px")
+					.css("height","90px")
+					//.css("border","solid 1px black")
+					.css("font-size","14px");
+				$("#"+cerceveId)
+					.css("position","absolute")
+					.css("top",top)
+					.css("left",left)
+					
+					.css("margin","auto").hide();
+			
+			$(".ornekCerceve .soru")
+					.css("height","60px")
+					.css("float","left")
+					//.css("border","solid 1px black")
+					//.css("font-size","16px")
+					.css("line-height","60px")
+			$("#"+soruId).css("width",soruUzunlugu).html(aciklama[i]);
+			
+			$("#"+cerceveId+" .girdiler").css("width","30px")
+				.css("float","left")
+				.css("height","60px")
+				.css("font-weight","bold");
+					
+			$("#"+payId)
+					.css("width","30px")
+					.css("height","30px")
+					.css("font-size","16px")
+					.css("text-align","center")
+					.css("line-height","30px")
+					
+					.html(aciklamaPay[i]);
+					
+			$("#"+cerceveId+" .kesir").css("margin","auto")
+				.css("width", "30px")
+				.css("height", "1px")
+				.css("padding", 0)
+				.css("border-top", "2px solid");
+					
+					$("#"+paydaId)
+					.css("width","30px")
+					.css("height","30px")
+					.css("font-size","16px")
+					.css("text-align","center")
+					.css("line-height","30px")
+					
+					.html(aciklamaPayda[i]);
+					
+			
+	}
+}
+	aciklamalariGetir();
+	$(".cicekler").hide();
+	
+	function gosteri(nesne, baslangic){
+	for(i=0;i<5;i++)
+		$("#"+nesne+i).delay(baslangic+i*500).fadeIn(500);
+	}
+	
+	gosteri("gul",1000);
+	gosteri("lale",3500);
+	gosteri("cerceve",5500);
+
 };
 
 
@@ -177,7 +312,7 @@ soruOlustur();
 		.css("left","0")
 		.css("right","0")
 		.css("margin","auto")
-		.css("font-size","18px");
+		.css("font-size","16px");
 		
 		
 		
@@ -201,18 +336,18 @@ soruOlustur();
 		.css("font-size","16px").hide();
 	
 	
-		$(".soru")
+		$("#cerceve .soru, #cerceveCevap .soru")
 			.css("width","250px")
 			.css("height","90px")
 			.css("float","left")
 			//.css("border","solid 1px black")
-			.css("font-size","16px")
+			//.css("font-size","16px")
 			.css("line-height","90px")
 			.html(soru);
 			$(".yazi1").css("color","blue");
 			$(".yazi2").css("color","red");
 					
-		$(".girdiler").css("width","60px")
+		$("#cerceve .girdiler, #cerceveCevap .girdiler").css("width","60px")
 			.css("float","left")
 			.css("height","120px");
 			
@@ -239,7 +374,7 @@ soruOlustur();
 			.css("margin-top","8px")
 			.addClass("input").addClass("number_input_field");
 			
-		$('.kesir').css("margin","auto")
+		$('#cerceve .kesir, #cerceveCevap .kesir').css("margin","auto")
 				.css("width", "50px")
 				.css("height", "1px")
 				.css("padding", 0)
@@ -383,7 +518,7 @@ soruOlustur();
 			
 			else if(tiklama>=2 && (girdiIslem!=cevapIslem)){
 				console.log("yanlış ve ikiden çok");
-				$("#geriBildirimText").attr("class","status_false").html("Yanlış. Doğru Cevap:");
+				$("#geriBildirimText").attr("class","status_false").html("Yanlış.<br />Doğru Cevap:");
 				$("#cerceveCevap").show();
 				$("#btnKontrol").hide();
 				$("#sonraki").show();
