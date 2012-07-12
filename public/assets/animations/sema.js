@@ -1,0 +1,10 @@
+/**
+ * Şema
+ * 
+ * Halıcı Yazılım
+ * Abdullah Karacabey
+ * 12.07.2012
+ * 
+ * 
+ */
+function SadeceRakam(a,b){var c=a.charCode==undefined?a.keyCode:a.charCode;return/^[0-9]+$/.test(String.fromCharCode(c))||c==0||c==13||isPassKey(c,b)?!0:!1}function isPassKey(a,b){if(b!=null)for(var c=0;c<b.length;c++)if(b[c]==String.fromCharCode(a))return!0;return!1}function SadeceRakamBlur(a,b){var c=a.target?a.target:a.srcElement,d=c.value;d=d.replace(/^\s+|\s+$/g,""),b&&(d=d.replace(/\s{2,}/g," ")),c.value=d}var semaRengi=["green","yellow","blue","black"],Animation=function(){};Animation();var Interaction=function(){};Interaction(),Interaction.getFramework=function(){return"paper"},Animation.init=function(a){},Interaction.init=function(a){function f(a,b,c){var d;switch(c){case 7:d=73;break;case 8:d=62.5;break;case 9:d=54.44}var f=b[1],g=2+b[1];console.log("s: "+b[1]+" A: "+f+" B: "+g);for(var h=0;h<c+g;h++){var i=new Path.Rectangle(h*(d+10)+10,10,d,30);i.fillColor=a;var j=new PointText(h*(d+10)+10+d/2,30),k=h+g;console.log("S: "+k),j.content=b[k],j.paragraphStyle.justification="center",j.fontSize=8}var l=245.5,m=new Path.Rectangle(l,60.5,100,40);m.strokeColor="black";var n=new PointText(l+50,85);n.content=[e[0]],n.paragraphStyle.justification="center";var f=e[1],o=490/f/2,p=2*o;for(var h=0;h<f;h++){var q=o+h*p;console.log("koor"+q);var r=new Path.Rectangle(q,120.5,100,40);r.strokeColor="black";var n=new PointText(q+50,145),s=e[1]+2;n.content=e[s+h],n.paragraphStyle.justification="center",console.log("şema sayısı n: "+f),console.log("baslangic n: "+o)}}Main.setObjective("Yandaki sözcükleri şemada uygun yerlere fare ile sürükleyerek yerleştirip kontrol ediniz.");var b=new Array;b[0]=["Kaplar",3,2,2,2,"Porselen","Metal","Cam","Tava","Bardak","Çaydanlık","Tabak","Kâse","Tencere"];var c=new Array;c[0]=["Spor",2,3,3,"Takım","Bireysel","Futbol","Voleybol","Basketbol","Güreş","Halter","Yüzme"],c[1]=["İçecekler",2,3,3,"Sıcak","Soğuk","Çay","Ihlamur","Kahve","Meyve suyu","Ayran","Kola"];var d=new Array;d[0]=["Kitaplar",2,3,2,"Edebiyat","Diğer","Roman","Hikâye","Şiir","Ansiklopedi","Sözlük"];var e=b[0];f(semaRengi[1],e,7)};
