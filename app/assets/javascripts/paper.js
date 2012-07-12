@@ -1838,6 +1838,9 @@ var Item = this.Item = Base.extend({
 		if (flags & ChangeFlag.GEOMETRY) {
 			delete this._bounds;
 			delete this._position;
+			delete this._strokeBounds;
+			delete this._handleBounds;
+			delete this._roughBounds;
 		}
 		if (flags & ChangeFlag.APPEARANCE) {
 			this._project._needsRedraw();
@@ -2575,13 +2578,62 @@ var Item = this.Item = Base.extend({
 	});
 });
 
-var Group = this.Group = Item.extend({
+var PlacedItem = this.PlacedItem = Item.extend({
+	_transform: function(matrix, flags) {
+		this._matrix.preConcatenate(matrix);
+	},
+
+	_changed: function(flags) {
+		Item.prototype._changed.call(this, flags);
+		if (flags & ChangeFlag.GEOMETRY) {
+			delete this._strokeBounds;
+			delete this._handleBounds;
+			delete this._roughBounds;
+		}
+	},
+
+	getMatrix: function() {
+		return this._matrix;
+	},
+
+	setMatrix: function(matrix) {
+		this._matrix = matrix.clone();
+		this._changed(Change.GEOMETRY);
+	},
+
+	getBounds: function() {
+		var useCache = arguments[0] === undefined;
+		if (useCache && this._bounds)
+			return this._bounds;
+		var bounds = this.getStrokeBounds(arguments[0]);
+		if (useCache)
+			bounds = this._bounds = this._createBounds(bounds);
+		return bounds;
+	},
+
+	_getBounds: function(getter, cacheName, args) {
+		var matrix = args[0],
+			useCache = matrix === undefined;
+		if (useCache && this[cacheName])
+			return this[cacheName];
+		matrix = matrix ? matrix.clone().concatenate(this._matrix)
+				: this._matrix;
+		var bounds = this._calculateBounds(getter, matrix);
+		if (useCache)
+			this[cacheName] = bounds;
+		return bounds;
+	}
+});
+
+var Group = this.Group = PlacedItem.extend({
 	initialize: function(items) {
 		this.base();
 		this._children = [];
 		this._namedChildren = {};
 		this.addChildren(!items || !Array.isArray(items)
 				|| typeof items[0] !== 'object' ? arguments : items);
+				
+		this._matrix = new Matrix();
 	},
 
 	_changed: function(flags) {
@@ -2622,6 +2674,70 @@ var Group = this.Group = Item.extend({
 			if (item != clipItem)
 				Item.draw(item, ctx, param);
 		}
+	},
+	
+	
+	////////////////////////////////////////////////////////////////
+	//// From PlacedItem	////////////////////////////////////////
+	////////////////////////////////////////////////////////////////
+	
+	// getBounds: function() {
+	// 	var useCache = arguments[0] === undefined;
+	// 	if (useCache && this._bounds)
+	// 		return this._bounds;
+	// 	var bounds = this.getStrokeBounds(arguments[0]);
+	// 	if (useCache)
+	// 		bounds = this._bounds = this._createBounds(bounds);
+	// 	return bounds;
+	// },
+	// 
+	// _getBounds: function(getter, cacheName, args) {
+	// 	var matrix = args[0],
+	// 		useCache = matrix === undefined;
+	// 	if (useCache && this[cacheName])
+	// 		return this[cacheName];
+	// 	matrix = matrix ? matrix.clone().concatenate(this._matrix)
+	// 			: this._matrix;
+	// 	//var bounds = this._calculateBounds(getter, matrix);
+	// 	//var bounds = matrix._transformBounds(this.__getBounds(getter, cacheName, args));
+	// 	var bounds = this.__getBounds(getter, cacheName, args);
+	// 	if (useCache)
+	// 		this[cacheName] = bounds;
+	// 	return bounds;
+	// },
+	// 
+	// ////////////////////////////////////////////////////////////////
+	// 
+	// 
+	
+	
+	////////////////////////////////////////////////////////////////
+	//// From Item	////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////
+	getBounds: function() {
+		return this._getBounds('getBounds', '_bounds', arguments);
+	},
+	
+	_getBounds: function(getter, cacheName, args) {
+		var children = this._children;
+		if (!children || children.length == 0)
+			return new Rectangle();
+		var x1 = Infinity,
+			x2 = -x1,
+			y1 = x1,
+			y2 = x2;
+		for (var i = 0, l = children.length; i < l; i++) {
+			var child = children[i];
+			if (child._visible) {
+				var rect = child[getter](args[0]);
+				x1 = Math.min(rect.x, x1);
+				y1 = Math.min(rect.y, y1);
+				x2 = Math.max(rect.x + rect.width, x2);
+				y2 = Math.max(rect.y + rect.height, y2);
+			}
+		}
+		var bounds = Rectangle.create(x1, y1, x2 - x1, y2 - y1);
+		return getter == 'getBounds' ? this._createBounds(bounds) : bounds;
 	}
 });
 
@@ -2678,54 +2794,6 @@ var Layer = this.Layer = Group.extend({
 
 		insertBelow: insert(false)
 	};
-});
-
-var PlacedItem = this.PlacedItem = Item.extend({
-
-	_transform: function(matrix, flags) {
-		this._matrix.preConcatenate(matrix);
-	},
-
-	_changed: function(flags) {
-		Item.prototype._changed.call(this, flags);
-		if (flags & ChangeFlag.GEOMETRY) {
-			delete this._strokeBounds;
-			delete this._handleBounds;
-			delete this._roughBounds;
-		}
-	},
-
-	getMatrix: function() {
-		return this._matrix;
-	},
-
-	setMatrix: function(matrix) {
-		this._matrix = matrix.clone();
-		this._changed(Change.GEOMETRY);
-	},
-
-	getBounds: function() {
-		var useCache = arguments[0] === undefined;
-		if (useCache && this._bounds)
-			return this._bounds;
-		var bounds = this.getStrokeBounds(arguments[0]);
-		if (useCache)
-			bounds = this._bounds = this._createBounds(bounds);
-		return bounds;
-	},
-
-	_getBounds: function(getter, cacheName, args) {
-		var matrix = args[0],
-			useCache = matrix === undefined;
-		if (useCache && this[cacheName])
-			return this[cacheName];
-		matrix = matrix ? matrix.clone().concatenate(this._matrix)
-				: this._matrix;
-		var bounds = this._calculateBounds(getter, matrix);
-		if (useCache)
-			this[cacheName] = bounds;
-		return bounds;
-	}
 });
 
 var Raster = this.Raster = PlacedItem.extend({
@@ -3965,7 +4033,7 @@ CurveLocation = Base.extend({
 	}
 });
 
-var PathItem = this.PathItem = Item.extend({
+var PathItem = this.PathItem = PlacedItem.extend({
 
 });
 
@@ -3976,6 +4044,7 @@ var Path = this.Path = PathItem.extend({
 		this._selectedSegmentState = 0;
 		this.setSegments(!segments || !Array.isArray(segments)
 				|| typeof segments[0] !== 'object' ? arguments : segments);
+		this._matrix = new Matrix();
 	},
 
 	clone: function() {
@@ -4541,6 +4610,9 @@ var Path = this.Path = PathItem.extend({
 
 	return {
 		draw: function(ctx, param) {
+			ctx.save();
+			this._matrix.applyToContext(ctx);
+			
 			if (!param.compound)
 				ctx.beginPath();
 
@@ -4578,6 +4650,7 @@ var Path = this.Path = PathItem.extend({
 				}
 				ctx.restore();
 			}
+			ctx.restore();
 		}
 	};
 }, new function() { 

@@ -62,4 +62,17 @@ Interaction.init = function () {
 		delay: 1000,
 		animationType: 'easeOut'
 	})
+	
+	group = new Group();
+	triangle = new Path.Triangle(new Point(300, 100), new Point(400, 200), new Point(500, 100));
+	triangle.position = new Point(200,200);
+	triangle.strokeColor = 'black';
+	triangle.fillColor = '#f55';
+
+	group.addChild(triangle);
+	group.setMatrix(new Matrix().rotate(15, 0, 0));
+	
+	group.opacity = 0.4;
+	
+	Main.setObjective("So far, so good!");
 }
