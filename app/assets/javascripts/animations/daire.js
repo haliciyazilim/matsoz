@@ -167,33 +167,33 @@ var Animation = {
 				angle:-1
 			},
 			duration:1,
-			delay:4500
+			delay:8000
 		});animationHelper.animate({
 			style:{
 				circleOpacity:1
 			},
-			duration:1000,
-			delay:4500
+			duration:2000,
+			delay:8000
 		});
 		animationHelper.animate({
 			style:{
 				angle:1080
 			},
-			duration:1000,
-			delay:3000
+			duration:2000,
+			delay:6000
 		});
 		animationHelper.animate({
 			style:{
 				angle:720
 			},
-			duration:1000,
-			delay:2000
+			duration:2000,
+			delay:3500
 		});
 		animationHelper.animate({
 			style:{
 				angle:360
 			},
-			duration:1000,
+			duration:2000,
 			delay:1000
 		});
 		
