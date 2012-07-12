@@ -25,7 +25,7 @@ Interaction.getFramework = function() {
 
 Animation.init=function(container){
 	// Sağdaki ve soldaki boş kareler çiziliyor.
-	var ornekBosKareSol= new OrnekKare(100, kareIlkFillColor, kareIlkStrokeColor,40.5,30.5);
+	var ornekBosKareSol= new OrnekKare(100, kareIlkFillColor, kareIlkStrokeColor,200.5,20.5);
 		ornekBosKareSol.opacity=0;
 	
 		ornekBosKareSol.animate({
@@ -36,7 +36,7 @@ Animation.init=function(container){
 			delay: 1000
 		});
 	
-	var ornekBoyaliKareSol=new OrnekKare(29, kareBoyaliFillColor, kareBoyaliStrokeColor,40.5,30.5);
+	var ornekBoyaliKareSol=new OrnekKare(29, kareBoyaliFillColor, kareBoyaliStrokeColor,200.5,20.5);
 	ornekBoyaliKareSol.opacity=0;
 
 		ornekBoyaliKareSol.animate({
@@ -52,18 +52,19 @@ Animation.init=function(container){
 		
 	$(container).append("<div id='yaziSol'>");
 	$("#yaziSol").css("position","absolute")
-		.css("left", "53px")
-		.css("top", "150px")
-		.css("width", "150px")
+		.css("left", "215px")
+		.css("top", "165px")
+		.css("width", "120px")
+		.css("text-align","center")
 		.css("height", "12px").html("yüzde yirmi dokuz");
 		
 	$(container).append("<div id='yaziOrta'>");
 	$("#yaziOrta").css("position","absolute")
 				.css("margin", "auto")
-				.css("right", "0")
+				.css("right", "130px")
 				.css("top", "0")
 				.css("bottom", "0")
-				.css("left", "0")
+				//.css("left", "0")
 				.css("width", "210px")
 				.css("height", "60px")
 				//.css("border","solid 1px black");	
@@ -177,7 +178,7 @@ Interaction.init = function(container){
 	
 	//sol div bilgileri	
 	$(container).append("<div id='sol'>");
-	$(container).append("<style>#sol{position:absolute; top:150px; left:100px; width:100px; height:100px}</style>");
+	$(container).append("<style>#sol{position:absolute; top:165px; left:110px; width:100px; height:100px}</style>");
 	
 	
 	$("#sol",container).append("<input id='giris' type='text' maxlength=3  onkeypress='return SadeceRakam(event)' min='0' max='100'/>");
@@ -352,7 +353,7 @@ Interaction.init = function(container){
 			
 			
 			boyaliKareSol=new Kare(girdi,kareBoyaliFillColor, kareBoyaliStrokeColor,100,30);
-	boyaliKareSol.yap();
+			boyaliKareSol.yap();
 			
 			
 			if(girdi=="100" || girdi==100)
@@ -554,7 +555,7 @@ var OrnekKare = function(kareSayisi, dolguRengi, hatRengi, x,y) {
 					
 		for(i=0; i<girilenKareSayisi && i<10;i++){
 					
-			boyaliKare = new Rectangle((this.x+i*10),(this.y+j*10),10,10); //x,y,width,height
+			boyaliKare = new Rectangle((this.x+i*12),(this.y+j*12),12,12); //x,y,width,height
 			var path = new Path.Rectangle(boyaliKare);
 			path.fillColor = this.dolguRengi;
 			path.strokeColor=this.hatRengi;
@@ -563,7 +564,7 @@ var OrnekKare = function(kareSayisi, dolguRengi, hatRengi, x,y) {
 				path.opacity = 0;
 				path.animate({
 					style: {
-						opacity: 1
+						opacity: 1	
 					},
 					duration: 250,
 					delay: 20 * (j*10 + i)
@@ -591,7 +592,7 @@ var Kare= function(kareSayisi, dolguRengi, hatRengi, x,y){
 	
 	function kareYap(){
 		
-		//var group = new Group();	
+		var group = new Group();	
 
 		var girdi=this.kareSayisi;
 				
@@ -609,7 +610,7 @@ var Kare= function(kareSayisi, dolguRengi, hatRengi, x,y){
 						
 			for(i=0; i<girilenKareSayisi && i<10;i++){
 						
-				boyaliKare = new Rectangle((this.x+i*10)+0.5,(this.y+j*10)+0.5,10,10); //x,y,width,height
+				boyaliKare = new Rectangle((this.x+i*12)+0.5,(this.y+j*12)+0.5,12,12); //x,y,width,height
 				var path = new Path.Rectangle(boyaliKare);
 				path.fillColor = this.dolguRengi;
 				path.strokeColor=this.hatRengi;
@@ -625,7 +626,7 @@ var Kare= function(kareSayisi, dolguRengi, hatRengi, x,y){
 						})
 					}
 				
-				//group.addChild(path);
+				group.addChild(path);
 			}	
 		}
 		
