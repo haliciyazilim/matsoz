@@ -16,6 +16,9 @@ var threeDimensionalShapeStyle = {
 	fillColor : "#ccc",
 	strokeWidth : 2
 };
+var dashedLineStyle = {
+	strokeColor : "#000"
+}
 var angleStyle = {'fill':'#DDD'};
 //var bowlHoverStyle = {'stroke':'#999','fill':'#ff9'};
 var bowlHoverStyle = {strokeColor : '#000', fillColor :'#ff9' , strokeWidth : 2}
@@ -82,7 +85,6 @@ Animation.init = function(container){
 	Animation.text2.content = '2';
 	Animation.text3.content = '3';
 	var animationHelper = {
-		
 		count:0,
 		opacity:0,
 		line1Opacity:0,
@@ -197,6 +199,7 @@ Interaction.init = function(container){
 	var w = Interaction.paper.width;
 	var h = Interaction.paper.height;
 	oneDimensionalShapeStyle.fillColor = new RgbColor(255,255,255,0);
+	threeDimensionalShapeStyle.fillColor = new RgbColor(0.8,0.8,0.8,0.8)
 	Interaction.shapeCount = 1;
 	Interaction.generateBowls(w,h);
 	Interaction.nextQuestion();
@@ -324,7 +327,7 @@ Interaction.generateRandomShape = function(x,y,w,h){
 	if(Interaction.shuffledArray == null || Interaction.shuffledArray == undefined)
 		Interaction.shuffledArray = Util.getShuffledArray(NUMBER_OF_SHAPES);
 	shapeType = Interaction.shuffledArray[Interaction.shapeCount];
-	///*TEST*/shapeType = 34; /*TEST*/
+	///*TEST*/shapeType = 9; /*TEST*/
 	switch(shapeType){
 		case 0:
 			Interaction.shape = new Path.Circle(new Point(x+w*0.5,y+h*0.5),5);
@@ -372,7 +375,9 @@ Interaction.generateRandomShape = function(x,y,w,h){
 			break;
 		case 9:
 			var a = Math.min(w,h)*0.6;
-			Interaction.shape = new Path.Cube(new Point(x+w*0.5-a*0.5,y+h*0.5-a*0.5),a);
+			//Interaction.shape = new Path.Cube(new Point(x+w*0.5-a*0.5,y+h*0.5-a*0.5),a);
+			Interaction.shape = new Path.RectanglePrisim(new Point(x,y),new Size(a,a),new Size(a*0.4,a*0.4));
+			
 			Interaction.shape.dimension = 3;
 			break;
 		case 10:
@@ -487,8 +492,13 @@ Interaction.generateRandomShape = function(x,y,w,h){
 		Interaction.shape.setStyle(oneDimensionalShapeStyle);
 	else if(Interaction.shape.dimension == 2)
 		Interaction.shape.setStyle(twoDimensionalShapeStyle);
-	else if(Interaction.shape.dimension == 3)
+	else if(Interaction.shape.dimension == 3){
 		Interaction.shape.setStyle(threeDimensionalShapeStyle);
+		if(Interaction.shape.children)
+			for (var i=0; i < Interaction.shape.children.length; i++)
+				if(Interaction.shape.children[i].class == "dashed")
+					Interaction.shape.children[i].setStyle(dashedLineStyle)
+	}
 	if(Interaction.shape.arrow == true)
 		Interaction.shape.setStyle({fillColor:'#000'})
 }

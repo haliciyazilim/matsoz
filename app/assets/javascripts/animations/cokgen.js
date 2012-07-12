@@ -8,7 +8,7 @@ var angleStyle = {'fill':'#DDD'};
 var animationEdgeStyle = {strokeColor:'#000',strokeWidth:2}
 var shapeStyle = {strokeColor:'#000',strokeWidth:2,fillColor:'#fff'};
 var dropableShapeHoverStyle = {strokeColor:'#000',fillColor:'#dd9',strokeWidth:2};
-var dropableShapeDefaultStyle = "default";
+var dropableShapeDefaultStyle = "default"//shadow
 var dropableShapeDefaultTriangleStyle = {strokeColor:'#999',fillColor:'rgb(146,208,80)',strokeWidth:1};
 var dropableShapeDefaultRectangleStyle = {strokeColor:'#999',fillColor:'rgb(226,108,9)',strokeWidth:1};
 var dropableShapeDefaultPentagonStyle = {strokeColor:'#999',fillColor:'rgb(177,160,198)',strokeWidth:1};
@@ -31,9 +31,9 @@ var Animation = {
 				)
 				//console.log("I'm here");
 				line.setStyle(animationEdgeStyle);
-				var tline = line.rasterize();
-				line.remove();
-				line = tline;
+				//var tline = line.rasterize();
+				//line.remove();
+				//line = tline;
 				var angle = Math.floor(Math.random()*90)-90;
 				var x = Math.floor(Math.random()*500)-250;
 				var y = Math.floor(Math.random()*300)-150;

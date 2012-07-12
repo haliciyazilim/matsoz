@@ -43,7 +43,7 @@ Animation.init = function(container){
 	
 	var titleLine = new Path.Line(new Point(300.5, 15.5), new Point(400.5, 45.5));
 	titleLine.strokeColor = "black";
-	table2Group.addChild(titleRect);
+	table2Group.addChild(titleLine);
 	
 	// day Rects
 	for(i = 0; i < 6; i++) {
@@ -217,15 +217,196 @@ Animation.init = function(container){
 		for(j = 0; j < 4; j++)
 		{
 			var leftStr = ""+(136+60*j)+"px";
-			$('#table2Div').append('<p id="ddata'+i*4+j+'"></p>');
-			$('#ddata'+i*4+j).html(datas2[i*4+j]);
-			$('#ddata'+i*4+j).css("position", "absolute")
+			var id = 'ddata'+(i*4+j);
+			$('#table2Div').append('<p id="'+id+'"></p>');
+			
+			$('#'+id).html(datas2[i*4+j]);
+			$('#'+id).css("position", "absolute")
 						.css("left", leftStr)
 						.css("top", topStr)
 						.css("font-size", 16)
 						.css("font-family", "Helvetica Neue")
+						.css("opacity",0);
+			$('#'+id).delay(7500+(500*i)+250*(i*4+j)).animate({opacity:1},250)
 		}
 	}
+	
+	table2Group.opacity = 0;
+	
+	exampleHelper = {
+		bookstoreOpacity: 0,
+		infoTextOpacity: 0,
+		daysTextOpacity: 0,
+		categoriesTextOpacity: 0,
+		mondayTextOpacity: 0,
+		tuesdayTextOpacity: 0,
+		wednesdayTextOpacity: 0,
+		thursdayTextOpacity: 0,
+		fridayTextOpacity: 0,
+		saturdayTextOpacity: 0,
+		novelTextOpacity: 0,
+		storyTextOpacity: 0,
+		poemTextOpacity: 0,
+		otherTextOpacity: 0,	
+	};
+	
+	exampleHelper.animate = Item.prototype.animate;
+	Animation.onFrame = function(event){
+		$('#bookstore').css("opacity", exampleHelper.bookstoreOpacity);
+		$('#infoText').css("opacity", exampleHelper.infoTextOpacity);
+		$('#daysText').css("opacity", exampleHelper.daysTextOpacity);
+		$('#categoriesText').css("opacity", exampleHelper.categoriesTextOpacity);
+		$('#novelText').css("opacity", exampleHelper.novelTextOpacity);
+		$('#storyText').css("opacity", exampleHelper.storyTextOpacity);
+		$('#poemText').css("opacity", exampleHelper.poemTextOpacity);
+		$('#otherText').css("opacity", exampleHelper.otherTextOpacity);
+		$('#mondayText').css("opacity", exampleHelper.mondayTextOpacity);
+		$('#tuesdayText').css("opacity", exampleHelper.tuesdayTextOpacity);
+		$('#wednesdayText').css("opacity", exampleHelper.wednesdayTextOpacity);
+		$('#thursdayText').css("opacity", exampleHelper.thursdayTextOpacity);
+		$('#fridayText').css("opacity", exampleHelper.fridayTextOpacity);
+		$('#saturdayText').css("opacity", exampleHelper.saturdayTextOpacity);
+	}
+	
+	for(var i=0; i<4; i++ ){
+
+	
+	}
+	
+	exampleHelper.animate({
+		style: {
+			bookstoreOpacity: 1
+		},
+		duration: 1000,
+		delay: 1000,
+		animationType: 'easeInEaseOut'
+	});
+	
+	exampleHelper.animate({
+		style: {
+			infoTextOpacity: 1
+		},
+		duration: 1000,
+		delay: 2000,
+		animationType: 'easeInEaseOut'
+	});
+	
+	table2Group.animate({
+		style: {
+			opacity: 1
+		},
+		duration: 1000,
+		delay: 3000,
+		animationType: 'easeInEaseOut'
+	});
+	
+	exampleHelper.animate({
+		style: {
+			categoriesTextOpacity: 1
+		},
+		duration: 500,
+		delay: 4000,
+		animationType: 'easeInEaseOut'
+	});
+	
+	exampleHelper.animate({
+		style: {
+			daysTextOpacity: 1
+		},
+		duration: 500,
+		delay: 4500,
+		animationType: 'easeInEaseOut'
+	});
+	
+	exampleHelper.animate({
+		style: {
+			novelTextOpacity: 1
+		},
+		duration: 500,
+		delay: 5000,
+		animationType: 'easeInEaseOut'
+	});
+	
+	exampleHelper.animate({
+		style: {
+			storyTextOpacity: 1
+		},
+		duration: 500,
+		delay: 5500,
+		animationType: 'easeInEaseOut'
+	});
+	
+	exampleHelper.animate({
+		style: {
+			poemTextOpacity: 1
+		},
+		duration: 500,
+		delay: 6000,
+		animationType: 'easeInEaseOut'
+	});
+	
+	exampleHelper.animate({
+		style: {
+			otherTextOpacity: 1
+		},
+		duration: 500,
+		delay: 6500,
+		animationType: 'easeInEaseOut'
+	});
+	
+	exampleHelper.animate({
+		style: {
+			mondayTextOpacity: 1
+		},
+		duration: 500,
+		delay: 7000,
+		animationType: 'easeInEaseOut'
+	});
+	
+		exampleHelper.animate({
+		style: {
+			tuesdayTextOpacity: 1
+		},
+		duration: 500,
+		delay: 8500,
+		animationType: 'easeInEaseOut'
+	});
+	
+	exampleHelper.animate({
+		style: {
+			wednesdayTextOpacity: 1
+		},
+		duration: 500,
+		delay: 10000,
+		animationType: 'easeInEaseOut'
+	});
+	
+		exampleHelper.animate({
+		style: {
+			thursdayTextOpacity: 1
+		},
+		duration: 500,
+		delay: 11500,
+		animationType: 'easeInEaseOut'
+	});
+	
+	exampleHelper.animate({
+		style: {
+			fridayTextOpacity: 1
+		},
+		duration: 500,
+		delay: 13000,
+		animationType: 'easeInEaseOut'
+	});
+	
+		exampleHelper.animate({
+		style: {
+			saturdayTextOpacity: 1
+		},
+		duration: 500,
+		delay: 14500,
+		animationType: 'easeInEaseOut'
+	});
 }
 
 
@@ -412,7 +593,7 @@ Interaction.init = function(container){
 					.css("bottom", "20px")
 					.css("right", "40px");
 	
-	$(container).append('<button id="nextBtn" class="control_button">Sonraki</button>');
+	$(container).append('<button id="nextBtn" class="next_button">Sonraki</button>');
 	$('#nextBtn').css("position", "absolute")
 					.css("bottom", "20px")
 					.css("right", "40px");

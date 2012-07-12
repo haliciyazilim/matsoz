@@ -185,6 +185,17 @@ p.exampleHeader {
 	color: black;
 }
 
+.next_button{
+	height: 30px;
+	font-weight: bold;
+	padding: 8px 10px;
+	border-radius: 5px;
+	border: none;
+	cursor: pointer;
+	background-color: #7f9db0;
+	color: black;
+}
+
 .status_field {
 	text-align: center;
 	width: 200px;

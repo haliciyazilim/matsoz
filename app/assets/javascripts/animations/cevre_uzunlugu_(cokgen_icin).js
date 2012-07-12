@@ -17,28 +17,8 @@ var Animation = {
 		var size = new Size(100,100);
 		var _h = 30;
 		var p1 = new Point(
-			0,
+			20,
 			25+_h
-		);
-		var p2 = new Point(
-			w*0.166 ,
-			0+_h
-		);
-		var p3 = new Point(
-			w*0.33,
-			0+_h
-		);
-		var p4 = new Point(
-			w*5,
-			0+_h
-		);
-		var p5 = new Point(
-			w*0.66,
-			25+_h
-		);
-		var p6 = new Point(
-			w*0.83 ,
-			0+_h
 		);
 		
 		var triangle = new Path.EquiradialPolygon(
@@ -47,17 +27,55 @@ var Animation = {
 			[120,210,330],
 			0
 		)
+		
 		triangle.setStyle(animationEdgeStyle);
 		
-		var t = triangle.rasterize();
-		t.vertexArray = triangle.vertexArray;
-		
-		triangle.remove();
-		triangle = t;
+		//var t = triangle.rasterize();
+//		t.vertexArray = triangle.vertexArray;
+//		triangle.remove();
+//		triangle = t;
 		triangle.angle = 0;
 		triangle.lastTransformation = triangle.matrix;
-		console.log(triangle.vertexArray[1])
-		console.log(triangle.vertexArray[2].x,triangle.vertexArray[2].y);
+//		console.log(triangle.vertexArray[1])
+//		console.log(triangle.vertexArray[2].x,triangle.vertexArray[2].y);
+		triangle.texts = [];
+		triangle.texts[0] = new PointText(new Point(triangle.vertexArray[0].x,triangle.vertexArray[0].y-10));
+		triangle.texts[0].content = 'C';
+		triangle.texts[0].firstPosition = triangle.texts[0].position;
+		triangle.texts[1] = new PointText(new Point(triangle.vertexArray[1].x-10,triangle.vertexArray[1].y+10));
+		triangle.texts[1].content = 'A';
+		triangle.texts[1].firstPosition = triangle.texts[1].position;
+		triangle.texts[2] = new PointText(new Point(triangle.vertexArray[2].x,triangle.vertexArray[2].y+10));
+		triangle.texts[2].content = 'B';
+		triangle.texts[2].firstPosition = triangle.texts[2].position;
+		
+		triangle.texts[3] = new PointText(
+			new Point(
+				(triangle.vertexArray[0].x+triangle.vertexArray[1].x)*0.5-10,
+				(triangle.vertexArray[0].y+triangle.vertexArray[1].y)*0.5
+			)
+		);
+		triangle.texts[3].content = 'b';
+		triangle.texts[3].firstPosition = triangle.texts[3].position;
+		
+		triangle.texts[4] = new PointText(
+			new Point(
+				(triangle.vertexArray[1].x+triangle.vertexArray[2].x)*0.5,
+				(triangle.vertexArray[2].y+triangle.vertexArray[2].y)*0.5+10
+			)
+		);
+		triangle.texts[4].content = 'c';
+		triangle.texts[4].firstPosition = triangle.texts[4].position;
+		
+		triangle.texts[5] = new PointText(
+			new Point(
+				(triangle.vertexArray[0].x+triangle.vertexArray[2].x)*0.5+10,
+				(triangle.vertexArray[0].y+triangle.vertexArray[2].y)*0.5
+			)
+		);
+		triangle.texts[5].content = 'a';
+		triangle.texts[5].firstPosition = triangle.texts[5].position;
+		
 		triangle.animate({
 			style:{
 				angle:135	
@@ -69,19 +87,30 @@ var Animation = {
 				matrix.rotate(this.angle, this.vertexArray[2]);
 				matrix.concatenate(this.lastTransformation);
 				this.setMatrix(matrix);
+				for(var i=0;i<this.texts.length;i++)
+					this.texts[i].position = this.texts[i].firstPosition.getRotatedPoint(this.angle,this.vertexArray[2]);
 			},
 			callback:function(){
+				new Path.Circle(this.vertexArray[2],2).setStyle({fillColor:"#000"});
+				
 				for(var i=0; i<this.vertexArray.length ; i++)
-					this.vertexArray[i] = this.vertexArray[i].getRotatedPoint(this.angle,this.vertexArray[2])
-				triangle.lastTransformation = triangle.matrix;
-				new Path.Circle(this.vertexArray[0],2).setStyle({fillColor:"#000"})
+					this.vertexArray[i] = this.vertexArray[i].getRotatedPoint(this.angle,this.vertexArray[2]);
+				new PointText(
+					new Point(
+						(triangle.vertexArray[0].x+triangle.vertexArray[2].x)*0.5,
+						(triangle.vertexArray[0].y+triangle.vertexArray[2].y)*0.5+10
+					)
+				).content = 'a';
+				this.lastTransformation = this.matrix;
 				new Path.Line(
 					this.vertexArray[0],
 					this.vertexArray[2]
-				).setStyle({strokeColor:'#000',strokeWidth:2});
-				
+				).setStyle({strokeColor:'#f00',strokeWidth:2});
+				for(var i=0;i<this.texts.length;i++)
+					this.texts[i].firstPosition = this.texts[i].position;
 				console.log(this.vertexArray[1])
 				triangle.angle = 0;
+				
 			}
 		});
 		triangle.animate({
@@ -96,17 +125,28 @@ var Animation = {
 				matrix.rotate(this.angle, this.vertexArray[0]);
 				matrix.concatenate(this.lastTransformation);
 				this.setMatrix(matrix);
+				for(var i=0;i<this.texts.length;i++)
+					this.texts[i].position = this.texts[i].firstPosition.getRotatedPoint(this.angle,this.vertexArray[0]);
+			
 			},
 			callback:function(){
+				new Path.Circle(this.vertexArray[0],2).setStyle({fillColor:"#000"});
 				for(var i=0; i<this.vertexArray.length ; i++)
-					this.vertexArray[i] = this.vertexArray[i].getRotatedPoint(this.angle,this.vertexArray[0])
-				triangle.lastTransformation = triangle.matrix;
-				new Path.Circle(this.vertexArray[1],2).setStyle({fillColor:"#000"})
+					this.vertexArray[i] = this.vertexArray[i].getRotatedPoint(this.angle,this.vertexArray[0]);
+				
+				new PointText(
+					new Point(
+						(triangle.vertexArray[0].x+triangle.vertexArray[1].x)*0.5,
+						(triangle.vertexArray[0].y+triangle.vertexArray[1].y)*0.5+10
+					)
+				).content = 'b';
+				this.lastTransformation = this.matrix;
 				new Path.Line(
 					this.vertexArray[1],
 					this.vertexArray[0]
-				).setStyle({strokeColor:'#000',strokeWidth:2});
-				console.log(this.vertexArray[1])
+				).setStyle({strokeColor:'#f00',strokeWidth:2});
+				for(var i=0;i<this.texts.length;i++)
+					this.texts[i].firstPosition = this.texts[i].position;
 				triangle.angle = 0;
 			}
 		});
@@ -122,53 +162,186 @@ var Animation = {
 				matrix.rotate(this.angle, this.vertexArray[1]);
 				matrix.concatenate(this.lastTransformation);
 				this.setMatrix(matrix);
+				for(var i=0;i<this.texts.length;i++)
+					this.texts[i].position = this.texts[i].firstPosition.getRotatedPoint(this.angle,this.vertexArray[1]);
 			},
 			callback:function(){
+				new Path.Circle(this.vertexArray[1],2).setStyle({fillColor:"#000"})
 				for(var i=0; i<this.vertexArray.length ; i++)
 					this.vertexArray[i] = this.vertexArray[i].getRotatedPoint(this.angle,this.vertexArray[1])
 				
-				new Path.Circle(this.vertexArray[0],2).setStyle({fillColor:"#000"})
+				new PointText(
+					new Point(
+						(triangle.vertexArray[1].x+triangle.vertexArray[2].x)*0.5,
+						(triangle.vertexArray[1].y+triangle.vertexArray[2].y)*0.5+10
+					)
+				).content = 'c';
+				this.lastTransformation = this.matrix;;
 				new Path.Line(
 					this.vertexArray[1],
 					this.vertexArray[2]
-				).setStyle({strokeColor:'#000',strokeWidth:2});
-				triangle.angle = 0;
+				).setStyle({strokeColor:'#f00',strokeWidth:2});
+				for(var i=0;i<this.texts.length;i++)
+					this.texts[i].firstPosition = this.texts[i].position;
+				this.angle = 0;
 			}
 		});
 		triangle.animate({
 			style:{
-				angle:120
+				angle:135
 			},
 			duration:1000,
 			delay:3800,
 			update:function(){
 				//console.log(this.firstPosition.x,this.firstPosition.y);
 				var matrix = new Matrix();
-				matrix.rotate(this.angle, this.vertexArray[0]);
+				matrix.rotate(this.angle, this.vertexArray[2].x+20,this.vertexArray[2].y+10);
 				matrix.concatenate(this.lastTransformation);
 				this.setMatrix(matrix);
+				for(var i=0;i<this.texts.length;i++)
+					this.texts[i].position = this.texts[i].firstPosition.getRotatedPoint(this.angle,new Point(this.vertexArray[2].x+20,this.vertexArray[2].y+10));
 			},
 			callback:function(){
+				new Path.Circle(this.vertexArray[2],2).setStyle({fillColor:"#000"});
 				for(var i=0; i<this.vertexArray.length ; i++)
-					this.vertexArray[i] = this.vertexArray[i].getRotatedPoint(this.angle,this.vertexArray[1])
+					this.vertexArray[i] = this.vertexArray[i].getRotatedPoint(this.angle,this.vertexArray[2])
+				this.lastTransformation = this.matrix;
+				for(var i=0;i<this.texts.length;i++)
+					this.texts[i].firstPosition = this.texts[i].position;
+				this.angle = 0;
 				
-				new Path.Circle(this.vertexArray[0],2).setStyle({fillColor:"#000"})
-				new Path.Line(
-					this.vertexArray[1],
-					this.vertexArray[0]
-				).setStyle({strokeColor:'#000',strokeWidth:2});
+				new PointText(
+					new Point(
+						(triangle.vertexArray[0].x+triangle.vertexArray[2].x)*0.5,
+						(triangle.vertexArray[0].y+triangle.vertexArray[2].y)*0.5+30
+					)
+				).content = "Ç = a + b + c";
 			}
 		});
 		
+		triangle.animate({
+			style:{
+				angle:-135
+			},
+			duration:1000,
+			delay:5800,
+			update:function(){
+				var matrix = new Matrix();
+				matrix.rotate(this.angle, this.vertexArray[2].x+20,this.vertexArray[2].y+10);
+				matrix.concatenate(this.lastTransformation);
+				this.setMatrix(matrix);
+				for(var i=0;i<this.texts.length;i++)
+					this.texts[i].position = this.texts[i].firstPosition.getRotatedPoint(this.angle,new Point(this.vertexArray[2].x+20,this.vertexArray[2].y+10));
+			},
+			callback:function(){
+				for(var i=0; i<this.vertexArray.length ; i++)
+					this.vertexArray[i] = this.vertexArray[i].getRotatedPoint(this.angle,this.vertexArray[2])
+				this.lastTransformation = this.matrix;
+				for(var i=0;i<this.texts.length;i++)
+					this.texts[i].firstPosition = this.texts[i].position;
+				this.angle = 0;
+				
+			}
+		});
+		
+		triangle.animate({
+			style:{
+				angle:-105
+			},
+			duration:1000,
+			delay:7000,
+			update:function(){
+				//console.log(this.firstPosition.x,this.firstPosition.y);
+				var matrix = new Matrix();
+				matrix.rotate(this.angle, this.vertexArray[1]);
+				matrix.concatenate(this.lastTransformation);
+				this.setMatrix(matrix);
+				for(var i=0;i<this.texts.length;i++)
+					this.texts[i].position = this.texts[i].firstPosition.getRotatedPoint(this.angle,this.vertexArray[1]);
+			},
+			callback:function(){
+				
+				for(var i=0; i<this.vertexArray.length ; i++)
+					this.vertexArray[i] = this.vertexArray[i].getRotatedPoint(this.angle,this.vertexArray[1])
+				
+				this.lastTransformation = this.matrix;;
+				for(var i=0;i<this.texts.length;i++)
+					this.texts[i].firstPosition = this.texts[i].position;
+				this.angle = 0;
+			}
+		});
+		
+		triangle.animate({
+			style:{
+				angle:-120
+			},
+			duration:1000,
+			delay:8100,
+			update:function(){
+				//console.log(this.firstPosition.x,this.firstPosition.y);
+				var matrix = new Matrix();
+				matrix.rotate(this.angle, this.vertexArray[0]);
+				matrix.concatenate(this.lastTransformation);
+				this.setMatrix(matrix);
+				for(var i=0;i<this.texts.length;i++)
+					this.texts[i].position = this.texts[i].firstPosition.getRotatedPoint(this.angle,this.vertexArray[0]);
+			
+			},
+			callback:function(){
+				for(var i=0; i<this.vertexArray.length ; i++)
+					this.vertexArray[i] = this.vertexArray[i].getRotatedPoint(this.angle,this.vertexArray[0])
+				
+				this.lastTransformation = this.matrix;
+				for(var i=0;i<this.texts.length;i++)
+					this.texts[i].firstPosition = this.texts[i].position;
+				triangle.angle = 0;
+			}
+		});
+		
+		triangle.animate({
+			style:{
+				angle:-135	
+			},
+			duration:1000,
+			delay:9200,
+			update:function(){
+				var matrix = new Matrix();
+				matrix.rotate(this.angle, this.vertexArray[2]);
+				matrix.concatenate(this.lastTransformation);
+				this.setMatrix(matrix);
+				for(var i=0;i<this.texts.length;i++)
+					this.texts[i].position = this.texts[i].firstPosition.getRotatedPoint(this.angle,this.vertexArray[2]);
+			},
+			callback:function(){
+				triangle.angle = 0;
+				for(var i=0;i<Main.animationProject.activeLayer.children.length;i++)
+					Main.animationProject.activeLayer.children[i].animate({
+						style:{opacity:0},
+						duration:1000
+					});
+				
+				$(Animation.container)
+					.append('<img id="sekiller_cevre" src="/assets/animations/cevre_uzunlugu_(cokgen_icin)/shapes.png" />')
+				$("#sekiller_cevre",Animation.container).css({
+						position:'absolute',
+						top:'30px',
+						left:'50px',
+						opacity:0
+					})
+					.delay(1000)
+					.animate({opacity:1},2000);
+				
+			}
+		});
 	}
 	
 };
-var Interaction =function(){};Interaction();
+var Interaction = {};
 Interaction.getFramework = function() {
 	return 'paper';
 }
 Interaction.init = function(container){
-	Main.setObjective('Aşağıdaki çokgenin çevre uzunluğunu bulunuz.');
+	Main.setObjective('Yandaki çokgenin çevre uzunluğunu bulunuz.');
 	Interaction.container = container;
 	$(Interaction.container).append('<div id="B"></div>');
 	$(Interaction.container).append('<style>div#L,div#R{float:left;}</style>');
@@ -195,6 +368,10 @@ Interaction.init = function(container){
 	Interaction.status.style.fontSize = '16px';
 	Interaction.status.style.fontWeight = 'bold';
 	Interaction.status.style.paddingTop = '10px';
+	Interaction.preventNextQuestion = false;
+	var NUMBER_OF_SHAPES  = 8;
+	Interaction.shuffledArray = Util.getShuffledArray(NUMBER_OF_SHAPES);
+	Interaction.count = 0;
 	TestGenerator.nextQuestion();
 	
 }
@@ -227,7 +404,6 @@ TestGenerator.nextQuestion = function(){
 	Interaction.button.value = 'Kontrol';
 	Interaction.input.value = '';
 	Interaction.input.onkeyup = function(e){
-		//console.log(e.keyCode)
 		if(e.keyCode == 13)
 			TestGenerator.checkAnswer();		
 	}
@@ -235,12 +411,12 @@ TestGenerator.nextQuestion = function(){
 	Interaction.button.onclick = TestGenerator.checkAnswer;
 	TestGenerator.shape = Math.floor(Math.random()*4);
 	TestGenerator.paper = {width:$(Interaction.container).width()*0.4 , height:$(Interaction.container).height()}
-	//console.log(TestGenerator.paper)
-	
 	var m = Math.floor(Math.random()*2);
 	TestGenerator.setMeasure(m);
 	TestGenerator.letters = (Math.random()>0.5 ? ["A","B","C","D","E"]:["K","L","M","N","P"]);
-	///*TEST*/TestGenerator.shape = 3;/*TEST*/
+	var count = (Interaction.count++)%Interaction.shuffledArray.length;
+	TestGenerator.shape = Interaction.shuffledArray[count];
+	///*TEST*/TestGenerator.shape = 5/*TEST*/
 	switch(TestGenerator.shape){
 		case 0:
 			var a = Math.floor(Math.random()*10)+5;
@@ -277,7 +453,26 @@ TestGenerator.nextQuestion = function(){
 			TestGenerator.values = {a:a,b:b,c:c,cevre:(a+b+c)};
 			new Triangle(a,b,c,TestGenerator.getMeasure(),TestGenerator.paper).showEdge('a').showEdge('b').showEdge('c');
 			break;
+		
 		case 4:
+			var a,b,c;
+			a = 3,
+			b = 4,
+			c = 5,
+			TestGenerator.values = {a:a,b:b,c:c,cevre:(a+b+c)} ;
+			new Triangle(a,b,c,TestGenerator.getMeasure(),TestGenerator.paper).showEdge('a').showEdge('b').showAngle('B');
+			break;
+		case 5:
+			var a,b,c;
+			a = 6,b = 8,c = 6;
+			TestGenerator.values = {a:a,b:b,c:c,cevre:(a+b+c)} ;
+			new Triangle(a,b,c,TestGenerator.getMeasure(),TestGenerator.paper).showEdge('a').showEdge('b').showAngle('A').showAngle('B');
+			break;
+		
+		
+			
+			
+		case 6:
 			var a,b,_a,c;
 			a = Math.floor(Math.random()*5)+5;
 			_a = a
@@ -288,7 +483,7 @@ TestGenerator.nextQuestion = function(){
 			TestGenerator.values = {a:a,b:b,c:c,cevre:(a+_a+b+c)};
 			trapezoid(a,_a,b,c,TestGenerator.getMeasure(),TestGenerator.paper);
 			break;
-		case 5:
+		case 7:
 			var a,W;
 			a = Math.floor(Math.random()*6)+6;
 			W = 2*a;
@@ -559,45 +754,54 @@ function Triangle(i,j,k,measure,paper){
 			return {x:x,y:y}
 		}
 		var x1,y1,x2,y2,r,k;
-		k = 30;
-		
+		k = 20;
 		var _p1,_p2;
 		_p1 = findAPointOn(p1,p2,k);
 		x1=_p1.x; y1=_p1.y;
 		_p2 = findAPointOn(p1,p3,k);
 		x2=_p2.x; y2=_p2.y;
-		
 		var fa = A > Math.PI ?1 : 0;
 		var fs = A > 0 ? 0: 1;
 		var _a = Util.findAngle(p1.x,p1.y,p2.x,p2.y);
 		var _b = Util.findAngle(p1.x,p1.y,p3.x,p3.y);
 		var _t = Math.abs(_a-_b)*0.5 + (Math.abs(_a) > Math.abs(_b) ? _b : _a);
-		
 		if(_A==90){
 			var x,y;
 			_p1 = findAPointOn(p1,p2,k/2);
 			x1=_p1.x; y1=_p1.y;
 			_p2 = findAPointOn(p1,p3,k/2);
 			x2=_p2.x; y2=_p2.y;
-			
 			x = p1.x + Math.sqrt(2) * k/2 * Math.cos(_t);
 			y = p1.y - Math.sqrt(2) * k/2 * Math.sin(_t);
-			this.paper.line(x1,y1,x,y).attr(edgeStyle);
-			this.paper.line(x2,y2,x,y).attr(edgeStyle);
-			this.paper.circle((p1.x+x)*0.5,(p1.y+y)*0.5,1).attr('fill','#CCC');
+			var line1 = new Path.Line(new Point(x1,y1), new Point(x,y));
+			line1.setStyle(edgeStyle);
+			var line2 = new Path.Line(new Point(x2,y2), new Point(x,y));
+			line2.setStyle(edgeStyle)
+			var circle= new Path.Circle(new Point((p1.x+x)*0.5,(p1.y+y)*0.5),1);
+			circle.setStyle({fillColor:'#000'});
 			k = k/1.5;
 		}
 		else{
+			x = p1.x + Math.sqrt(2) * k*0.7 * Math.cos(_t);
+			y = p1.y - Math.sqrt(2) * k*0.7 * Math.sin(_t);
 			r = Util.findDistance(p1.x, p1.y, x1, y1);
-			this.paper.path('M'+p1.x+','+p1.y+' L'+x1+','+y1+' A'+r+','+r +
-				   ' 0 '+fa+','+fs+' '+x2+','+y2+'  z').attr(angleStyle);
+			var path = new Path();
+			path.add(_p1);
+			path.arcTo([x,y],_p2);
+			path.setStyle(edgeStyle);
 		}
 		var _x,_y;//for the text
-		_x = p1.x + 1.6 * k * Math.cos(_t);
-		_y = p1.y - 1.6 * k * Math.sin(_t);
-		this.paper.text(_x,_y,""+_A+"°").attr(textStyle);
-
-		
+		_x = p1.x + Math.sqrt(2) * k* Math.cos(_t);
+		_y = p1.y - Math.sqrt(2) * k * Math.sin(_t);
+		if(_x < p1.x)
+			_x -= 15;
+		if(_y > p1.y)
+			_y += 10;
+		//var circle = new Path.Circle([_x,_y],2);
+		//circle.setStyle({fillColor:'#000'});
+		var text = new PointText(_x,_y);
+		text.content = ""+_A+"°";
+		text.setStyle(textStyle);
 	}
 	this.showAngle = function(angle){
 		switch(angle){
@@ -613,6 +817,7 @@ function Triangle(i,j,k,measure,paper){
 			default:
 				throw 'invalid argument. valid arguments: [ A , B , C ]';
 		}
+		return this;
 	}
 	
 	this.showEdge = function(edge){
