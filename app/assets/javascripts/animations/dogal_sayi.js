@@ -418,6 +418,7 @@ Interaction.init = function(container){
 			.css("margin","auto")
 			.css("height","30px")
 			.css("width","30px");
+			
 		
 		// Binler bölüğü Yatayları
 		
@@ -803,7 +804,7 @@ Interaction.init = function(container){
 	if(rastgeleBasamak==3)
 		rastgeleSayi=rastgele9;
 	//rastgeleSayi=String(Math.floor((Math.random()*900000000)+100000000));
-	//rastgeleSayi="999999999";
+	rastgeleSayi="999999999";
 	//rastgeleSayi="xw"+rastgele7;
 	var yaziyla= new Array();
 	console.log("denemeSayısı: "+rastgeleSayi+" basamak: "+rastgeleSayi.length);
@@ -1010,6 +1011,7 @@ Interaction.init = function(container){
 		$("#inputBirler").val("");
 		$("#cevaplar").hide();
 		$(this).hide();	
+		$("input").css("color","black");
 		$("#btnKontrol").show(function(){
 			$("#geriBildirimText").html("");
 		});
