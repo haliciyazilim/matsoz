@@ -31,10 +31,155 @@ var rulerLineStyle = {
 	strokeWidth: 2,
 	strokeColor:'#000'
 };
+var animationEdgeStyle = {
+	
+	strokeWidth: 2,
+	strokeColor:'#000'
+
+}
 /*Styles*/
 
-var Animation = function(){};Animation();
-var Interaction = function(){}; Interaction();
+
+var Animation = {
+
+	init:function(container){
+		Animation.container = container;
+		var w=$(container).width(), h=$(container).height();
+		var x = w *0.5;
+		var y = h*0.5;
+		var R = 75;
+		var p1 = new Point(x+100,y);
+		var p2 = new Point(x+100+R,y);
+		var p3 = new Point(x+100,y+R);
+		var circleCenter = new Path.Circle(p1,4);
+		circleCenter.setStyle({
+			fillColor:'#000'
+		});
+		var circleCenterText = new PointText(
+			new Point(
+				p1.x-15,
+				p1.y+15
+			)
+		);
+		circleCenterText.content = 'O';
+		circleCenterText.setStyle({
+			strokeColor:'#000',
+			fillColor:'#000'
+		});
+		
+		animationHelper = new AnimationHelper({
+			angle:0
+		});
+		
+	//	console.log(Path.arc)
+		Animation.onFrame = function(event){
+			if(animationHelper.angle > 0 && animationHelper.angle < 360){
+				if(Animation.line1)
+					Animation.line1.remove();
+					
+				Animation.line1 = new Path.Line(p1,p2.getRotatedPoint(-animationHelper.angle,p1));
+				Animation.line1.setStyle(animationEdgeStyle);
+				
+				if(Animation.arc)
+					Animation.arc.remove();
+				
+				Animation.arc = new Path.ArcByAngle(p1,R,-animationHelper.angle);
+				Animation.arc.setStyle(animationEdgeStyle);
+				
+				
+			}else if(animationHelper.angle == 360){
+				if(Animation.line1)
+					Animation.line1.remove();
+				Animation.line1 = new Path.Line(p1,p2);
+				Animation.line1.setStyle(animationEdgeStyle);
+				
+				if(Animation.arc)
+					Animation.arc.remove();
+				Animation.arc = new Path.Circle(p1,R);
+				Animation.arc.setStyle(animationEdgeStyle);
+				
+			}
+			else if(animationHelper.angle > 360 && animationHelper.angle < 720){
+				if(Animation.line1){
+					Animation.line1.remove();
+					circleCenterText.remove();
+					circleCenter.remove();
+				}
+				Animation.arc.remove();
+				var x = R*2*Math.PI*(animationHelper.angle%360)/360;
+				var _p1 = new Point(p1.x - x,p1.y);
+				var _p = new Point(p3.x -x,p3.y);
+				Animation.arc = new Path.ArcByAngle(_p1,R,-270-animationHelper.angle,-270);
+				Animation.arc.setStyle(animationEdgeStyle);
+				if(Animation.line2)
+					Animation.line2.remove();
+				Animation.line2 = new Path.Line(p3,_p);
+				Animation.line2.setStyle(animationEdgeStyle);
+			}
+			else if (animationHelper.angle == 720){
+				Animation.arc.remove();
+			}
+			else if(animationHelper.angle > 720 && animationHelper.angle < 1080){
+				Animation.arc.remove();
+				var angle = 1080-animationHelper.angle;
+				var x = R*2*Math.PI*(angle)/360;
+				var _p1 = new Point(p1.x - x,p1.y);
+				var _p = new Point(p3.x -x,p3.y);
+				Animation.arc = new Path.ArcByAngle(_p1,R,-270-angle-360,-270);
+				Animation.arc.setStyle(animationEdgeStyle);
+				if(Animation.line2)
+					Animation.line2.remove();
+				Animation.line2 = new Path.Line(p3,_p);
+				Animation.line2.setStyle(animationEdgeStyle);
+			}
+			else if(animationHelper.angle == 1080){
+				Animation.line2.remove();
+				circleCenter = new Path.Circle(p1,4);
+				circleCenter.setStyle({
+					fillColor:'#000'
+				});
+				circleCenterText = new PointText(
+					new Point(
+						p1.x-15,
+						p1.y+15
+					)
+				);
+				circleCenterText.content = 'O';
+				circleCenterText.setStyle({
+					strokeColor:'#000',
+					fillColor:'#000'
+				});
+				animationHelper.angle = -1;
+			}
+		}
+		
+		animationHelper.animate({
+			style:{angle:360},
+			duration:2000,
+			delay:500,
+			animationType:'easeInEaseOut'
+		});
+		
+		animationHelper.animate({
+			style:{angle:720},
+			duration:2000,
+			delay:3500,
+			animationType:'easeInEaseOut'
+		});
+		animationHelper.animate({
+			style:{angle:1080},
+			duration:2000,
+			delay:6500,
+			animationType:'easeInEaseOut'
+		})
+		
+		
+	}
+
+
+
+};
+var Interaction = {};
 Interaction.getFramework = function() {
 	return 'paper';
 }
