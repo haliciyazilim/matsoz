@@ -11,12 +11,96 @@ Interaction.images = [
 		src: '/assets/animations/ataturk_ve_geometri/aciortay.png'
 	},
 	{
+		id:'dortgen',
+		src: '/assets/animations/ataturk_ve_geometri/dortgen.png'
+	},
+	{
+		id:'aci',
+		src: '/assets/animations/ataturk_ve_geometri/aci.png'
+	},
+	{
+		id:'besgen',
+		src: '/assets/animations/ataturk_ve_geometri/besgen.png'
+	},
+	{
+		id:'bolen',
+		src: '/assets/animations/ataturk_ve_geometri/bolen.png'
+	},
+	{
+		id:'bolme',
+		src: '/assets/animations/ataturk_ve_geometri/bolme.png'
+	},
+	{
 		id:'cap',
 		src: '/assets/animations/ataturk_ve_geometri/cap.png'
 	},
 	{
-		id:'dortgen',
-		src: '/assets/animations/ataturk_ve_geometri/dortgen.png'
+		id:'carpan',
+		src: '/assets/animations/ataturk_ve_geometri/carpan.png'
+	},
+	{
+		id:'carpi',
+		src: '/assets/animations/ataturk_ve_geometri/carpi.png'
+	},
+	{
+		id:'cevre',
+		src: '/assets/animations/ataturk_ve_geometri/cevre.png'
+	},
+	{
+		id:'cikarma',
+		src: '/assets/animations/ataturk_ve_geometri/cikarma.png'
+	},
+	{
+		id:'daire_cember',
+		src: '/assets/animations/ataturk_ve_geometri/daire_cember.png'
+	},
+	{
+		id:'dik_ucgen',
+		src: '/assets/animations/ataturk_ve_geometri/dik_ucgen.png'
+	},
+	{
+		id:'dikdortgen',
+		src: '/assets/animations/ataturk_ve_geometri/dikdortgen.png'
+	},
+	{
+		id:'dikey',
+		src: '/assets/animations/ataturk_ve_geometri/dikey.png'
+	},
+	{
+		id:'kare',
+		src: '/assets/animations/ataturk_ve_geometri/kare.png'
+	},
+	{
+		id:'ondalik',
+		src: '/assets/animations/ataturk_ve_geometri/ondalik.png'
+	},
+	{
+		id:'pay',
+		src: '/assets/animations/ataturk_ve_geometri/pay.png'
+	},
+	{
+		id:'payda',
+		src: '/assets/animations/ataturk_ve_geometri/payda.png'
+	},
+	{
+		id:'piramid',
+		src: '/assets/animations/ataturk_ve_geometri/piramid.png'
+	},
+	{
+		id:'prizma',
+		src: '/assets/animations/ataturk_ve_geometri/prizma.png'
+	},
+	{
+		id:'sadelestirme',
+		src: '/assets/animations/ataturk_ve_geometri/sadelestirme.png'
+	},
+	{
+		id:'ucgen',
+		src: '/assets/animations/ataturk_ve_geometri/ucgen.png'
+	},
+	{
+		id:'yuzey',
+		src: '/assets/animations/ataturk_ve_geometri/yuzey.png'
 	}
 ]
 
@@ -42,11 +126,11 @@ Interaction.init = function(container){
 		top:Interaction.paper.height*0.5-15
 	});
 	$(Interaction.old_word).css({
-		left:Interaction.paper.width*0.5 - 250,
+		left:Interaction.paper.width*0.5 - 300,
 		textAlign:'right'
 	});
 	$(Interaction.new_word).css({
-		left:Interaction.paper.width*0.5 + 100,
+		left:Interaction.paper.width*0.5 + 150,
 		textAlign:'left'
 	});
 	Interaction.next_button = document.createElement('input');
@@ -75,7 +159,7 @@ Interaction.nextQuestion = function(){
 	project.activeLayer.removeChildren();
 	var count = (Interaction.count++)%Interaction.shuffledArray.length;
 	var wordOrder = Interaction.shuffledArray[count];
-	/*TEST*/wordOrder=3;/*TEST*/
+	///*TEST*/wordOrder=3;/*TEST*/
 	var word = Interaction.words[wordOrder];
 	$(Interaction.old_word).html(word.oldName);
 	$(Interaction.new_word).html(word.newName);
@@ -153,107 +237,234 @@ Interaction.words = [
 	{
 		oldName:'müselles',
 		newName:'üçgen',
-		shape: function(){}
+		shape: function(){
+			var shape = new Raster('ucgen');
+			shape.position = [
+				Math.floor(Interaction.shapeLimits.x+Interaction.shapeLimits.w*0.5),
+				Math.floor(Interaction.shapeLimits.y+Interaction.shapeLimits.h*0.5)
+			];
+		}
 	},
 	{
 		oldName:'kaim zaviyeli müselles',
 		newName:'dik üçgen',
-		shape: function(){}
+		shape: function(){
+			var shape = new Raster('dik_ucgen');
+			shape.position = [
+				Math.floor(Interaction.shapeLimits.x+Interaction.shapeLimits.w*0.5),
+				Math.floor(Interaction.shapeLimits.y+Interaction.shapeLimits.h*0.5)
+			];
+		}
 	},
 	{
 		oldName:'muhit',
 		newName:'çevre',
-		shape: function(){}
+		shape: function(){
+			var shape = new Raster('cevre');
+			shape.position = [
+				Math.floor(Interaction.shapeLimits.x+Interaction.shapeLimits.w*0.5),
+				Math.floor(Interaction.shapeLimits.y+Interaction.shapeLimits.h*0.5)
+			];
+		}
 	},
 	{
 		oldName:'zarp',
 		newName:'çarpı',
-		shape: function(){}
+		shape: function(){
+			var shape = new Raster('carpi');
+			shape.position = [
+				Math.floor(Interaction.shapeLimits.x+Interaction.shapeLimits.w*0.5),
+				Math.floor(Interaction.shapeLimits.y+Interaction.shapeLimits.h*0.5)
+			];
+		}
+		
 	},
 	{
 		oldName:'mazrup',
 		newName:'çarpan',
-		shape: function(){}
+		shape: function(){
+			var shape = new Raster('carpan');
+			shape.position = [
+				Math.floor(Interaction.shapeLimits.x+Interaction.shapeLimits.w*0.5),
+				Math.floor(Interaction.shapeLimits.y+Interaction.shapeLimits.h*0.5)
+			];
+		}
 	},
 	{
 		oldName:'muhit-i daire',
 		newName:'çember',
-		shape: function(){}
+		shape: function(){
+			var shape = new Raster('daire_cember');
+			shape.position = [
+				Math.floor(Interaction.shapeLimits.x+Interaction.shapeLimits.w*0.5),
+				Math.floor(Interaction.shapeLimits.y+Interaction.shapeLimits.h*0.5)
+			];
+		}
 	},
 	{
 		oldName:'tarh',
 		newName:'çıkarma',
-		shape: function(){}
+		shape: function(){
+			var shape = new Raster('cikarma');
+			shape.position = [
+				Math.floor(Interaction.shapeLimits.x+Interaction.shapeLimits.w*0.5),
+				Math.floor(Interaction.shapeLimits.y+Interaction.shapeLimits.h*0.5)
+			];
+		}
 	},
 	{
 		oldName:'aşa\'ri',
 		newName:'ondalık',
-		shape: function(){}
+		shape: function(){
+			var shape = new Raster('ondalik');
+			shape.position = [
+				Math.floor(Interaction.shapeLimits.x+Interaction.shapeLimits.w*0.5),
+				Math.floor(Interaction.shapeLimits.y+Interaction.shapeLimits.h*0.5)
+			];
+		}
 	},
 	{
 		oldName:'murabba',
 		newName:'kare',
-		shape: function(){}
+		shape: function(){
+			var shape = new Raster('kare');
+			shape.position = [
+				Math.floor(Interaction.shapeLimits.x+Interaction.shapeLimits.w*0.5),
+				Math.floor(Interaction.shapeLimits.y+Interaction.shapeLimits.h*0.5)
+			];
+		}
 	},
 	{
 		oldName:'satıh',
 		newName:'yüzey',
-		shape: function(){}
+		shape: function(){
+			var shape = new Raster('yuzey');
+			shape.position = [
+				Math.floor(Interaction.shapeLimits.x+Interaction.shapeLimits.w*0.5),
+				Math.floor(Interaction.shapeLimits.y+Interaction.shapeLimits.h*0.5)
+			];
+		}
 	},
 	{
 		oldName:'zâviye',
 		newName:'açı',
-		shape: function(){}
+		shape: function(){
+			var shape = new Raster('aci');
+			shape.position = [
+				Math.floor(Interaction.shapeLimits.x+Interaction.shapeLimits.w*0.5),
+				Math.floor(Interaction.shapeLimits.y+Interaction.shapeLimits.h*0.5)
+			];
+		}
 	},
 	{
 		oldName:'amûd',
 		newName:'dikey',
-		shape: function(){}
+		shape: function(){
+			var shape = new Raster('dikey');
+			shape.position = [
+				Math.floor(Interaction.shapeLimits.x+Interaction.shapeLimits.w*0.5),
+				Math.floor(Interaction.shapeLimits.y+Interaction.shapeLimits.h*0.5)
+			];
+		}
 	},
 	{
 		oldName:'mustatîl',
 		newName:'dikdörtgen',
-		shape: function(){}
+		shape: function(){
+			var shape = new Raster('dikdortgen');
+			shape.position = [
+				Math.floor(Interaction.shapeLimits.x+Interaction.shapeLimits.w*0.5),
+				Math.floor(Interaction.shapeLimits.y+Interaction.shapeLimits.h*0.5)
+			];
+		}
 	},
 	{
 		oldName:'muhammes',
 		newName:'beşgen',
-		shape: function(){}
+		shape: function(){
+			var shape = new Raster('besgen');
+			shape.position = [
+				Math.floor(Interaction.shapeLimits.x+Interaction.shapeLimits.w*0.5),
+				Math.floor(Interaction.shapeLimits.y+Interaction.shapeLimits.h*0.5)
+			];
+		}
 	},
 	{
 		oldName:'maksumunaleyh',
 		newName:'bölen',
-		shape: function(){}
+		shape: function(){
+			var shape = new Raster('bolen');
+			shape.position = [
+				Math.floor(Interaction.shapeLimits.x+Interaction.shapeLimits.w*0.5),
+				Math.floor(Interaction.shapeLimits.y+Interaction.shapeLimits.h*0.5)
+			];
+		}
 	},
 	{
 		oldName:'taksim',
 		newName:'bölme',
-		shape: function(){}
+		shape: function(){
+			var shape = new Raster('bolme');
+			shape.position = [
+				Math.floor(Interaction.shapeLimits.x+Interaction.shapeLimits.w*0.5),
+				Math.floor(Interaction.shapeLimits.y+Interaction.shapeLimits.h*0.5)
+			];
+		}
 	},
 	{
 		oldName:'ehram',
 		newName:'piramid',
-		shape: function(){}
+		shape: function(){
+			var shape = new Raster('piramid');
+			shape.position = [
+				Math.floor(Interaction.shapeLimits.x+Interaction.shapeLimits.w*0.5),
+				Math.floor(Interaction.shapeLimits.y+Interaction.shapeLimits.h*0.5)
+			];
+		}
 	},
 	{
 		oldName:'menşur',
 		newName:'prizma',
-		shape: function(){}
+		shape: function(){
+			var shape = new Raster('prizma');
+			shape.position = [
+				Math.floor(Interaction.shapeLimits.x+Interaction.shapeLimits.w*0.5),
+				Math.floor(Interaction.shapeLimits.y+Interaction.shapeLimits.h*0.5)
+			];
+		}
 	},
 	{
 		oldName:'ihtisar',
 		newName:'sadeleştirme',
-		shape: function(){}
+		shape: function(){
+			var shape = new Raster('sadelestirme');
+			shape.position = [
+				Math.floor(Interaction.shapeLimits.x+Interaction.shapeLimits.w*0.5),
+				Math.floor(Interaction.shapeLimits.y+Interaction.shapeLimits.h*0.5)
+			];
+		}
 	},
 	{
 		oldName:'suret',
 		newName:'pay',
-		shape: function(){}
+		shape: function(){
+			var shape = new Raster('pay');
+			shape.position = [
+				Math.floor(Interaction.shapeLimits.x+Interaction.shapeLimits.w*0.5),
+				Math.floor(Interaction.shapeLimits.y+Interaction.shapeLimits.h*0.5)
+			];
+		}
 	},
 	{
 		oldName:'mahreç',
 		newName:'payda',
-		shape: function(){}
+		shape: function(){
+			var shape = new Raster('payda');
+			shape.position = [
+				Math.floor(Interaction.shapeLimits.x+Interaction.shapeLimits.w*0.5),
+				Math.floor(Interaction.shapeLimits.y+Interaction.shapeLimits.h*0.5)
+			];
+		}
 	}
 	
 ];
