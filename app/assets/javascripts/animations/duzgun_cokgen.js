@@ -186,7 +186,7 @@ var Animation = {
 		animationHelper.animate({
 			style:{t1:90},
 			duration:1750,
-			delay:100,
+			delay:600,
 			animationType: 'easeInEaseOut',
 			callback:function(){
 				
@@ -210,7 +210,7 @@ var Animation = {
 				s4:315
 			},
 			duration:1500,
-			delay:200,
+			delay:700,
 			animationType: 'easeInEaseOut',
 			callback:function(){
 				console.log('Im here');
@@ -235,7 +235,7 @@ var Animation = {
 				p5:306,
 			},
 			duration:2000,
-			delay:250,
+			delay:750,
 			animationType: 'easeInEaseOut',
 			callback:function(){
 				console.log('Im here');
@@ -261,6 +261,7 @@ var Animation = {
 				h6:300
 			},
 			duration:2500,
+			delay:500,
 			animationType: 'easeInEaseOut',
 			callback:function(){
 				console.log('Im here');
