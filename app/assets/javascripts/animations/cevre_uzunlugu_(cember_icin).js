@@ -67,32 +67,46 @@ var Animation = {
 			fillColor:'#000'
 		});
 		
+		var radiusText = new PointText(
+			new Point(
+				(p1.x+p2.x)*0.5,
+				(p1.y+p2.y)*0.5+10
+			)
+		);
+		radiusText.firstPosition = radiusText.position;
+		radiusText.content = 'r';
+		radiusText.opacity = 0;
 		animationHelper = new AnimationHelper({
-			angle:0
+			angle:0,
+			radiusOpacity:0
 		});
 		
-	//	console.log(Path.arc)
 		Animation.onFrame = function(event){
+			
 			if(animationHelper.angle > 0 && animationHelper.angle < 360){
 				if(Animation.line1)
 					Animation.line1.remove();
-					
 				Animation.line1 = new Path.Line(p1,p2.getRotatedPoint(-animationHelper.angle,p1));
 				Animation.line1.setStyle(animationEdgeStyle);
+				radiusText.position = radiusText.firstPosition.getRotatedPoint(-animationHelper.angle,p1)
 				
+				if( animationHelper.radiusOpacity > 0)
+					radiusText.opacity = 1;
 				if(Animation.arc)
 					Animation.arc.remove();
-				
+				 
 				Animation.arc = new Path.ArcByAngle(p1,R,-animationHelper.angle);
 				Animation.arc.setStyle(animationEdgeStyle);
-				
-				
-			}else if(animationHelper.angle == 360){
+			}
+			else if(animationHelper.angle == 360){
 				if(Animation.line1)
 					Animation.line1.remove();
 				Animation.line1 = new Path.Line(p1,p2);
 				Animation.line1.setStyle(animationEdgeStyle);
-				
+				radiusText.animate({
+					style:{opacity:0},
+					duration:500
+				});
 				if(Animation.arc)
 					Animation.arc.remove();
 				Animation.arc = new Path.Circle(p1,R);
@@ -133,6 +147,7 @@ var Animation = {
 				Animation.line2.setStyle(animationEdgeStyle);
 			}
 			else if(animationHelper.angle == 1080){
+				Animation.onFrame = null;
 				Animation.line2.remove();
 				circleCenter = new Path.Circle(p1,4);
 				circleCenter.setStyle({
@@ -149,17 +164,35 @@ var Animation = {
 					strokeColor:'#000',
 					fillColor:'#000'
 				});
-				animationHelper.angle = -1;
+				radiusText.opacity = 1;
+				Animation.line1 = new Path.Line(p1,p2);
+				Animation.line1.setStyle(animationEdgeStyle);
+				
+				var div = document.createElement('div')
+				$(Animation.container).append(div);
+				$(div)
+					.html('O : Merkez<br/>r = yarıçap<br/>2 x r = R : çap<br/>')
+					.css({
+						position:'absolute',
+						top:'50%',
+						left:'50%',
+						marginLeft:'-150px',
+						marginTop:'-50px',
+						lineHeight:'33px',
+						opacity:0
+					})
+					.animate(
+						{opacity:1},
+						1000
+					)
 			}
 		}
-		
 		animationHelper.animate({
-			style:{angle:360},
+			style:{angle:360,radiusOpacity:1},
 			duration:2000,
 			delay:500,
 			animationType:'easeInEaseOut'
 		});
-		
 		animationHelper.animate({
 			style:{angle:720},
 			duration:2000,
@@ -171,14 +204,10 @@ var Animation = {
 			duration:2000,
 			delay:6500,
 			animationType:'easeInEaseOut'
-		})
-		
-		
+		});
 	}
-
-
-
 };
+
 var Interaction = {};
 Interaction.getFramework = function() {
 	return 'paper';
@@ -206,8 +235,9 @@ Interaction.generateCircle = function(){
 	x = Interaction.paper.width*0.3;
 	y = Interaction.paper.height*0.5;
 	do
-		r = Math.floor(Math.min(x,y) * (Math.random()*0.7+0.3) /Interaction.br) * Interaction.br ;
-	while(Interaction.r == r)
+		r = Math.floor( Math.random()*9+2 ) * Interaction.br ;
+	while(Interaction.r == r);
+	
 	Interaction.circleSet = new Group();
 	var point = new Path.Circle(new Point(x,y),1);
 	point.style = edgeStyle;
@@ -249,15 +279,14 @@ Interaction.nextQuestion = function(){
 
 	var callback = function(){
 		Interaction.preventDrag = false;
-	}
+	};
 	Interaction.rulerSet.animate({
 		style:{
 			position:Interaction.rulerSet.firstPosition
 		},
 		duration:300,
 		callback:callback
-	})
-
+	});
 	Interaction.odx=0;
 	Interaction.ody=0;
 }
@@ -298,13 +327,12 @@ Interaction.setStatus = function(str,cls){
 }
 Interaction.drawRuler = function(){
 	var x,y,w,h,b,st;
-	//Interaction.rulerSet = new Group();
 	x = Interaction.paper.width*0.7;
 	y = Interaction.paper.height*0.2;
-	w = Interaction.paper.width*0.2;
-	Interaction.br = Math.floor(w*0.1);
 	h = Interaction.paper.height*0.2;
+	w = Interaction.paper.width*0.2;
 	Interaction.rulerSet = new Raster('ruler');
+	Interaction.br = Math.floor(Interaction.rulerSet.bounds.width*0.1-1);
 	Interaction.rulerSet.name = 'rulerSet';
 	Interaction.rulerSet.position = [x,y];
 	Interaction.br = (Interaction.rulerSet.bounds.width-8) * 0.1
@@ -316,10 +344,8 @@ Interaction.drawRuler = function(){
 			dx=0;
 		if(this._y + dy +Interaction.ody<= 0 || this._yh + dy +Interaction.ody >= Interaction.paper.height)
 			dy=0;
-		
 		Interaction.rulerSet.position = [Interaction.rulerSet.position.x + dx, Interaction.rulerSet.position.y+ dy];
-
-    },
+	},
     up = function () {
 		if(Interaction.preventDrag === true)
 			return;
@@ -334,7 +360,6 @@ Interaction.drawRuler = function(){
 			this.drag = true;
 		}
 	}
-
 	drag.onMouseDrag = function(event){
 		if(this.drag==true){
 			Interaction.rulerSet.move(event.delta.x,event.delta.y);

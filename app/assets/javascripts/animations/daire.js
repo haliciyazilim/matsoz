@@ -1,7 +1,6 @@
 // JavaScript Document
 
 /*Styles*/
-
 var textStyle = {
 	'font-size':'16px',
 	'text-color': '#55f'
@@ -17,11 +16,8 @@ var circleStyle = {
 var angleStyle = {
 	'stroke-width': '2px'
 };
-
-
 /*Styles*/
 var Animation = {
-
 	init:function(container){
 		Animation.container = container;
 		var w=$(container).width(), h=$(container).height();
@@ -43,8 +39,7 @@ var Animation = {
 		circleCenterText.setStyle({
 			strokeColor:'#000',
 			fillColor:'#000'
-		})
-		
+		});
 		var pointGroup = new Group();
 		var animationHelper = {
 			animate:Item.prototype.animate,
@@ -55,9 +50,7 @@ var Animation = {
 			circleOpacity:0
 		};
 		Animation.onFrame = function(event){
-			
 			var x=p1.x,y=p1.y;
-			
 			if(animationHelper.angle > animationHelper.nextDot){
 				x += R*Math.cos(Util.degreeToRadians(animationHelper.nextDot));
 				y += R*Math.sin(Util.degreeToRadians(animationHelper.nextDot));
@@ -124,7 +117,6 @@ var Animation = {
 				circleCenterText.insertAbove(Animation.circle);
 				if(animationHelper.circleOpacity == 1){
 					animationHelper.angle = -2;
-				
 				}
 				
 			}
@@ -154,12 +146,6 @@ var Animation = {
 				$('div#result',Animation.container).css({opacity:0});
 				$('div#result',Animation.container).animate({opacity:1},1000)
 				Animation.onFrame = null;
-				/*TEST*/
-				//line.remove();
-				//text.remove();
-				//Animation.circle.remove();
-				//Animation.circle2.remove();
-				/*TEST*/
 			}
 		}
 		animationHelper.animate({
@@ -196,11 +182,7 @@ var Animation = {
 			duration:2000,
 			delay:1000
 		});
-		
-		
-	
 	}
-
 };
 var Interaction = {};
 Interaction.getFramework = function() {
@@ -252,6 +234,8 @@ Interaction.init = function(container){
 			top:'20px',
 			left:Interaction.paper.width * 0.5
 		});
+	$(Interaction.button).hide();
+	$(Interaction.button).show();
 	Interaction.container.appendChild(Interaction.button);
 	Interaction.radius = document.createElement('div');
 	$(Interaction.radius).css({
@@ -259,8 +243,11 @@ Interaction.init = function(container){
 			top:Interaction.paper.height*0.4,
 			left:Interaction.paper.width * 0.30,
 			width:'30px',
-			height:'30px'
+			height:'30px',
+			fontSize:'20px'
 		});
+	$(Interaction.radius).hide();
+	$(Interaction.radius).show();
 		
 	Interaction.container.appendChild(Interaction.radius);
 	
@@ -272,6 +259,8 @@ Interaction.init = function(container){
 		top:Interaction.paper.height*0.3,
 		width:'40%'
 	});
+	$(Interaction.status).hide();
+	$(Interaction.status).show();
 	Interaction.container.appendChild(Interaction.status);			
 	Interaction.drawCircle.x = Interaction.paper.width*0.63;
 	Interaction.drawCircle.y = Interaction.paper.height*0.55;
@@ -452,7 +441,7 @@ Interaction.showCircularRegion = function(){
 		angle *= 0.20;
 		if(angle > 360){
 			clearInterval(Interaction.showCircularRegion.t);
-			Interaction.status.innerHTML += ' <input type="button" class="control_button" value="Yeniden çizdir" onclick="Interaction.nextQuestion()">';
+			Interaction.status.innerHTML += ' <input type="button" class="control_button" style="margin-top:5px;" value="Yeniden çizdir" onclick="Interaction.nextQuestion()">';
 			return;
 		}
 		var w = Interaction.r*Math.cos(Util.degreeToRadian(angle));
@@ -474,8 +463,7 @@ Interaction.showCircularRegion = function(){
 			Interaction.showCircularRegion.circle.setStyle({strokeColor:'#000',fillColor:"#aaa"});
 		else
 			Interaction.showCircularRegion.circle.setStyle(circleStyle);
-	}
-	;
+	};
 	
 	setTimeout(
 		function(){

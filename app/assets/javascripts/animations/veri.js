@@ -74,78 +74,67 @@ Animation.init = function(container){
 	$('#firstLength').css("position", "absolute")
 						.css("top", "2px")
 						.css("left", "2px")
-						.css("font-size", 12)
-						.css("font-family", "Helvetica Neue");
+						.css("font-size", 12);
 	
 	$('#paper2Div').append('<p id="secondLength">1.40</p>');
 	$('#secondLength').css("position", "absolute")
 						.css("top", "18px")
 						.css("left", "2px")
-						.css("font-size", 12)
-						.css("font-family", "Helvetica Neue");
+						.css("font-size", 12);
 	
 	$('#paper2Div').append('<p id="thirdLength">1.39</p>');
 	$('#thirdLength').css("position", "absolute")
 						.css("top", "34px")
 						.css("left", "2px")
-						.css("font-size", 12)
-						.css("font-family", "Helvetica Neue");
+						.css("font-size", 12);
 	
 	$('#paper2Div').append('<p id="fourthLength">1.40</p>');
 	$('#fourthLength').css("position", "absolute")
 						.css("top", "50px")
 						.css("left", "2px")
-						.css("font-size", 12)
-						.css("font-family", "Helvetica Neue");
+						.css("font-size", 12);
 						
 	$('#paper2Div').append('<p id="fifthLength">1.40</p>');
 	$('#fifthLength').css("position", "absolute")
 						.css("top", "66px")
 						.css("left", "2px")
-						.css("font-size", 12)
-						.css("font-family", "Helvetica Neue");
+						.css("font-size", 12);
 	
 	$('#paper2Div').append('<p id="sixthLength">1.41</p>');
 	$('#sixthLength').css("position", "absolute")
 						.css("top", "82px")
 						.css("left", "2px")
-						.css("font-size", 12)
-						.css("font-family", "Helvetica Neue");
+						.css("font-size", 12);
 	
 	$('#paper2Div').append('<p id="seventhLength">1.38</p>');
 	$('#seventhLength').css("position", "absolute")
 						.css("top", "98px")
 						.css("left", "2px")
-						.css("font-size", 12)
-						.css("font-family", "Helvetica Neue");
+						.css("font-size", 12);
 	
 	$('#paper2Div').append('<p id="eighthLength">1.40</p>');
 	$('#eighthLength').css("position", "absolute")
 						.css("top", "114px")
 						.css("left", "2px")
-						.css("font-size", 12)
-						.css("font-family", "Helvetica Neue");
+						.css("font-size", 12);
 	
 	$('#paper2Div').append('<p id="ninthLength">1.42</p>');
 	$('#ninthLength').css("position", "absolute")
 						.css("top", "130px")
 						.css("left", "2px")
-						.css("font-size", 12)
-						.css("font-family", "Helvetica Neue");
+						.css("font-size", 12);
 	
 	$('#paper2Div').append('<p id="tenthLength">1.39</p>');
 	$('#tenthLength').css("position", "absolute")
 						.css("top", "146px")
 						.css("left", "2px")
-						.css("font-size", 12)
-						.css("font-family", "Helvetica Neue");
+						.css("font-size", 12);
 	
 	$('#paper2Div').append('<p id="eleventhLength">1.41</p>');
 	$('#eleventhLength').css("position", "absolute")
 						.css("top", "162px")
 						.css("left", "2px")
-						.css("font-size", 12)
-						.css("font-family", "Helvetica Neue");
+						.css("font-size", 12);
 	
 	$(container).append('<div id="infoText">Okul futbol takımındaki öğrencilerin boy uzunlukları ölçüm sonuçları.</div>')
 	$('#infoText').css("position", "absolute")
@@ -155,8 +144,7 @@ Animation.init = function(container){
 					.css("height", "60px")
 					.css("text-align", "center")
 					.css("color", "#29088A")
-					.css("font-size", 22)
-					.css("font-family", "Helvetica Neue");
+					.css("font-size", 22);
 					
 	exampleHelper = {
 		firstBoyOpacity: 0,
@@ -603,7 +591,6 @@ Interaction.init = function(container){
 					.css("box-sizing","border-box")
 					.css("padding", "0")
 					.css("font-size", 22)
-					.css("font-family", "Helvetica Neue")
 					.css("position", "absolute")
 					.css("left", "434px")
 					.css("top", "140px")
@@ -993,7 +980,7 @@ Interaction.init = function(container){
 				else if(trial == 1)
 				{
 					$('#statuss').get(0).className = "status_false";
-					$('#statuss').html("Olmadı!");
+					$('#statuss').html("Olmadı! Doğru cevap yukarıda gösterilmiştir.");
 					$('#textInput1').val(answer);
 					$('#textInput1').css("color", inputBoxAnswerColor);
 
