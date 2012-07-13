@@ -19,7 +19,174 @@ var angleStyle = {
 
 
 /*Styles*/
-var Animation = function(){};Animation();
+var Animation = {
+	init:function(container){
+		Animation.container = container;
+		var w=$(container).width(), h=$(container).height();
+		var x = w *0.5;
+		var y = h*0.5;
+		p1 = new Point(x-100,y);
+		var R = 75;
+		var circleCenter = new Path.Circle(p1,4);
+		circleCenter.setStyle({
+			fillColor:'#000'
+		});
+		var circleCenterText = new PointText(
+			new Point(
+				p1.x-15,
+				p1.y+15
+			)
+		);
+		circleCenterText.content = 'O';
+		circleCenterText.setStyle({
+			strokeColor:'#000',
+			fillColor:'#000'
+		});
+		var pointGroup = new Group();
+		var animationHelper = {
+			animate:Item.prototype.animate,
+			angle:0,
+			count:0,
+			dots:[0,30,60,90,120,150,180,210,240,270,300,330],
+			nextDot:0,
+			circleOpacity:0
+		};
+		Animation.onFrame = function(event){
+			var x=p1.x,y=p1.y;
+			if(animationHelper.angle > animationHelper.nextDot){
+				x += R*Math.cos(Util.degreeToRadians(animationHelper.nextDot));
+				y += R*Math.sin(Util.degreeToRadians(animationHelper.nextDot));
+				if(animationHelper.angle > 360)
+					var dot = new Path.Circle(
+						new Point(x,y),
+						2
+					);
+				else
+					var dot = new Path.Circle(
+						new Point(x,y),
+						3
+					);
+				dot.setStyle({
+					fillColor:'#000'
+				});
+				pointGroup.addChild(dot);
+				animationHelper.nextDot = animationHelper.dots.shift();
+			}
+			else if(animationHelper.angle == 360){
+				
+				for(var i=0; i <36 ;i++)
+					animationHelper.dots[i] = i*10+360;
+				animationHelper.nextDot=360;
+			}
+			else if(animationHelper.angle > 720 && animationHelper.angle <= 1080){
+				
+				var startAngle = Util.degreeToRadians(720)
+				var endAngle = Util.degreeToRadian(animationHelper.angle);
+				if(animationHelper.angle == 1080){
+					pointGroup.removeChildren();
+					endAngle = 1079;
+					Animation.circle.remove();
+					Animation.circle = new Path.Circle(p1,R);
+					Animation.circle.setStyle({
+						strokeColor:'#000',
+						strokeWidth:1
+					});
+				}
+				else{
+					if(Animation.circle)
+						Animation.circle.remove();
+					var point1 = new Point(x + Math.cos(startAngle) * R,
+										   y + Math.sin(startAngle) * R);
+										   
+					var point2 = new Point(x + Math.cos((startAngle+endAngle)/2) * R,
+										   y + Math.sin((startAngle+endAngle)/2) * R);
+										   
+					var point3 = new Point(x + Math.cos(endAngle) * R,
+										   y + Math.sin(endAngle) * R);
+										   
+					Animation.circle = new Path.Arc(point1, point2, point3);
+					
+					Animation.circle.setStyle({
+						strokeColor:'#000',
+						strokeWidth:1
+					});
+				}
+			}
+			else if(animationHelper.angle == -1){
+				Animation.circle.insertBelow(circleCenter);
+				circleCenter.insertAbove(Animation.circle);
+				circleCenterText.insertAbove(Animation.circle);
+				if(animationHelper.circleOpacity == 1){
+					animationHelper.angle = -2;
+				}
+				
+			}
+			else if(animationHelper.angle == -2){
+				var line = new Path.Line(
+					p1,
+					new Point(
+						x+R*Math.cos(-Math.PI*0.1),
+						y+R*Math.sin(-Math.PI*0.1)
+					)
+				)
+				line.setStyle({
+					strokeWidth:1,
+					strokeColor:'#000'
+				});
+				var text = new PointText(
+					new Point(p1.x+R*0.5,p1.y)
+				);
+				text.content = "r";
+				$(Animation.container).append(
+					'<div id="result" style="position:absolute;top:40px;left:50%;margin-left:30px;line-height:35px;">' +
+						'O : merkez</br>' +
+						'r : yarıçap</br>' +
+						'2 x r = R : çap' +
+					'</div>'
+				);
+				$('div#result',Animation.container).css({opacity:0});
+				$('div#result',Animation.container).animate({opacity:1},1000)
+				Animation.onFrame = null;
+			}
+		}
+		animationHelper.animate({
+			style:{
+				angle:-1
+			},
+			duration:1,
+			delay:8000
+		});
+		
+		animationHelper.animate({
+			style:{
+				circleOpacity:1
+			},
+			duration:500,
+			delay:8000
+		});
+		animationHelper.animate({
+			style:{
+				angle:1080
+			},
+			duration:2000,
+			delay:6000
+		});
+		animationHelper.animate({
+			style:{
+				angle:720
+			},
+			duration:2000,
+			delay:3500
+		});
+		animationHelper.animate({
+			style:{
+				angle:360
+			},
+			duration:2000,
+			delay:1000
+		});
+	}
+};
 var Interaction = function(){}; Interaction();
 Interaction.getFramework = function() {
 	return 'paper';
@@ -62,10 +229,11 @@ Interaction.init = function(container){
 	Interaction.radius = document.createElement('div');
 	$(Interaction.radius).css({
 			position:'absolute',
-			top:'30px',
-			left:Interaction.paper.width * 0.35,
+			top:'130px',
+			left:Interaction.paper.width * 0.25,
 			width:'30px',
-			height:'30px'
+			height:'30px',
+			fontSize:'20px'
 		});
 		
 	Interaction.container.appendChild(Interaction.radius);
@@ -88,8 +256,10 @@ Interaction.init = function(container){
 Interaction.pause = false;
 
 Interaction.setRadius = function(r){
+	$(Interaction.radius).hide();
 	Interaction.r = r;
 	Interaction.radius.innerHTML = Util.numberTurkishFloating(r/Interaction.br,1);
+	$(Interaction.radius).show();
 };
 
 Interaction.drawCircle = function(){
@@ -131,12 +301,10 @@ Interaction.drawCircle = function(){
 				Interaction.drawCircle.textR.content = "r = "+(Interaction.radius.innerHTML);
 				Interaction.drawCircle.lineR = new Path.Line(new Point(Interaction.drawCircle.x,Interaction.drawCircle.y),new Point(Interaction.drawCircle.x+Interaction.r,Interaction.drawCircle.y));
 				Interaction.drawCircle.lineR.setStyle(lineStyle);
+				$(Interaction.status).hide();
 				Interaction.status.innerHTML = "O merkezli ve "+(Interaction.radius.innerHTML)+" birim yarıçaplı çember ";
+				$(Interaction.status).show();
 				
-				//Interaction.drawCircle.group = new Group();
-				//Interaction.drawCircle.group.addChild(Interaction.drawCircle.textO);
-				//Interaction.drawCircle.group.addChild(Interaction.drawCircle.textR);
-				//Interaction.drawCircle.group.addChild(Interaction.drawCircle.lineR);
 				Interaction.drawCircle.textO.opacity=0;
 				Interaction.drawCircle.textO.animate({
 					style:{
