@@ -4,9 +4,239 @@
 var textStyle = {'font-size':'16px'};
 var edgeStyle = {strokeColor:'#000',strokeWidth:2,fillColor:'#ff0',cursor:'move'};
 var angleStyle = {'fill':'#DDD'};
+var gridLineStyle = {strokeColor:'#ccc',strokeWidth:1}
 /*Styles*/
 
-var Animation = function(){};Animation();
+var Animation = {
+	init: function(container){
+		function ShapeShifter(staticPoints,relativePoints,style1,style2,duration,delay,textHTML){
+			this.staticPoints = staticPoints;
+			this.relativePoints = relativePoints;
+			this.style1 = style1;
+			this.style2 = style2;
+			this.duration = duration;
+			this.delay = delay;
+			this.textHTML = textHTML
+			this.shape = null;
+			this.draw = function(){
+				this.shape = new Path();
+				for(var i=0; i < this.staticPoints.length; i++){
+					this.shape.add(this.staticPoints[i]);
+				}
+				this.shape.add(this.staticPoints[0]);
+				this.shape.setStyle(style1);			
+			}
+			if(delay == null || delay == undefined)
+				this.delay = 0;
+			this.startAnimation = function(){
+				var anim = new AnimationHelper({
+					textHTML:this.textHTML,
+					style1:style1,
+					style2:style2,
+					shape:this.shape,
+					pointsLength:this.staticPoints.length,
+				});
+				for(var i=0; i<this.staticPoints.length; i++)
+					anim["point"+i] = this.staticPoints[i];
+				for(var key in style1)
+					anim[key] = style1[key];
+				var style = {};
+				for(var i=0; i<this.relativePoints.length; i++)
+					style["point"+i] = this.relativePoints[i];	
+				for(var key in this.style2)
+					style[key] = this.style2[key];
+				anim.animate({
+					style:style,
+					duration:this.duration,
+					delay:this.delay,
+					animationType:'easeIn',
+					update:function(){
+						if(this.shape)
+							this.shape.remove();
+						this.shape = new Path();
+						for(var i=0; i < this.pointsLength; i++){
+							this.shape.add(this["point"+i]);
+						}
+						this.shape.add(this["point0"]);
+						this.shape.setStyle(this.style1);
+						console.log(this.fillColor);
+						this.shape.fillColor = this.fillColor;
+								
+					},
+					callback:function(){
+						this.shape.setStyle(this.style2);
+						var div = document.createElement('div');
+						$(Animation.container).append(div);
+						$(div)
+							.html(this.textHTML)
+							.css({
+								position:'absolute',
+								top:this.point0.y+Animation.gridSize*3,
+								left:(this.point3.x+this.point2.x)*0.5+10,
+								backgroundColor:'#fff',
+								marginLeft:'-55px',
+								lineHeight:'20px',
+								textAlign:'center'						
+							});
+							
+						function flashLine(span,container,point,delay){
+							this.point = point;
+							this.span = span;
+							this.container = container;
+							this.getPoint = function(attr){
+								return new Point(
+									this.point.x+a*parseInt($(this.span,this.container).attr(attr).split(",")[0],10),
+									this.point.y+a*parseInt($(this.span,this.container).attr(attr).split(",")[1],10)
+								);
+							}
+							var p1 = this.getPoint("lineFrom");
+							var p2 = this.getPoint("lineTo");
+
+							var line = new Path.Line(p1,p2);
+							line.setStyle({strokeWidth:3,strokeColor:"#f00"});
+							line.opacity = 0;
+							line.animate({
+								style:{opacity:1},
+								duration:500,
+								delay:0+delay,
+								callback:function(){
+									this.animate({
+										style:{opacity:0},
+										duration:500,
+										delay:500,
+										callback:this.remove
+									})
+										
+								},
+							});
+							$(this.span,this.container)
+								.css({color:'#000'})
+								.delay(0+delay)
+								.animate({color:'#f00'},500)
+								.delay(500)
+								.animate({color:'#000'},500);
+						}
+						new flashLine("span#1",div,this.point0,0);
+						new flashLine("span#2",div,this.point0,1500);
+					}
+				});	
+			};
+		}
+		Animation.container = container;
+		var w=$(container).width(), h=$(container).height();
+		var p = new Point(w*0.5-350+0.5,h*0.5-90)
+		var a = 35;
+		Animation.gridSize = a;
+		
+		//draw grids
+		for(var i=1;i<4;i++)
+			new Path.Line(
+				new Point(p.x,p.y+a*i),
+				new Point(p.x+700,p.y+a*i)
+			).setStyle(gridLineStyle);
+		for(var i=1;i<20;i++)
+			new Path.Line(
+				new Point(p.x+a*i,p.y),
+				new Point(p.x+a*i,p.y+140)
+			).setStyle(gridLineStyle);
+		
+		
+		
+		var square = new ShapeShifter(
+			[
+				new Point(p.x+a*1,p.y+a*1),
+				new Point(p.x+a*1,p.y+a*1),
+				new Point(p.x+a*1,p.y+a*1),
+				new Point(p.x+a*1,p.y+a*1)
+			],
+			[
+				new Point(p.x+a*1,p.y+a*1),
+				new Point(p.x+a*3,p.y+a*1),
+				new Point(p.x+a*3,p.y+a*3),
+				new Point(p.x+a*1,p.y+a*3)
+			],
+			
+			{strokeColor:"#000",strokeWidth:2,fillColor:new RgbColor(1,1,0,0.5)},
+			{},
+			1000,
+			0,
+			'Karesel Bölge<br/> A = <span id="1" lineFrom="0,0" lineTo="0,2" >2br</span> x <span id="2" lineFrom="0,2" lineTo="2,2" >2br</span> = 4br²'
+			
+		);
+		square.startAnimation();
+		
+		var rectangle = new ShapeShifter(
+			[
+				new Point(p.x+a*5,p.y+a*1),
+				new Point(p.x+a*7,p.y+a*1),
+				new Point(p.x+a*7,p.y+a*3),
+				new Point(p.x+a*5,p.y+a*3)
+			],
+			[
+				new Point(p.x+a*5,p.y+a*1),
+				new Point(p.x+a*8,p.y+a*1),
+				new Point(p.x+a*8,p.y+a*3),
+				new Point(p.x+a*5,p.y+a*3)
+			
+			],
+			{strokeColor:"#000",strokeWidth:2,fillColor:new RgbColor(1,1,0,0.5)},
+			{fillColor:new RgbColor(1,0.7,0.7,0.5)},
+			1000,
+			4000,
+			'Dikdörtgensel Bölge<br/> A = <span id="1" lineFrom="0,0" lineTo="0,2" >2br</span> x <span id="2" lineFrom="0,2" lineTo="3,2" >3br</span> = 6br²'
+		);
+		rectangle.startAnimation();
+		
+		var rhomboid = new ShapeShifter(
+			[
+				new Point(p.x+a*10,p.y+a*1),
+				new Point(p.x+a*13,p.y+a*1),
+				new Point(p.x+a*13,p.y+a*3),
+				new Point(p.x+a*10,p.y+a*3)
+			],
+			[
+				new Point(p.x+a*11,p.y+a*1),
+				new Point(p.x+a*14,p.y+a*1),
+				new Point(p.x+a*13,p.y+a*3),
+				new Point(p.x+a*10,p.y+a*3)
+			
+			],
+			{strokeColor:"#000",strokeWidth:2,fillColor:new RgbColor(1,0.7,0.7,0.5)},
+			{fillColor:new RgbColor(0.5,0.7,1,0.5)},
+			1000,
+			8000,
+			'Paralelkenarsal Bölge<br/> A = <span id="1" lineFrom="0,0" lineTo="0,2" >2br</span> x <span id="2" lineFrom="-1,2" lineTo="2,2" >3br</span> = 6br²'
+		);
+		rhomboid.startAnimation();
+		
+		var triangle = new ShapeShifter(
+			[
+				new Point(p.x+a*17,p.y+a*1),
+				new Point(p.x+a*20,p.y+a*1),
+				new Point(p.x+a*19,p.y+a*3),
+				new Point(p.x+a*16,p.y+a*3),/*
+				new Point(p.x+a*17,p.y+a*1),
+				new Point(p.x+a*19,p.y+a*3)*/
+			],
+			[
+				new Point(p.x+a*17,p.y+a*1),
+				new Point(p.x+a*17,p.y+a*1),
+				new Point(p.x+a*19,p.y+a*3),
+				new Point(p.x+a*16,p.y+a*3),/*
+				new Point(p.x+a*17,p.y+a*1),
+				new Point(p.x+a*19,p.y+a*3)*/
+			
+			],
+			{strokeColor:"#000",strokeWidth:2,fillColor:new RgbColor(0.5,0.7,1,0.5)},
+			{fillColor:new RgbColor(1,1,0.7,0.5)},
+			1000,
+			12000,
+			'Üçgensel Bölge<br/> A =<span id="1" lineFrom="0,0" lineTo="0,2" >2br</span> x <span id="2" lineFrom="-1,2" lineTo="2,2" >3br</span> = 3br²<br/><div style="position:relative;height:20px;width:50px;border-top:1px solid #000;left:30px;text-align:center;">2</div>'
+		);
+		triangle.startAnimation();
+		
+	}
+};
 var Interaction =function(){};Interaction();
 Interaction.images = [
 	{
