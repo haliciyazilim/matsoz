@@ -16,6 +16,86 @@ Interaction.getFramework = function() {
 
 Animation.init = function(container){
 	Animation.container = container;
+	
+	$(container).append('<img id="shrub" src="/assets/animations/sivilari_olcme/shrub.png" />');
+	$('#shrub').css("width", "100px")
+				.css("height", "80px")
+				.css("position", "absolute")
+				.css("left", "120px")
+				.css("top", "100px");
+				
+	$(container).append('<img id="milk" src="/assets/animations/sivilari_olcme/milk.png" />');
+	$('#milk').css("width", "140px")
+				.css("height", "140px")
+				.css("position", "absolute")
+				.css("left", "260px")
+				.css("top", "50px");
+	
+	$(container).append('<img id="water" src="/assets/animations/sivilari_olcme/water.png" />');
+	$('#water').css("width", "100px")
+				.css("height", "140px")
+				.css("position", "absolute")
+				.css("left", "430px")
+				.css("top", "30px");
+	
+	$(container).append('<img id="pitcher" src="/assets/animations/sivilari_olcme/pitcher.png" />');
+	$('#pitcher').css("width", "100px")
+				.css("height", "100px")
+				.css("position", "absolute")
+				.css("left", "570px")
+				.css("top", "70px");
+
+	AnimateHelper = new AnimationHelper({
+		shrubOpacity: 0,
+		milkOpacity: 0,
+		waterOpacity: 0,
+		pitcherOpacity: 0
+	});
+	
+	Animation.onFrame = function(event) {
+		$('#shrub').css("opacity", AnimateHelper.shrubOpacity);
+		$('#milk').css("opacity", AnimateHelper.milkOpacity);
+		$('#water').css("opacity", AnimateHelper.waterOpacity);
+		$('#pitcher').css("opacity", AnimateHelper.pitcherOpacity);
+	}
+	
+	AnimateHelper.animate({
+		style: {
+			shrubOpacity: 1,
+		},
+		duration: 1500,
+		delay: 1000,
+		animationType: 'easeInEaseOut'
+	});
+	
+	AnimateHelper.animate({
+		style: {
+			milkOpacity: 1,
+		},
+		duration: 1500,
+		delay: 3000,
+		animationType: 'easeInEaseOut'
+	});
+	
+	AnimateHelper.animate({
+		style: {
+			waterOpacity: 1,
+		},
+		duration: 1500,
+		delay: 5000,
+		animationType: 'easeInEaseOut'
+	});
+	
+	AnimateHelper.animate({
+		style: {
+			pitcherOpacity: 1,
+		},
+		duration: 1500,
+		delay: 7000,
+		animationType: 'easeInEaseOut'
+	});
+
+
 }
 
 Interaction.init = function(container){
@@ -70,19 +150,18 @@ Interaction.init = function(container){
 					.css("height", "30")
 					.css("box-sizing","border-box")
 					.css("padding", "0")
-					.css("font-size", 22)
-					.css("font-family", "Helvetica Neue")
+					.css("font-size", 18)
 					.css("position", "absolute")
 					.css("top", "38px")
 					.css("text-align", "center");
 	if(question > 999) {
-		$('#questionN').css("left", "-10px");
+		$('#questionN').css("left", "-8px");
 	}
 	else if(question > 99) {
-		$('#questionN').css("left", "0px");
+		$('#questionN').css("left", "2px");
 	}
 	else {
-		$('#questionN').css("left", "6px");
+		$('#questionN').css("left", "12px");
 	}
 	
 	$('#questionDiv').append('<p id="questionU" >mL<p/>');
@@ -90,16 +169,14 @@ Interaction.init = function(container){
 					.css("height", "30")
 					.css("box-sizing","border-box")
 					.css("padding", "0")
-					.css("font-size", 22)
-					.css("font-family", "Helvetica Neue")
+					.css("font-size", 18)
 					.css("position", "absolute")
 					.css("left", "36px")
 					.css("top", "38px")
 					.css("text-align", "center");
 	
 	$('#questionDiv').append('<p id="equal1" >=</p>');
-	$('#equal1').css("font-size", 22)
-				.css("font-family", "Helvetica Neue")
+	$('#equal1').css("font-size", 18)
 				.css("position", "absolute")
 				.css("left", "70px")
 				.css("top", "38px");
@@ -109,8 +186,7 @@ Interaction.init = function(container){
 					.css("box-sizing","border-box")
 					.css("padding", "0")
 					.css("height", "30")
-					.css("font-size", 22)
-					.css("font-family", "Helvetica Neue")
+					.css("font-size", 18)
 					.css("position", "absolute")
 					.css("left", "92px")
 					.css("top", "14px")
@@ -131,8 +207,7 @@ Interaction.init = function(container){
 					.css("box-sizing","border-box")
 					.css("padding", "0")
 					.css("height", "30")
-					.css("font-size", 22)
-					.css("font-family", "Helvetica Neue")
+					.css("font-size", 18)
 					.css("position", "absolute")
 					.css("left", "92px")
 					.css("top", "56px")
@@ -144,16 +219,14 @@ Interaction.init = function(container){
 					.css("height", "30")
 					.css("box-sizing","border-box")
 					.css("padding", "0")
-					.css("font-size", 22)
-					.css("font-family", "Helvetica Neue")
+					.css("font-size", 18)
 					.css("position", "absolute")
 					.css("left", "146px")
 					.css("top", "38px")
 					.css("text-align", "center");
 	
 	$('#questionDiv').append('<p id="equal2" >=</p>');
-	$('#equal2').css("font-size", 22)
-				.css("font-family", "Helvetica Neue")
+	$('#equal2').css("font-size", 18)
 				.css("position", "absolute")
 				.css("left", "174px")
 				.css("top", "38px");
@@ -163,8 +236,7 @@ Interaction.init = function(container){
 					.css("box-sizing","border-box")
 					.css("padding", "0")
 					.css("height", "30")
-					.css("font-size", 22)
-					.css("font-family", "Helvetica Neue")
+					.css("font-size", 18)
 					.css("position", "absolute")
 					.css("left", "192px")
 					.css("top", "34px")
@@ -176,8 +248,7 @@ Interaction.init = function(container){
 					.css("height", "30")
 					.css("box-sizing","border-box")
 					.css("padding", "0")
-					.css("font-size", 22)
-					.css("font-family", "Helvetica Neue")
+					.css("font-size", 18)
 					.css("position", "absolute")
 					.css("left", "252px")
 					.css("top", "38px")
@@ -188,7 +259,7 @@ Interaction.init = function(container){
 	else {
 		// adding neccessary html elements
 		$(container).append('<div id="questionDiv"></div>');
-	$('#questionDiv').css("position", "absolute")
+		$('#questionDiv').css("position", "absolute")
 						.css("left", "74px")
 						.css("top", "72px")
 						.css("width", "366px")
@@ -199,10 +270,9 @@ Interaction.init = function(container){
 					.css("height", "30")
 					.css("box-sizing","border-box")
 					.css("padding", "0")
-					.css("font-size", 22)
-					.css("font-family", "Helvetica Neue")
+					.css("font-size", 18)
 					.css("position", "absolute")
-					.css("left", "-4px")
+					.css("left", "0px")
 					.css("top", "38px")
 					.css("text-align", "center");
 	
@@ -212,38 +282,34 @@ Interaction.init = function(container){
 					.css("height", "30")
 					.css("box-sizing","border-box")
 					.css("padding", "0")
-					.css("font-size", 22)
-					.css("font-family", "Helvetica Neue")
+					.css("font-size", 18)
 					.css("position", "absolute")
 					.css("left", "42px")
 					.css("top", "38px")
 					.css("text-align", "center");
 	
 	$('#questionDiv').append('<p id="equal1" >=</p>');
-	$('#equal1').css("font-size", 22)
-				.css("font-family", "Helvetica Neue")
+	$('#equal1').css("font-size", 18)
 				.css("position", "absolute")
 				.css("left", "70px")
 				.css("top", "38px");
 	
 	$('#questionDiv').append('<input id="textInput1" class="inp" type="text" pattern="[0-9]*" maxlength="5"/>');
-	$('#textInput1').css("width", "54")
+	$('#textInput1').css("width", "60")
 					.css("box-sizing","border-box")
 					.css("padding", "0")
 					.css("height", "30")
-					.css("font-size", 22)
-					.css("font-family", "Helvetica Neue")
+					.css("font-size", 18)
 					.css("position", "absolute")
-					.css("left", "92px")
+					.css("left", "89px")
 					.css("top", "34px")
 					.css("text-align", "center");					
 	$('#textInput1').addClass('input');
 	
 	$('#questionDiv').append('<p id="cross1" >x</p>');
-	$('#cross1').css("font-size", 22)
-				.css("font-family", "Helvetica Neue")
+	$('#cross1').css("font-size", 18)
 				.css("position", "absolute")
-				.css("left", "154px")
+				.css("left", "156px")
 				.css("top", "38px");
 	
 	$('#questionDiv').append('<input id="textInput2" class="inp" type="text" pattern="[0-9]*" maxlength="4"/>');
@@ -251,8 +317,7 @@ Interaction.init = function(container){
 					.css("box-sizing","border-box")
 					.css("padding", "0")
 					.css("height", "30")
-					.css("font-size", 22)
-					.css("font-family", "Helvetica Neue")
+					.css("font-size", 18)
 					.css("position", "absolute")
 					.css("left", "172px")
 					.css("top", "34px")
@@ -264,16 +329,14 @@ Interaction.init = function(container){
 					.css("height", "30")
 					.css("box-sizing","border-box")
 					.css("padding", "0")
-					.css("font-size", 22)
-					.css("font-family", "Helvetica Neue")
+					.css("font-size", 18)
 					.css("position", "absolute")
 					.css("left", "232px")
 					.css("top", "38px")
 					.css("text-align", "center");
 					
 	$('#questionDiv').append('<p id="equal2" >=</p>');
-	$('#equal2').css("font-size", 22)
-				.css("font-family", "Helvetica Neue")
+	$('#equal2').css("font-size", 18)
 				.css("position", "absolute")
 				.css("left", "266px")
 				.css("top", "38px");
@@ -284,12 +347,10 @@ Interaction.init = function(container){
 					.css("box-sizing","border-box")
 					.css("padding", "0")
 					.css("height", "30")
-					.css("font-size", 22)
-					.css("font-family", "Helvetica Neue")
+					.css("font-size", 18)
 					.css("position", "absolute")
 					.css("left", "284px")
 					.css("top", "34px")
-			//		.css("border", "solid")
 					.css("text-align", "center");					
 	$('#textInput3').addClass('input');
 	
@@ -298,8 +359,7 @@ Interaction.init = function(container){
 					.css("height", "30")
 					.css("box-sizing","border-box")
 					.css("padding", "0")
-					.css("font-size", 22)
-					.css("font-family", "Helvetica Neue")
+					.css("font-size", 18)
 					.css("position", "absolute")
 					.css("left", "352px")
 					.css("top", "38px")
@@ -307,10 +367,10 @@ Interaction.init = function(container){
 					
 	$('#questionN').html(question);
 	if(question.length == 3) {
-		$('#questionN').css("left", "14px");
+		$('#questionN').css("left", "18px");
 	}
 	else if(question.length == 4) {
-		$('#questionN').css("left", "8px");
+		$('#questionN').css("left", "12px");
 	}
 	}
 	
@@ -328,7 +388,7 @@ Interaction.init = function(container){
 	$(container).append('<div id="statuss"></div>');
 	$('#statuss').css("position", "absolute")
 					.css("left", "160px")
-					.css("top", "260px")
+					.css("top", "240px")
 					.css("width", "200px")
 					.css("height", "20px")
 					.css("text-align", "center")
@@ -372,9 +432,6 @@ Interaction.init = function(container){
 			ans1 = $('#textInput1').val();
 			ans2 = $('#textInput2').val();
 			ans3 = $('#textInput3').val();
-			console.log(ans1.indexOf("."));
-			console.log(ans2.indexOf("."));
-			console.log(ans3.indexOf("."));
 			
 			if(ans1.indexOf(".") != -1 || ans2.indexOf(".") != -1 || ans3.indexOf(".") != -1) {
 				$('#statuss').get(0).className = "status_alert";
@@ -407,7 +464,7 @@ Interaction.init = function(container){
 				else if(trial == 1)
 				{
 					$('#statuss').get(0).className = "status_false";
-					$('#statuss').html("Olmadı!");
+					$('#statuss').html("Olmadı! Doğru cevap yukarıda gösterilmiştir.");
 					answer1 = answer1.toString().replace(".", ",");
 					$('#textInput1').val(answer1);
 					$('#textInput2').val(answer2);
@@ -434,10 +491,6 @@ Interaction.init = function(container){
 			ans1 = $('#textInput1').val();
 			ans2 = $('#textInput2').val();
 			ans3 = $('#textInput3').val();
-			console.log(ans1);
-			console.log(ans2);
-			console.log(ans3);
-			console.log(ans1.indexOf("."));
 			if(ans1.indexOf(".") != -1 || ans2.indexOf(".") != -1 || ans3.indexOf(".") != -1) {
 				$('#statuss').get(0).className = "status_alert";
 				$('#statuss').html("Lütfen ondalıklı sayıları virgül kullanarak giriniz.");
@@ -470,7 +523,7 @@ Interaction.init = function(container){
 				else if(trial == 1)
 				{
 					$('#statuss').get(0).className = "status_false";
-					$('#statuss').html("Olmadı!");
+					$('#statuss').html("Olmadı! Doğru cevap yukarıda gösterilmiştir.");
 					answer3 = answer3.toString().replace(".", ",");
 					$('#textInput1').val(answer1);
 					$('#textInput2').val(answer2);

@@ -19,26 +19,25 @@ Animation.init = function(container){
 	var fillColor = "#DD7500";
 	
 	// empty 4
-	emptyRect = new Path.Rectangle(new Point(80.5, 50.5), new Size(80, 80));
+	emptyRect = new Path.Rectangle(new Point(88.5, 50.5), new Size(80, 80));
 	emptyRect.strokeColor = '#000';
 	emptyRectstrokeWidth = 1;
 	// empty-segmented 4
-	segmentedRect = new Path.SegmentedRectangle(80.5, 50.5, 80, 80, 2, 2, 0, fillColor);
+	segmentedRect = new Path.SegmentedRectangle(88.5, 50.5, 80, 80, 2, 2, 0, fillColor);
 	// filled-segmented 4
-	rectt = new Path.SegmentedRectangle(80.5, 50.5, 80, 80, 2, 2, 1, fillColor);
+	rectt = new Path.SegmentedRectangle(88.5, 50.5, 80, 80, 2, 2, 1, fillColor);
 	// empty-segmented 100
-	rectt2 = new Path.SegmentedRectangle(540.5, 24.5, 120, 120, 10, 10, 0, fillColor);
+	rectt2 = new Path.SegmentedRectangle(548.5, 24.5, 120, 120, 10, 10, 0, fillColor);
 	// filled-segmented 100
-	rectt3 = new Path.SegmentedRectangle(540.5, 24.5, 120, 120, 10, 10, 25, fillColor);
+	rectt3 = new Path.SegmentedRectangle(548.5, 24.5, 120, 120, 10, 10, 25, fillColor);
 	
 	
 	$(container).append('<div id="exampleHolderDiv"></div>');
 	$('#exampleHolderDiv').css("position", "absolute")
-						.css("left", "200px")
+						.css("left", "208px")
 						.css("top", "58px")
 						.css("width", "330")
 						.css("height", "100")
-				//		.css("border", "solid")
 	
 	// firstFractionDiv
 	$('#exampleHolderDiv').append('<div id="firstFracDiv"></div>');
@@ -47,12 +46,10 @@ Animation.init = function(container){
 						.css("top", "8px")
 						.css("width", "44")
 						.css("height", "80")
-				//		.css("border", "solid")
 	
 	$('#firstFracDiv').append('<p id="firstFracNom" >1</p>');
 	$('#firstFracNom').css("position", "absolute")
-						.css("font-size", 22)
-						.css("font-family", "Helvetica Neue")
+						.css("font-size", 18)
 						.css("top", "16px")
 						.css("left", "16px");
 	
@@ -67,8 +64,7 @@ Animation.init = function(container){
 	
 	$('#firstFracDiv').append('<p id="firstFracDenom" >4</p>');
 	$('#firstFracDenom').css("position", "absolute")
-						.css("font-size", 22)
-						.css("font-family", "Helvetica Neue")
+						.css("font-size", 18)
 						.css("top", "46px")
 						.css("left", "16px");
 	
@@ -80,19 +76,16 @@ Animation.init = function(container){
 						.css("top", "8px")
 						.css("width", "82")
 						.css("height", "80")
-				//		.css("border", "solid")
 	
 	$('#secondFracDiv').append('<p id="firstEq" >=</p>');
 	$('#firstEq').css("position", "absolute")
 				.css("left", "0px")
-				.css("top", "30px")
-				.css("font-size", 22)
-				.css("font-family", "Helvetica Neue");
+				.css("top", "32px")
+				.css("font-size", 18);
 	
 	$('#secondFracDiv').append('<p id="secondFracNom" >1 x 25</p>');
 	$('#secondFracNom').css("position", "absolute")
-						.css("font-size", 22)
-						.css("font-family", "Helvetica Neue")
+						.css("font-size", 18)
 						.css("top", "16px")
 						.css("left", "20px");
 	
@@ -107,8 +100,7 @@ Animation.init = function(container){
 	
 	$('#secondFracDiv').append('<p id="secondFracDenom" >4 x 25</p>');
 	$('#secondFracDenom').css("position", "absolute")
-						.css("font-size", 22)
-						.css("font-family", "Helvetica Neue")
+						.css("font-size", 18)
 						.css("top", "46px")
 						.css("left", "20px");
 						
@@ -120,19 +112,16 @@ Animation.init = function(container){
 						.css("top", "8px")
 						.css("width", "58")
 						.css("height", "80")
-				//		.css("border", "solid")
 						
 	$('#thirdFracDiv').append('<p id="secondEq" >=</p>');
 	$('#secondEq').css("position", "absolute")
 				.css("left", "0px")
-				.css("top", "30px")
-				.css("font-size", 22)
-				.css("font-family", "Helvetica Neue");
+				.css("top", "32px")
+				.css("font-size", 18);
 	
 	$('#thirdFracDiv').append('<p id="thirdFracNom" >25</p>');
 	$('#thirdFracNom').css("position", "absolute")
-						.css("font-size", 22)
-						.css("font-family", "Helvetica Neue")
+						.css("font-size", 18)
 						.css("top", "16px")
 						.css("left", "26px");
 	
@@ -145,10 +134,9 @@ Animation.init = function(container){
 						.css("padding", 0)
 						.css("border-top", "2px solid");
 	
-	$('#thirdFracDiv').append('<p id="thirdFracDenom" >100</p>');
+	$('#thirdFracDiv').append('<p id="thirdFracDenom">100</p>');
 	$('#thirdFracDenom').css("position", "absolute")
-						.css("font-size", 22)
-						.css("font-family", "Helvetica Neue")
+						.css("font-size", 18)
 						.css("top", "46px")
 						.css("left", "20px");
 	
@@ -160,21 +148,18 @@ Animation.init = function(container){
 						.css("top", "8px")
 						.css("width", "58")
 						.css("height", "80")
-				//		.css("border", "solid")
 						
 	$('#fracDiv').append('<p id="thirdEq" >=</p>');
 	$('#thirdEq').css("position", "absolute")
 				.css("left", "0px")
-				.css("top", "30px")
-				.css("font-size", 22)
-				.css("font-family", "Helvetica Neue");
+				.css("top", "32px")
+				.css("font-size", 18);
 	
 	$('#fracDiv').append('<p id="fracc" >0,25</p>');
 	$('#fracc').css("position", "absolute")
 				.css("left", "18px")
 				.css("top", "28px")
-				.css("font-size", 22)
-				.css("font-family", "Helvetica Neue");
+				.css("font-size", 18);
 				
 	// percentDiv
 	
@@ -184,21 +169,18 @@ Animation.init = function(container){
 						.css("top", "8px")
 						.css("width", "58")
 						.css("height", "80")
-				//		.css("border", "solid")
 						
 	$('#percentDiv').append('<p id="fourthEq" >=</p>');
 	$('#fourthEq').css("position", "absolute")
 				.css("left", "0px")
 				.css("top", "30px")
-				.css("font-size", 22)
-				.css("font-family", "Helvetica Neue");
+				.css("font-size", 18);
 	
 	$('#percentDiv').append('<p id="percc" >%25</p>');
 	$('#percc').css("position", "absolute")
 				.css("left", "18px")
 				.css("top", "28px")
-				.css("font-size", 22)
-				.css("font-family", "Helvetica Neue");
+				.css("font-size", 18);
 	
 	
 	// percentageTextDiv
@@ -207,11 +189,9 @@ Animation.init = function(container){
 	$('#percentageTextDiv').css("position", "absolute")
 					.css("width", "180px")
 					.css("height", "20px")
-					.css("font-size", 22)
-					.css("font-family", "Helvetica Neue")
+					.css("font-size", 12)
 					.css("left", "325px")
 					.css("top", "112px")
-			//		.css("border", "solid")
 					.css("text-align", "center");
 					
 	
@@ -407,7 +387,7 @@ Interaction.init = function(container){
 	var randomize = Math.round(Math.random()*10);
 	if (randomize % 3 == 0) // get circle
 	{
-		circ = new Path.SegmentedCircle(new Point(116.5, 70.5), 56, firstNominator, firstDenominator, fillColor);
+		circ = new Path.SegmentedCircle(new Point(118.5, 76.5), 66, firstNominator, firstDenominator, fillColor);
 	}
 	else if(randomize % 3 == 1) // get square
 	{
@@ -463,8 +443,7 @@ Interaction.init = function(container){
 					.css("box-sizing","border-box")
 					.css("padding", "0")
 					.css("height", "30")
-					.css("font-size", 22)
-					.css("font-family", "Helvetica Neue")
+					.css("font-size", 18)
 					.css("position", "absolute")
 					.css("left", "6px")
 					.css("top", "16px")
@@ -485,8 +464,7 @@ Interaction.init = function(container){
 					.css("height", "30")
 					.css("box-sizing","border-box")
 					.css("padding", "0")
-					.css("font-size", 22)
-					.css("font-family", "Helvetica Neue")
+					.css("font-size", 18)
 					.css("position", "absolute")
 					.css("left", "6px")
 					.css("top", "59px")
@@ -499,8 +477,7 @@ Interaction.init = function(container){
 					.css("height", "30")
 					.css("box-sizing","border-box")
 					.css("padding", "0")
-					.css("font-size", 22)
-					.css("font-family", "Helvetica Neue")
+					.css("font-size", 18)
 					.css("position", "absolute")
 					.css("left", "66px")
 					.css("top", "16px")
@@ -522,8 +499,7 @@ Interaction.init = function(container){
 					.css("height", "30")
 					.css("box-sizing","border-box")
 					.css("padding", "0")
-					.css("font-size", 22)
-					.css("font-family", "Helvetica Neue")
+					.css("font-size", 18)
 					.css("position", "absolute")
 					.css("left", "146px")
 					.css("top", "38px")
@@ -536,11 +512,10 @@ Interaction.init = function(container){
 					.css("height", "30")
 					.css("box-sizing","border-box")
 					.css("padding", "0")
-					.css("font-size", 22)
-					.css("font-family", "Helvetica Neue")
+					.css("font-size", 18)
 					.css("position", "absolute")
 					.css("left", "66px")
-					.css("top", "60px")
+					.css("top", "64px")
 					.css("text-align", "center")
 					.css("border", "none");
 					
@@ -549,8 +524,7 @@ Interaction.init = function(container){
 					.css("height", "30px")
 					.css("box-sizing","border-box")
 					.css("padding", "0")
-					.css("font-size", 22)
-					.css("font-family", "Helvetica Neue")
+					.css("font-size", 18)
 					.css("position", "absolute")
 					.css("left", "224px")
 					.css("top", "38px")
@@ -560,36 +534,31 @@ Interaction.init = function(container){
 
 	
 	$('#questionDiv').append('<p id="equal1" >=</p>');
-	$('#equal1').css("font-size", 22)
-				.css("font-family", "Helvetica Neue")
+	$('#equal1').css("font-size", 18)
 				.css("position", "absolute")
 				.css("left", "46px")
-				.css("top", "42px");
+				.css("top", "44px");
 				
 	$('#questionDiv').append('<p id="equal2" >=</p>');
-	$('#equal2').css("font-size", 22)
-				.css("font-family", "Helvetica Neue")
+	$('#equal2').css("font-size", 18)
 				.css("position", "absolute")
 				.css("left", "106px")
-				.css("top", "42px");
+				.css("top", "44px");
 	
 	$('#questionDiv').append('<p id="equal3" >=</p>');
-	$('#equal3').css("font-size", 22)
-				.css("font-family", "Helvetica Neue")
+	$('#equal3').css("font-size", 18)
 				.css("position", "absolute")
 				.css("left", "184px")
-				.css("top", "42px");
+				.css("top", "44px");
 	
 	$('#questionDiv').append('<p id="zero" >0,</p>');
-	$('#zero').css("font-size", 22)
-				.css("font-family", "Helvetica Neue")
+	$('#zero').css("font-size", 18)
 				.css("position", "absolute")
 				.css("left", "122px")
 				.css("top", "42px");
 				
 	$('#questionDiv').append('<p id="percent_sign" >%</p>');
-	$('#percent_sign').css("font-size", 22)
-					.css("font-family", "Helvetica Neue")
+	$('#percent_sign').css("font-size", 18)
 					.css("position", "absolute")
 					.css("left", "202px")
 					.css("top", "42px");
@@ -618,8 +587,7 @@ Interaction.init = function(container){
 	$('#percentage').css("position", "absolute")
 					.css("width", "150px")
 					.css("height", "20px")
-					.css("font-size", 22)
-					.css("font-family", "Helvetica Neue")
+					.css("font-size", 12)
 					.css("left", "386px")
 					.css("top", "142px")
 					.css("text-align", "center");
@@ -777,7 +745,7 @@ Interaction.init = function(container){
 				else if(trial == 1)
 				{
 					$('#statuss').get(0).className = "status_false";
-					$('#statuss').html("Olmadı!");
+					$('#statuss').html("Olmadı! Doğru cevap yukarıda gösterilmiştir.");
 					$('#textInput1').css("color", inputBoxAnswerColor);
 					$('#textInput2').css("color", inputBoxAnswerColor);
 					$('#textInput3').css("color", inputBoxAnswerColor);
