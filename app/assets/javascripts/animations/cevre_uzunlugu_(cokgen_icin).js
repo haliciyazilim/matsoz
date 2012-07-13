@@ -416,7 +416,7 @@ TestGenerator.nextQuestion = function(){
 	TestGenerator.letters = (Math.random()>0.5 ? ["A","B","C","D","E"]:["K","L","M","N","P"]);
 	var count = (Interaction.count++)%Interaction.shuffledArray.length;
 	TestGenerator.shape = Interaction.shuffledArray[count];
-	///*TEST*/TestGenerator.shape = 5/*TEST*/
+	///*TEST*/TestGenerator.shape = 2;/*TEST*/
 	switch(TestGenerator.shape){
 		case 0:
 			var a = Math.floor(Math.random()*10)+5;
@@ -468,10 +468,6 @@ TestGenerator.nextQuestion = function(){
 			TestGenerator.values = {a:a,b:b,c:c,cevre:(a+b+c)} ;
 			new Triangle(a,b,c,TestGenerator.getMeasure(),TestGenerator.paper).showEdge('a').showEdge('b').showAngle('A').showAngle('B');
 			break;
-		
-		
-			
-			
 		case 6:
 			var a,b,_a,c;
 			a = Math.floor(Math.random()*5)+5;
@@ -600,26 +596,18 @@ function rhomboid(a,b,H,measure,paper){
 
 	var rhomboid = new Path.Rhomboid(new Point(x,y), new Size(w,h), _w );
 	rhomboid.style = edgeStyle;
-	var line = new Path.Line(new Point(x+_w,y), new Point(x+_w,y+h));
-	line.style = edgeStyle;
 	
 	var t1 = new PointText(new Point(x+w*0.5-10,y+h+15));
 	t1.content = ""+(a+b)+" "+measure;
-	var t2 = new PointText(new Point(x+_w+5,y+h*0.5));
+	var t2 = new PointText(new Point(x+w+_w-20,y+h*0.5+10));
 	t2.content = ""+H+" "+measure;
-	
-	var rect = new Path.Rectangle( new Point(x+_w-10,y+h-10), new Size(10,10) );
-	rect.style = edgeStyle;
-	var circle = new Path.Circle(new Point(x+_w-5,y+h-5),1);
-	circle.style = edgeStyle;
 	
 	TestGenerator.printVertexLetters(
 			[
 				new Point(x-10,y+h+10),
 				new Point(x+w+10,y+h+10),
 				new Point(x+_w+w+10,y-10),
-				new Point(x+_w-10,y-10),
-				new Point(x+_w-16,y+h-16)
+				new Point(x+_w-10,y-10)
 			]
 		);
 }
