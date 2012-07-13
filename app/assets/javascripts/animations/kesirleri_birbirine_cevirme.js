@@ -131,9 +131,7 @@ Animation.init = function(container){
 	$('#whh').css("position", "absolute")
 				.css("top", "12px")
 				.css("left", "0px")
-				.css("font-size", 20)
-				;
-//.css("font-family", "Helvetica Neue")
+				.css("font-size", 18);
 	
 	$('#firstF').append('<div id="exLine"></div>');
 	$('#exLine').css("position","absolute")
@@ -148,24 +146,19 @@ Animation.init = function(container){
 	$('#nomm').css("position", "absolute")
 				.css("top", "0px")
 				.css("left", "20px")
-				.css("font-size", 20)
-				;
-//.css("font-family", "Helvetica Neue")
+				.css("font-size", 18);
 	
 	$('#firstF').append('<p id="denomm">9</p>');
 	$('#denomm').css("position", "absolute")
 				.css("top", "22px")
 				.css("left", "20px")
-				.css("font-size", 20)
-				;
-//.css("font-family", "Helvetica Neue")
+				.css("font-size", 18);
 	
 	// secondF
 	$(container).append('<div id="secondF"></div>');
 	$('#secondF').css("position", "absolute")
 				.css("top", "154px")
 				.css("left", "30px")
-			//	.css("border", "solid")
 				.css("width", "40px")
 				.css("height", "40px");
 	
@@ -181,18 +174,14 @@ Animation.init = function(container){
 	$('#secondF').append('<p id="nomm2">22</p>');
 	$('#nomm2').css("position", "absolute")
 				.css("top", "0px")
-				.css("left", "10px")
-				.css("font-size", 20)
-				;
-//.css("font-family", "Helvetica Neue")
+				.css("left", "8px")
+				.css("font-size", 18);
 	
 	$('#secondF').append('<p id="denomm2">9</p>');
 	$('#denomm2').css("position", "absolute")
 				.css("top", "22px")
 				.css("left", "14px")
-				.css("font-size", 20)
-				;
-//.css("font-family", "Helvetica Neue")
+				.css("font-size", 18);
 				
 	// 0, 1, 2, 3
 	
@@ -200,7 +189,6 @@ Animation.init = function(container){
 	$('#whs').css("position", "absolute")
 				.css("top", "66px")
 				.css("left", "60px")
-		//		.css("border", "solid")
 				.css("width", "440px")
 				.css("height", "26px");
 	
@@ -209,7 +197,6 @@ Animation.init = function(container){
 				.css("top", "0px")
 				.css("left", "10px")
 				.css("font-size", 18)
-				//.css("font-family", "Helvetica Neue")
 				.css("color", "grey");
 				
 	$('#whs').append('<p id="oone">1</p>');
@@ -217,7 +204,6 @@ Animation.init = function(container){
 				.css("top", "0px")
 				.css("left", "144px")
 				.css("font-size", 18)
-				//.css("font-family", "Helvetica Neue")
 				.css("color", "grey");
 				
 	$('#whs').append('<p id="ttwo">2</p>');
@@ -225,7 +211,6 @@ Animation.init = function(container){
 				.css("top", "0px")
 				.css("left", "280px")
 				.css("font-size", 18)
-				//.css("font-family", "Helvetica Neue")
 				.css("color", "grey");
 	
 	$('#whs').append('<p id="tthree">3</p>');
@@ -233,7 +218,6 @@ Animation.init = function(container){
 				.css("top", "0px")
 				.css("left", "415px")
 				.css("font-size", 18)
-				//.css("font-family", "Helvetica Neue")
 				.css("color", "grey");
 	
 	// 0/9, 9/9, 18/9, 22/9s
@@ -241,7 +225,6 @@ Animation.init = function(container){
 	$('#fracss').css("position", "absolute")
 				.css("top", "112px")
 				.css("left", "50px")
-		//		.css("border", "solid")
 				.css("width", "440px")
 				.css("height", "30px");
 	
@@ -250,7 +233,6 @@ Animation.init = function(container){
 	$('#zeroo').css("position", "absolute")
 				.css("top", "2px")
 				.css("left", "8px")
-		//		.css("border", "solid")
 				.css("width", "40px")
 				.css("height", "30px")
 				.css("color", "grey");
@@ -268,24 +250,19 @@ Animation.init = function(container){
 	$('#zNom').css("position", "absolute")
 				.css("top", "0px")
 				.css("left", "14px")
-				.css("font-size", 18)
-				;
-//.css("font-family", "Helvetica Neue")
+				.css("font-size", 18);
 	
 	$('#zeroo').append('<p id="zDenom">9</p>');
 	$('#zDenom').css("position", "absolute")
 				.css("top", "22px")
 				.css("left", "14px")
-				.css("font-size", 18)
-				;
-//.css("font-family", "Helvetica Neue")
+				.css("font-size", 18);
 				
 	// 9/9
 	$('#fracss').append('<div id="onee"></div>');
 	$('#onee').css("position", "absolute")
 				.css("top", "2px")
 				.css("left", "143px")
-		//		.css("border", "solid")
 				.css("width", "40px")
 				.css("height", "30px")
 				.css("color", "grey");
@@ -303,24 +280,19 @@ Animation.init = function(container){
 	$('#oNom').css("position", "absolute")
 				.css("top", "0px")
 				.css("left", "14px")
-				.css("font-size", 18)
-				;
-//.css("font-family", "Helvetica Neue")
+				.css("font-size", 18);
 	
 	$('#onee').append('<p id="oDenom">9</p>');
 	$('#oDenom').css("position", "absolute")
 				.css("top", "22px")
 				.css("left", "14px")
-				.css("font-size", 18)
-				;
-//.css("font-family", "Helvetica Neue")
+				.css("font-size", 18);
 				
 	// 18/9
 	$('#fracss').append('<div id="twoo"></div>');
 	$('#twoo').css("position", "absolute")
 				.css("top", "2px")
 				.css("left", "278px")
-		//		.css("border", "solid")
 				.css("width", "40px")
 				.css("height", "30px")
 				.css("color", "grey");
@@ -338,24 +310,19 @@ Animation.init = function(container){
 	$('#tNom').css("position", "absolute")
 				.css("top", "0px")
 				.css("left", "8px")
-				.css("font-size", 18)
-				;
-//.css("font-family", "Helvetica Neue")
+				.css("font-size", 18);
 	
 	$('#twoo').append('<p id="tDenom">9</p>');
 	$('#tDenom').css("position", "absolute")
 				.css("top", "22px")
 				.css("left", "14px")
-				.css("font-size", 18)
-				;
-//.css("font-family", "Helvetica Neue")
+				.css("font-size", 18);
 	
 	// 22/9
 	$('#fracss').append('<div id="lastt"></div>');
 	$('#lastt').css("position", "absolute")
 				.css("top", "2px")
 				.css("left", "338px")
-		//		.css("border", "solid")
 				.css("width", "40px")
 				.css("height", "30px")
 				.css("color", "grey");
@@ -373,17 +340,13 @@ Animation.init = function(container){
 	$('#lNom').css("position", "absolute")
 				.css("top", "0px")
 				.css("left", "8px")
-				.css("font-size", 18)
-				;
-//.css("font-family", "Helvetica Neue")
+				.css("font-size", 18);
 	
 	$('#lastt').append('<p id="lDenom">9</p>');
 	$('#lDenom').css("position", "absolute")
 				.css("top", "22px")
 				.css("left", "14px")
-				.css("font-size", 18)
-				;
-//.css("font-family", "Helvetica Neue")
+				.css("font-size", 18);
 	
 	// firstF2
 			
@@ -391,7 +354,6 @@ Animation.init = function(container){
 	$('#first2F').css("position", "absolute")
 				.css("top", "60px")
 				.css("left", "592px")
-		//		.css("border", "solid")
 				.css("width", "40px")
 				.css("height", "40px");
 				
@@ -399,9 +361,7 @@ Animation.init = function(container){
 	$('#whh2').css("position", "absolute")
 				.css("top", "12px")
 				.css("left", "0px")
-				.css("font-size", 20)
-				;
-//.css("font-family", "Helvetica Neue")
+				.css("font-size", 18);
 	
 	$('#first2F').append('<div id="exLine3"></div>');
 	$('#exLine3').css("position","absolute")
@@ -416,32 +376,25 @@ Animation.init = function(container){
 	$('#nomm3').css("position", "absolute")
 				.css("top", "0px")
 				.css("left", "20px")
-				.css("font-size", 20)
-				;
-//.css("font-family", "Helvetica Neue")
+				.css("font-size", 18);
 	
 	$('#first2F').append('<p id="denomm3">9</p>');
 	$('#denomm3').css("position", "absolute")
 				.css("top", "22px")
 				.css("left", "20px")
-				.css("font-size", 20)
-				;
-//.css("font-family", "Helvetica Neue")
+				.css("font-size", 18);
 				
 	$(container).append('<p id="eqqq" >=</p>');
 	$('#eqqq').css("position", "absolute")
 				.css("left", "650px")
 				.css("top", "70px")
-				.css("font-size", 18)
-				;
-//.css("font-family", "Helvetica Neue")
+				.css("font-size", 18);
 				
 	// second2F
 	$(container).append('<div id="second2F"></div>');
 	$('#second2F').css("position", "absolute")
 				.css("top", "60px")
 				.css("left", "680px")
-			//	.css("border", "solid")
 				.css("width", "40px")
 				.css("height", "40px");
 	
@@ -458,17 +411,13 @@ Animation.init = function(container){
 	$('#nomm4').css("position", "absolute")
 				.css("top", "0px")
 				.css("left", "10px")
-				.css("font-size", 20)
-				;
-//.css("font-family", "Helvetica Neue")
+				.css("font-size", 18);
 	
 	$('#second2F').append('<p id="denomm4">9</p>');
 	$('#denomm4').css("position", "absolute")
 				.css("top", "22px")
 				.css("left", "14px")
-				.css("font-size", 20)
-				;
-//.css("font-family", "Helvetica Neue")
+				.css("font-size", 18);
 				
 	// firstEq
 			
@@ -476,34 +425,27 @@ Animation.init = function(container){
 	$('#firstEq').css("position", "absolute")
 				.css("top", "130px")
 				.css("left", "524px")
-		//		.css("border", "solid")
 				.css("width", "140px")
 				.css("height", "40px")
-				.css("font-size", 20)
-				;
-//.css("font-family", "Helvetica Neue")
+				.css("font-size", 18);
 	
 	$('#firstEq').append('<p id="nomm5">2 x 9</p>');
 	$('#nomm5').css("position", "absolute")
 				.css("top", "0px")
 				.css("left", "0px")
-				.css("font-size", 20)
-				;
-//.css("font-family", "Helvetica Neue")
+				.css("font-size", 18);
+				
 	$('#firstEq').append('<p id="nomm55">+ 4</p>');
 	$('#nomm55').css("position", "absolute")
 				.css("top", "0px")
 				.css("left", "44px")
-				.css("font-size", 20)
-				;
-//.css("font-family", "Helvetica Neue")
+				.css("font-size", 18);
+				
 	$('#firstEq').append('<p id="nomm555">= 22</p>');
 	$('#nomm555').css("position", "absolute")
 				.css("top", "0px")
 				.css("left", "78px")
-				.css("font-size", 20)
-				;
-//.css("font-family", "Helvetica Neue")
+				.css("font-size", 18);
 	
 	$('#firstEq').append('<div id="exLine5"></div>');
 	$('#exLine5').css("position","absolute")
@@ -518,68 +460,58 @@ Animation.init = function(container){
 	$('#denomm5').css("position", "absolute")
 				.css("top", "22px")
 				.css("left", "98px")
-				.css("font-size", 20)
-				;
-//.css("font-family", "Helvetica Neue")
+				.css("font-size", 18);
 				
 	// secondEq		
 	$(container).append('<div id="secondEq"></div>');
 	$('#secondEq').css("position", "absolute")
 				.css("top", "127px")
 				.css("left", "674px")
-		//		.css("border", "solid")
 				.css("width", "72px")
 				.css("height", "62px")
-				.css("font-size", 20)
-				;
-//.css("font-family", "Helvetica Neue")
+				.css("font-size", 18);
 	
 	$('#secondEq').append('<p id="num1">22</p>');
 	$('#num1').css("position", "absolute")
 				.css("top", "3px")
 				.css("left", "15px")
-				.css("font-size", 20)
-				;
-//.css("font-family", "Helvetica Neue")
+				.css("font-size", 18);
 				
 	$('#secondEq').append('<p id="num2">9</p>');
 	$('#num2').css("position", "absolute")
 				.css("top", "2px")
 				.css("left", "46px")
-				.css("font-size", 20)
-				;
-//.css("font-family", "Helvetica Neue")
+				.css("font-size", 18);
 	
 	$('#secondEq').append('<p id="num3">2</p>');
 	$('#num3').css("position", "absolute")
 				.css("top", "24px")
 				.css("left", "46px")
-				.css("font-size", 20)
-				;
-//.css("font-family", "Helvetica Neue")
+				.css("font-size", 18);
 	
 	$('#secondEq').append('<p id="num4">18</p>');
 	$('#num4').css("position", "absolute")
 				.css("top", "23px")
 				.css("left", "15px")
-				.css("font-size", 20)
-				;
-//.css("font-family", "Helvetica Neue")
+				.css("font-size", 18),
 	
 	$('#secondEq').append('<p id="num5">4</p>');
 	$('#num5').css("position", "absolute")
 				.css("top", "44px")
 				.css("left", "20px")
-				.css("font-size", 20)
-				;
-//.css("font-family", "Helvetica Neue")
+				.css("font-size", 18);
 	
 	
 	arr.opacity = 0;
 	firstRect.opacity = 0;
 	secondRect.opacity = 0;
-	dotGroup.opacity = 0;
-	dotGroup2.opacity = 0;
+	dotGroup.children[0].opacity = 0;
+	dotGroup.children[1].opacity = 0;
+	dotGroup.children[2].opacity = 0;
+	dotGroup.children[3].opacity = 0;
+	for(i = 0; i < 27; i++) {
+		dotGroup2.children[i].opacity = 0;
+	}
 	redDot.opacity = 0;
 	vertLine.opacity = 0;
 	horiLine.opacity = 0;
@@ -591,8 +523,8 @@ Animation.init = function(container){
 		secondFOpacity: 0,
 		first2FOpacity: 0,
 		second2FOpacity: 0,
-		second2FBoldness: 100,
-		first2FBoldness: 100,
+		second2FColor: 0,
+		first2FColor: 0,
 		zzeroOpacity: 0,
 		ooneOpacity: 0,
 		ttwoOpacity: 0,
@@ -630,7 +562,7 @@ Animation.init = function(container){
 		$('#lastt').css("color", exampleHelper.lasttColor);
 		$('#first2F').css("opacity", exampleHelper.first2FOpacity);
 		$('#second2F').css("opacity", exampleHelper.second2FOpacity);
-		$('#second2F').css("font-weight", exampleHelper.second2FBoldness);
+		$('#second2F').css("color", exampleHelper.second2FColor);
 		$('#eqqq').css("opacity", exampleHelper.eqqqOpacity);
 		$('#nomm5').css("opacity", exampleHelper.nomm5Opacity);
 		$('#nomm55').css("opacity", exampleHelper.nomm55Opacity);
@@ -642,7 +574,7 @@ Animation.init = function(container){
 		$('#num3').css("opacity", exampleHelper.num3Opacity);
 		$('#num4').css("opacity", exampleHelper.num4Opacity);
 		$('#num5').css("opacity", exampleHelper.num5Opacity);
-		$('#first2F').css("font-weight", exampleHelper.first2FBoldness);
+		$('#first2F').css("color", exampleHelper.first2FColor);
 	}
 	
 	
@@ -656,18 +588,36 @@ Animation.init = function(container){
 		animationType: 'easeInEaseOut'
 	});
 	
-	dotGroup.animate({
+	dotGroup.children[0].animate({
 		style: {
 			opacity: 1
 		},
-		duration: 1000,
+		duration: 500,
 		delay: 2000,
 		animationType: 'easeInEaseOut'
 	});
 	
-	exampleHelper.animate({
+	dotGroup.children[1].animate({
 		style: {
-			zzeroOpacity: 1
+			opacity: 1
+		},
+		duration: 500,
+		delay: 2500,
+		animationType: 'easeInEaseOut'
+	});
+	
+	dotGroup.children[2].animate({
+		style: {
+			opacity: 1
+		},
+		duration: 500,
+		delay: 3000,
+		animationType: 'easeInEaseOut'
+	});
+	
+	dotGroup.children[3].animate({
+		style: {
+			opacity: 1
 		},
 		duration: 500,
 		delay: 3500,
@@ -676,10 +626,19 @@ Animation.init = function(container){
 	
 	exampleHelper.animate({
 		style: {
+			zzeroOpacity: 1
+		},
+		duration: 500,
+		delay: 2000,
+		animationType: 'easeInEaseOut'
+	});
+	
+	exampleHelper.animate({
+		style: {
 			ooneOpacity: 1
 		},
 		duration: 500,
-		delay: 4000,
+		delay: 2500,
 		animationType: 'easeInEaseOut'
 	});
 	
@@ -688,7 +647,7 @@ Animation.init = function(container){
 			ttwoOpacity: 1
 		},
 		duration: 500,
-		delay: 4500,
+		delay: 3000,
 		animationType: 'easeInEaseOut'
 	});
 	
@@ -697,25 +656,27 @@ Animation.init = function(container){
 			tthreeOpacity: 1
 		},
 		duration: 500,
-		delay: 5000,
+		delay: 3500,
 		animationType: 'easeInEaseOut'
 	});
 	
-	dotGroup2.animate({
-		style: {
-			opacity: 1
-		},
-		duration: 1000,
-		delay: 6000,
-		animationType: 'easeInEaseOut'
-	});
+	for(i = 0; i < 27; i++) {
+		dotGroup2.children[i].animate({ 
+			style: {
+				opacity: 1
+			},
+			duration: 200,
+			delay: 4000+(200*i),
+			animationType: 'easeInEaseOut'
+		});
+	}
 	
 	exampleHelper.animate({
 		style: {
 			zerooOpacity: 1
 		},
-		duration: 500,
-		delay: 7500,
+		duration: 200,
+		delay: 3800,
 		animationType: 'easeInEaseOut'
 	});
 	
@@ -723,8 +684,8 @@ Animation.init = function(container){
 		style: {
 			oneeOpacity: 1
 		},
-		duration: 500,
-		delay: 8000,
+		duration: 200,
+		delay: 5600,
 		animationType: 'easeInEaseOut'
 	});
 	
@@ -732,8 +693,8 @@ Animation.init = function(container){
 		style: {
 			twooOpacity: 1
 		},
-		duration: 500,
-		delay: 8500,
+		duration: 200,
+		delay: 7400,
 		animationType: 'easeInEaseOut'
 	});
 	
@@ -741,8 +702,8 @@ Animation.init = function(container){
 		style: {
 			lasttOpacity: 1
 		},
-		duration: 500,
-		delay: 9000,
+		duration: 200,
+		delay: 8200,
 		animationType: 'easeInEaseOut'
 	});
 	
@@ -751,7 +712,7 @@ Animation.init = function(container){
 			firstFOpacity: 1
 		},
 		duration: 1000,
-		delay: 10000,
+		delay: 9000,
 		animationType: 'easeInEaseOut'
 	});
 	
@@ -760,7 +721,7 @@ Animation.init = function(container){
 			opacity: 1
 		},
 		duration: 1000,
-		delay: 11000,
+		delay: 10000,
 		animationType: 'easeInEaseOut'
 	});
 	
@@ -768,8 +729,8 @@ Animation.init = function(container){
 		style: {
 			opacity: 1
 		},
-		duration: 500,
-		delay: 12000,
+		duration: 250,
+		delay: 11000,
 		animationType: 'easeInEaseOut'
 	});
 	
@@ -778,7 +739,7 @@ Animation.init = function(container){
 			secondFOpacity: 1
 		},
 		duration: 1000,
-		delay: 13000,
+		delay: 11500,
 		animationType: 'easeInEaseOut'
 	});
 	
@@ -787,7 +748,7 @@ Animation.init = function(container){
 			opacity: 1
 		},
 		duration: 1000,
-		delay: 14000,
+		delay: 12500,
 		animationType: 'easeInEaseOut'
 	});
 	
@@ -795,8 +756,8 @@ Animation.init = function(container){
 		style: {
 			lasttColor: "red"
 		},
-		duration: 500,
-		delay: 15000,
+		duration: 250,
+		delay: 13500,
 		animationType: 'easeInEaseOut'
 	});
 
@@ -805,7 +766,7 @@ Animation.init = function(container){
 			first2FOpacity : 1
 		},
 		duration: 500,
-		delay: 16000,
+		delay: 14000,
 		animationType: 'easeInEaseOut'
 	});
 
@@ -814,7 +775,7 @@ Animation.init = function(container){
 			eqqqOpacity : 1
 		},
 		duration: 500,
-		delay: 16750,
+		delay: 14750,
 		animationType: 'easeInEaseOut'
 	});
 
@@ -823,7 +784,7 @@ Animation.init = function(container){
 			second2FOpacity : 1
 		},
 		duration: 500,
-		delay: 17500,
+		delay: 15500,
 		animationType: 'easeInEaseOut'
 	});
 	
@@ -832,7 +793,7 @@ Animation.init = function(container){
 			nomm5Opacity : 1
 		},
 		duration: 500,
-		delay: 18500,
+		delay: 16500,
 		animationType: 'easeInEaseOut'
 	});
 	
@@ -841,7 +802,7 @@ Animation.init = function(container){
 			nomm55Opacity : 1
 		},
 		duration: 500,
-		delay: 19500,
+		delay: 17500,
 		animationType: 'easeInEaseOut'
 	});
 	
@@ -850,7 +811,7 @@ Animation.init = function(container){
 			nomm555Opacity : 1
 		},
 		duration: 500,
-		delay: 20500,
+		delay: 18500,
 		animationType: 'easeInEaseOut'
 	});
 	
@@ -859,27 +820,25 @@ Animation.init = function(container){
 			denomm5Opacity : 1
 		},
 		duration: 500,
-		delay: 21500,
+		delay: 19500,
 		animationType: 'easeInEaseOut'
 	});
 	
 	exampleHelper.animate({
 		style: {
-			second2FBoldness : 900
+			second2FColor: "red"
 		},
 		duration: 500,
-		delay: 22000,
+		delay: 20000,
 		animationType: 'easeInEaseOut'
 	});
-	
-	//arrange from here
 	
 	exampleHelper.animate({
 		style: {
 			num1Opacity : 1
 		},
 		duration: 500,
-		delay: 23000,
+		delay: 21000,
 		animationType: 'easeInEaseOut'
 	});
 	
@@ -888,7 +847,7 @@ Animation.init = function(container){
 			opacity : 1
 		},
 		duration: 500,
-		delay: 23500,
+		delay: 21500,
 		animationType: 'easeInEaseOut'
 	});
 	horiLine.animate({
@@ -896,7 +855,7 @@ Animation.init = function(container){
 			opacity : 1
 		},
 		duration: 500,
-		delay: 23750,
+		delay: 21750,
 		animationType: 'easeInEaseOut'
 	});
 	
@@ -907,7 +866,7 @@ Animation.init = function(container){
 			num2Opacity : 1
 		},
 		duration: 500,
-		delay: 24500,
+		delay: 22500,
 		animationType: 'easeInEaseOut'
 	});
 	
@@ -916,7 +875,7 @@ Animation.init = function(container){
 			num3Opacity : 1
 		},
 		duration: 500,
-		delay: 25000,
+		delay: 23000,
 		animationType: 'easeInEaseOut'
 	});
 	
@@ -925,7 +884,7 @@ Animation.init = function(container){
 			num4Opacity : 1
 		},
 		duration: 500,
-		delay: 26000,
+		delay: 23500,
 		animationType: 'easeInEaseOut'
 	});
 	
@@ -934,7 +893,7 @@ Animation.init = function(container){
 			opacity : 1
 		},
 		duration: 500,
-		delay: 26500,
+		delay: 24000,
 		animationType: 'easeInEaseOut'
 	});
 	
@@ -943,7 +902,7 @@ Animation.init = function(container){
 			opacity : 1
 		},
 		duration: 500,
-		delay: 26750,
+		delay: 24250,
 		animationType: 'easeInEaseOut'
 	});
 	
@@ -952,16 +911,16 @@ Animation.init = function(container){
 			num5Opacity : 1
 		},
 		duration: 500,
-		delay: 27500,
+		delay: 25000,
 		animationType: 'easeInEaseOut'
 	});
 	
 	exampleHelper.animate({
 		style: {
-			first2FBoldness : 900
+			first2FColor: "#88ACE0"
 		},
 		duration: 500,
-		delay: 28000,
+		delay: 25500,
 		animationType: 'easeInEaseOut'
 	});
 }
@@ -1007,7 +966,6 @@ Interaction.init = function(container){
 		$('#questionDiv').append('<p id="nom" ></p>');
 		$('#nom').css("position", "absolute")
 				.css("font-size", 18)
-				//.css("font-family", "Helvetica Neue")
 				.css("top", "14px");
 		$('#nom').html(nominator);
 		
@@ -1032,7 +990,6 @@ Interaction.init = function(container){
 		$('#questionDiv').append('<p id="denom" ></p>');
 		$('#denom').css("position", "absolute")
 				.css("font-size", 18)
-				//.css("font-family", "Helvetica Neue")
 				.css("top", "40px");
 		$('#denom').html(denominator);
 		if(denominator < 10)
@@ -1056,7 +1013,6 @@ Interaction.init = function(container){
 					.css("font-size", 18)
 					.css("box-sizing","border-box")
 					.css("padding", "0")
-					//.css("font-family", "Helvetica Neue")
 					.css("position", "absolute")
 					.css("left", "60px")
 					.css("top", "22px")
@@ -1070,7 +1026,6 @@ Interaction.init = function(container){
 					.css("font-size", 18)
 					.css("box-sizing","border-box")
 					.css("padding", "0")
-					//.css("font-family", "Helvetica Neue")
 					.css("position", "absolute")
 					.css("left", "102px")
 					.css("top", "2px")
@@ -1084,7 +1039,6 @@ Interaction.init = function(container){
 					.css("font-size", 18)
 					.css("box-sizing","border-box")
 					.css("padding", "0")
-					//.css("font-family", "Helvetica Neue")
 					.css("position", "absolute")
 					.css("left", "102px")
 					.css("top", "44px")
@@ -1119,7 +1073,6 @@ Interaction.init = function(container){
 		$('#questionDiv').append('<p id="wh" ></p>');
 		$('#wh').css("position", "absolute")
 				.css("font-size", 18)
-				//.css("font-family", "Helvetica Neue")
 				.css("top", "27px");
 		$('#wh').html(wh);
 		
@@ -1135,7 +1088,6 @@ Interaction.init = function(container){
 		$('#questionDiv').append('<p id="nom" ></p>');
 		$('#nom').css("position", "absolute")
 				.css("font-size", 18)
-				//.css("font-family", "Helvetica Neue")
 				.css("top", "14px");
 		$('#nom').html(nom);
 		
@@ -1151,7 +1103,6 @@ Interaction.init = function(container){
 		$('#questionDiv').append('<p id="denom" ></p>');
 		$('#denom').css("position", "absolute")
 					.css("font-size", 18)
-					//.css("font-family", "Helvetica Neue")
 					.css("top", "40px");
 		$('#denom').html(denom);
 		
@@ -1164,7 +1115,6 @@ Interaction.init = function(container){
 			$('#denom').css("left", "30px")
 		}
 		
-	//	frac2 = new Path.Fraction(180, 72, null, null, 18, 1.8);
 	$('#questionDiv').append('<div id="line1"></div>');
 		$('#line1').css("position","absolute")
 				.css("left", "24px")
@@ -1178,9 +1128,7 @@ Interaction.init = function(container){
 		$('#equal1').css("position", "absolute")
 				.css("left", "68px")
 				.css("top", "28px")
-				.css("font-size", 18)
-				;
-//.css("font-family", "Helvetica Neue")
+				.css("font-size", 18);
 		
 		$('#questionDiv').append('<input id="textInput2" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
 		$('#textInput2').css("width", "32")
@@ -1188,7 +1136,6 @@ Interaction.init = function(container){
 					.css("font-size", 18)
 					.css("box-sizing","border-box")
 					.css("padding", "0")
-					//.css("font-family", "Helvetica Neue")
 					.css("position", "absolute")
 					.css("left", "90px")
 					.css("top", "2px")
@@ -1202,7 +1149,6 @@ Interaction.init = function(container){
 					.css("font-size", 18)
 					.css("box-sizing","border-box")
 					.css("padding", "0")
-					//.css("font-family", "Helvetica Neue")
 					.css("position", "absolute")
 					.css("left", "90px")
 					.css("top", "44px")
@@ -1231,12 +1177,11 @@ Interaction.init = function(container){
 										
 	$(container).append('<div id="answer"></div>');
 	$('#answer').css("position", "absolute")
-					.css("left", "144px")
+					.css("left", "134px")
 					.css("top", "164px")
 					.css("width", "240px")
 					.css("height", "30px")
 					.css("font-size", 18)
-					//.css("font-family", "Helvetica Neue")
 					.css("text-align", "center")
 					.css("color", answerColor);
 					
@@ -1294,7 +1239,7 @@ Interaction.init = function(container){
 					else if(trial == 1)
 					{
 						$('#statuss').get(0).className = "status_false";
-						$('#statuss').html("Olmadı!");
+						$('#statuss').html("Olmadı! Doğru cevap yukarıda gösterilmiştir.");
 						$('#textInput1').val(ans11);
 						$('#textInput2').val(ans22);
 						$('#textInput3').val(ans33);
@@ -1349,7 +1294,7 @@ Interaction.init = function(container){
 					else if(trial == 1)
 					{
 						$('#statuss').get(0).className = "status_false";
-						$('#statuss').html("Olmadı!");
+						$('#statuss').html("Olmadı! Doğru cevap yukarıda gösterilmiştir.");
 						$('#textInput2').val(ans22);
 						$('#textInput3').val(ans33);
 						$('#textInput2').css("color", inputBoxAnswerColor);
