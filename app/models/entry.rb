@@ -10,6 +10,10 @@ class String
      self.downcase.gsub('Ç', 'ç').gsub('Ğ', 'ğ').gsub('İ', 'i').gsub('I', 'ı').gsub('Ö', 'ö').gsub('Ş', 'ş').gsub('Ü', 'ü')
   end
   
+  def to_upcase_turkish
+    self.upcase.gsub('ç', 'Ç').gsub('ğ', 'Ğ').gsub('i', 'İ').gsub('ı', 'I').gsub('ö', 'Ö').gsub('ş', 'Ş').gsub('ü', 'Ü')
+  end
+  
   def self.compare_turkish_letters(letter1, letter2)
     alphabet = " 0123456789_abcçdefgğhıijklmnoöpqrştuüvwxyz"
     
