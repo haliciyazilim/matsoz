@@ -17,7 +17,7 @@ Main.paperInit = function() {
 		var p3 = new Point(p.x + Math.cos(Util.degreeToRadians(angle)) * r,
 							   p.y + Math.sin(Util.degreeToRadians(angle)) * r);
 			
-		//var p1 = new Point(p.x+r,p.y);
+//		var p1 = new Point(p.x+r,p.y);
 //		var p2 = p1.getRotatedPoint(angle,p);
 //		var p3 = p1.getRotatedPoint(angle*0.5,p);
 		return new Path.Arc(p1, p2, p3);
@@ -219,7 +219,6 @@ Main.paperInit = function() {
 		);
 		
 		cylinder.closed = true;
-		group.addChild(cylinder);
 		var dline = new Path();
 		x1 = x+w*0.2;
 		x2 = x+w*0.8;
@@ -234,6 +233,7 @@ Main.paperInit = function() {
 		);
 		dline.style = {dashArray: [3.2]};
 		group.addChild(dline);
+		group.addChild(cylinder);
 		return group;
 	}
 	Path.Pyramid = function(p,s){
@@ -249,8 +249,6 @@ Main.paperInit = function() {
 		path.add(p3);
 		path.add(p4);
 		path.closed = true;
-		pyramid.addChild(path);
-		pyramid.addChild( new Path.Line(p2,p4) );
 		var dline1 = new Path.Line(p1,px);
 		var dline2 = new Path.Line(p3,px);
 		var dline3 = new Path.Line(p4,px);
@@ -261,6 +259,8 @@ Main.paperInit = function() {
 		pyramid.addChild(dline1);
 		pyramid.addChild(dline2);
 		pyramid.addChild(dline3);
+		pyramid.addChild(path);
+		pyramid.addChild( new Path.Line(p2,p4) );
 		return pyramid;
 	}
 	Path.Cone = function(p,s){
@@ -306,9 +306,9 @@ Main.paperInit = function() {
 		curve2.arcTo(px2,p2);
 		curve2.style = {dashArray:[3,2]};
 		
+		sphere.addChild(curve2);
 		sphere.addChild(circle);
 		sphere.addChild(curve1);
-		sphere.addChild(curve2);
 		return sphere;
 	}
 	Path.SquarePrisim = function(p,a,d){
@@ -393,10 +393,10 @@ Main.paperInit = function() {
 		dline3.style = {dashArray:[3,2]};
 		dline2.style = {dashArray:[3,2]};
 		
-		trianglePrisim.addChild(triangle);
 		trianglePrisim.addChild(dline1);
 		trianglePrisim.addChild(dline2);
 		trianglePrisim.addChild(dline3);
+		trianglePrisim.addChild(triangle);
 		
 		return trianglePrisim;
 	}
@@ -510,6 +510,7 @@ Main.paperInit = function() {
 				this.style[key] = style[key];
 			}
 		}
+		return this;
 	}
 	
 	Point.prototype.getRotatedPoint = function(angle,oP){
@@ -525,7 +526,13 @@ Main.paperInit = function() {
 		this.canvasPoint = p;
 		return p;
 	};
-
+	
+	Point.prototype.projectToLine = function(p1,p2){
+		var p_ = this.subtract(p2);
+		var p1_ = p1.subtract(p2);
+		var dot = p_.dot(p1_);;
+		return p1_.multiply( dot /  p1_.dot(p1_)).add(p2);
+	}
 
 	
 };

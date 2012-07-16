@@ -138,4 +138,7 @@ Main.setObjective = function(str){
 	Main.objective.innerHTML = str;
 };
 
+
+
+
 Main();

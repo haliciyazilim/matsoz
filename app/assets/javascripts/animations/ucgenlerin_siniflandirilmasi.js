@@ -24,7 +24,139 @@ var angleStyle = {
 };
 /*Styles*/
 
-var Animation = function(){};Animation();
+var Animation = {
+	images:[
+		{
+			id:'lines_1',
+			src:'/assets/animations/ucgenlerin_siniflandirilmasi/lines_1.png'
+		},
+		{
+			id:'lines_2_1_to_3',
+			src:'/assets/animations/ucgenlerin_siniflandirilmasi/lines_2_1_to_3.png'
+		},
+		{
+			id:'lines_2_1_to_2',
+			src:'/assets/animations/ucgenlerin_siniflandirilmasi/lines_2_1_to_2.png'
+		}
+	],
+	init:function(container){
+		Animation.container = container;
+		var w=$(container).width(), h=$(container).height();
+		var dx=100,dy=10;
+		function htmlPlaceAndAnimate(text,x,y,delay){
+			var div = document.createElement('div');
+			$(Animation.container).append(div);
+			$(div)
+				.html(text)
+				.css({
+					position:'absolute',
+					top:y,
+					left:x,
+					opacity:0,
+				})
+				.delay(delay)
+				.animate(
+					{opacity:1},
+					1000
+				);
+		}
+		
+		htmlPlaceAndAnimate(
+			'Üçgenler',
+			dx+10,
+			dy+h*0.5,
+			0
+		);
+		htmlPlaceAndAnimate(
+			'<img src="/assets/animations/ucgenlerin_siniflandirilmasi/lines_1.png" />',
+			dx+w*0.1,
+			dy+25,
+			500
+		);
+		htmlPlaceAndAnimate(
+			'Dar açılı üçgenler',
+			dx+w*0.2,
+			dy+20,
+			1000
+		);
+		htmlPlaceAndAnimate(
+			'Geniş Açılı Üçgenler',
+			dx+w*0.2,
+			dy+85,
+			1500
+		);
+		htmlPlaceAndAnimate(
+			'Dik Açılı Üçgenler',
+			dx+w*0.2,
+			dy+150,
+			2000
+		);
+		
+		htmlPlaceAndAnimate(
+			'<img src="/assets/animations/ucgenlerin_siniflandirilmasi/lines_2_1_to_3.png" />',
+			dx+w*0.4,
+			dy+15,
+			2500
+		);
+		htmlPlaceAndAnimate(
+			'Çeşitkenar Üçgen',
+			dx+w*0.5+15,
+			dy+5,
+			3000
+		);
+		htmlPlaceAndAnimate(
+			'İkizkenar Üçgen',
+			dx+w*0.5+15,
+			dy+23,
+			3500
+		);
+		htmlPlaceAndAnimate(
+			'Eşkenar Üçgen',
+			dx+w*0.5+15,
+			dy+40,
+			4000
+		);
+		
+		
+		htmlPlaceAndAnimate(
+			'<img src="/assets/animations/ucgenlerin_siniflandirilmasi/lines_2_1_to_2.png" />',
+			dx+w*0.4,
+			dy+80,
+			4500
+		);
+		htmlPlaceAndAnimate(
+			'Çeşitkenar Üçgen',
+			dx+w*0.5+15,
+			dy+75,
+			5000
+		);
+		htmlPlaceAndAnimate(
+			'İkizkenar Üçgen',
+			dx+w*0.5+15,
+			dy+105,
+			5500
+		);
+		
+		htmlPlaceAndAnimate(
+			'<img src="/assets/animations/ucgenlerin_siniflandirilmasi/lines_2_1_to_2.png" />',
+			dx+w*0.4,
+			dy+140,
+			6000
+		);
+		htmlPlaceAndAnimate(
+			'Çeşitkenar Üçgen',
+			dx+w*0.5+15,
+			dy+135,
+			6500
+		);
+		htmlPlaceAndAnimate(
+			'İkizkenar Üçgen',
+			dx+w*0.5+15,
+			dy+165,
+			7000
+		);
+	}
+};
 var Interaction =function(){};Interaction();
 Interaction.getFramework = function() {
 	return 'paper';
