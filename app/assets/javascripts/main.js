@@ -9,6 +9,8 @@ Main.config = {
 };
 
 Main.init = function(){
+	Main.initializeNavigation();
+	
 	Main.interaction = $('.etkilesimalan').get(0);
 	Main.animation = $('.ornek').get(0);
 	Main.objective = $('.mavikontrol').get(0);
@@ -113,8 +115,24 @@ Main.init = function(){
 	}
 };
 
-
-
+Main.initializeNavigation = function() {
+	var createWordList = function(letter) {
+		var entries = wordList[letter];
+		var htmlString = "";
+		
+		for (i = 0; i < entries.length; i++) {
+			htmlString += "<a href=" + entries[i].link + " class='sozcuklink " + (entries[i].selected?"sozcukselected":"") + "'>" + entries[i].word + "</a>";
+		}
+		
+		$('#liste').html(htmlString);
+	}
+	
+	$('.navlink').click(function() {
+		createWordList($(this).data('letter'));
+	})
+	
+	createWordList(currentLetter);
+}
 
 Main.setObjective = function(str){
 	Main.objective.innerHTML = str;

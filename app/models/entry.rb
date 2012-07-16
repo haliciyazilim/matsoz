@@ -2,8 +2,12 @@
 
 class String
   def to_downcase_english
-    self.gsub('ç', 'c').gsub('ğ', 'g').gsub('ı', 'i').gsub('ö', 'o').gsub('ş', 's').gsub('ü', 'u')
-        .gsub('Ç', 'c').gsub('Ğ', 'g').gsub('İ', 'i').gsub('Ö', 'o').gsub('Ş', 's').gsub('Ü', 'u')    
+    self.downcase.gsub('ç', 'c').gsub('ğ', 'g').gsub('ı', 'i').gsub('ö', 'o').gsub('ş', 's').gsub('ü', 'u')
+                 .gsub('Ç', 'c').gsub('Ğ', 'g').gsub('İ', 'i').gsub('Ö', 'o').gsub('Ş', 's').gsub('Ü', 'u')    
+  end
+  
+  def to_downcase_turkish
+     self.downcase.gsub('Ç', 'ç').gsub('Ğ', 'ğ').gsub('İ', 'i').gsub('I', 'ı').gsub('Ö', 'ö').gsub('Ş', 'ş').gsub('Ü', 'ü')
   end
 end
 
@@ -21,6 +25,6 @@ class Entry < ActiveRecord::Base
   validates :word, :presence => true
   
   def javascript_file
-    return 'animations/' + self.word.downcase.to_downcase_english.gsub(/\s+/, '_') + '.js'
+    return 'animations/' + self.word.to_downcase_english.gsub(/\s+/, '_') + '.js'
   end
 end

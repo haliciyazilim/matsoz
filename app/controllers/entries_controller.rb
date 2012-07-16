@@ -1,8 +1,36 @@
+# encoding: utf-8
+
 class EntriesController < ApplicationController  
-  before_filter :set_all_entries
+  before_filter :set_all_entries, :create_word_list
   
   def set_all_entries
     @all_entries = Entry.order(:word).all
+  end
+  
+  def create_word_list
+    @word_list = {}
+    letters = ['a', 'b', 'c', 'ç', 'd', 'e', 'f', 'g', 'h', 'ı', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'ö', 'p', 'r', 's', 'ş', 't', 'u', 'ü', 'v', 'y', 'z'];
+    letters.each do |letter|
+      entries = Entry.find(:all, :conditions => ['word LIKE ?', "#{letter}%"], :order => 'word ASC')
+      # Assume it is sorted for now
+      # entries.sort_by! |entry|
+      #  entry.word.to_downcase_turkish
+      @word_list[letter] = []
+      entries.each do |entry|
+        
+        selected = false
+        if entry.id.to_s == params[:id].to_s
+          @current_letter = letter
+          selected = true
+        end
+        
+        @word_list[letter] << {
+          :word => entry.word,
+          :selected => selected,
+          :link => entry_path(entry)
+        }
+      end
+    end
   end
   
   def index

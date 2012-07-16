@@ -95,12 +95,13 @@ var Animation = {
 				
 				for(var i=0; i<this.vertexArray.length ; i++)
 					this.vertexArray[i] = this.vertexArray[i].getRotatedPoint(this.angle,this.vertexArray[2]);
-				new PointText(
+				var text = new PointText(
 					new Point(
 						(triangle.vertexArray[0].x+triangle.vertexArray[2].x)*0.5,
 						(triangle.vertexArray[0].y+triangle.vertexArray[2].y)*0.5+10
 					)
-				).content = 'a';
+				);
+				text.content = 'a';
 				this.lastTransformation = this.matrix;
 				new Path.Line(
 					this.vertexArray[0],
@@ -134,12 +135,13 @@ var Animation = {
 				for(var i=0; i<this.vertexArray.length ; i++)
 					this.vertexArray[i] = this.vertexArray[i].getRotatedPoint(this.angle,this.vertexArray[0]);
 				
-				new PointText(
+				var text = new PointText(
 					new Point(
 						(triangle.vertexArray[0].x+triangle.vertexArray[1].x)*0.5,
 						(triangle.vertexArray[0].y+triangle.vertexArray[1].y)*0.5+10
 					)
-				).content = 'b';
+				);
+				text.content = 'b';
 				this.lastTransformation = this.matrix;
 				new Path.Line(
 					this.vertexArray[1],
@@ -170,12 +172,13 @@ var Animation = {
 				for(var i=0; i<this.vertexArray.length ; i++)
 					this.vertexArray[i] = this.vertexArray[i].getRotatedPoint(this.angle,this.vertexArray[1])
 				
-				new PointText(
+				var text = new PointText(
 					new Point(
 						(triangle.vertexArray[1].x+triangle.vertexArray[2].x)*0.5,
 						(triangle.vertexArray[1].y+triangle.vertexArray[2].y)*0.5+10
 					)
-				).content = 'c';
+				);
+				text.content = 'c';
 				this.lastTransformation = this.matrix;;
 				new Path.Line(
 					this.vertexArray[1],
@@ -210,12 +213,13 @@ var Animation = {
 					this.texts[i].firstPosition = this.texts[i].position;
 				this.angle = 0;
 				
-				new PointText(
+				var text = new PointText(
 					new Point(
 						(triangle.vertexArray[0].x+triangle.vertexArray[2].x)*0.5,
 						(triangle.vertexArray[0].y+triangle.vertexArray[2].y)*0.5+30
 					)
-				).content = "Ç = a + b + c";
+				);
+				text.content = "Ç = a + b + c";
 			}
 		});
 		
