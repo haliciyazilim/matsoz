@@ -326,21 +326,27 @@ Interaction.init = function(container){
 	
 	$("#girisSol").keyup(
 		function(){
-			bosKareSol.yap();
+			if(Interaction.boyaliKareSolGroup)
+				Interaction.boyaliKareSolGroup.remove();
+				
+			//Interaction.group.remove();
+			//bosKareSol.yap();
 			girdi=$("#girisSol").val();
 			$("#girdiCevap1").val(girdi);
 			boyaliKareSol=new Kare(girdi,kareBoyaliFillColor, kareBoyaliStrokeColor,30,30);
-			boyaliKareSol.yap();
+			Interaction.boyaliKareSolGroup = boyaliKareSol.yap();
 	});
 	
 	//Sağ kareler boyanıyor.
 	$("#girisSag").keyup(
 		function(){
-			bosKareSag.yap();
+				if(Interaction.boyaliKareSagGroup)
+				Interaction.boyaliKareSagGroup.remove();
+			//bosKareSag.yap();
 			girdi=$("#girisSag").val();
 			$("#girdiCevap3").val(girdi);
 			boyaliKareSag=new Kare(girdi,kareBoyaliFillColor, kareBoyaliStrokeColor,440,30);
-			boyaliKareSag.yap();
+			Interaction.boyaliKareSagGroup = boyaliKareSag.yap();
 	});
 	
 	// girdi kontrolleri
@@ -349,11 +355,15 @@ Interaction.init = function(container){
 			$("#geriBildirim").hide();
 	    	var input=parseInt(this.value);
 	    	if(input<0 || input>100){
+				//Interaction.group.remove();
     			//alert("0 ile 100 arasında bir sayı giriniz.");
-    			$('#geriBildirimText').attr("class","status_alert");
+    			if(Interaction.boyaliKareSolGroup)
+					Interaction.boyaliKareSolGroup.remove();
+			
+				$('#geriBildirimText').attr("class","status_alert");
 				$('#geriBildirimText').html("0 ile 100 arasında bir sayı giriniz.");
 				$("#geriBildirim").show();
-    			bosKareSol.yap();
+    			//bosKareSol.yap();
     			//$("#girisSol").val("");
     		}
     		if(   $("#girisSol").val()==$("#girisSag").val()){
@@ -630,7 +640,7 @@ var Kare= function(kareSayisi, dolguRengi, hatRengi, x,y){
 	
 	function kareYap(){
 		
-		//var group = new Group();	
+		var group = new Group();	
 
 		var girdi=this.kareSayisi;
 				
@@ -653,7 +663,8 @@ var Kare= function(kareSayisi, dolguRengi, hatRengi, x,y){
 				path.fillColor = this.dolguRengi;
 				path.strokeColor=this.hatRengi;
 				
-					if(this.dolguRengi!="white"){
+				// Tek Tek boyama
+					/*if(this.dolguRengi!="white"){
 						path.opacity = 0;
 						path.animate({
 							style: {
@@ -662,13 +673,14 @@ var Kare= function(kareSayisi, dolguRengi, hatRengi, x,y){
 							duration: 250,
 							delay: 20 * (j*10 + i)
 						})
-					}
+					}*/
 				
-				//group.addChild(path);
+				group.addChild(path);
 			}	
+			
 		}
 		
-		//return group;
+		return group;
 		
 	}
 // Sadece rakam girilmesini sağlanıyor.

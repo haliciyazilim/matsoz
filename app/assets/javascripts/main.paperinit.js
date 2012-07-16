@@ -510,6 +510,7 @@ Main.paperInit = function() {
 				this.style[key] = style[key];
 			}
 		}
+		return this;
 	}
 	
 	Point.prototype.getRotatedPoint = function(angle,oP){
@@ -525,7 +526,13 @@ Main.paperInit = function() {
 		this.canvasPoint = p;
 		return p;
 	};
-
+	
+	Point.prototype.projectToLine = function(p1,p2){
+		var p_ = this.subtract(p2);
+		var p1_ = p1.subtract(p2);
+		var dot = p_.dot(p1_);;
+		return p1_.multiply( dot /  p1_.dot(p1_)).add(p2);
+	}
 
 	
 };
