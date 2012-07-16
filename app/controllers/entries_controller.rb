@@ -12,9 +12,11 @@ class EntriesController < ApplicationController
     letters = ['a', 'b', 'c', 'ç', 'd', 'e', 'f', 'g', 'h', 'ı', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'ö', 'p', 'r', 's', 'ş', 't', 'u', 'ü', 'v', 'y', 'z'];
     letters.each do |letter|
       entries = Entry.find(:all, :conditions => ['word LIKE ?', "#{letter}%"], :order => 'word ASC')
-      # Assume it is sorted for now
-      # entries.sort_by! |entry|
-      #  entry.word.to_downcase_turkish
+      
+      entries = entries.sort do |entry1, entry2|
+        entry1.word.compare_turkish(entry2.word)
+      end
+      
       @word_list[letter] = []
       entries.each do |entry|
         
