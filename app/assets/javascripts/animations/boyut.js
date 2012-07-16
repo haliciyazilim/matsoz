@@ -19,18 +19,18 @@ var threeDimensionalShapeStyle = {
 var dashedLineStyle = {
 	strokeColor : "#000"
 }
-var angleStyle = {'fill':'#DDD'};
 //var bowlHoverStyle = {'stroke':'#999','fill':'#ff9'};
 var bowlHoverStyle = {strokeColor : '#000', fillColor :'#ff9' , strokeWidth : 2}
 //var bowlDefaultStyle = {'stroke':'#000','fill':'#fff'};
-var bowlDroppedTrueStyle = {'stroke':'#0f0','fill':'#afa'};
-var bowlDroppedFalseStyle = {'stroke':'#f00','fill':'#faa'};
+var bowlDroppedTrueStyle = {strokeColor : '#0f0', fillColor :'#afa' }//{'stroke':'#0f0','fill':'#afa'};
+var bowlDroppedFalseStyle = {strokeColor : '#f00', fillColor :'#faa' }//{'stroke':'#f00','fill':'#faa'};
 var bowlDefaultStyle = {fillColor: '#fff', strokeColor : '#000' , strokeWidth : 2}
 /*Styles*/
 
 var Animation = {};
 
 Animation.init = function(container){
+	Animation.container = container;
 	var w=$(container).width(), h=$(container).height();
 	var a = Math.min(w,h) * 0.3;
 	var i = a*0.4;
@@ -54,14 +54,13 @@ Animation.init = function(container){
 		p1,
 		p4
 	);
-	Animation.line2 = new Path.Line(
-		p1,
-		p2
-	);
-	
 	Animation.line3 = new Path.Line(
 		p2,
 		p7
+	);
+	Animation.line2 = new Path.Line(
+		p1,
+		p2
 	);
 	Animation.text1 = new PointText(
 		new Point(
@@ -118,22 +117,43 @@ Animation.init = function(container){
 	Animation.path.add(p3);
 	Animation.path.add(p6);
 	Animation.line1.setStyle(lineStyle);
-	Animation.line2.setStyle(lineStyle);
 	Animation.line3.setStyle(lineStyle);
+	Animation.line2.setStyle(lineStyle);
+	Animation.line1.strokeColor = '#f00';
+	Animation.line3.strokeColor = '#0f0';
+	Animation.line2.strokeColor = '#00f';
 	animationHelper.animate = Item.prototype.animate;
-
 	Animation.onFrame = function(){
 		Animation.path.opacity = animationHelper.opacity;
 		Animation.line1.opacity = animationHelper.line1Opacity;
-		Animation.line2.opacity = animationHelper.line2Opacity;
 		Animation.line3.opacity = animationHelper.line3Opacity;
+		Animation.line2.opacity = animationHelper.line2Opacity;
 		Animation.text1.opacity = animationHelper.text1Opacity;
-		Animation.text2.opacity = animationHelper.text2Opacity;
 		Animation.text3.opacity = animationHelper.text3Opacity;
-	}
-	
-	
-	
+		Animation.text2.opacity = animationHelper.text2Opacity;
+		if( animationHelper.text3Opacity == 1 ){
+			Animation.onFrame = null;
+			console.log("asdasd");
+			var div = document.createElement('div');
+			$(Animation.container).append(div);
+			$(div)
+				.html('<span style="color:#f00">1.&emsp;Boy</span><br/><span style="color:#00f">2.&emsp;En</span><br/><span style="color:#0f0">3.&emsp;Derinlik</span>')
+				.css({
+					position:'absolute',
+					left:'50%',
+					marginLeft:'100px',
+					opacity:0,
+					top:'50%',
+					marginTop:'-50px',
+					lineHeight:'33px'
+				})
+				.animate(
+					{opacity:1},
+					1000
+				);
+				
+		}
+	};
 	animationHelper.animate({
 		style:{
 			opacity:1
@@ -185,11 +205,9 @@ Animation.init = function(container){
 }
 
 var Interaction = {};
-
 Interaction.getFramework = function() {
 	return 'paper';
 }
-
 Interaction.init = function(container){
 	Main.setObjective('Yandaki nesneleri kaç boyutlu olduğuna göre sınıflandırmak için fare ile sürükleyerek ilgili sepete atınız.');
 	Interaction.container = container;
@@ -226,7 +244,7 @@ Interaction.setStatus = function(msg){
 	Interaction.status.innerHTML = msg;
 }
 Interaction.nextQuestion = function(){
-	if(Interaction.shape != 'undefined' && Interaction.shape != null)
+	if(Interaction.shape)
 		Interaction.shape.remove();
 	Interaction.shapeCount++;
 	Interaction.preventDrag = false;
@@ -246,6 +264,7 @@ Interaction.nextQuestion = function(){
 		this.inDropableShape = false;
 		if(this.preventDrag == null || this.preventDrag == undefined)
 			this.preventDrag = false;
+		Interaction.droppedBowl = undefined;
 		return true;
 	},
     move = function (dx, dy,x,y) {
@@ -267,23 +286,33 @@ Interaction.nextQuestion = function(){
     up = function () {
 		if(Interaction.preventDrag)
 			return;
-			
 		if(Interaction.droppedBowl!=null 
 			&& Interaction.droppedBowl!= undefined
 			&& Interaction.shape.dimension == Interaction.droppedBowl.dimension
 			){
 			Interaction.preventDrag = true;
+			Interaction.shape.scaleRatio = 0.9
+			Interaction.shape.opacityX=1;
 			Interaction.shape.animate({
-				style:{opacity:0},
-				duration:500
+				style:{
+					opacityX:-0.3,
+					scaleRatio:1
+				},
+				duration:500,
+				update:function(){
+					if(this.opacityX < 0.7)
+						this.opacity = this.opacityX+0.3;
+					this.scale(this.scaleRatio);	
+				}
 			});
 			Interaction.droppedBowl.animate({
 				style:bowlDroppedTrueStyle,
-				duration:500,
+				duration:5,
 				callback:function(){
 					Interaction.droppedBowl.animate({
 						style:bowlDefaultStyle,
 						duration:500,
+						delay:500,
 						callback:function(){
 							Interaction.droppedBowl.style = bowlDefaultStyle;
 							Interaction.nextQuestion();
@@ -300,8 +329,7 @@ Interaction.nextQuestion = function(){
 			}
 			if(Interaction.droppedBowl!= null 
 			&& Interaction.droppedBowl!= undefined)
-				Interaction.droppedBowl.animate(bowlDroppedFalseStyle,500);
-				
+				Interaction.droppedBowl.animate({style:bowlDroppedFalseStyle,duration:5});
 			var distance = Math.sqrt(this.odx*this.odx + this.ody*this.ody);
 			var velocity = 1;// px/ms
 			var time  = distance / velocity;
@@ -313,7 +341,6 @@ Interaction.nextQuestion = function(){
 				duration:time,
 				callback:callback
 			});
-			
 		}        
     };
 	Interaction.shape.move = move;
@@ -327,7 +354,7 @@ Interaction.generateRandomShape = function(x,y,w,h){
 	if(Interaction.shuffledArray == null || Interaction.shuffledArray == undefined)
 		Interaction.shuffledArray = Util.getShuffledArray(NUMBER_OF_SHAPES);
 	shapeType = Interaction.shuffledArray[Interaction.shapeCount];
-	///*TEST*/shapeType = 9; /*TEST*/
+	///*TEST*/shapeType = 25; /*TEST*/
 	switch(shapeType){
 		case 0:
 			Interaction.shape = new Path.Circle(new Point(x+w*0.5,y+h*0.5),5);
@@ -375,7 +402,6 @@ Interaction.generateRandomShape = function(x,y,w,h){
 			break;
 		case 9:
 			var a = Math.min(w,h)*0.6;
-			//Interaction.shape = new Path.Cube(new Point(x+w*0.5-a*0.5,y+h*0.5-a*0.5),a);
 			Interaction.shape = new Path.RectanglePrisim(new Point(x,y),new Size(a,a),new Size(a*0.4,a*0.4));
 			
 			Interaction.shape.dimension = 3;

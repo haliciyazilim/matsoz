@@ -411,8 +411,11 @@ var start = function(){
 		for(var i=0; i < Interaction.shapes.length ;i++)
 			if(Interaction.shapes[i] != 'undefined' && Interaction.shapes[i].isRegular ==true)
 				isExist=true;
-		if(isExist == false)
+		if(isExist == false){
+		
 			Interaction.setStatus('Tebrikler bütün düzgün çokgenleri buldunuz. <input type="button" onclick="Interaction.init(Interaction.container);" value="Baştan Başla" class="control_button"/>');
+		
+		}
 	};
 Interaction.generateRandomShapes = function(X,Y,WIDTH,HEIGHT){
 	Interaction.shapes = [];
@@ -573,5 +576,7 @@ function regularhexagon(p,s){
 	return new Path.RegularPolygon(p,s,6);
 }
 Interaction.setStatus = function(msg){
+	$(Interaction.status).hide();
 	Interaction.status.innerHTML = msg;
+	$(Interaction.status).show();
 }

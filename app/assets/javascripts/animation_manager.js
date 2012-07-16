@@ -125,6 +125,12 @@ AnimationManager.update = function(event) {
 							var x = startValue.x + (endValue.x - startValue.x) * ratio;
 							var y = startValue.y + (endValue.y - startValue.y) * ratio;
 							animation.item[key] = new Point(x, y);
+						} else if (startValue instanceof RgbColor) {
+							var red = startValue.red + (endValue.red - startValue.red) * ratio;
+							var green = startValue.green + (endValue.green - startValue.green) * ratio;
+							var blue = startValue.blue + (endValue.blue - startValue.blue) * ratio;
+							var alpha = startValue.alpha + (endValue.alpha - startValue.alpha) * ratio;
+							animation.item[key] = new RgbColor(red, green, blue, alpha);
 						}
 					}
 				}

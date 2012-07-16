@@ -28,19 +28,16 @@ var Animation = {
 				var line = new Path.Line(
 					shape.vertexArray[i],
 					shape.vertexArray[(i+1)%length]
-				)
-				//console.log("I'm here");
+				);
 				line.setStyle(animationEdgeStyle);
-				//var tline = line.rasterize();
-				//line.remove();
-				//line = tline;
-				var angle = Math.floor(Math.random()*90)-90;
-				var x = Math.floor(Math.random()*500)-250;
-				var y = Math.floor(Math.random()*300)-150;
+				var angle = Math.floor(Math.random()*180)-90;
+				var x = Math.floor(Math.random()*400)-200;
+				var y = Math.floor(Math.random()*50)-25;
 				line.angle = angle;
-				//line.rotate(angle);
 				line.opacity = 0;
+				line.firstPosition = line.position;
 				line.translate(x,y);
+				line.lastTransformation = line.matrix;
 				line.animate({
 					style:{
 						opacity:1,
@@ -52,9 +49,10 @@ var Animation = {
 					animationType:'easeInEaseOut',
 					update:function(){
 						var matrix = new Matrix();
-						matrix.rotate(this.angle, this.matrix.translateX, this.matrix.translateY);
-						matrix.translate(this.matrix.translateX, this.matrix.translateY);
+						matrix.rotate(this.angle, this.firstPosition);
+						matrix.translate(this.lastTransformation);
 						this.setMatrix(matrix);
+						this.lastTransformation = this.matrix;
 					}
 				})	
 			}
@@ -130,19 +128,13 @@ var Animation = {
 			function(){
 				$(Animation.container).append('<span style="position:absolute;bottom:20px;left:80%">Altıgen</span>');
 			}
-		);
-		
-		
-		
-		
+		);	
 	}
-
 };
 var Interaction =function(){};Interaction();
 Interaction.getFramework = function() {
 	return 'paper';
 }
-
 Interaction.init = function(container){
 	Main.setObjective('Yandaki çokgenleri sınıflandırınız.');
 	Interaction.container = container;
@@ -169,16 +161,16 @@ Interaction.init = function(container){
 		}
 		
 	};
-	Interaction.createDropableShapesLeft(0,0,w*0.2,h);
-	Interaction.createDropableShapesRight(w*0.8,0,w*0.2,h);
+	Interaction.createDropableShapesLeft(0,0,w*0.2,h*0.8);
+	Interaction.createDropableShapesRight(w*0.8,0,w*0.2,h*0.8);
 	Interaction.dropableShapes.setStyle(dropableShapeDefaultStyle);
-	Interaction.generateRandomShapes(w*0.2,h*0.1,w*0.6,h);
+	Interaction.generateRandomShapes(w*0.2,10,w*0.6,h);
 	Interaction.paper = {width:500,height:300};
 	Interaction.preventDrag = false;
 	if(Interaction.status == null || Interaction.status == 'undefined'){
 		Interaction.status = document.createElement('div');
 		Interaction.status.className = 'status_true';
-		$(Interaction.status).css({'position':'absolute','top':''+(h-20)+'px','left':'0px','padding-left':'20px','width':'100%'});
+		$(Interaction.status).css({'position':'absolute','top':''+(h-40)+'px','left':'0px','padding-left':'20px','width':'100%'});
 		Interaction.container.appendChild(Interaction.status);
 	}
 	else
@@ -192,15 +184,12 @@ Interaction.init = function(container){
 		class: "draggable" 
 	});
 	drag.onMouseDown = function(event){
-		//Interaction.circleSet.start()
 		if(event.item){
 			drag.shape = event.item;
 			event.item.start();
 		}
 	};
 	drag.onMouseDrag = function(event){
-		//Interaction.circleSet.move(event.delta.x,event.delta.y,event.point.x,event.point.y)
-		//console.log(event.item);
 		if(drag.shape)
 			drag.shape.move(event.delta.x,event.delta.y,event.point.x,event.point.y);
 	};
@@ -213,7 +202,6 @@ Interaction.init = function(container){
 };
 
 var start = function(){
-		//console.log('start preventDrag: '+this.preventDrag);
 		this.ox = this.position.x;
 		this.oy = this.position.y;
 		this.hitShape = null;
@@ -249,18 +237,29 @@ var start = function(){
 	up = function(){
 		if(this.preventDrag == true)
 			return;
-		//console.log("abc");
 		this.preventDrag=true;
 		Interaction.dropableShapes.setStyle(dropableShapeDefaultStyle);
 		
 		var revert = false;
 		if(this.inDropableShape == true){
 			if(this.hitShape.numberOfEdges === this.numberOfEdges){
-				//this.animate({opacity:0.1},400,this.remove);
-				this.remove();
+				this.opacityX = 1;
+				this.scaleRatio = 0.9;
+				this.animate({
+					style:{
+						opacityX:-0.3,
+						scaleRatio:1
+					},
+					duration:500,
+					update:function(){
+						if(this.opacityX < 0.7)
+							this.opacity = this.opacityX+0.3;
+						this.scale(this.scaleRatio);	
+					},
+					callback:this.remove
+				});
 				this.class = null;
 				
-				//Interaction.dropableShape.animate(dropableShapeDroppedTrueStyle,400,this.callback);
 				this.hitShape.setStyle(dropableShapeDroppedTrueStyle);
 				setTimeout(function(){
 						Interaction.dropableShapes.setStyle(dropableShapeDefaultStyle);
@@ -280,10 +279,6 @@ var start = function(){
 			var distance = Math.sqrt(this.odx*this.odx + this.ody*this.ody);
 			var velocity = 1;// px/ms
 			var time  = distance / velocity;
-			/*this.callback = function(){
-				this.preventDrag = false;
-				console.log(this.preventDrag);
-			}*/
 			this.animate({
 					style:{
 						position:new Point(this.ox,this.oy)
@@ -309,16 +304,12 @@ Interaction.generateRandomShapes = function(X,Y,WIDTH,HEIGHT){
 		var p = Interaction.findSpace(WIDTH,HEIGHT);
 		x = p.x+X, y = p.y+Y;
 		Interaction.shapeType = Math.floor(Math.random()*6);
-		//Interaction.shapeType = 2;
+		
 		w = maxW*0.7;
 		h = maxH*0.7;
 		var shape = {};
 		var isRegular;
 		var edgeNumber;
-//		if(Util.rand01() == 0)
-//			isRegular = true;
-//		else
-//			isRegular = false;
 		
 		var NUMBER_OF_SHAPES  = 12;
 		Interaction.shapeCount++;
@@ -417,11 +408,9 @@ Interaction.createDropableShape = function(x,y,w,h,text){
 		)
 	);
 	shape.class = "dropableShape";
-	//shape.style = dropableShapeDefaultStyle;
 	var t1 = new PointText(new Point(x+w*0.5-20,y+h*0.5+5));
 	t1.style = textStyle;
 	t1.content = text;
-	//t1.position = [x+w*0.5-t1.bounds.width*0.5,y+h*0.5+t1.bounds.height*0.5]
 	return shape;
 }
 Interaction.createDropableShapesLeft = function(X,Y,WIDTH,HEIGHT){	
@@ -488,5 +477,7 @@ function regularhexagon(p,s){
 	return new Path.RegularPolygon(p,s,6);
 }
 Interaction.setStatus = function(msg){
+	$(Interaction.status).hide();
 	Interaction.status.innerHTML = msg;
+	$(Interaction.status).show();
 }
