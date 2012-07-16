@@ -207,6 +207,12 @@ p.exampleHeader {
 	color:green;
 }
 
+.status {
+	font-size:16px;
+	font-weight:bold;
+	color:black;
+}
+
 .status_false {
 	font-size:16px;
 	font-weight:bold;
