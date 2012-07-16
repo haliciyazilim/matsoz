@@ -11,7 +11,9 @@ class EntriesController < ApplicationController
     @word_list = {}
     letters = ['a', 'b', 'c', 'ç', 'd', 'e', 'f', 'g', 'h', 'ı', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'ö', 'p', 'r', 's', 'ş', 't', 'u', 'ü', 'v', 'y', 'z'];
     letters.each do |letter|
-      entries = Entry.find(:all, :conditions => ['word LIKE ?', "#{letter}%"], :order => 'word ASC')
+      entries = Entry.find(:all, :conditions => ['word LIKE ? OR word LIKE ?', "#{letter}%", "#{letter.to_upcase_turkish}%"], :order => 'word ASC')
+      
+      puts entries
       
       entries = entries.sort do |entry1, entry2|
         entry1.word.compare_turkish(entry2.word)
