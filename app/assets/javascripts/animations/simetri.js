@@ -659,7 +659,7 @@ Interaction.init = function(container){
 	var quesArr = new Array();
 	var answerArr = new Array();
 	var qLineGroup = new Group();
-	var aLineGroup = new Group();
+	var aLineGroup = [];
 	for(i = 0; i < 5; i++){
 		var qLine = new Path.Line(new Point(dotGroup[myArr[i]].position.x, dotGroup[myArr[i]].position.y),
 						new Point(dotGroup[myArr[i+1]].position.x, dotGroup[myArr[i+1]].position.y));
@@ -683,7 +683,7 @@ Interaction.init = function(container){
 		}
 		aLine.strokeColor = "green";
 		aLine.strokeWidth = 4;
-		aLineGroup.addChild(aLine);
+		aLineGroup.push(aLine);
 		
 		aLine.opacity = 0;
 		
@@ -701,7 +701,7 @@ Interaction.init = function(container){
 		if(event.item){
 			if(clickk == 0){
 				path = new Path();
-				path.strokeColor = 'red';
+				path.strokeColor = 'orange';
 				path.strokeWidth = 4;
 				path.add(event.item.position);
 				ansArr.push(event.item.id2);
@@ -781,9 +781,17 @@ Interaction.init = function(container){
 					ansArr[i] = -1;
 				}
 			}
+			if(path){
+				path.strokeColor = "red";
+			}
+			
+			
+			
 			var len = answerArr.length;
 			for(i = 0; i < 5; i++){
-				aLineGroup.children[i].opacity = 1;
+				aLineGroup[i].opacity = 1;
+				if(path)
+					aLineGroup[i].insertAbove(path);
 			}
 			$('#checkBtn').hide();
 			$('#againBtn').hide();
