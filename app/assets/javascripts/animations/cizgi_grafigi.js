@@ -139,7 +139,7 @@ interactionInit = function(container) {
 				$('#textInput').val('');
 				noOfWrongAnswers = 1;
 			} else {
-				console.log('2');
+				//console.log('2');
 				if (correctCircle) {
 					correctCircle.remove();
 				}

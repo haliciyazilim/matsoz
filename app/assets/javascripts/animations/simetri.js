@@ -747,13 +747,13 @@ Interaction.init = function(container){
 	submit = function() {
 		var correct = 0;
 		var correct2 = 0;
-		console.log("ansArr from submit: "+ansArr);
+		//console.log("ansArr from submit: "+ansArr);
 		ansArr = RemoveSamePoints(ansArr);
-		console.log("ansArr from submit after remove same points: "+ansArr);
+		//console.log("ansArr from submit after remove same points: "+ansArr);
 		ansArr = RemoveLinearPoints(ansArr);
-		console.log("ansArr from submit after remove linear points: "+ansArr);
+		//console.log("ansArr from submit after remove linear points: "+ansArr);
 		answerArr = RemoveLinearPoints(answerArr);
-		console.log("answerArr from submit: "+answerArr);
+		//console.log("answerArr from submit: "+answerArr);
 		
 		var myLen = answerArr.length;
 		for(i = 0; i < myLen; i++){
@@ -812,9 +812,9 @@ Interaction.init = function(container){
 			dotGroup[i].fillColor = "grey";
 			dotGroup[i].strokeColor = "grey";
 		}
-		console.log("ansArr: "+ansArr);
-		console.log("quesArr: "+quesArr);
-		console.log("answerArr: "+answerArr);
+		//console.log("ansArr: "+ansArr);
+		//console.log("quesArr: "+quesArr);
+		//console.log("answerArr: "+answerArr);
 	});
 	
 	$('#nextBtn').click(function() {

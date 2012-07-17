@@ -37,7 +37,7 @@ var Interaction = {
 			cubes.sort(UnitCube.compare);
 			
 			for(var i=0; i<cubes.length;i++){
-				console.log(cubes[i].x,cubes[i].y,cubes[i].z)
+				//console.log(cubes[i].x,cubes[i].y,cubes[i].z)
 				var p = zero.add(cubes[i].x*a,-cubes[i].y*a);
 				p = p.add(-cubes[i].z*a*0.3,cubes[i].z*a*0.3)
 				cubes[i].draw(p,a);
