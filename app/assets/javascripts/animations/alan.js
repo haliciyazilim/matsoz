@@ -2,7 +2,7 @@
 
 /*Styles*/
 var textStyle = {'font-size':'16px'};
-var edgeStyle = {strokeColor:'#000',strokeWidth:2,fillColor:'#ff0',cursor:'move'};
+var edgeStyle = {strokeColor:'#255b63',strokeWidth:2,fillColor:'#bfe8ef',cursor:'move'};
 var angleStyle = {'fill':'#DDD'};
 var gridLineStyle = {strokeColor:'#ccc',strokeWidth:1}
 /*Styles*/
