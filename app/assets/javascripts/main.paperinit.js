@@ -33,21 +33,29 @@ Main.paperInit = function() {
 	Path.Bowl = function(p,s){
 		var x=p.x,y=p.y,w=s.width,h=s.height;
 		var bowl = new Path();
-		bowl.add([x,y]);
-		bowl.add([x+w,y]);
-		bowl.add([x+w*0.8,y+h]);
-		bowl.add([x+w*0.2,y+h]);
+		var vertexArray = [];
+		vertexArray.push(new Point(x,y));
+		vertexArray.push(new Point(x+w,y));
+		vertexArray.push(new Point(x+w*0.8,y+h));
+		vertexArray.push(new Point(x+w*0.2,y+h));
+		for(var i=0;i<vertexArray.length;i++)
+			bowl.add(vertexArray[i]);
 		bowl.closed = true;
+		bowl.vertexArray = vertexArray;
 		return bowl;
 	};
 	Path.Rhomboid = function(p,s,_w){
 		var x=p.x,y=p.y,w=s.width,h=s.height;
 		var rhomboid = new Path();
-		rhomboid.add([x+_w,y]);
-		rhomboid.add([x+_w+w,y]);
-		rhomboid.add([x+w,y+h]);
-		rhomboid.add([x,y+h]);
+		var vertexArray = [];
+		vertexArray.push(new Point(x+_w,y));
+		vertexArray.push(new Point(x+_w+w,y));
+		vertexArray.push(new Point(x+w,y+h));
+		vertexArray.push(new Point(x,y+h));
+		for(var i=0;i<vertexArray.length;i++)
+			rhomboid.add(vertexArray[i]);
 		rhomboid.closed = true;
+		rhomboid.vertexArray = vertexArray;
 		return rhomboid;
 	}
 	Path.Cube = function(p,a){
@@ -79,16 +87,35 @@ Main.paperInit = function() {
 		rhombus.closed = true;
 		return rhombus;
 	}
-	Path.Trapezoid = function(p,s,_w){
+	Path.Trapezoid = function(p,s,_w1,_w2,phase){
+		
+		if(_w2 == undefined || _w2 == null)
+			return new Path.IsoscelesTrapazoid(p,s,_w1);
+		
 		var x=p.x,y=p.y,w=s.width,h=s.height;
 		var trapezoid = new Path();
-		trapezoid.add([x,y+h]);
-		trapezoid.add([x+(w-_w)*0.5,y]);
-		trapezoid.add([x+(w-_w)*0.5+_w,y]);
-		trapezoid.add([x+w,y+h]);
+		var vertexArray = [];
+		vertexArray.push(new Point(x,y+h));
+		vertexArray.push(new Point(x+_w1,y));
+		vertexArray.push(new Point(x+w-_w2,y));
+		vertexArray.push(new Point(x+w,y+h));
+		
+		
+		
+		for(var i=0;i<vertexArray.length;i++)
+			trapezoid.add(vertexArray[i]);
+			
 		trapezoid.closed = true;
+		trapezoid.vertexArray = vertexArray;
 		return trapezoid;
+	
 	}
+	
+	Path.IsoscelesTrapezoid = function(p,s,_w,phase){
+		return new Path.Trapezoid(p,s,_w,_w,phase);
+	}
+	
+	
 	Path.RegularPolygon = function(p,s,k,o){
 		var angles = [];
 		for(var i=0; i<k ;i++){
@@ -532,7 +559,16 @@ Main.paperInit = function() {
 		var p1_ = p1.subtract(p2);
 		var dot = p_.dot(p1_);;
 		return p1_.multiply( dot /  p1_.dot(p1_)).add(p2);
+	};
+	
+	Point.prototype.isBetweenTwoLinePoints = function(p1,p2){
+		var s1 = this.getDistance(p1,true);
+		var s2 = this.getDistance(p2,true);
+		var s  =  p1.getDistance(p2,true);
+		if(s1 + s2 > s)
+			return false;
+		else
+			return true;
 	}
-
 	
 };
