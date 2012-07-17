@@ -331,6 +331,8 @@ div.etkilesimalan {
 	
 	overflow:hidden;
 	float:right;
-	}
+	
+	z-index: 0;
+}
 
 
