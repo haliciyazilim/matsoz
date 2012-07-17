@@ -48,13 +48,13 @@ var Interaction = {
 		var Y = Interaction.paper.height*0.5-100;
 		var W = 200;
 		var H = 200;
-		console.log(X,Y);
+		//console.log(X,Y);
 		var NUMBER_OF_SHAPES  = 4;
 		Interaction.shapeCount = Interaction.shapeCount%NUMBER_OF_SHAPES;
 		if(Interaction.shuffledArray == null || Interaction.shuffledArray == undefined)
 			Interaction.shuffledArray = Util.getShuffledArray(NUMBER_OF_SHAPES);
 		Interaction.shapeType = Interaction.shuffledArray[Interaction.shapeCount];	
-		console.log(Interaction.shapeType);
+		//console.log(Interaction.shapeType);
 		switch(Interaction.shapeType){
 			case 0:
 			case 1:

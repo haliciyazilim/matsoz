@@ -36,8 +36,8 @@ var Animation = {
 //		triangle = t;
 		triangle.angle = 0;
 		triangle.lastTransformation = triangle.matrix;
-//		console.log(triangle.vertexArray[1])
-//		console.log(triangle.vertexArray[2].x,triangle.vertexArray[2].y);
+//		//console.log(triangle.vertexArray[1])
+//		//console.log(triangle.vertexArray[2].x,triangle.vertexArray[2].y);
 		triangle.texts = [];
 		triangle.texts[0] = new PointText(new Point(triangle.vertexArray[0].x,triangle.vertexArray[0].y-10));
 		triangle.texts[0].content = 'C';
@@ -109,7 +109,7 @@ var Animation = {
 				).setStyle({strokeColor:'#f00',strokeWidth:2});
 				for(var i=0;i<this.texts.length;i++)
 					this.texts[i].firstPosition = this.texts[i].position;
-				console.log(this.vertexArray[1])
+				//console.log(this.vertexArray[1])
 				triangle.angle = 0;
 				
 			}

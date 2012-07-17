@@ -259,7 +259,7 @@ Interaction.generateCircle = function(){
 	Interaction.circleSet.insertBelow(Interaction.rulerSet);
 	Interaction.r = r;
 	Interaction.input.onkeyup = function(e){
-		console.log(e.keyCode)
+		//console.log(e.keyCode)
 		if(e.keyCode == 13)
 			Interaction.checkAnswer();		
 	}
