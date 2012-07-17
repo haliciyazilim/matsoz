@@ -5,6 +5,13 @@ if [ -d "public/assets" ]; then
 	git rm -rf public/assets
 	git commit -m "Auto-deletion of precompiled assets"
 fi
+
+cd app/assets/javascripts
+./processFiles.sh
+cd ../../../
+git add app/assets/javascripts
+git commit -m "Auto-removal of console logs"
+
 git checkout master
 git merge development
 rm -rf public/assets
