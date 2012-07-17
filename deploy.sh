@@ -6,14 +6,15 @@ if [ -d "public/assets" ]; then
 	git commit -m "Auto-deletion of precompiled assets"
 fi
 
+git checkout master
+git merge development
+
 cd app/assets/javascripts
 ./processFiles.sh
 cd ../../../
 git add app/assets/javascripts
 git commit -m "Auto-removal of console logs"
 
-git checkout master
-git merge development
 rm -rf public/assets
 RAILS_ENV=production bundle exec rake assets:precompile
 git add public/assets/
