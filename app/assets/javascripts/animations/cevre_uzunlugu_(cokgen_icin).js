@@ -26,18 +26,11 @@ var Animation = {
 			size,
 			[120,210,330],
 			0
-		)
+		);
 		
 		triangle.setStyle(animationEdgeStyle);
-		
-		//var t = triangle.rasterize();
-//		t.vertexArray = triangle.vertexArray;
-//		triangle.remove();
-//		triangle = t;
 		triangle.angle = 0;
 		triangle.lastTransformation = triangle.matrix;
-//		console.log(triangle.vertexArray[1])
-//		console.log(triangle.vertexArray[2].x,triangle.vertexArray[2].y);
 		triangle.texts = [];
 		triangle.texts[0] = new PointText(new Point(triangle.vertexArray[0].x,triangle.vertexArray[0].y-10));
 		triangle.texts[0].content = 'C';
@@ -400,7 +393,8 @@ Interaction.setStatus = function(msg,isCorrect){
 var TestGenerator = function(){}; TestGenerator();
 
 TestGenerator.nextQuestion = function(){
-	project.activeLayer.removeChildren();
+	Main.interactionProject.activeLayer.removeChildren();
+	//project.activeLayer.removeChildren();
 	TestGenerator.shape = null;
 	TestGenerator.trial = 0;
 	TestGenerator.values = null;

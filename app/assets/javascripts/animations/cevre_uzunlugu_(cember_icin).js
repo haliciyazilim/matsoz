@@ -113,18 +113,22 @@ var Animation = {
 				Animation.arc.setStyle(animationEdgeStyle);
 				
 			}
-			else if(animationHelper.angle > 360 && animationHelper.angle < 720){
+			else if(animationHelper.angle > 361 && animationHelper.angle < 720){
 				if(Animation.line1){
 					Animation.line1.remove();
 					circleCenterText.remove();
 					circleCenter.remove();
 				}
-				Animation.arc.remove();
+				
 				var x = R*2*Math.PI*(animationHelper.angle%360)/360;
 				var _p1 = new Point(p1.x - x,p1.y);
 				var _p = new Point(p3.x -x,p3.y);
-				Animation.arc = new Path.ArcByAngle(_p1,R,-270-animationHelper.angle,-270);
-				Animation.arc.setStyle(animationEdgeStyle);
+				//console.log(_p1)
+				if(animationHelper.angle < 710){
+					Animation.arc.remove();
+					Animation.arc = new Path.ArcByAngle(_p1,R,-270-animationHelper.angle,-270);
+					Animation.arc.setStyle(animationEdgeStyle);
+				}
 				if(Animation.line2)
 					Animation.line2.remove();
 				Animation.line2 = new Path.Line(p3,_p);
@@ -133,14 +137,17 @@ var Animation = {
 			else if (animationHelper.angle == 720){
 				Animation.arc.remove();
 			}
-			else if(animationHelper.angle > 720 && animationHelper.angle < 1080){
-				Animation.arc.remove();
+			else if(animationHelper.angle > 730 && animationHelper.angle < 1080){
+				
 				var angle = 1080-animationHelper.angle;
 				var x = R*2*Math.PI*(angle)/360;
 				var _p1 = new Point(p1.x - x,p1.y);
 				var _p = new Point(p3.x -x,p3.y);
-				Animation.arc = new Path.ArcByAngle(_p1,R,-270-angle-360,-270);
-				Animation.arc.setStyle(animationEdgeStyle);
+				if(animationHelper.angle < 1079){
+					Animation.arc.remove();
+					Animation.arc = new Path.ArcByAngle(_p1,R,-270-angle-360,-270);
+					Animation.arc.setStyle(animationEdgeStyle);
+				}
 				if(Animation.line2)
 					Animation.line2.remove();
 				Animation.line2 = new Path.Line(p3,_p);
@@ -153,6 +160,10 @@ var Animation = {
 				circleCenter.setStyle({
 					fillColor:'#000'
 				});
+				Animation.arc.remove();
+				Animation.arc = new Path.Circle( p1,R);
+				Animation.arc.setStyle(animationEdgeStyle);
+				
 				circleCenterText = new PointText(
 					new Point(
 						p1.x-15,
