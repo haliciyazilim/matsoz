@@ -37,7 +37,7 @@ Animation.init = function(container){
 	var j = a*0.6;
 	x = w *0.5-10;
 	y = h*0.5;
-	console.log(x,y)
+	//console.log(x,y)
 	var p1 = new Point(x-a,y+a);
 	var p2 = new Point(x+a,y+a);
 	var p3 = new Point(x+a,y-a);
@@ -133,7 +133,7 @@ Animation.init = function(container){
 		Animation.text2.opacity = animationHelper.text2Opacity;
 		if( animationHelper.text3Opacity == 1 ){
 			Animation.onFrame = null;
-			console.log("asdasd");
+			//console.log("asdasd");
 			var div = document.createElement('div');
 			$(Animation.container).append(div);
 			$(div)

@@ -1,7 +1,47 @@
 // JavaScript Document
 
 var Interaction = {};
-var Animation = {};
+var Animation = {
+	images:[
+			{
+				id:'ornek0',
+				src:'/assets/animations/ataturk_ve_geometri/ornek0.png'
+			},
+			{
+				id:'ornek1',
+				src:'/assets/animations/ataturk_ve_geometri/ornek1.png'
+			},
+			{
+				id:'ornek2',
+				src:'/assets/animations/ataturk_ve_geometri/ornek2.png'
+			},
+			{
+				id:'ornek3',
+				src:'/assets/animations/ataturk_ve_geometri/ornek3.png'
+			}
+		],
+	init:function(container){
+			Animation.container = container;
+			var x=110,y=30;
+			for(var i=0;i<4;i++){
+				var img = document.createElement('img');
+				img.src = Animation.images[i].src;
+				$(container).append(img);
+				$(img)
+					.css({
+						position:'absolute',
+						top:y,
+						left:x+150*i,
+						opacity:0
+					})
+					.delay(1100*i)
+					.animate(
+						{opacity:1},
+						1000
+					);
+			}
+		}
+};
 Interaction.getFramework = function() {
 	return 'paper';
 }

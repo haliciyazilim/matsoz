@@ -83,7 +83,8 @@ var Animation = {
 				if(animationHelper.angle == 1080){
 					pointGroup.removeChildren();
 					endAngle = 1079;
-					Animation.circle.remove();
+					if(Animation.circle)
+						Animation.circle.remove();
 					Animation.circle = new Path.Circle(p1,R);
 					Animation.circle.setStyle({
 						strokeColor:'#000',
@@ -255,8 +256,9 @@ Interaction.init = function(container){
 	Interaction.status.className = "status_true";
 	$(Interaction.status).css({
 		position:'absolute',
+		display:'block',
 		left:10,
-		top:Interaction.paper.height*0.3,
+		top:Interaction.paper.height*0.4,
 		width:'40%'
 	});
 	$(Interaction.status).hide();
@@ -268,15 +270,16 @@ Interaction.init = function(container){
 };
 
 Interaction.nextQuestion = function(){
-	Interaction.status.innerHTML = "";
+	//Interaction.status.innerHTML = "";
+	$(Interaction.status).html("");
 	$(Interaction.radius).show();
 	Interaction.r = null;
 	Interaction.drawRuler();
 	Interaction.initCompass();
 	Interaction.circlePaper = new Raster('paper');
 	Interaction.circlePaper.position = new Point(
-		Math.floor(Interaction.drawCircle.x)+0.5, 
-		Math.floor(Interaction.drawCircle.y)+0.5
+		Math.floor(Interaction.drawCircle.x)+2.5, 
+		Math.floor(Interaction.drawCircle.y)+1.5
 	);
 	Interaction.pause = false;
 	$(Interaction.button).show();
@@ -388,7 +391,7 @@ Interaction.drawCircle = function(){
 					Math.floor(Interaction.drawCircle.x+Interaction.br*9+Interaction.scissor.bounds.width*0.5)+5,
 					Math.floor(Interaction.drawCircle.y+Interaction.scissor.bounds.height*0.5)			
 				);
-				Interaction.status.innerHTML = "O merkezli ve "+(Interaction.radius.innerHTML)+" birim yarıçaplı çember. Daire elde etmek icin makasa tiklayiniz.";
+				$(Interaction.status).html("O merkezli ve "+(Interaction.radius.innerHTML)+" birim yarıçaplı çember. Daire elde etmek icin makasa tiklayiniz.");
 				Interaction.scissor.tool = new Tool();
 				Interaction.scissor.tool.onMouseDown = function(event){
 					if(Interaction.scissor.bounds.contains(event.point) == true){
@@ -429,11 +432,14 @@ Interaction.drawCircle = function(){
 		
 };
 
+
+
 Interaction.showCircularRegion = function(){
 	Interaction.scissor_half.remove();
 	Interaction.circlePaper.remove();
+	$(Interaction.status).hide();
 	Interaction.status.innerHTML = "O merkezli ve "+(Interaction.radius.innerHTML)+" birim yarıçaplı daire. <br />"
-				
+	$(Interaction.status).show();				
 	if(Interaction.splitCircularRegion.circle)
 		Interaction.splitCircularRegion.circle.remove();
 	function flipCircularRegion(){
@@ -441,7 +447,9 @@ Interaction.showCircularRegion = function(){
 		angle *= 0.20;
 		if(angle > 360){
 			clearInterval(Interaction.showCircularRegion.t);
+			$(Interaction.status).hide();
 			Interaction.status.innerHTML += ' <input type="button" class="control_button" style="margin-top:5px;" value="Yeniden çizdir" onclick="Interaction.nextQuestion()">';
+			$(Interaction.status).show();
 			return;
 		}
 		var w = Interaction.r*Math.cos(Util.degreeToRadian(angle));
@@ -516,7 +524,13 @@ Interaction.splitCircularRegion = function(){
 								   center.y + Math.sin((startAngle+endAngle)/2) * radius);
 			var point3 = new Point(center.x + Math.cos(endAngle) * radius,
 								   center.y + Math.sin(endAngle) * radius);
-			Interaction.splitCircularRegion.circle = new Path.Arc(point1, point2, point3);
+			try{
+				Interaction.splitCircularRegion.circle = new Path.Arc(point1, point2, point3);
+			}
+			catch(e){
+				if(console.log)
+					console.log("I'm here");
+			}
 			Interaction.splitCircularRegion.circle.setStyle(circleStyle);
 			Interaction.splitCircularRegion.circle.setStyle({strokeColor:'#fff',strokeWidth:2,dashArray:[3,2]});
 			Interaction.splitCircularRegion.circle.moveBelow(Interaction.scissor_half);
@@ -628,7 +642,7 @@ Interaction.drawRuler = function(){
 	Interaction.ruler = new Raster('ruler');
 	Interaction.ruler.position = [
 		Math.floor(x+Interaction.ruler.size.width*0.5),
-		Math.floor(y+Interaction.ruler.size.height*0.5)
+		Math.floor(y+Interaction.ruler.size.height*0.5)+0.5
 	];
 	Interaction.br = Math.floor(Interaction.ruler.size.width*0.1);
 

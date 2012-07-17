@@ -418,13 +418,13 @@ Interaction.init = function(container){
 			$(container).append("<style>#Cevap1, #Cevap2, #Cevap3, #girdiCevap1, #girdiCevap2, #girdiCevap3{color:black;}</style>");
 			
 			cevap1=""; cevap2=""; cevap3="";
-			console.log("sonraki c1: "+cevap1+" c2: "+cevap2+" c3: "+cevap3);
+			//console.log("sonraki c1: "+cevap1+" c2: "+cevap2+" c3: "+cevap3);
 		}
 		
 	);
 	
 	function kontrol(){
-			console.log("c1: "+cevap1+" c2: "+cevap2+" c3: "+cevap3);
+			//console.log("c1: "+cevap1+" c2: "+cevap2+" c3: "+cevap3);
 			
 			// ondalikliGirdi inputa girilen değer kırpılmış olduğu için sorun çıkartıyordu. Alttaki satırla halledildi.
 			
@@ -439,7 +439,7 @@ Interaction.init = function(container){
 			if(girdi<10)
 				ondalikliGirdi="0"+girdi;
 			if((girdi%10)==0)
-				ondalikliGirdi=girdi/10; console.log("ondalikliGİrdi: "+ondalikliGirdi);
+				ondalikliGirdi=girdi/10; //console.log("ondalikliGİrdi: "+ondalikliGirdi);
 			if(girdi==100)
 				ondalikliGirdi=1;
 			
@@ -460,7 +460,7 @@ Interaction.init = function(container){
 			// cevap Yanlışsa
 			else{
 				tiklamaSayisi++;
-				console.log("tik"+tiklamaSayisi);
+				//console.log("tik"+tiklamaSayisi);
 				$("#geriBildirimText").attr("class","status_alert").html("Tekrar deneyiniz.");
 				$("#geriBildirim").show();
 			}
@@ -468,7 +468,7 @@ Interaction.init = function(container){
 			// iki denemede de doğru cevap bulunamamışsa
 			if(tiklamaSayisi>=2){
 				//$(".status_alert").html("Yanlış. Doğru cevap: ");
-				console.log(tiklamaSayisi);
+				//console.log(tiklamaSayisi);
 				$("#geriBildirimText").attr("class","status_false").html("Yanlış. Doğru cevap:");
 				var cevap=parseInt($("#giris").val());
 				
@@ -485,7 +485,7 @@ Interaction.init = function(container){
 					$("#Cevap3").html(virgulluCevap);
 					if(cevap<10){
 						$("#girdiCevap3").val("0"+cevap);
-						console.log("0"+cevap);}
+						//console.log("0"+cevap);}
 					else
 						$("#girdiCevap3").val(ondalikliGirdi);
 				}
@@ -506,7 +506,7 @@ Interaction.init = function(container){
 	
 	$("#girdiCevap1").keyup(function(event) {
 		if(event.keyCode == 13) {
-			console.log("Key"+event.keyCode);
+			//console.log("Key"+event.keyCode);
 			kontrol();
 		}
 	});

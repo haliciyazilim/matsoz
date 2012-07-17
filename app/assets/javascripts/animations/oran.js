@@ -197,7 +197,7 @@ function soruOlustur(){
 maviBilye=Math.floor((Math.random()*18)+1);
 kirmiziBilye=Math.floor((Math.random()*18)+1);
 	
-console.log("mavi Bilye: "+maviBilye+" kırmızı bilye "+kirmiziBilye);
+//console.log("mavi Bilye: "+maviBilye+" kırmızı bilye "+kirmiziBilye);
 
 
 sorular[1]="<span class='yazi1'>Mavi</span> bilyelerin <span class='yazi2'>kırmızı</span> bilyelere oranı";
@@ -207,7 +207,7 @@ sorular[4]="<span class='yazi2'>Kırmızı</span> bilyelerin tüm bilyelere oran
 
 soruSecimi=Math.floor((Math.random()*4)+1);
 soru=sorular[soruSecimi];
-console.log("soru: "+soru);
+//console.log("soru: "+soru);
 
 cevapPay;
 cevapPayda;
@@ -439,7 +439,7 @@ soruOlustur();
 			$("input").val("");
 			girdiPay="";
 			girdiPayda="";
-			console.log("inputlar: "+girdiPay+" ,"+girdiPayda);
+			//console.log("inputlar: "+girdiPay+" ,"+girdiPayda);
 			$(".soru").html(soru);
 			$("#cerceveCevap #girdiPay").html(cevapPay);
 			
@@ -462,12 +462,12 @@ soruOlustur();
 			$("#geriBildirimText").html("");
 			girdiPay=$(this).val();
 			if(event.keyCode == 13) {
-				console.log("Key"+event.keyCode);
+				//console.log("Key"+event.keyCode);
 				kontrol();
 			}
 			
 			
-			console.log("girdiPay: "+girdiPay+"girdiPayda: "+girdiPayda);
+			//console.log("girdiPay: "+girdiPay+"girdiPayda: "+girdiPayda);
 		}
 	);
 	
@@ -476,12 +476,12 @@ soruOlustur();
 			$("#geriBildirimText").html("");
 			girdiPayda=$(this).val();
 			if(event.keyCode == 13) {
-				console.log("Key"+event.keyCode);
+				//console.log("Key"+event.keyCode);
 				kontrol();
 			}
 			
 			
-			console.log("girdiPay: "+girdiPay+"girdiPayda: "+girdiPayda);
+			//console.log("girdiPay: "+girdiPay+"girdiPayda: "+girdiPayda);
 		}
 	);
 	
@@ -512,19 +512,19 @@ soruOlustur();
 				$("#sonraki").show();
 			}
 			else if(tiklama<2 && (girdiIslem!=cevapIslem)){
-				console.log("yanlış ve ikiden az");
+				//console.log("yanlış ve ikiden az");
 				$("#geriBildirimText").attr("class","status_false").html("Tekrar deneyin");
 			}
 			
 			else if(tiklama>=2 && (girdiIslem!=cevapIslem)){
-				console.log("yanlış ve ikiden çok");
+				//console.log("yanlış ve ikiden çok");
 				$("#geriBildirimText").attr("class","status_false").html("Yanlış.<br />Doğru Cevap:");
 				$("#cerceveCevap").show();
 				$("#btnKontrol").hide();
 				$("#sonraki").show();
 			}
 		}
-		console.log("tik: "+tiklama);
+		//console.log("tik: "+tiklama);
 	}
 
 	
