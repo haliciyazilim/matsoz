@@ -102,7 +102,7 @@ var Animation = {
 				).setStyle({strokeColor:'#f00',strokeWidth:2});
 				for(var i=0;i<this.texts.length;i++)
 					this.texts[i].firstPosition = this.texts[i].position;
-				console.log(this.vertexArray[1])
+				//console.log(this.vertexArray[1])
 				triangle.angle = 0;
 				
 			}

@@ -59,7 +59,7 @@ var Animation = {
 						}
 						this.shape.add(this["point0"]);
 						this.shape.setStyle(this.style1);
-						console.log(this.fillColor);
+						//console.log(this.fillColor);
 						this.shape.fillColor = this.fillColor;
 								
 					},
@@ -422,7 +422,7 @@ function rectangle(a,b,measure,paper){
 	}
 	x = (paper.width - w) * 0.5;
 	y = (paper.height - h) * 0.5;
-	console.log([x,y,w,h,_t]);
+	//console.log([x,y,w,h,_t]);
 	var rect = new Path.Rectangle(new Point(x,y),new Size(w,h));
 	rect.style = edgeStyle;
 
@@ -498,8 +498,8 @@ function triangle(a,b,H,measure,paper){
 	}
 	x = (paper.width - (w)) * 0.5;
 	y = (paper.height - h) * 0.5;
-	console.log([a,b,H]);
-	console.log([_w,w,h]);
+	//console.log([a,b,H]);
+	//console.log([_w,w,h]);
 	var triangle = new Path.Triangle( new Point(x,y+h), new Point(x+w,y+h), new Point(x+_w,y) );
 	triangle.style = edgeStyle;
 	var line = new Path.Line(new Point(x+_w,y), new Point(x+_w,y+h));

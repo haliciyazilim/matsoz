@@ -107,6 +107,7 @@ var Interaction = {
 		var H = 200;
 		var NUMBER_OF_SHAPES  = 9 ;
 		var phase = Math.floor(Math.random()*60)-30;
+
 		Interaction.shapeCount = Interaction.shapeCount%NUMBER_OF_SHAPES;
 		if(Interaction.shuffledArray == null || Interaction.shuffledArray == undefined)
 			Interaction.shuffledArray = Util.getShuffledArray(NUMBER_OF_SHAPES);
@@ -114,6 +115,7 @@ var Interaction = {
 		/*TEST*/ 
 		//	Interaction.shapeType = 8 ;
 		/*TEST*/
+
 		switch(Interaction.shapeType){
 			case 0://square
 				Interaction.shape = new Path.EquiradialPolygon(new Point(X,Y),new Size(W,H),[45,135,225,315],phase);

@@ -256,6 +256,7 @@ Interaction.init = function(container){
 	Interaction.status.className = "status_true";
 	$(Interaction.status).css({
 		position:'absolute',
+		display:'block',
 		left:10,
 		top:Interaction.paper.height*0.4,
 		width:'40%'
@@ -269,7 +270,8 @@ Interaction.init = function(container){
 };
 
 Interaction.nextQuestion = function(){
-	Interaction.status.innerHTML = "";
+	//Interaction.status.innerHTML = "";
+	$(Interaction.status).html("");
 	$(Interaction.radius).show();
 	Interaction.r = null;
 	Interaction.drawRuler();
@@ -389,8 +391,7 @@ Interaction.drawCircle = function(){
 					Math.floor(Interaction.drawCircle.x+Interaction.br*9+Interaction.scissor.bounds.width*0.5)+5,
 					Math.floor(Interaction.drawCircle.y+Interaction.scissor.bounds.height*0.5)			
 				);
-				
-				Interaction.status.innerHTML = "O merkezli ve "+(Interaction.radius.innerHTML)+" birim yarıçaplı çember. Daire elde etmek icin makasa tiklayiniz.";
+				$(Interaction.status).html("O merkezli ve "+(Interaction.radius.innerHTML)+" birim yarıçaplı çember. Daire elde etmek icin makasa tiklayiniz.");
 				Interaction.scissor.tool = new Tool();
 				Interaction.scissor.tool.onMouseDown = function(event){
 					if(Interaction.scissor.bounds.contains(event.point) == true){
