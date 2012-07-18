@@ -141,4 +141,4 @@ Main.setObjective = function(str){
 
 
 
-Main();
+$(document).ready(Main);
