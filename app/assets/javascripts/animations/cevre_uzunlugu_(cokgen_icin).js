@@ -414,7 +414,7 @@ TestGenerator.nextQuestion = function(){
 	TestGenerator.letters = (Math.random()>0.5 ? ["A","B","C","D","E"]:["K","L","M","N","P"]);
 	var count = (Interaction.count++)%Interaction.shuffledArray.length;
 	TestGenerator.shape = Interaction.shuffledArray[count];
-	///*TEST*/TestGenerator.shape = 2;/*TEST*/
+	///*TEST*/TestGenerator.shape = 6;/*TEST*/
 	switch(TestGenerator.shape){
 		case 0:
 			var a = Math.floor(Math.random()*10)+5;
@@ -658,6 +658,7 @@ function trapezoid(a,_a,b,c,measure,paper){
 		_w= _t * _a / H; 
 		h = _t;
 	}
+	_w *= 0.3; 
 	x = (paper.width - w) * 0.5;
 	y = (paper.height - h) * 0.5;
 	var trapezoid = new Path.Trapezoid( new Point(x,y) , new Size(w,h), _w );
