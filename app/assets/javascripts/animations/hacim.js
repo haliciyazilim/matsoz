@@ -106,7 +106,7 @@ var Interaction = {
 					'maxlength':'3'
 				})
 				.keyup(function(event){
-					console.log('I"m here');
+					//console.log('I"m here');
 					if(event.keyCode == 13)
 						Interaction.button.click();
 				});
@@ -168,7 +168,7 @@ var Interaction = {
 			Interaction.yCubes = yCubes;
 			Interaction.zCubes = zCubes;
 			
-			console.log(xCubes,yCubes,zCubes);
+			//console.log(xCubes,yCubes,zCubes);
 
 			for(var i=0; i< xCubes ; i++)
 				cubes.push(new UnitCube(i-1,0,0));
