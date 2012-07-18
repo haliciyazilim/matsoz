@@ -1,6 +1,3 @@
-/*DOCUMENTTITLE*/
-
-/*DOCUMENTTITLE*/
 var cubeStyle = {
 	strokeColor:'#000',
 	strokeWidth:1,
@@ -73,11 +70,9 @@ var Animation = {
 				});
 				
 			}
-			
-			
-
 		}
 }
+
 var Interaction = {
 	getFramework:function(){
 			return 'paper';
@@ -89,65 +84,40 @@ var Interaction = {
 				width:$(container).width(),
 				height:$(container).height()
 			}
+			Interaction.appendInput({
+				position:'static'
+			});
+			Interaction.appendButton({
+				top:'170px',
+				right:'95px'
+			});
+			Interaction.appendStatus({
+				top:'210px',
+				right:'20px'
+			});
 			var div = document.createElement('div');
 			$(container).append(div);
 			$(div)
-				.html('Bu yapının hacmi&emsp;<input id="volume" />&emsp;birim küptür.')
+				.append('Bu yapının hacmi&emsp;')
+				.append(Interaction.input)
+				.append('&emsp;birim küptür.')
 				.css({
 					position:'absolute',
 					top:'130px',
 					right:'20px'
 				});
-			Interaction.input = $('input#volume').get(0);
-			Interaction.input.setAttribute('type','text');
-			$(Interaction.input)
-				.attr({
-					'class':'number_input_field',
-					'maxlength':'3'
-				})
-				.keyup(function(event){
-					//console.log('I"m here');
-					if(event.keyCode == 13)
-						Interaction.button.click();
-				});
-			Interaction.button = document.createElement('input');
-			Interaction.button.setAttribute('type','button');
-			$(container).append(Interaction.button);
-			$(Interaction.button)
-				.attr({
-					'class':'control_button',
-					value:'Kontrol'					
-				})
-				.css({
-					position:'absolute',
-					top:'170px',
-					right:'95px'
-				})
-			Interaction.status = document.createElement('div');
-			$(container).append(Interaction.status);
-			$(Interaction.status)
-				.css({
-					position:'absolute',
-					top:'210px',
-					right:'20px'
-				})
-			
+
 			Interaction.xCubes = 0;
 			Interaction.yCubes = 0;
 			Interaction.zCubes = 0;
 			Interaction.zeroPoint = new Point(120,160);
 			Interaction.a = 30;
-			Interaction.nextQuestion();
+			Interaction.prepareNextQuestion();
 		},
 	nextQuestion:function(){
 			if(Interaction.pause == true)
 				return;
 			Interaction.pause = false;
-			$(Interaction.input).val('');
-			$(Interaction.button).val('Kontrol')
-			Interaction.setStatus('');
-			Interaction.button.onclick = Interaction.checkAnswer;
-			Interaction.trial = 0;
 			Main.interactionProject.activeLayer.removeChildren();
 			var zero = Interaction.zeroPoint;
 			var a = Interaction.a;
@@ -213,45 +183,22 @@ var Interaction = {
 				}
 			});	
 		},
-	
-	setStatus : function(str,cls){
-			$(Interaction.status ).html(str);
-			if(cls === true)
-				$(Interaction.status ).get(0).className = 'status_true';
-			else if(cls === false)
-				$(Interaction.status ).get(0).className = 'status_false';
+	isAnswerCorrect : function(value){
+			if(value == Interaction.cubes.length )
+				return true;
 			else
-				$(Interaction.status ).get(0).className = 'status';
+				return false;
 		},
-	checkAnswer : function(){
-			if(Interaction.pause == true)
-				return;
-			var value = $(Interaction.input).val();
-			
-			if(value == "" ||isNaN(value)){
-				Interaction.setStatus('Lütfen bir sayı giriniz.');
-				return;
-			}
-			
-			var isCorrect = false;
-			if(Interaction.cubes.length == value)
-				isCorrect = true;
-
-			if(isCorrect)
-				Interaction.setStatus('Tebrikler!',true);
-			else if(Interaction.trial == 0)
-				Interaction.setStatus('Yanlış cevap, tekrar deneyiniz.',false);
-			else
-				Interaction.setStatus('Yanlış cevap, doğrusu '+Interaction.cubes.length + ' olacaktı.',false);
-			if(isCorrect || Interaction.trial > 0){
-				Interaction.button.onclick = Interaction.nextQuestion;
-				Interaction.showCubes(20);
-				$(Interaction.button).val('Sonraki')
-				//Interaction.input.value = Interaction.cubes.length;
-			}
-			Interaction.trial++;
-		}
-		
+	onCorrectAnswer : function(){
+			Interaction.showCubes(20);
+		},
+	onWrongAnswer : function(){
+	
+		},
+	onFail : function(){
+			Interaction.setStatus('Yanlış cevap, doğrusu '+Interaction.cubes.length + ' olacaktı.',false);
+			Interaction.showCubes(20);
+		},
 };
 
 function UnitCube(x,y,z){

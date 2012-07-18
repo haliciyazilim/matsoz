@@ -94,7 +94,8 @@ Main.init = function(){
 				}
 			);
 		}
-			
+		
+		InteractionBase();	
 		if(Interaction.images == null || Interaction.images == undefined) {
 			Main.interactionProject.activate();
 			Interaction.init(Main.interaction);
@@ -138,7 +139,4 @@ Main.setObjective = function(str){
 	Main.objective.innerHTML = str;
 };
 
-
-
-
-$(document).ready(Main);
+Main();
