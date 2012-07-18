@@ -171,7 +171,6 @@ Animation.init = function(container) {
 	// 	delay: 4000
 	// });
 	
-	
 	// Clock
 	kadran = new Raster("kadran");
 	kadran.position = new Point(48,48);
@@ -327,7 +326,7 @@ interactionInit = function(container) {
 				$('#textInput').val('');
 				noOfWrongAnswers = 1;
 			} else {
-				console.log('2');
+				//console.log('2');
 				if (correctCircle) {
 					correctCircle.remove();
 				}
@@ -452,7 +451,7 @@ paperAddOns = function () {
 		group.addChild(xAxis);
 		group.addChild(yAxis);
 		
-		// Axis Labels		
+		// Axis Labels
 		var text = new PointText(new Point(xStart + xStep * (numOfXPoints-1) + 36, yStart+gridStartOffset - 4));
 		text.justification = 'left';
 		text.fillColor = 'black';

@@ -528,8 +528,7 @@ Interaction.splitCircularRegion = function(){
 				Interaction.splitCircularRegion.circle = new Path.Arc(point1, point2, point3);
 			}
 			catch(e){
-				if(console.log)
-					console.log("I'm here");
+				//console.log("I'm here");
 			}
 			Interaction.splitCircularRegion.circle.setStyle(circleStyle);
 			Interaction.splitCircularRegion.circle.setStyle({strokeColor:'#fff',strokeWidth:2,dashArray:[3,2]});
