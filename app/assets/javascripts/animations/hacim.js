@@ -1,12 +1,81 @@
+/*DOCUMENTTITLE*/
+
+/*DOCUMENTTITLE*/
 var cubeStyle = {
 	strokeColor:'#000',
-	strokeWidth:2,
-	fillColor:'#fff'
+	strokeWidth:1,
+	fillColor:'#D99594'
 };
 var Animation = {
 	init:function(container){
-		
-			project.activeLayer.removeChildren();
+			Main.animationProject.activeLayer.removeChildren();
+			Animation.container = container;
+			var w=$(container).width(), h=$(container).height();
+			var x = 100;
+			var y = 50;
+			Animation.a = 30;
+			Animation.xCube = 7;
+			Animation.yCube = 2;
+			Animation.zCube = 4;
+			Animation.rectPrizm = new Path.RectanglePrisim(
+				new Point(x,y),
+				new Size(
+					Animation.xCube*Animation.a,
+					Animation.yCube*Animation.a
+				),
+				new Size(
+					Animation.zCube*0.3*Animation.a,
+					Animation.zCube*0.3*Animation.a
+				)
+			).setStyle({
+				strokeWidth:2,
+				strokeColor:'#000'
+			});
+			
+			
+			var div = document.createElement('div');
+			$(container).append(div);
+			$(div)
+				.css({
+					position:'absolute',
+					top:'50px',
+					right:'200px',
+					lineHeight:'30px',
+					textAlign:'center'
+				})
+				.html('Dikdörtgenler prizmasının <br/> hacmi <br/> <span id="count"></span> birim küptür.')
+			
+			Animation.countSpan = $('span#count',div).get(0);
+			
+			Animation.zeroPoint = new Point(
+				x + (Animation.zCube-1)*0.3*Animation.a,
+				y + (Animation.yCube-1)*Animation.a
+			);
+			Animation.cubes = [];
+			for(var i=0;i<Animation.xCube;i++)
+				for(var j=0;j<Animation.yCube;j++)
+					for(var k=0;k<Animation.zCube;k++)
+						Animation.cubes.push(new UnitCube(i,j,k));
+			
+			UnitCube.drawCubes(Animation.cubes,Animation.zeroPoint,Animation.a);
+			Animation.cubes[0].shape.insertBelow(Animation.rectPrizm.children[4]);
+			for(var i=1;i<Animation.cubes.length;i++){
+				Animation.cubes[i].shape.opacity = 0;
+				Animation.cubes[i].shape.insertAbove(Animation.cubes[i-1].shape);
+				Animation.cubes[i].shape.__i = i+1;
+				Animation.cubes[i].shape.animate({
+					style:{opacity:1},
+					duration:1,
+					delay:i*100,
+					callback:function(){
+						$(Animation.countSpan).html(this.__i);
+					}
+				});
+				
+			}
+			
+			
+
 		}
 }
 var Interaction = {
@@ -15,34 +84,173 @@ var Interaction = {
 		},
 	init:function(container){
 			Interaction.container = container;
-			
+			Main.setObjective('Yandaki yapının hacminin kaç birim küp olduğunu bulunuz ve kontrol ediniz.');
 			Interaction.paper = {
 				width:$(container).width(),
 				height:$(container).height()
 			}
+			var div = document.createElement('div');
+			$(container).append(div);
+			$(div)
+				.html('Bu yapının hacmi&emsp;<input id="volume" />&emsp;birim küptür.')
+				.css({
+					position:'absolute',
+					top:'130px',
+					right:'20px'
+				});
+			Interaction.input = $('input#volume').get(0);
+			Interaction.input.setAttribute('type','text');
+			$(Interaction.input)
+				.attr({
+					'class':'number_input_field',
+					'maxlength':'3'
+				})
+				.keyup(function(event){
+					console.log('I"m here');
+					if(event.keyCode == 13)
+						Interaction.button.click();
+				});
+			Interaction.button = document.createElement('input');
+			Interaction.button.setAttribute('type','button');
+			$(container).append(Interaction.button);
+			$(Interaction.button)
+				.attr({
+					'class':'control_button',
+					value:'Kontrol'					
+				})
+				.css({
+					position:'absolute',
+					top:'170px',
+					right:'95px'
+				})
+			Interaction.status = document.createElement('div');
+			$(container).append(Interaction.status);
+			$(Interaction.status)
+				.css({
+					position:'absolute',
+					top:'210px',
+					right:'20px'
+				})
 			
-			Interaction.zeroPoint = new Point(Interaction.paper.width*0.2,Interaction.paper.height*0.4);
+			Interaction.xCubes = 0;
+			Interaction.yCubes = 0;
+			Interaction.zCubes = 0;
+			Interaction.zeroPoint = new Point(120,160);
+			Interaction.a = 30;
 			Interaction.nextQuestion();
 		},
 	nextQuestion:function(){
+			if(Interaction.pause == true)
+				return;
+			Interaction.pause = false;
+			$(Interaction.input).val('');
+			$(Interaction.button).val('Kontrol')
+			Interaction.setStatus('');
+			Interaction.button.onclick = Interaction.checkAnswer;
+			Interaction.trial = 0;
+			Main.interactionProject.activeLayer.removeChildren();
 			var zero = Interaction.zeroPoint;
-			var a = 30;
-			//var c = new UnitCube(0,0,0);
+			var a = Interaction.a;
+			
 			var cubes = [];
-			for(var i=0; i<3; i++)
-				for(var j=0; j<6 ;j++)
-					for(var k=0; k<3;k++)
-						cubes.push(new UnitCube(i,j%k,k));
+			var zCubes, xCubes, yCubes;
+			do
+				xCubes = Math.floor(Math.random()*4)+3;
+				while(Interaction.xCubes == xCubes)
+			do
+				yCubes = Math.floor(Math.random()*3)+1;
+				while(Interaction.yCubes == yCubes)
+			do
+				zCubes = Math.floor(Math.random()*7)+1;
+			while(zCubes/4 > xCubes-2 || Interaction.zCubes == zCubes)
 			
-			cubes.sort(UnitCube.compare);
+			Interaction.xCubes = xCubes;
+			Interaction.yCubes = yCubes;
+			Interaction.zCubes = zCubes;
 			
-			for(var i=0; i<cubes.length;i++){
-				console.log(cubes[i].x,cubes[i].y,cubes[i].z)
-				var p = zero.add(cubes[i].x*a,-cubes[i].y*a);
-				p = p.add(-cubes[i].z*a*0.3,cubes[i].z*a*0.3)
-				cubes[i].draw(p,a);
-			}
+			console.log(xCubes,yCubes,zCubes);
+
+			for(var i=0; i< xCubes ; i++)
+				cubes.push(new UnitCube(i-1,0,0));
+			for(var i=0; i< yCubes ; i++)
+				cubes.push(new UnitCube(0,i+1,0));
+			for(var i=0; i< zCubes ; i++)
+				cubes.push(new UnitCube(Math.floor(i/3),0,i%3+1));
+			
+			Interaction.cubes = cubes;
+			UnitCube.drawCubes(cubes,zero,a);
 		},
+	showCubes : function(distance){
+			if(Interaction.pause == true)
+				return;
+			Interaction.pause = true;
+			var animHelp = new AnimationHelper({
+				distance:0,
+				update:function(){
+					UnitCube.explode(
+						Interaction.cubes,
+						Interaction.zeroPoint,
+						Interaction.a,
+						this.distance
+					);
+				}
+			});
+			animHelp.animate({
+				style:{distance:distance},
+				duration:1000,
+				update:animHelp.update,
+				callback:function(){
+					Interaction.pause = false;
+					/*this.animate({
+						style:{distance:0},
+						duration:1000,
+						delay:500,
+						update:this.update,
+						callback:function(){
+							
+						}
+					});*/
+				}
+			});	
+		},
+	
+	setStatus : function(str,cls){
+			$(Interaction.status ).html(str);
+			if(cls === true)
+				$(Interaction.status ).get(0).className = 'status_true';
+			else if(cls === false)
+				$(Interaction.status ).get(0).className = 'status_false';
+			else
+				$(Interaction.status ).get(0).className = 'status';
+		},
+	checkAnswer : function(){
+			if(Interaction.pause == true)
+				return;
+			var value = $(Interaction.input).val();
+			
+			if(value == "" ||isNaN(value)){
+				Interaction.setStatus('Lütfen bir sayı giriniz.');
+				return;
+			}
+			
+			var isCorrect = false;
+			if(Interaction.cubes.length == value)
+				isCorrect = true;
+
+			if(isCorrect)
+				Interaction.setStatus('Tebrikler!',true);
+			else if(Interaction.trial == 0)
+				Interaction.setStatus('Yanlış cevap, tekrar deneyiniz.',false);
+			else
+				Interaction.setStatus('Yanlış cevap, doğrusu '+Interaction.cubes.length + ' olacaktı.',false);
+			if(isCorrect || Interaction.trial > 0){
+				Interaction.button.onclick = Interaction.nextQuestion;
+				Interaction.showCubes(20);
+				$(Interaction.button).val('Sonraki')
+				//Interaction.input.value = Interaction.cubes.length;
+			}
+			Interaction.trial++;
+		}
 		
 };
 
@@ -51,8 +259,10 @@ function UnitCube(x,y,z){
 	this.y = y;
 	this.z = z;
 	
-	this.draw = function(p,s){
-		this.shape = new Path.Cube(p,s);
+	this.draw = function(p,a){
+		if(this.shape)
+			this.shape.remove();
+		this.shape = new Path.Cube(p,a);
 		this.shape.setStyle(cubeStyle);
 	};
 }
@@ -70,4 +280,34 @@ UnitCube.compare = function(a,b){
 		if(a.x < b.x)
 			return -1;
 		return 0;
+}
+UnitCube.drawCubes = function(cubes,zero,a){
+	//decide the draw order 				
+	cubes.sort(UnitCube.compare);
+	//draw the cubes
+	for(var i=0; i<cubes.length;i++){
+		var p = zero.add(
+			Math.floor(cubes[i].x*a)+0.5,
+			Math.floor(-cubes[i].y*a)+0.5
+		);
+		p = p.add(
+			Math.floor(-cubes[i].z*a*0.3),
+			Math.floor(cubes[i].z*a*0.3)
+		);
+		cubes[i].draw(p,a);
+	}
+}
+UnitCube.explode = function(cubes,zero,a,distance){
+	//decide the draw order 				
+	cubes.sort(UnitCube.compare);
+	//draw the cubes
+	for(var i=0; i<cubes.length;i++){
+		//console.log(cubes[i].x,cubes[i].y,cubes[i].z)
+		var p = zero.add(cubes[i].x*a,-cubes[i].y*a);
+		p = p.add(-cubes[i].z*a*0.3,cubes[i].z*a*0.3);
+		p = p.add(distance*cubes[i].x,0);
+		p = p.add(0,-distance*cubes[i].y);
+		p = p.add(-cubes[i].z*distance*0.3,cubes[i].z*distance*0.3);
+		cubes[i].draw(p,a);
+	}
 }
