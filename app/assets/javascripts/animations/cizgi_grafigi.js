@@ -7,24 +7,210 @@
 var Animation = function(){};Animation();
 var Interaction = function(){};Interaction();
 
+Animation.images = [{
+	id: "car",
+	src: '/assets/animations/cizgi_grafigi/car.jpg'
+},
+{
+	id: "kadran",
+	src: '/assets/animations/cizgi_grafigi/kadran.png'
+},
+{
+	id: "akrep",
+	src: '/assets/animations/cizgi_grafigi/akrep.png'
+},
+{
+	id: "yelkovan",
+	src: '/assets/animations/cizgi_grafigi/yelkovan.png'
+}
+];
+
 Animation.init = function(container) {
 	paperAddOns();
 	
 	xLabels = ["0", "1", "2", "3", "4"];
 	// Create the chart
 	var chart = {
-		xAxisName: "Zaman\n(Saat)",
-		yAxisName: "Yol\n(km)",
+		xAxisName: "Zaman",
+		xAxisUnit: "Saat",
+		yAxisName: "Yol (km)",
 		xLabels: xLabels,
 		yAxisLimits: [0, 40],
 		yAxisStep: 10,
-		xGridLabelStyle: {
-			
-		},
 		data: []
 	};
 	
-//	var graph = new Path.LineGraph(new Point(80, 35), 180, 120, chart);
+	var graph = new Path.LineGraph(new Point(520, 35), 180, 120, chart);
+	
+	// Title of the chart
+	$(container).append('<div id="graph_title2"></div>');
+	$('#graph_title2').css("color", "#262626")
+					.css("text-align", "left")
+					.css("position", "absolute")
+					.css("left", "576px")
+					.css("top", "16px")
+					.css("width", "180")
+					.css("height", "100")
+					.css("font-size", "16px");
+
+	$('#graph_title2').append('<div><b>Grafik: </b>Otomobilin zamana göre aldığı yol</div>');
+	
+	var animationHelper = new AnimationHelper({
+		line1End: graph.getXYCoordinate(0,0),
+		line2End: graph.getXYCoordinate(2,2),
+		line3End: graph.getXYCoordinate(3,2),
+	})
+	
+	var line1, line2, line3;
+	
+	animationHelper.animate({
+		style: {
+			line1End: graph.getXYCoordinate(2,2),
+		},
+		duration: 4000,
+		delay: 2000,
+		update: function() {
+			if (line1) {
+				line1.remove();
+			}
+			
+			line1 = new Path.Line(graph.getXYCoordinate(0,0), this.line1End);
+			line1.strokeColor = '#262626';
+			line1.strokeWidth = 2;
+		}
+	});
+	
+	animationHelper.animate({
+		style: {
+			line2End: graph.getXYCoordinate(3,2),
+		},
+		duration: 2000,
+		delay: 6000,
+		update: function() {
+			if (line2) {
+				line2.remove();
+			}
+			
+			line2 = new Path.Line(graph.getXYCoordinate(2,2), this.line2End);
+			line2.strokeColor = '#262626';
+			line2.strokeWidth = 2;
+		}
+	});
+	
+	animationHelper.animate({
+		style: {
+			line3End: graph.getXYCoordinate(4,3),
+		},
+		duration: 2000,
+		delay: 8000,
+		update: function() {
+			if (line3) {
+				line3.remove();
+			}
+			
+			line3 = new Path.Line(graph.getXYCoordinate(3,2), this.line3End);
+			line3.strokeColor = '#262626';
+			line3.strokeWidth = 2;
+		}
+	});
+	
+	// Car
+	var xStart = 20;
+	var xEnd = 360;
+	
+	// var carStart = new Point(70, 140);
+	// var carEnd = new Point(340, 140);
+	
+	var carHelper = new AnimationHelper({
+		x: xStart
+	})
+	
+	$(container).append('<img src="/assets/animations/cizgi_grafigi/car.jpg" id="car_image"></img>');
+	$("#car_image").css("position", "absolute")
+				   .css("left", xStart+"px")
+				   .css("top", "140px")
+				   .css("z-index", "1");
+	
+	carHelper.animate({
+		style: {
+			x: (xEnd - xStart)*2/3 + xStart
+		},
+		duration: 4000,
+		delay: 2000,
+		update: function() {
+			$("#car_image").css("left", this.x+"px");
+		}
+	})
+	
+	carHelper.animate({
+		style: {
+			x: xEnd
+		},
+		duration: 2000,
+		delay: 8000,
+		update: function() {
+			$("#car_image").css("left", this.x+"px");
+		}
+	})
+	
+	// var car = new Raster("car");
+	// car.position = carStart;
+	// car.animate({
+	// 	style: {
+	// 		position: new Point((carEnd.x - carStart.x)/3*2 + carStart.x, carStart.y)
+	// 	},
+	// 	duration: 2000,
+	// 	delay: 1000
+	// });
+	// 
+	// car.animate({
+	// 	style: {
+	// 		position: carEnd
+	// 	},
+	// 	duration: 1000,
+	// 	delay: 4000
+	// });
+	
+	
+	// Clock
+	kadran = new Raster("kadran");
+	kadran.position = new Point(48,48);
+	
+	yelkovan = new Raster("yelkovan");
+	yelkovan.position = new Point(48,48);
+	
+	akrep = new Raster("akrep");
+	akrep.position = new Point(48,48);
+	
+	clockHelper = new AnimationHelper({
+		yelkovanAngle: 0,
+		akrepAngle: 0
+	})
+	
+	akrep.lastTransformation = akrep.matrix;
+	yelkovan.lastTransformation = yelkovan.matrix;
+	
+	clockHelper.animate({
+		style: {
+			yelkovanAngle: 360*4,
+			akrepAngle: 120
+		},
+		delay: 2000,
+		duration: 8000,
+		update: function() {
+			var matrix = new Matrix();
+			matrix.rotate(this.akrepAngle, 48, 48);
+			matrix.concatenate(akrep.lastTransformation);
+			
+			akrep.setMatrix(matrix);
+			
+			matrix = new Matrix();
+			matrix.rotate(this.yelkovanAngle, 48, 48);
+			matrix.concatenate(yelkovan.lastTransformation);
+			
+			yelkovan.setMatrix(matrix);
+		}
+	})
 }
 
 Interaction.getFramework = function() {
@@ -51,8 +237,10 @@ interactionInit = function(container) {
 	xLabels = ["Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi"];
 	// Create the chart
 	var chart = {
-		xAxisName: "Zaman\n(Gün)",
-		yAxisName: "Satış Fiyatı\n(TL)",
+		xAxisName: "Zaman",
+		xAxisUnit: "Gün",
+		yAxisName: "Satış Fiyatı",
+		yAxisUnit: "TL",
 		xLabels: xLabels,
 		yAxisLimits: [90, 94],
 		xGridLabelStyle: {
@@ -67,13 +255,13 @@ interactionInit = function(container) {
 	var graph = new Path.LineGraph(new Point(80, 70), 180, 160, chart);
 	//graph.scale(Main.scale, new Point(0,0));
 	
-	
+	// Title of the chart
 	$(container).append('<div id="graph_title"></div>');
 	$('#graph_title').css("line-height", "24px")
 					.css("color", "#262626")
 					.css("position", "absolute")
-					.css("left", "76px")
-					.css("top", "12px")
+					.css("left", "126px")
+					.css("top", "36px")
 					.css("width", "330")
 					.css("height", "100")
 					.css("font-size", "16px");
@@ -86,7 +274,7 @@ interactionInit = function(container) {
 	randomDay = Math.floor(Math.random() * 6);
 	correctAnswer = data[randomDay];
 	
-	Main.setObjective("Aşağıdaki grafiğe göre altın satış fiyatı "+xLabels[randomDay]+" günü kaç lira olmuştur?");
+	Main.setObjective("Yandaki grafiğe göre altın satış fiyatı "+xLabels[randomDay]+" günü kaç lira olmuştur?");
 	
 	
 	// Status
@@ -228,23 +416,26 @@ paperAddOns = function () {
 		
 		// Grid Labels
 		for (index = 0; index < numOfXPoints; index++) {
-			var text = new PointText(new Point(xStart + index*xStep + 2.5, yStart + 5.5 + gridStartOffset));
-//			text.setStyle(xGridLabelStyle);
-			text.justification = 'right';
-			text.fillColor = 'black';
-			text.fontSize = 8;
+			var xOffset = -3;
+			var yOffset = 15;
+			
+			if (xGridLabelStyle.rotation == 90) {
+				xOffset = 2.5;
+				yOffset = 5.5;
+			}
+			
+			var text = new PointText(new Point(xStart + index*xStep + xOffset, yStart + yOffset + gridStartOffset));
+			text.setStyle(xGridLabelStyle);
 			text.content = chart.xLabels[index];
 			if (xGridLabelStyle.rotation) {
-				text.rotate(xGridLabelStyle.rotation);
+			 	text.rotate(xGridLabelStyle.rotation);
 			}
 			group.addChild(text);
 		}
 		
 		for (index = 0; index < numOfYPoints; index++) {
 			var text = new PointText(new Point(xStart - 10 - gridStartOffset, yStart + index*yStep + 1));
-			text.justification = yGridLabelStyle.justification;
-			text.fillColor = yGridLabelStyle.fillColor;
-//			text.fontSize = yGridLabelStyle.fontSize;
+			text.setStyle(yGridLabelStyle);
 			text.content = (yMax - yMin) / (numOfYPoints-1) * index + yMin;
 			group.addChild(text);
 		}
@@ -261,18 +452,39 @@ paperAddOns = function () {
 		group.addChild(xAxis);
 		group.addChild(yAxis);
 		
-		// Axis Labels
-		var text = new PointText(new Point(xStart + xStep * numOfXPoints + 10, yStart+gridStartOffset+4));
+		// Axis Labels		
+		var text = new PointText(new Point(xStart + xStep * (numOfXPoints-1) + 36, yStart+gridStartOffset - 4));
 		text.justification = 'left';
 		text.fillColor = 'black';
 		text.content = chart.xAxisName;
 		group.addChild(text);
 		
-		var text = new PointText(new Point(xStart - gridStartOffset, yStart + yStep * (numOfYPoints-1) - 40));
+		if (chart.xAxisUnit) {
+			var text = new PointText(new Point(xStart + xStep * (numOfXPoints-1) + 36, yStart+gridStartOffset+12));
+			text.justification = 'left';
+			text.fillColor = 'black';
+			text.content = '(' + chart.xAxisUnit + ')';
+			group.addChild(text);
+		}
+		
+		var offset = 16;
+		if (chart.yAxisUnit) {
+			offset = 0;
+		}
+		
+		var text = new PointText(new Point(xStart - gridStartOffset, yStart + yStep * (numOfYPoints-1) - 52 + offset));
 		text.justification = 'center';
 		text.fillColor = 'black';
 		text.content = chart.yAxisName;
 		group.addChild(text);
+		
+		if (chart.yAxisUnit) {
+			var text = new PointText(new Point(xStart - gridStartOffset, yStart + yStep * (numOfYPoints-1) - 36));
+			text.justification = 'center';
+			text.fillColor = 'black';
+			text.content = '(' + chart.yAxisUnit + ')';
+			group.addChild(text);
+		}
 		
 		// Data Lines
 		index = 0;
