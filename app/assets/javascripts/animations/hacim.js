@@ -169,6 +169,7 @@ var Interaction = {
 			Interaction.zCubes = zCubes;
 			
 <<<<<<< HEAD
+<<<<<<< HEAD
 			for(var i=0; i<cubes.length;i++){
 				//console.log(cubes[i].x,cubes[i].y,cubes[i].z)
 				var p = zero.add(cubes[i].x*a,-cubes[i].y*a);
@@ -176,6 +177,8 @@ var Interaction = {
 				cubes[i].draw(p,a);
 			}
 =======
+=======
+>>>>>>> development
 			//console.log(xCubes,yCubes,zCubes);
 
 			for(var i=0; i< xCubes ; i++)
@@ -322,4 +325,7 @@ UnitCube.explode = function(cubes,zero,a,distance){
 		cubes[i].draw(p,a);
 	}
 }
+<<<<<<< HEAD
+>>>>>>> development
+=======
 >>>>>>> development
