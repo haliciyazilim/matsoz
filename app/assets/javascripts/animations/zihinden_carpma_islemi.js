@@ -261,7 +261,7 @@ var Interaction = {
 			
 			var html = "" + $(Interaction.solutionDiv).html();
 			html = html.substring(0,html.indexOf('<input')) + Interaction.factor1 + zeros;
-			console.log($(Interaction.solutionDiv).css('top'));
+			//console.log($(Interaction.solutionDiv).css('top'));
 			$(Interaction.solutionDiv)
 				.html(html)
 				.append('<span id="result"></span>')
