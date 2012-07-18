@@ -16,10 +16,6 @@ Main.paperInit = function() {
 							   p.y + Math.sin(Util.degreeToRadians(startAngle+angle)/2) * r);
 		var p3 = new Point(p.x + Math.cos(Util.degreeToRadians(angle)) * r,
 							   p.y + Math.sin(Util.degreeToRadians(angle)) * r);
-			
-//		var p1 = new Point(p.x+r,p.y);
-//		var p2 = p1.getRotatedPoint(angle,p);
-//		var p3 = p1.getRotatedPoint(angle*0.5,p);
 		return new Path.Arc(p1, p2, p3);
 	}
 	Path.Triangle = function(p1,p2,p3){
@@ -72,21 +68,31 @@ Main.paperInit = function() {
 	Path.Cube = function(p,a){
 		var x=p.x,y=p.y;
 		var _x=x+a*0.3,_y=y+a*0.3;
+		var group = new Group();
+		
+		var p1 = new Point(x	,_y);
+		var p2 = new Point(x	,_y+a);
+		var p3 = new Point(x+a  ,_y+a);
+		var p4 = new Point(_x+a ,y+a);
+		var p5 = new Point(_x+a ,y);
+		var p6 = new Point(_x   ,y);
+		var p7 = new Point(x+a  ,_y);
+		
 		var cube = new Path();
-		cube.add([x	,_y]);
-		cube.add([x	,_y+a]);
-		cube.add([x+a  ,_y+a]);
-		cube.add([x+a  ,_y]);
-		cube.add([x	,_y]);
-		cube.add([_x   ,y]);
-		cube.add([_x+a ,y]);
-		cube.add([x+a  ,_y]);
-		cube.add([x+a  ,_y+a]);
-		cube.add([_x+a ,y+a]);
-		cube.add([_x+a ,y]);
-		cube.add([x+a	,_y])
+		cube.add(p1);
+		cube.add(p2);
+		cube.add(p3);
+		cube.add(p4);
+		cube.add(p5);
+		cube.add(p6);
 		cube.closed = true;
-		return cube;
+		
+		group.addChild(cube);
+		group.addChild(new Path.Line(p1,p7));
+		group.addChild(new Path.Line(p3,p7));
+		group.addChild(new Path.Line(p5,p7));
+		
+		return group;
 	}
 	Path.Rhombus = function(p,s){
 		var x=p.x,y=p.y,w=s.width,h=s.height;
