@@ -99,9 +99,8 @@ Main.paperInit = function() {
 		return rhombus;
 	}
 	Path.Trapezoid = function(p,s,_w1,_w2,phase){
-		
 		if(_w2 == undefined || _w2 == null)
-			return new Path.IsoscelesTrapazoid(p,s,_w1);
+			return new Path.IsoscelesTrapezoid(p,s,_w1);
 		if(phase == undefined || phase == null)
 			phase = 0;
 		var x=p.x,y=p.y,w=s.width,h=s.height;
@@ -548,7 +547,7 @@ Main.paperInit = function() {
 		
 		for (var key in style) {
 			if (style.hasOwnProperty(key)) {
-				this.style[key] = style[key];
+				this[key] = style[key];
 			}
 		}
 		return this;
