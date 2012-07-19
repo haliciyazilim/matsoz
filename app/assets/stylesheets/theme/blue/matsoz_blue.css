@@ -276,6 +276,7 @@ div.ornek {
 	-moz-border-radius:6px;
 	
 	padding:15px;
+	z-index:0;
 	
 }
 	div.ornekbaslik{
