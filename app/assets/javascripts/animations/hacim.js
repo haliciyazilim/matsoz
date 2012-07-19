@@ -19,7 +19,7 @@ var Animation = {
 				new Size(
 					Animation.xCube*Animation.a,
 					Animation.yCube*Animation.a
-				),
+				),    
 				new Size(
 					Animation.zCube*0.3*Animation.a,
 					Animation.zCube*0.3*Animation.a
