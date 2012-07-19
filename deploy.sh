@@ -18,6 +18,8 @@ git merge development
 sed -i .old 's|//console.log =|console.log =|g' app/assets/javascripts/main.js
 rm app/assets/javascripts/main.js.old
 
+rm app/assets/javascripts/plugins/do_not_commit_this.js
+
 rm -rf public/assets
 RAILS_ENV=production bundle exec rake assets:precompile
 git add public/assets/
