@@ -1895,17 +1895,17 @@ Interaction.init = function(container){
 	};
 	drag.activate();
 	
-	$(container).append('<button id="checkBtn" class="control_button">Kontrol</button>');
+	$(container).append('<button id="checkBtn" class="control_button"></button>');
 	$('#checkBtn').css("position", "absolute")
 					.css("bottom", "30px")
-					.css("right", "90px");
+					.css("right", "60px");
 	
-	$(container).append('<button id="againBtn" class="control_button">Baştan</button>');
-	$('#againBtn').css("position", "absolute")
-					.css("bottom", "30px")
-					.css("right", "10px");
+//	$(container).append('<button id="againBtn" class="control_button"></button>');
+//	$('#againBtn').css("position", "absolute")
+//					.css("bottom", "30px")
+//					.css("right", "10px");
 	
-	$(container).append('<button id="nextBtn" class="next_button">Sonraki</button>');
+	$(container).append('<button id="nextBtn" class="next_button"></button>');
 	$('#nextBtn').css("position", "absolute")
 					.css("bottom", "30px")
 					.css("right", "60px");
