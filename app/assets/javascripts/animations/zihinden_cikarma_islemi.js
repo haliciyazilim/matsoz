@@ -160,7 +160,7 @@ var Interaction = {
 		},
 	onFail : function(){
 			Interaction.pause = true;
-			Interaction.setStatus('Yanlış cevap, doğrusu ' +  (Interaction.addend1 + Interaction.addend2) + ' olacaktı',false);
+			Interaction.setStatus('Yanlış cevap, doğrusu ' +  (Interaction.addend1 - Interaction.addend2) + ' olacaktı',false);
 			Interaction.solutionDiv = $(Interaction.questionDiv).clone().insertAfter(Interaction.questionDiv);
 			var zeros = $('#addend2',Interaction.questionDiv).html();
 			zeros = zeros.substring(0,1)+'<span class="zero">'+zeros.substring(1,zeros.length)+'</span>';

@@ -166,7 +166,7 @@ Interaction.init = function(container){
 		top:Interaction.paper.height*0.5-15
 	});
 	$(Interaction.old_word).css({
-		left:Interaction.paper.width*0.5 - 300,
+		left:Interaction.paper.width*0.5 - 290,
 		textAlign:'right'
 	});
 	$(Interaction.new_word).css({
@@ -177,8 +177,7 @@ Interaction.init = function(container){
 	Interaction.next_button.onclick = Interaction.nextQuestion;
 	$(container).append(Interaction.next_button);
 	Interaction.next_button.type = 'button';
-	Interaction.next_button.className = 'control_button';
-	Interaction.next_button.value = 'Sonraki';
+	Interaction.next_button.className = 'next_button';
 	$(Interaction.next_button).css({
 		position:'absolute',
 		bottom:'10%',
