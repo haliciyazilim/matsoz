@@ -109,13 +109,13 @@ var Animation = {
 			20,
 			30
 		);
-		Animation.arrow.setStyle({
+		Animation.arrow.set_style({
 			strokeWidth:6,
 			strokeColor:'#f00',
 			fillColor:'#f00'
 		})
 		Animation.arrowPoint = new Path.Circle(p1,5);
-		Animation.arrowPoint.setStyle({
+		Animation.arrowPoint.set_style({
 			strokeColor:'#000',
 			fillColor:'#000'
 		});

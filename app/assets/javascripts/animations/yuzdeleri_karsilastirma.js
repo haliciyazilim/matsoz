@@ -10,8 +10,10 @@
 var dogruCevapGosterimRengi="green";
 var kareIlkStrokeColor="black";
 var kareIlkFillColor="white";
-var kareBoyaliStrokeColor="black";
-var kareBoyaliFillColor="#ff0000";
+var ornekKareBoyaliStrokeColor="black";
+var ornekKareBoyaliFillColor="#d42b19";
+var etkilesimKareBoyaliStrokeColor="#255b63";
+var etkilesimKareBoyaliFillColor="#bfe8ef";
 var divSonrakiYaziRenk="white";
 var divSonrakiFillRenk="#4682b4";
 
@@ -40,7 +42,7 @@ Animation.init=function(container){
 			delay: 1000
 		});
 	
-	var ornekBoyaliKareSol=new OrnekKare(25, kareBoyaliFillColor, kareBoyaliStrokeColor,40.5,20.5);
+	var ornekBoyaliKareSol=new OrnekKare(25, ornekKareBoyaliFillColor, ornekKareBoyaliStrokeColor,40.5,20.5);
 	ornekBoyaliKareSol.opacity=0;
 
 		ornekBoyaliKareSol.animate({
@@ -81,7 +83,8 @@ Animation.init=function(container){
 				.css("bottom", "0")
 				.css("left", "0")
 				.css("width", "210px")
-				.css("height", "40px");
+				.css("height", "40px")
+				.css("font-size","18px");
 				//.css("border","solid 1px black");	
 	$("#yaziOrta", container).append("<div class='karsilastirma' id='yuzdeSol'>");
 	$("#yaziOrta", container).append("<div class='karsilastirma' id='isaret'>");
@@ -123,7 +126,7 @@ Animation.init=function(container){
 		duration: 1000,			
 		delay: 1000
 	});
-	var ornekBoyaliKareSag=new OrnekKare(32, kareBoyaliFillColor, kareBoyaliStrokeColor,600.5,20.5);
+	var ornekBoyaliKareSag=new OrnekKare(32, ornekKareBoyaliFillColor, ornekKareBoyaliStrokeColor,600.5,20.5);
 	ornekBoyaliKareSag.opacity=0;
 	
 		ornekBoyaliKareSag.animate({
@@ -199,23 +202,25 @@ Interaction.init = function(container){
 				.css("padding", 0)
 				.css("border-top", "2px solid")
 				.css("box-sizing","border-box");
+				
 	//$("#sol #kesir",container).append("_____");
 	//Path.Fraction(57,170,0,0,25);
 	$("#sol",container).append("<div class='payda'>");
 	$("#sol .payda",container).append("100");
-	$(container).append("<style>#girisSol{width:30px; height:30px; margin:auto;position:absolute;  left:0; right:0; }</style>");
+	
+	$(container).append("<style>#girisSol{width:30px; height:30px; margin:auto;position:absolute;  left:0; right:0; font-size:18px}</style>");
 	
 	//orta div bilgileri
 	$(container).append("<div id='orta'>");
 	$(container).append("<style>#orta{position:absolute; top:30px; left:0; right:0; margin: auto;width:220px; height:100px; border:solid 1px black}</style>");
 	$("#orta", container).append("<div id='buyukKucuk'>");
 	$("#orta", container).append("<style> #buyukKucuk{margin:auto;position:absolute; top:5px; left:0; right:0; height:30px; width:70px;}</style>");
-	$("#orta #buyukKucuk", container).append("<div id='kucuk'>");
-	$("#orta", container).append("<style> #kucuk{position: absolute; left:0px; top:0px;height:30px; width:30px ;font-weight:bold;border-radius:20px;border:1px solid #000;cursor:pointer;background-color:red;color:white;}</style>");
+	$("#orta #buyukKucuk", container).append("<img id='kucuk' src='/assets/animations/yuzdeleri_karsilastirma/sol_ok.png' />");
+	$("#orta", container).append("<style> #kucuk{position: absolute; left:0px; top:0px;}</style>");
 	
 	
-	$("#orta #buyukKucuk", container).append("<div id='buyuk'>");
-	$("#orta", container).append("<style> #buyuk{position: absolute; left:40px; top:0px;height:30px; width:30px ;font-weight:bold;border-radius:20px;border:1px solid #000;cursor:pointer;background-color:red;color:white;}</style>");
+	$("#orta #buyukKucuk", container).append("<img id='buyuk' src='/assets/animations/yuzdeleri_karsilastirma/sag_ok.png' />");
+	$("#orta", container).append("<style> #buyuk{position: absolute; left:40px; top:0px;}</style>");
 	
 	$("#orta #buyukKucuk #kucuk", container).append("<div class='isaret'><</div>");
 	$("#orta #buyukKucuk #buyuk", container).append("<div class='isaret'>></div>");
@@ -276,43 +281,45 @@ Interaction.init = function(container){
 	.css("right","0")
 	.css("width","35px")
 	.css("height","10px")
-	.css("text-align","center");
+	.css("text-align","center")
+	.css("font-size","18px");
 	
 	
 	
 	
 	// kontrol butonu
-	
-	$(container).append("<button class='control_button' id='btnKontrol'>Kontrol</button>");
-	$(container).append("<style>.control_button{position:absolute; top:250px; margin:auto;right:0px; left:0px; width:80px }</style>");
+	$(container).append("<button class='control_button' id='btnKontrol'>");
+	$(container).append("<style>.control_button{position:absolute; top:250px; margin:auto;right:0px; left:0px; }</style>");
 	
 	//sonraki divi
-	$(container).append("<div id='sonraki'>");
-	$("#sonraki", container).append("<div id='dikdortgen'>");
-	$("#dikdortgen", container).append("<div id='yazi'>Sonraki</div>");
-	$("#sonraki", container).append("<div id='ucgen'>");
-	$(container).append("<style>#sonraki{position:absolute; top:250px; right:290px; height: 30px;cursor:pointer;color:"+divSonrakiYaziRenk+"; display:none </style>");
-	$(container).append("<style>#yazi{ position:absolute; vertical-align:middle; height:30px; top:3px;} #dikdortgen{position:absolute; margin:auto; bottom: 0px; right:0px; top:0px; left:0px; width:70px; height:30px; background:"+divSonrakiFillRenk+" }</style>");
-	$(container).append("<style>#ucgen{position:absolute; top:0px; left:70px; width:0, height:0; border-left: 30px solid "+divSonrakiFillRenk+";border-top: 15px solid transparent;border-bottom: 15px solid transparent;}</style>");
-	
-	
+	$(container).append("<button id='sonraki' class='next_button'>");
+	$("#sonraki")
+		.css("position","absolute")
+		
+		.css("right","0")
+		.css("left","0")
+		.css("margin","auto")
+		.css("top","250px")
+		.css("text-align","center")
+		.hide();
 	
 	// Gösterilecek gCevaplar
 	$("#orta", container).append("<div id='gCevaplar'>");
-	$("#orta", container).append("<style> #gCevaplar{margin:auto;position:absolute; left:; right:0; top:150px; width:200px ;font-weight:bold;float:left; text-align:center}</style>");
+	$("#orta", container).append("<style> #gCevaplar{margin:auto;position:absolute; left:0; right:0; top:150px; width:200px ;font-weight:bold;float:left; text-align:center; font-size:18px}</style>");
 	$("#orta", container).append("<style>.cevapİsaret{color:"+dogruCevapGosterimRengi+"}");
 
 	$("input").addClass("input");
 	$("input").addClass("number_input_field");
+	$("input").css("font-size","18px");
 	
 	
 	
 	
 	// Sağdaki ve soldaki boş kareler çiziliyor.
-	bosKareSol= new Kare(100, kareIlkFillColor, kareIlkStrokeColor,30,30);
+	bosKareSol= new Kare(100, kareIlkFillColor, etkilesimKareBoyaliStrokeColor,30,30);
 	bosKareSol.yap();
 	
-	bosKareSag= new Kare(100, kareIlkFillColor, kareIlkStrokeColor,440,30);
+	bosKareSag= new Kare(100, kareIlkFillColor, etkilesimKareBoyaliStrokeColor,440,30);
 	bosKareSag.yap();
 	
 	/*
@@ -333,7 +340,7 @@ Interaction.init = function(container){
 			//bosKareSol.yap();
 			girdi=$("#girisSol").val();
 			$("#girdiCevap1").val(girdi);
-			boyaliKareSol=new Kare(girdi,kareBoyaliFillColor, kareBoyaliStrokeColor,30,30);
+			boyaliKareSol=new Kare(girdi,etkilesimKareBoyaliFillColor, etkilesimKareBoyaliStrokeColor,30,30);
 			Interaction.boyaliKareSolGroup = boyaliKareSol.yap();
 	});
 	
@@ -345,7 +352,7 @@ Interaction.init = function(container){
 			//bosKareSag.yap();
 			girdi=$("#girisSag").val();
 			$("#girdiCevap3").val(girdi);
-			boyaliKareSag=new Kare(girdi,kareBoyaliFillColor, kareBoyaliStrokeColor,440,30);
+			boyaliKareSag=new Kare(girdi,etkilesimKareBoyaliFillColor, etkilesimKareBoyaliStrokeColor,440,30);
 			Interaction.boyaliKareSagGroup = boyaliKareSag.yap();
 	});
 	

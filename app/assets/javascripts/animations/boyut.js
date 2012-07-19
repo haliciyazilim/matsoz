@@ -46,7 +46,7 @@ Animation.init = function(container){
 	var p6 = new Point(p5.x+2*a,p5.y);
 	var p7 = new Point(p6.x,p6.y+2*a);
 	Animation.path = new Path();
-	Animation.path.setStyle({
+	Animation.path.set_style({
 		strokeColor:'#000',
 		strokeWidth:2
 	});
@@ -102,9 +102,9 @@ Animation.init = function(container){
 		fillColor:'#f00',
 		strokeColor:'#f00'
 	}
-	Animation.text1.setStyle(textStyle);
-	Animation.text2.setStyle(textStyle);
-	Animation.text3.setStyle(textStyle);
+	Animation.text1.set_style(textStyle);
+	Animation.text2.set_style(textStyle);
+	Animation.text3.set_style(textStyle);
 	Animation.path.add(p4);
 	Animation.path.add(p1);
 	Animation.path.add(p2);
@@ -116,9 +116,9 @@ Animation.init = function(container){
 	Animation.path.add(p2);
 	Animation.path.add(p3);
 	Animation.path.add(p6);
-	Animation.line1.setStyle(lineStyle);
-	Animation.line3.setStyle(lineStyle);
-	Animation.line2.setStyle(lineStyle);
+	Animation.line1.set_style(lineStyle);
+	Animation.line3.set_style(lineStyle);
+	Animation.line2.set_style(lineStyle);
 	Animation.line1.strokeColor = '#f00';
 	Animation.line3.strokeColor = '#0f0';
 	Animation.line2.strokeColor = '#00f';
@@ -515,18 +515,18 @@ Interaction.generateRandomShape = function(x,y,w,h){
 		
 	}
 	if(Interaction.shape.dimension == 1)
-		Interaction.shape.setStyle(oneDimensionalShapeStyle);
+		Interaction.shape.set_style(oneDimensionalShapeStyle);
 	else if(Interaction.shape.dimension == 2)
-		Interaction.shape.setStyle(twoDimensionalShapeStyle);
+		Interaction.shape.set_style(twoDimensionalShapeStyle);
 	else if(Interaction.shape.dimension == 3){
-		Interaction.shape.setStyle(threeDimensionalShapeStyle);
+		Interaction.shape.set_style(threeDimensionalShapeStyle);
 		if(Interaction.shape.children)
 			for (var i=0; i < Interaction.shape.children.length; i++)
 				if(Interaction.shape.children[i].class == "dashed")
-					Interaction.shape.children[i].setStyle(dashedLineStyle)
+					Interaction.shape.children[i].set_style(dashedLineStyle)
 	}
 	if(Interaction.shape.arrow == true)
-		Interaction.shape.setStyle({fillColor:'#000'})
+		Interaction.shape.set_style({fillColor:'#000'})
 }
 
 Interaction.generateBowls = function(w,h){

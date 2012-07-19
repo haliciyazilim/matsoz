@@ -208,10 +208,14 @@ Main.paperInit = function() {
 					) );
 		pt.closed = true;
 		path.strokeColor = 'black';
-		pt.style = {
-			strokeColor: 'black',
-			fillColor : 'black'
-		};
+		// try {
+			pt.style = {
+				strokeColor: 'black',
+				fillColor : 'black'
+			};
+		// } catch (e) {
+		// 	console.log(e);
+		// }
 		group.addChild(path);
 		group.addChild(pt);
 		group.strokeWidth = 2;
@@ -546,7 +550,7 @@ Main.paperInit = function() {
 		
 		AnimationManager.animate(new AnimationManager.Animation(this, animation));
 	}
-	Item.prototype.setStyle = function (style) {
+	Item.prototype.set_style = function (style) {
 		if ((typeof(style) != typeof({})) || (style instanceof Array)) {
 			throw "The argument to Item.setStyle needs be a Hash";
 		}

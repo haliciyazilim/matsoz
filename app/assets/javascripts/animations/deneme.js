@@ -74,5 +74,8 @@ Interaction.init = function () {
 	
 	group.opacity = 0.4;
 	
+	console.log('ebik!');
 	Main.setObjective("So far, so good!");
+	
+	
 }

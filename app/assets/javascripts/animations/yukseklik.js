@@ -146,7 +146,7 @@ var Interaction = {
 				break;
 				
 		};
-		Interaction.shape.setStyle(shapeStyle);
+		Interaction.shape.set_style(shapeStyle);
 		Interaction.drawHeightLine(0);
 		for(var i=0;i<Interaction.shape.vertexArray.length;i++){
 			var j = (i+1)%Interaction.shape.vertexArray.length;
@@ -192,7 +192,7 @@ var Interaction = {
 		Interaction.heightLine = new Group();
 		Interaction.heightLine.addChild(
 			new Path.Line(p,h)
-				.setStyle(heightLineStyle)
+				.set_style(heightLineStyle)
 		)
 		var d;//distant point
 		var c;//closest point
@@ -208,9 +208,9 @@ var Interaction = {
 		var p_ph = h.findPointTo(p,10);;
 		var m_ph = Util.centerOfPoints([d_ph,p_ph]);
 		var s_ph = h.symmetricTo(m_ph);
-		var l1 = new Path.Line(d_ph,s_ph).setStyle(heightLineStyle);
-		var l2 = new Path.Line(p_ph,s_ph).setStyle(heightLineStyle);
-		var m  = new Path.Circle(m_ph,1).setStyle(heightLineStyle);
+		var l1 = new Path.Line(d_ph,s_ph).set_style(heightLineStyle);
+		var l2 = new Path.Line(p_ph,s_ph).set_style(heightLineStyle);
+		var m  = new Path.Circle(m_ph,1).set_style(heightLineStyle);
 		Interaction.heightLine.addChild(l1);
 		Interaction.heightLine.addChild(l2);
 		Interaction.heightLine.addChild(m);
@@ -218,7 +218,7 @@ var Interaction = {
 		if(!h.isBetweenTwoLinePoints(p1,p2))
 			Interaction.heightLine.addChild(
 				new Path.Line(h,c)
-					.setStyle(dashedLineStyle)
+					.set_style(dashedLineStyle)
 			);
 		var t_p = h.findPointTo(p,-15);
 		if(Interaction.drawHeightLine.vertexLetter)
@@ -236,7 +236,7 @@ var Interaction = {
 	printVertexLetters : function(p){
 			var text = new PointText(p);
 			text.content = ""+Interaction.letters.shift();
-			text.setStyle(textStyle);
+			text.set_style(textStyle);
 			return text;
 	}
 }

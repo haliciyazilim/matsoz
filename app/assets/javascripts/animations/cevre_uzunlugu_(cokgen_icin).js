@@ -28,7 +28,7 @@ var Animation = {
 			0
 		);
 		
-		triangle.setStyle(animationEdgeStyle);
+		triangle.set_style(animationEdgeStyle);
 		triangle.angle = 0;
 		triangle.lastTransformation = triangle.matrix;
 		triangle.texts = [];
@@ -84,7 +84,7 @@ var Animation = {
 					this.texts[i].position = this.texts[i].firstPosition.getRotatedPoint(this.angle,this.vertexArray[2]);
 			},
 			callback:function(){
-				new Path.Circle(this.vertexArray[2],2).setStyle({fillColor:"#000"});
+				new Path.Circle(this.vertexArray[2],2).set_style({fillColor:"#000"});
 				
 				for(var i=0; i<this.vertexArray.length ; i++)
 					this.vertexArray[i] = this.vertexArray[i].getRotatedPoint(this.angle,this.vertexArray[2]);
@@ -99,7 +99,7 @@ var Animation = {
 				new Path.Line(
 					this.vertexArray[0],
 					this.vertexArray[2]
-				).setStyle({strokeColor:'#f00',strokeWidth:2});
+				).set_style({strokeColor:'#f00',strokeWidth:2});
 				for(var i=0;i<this.texts.length;i++)
 					this.texts[i].firstPosition = this.texts[i].position;
 				//console.log(this.vertexArray[1])
@@ -124,7 +124,7 @@ var Animation = {
 			
 			},
 			callback:function(){
-				new Path.Circle(this.vertexArray[0],2).setStyle({fillColor:"#000"});
+				new Path.Circle(this.vertexArray[0],2).set_style({fillColor:"#000"});
 				for(var i=0; i<this.vertexArray.length ; i++)
 					this.vertexArray[i] = this.vertexArray[i].getRotatedPoint(this.angle,this.vertexArray[0]);
 				
@@ -139,7 +139,7 @@ var Animation = {
 				new Path.Line(
 					this.vertexArray[1],
 					this.vertexArray[0]
-				).setStyle({strokeColor:'#f00',strokeWidth:2});
+				).set_style({strokeColor:'#f00',strokeWidth:2});
 				for(var i=0;i<this.texts.length;i++)
 					this.texts[i].firstPosition = this.texts[i].position;
 				triangle.angle = 0;
@@ -161,7 +161,7 @@ var Animation = {
 					this.texts[i].position = this.texts[i].firstPosition.getRotatedPoint(this.angle,this.vertexArray[1]);
 			},
 			callback:function(){
-				new Path.Circle(this.vertexArray[1],2).setStyle({fillColor:"#000"})
+				new Path.Circle(this.vertexArray[1],2).set_style({fillColor:"#000"})
 				for(var i=0; i<this.vertexArray.length ; i++)
 					this.vertexArray[i] = this.vertexArray[i].getRotatedPoint(this.angle,this.vertexArray[1])
 				
@@ -176,7 +176,7 @@ var Animation = {
 				new Path.Line(
 					this.vertexArray[1],
 					this.vertexArray[2]
-				).setStyle({strokeColor:'#f00',strokeWidth:2});
+				).set_style({strokeColor:'#f00',strokeWidth:2});
 				for(var i=0;i<this.texts.length;i++)
 					this.texts[i].firstPosition = this.texts[i].position;
 				this.angle = 0;
@@ -198,7 +198,7 @@ var Animation = {
 					this.texts[i].position = this.texts[i].firstPosition.getRotatedPoint(this.angle,new Point(this.vertexArray[2].x+20,this.vertexArray[2].y+10));
 			},
 			callback:function(){
-				new Path.Circle(this.vertexArray[2],2).setStyle({fillColor:"#000"});
+				new Path.Circle(this.vertexArray[2],2).set_style({fillColor:"#000"});
 				for(var i=0; i<this.vertexArray.length ; i++)
 					this.vertexArray[i] = this.vertexArray[i].getRotatedPoint(this.angle,this.vertexArray[2])
 				this.lastTransformation = this.matrix;
@@ -761,11 +761,11 @@ function Triangle(i,j,k,measure,paper){
 			x = p1.x + Math.sqrt(2) * k/2 * Math.cos(_t);
 			y = p1.y - Math.sqrt(2) * k/2 * Math.sin(_t);
 			var line1 = new Path.Line(new Point(x1,y1), new Point(x,y));
-			line1.setStyle(edgeStyle);
+			line1.set_style(edgeStyle);
 			var line2 = new Path.Line(new Point(x2,y2), new Point(x,y));
-			line2.setStyle(edgeStyle)
+			line2.set_style(edgeStyle)
 			var circle= new Path.Circle(new Point((p1.x+x)*0.5,(p1.y+y)*0.5),1);
-			circle.setStyle({fillColor:'#000'});
+			circle.set_style({fillColor:'#000'});
 			k = k/1.5;
 		}
 		else{
@@ -775,7 +775,7 @@ function Triangle(i,j,k,measure,paper){
 			var path = new Path();
 			path.add(_p1);
 			path.arcTo([x,y],_p2);
-			path.setStyle(edgeStyle);
+			path.set_style(edgeStyle);
 		}
 		var _x,_y;//for the text
 		_x = p1.x + Math.sqrt(2) * k* Math.cos(_t);
@@ -785,10 +785,10 @@ function Triangle(i,j,k,measure,paper){
 		if(_y > p1.y)
 			_y += 10;
 		//var circle = new Path.Circle([_x,_y],2);
-		//circle.setStyle({fillColor:'#000'});
+		//circle.set_style({fillColor:'#000'});
 		var text = new PointText(_x,_y);
 		text.content = ""+_A+"°";
-		text.setStyle(textStyle);
+		text.set_style(textStyle);
 	}
 	this.showAngle = function(angle){
 		switch(angle){

@@ -8,8 +8,8 @@ var Animation = {
 			function textAnimate(point,content,style,animateStyle,delay,callback){
 				var pT1 = new PointText(point);
 				pT1.content = content;
-				pT1.setStyle(animationTextStyle);
-				pT1.setStyle(style);
+				pT1.set_style(animationTextStyle);
+				pT1.set_style(style);
 				pT1.animate({
 					style:animateStyle,
 					duration:1000,
@@ -258,17 +258,15 @@ var Interaction = {
 			Interaction.solutionDiv = $(Interaction.questionDiv).clone().insertAfter(Interaction.questionDiv);
 			var zeros = $('#factor2',Interaction.questionDiv).html();
 			zeros = '<span class="zero">'+zeros.substring(1,zeros.length)+'</span>';
-			
 			var html = "" + $(Interaction.solutionDiv).html();
 			html = html.substring(0,html.indexOf('<input')) + Interaction.factor1 + zeros;
-			//console.log($(Interaction.solutionDiv).css('top'));
+
 			$(Interaction.solutionDiv)
 				.html(html)
 				.append('<span id="result"></span>')
 				.css({
 					top:$(Interaction.solutionDiv).position().top+60
 				});
-			
 			$('#factor2',Interaction.solutionDiv)
 				.html(1+zeros )
 			$('#factor2 .zero',Interaction.solutionDiv)
@@ -287,6 +285,5 @@ var Interaction = {
 						Interaction.pause = false;
 					}
 				);
-			
 		},
 }

@@ -19,12 +19,12 @@ var Animation = {
 				new Size(
 					Animation.xCube*Animation.a,
 					Animation.yCube*Animation.a
-				),
+				),    
 				new Size(
 					Animation.zCube*0.3*Animation.a,
 					Animation.zCube*0.3*Animation.a
 				)
-			).setStyle({
+			).set_style({
 				strokeWidth:2,
 				strokeColor:'#000'
 			});
@@ -222,7 +222,7 @@ function UnitCube(x,y,z){
 		if(this.shape)
 			this.shape.remove();
 		this.shape = new Path.Cube(p,a);
-		this.shape.setStyle(cubeStyle);
+		this.shape.set_style(cubeStyle);
 	};
 }
 UnitCube.compare = function(a,b){

@@ -242,11 +242,11 @@ Interaction.words = [
 					Interaction.shapeLimits.y + Interaction.shapeLimits.h-10
 				)
 			);
-			hLine.setStyle({
+			hLine.set_style({
 				strokeWidth:10,
 				strokeColor:'#000'
 			});
-			vLine.setStyle({
+			vLine.set_style({
 				strokeWidth:10,
 				strokeColor:'#000'
 			});
