@@ -76,8 +76,12 @@ function InteractionBase(){
 			return;
 		var value = $(Interaction.input).val();
 		
-		if(value == "" ||isNaN(value)){
+		if(value == "" ||isNaN(value) && value.indexOf(',') < 0){
 			Interaction.setStatus('Lütfen bir sayı giriniz.',false);
+			return;
+		}
+		if(value.indexOf('.') > 0){
+			Interaction.setStatus('Lütfen ondalıklı sayıları virgülle yazınız.',false);
 			return;
 		}
 		var isCorrect = Interaction.isAnswerCorrect(value);
