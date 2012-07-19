@@ -1,0 +1,203 @@
+var Animation = {
+	init:function(container){
+			var div = document.createElement('div');
+				$(container).append(div);
+				$(div)
+					.html('<div id="addend1">7284</div><div id="addend2">9<span id="zeros">000</span></div><div id="line"><img src="/assets/animations/plus_sign.png" /></div><br/>')
+					.append('<div id="result">16<span id=lastDigits>284</span></div>')
+					.css({
+						width:120,
+						position:'absolute',
+						top:'70px',
+						left:'300px',
+						fontSize:'24px',
+						textAlign:'right',
+						lineHeight:'30px'
+					});
+				$('#line',div).css({
+					height:'2px',
+					borderBottom:'2px solid #000',
+					position:'relative',
+					top:'5px',
+					left:'15px'
+				});
+				$('#line img',div).css({
+					position:'relative',
+					top:'-15px',	
+					left:'10px'
+				});
+			
+			$('#result',div).css({
+					position:'relative',
+					top:'-20px',
+					opacity:0
+				}).delay(500)
+				.animate({opacity:1},1000);
+			
+			$('#result #lastDigits')
+				.css({opacity:0,position:'relative',top:'-82px'})
+				.delay(2500)
+				.animate({opacity:1,top:'0px'},1000)
+			
+			
+			$('#addend2 #zeros',div)
+				.css({color:'#000'})
+				.delay(1500)
+				.animate(
+					{color:'#ddd'},
+					1000
+				);
+			$('#zeros',div)
+				.css({color:'#000'})
+				.delay(1500)
+				.animate(
+					{color:'#ddd'},
+					1000,
+					function(){
+						$('#zeros',div)
+							.animate({color:'#000'},500);
+					}
+				);
+		}
+}
+
+var Interaction = {
+	getFramework:function(){
+			return 'paper';
+		},
+	init:function(container){
+			Interaction.container = container;
+			Main.setObjective('Yandaki toplama işlemini yapınız ve kontrol ediniz.');
+			Interaction.paper = {
+				width:$(container).width(),
+				height:$(container).height()
+			}
+			
+			Interaction.appendInput({
+				width:'100px',
+				position:'relative',
+				left:'10px',
+				paddingRight:'10px',
+				textAlign:'right',
+				fontSize:'24px',
+				top:'-10px'
+			});
+			$(Interaction.input).attr('maxlength','7')
+			var div = document.createElement('div');
+			$(container).append(div);
+			$(div)
+				.html('<div id="addend1"></div><div id="addend2"></div><div id="line"><img src="/assets/animations/plus_sign.png" /></div><br/>')
+				.append(Interaction.input)
+				.css({
+					width:120,
+					position:'absolute',
+					top:'70px',
+					left:'150px',
+					fontSize:'24px',
+					textAlign:'right',
+					lineHeight:'30px'
+				});
+			$('#line',div).css({
+				height:'2px',
+				borderBottom:'2px solid #000',
+				position:'relative',
+				top:'5px',
+				left:'15px'
+			});
+			$('#line img',div).css({
+				position:'relative',
+				top:'-15px',	
+				left:'10px'
+			});
+			Interaction.appendButton({
+				bottom:'40px',
+				right:'40px'
+			});
+			Interaction.appendStatus({
+				bottom:'50px',
+				right:'160px'
+			});
+			Interaction.questionDiv = div;
+			Interaction.addend1Div = $('#addend1',div).get(0);
+			Interaction.addend2Div = $('#addend2',div).get(0);
+			Interaction.prepareNextQuestion();
+		},
+	nextQuestion: function(){
+			if(Interaction.solutionDiv)
+				$(Interaction.solutionDiv).remove();
+				
+			Interaction.addend1 = Math.floor(Math.random()*10000);
+			Interaction.addend2 = Math.floor(Math.random()*9+1)*Math.pow(10,Math.floor(Math.random()*3+1));
+			$(Interaction.addend1Div).html(Interaction.addend1);
+			$(Interaction.addend2Div).html(Interaction.addend2);
+			
+		},
+	isAnswerCorrect : function(value){
+			if(value == Interaction.addend1 + Interaction.addend2)
+				return true;
+			else 
+				return false;
+		},
+	onCorrectAnswer : function(){
+			
+		},
+	onWrongAnswer : function(){
+		
+		},
+	onFail : function(){
+			Interaction.setStatus('Yanlış cevap, doğrusu ' +  (Interaction.addend1 + Interaction.addend2) + ' olacaktı',false);
+			Interaction.solutionDiv = $(Interaction.questionDiv).clone().insertAfter(Interaction.questionDiv);
+			var zeros = $('#addend2',Interaction.questionDiv).html();
+			zeros = zeros.substring(0,1)+'<span class="zero">'+zeros.substring(1,zeros.length)+'</span>';
+			var html = "" + $(Interaction.solutionDiv).html();
+			html = html.substring(0,html.indexOf('<input'));
+			
+			$(Interaction.solutionDiv)
+				.html(html)
+				.append('<div id="result" style=""></div>')
+				.css({
+					left:$(Interaction.solutionDiv).position().left+160
+				});
+			
+			$('#result',Interaction.solutionDiv)
+				.css({
+					position:'relative',
+					top:'-10px'
+				})
+				.delay(1000)
+				.html(Interaction.addend1+Interaction.addend2)
+			
+			var resultHTML = $('#result',Interaction.solutionDiv).html();
+			var startOfLastDigits = resultHTML.length-Interaction.addend2Div.innerHTML.length+1;
+			resultHTML = resultHTML.substring(0,startOfLastDigits)+'<span id="lastDigits">'+resultHTML.substr(startOfLastDigits)+'</span>';
+			$('#result',Interaction.solutionDiv).html(resultHTML);
+			$('#result #lastDigits',Interaction.solutionDiv)
+				.css({opacity:0,position:'relative',top:'-82px'})
+				.delay(1500)
+				.animate({opacity:1,top:'0px'},1000)
+			$('#addend2',Interaction.solutionDiv)
+				.html(zeros)
+			
+			$('#addend2 .zero',Interaction.solutionDiv)
+				.css({color:'#000'})
+				.delay(500)
+				.animate(
+					{color:'#ddd'},
+					1000
+				);
+			$('.zero',Interaction.solutionDiv)
+				.css({color:'#000'})
+				.delay(500)
+				.animate(
+					{color:'#ddd'},
+					1000,
+					function(){
+						$('.zero',Interaction.solutionDiv)
+							.animate({color:'#000'},500,function(){
+								Interaction.pause = false;	
+							})
+						
+					}
+				);
+		},
+}
