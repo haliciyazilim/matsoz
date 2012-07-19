@@ -6,8 +6,8 @@ animations/3d_navigation/btn_gray_right.png: animations/3d_navigation/btn_gray_r
 animations/3d_navigation/btn_gray_small.png: animations/3d_navigation/btn_gray_small-6c964ef75ddb21c848e1a1e62b433da5.png
 animations/3d_navigation/btn_gray_top.png: animations/3d_navigation/btn_gray_top-02889b4c9feb37cc1a7a4804af356fc6.png
 animations/3d_navigation/btn_orange_rt_bg.png: animations/3d_navigation/btn_orange_rt_bg-f2363d2561f7988c46b4bd6803ba24c0.png
-animations/aritmetik_ortalama/calendar.png: animations/aritmetik_ortalama/calendar-d932fa94ca287682852b4e775602e5ef.png
-animations/aritmetik_ortalama/rainbow.png: animations/aritmetik_ortalama/rainbow-01e7feb57c71067bd2717c220919bf28.png
+animations/aritmetik_ortalama/calendar.png: animations/aritmetik_ortalama/calendar-b95b7196a2eca65899d540df9dd1d51e.png
+animations/aritmetik_ortalama/rainbow.png: animations/aritmetik_ortalama/rainbow-74ede70400fbd83177672466ad2aa763.png
 animations/ataturk_ve_geometri/aci.png: animations/ataturk_ve_geometri/aci-53643aaa67f56eaea2569625037f2f21.png
 animations/ataturk_ve_geometri/aciortay.png: animations/ataturk_ve_geometri/aciortay-05109da65670b29b3d30360c1a5bb54a.png
 animations/ataturk_ve_geometri/besgen.png: animations/ataturk_ve_geometri/besgen-82245dc2092264edc42b05ff3d95ce2a.png
@@ -73,6 +73,7 @@ animations/kare/soru_KARE_kose_a.png: animations/kare/soru_KARE_kose_a-488fce6e5
 animations/kare/soru_KARE_kose_b.png: animations/kare/soru_KARE_kose_b-7ac827e7ef8d8ba98bd218f05259f978.png
 animations/kare/soru_KARE_kose_c.png: animations/kare/soru_KARE_kose_c-099999b2a0c20dc211a61fa8c02a94d8.png
 animations/kare/soru_KARE_kose_d.png: animations/kare/soru_KARE_kose_d-a2bda8b7c78f9bbe60c3992f9368ce7d.png
+animations/kesri_verilen_butunu_bulma/marble.png: animations/kesri_verilen_butunu_bulma/marble-c944ce02b2a2c9b694fd7ca0a003844d.png
 animations/minus_sign.png: animations/minus_sign-9c07f82dc43070f654a1d75b6c2c7844.png
 animations/olasilik/hand.png: animations/olasilik/hand-c2dbef123f0d28ac07007166def2b3d9.png
 animations/olasilik/pie_chart.png: animations/olasilik/pie_chart-4f974bd18b0b6a6d07638e55e429f677.png
@@ -126,8 +127,8 @@ rails.png: rails-782b548cc1ba7f898cdad2d9eb8420d2.png
 animations/acinim.js: animations/acinim-3462a7a38ac8c1fbc26f708008175d47.js
 animations/alan.js: animations/alan-232535466c63625e3461110841543045.js
 animations/animation_base.js: animations/animation_base-abfc947a408ec8e2799843fcd727e4ca.js
-animations/aritmetik_ortalama.js: animations/aritmetik_ortalama-3f5b063f54aac49f868b72f8a8e699c9.js
-animations/ataturk_ve_geometri.js: animations/ataturk_ve_geometri-b5198a16b965322435819fdf167e2027.js
+animations/aritmetik_ortalama.js: animations/aritmetik_ortalama-8b0c92257d1ec7903aaf0e1a1d761dc8.js
+animations/ataturk_ve_geometri.js: animations/ataturk_ve_geometri-18fe86b070929a168aa41c1356a063d0.js
 animations/boyut.js: animations/boyut-4f376276db7c6b5ac19a3a59b83175d5.js
 animations/cember.js: animations/cember-6cb8540704cc5bab18c56b072f66e27d.js
 animations/cevre_uzunlugu_(cember_icin).js: animations/cevre_uzunlugu_(cember_icin)-00bd50899c21a5da738f8f61c4b6a671.js
@@ -145,6 +146,7 @@ animations/hacim.js: animations/hacim-12b7bbeba03b28c4a39e77b3b220b3da.js
 animations/kare.js: animations/kare-3185a2339c91aeb1a402081f5bd44a3f.js
 animations/kare_prizma.js: animations/kare_prizma-ca287641a8990d349314e8c64d3200f1.js
 animations/kesirleri_birbirine_cevirme.js: animations/kesirleri_birbirine_cevirme-9416eba8b9b2c27427e9b22570542fc2.js
+animations/kesri_verilen_butunu_bulma.js: animations/kesri_verilen_butunu_bulma-8378f2f816945ee34424ad494c4d0c2c.js
 animations/kup.js: animations/kup-cf8415c475c84569f874a095078d4a83.js
 animations/olasilik.js: animations/olasilik-69c03566757404de7608b272bd750700.js
 animations/ondalik_kesirlerle_toplama_islemi.js: animations/ondalik_kesirlerle_toplama_islemi-43f3f4c90a299403f2a842f97e3da0a6.js
@@ -152,11 +154,12 @@ animations/oran.js: animations/oran-c6f75824d1736e8f472c9a6ec363d99e.js
 animations/pi.js: animations/pi-0e3e9b7cdfde8174a1b725438e236d10.js
 animations/piramit.js: animations/piramit-70ec3238ee6f24e2ddff5af23b0ee8a5.js
 animations/sema.js: animations/sema-3f6dd87ffa0cdf4fe2286dabce3d00c5.js
-animations/simetri.js: animations/simetri-1c8082093d4c03bc8f6db47f348e9463.js
+animations/simetri.js: animations/simetri-a628d277ff6617022871875928c63a81.js
 animations/sivilari_olcme.js: animations/sivilari_olcme-250d8ba64572a2989412d3ee902ebf90.js
 animations/tablo.js: animations/tablo-76ed6c34717a3dbb838919ada6f2494f.js
 animations/ucgen_prizma.js: animations/ucgen_prizma-d1357893ac4cd9a7fac35fa96b5e9099.js
 animations/ucgenlerin_siniflandirilmasi.js: animations/ucgenlerin_siniflandirilmasi-f6c45344a9294afd25174885b8bee747.js
+animations/uslu_gosterim.js: animations/uslu_gosterim-26b384b081f71359b3d3f1396e29adc9.js
 animations/uzunluklari_olcme.js: animations/uzunluklari_olcme-b90b1721b470fc3a94b1724b67f354a9.js
 animations/veri.js: animations/veri-4e56d9af257b7bdf1e15eabb90d111d4.js
 animations/yukseklik.js: animations/yukseklik-ed1fc2234133f932f72f529cdc111789.js
@@ -165,9 +168,9 @@ animations/yuzde.js: animations/yuzde-ac803559d98ed0dca9cd762a9d3b87e0.js
 animations/yuzdeleri_karsilastirma.js: animations/yuzdeleri_karsilastirma-58c6e3140e9d5561b9ceccc84040da21.js
 animations/yuzdeyi_ondalik_kesre_cevirme.js: animations/yuzdeyi_ondalik_kesre_cevirme-e47771ed130f408e1248ae7704acf88f.js
 animations/zihinden_carpma_islemi.js: animations/zihinden_carpma_islemi-2441b89ec6150b7675b305332cf246ea.js
-animations/zihinden_cikarma_islemi.js: animations/zihinden_cikarma_islemi-6ede0b9cf7cf5ae918843e79bd970aaf.js
+animations/zihinden_cikarma_islemi.js: animations/zihinden_cikarma_islemi-d52fcae5997bda9fef3591234240e753.js
 animations/zihinden_toplama_islemi.js: animations/zihinden_toplama_islemi-8ce2710e5046f31b8ce223f3fe5ed731.js
-application.js: application-84eba902e499ce279bdecadf2e703fb3.js
+application.js: application-82239818f74474089d750f65c60288f7.js
 processFiles.sh: processFiles-f1889166c959ad19b610c3b6894bb792.sh
 application.css: application-4a409e7249e67e7c4279142fad16df7b.css
 theme/__matsoz_yedi.css: theme/__matsoz_yedi-00b9c9728677e3d34c827ba28eef128b.css
