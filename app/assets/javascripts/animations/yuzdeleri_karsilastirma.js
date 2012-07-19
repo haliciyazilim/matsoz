@@ -11,7 +11,7 @@ var dogruCevapGosterimRengi="green";
 var kareIlkStrokeColor="black";
 var kareIlkFillColor="white";
 var ornekKareBoyaliStrokeColor="black";
-var ornekKareBoyaliFillColor="#ff0000";
+var ornekKareBoyaliFillColor="#d42b19";
 var etkilesimKareBoyaliStrokeColor="#255b63";
 var etkilesimKareBoyaliFillColor="#bfe8ef";
 var divSonrakiYaziRenk="white";
@@ -215,12 +215,12 @@ Interaction.init = function(container){
 	$(container).append("<style>#orta{position:absolute; top:30px; left:0; right:0; margin: auto;width:220px; height:100px; border:solid 1px black}</style>");
 	$("#orta", container).append("<div id='buyukKucuk'>");
 	$("#orta", container).append("<style> #buyukKucuk{margin:auto;position:absolute; top:5px; left:0; right:0; height:30px; width:70px;}</style>");
-	$("#orta #buyukKucuk", container).append("<div id='kucuk'>");
-	$("#orta", container).append("<style> #kucuk{position: absolute; left:0px; top:0px;height:30px; width:30px ;font-weight:bold;border-radius:20px;border:1px solid #000;cursor:pointer;background-color:red;color:white;}</style>");
+	$("#orta #buyukKucuk", container).append("<img id='kucuk' src='/assets/animations/yuzdeleri_karsilastirma/sol_ok.png' />");
+	$("#orta", container).append("<style> #kucuk{position: absolute; left:0px; top:0px;}</style>");
 	
 	
-	$("#orta #buyukKucuk", container).append("<div id='buyuk'>");
-	$("#orta", container).append("<style> #buyuk{position: absolute; left:40px; top:0px;height:30px; width:30px ;font-weight:bold;border-radius:20px;border:1px solid #000;cursor:pointer;background-color:red;color:white;}</style>");
+	$("#orta #buyukKucuk", container).append("<img id='buyuk' src='/assets/animations/yuzdeleri_karsilastirma/sag_ok.png' />");
+	$("#orta", container).append("<style> #buyuk{position: absolute; left:40px; top:0px;}</style>");
 	
 	$("#orta #buyukKucuk #kucuk", container).append("<div class='isaret'><</div>");
 	$("#orta #buyukKucuk #buyuk", container).append("<div class='isaret'>></div>");

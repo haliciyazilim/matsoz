@@ -11,8 +11,10 @@
 var dogruCevapGosterimRengi="green";
 var kareIlkStrokeColor="black";
 var kareIlkFillColor="white";
-var kareBoyaliStrokeColor="black";
-var kareBoyaliFillColor="red";
+var ornekKareBoyaliStrokeColor="black";
+var ornekKareBoyaliFillColor="#d42b19";
+var etkilesimKareBoyaliStrokeColor="#255b63";
+var etkilesimKareBoyaliFillColor="#bfe8ef";
 var divSonrakiYaziRenk="white";
 var divSonrakiFillRenk="#4682b4";
 
@@ -36,7 +38,7 @@ Animation.init=function(container){
 			delay: 1000
 		});
 	
-	var ornekBoyaliKareSol=new OrnekKare(29, kareBoyaliFillColor, kareBoyaliStrokeColor,130.5,20.5);
+	var ornekBoyaliKareSol=new OrnekKare(29, ornekKareBoyaliFillColor, ornekKareBoyaliStrokeColor,130.5,20.5);
 	ornekBoyaliKareSol.opacity=0;
 
 		ornekBoyaliKareSol.animate({
@@ -105,7 +107,7 @@ Animation.init=function(container){
 	$("#yaziOrta #ornekKesir #ornekKesirPay",container).append("29");
 	$("#ornekKesirPay").css("text-align","center").css("line-height","35px");
 	//$("#Corta2",container).append("<div id='kesir'>");
-	$("#yaziOrta #ornekKesir #ornekKesirPay",container).append("<div id='ornekKesir1'>");
+	$("#ornekKesir #ornekKesirPay",container).append("<div id='ornekKesir1'>");
 	$('#ornekKesir1').css("position","absolute")
 				.css("left", "79px")
 				.css("top", "30px")
@@ -128,15 +130,16 @@ Animation.init=function(container){
 		yuzde:0,
 		kesir:0,
 		ondalik:0,
-		iyla:0
+		ondalikYaziyla:0
 	};
 	
 	Animation.onFrame = function(event){
 		$('#yaziSol').css("opacity", exampleHelper.yaziSol);
 		$('#ornekYuzde').css("opacity", exampleHelper.yuzde);
 		$('#ornekKesir').css("opacity", exampleHelper.kesir);
+		$('#ornekKesir1').css("opacity", exampleHelper.kesir);
 		$('#ornekOndalik').css("opacity", exampleHelper.ondalik);
-		$('#iyla').css("opacity", exampleHelper.iyla);
+		$('#ondalikYaziyla').css("opacity", exampleHelper.ondalikYaziyla);
 		
 	}
 	
@@ -144,7 +147,7 @@ Animation.init=function(container){
 	
 	exampleHelper.animate({
 		style:{
-			iyla:1
+			ondalikYaziyla:1
 		},
 		duration:1000,
 		delay:7000
@@ -365,7 +368,7 @@ Interaction.init = function(container){
 	*/
 	
 	
-	bosKare= new Kare(100, kareIlkFillColor, kareIlkStrokeColor,100,30);
+	bosKare= new Kare(100, kareIlkFillColor, etkilesimKareBoyaliStrokeColor,100,30);
 	bosKare.yap();
 	// Kareler boyanıyor.
 	var girdi;
@@ -377,7 +380,7 @@ Interaction.init = function(container){
 			girdi=parseInt($("#giris").val());
 			
 			
-			boyaliKareSol=new Kare(girdi,kareBoyaliFillColor, kareBoyaliStrokeColor,100,30);
+			boyaliKareSol=new Kare(girdi,etkilesimKareBoyaliFillColor, etkilesimKareBoyaliStrokeColor,100,30);
 			boyaliKareSol.yap();
 			
 			
@@ -644,7 +647,8 @@ var Kare= function(kareSayisi, dolguRengi, hatRengi, x,y){
 				path.fillColor = this.dolguRengi;
 				path.strokeColor=this.hatRengi;
 				
-					if(this.dolguRengi!="white"){
+				// Tek Tek boyama
+					/*if(this.dolguRengi!="white"){
 						path.opacity = 0;
 						path.animate({
 							style: {
@@ -653,13 +657,14 @@ var Kare= function(kareSayisi, dolguRengi, hatRengi, x,y){
 							duration: 250,
 							delay: 20 * (j*10 + i)
 						})
-					}
+					}*/
 				
 				group.addChild(path);
 			}	
+			
 		}
 		
-		//return group;
+		return group;
 		
 	}
 

@@ -12,7 +12,8 @@ var semaRengi=["green","yellow","blue","black"];
 
 var dropableShapeHoverStyle = {fillColor:'#afa'};
 var dropableShapeDefaultStyle = {fillColor:'#fff'}
-
+var yanlisRengi="#d42b19";
+var dogruRengi="green";
 var Animation = function(){};Animation();
 
 var Interaction = function(){};Interaction();
@@ -39,10 +40,29 @@ Interaction.init = function(container){
 	
 	// eldeli toplama için
 	var eldeliToplanan1="";
-	var eldeliToplanan2="";		
+	var eldeliToplanan2="";	
+	
+	// soruToplananlar için
+	var toplanan1="";
+	var toplanan2="";
+	var toplam="";
+	//var soruToplananlarSıra=0;	
+	
+	// sorBirerBilinmeyen için
+	var girdi1="";
+	var girdi2="";
+	var girdi3="";
+	var soruSekil=0;
+	var soruSekilSira= Array();
+	var soruSekilSira=Util.getShuffledArray(4,1);
+	console.log(soruSekilSira);
+	var soruNo=0;
+	soruSekil=soruSekilSira[soruNo];
+	console.log(soruSekil);
 	
 	//Eldesiz
 	function eldesizToplama(){
+		console.log("soruSirasi: "+soruSirasi+" eldessiz");
 		nihaiToplanan1="";
 		nihaiToplanan2="";	
 		
@@ -121,7 +141,7 @@ Interaction.init = function(container){
 		.css("position","absolute")
 		//.css("bottom","20px")
 		//.css("left","0")
-		.css("right","120px")
+		.css("right","0px")
 		.css("font-size","30px")
 		.css("border-bottom","solid 2px black")
 		.css("top","60px")
@@ -133,7 +153,7 @@ Interaction.init = function(container){
 		.css("position","absolute")
 		//.css("bottom","20px")
 		//.css("left","0")
-		.css("right","120px")
+		.css("right","0px")
 		.css("font-size","30px");
 		//.css("border","solid 1px black");
 		
@@ -145,7 +165,7 @@ Interaction.init = function(container){
 		.css("position","absolute")
 		//.css("bottom","20px")
 		//.css("left","0")
-		.css("right","120px")
+		.css("right","0px")
 		.css("font-size","30px")
 		//.css("border-bottom","solid 2px black")
 		.css("top","100px")
@@ -170,6 +190,7 @@ Interaction.init = function(container){
 	
 	// Eldeli
 	function eldeliToplama(){
+		console.log("soruSirasi: "+soruSirasi+" eldeli");
 		eldeliToplanan1="";
 		eldeliToplanan2="";
 		var rastgeleSayi=(Math.floor(Math.random()*10)+1);
@@ -198,7 +219,7 @@ Interaction.init = function(container){
 		.css("position","absolute")
 		//.css("bottom","20px")
 		//.css("left","0")
-		.css("right","120px")
+		.css("right","0px")
 		.css("font-size","30px")
 		.css("border-bottom","solid 2px black")
 		.css("top","60px")
@@ -210,7 +231,7 @@ Interaction.init = function(container){
 		.css("position","absolute")
 		//.css("bottom","20px")
 		//.css("left","0")
-		.css("right","120px")
+		.css("right","0px")
 		.css("font-size","30px");
 		//.css("border","solid 1px black");
 		
@@ -222,7 +243,7 @@ Interaction.init = function(container){
 		.css("position","absolute")
 		//.css("bottom","20px")
 		//.css("left","0")
-		.css("right","120px")
+		.css("right","0px")
 		.css("font-size","30px")
 		//.css("border-bottom","solid 2px black")
 		.css("top","100px")
@@ -246,25 +267,66 @@ Interaction.init = function(container){
 	
 	// Soru toplananlar
 	function soruToplananlar(){
-		eldeliToplanan1="";
-		eldeliToplanan2="";
+		console.log("soruSirasi: "+soruSirasi+" soruToplananlar");
+		toplanan1="";
+		toplanan2="";
+		toplam="";
 		var rastgeleSayi=(Math.floor(Math.random()*10)+1);
 		var sayiSiniri=rastgeleSayi%2?10000:1000;
 		console.log("basamak: "+rastgeleSayi+" sayi: "+sayiSiniri);
-		var toplanan1=Math.floor(Math.random()*10000+sayiSiniri);
+		toplanan1=Math.floor(Math.random()*10000+sayiSiniri);
 		console.log(toplanan1);
-		var toplanan2=Math.floor(Math.random()*10000+sayiSiniri);
+		toplanan2=Math.floor(Math.random()*10000+sayiSiniri);
+		toplam=toplanan1+toplanan2;
+		console.log("toplam: "+toplam);
 		
-		eldeliToplanan1=toplanan1;
-		eldeliToplanan2=toplanan2;
 			
-	$("#soru",container).append("<div id='toplanan1' class='toplanan'>");
+	/*$("#soru",container).append("<div id='toplanan1' class='toplanan'>");
 		$("#toplanan1")
-		.css("top","10px").html(format(eldeliToplanan1, {point:'.'}));
+		.css("top","10px").html(format(eldeliToplanan1, {point:'.'}));*/
+	console.log("soruSirasi: "+soruSirasi);
+	if(soruSirasi==5 || soruSirasi==7){
+		$("#soru",container).append("<input id='girdi' type='text' maxlength=7  onkeypress='return SadeceRakam(event)'/>");	
+		$("#girdi").css("top","10px");
+		$("input").addClass("input").addClass("number_input_field");
+			
+		$("#soru",container).append("<div id='toplanan2' class='toplanan'>");
+			$("#toplanan2")
+			.css("top","50px").html(format(toplanan2, {point:'.'}));
+	
+		$("#soru",container).append("<div id='toplam' class='toplanan'>");
+			$("#toplam")
+			.css("top","100px").html(format(toplam, {point:'.'}));
+	}
+	else if(soruSirasi==6){
+		$("#soru",container).append("<div id='toplanan1' class='toplanan'>");
+		$("#toplanan1")
+		.css("top","10px").html(format(toplanan1, {point:'.'}));
 		
-	$("#soru",container).append("<div id='toplanan2' class='toplanan'>");
-		$("#toplanan2")
-		.css("top","50px").html(format(eldeliToplanan2, {point:'.'}));
+		$("#soru",container).append("<input id='girdi' type='text' maxlength=6  onkeypress='return SadeceRakam(event)'/>");	
+		$("#girdi").attr("style","width:100px !important").css("top","50px").css("z-index","5");
+		$("input").addClass("input").addClass("number_input_field");
+			
+		/*$("#soru",container).append("<div id='toplanan2' class='toplanan'>");
+			$("#toplanan2")
+			.css("top","50px").html(format(toplanan2, {point:'.'}));*/
+	
+		$("#soru",container).append("<div id='toplam' class='toplanan'>");
+			$("#toplam")
+			.css("top","100px").html(format(toplam, {point:'.'}));
+	}
+	
+	
+			
+	$("#girdi").css("width","120px")
+		.css("text-align","right")
+		.css("height","30px")
+		.css("margin","auto")
+		.css("position","absolute")
+		.css("right","0px")
+		.css("font-size","30px");
+
+
 		
 	$("#soru",container).append("<div id='toplamaIsareti'>");
 	$("#toplamaIsareti").css("width","120px")
@@ -274,11 +336,12 @@ Interaction.init = function(container){
 		.css("position","absolute")
 		//.css("bottom","20px")
 		//.css("left","0")
-		.css("right","120px")
+		.css("right","0px")
 		.css("font-size","30px")
 		.css("border-bottom","solid 2px black")
 		.css("top","60px")
 		.html("+");
+		
 	$(".toplanan").css("width","100px")
 		.css("text-align","right")
 		.css("height","30px")
@@ -286,24 +349,11 @@ Interaction.init = function(container){
 		.css("position","absolute")
 		//.css("bottom","20px")
 		//.css("left","0")
-		.css("right","120px")
+		.css("right","0px")
 		.css("font-size","30px");
 		//.css("border","solid 1px black");
 		
-	$("#soru",container).append("<input id='girdi' type='text' maxlength=6  onkeypress='return SadeceRakam(event)'/>");	
-	$("#girdi").css("width","120px")
-		.css("text-align","right")
-		.css("height","30px")
-		.css("margin","auto")
-		.css("position","absolute")
-		//.css("bottom","20px")
-		//.css("left","0")
-		.css("right","120px")
-		.css("font-size","30px")
-		//.css("border-bottom","solid 2px black")
-		.css("top","100px")
-		.html("+");
-	$("input").addClass("input").addClass("number_input_field");
+
 	
 	$("#girdi").keyup(
 		function(){
@@ -319,19 +369,164 @@ Interaction.init = function(container){
 	);
 	
 	}
+
+	// Soru birerBilinmeyen
+	function soruBirerBilinmeyen(){
+		console.log("soruSirasi: "+soruSirasi+"Birer Bilinmeyen");
+		
+		toplanan1="";
+		toplanan2="";
+		toplanan3="";
+		toplam="";
+		var rastgeleSayi=(Math.floor(Math.random()*10)+1);
+		var sayiSiniri=rastgeleSayi%2?10000:1000;
+		console.log("basamak: "+rastgeleSayi+" sayi: "+sayiSiniri);
+		toplanan1=Math.floor(Math.random()*10000+sayiSiniri);
+		console.log(toplanan1);
+		
+		toplanan2=Math.floor(Math.random()*10000+sayiSiniri);
+		console.log(toplanan2);
+		toplam=toplanan1+toplanan2;
+		console.log("toplam: "+toplam);
+		
+			
+	/*$("#soru",container).append("<div id='toplanan1' class='toplanan'>");
+		$("#toplanan1")
+		.css("top","10px").html(format(eldeliToplanan1, {point:'.'}));*/
+		console.log("soruSirasi: "+soruSirasi);
+		if(soruSekil==1){
+			
+			$("#soru",container).append("<div id='toplanan1' class='toplanan'>");
+			$("#toplanan1")
+				.css("top","10px").html(format(toplanan1, {point:'.'}));
+			
+			$("#soru",container).append("<input id='girdi1' type='text' maxlength=1  onkeypress='return SadeceRakam(event)'/>");	
+			$("#girdi1").attr("style","width:16px !important; right:16px !important; ").css("top","7px").css("z-index","5");
+			$("#soru",container).append("<input id='girdi2' type='text' maxlength=1  onkeypress='return SadeceRakam(event)'/>");
+			$("#girdi2").attr("style","width:16px !important; right:35px !important; ").css("top","47px").css("z-index","5");
+			$("input").addClass("input").addClass("number_input_field");
+				
+			$("#soru",container).append("<div id='toplanan2' class='toplanan'>");
+				$("#toplanan2")
+				.css("top","50px").html(format(toplanan2, {point:'.'}));
+		
+			$("#soru",container).append("<div id='toplam' class='toplanan'>");
+				$("#toplam")
+				.css("top","100px").html(format(toplam, {point:'.'}));
+		}
+		else if(soruSekil==2){
+			$("#soru",container).append("<div id='toplanan1' class='toplanan'>");
+			$("#toplanan1")
+				.css("top","10px").html(format(toplanan1, {point:'.'}));
+			
+			$("#soru",container).append("<input id='girdi1' type='text' maxlength=1  onkeypress='return SadeceRakam(event)'/>");	
+			$("#girdi1").attr("style","width:16px !important; right:60px !important; ").css("top","7px").css("z-index","5");
+			$("#soru",container).append("<input id='girdi2' type='text' maxlength=1  onkeypress='return SadeceRakam(event)'/>");
+			$("#girdi2").attr("style","width:16px !important; right:0px !important; ").css("top","47px").css("z-index","5");
+			$("#soru",container).append("<input id='girdi3' type='text' maxlength=1  onkeypress='return SadeceRakam(event)'/>");
+			$("#girdi3").attr("style","width:16px !important; right:35px !important; ").css("top","97px").css("z-index","5");
+			$("input").addClass("input").addClass("number_input_field");
+				
+			$("#soru",container).append("<div id='toplanan2' class='toplanan'>");
+				$("#toplanan2")
+				.css("top","50px").html(format(toplanan2, {point:'.'}));
+		
+			$("#soru",container).append("<div id='toplam' class='toplanan'>");
+				$("#toplam")
+				.css("top","100px").html(format(toplam, {point:'.'}));
+		}
+		else if(soruSekil==3){
+			$("#soru",container).append("<div id='toplanan1' class='toplanan'>");
+			$("#toplanan1")
+				.css("top","10px").html(format(toplanan1, {point:'.'}));
+			
+			$("#soru",container).append("<input id='girdi1' type='text' maxlength=1  onkeypress='return SadeceRakam(event)'/>");	
+			$("#girdi1").attr("style","width:16px !important; right:35px !important; ").css("top","7px").css("z-index","5");
+			$("#soru",container).append("<input id='girdi2' type='text' maxlength=1  onkeypress='return SadeceRakam(event)'/>");
+			$("#girdi2").attr("style","width:16px !important; right:60px !important; ").css("top","47px").css("z-index","5");
+			$("#soru",container).append("<input id='girdi3' type='text' maxlength=1  onkeypress='return SadeceRakam(event)'/>");
+			$("#girdi3").attr("style","width:16px !important; right:0px !important; ").css("top","47px").css("z-index","5");
+			$("input").addClass("input").addClass("number_input_field");
+				
+			$("#soru",container).append("<div id='toplanan2' class='toplanan'>");
+				$("#toplanan2")
+				.css("top","50px").html(format(toplanan2, {point:'.'}));
+		
+			$("#soru",container).append("<div id='toplam' class='toplanan'>");
+				$("#toplam")
+				.css("top","100px").html(format(toplam, {point:'.'}));
+		}
+			
+	$("#girdi1, #girdi2, #girdi3").css("width","120px")
+		.css("text-align","right")
+		.css("height","30px")
+		.css("margin","auto")
+		.css("position","absolute")
+		.css("right","0px")
+		.css("font-size","30px");
+
+
+		
+	$("#soru",container).append("<div id='toplamaIsareti'>");
+	$("#toplamaIsareti").css("width","120px")
+		.css("text-align","left")
+		.css("height","30px")
+		.css("margin","auto")
+		.css("position","absolute")
+		//.css("bottom","20px")
+		//.css("left","0")
+		.css("right","0px")
+		.css("font-size","30px")
+		.css("border-bottom","solid 2px black")
+		.css("top","60px")
+		.html("+");
+		
+	$(".toplanan").css("width","100px")
+		.css("text-align","right")
+		.css("height","30px")
+		.css("margin","auto")
+		.css("position","absolute")
+		//.css("bottom","20px")
+		//.css("left","0")
+		.css("right","0px")
+		.css("font-size","30px");
+		//.css("border","solid 1px black");
+		
+
+	
+	$("#girdi1").keyup(
+		function(){
+			girdi1=$(this).val();
+			$("#geriBildirim").hide();
+		}
+	);
+	$("#girdi2").keyup(
+		function(){
+			girdi2=$(this).val();
+			$("#geriBildirim").hide();
+		}
+	);
+	
+	$("#girdi3").keyup(
+		function(){
+			girdi3=$(this).val();
+			$("#geriBildirim").hide();
+		}
+	);
+	}
 	
 	
 	$(container).append("<div id='soru'>");
-		$("#soru").css("width","360px")
-		.css("height","200px")
+		$("#soru").css("width","120px")
+		.css("height","130px")
 		.css("margin","auto")
 		.css("position","absolute")
 		//.css("bottom","20px")
 		.css("left","0")
 		.css("right","0")
 		.css("top","10px")
-		.css("font-size","20px")
-		.css("border","solid 1px black");
+		.css("font-size","20px");
+		//.css("border","solid 1px black");
 	
 	// Geri bildirim
 	$(container).append("<div class='status_field' id='geriBildirim'>");
@@ -359,6 +554,11 @@ Interaction.init = function(container){
 		.css("top","250px")
 		.css("text-align","center")
 		.hide();
+	$("#girdi1, #girdi2, #girdi3").keyup(
+		function(){
+			$("#geriBildirim").hide();
+		}
+	);
 	$("#btnKontrol").click(
 		function(){
 			kontrol();
@@ -378,23 +578,50 @@ Interaction.init = function(container){
 		}
 	);
 	
+	var soruSirasiTest=1;
 	function soruGetir(){
 		switch(soruSirasi){
+			
 			case 0:
 			case 1:
 				eldesizToplama();
+				
 				break;
 			case 2:
 			case 3:
 			case 4:
 				eldeliToplama();
+				
 				break;
+			case 5:
+			case 6:
+			case 7:
+				soruToplananlar();
+				break;
+			case 8:
+			case 9:
+				console.log("Sou birer bilinmeyen");
+				soruSekil=soruSekilSira[soruNo];
+				console.log("dsd"+soruNo);
+				soruNo++;
+				soruBirerBilinmeyen();
+				
+				console.log("xxxxxxxxxxxxxxxxxxxSoru Şekil: "+soruSekil);
+				break;
+			case 10:
+				eldesizToplama();
+				soruSirasi=1;
+				break;
+			
+			
 		}
 	}
 	
 	soruGetir();
+	kontrolSayaci=0;
 	function kontrol(){
 		switch (soruSirasi){
+			case 10:
 			case 0:
 			case 1:
 				var icerik=$("#girdi").val();
@@ -407,15 +634,39 @@ Interaction.init = function(container){
 				var toplam=parseInt(nihaiToplanan1)+parseInt(nihaiToplanan2);
 				console.log(toplam);
 				console.log(icerik);
-				if(icerik==toplam){
-					$("#geriBildirimText").attr("class","status_true").html("Tebrikler.");
-					$("#btnKontrol").hide();
-					$("#sonraki").show();
-				}
-				else{
-					$("#geriBildirimText").attr("class","status_alert").html("Tekrar deneyiniz.");
-					$("#geriBildirim").show();
-				}
+				if(icerik==""){
+						$("#geriBildirimText").attr("class","status_alert").html("Bütün kutucukları doldurun.");
+						$("#geriBildirim").show();
+					}
+					else{
+					
+						if(icerik==toplam){
+							$("#geriBildirimText").attr("class","status_true").html("Tebrikler.");
+							$("#geriBildirim").show();
+							$("#btnKontrol").hide();
+							$("#sonraki").show();
+							icerik="";
+							
+						}
+						else{
+							kontrolSayaci++;
+							if(kontrolSayaci<2){
+								$("#geriBildirimText").attr("class","status_alert").html("Tekrar deneyiniz.");
+								$("#geriBildirim").show();
+								
+							}
+							else{
+								kontrolSayaci=0;
+								$("#geriBildirimText").attr("class","status_false").html("Yanlış.<br /> Doğru cevap yukarıdadır.");
+								$("#geriBildirim").show();
+								$("#btnKontrol").hide();
+								$("#sonraki").show();
+								$("#girdi").val(toplam).css("color",yanlisRengi);
+								icerik="";
+								
+							}
+						}
+					}
 				break;
 			case 2:
 			case 3:
@@ -430,21 +681,344 @@ Interaction.init = function(container){
 				var toplam=eldeliToplanan1+eldeliToplanan2;
 				console.log(toplam);
 				console.log(icerik);
-				if(icerik==toplam){
-					$("#geriBildirimText").attr("class","status_true").html("Tebrikler.");
-					$("#btnKontrol").hide();
-					$("#sonraki").show();
+				
+				if(icerik==""){
+						$("#geriBildirimText").attr("class","status_alert").html("Bütün kutucukları doldurun.");
+						$("#geriBildirim").show();
+					}
+					else{
+					
+						if(icerik==toplam){
+							$("#geriBildirimText").attr("class","status_true").html("Tebrikler.");
+							$("#geriBildirim").show();
+							$("#btnKontrol").hide();
+							$("#sonraki").show();
+							icerik="";
+							
+						}
+						else{
+							kontrolSayaci++;
+							if(kontrolSayaci<2){
+								$("#geriBildirimText").attr("class","status_alert").html("Tekrar deneyiniz.");
+								$("#geriBildirim").show();
+								
+							}
+							else{
+								kontrolSayaci=0;
+								$("#geriBildirimText").attr("class","status_false").html("Yanlış.<br /> Doğru cevap yukarıdadır.");
+								$("#geriBildirim").show();
+								$("#btnKontrol").hide();
+								$("#sonraki").show();
+								$("#girdi").val(toplam).css("color",yanlisRengi);
+								icerik="";
+								
+							}
+						}
+					}
+				break;
+			case 5:
+			case 6:
+			case 7:
+				if(soruSirasi==5 || soruSirasi==7){
+					var icerik=$("#girdi").val();
+					var index = icerik.indexOf(" ", 0);
+					while (index != -1) {
+						icerik = icerik.replace(" ", "");
+						index = icerik.indexOf(" ", 0);
+					}
+					console.log("girdim soruToplanan");
+					//toplanan1=toplam-toplanan2;
+					console.log("toplanan1: "+toplanan1);
+					console.log("toplanan2: "+toplanan2);
+					toplam=toplanan1+toplanan2;
+					console.log("toplam: "+toplam);
+					console.log(icerik);
+					
+					
+					if(icerik==""){
+						$("#geriBildirimText").attr("class","status_alert").html("Bütün kutucukları doldurun.");
+						$("#geriBildirim").show();
+					}
+					else{
+					
+						if(icerik==toplanan1){
+							$("#geriBildirimText").attr("class","status_true").html("Tebrikler.");
+							$("#geriBildirim").show();
+							$("#btnKontrol").hide();
+							$("#sonraki").show();
+							icerik="";
+							
+						}
+						else{
+							kontrolSayaci++;
+							if(kontrolSayaci<2){
+								$("#geriBildirimText").attr("class","status_alert").html("Tekrar deneyiniz.");
+								$("#geriBildirim").show();
+								
+							}
+							else{
+								kontrolSayaci=0;
+								$("#geriBildirimText").attr("class","status_false").html("Yanlış.<br /> Doğru cevap yukarıdadır.");
+								$("#geriBildirim").show();
+								$("#btnKontrol").hide();
+								$("#sonraki").show();
+								$("#girdi").val(toplanan1).css("color",yanlisRengi);
+								icerik="";
+								
+							}
+						}
+					}
 				}
 				else{
-					$("#geriBildirimText").attr("class","status_alert").html("Tekrar deneyiniz.");
-					$("#geriBildirim").show();
+					var icerik=$("#girdi").val();
+					var index = icerik.indexOf(" ", 0);
+					while (index != -1) {
+						icerik = icerik.replace(" ", "");
+						index = icerik.indexOf(" ", 0);
+					}
+					console.log("girdim soruToplanan");
+					//toplanan1=toplam-toplanan2;
+					console.log("toplanan1: "+toplanan1);
+					console.log("toplanan2: "+toplanan2);
+					toplam=toplanan1+toplanan2;
+					console.log("toplam: "+toplam);
+					console.log(icerik);
+					if(icerik==""){
+						$("#geriBildirimText").attr("class","status_alert").html("Bütün kutucukları doldurun.");
+						$("#geriBildirim").show();
+					}
+					else{
+					
+						if(icerik==toplanan2){
+							$("#geriBildirimText").attr("class","status_true").html("Tebrikler.");
+							$("#geriBildirim").show();
+							$("#btnKontrol").hide();
+							$("#sonraki").show();
+							icerik="";
+							
+						}
+						else{
+							kontrolSayaci++;
+							if(kontrolSayaci<2){
+								$("#geriBildirimText").attr("class","status_alert").html("Tekrar deneyiniz.");
+								$("#geriBildirim").show();
+								
+							}
+							else{
+								kontrolSayaci=0;
+								$("#geriBildirimText").attr("class","status_false").html("Yanlış.<br /> Doğru cevap yukarıdadır.");
+								$("#geriBildirim").show();
+								$("#btnKontrol").hide();
+								$("#sonraki").show();
+								$("#girdi").val(toplanan2).css("color",yanlisRengi);
+								icerik="";
+								
+							}
+						}
+					}
 				}
 				break;
+			case 8:
+			case 9:
+				if(soruSekil==1){
+					
+					console.log("girdim soruBirerBilinmeyen1");
+					toplanan1Basamak=toplanan1.toString().charAt(toplanan1.toString().length-2)
+					toplanan2Basamak=toplanan2.toString().charAt(toplanan2.toString().length-3)
+					console.log("toplam1Basamak: "+toplanan1Basamak);
+					console.log("toplam1: "+toplanan1);
+					console.log("toplam2Basamak: "+toplanan2Basamak);
+					console.log("toplam2: "+toplanan2);
+					toplam=toplanan1+toplanan2;
+					console.log("toplam: "+toplam);
+					
+					
+					if(girdi1=="" || girdi2==""){
+						$("#geriBildirimText").attr("class","status_alert").html("Bütün kutucukları doldurun.");
+						$("#geriBildirim").show();
+					}
+					else{
+					
+						if(toplanan1Basamak==girdi1 && toplanan2Basamak==girdi2){
+							$("#geriBildirimText").attr("class","status_true").html("Tebrikler.");
+							$("#geriBildirim").show();
+							$("#btnKontrol").hide();
+							$("#sonraki").show();
+							girdi1="";
+							girdi2="";
+							girdi3="";
+						}
+						else{
+							kontrolSayaci++;
+							if(kontrolSayaci<2){
+								$("#geriBildirimText").attr("class","status_alert").html("Tekrar deneyiniz.");
+								$("#geriBildirim").show();
+								
+							}
+							else{
+								kontrolSayaci=0;
+								$("#geriBildirimText").attr("class","status_false").html("Yanlış.<br /> Doğru cevap yukarıdadır.");
+								$("#geriBildirim").show();
+								$("#btnKontrol").hide();
+								$("#sonraki").show();
+								
+								if(toplanan1Basamak!=girdi1)
+									$("#girdi1").val(toplanan1Basamak).css("color",yanlisRengi);
+								else
+									$("#girdi1").css("color",dogruRengi);
+								
+								if(toplanan2Basamak!=girdi2)
+									$("#girdi2").val(toplanan2Basamak).css("color",yanlisRengi);
+								else
+									$("#girdi2").css("color",dogruRengi);
+								
+								
+								girdi1="";
+								girdi2="";
+								
+							}
+						}
+					}
+				}
+				else if(soruSekil==2){
+					console.log("girdim soruBirerBilinmeyen2");
+					toplam=toplanan1+toplanan2;
+					
+					toplanan1Basamak=toplanan1.toString().charAt(toplanan1.toString().length-4);
+					toplanan2Basamak=toplanan2.toString().charAt(toplanan2.toString().length-1);
+					toplamBasamak=toplam.toString().charAt(toplam.toString().length-3);
+					console.log("toplam1Basamak: "+toplanan1Basamak);
+					console.log("toplam1: "+toplanan1);
+					console.log("toplam2Basamak: "+toplanan2Basamak);
+					console.log("toplam2: "+toplanan2);
+					console.log("toplam3Basamak: "+toplamBasamak);
+					console.log("toplam3: "+toplam);
+					
+					console.log("toplam: "+toplam);
+					
+					if(girdi1=="" || girdi2=="" ||girdi3==""){
+						$("#geriBildirimText").attr("class","status_alert").html("Bütün kutucukları doldurun.");
+						$("#geriBildirim").show();
+					}
+					else{
+					
+						if(toplanan1Basamak==girdi1 && toplanan2Basamak==girdi2 &&toplamBasamak==girdi3){
+							$("#geriBildirimText").attr("class","status_true").html("Tebrikler.");
+							$("#geriBildirim").show();
+							$("#btnKontrol").hide();
+							$("#sonraki").show();
+							girdi1="";
+							girdi2="";
+							girdi3="";
+						}
+						else{
+							kontrolSayaci++;
+							if(kontrolSayaci<2){
+								$("#geriBildirimText").attr("class","status_alert").html("Tekrar deneyiniz.");
+								$("#geriBildirim").show();
+								
+							}
+							else{
+								kontrolSayaci=0;
+								$("#geriBildirimText").attr("class","status_false").html("Yanlış.<br /> Doğru cevap yukarıdadır.");
+								$("#geriBildirim").show();
+								$("#btnKontrol").hide();
+								$("#sonraki").show();
+								
+								if(toplanan1Basamak!=girdi1)
+									$("#girdi1").val(toplanan1Basamak).css("color",yanlisRengi);
+								else
+									$("#girdi1").css("color",dogruRengi);
+								
+								if(toplanan2Basamak!=girdi2)
+									$("#girdi2").val(toplanan2Basamak).css("color",yanlisRengi);
+								else
+									$("#girdi2").css("color",dogruRengi);
+								
+								if(toplamBasamak!=girdi3)
+									$("#girdi3").val(toplamBasamak).css("color",yanlisRengi);
+								else
+									$("#girdi3").css("color",dogruRengi);
+								girdi1="";
+								girdi2="";
+								girdi3="";
+							}
+						}
+					}
+				}
+				else if(soruSekil==3){
+					console.log("girdim soruBirerBilinmeyen3");
+					toplam=toplanan1+toplanan2;
+					
+					toplanan1Basamak=toplanan1.toString().charAt(toplanan1.toString().length-3);
+					toplanan2Basamak=toplanan2.toString().charAt(toplanan2.toString().length-4);
+					toplanan3Basamak=toplanan2.toString().charAt(toplanan2.toString().length-1);
+					console.log("toplam1Basamak: "+toplanan1Basamak);
+					console.log("toplam1: "+toplanan1);
+					console.log("toplam2Basamak: "+toplanan2Basamak);
+					console.log("toplanan2: "+toplanan2);
+					console.log("toplam3Basamak: "+toplanan3Basamak);
+					console.log("toplanan2: "+toplanan2);
+										
+					console.log("toplam: "+toplam);
+					
+					if(girdi1=="" || girdi2=="" ||girdi3==""){
+						$("#geriBildirimText").attr("class","status_alert").html("Bütün kutucukları doldurun.");
+						$("#geriBildirim").show();
+					}
+					else{
+					
+						if(toplanan1Basamak==girdi1 && toplanan2Basamak==girdi2 &&toplanan3Basamak==girdi3){
+							$("#geriBildirimText").attr("class","status_true").html("Tebrikler.");
+							$("#geriBildirim").show();
+							$("#btnKontrol").hide();
+							$("#sonraki").show();
+							girdi1="";
+							girdi2="";
+							girdi3="";
+						}
+						else{
+							kontrolSayaci++;
+							if(kontrolSayaci<2){
+								$("#geriBildirimText").attr("class","status_alert").html("Tekrar deneyiniz.");
+								$("#geriBildirim").show();
+								
+							}
+							else{
+								kontrolSayaci=0;
+								$("#geriBildirimText").attr("class","status_false").html("Yanlış.<br /> Doğru cevap yukarıdadır.");
+								$("#geriBildirim").show();
+								$("#btnKontrol").hide();
+								$("#sonraki").show();
+								
+								if(toplanan1Basamak!=girdi1)
+									$("#girdi1").val(toplanan1Basamak).css("color",yanlisRengi);
+								else
+									$("#girdi1").css("color",dogruRengi);
+								
+								if(toplanan2Basamak!=girdi2)
+									$("#girdi2").val(toplanan2Basamak).css("color",yanlisRengi);
+								else
+									$("#girdi2").css("color",dogruRengi);
+								
+								if(toplanan3Basamak!=girdi3)
+									$("#girdi3").val(toplanan3Basamak).css("color",yanlisRengi);
+								else
+									$("#girdi3").css("color",dogruRengi);
+								girdi1="";
+								girdi2="";
+								girdi3="";
+							}
+						}
+					}
+				}
+				break;
+			
+			
 		}
 		
 		
 	}
-		
 		
 };
 
