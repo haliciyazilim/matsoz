@@ -1,5 +1,5 @@
 /**
- * Şemanın ilk hali (Array ile yapıldı)
+ * Şema
  * 
  * Halıcı Yazılım
  * Abdullah Karacabey
@@ -257,6 +257,7 @@ Interaction.init = function(container){
 			}else{
 				this.inDropableShape = false;
 				this.hitShape = null;
+				this.hitShape.setStyle(dropableShapeDefaultStyle);
 			}
 		},
 		start = function(event){
@@ -323,7 +324,7 @@ Interaction.init = function(container){
 				  	$("#kontrolBtn").show();
 			  }
 			  else{
-				  //console.log("tetkik false if"+tetkik);
+
 				  this.animate({
 				  
 					  style:{

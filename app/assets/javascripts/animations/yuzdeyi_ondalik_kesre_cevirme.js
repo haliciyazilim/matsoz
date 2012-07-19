@@ -25,7 +25,7 @@ Interaction.getFramework = function() {
 
 Animation.init=function(container){
 	// Sağdaki ve soldaki boş kareler çiziliyor.
-	var ornekBosKareSol= new OrnekKare(100, kareIlkFillColor, kareIlkStrokeColor,200.5,20.5);
+	var ornekBosKareSol= new OrnekKare(100, kareIlkFillColor, kareIlkStrokeColor,130.5,20.5);
 		ornekBosKareSol.opacity=0;
 	
 		ornekBosKareSol.animate({
@@ -36,7 +36,7 @@ Animation.init=function(container){
 			delay: 1000
 		});
 	
-	var ornekBoyaliKareSol=new OrnekKare(29, kareBoyaliFillColor, kareBoyaliStrokeColor,200.5,20.5);
+	var ornekBoyaliKareSol=new OrnekKare(29, kareBoyaliFillColor, kareBoyaliStrokeColor,130.5,20.5);
 	ornekBoyaliKareSol.opacity=0;
 
 		ornekBoyaliKareSol.animate({
@@ -52,7 +52,7 @@ Animation.init=function(container){
 		
 	$(container).append("<div id='yaziSol'>");
 	$("#yaziSol").css("position","absolute")
-		.css("left", "215px")
+		.css("left", "145px")
 		.css("top", "165px")
 		.css("width", "120px")
 		.css("text-align","center")
@@ -61,13 +61,13 @@ Animation.init=function(container){
 	$(container).append("<div id='yaziOrta'>");
 	$("#yaziOrta").css("position","absolute")
 				.css("margin", "auto")
-				.css("right", "130px")
+				.css("right", "200px")
 				.css("top", "0")
 				.css("bottom", "0")
 				//.css("left", "0")
 				.css("width", "210px")
 				.css("height", "60px")
-				//.css("border","solid 1px black");	
+				.css("font-size","18px");	
 	$("#yaziOrta", container).append("<div class='karsilastirma' id='ornekYuzde'>");
 	$("#yaziOrta", container).append("<div class='karsilastirma' id='ornekKesir'>");
 	$("#yaziOrta", container).append("<div class='karsilastirma' id='ornekOndalik'>");
@@ -84,11 +84,22 @@ Animation.init=function(container){
 	
 	
 				
-	$("#ornekYuzde").html("%29 =");
+	$("#ornekYuzde").html("%29&nbsp;&nbsp;&nbsp;=");
 	//$("#ornekKesir").html("29<br /> 100");
-	$("#ornekOndalik").html("= 0,29");
+	$("#ornekOndalik").html("=&nbsp;&nbsp;&nbsp;0,29");
 	$("#ornekOndalik").css("text-align","center").css("line-height","58px");
-	
+	$(container).append("<div id='ondalikYaziyla'>");
+	$("#ondalikYaziyla")
+		.html("(sıfır tam yüzde yirmi dokuz)")
+		.css("position","absolute")
+		.css("margin", "auto")
+		.css("right", "-5px")
+		.css("top", "92px")
+		//.css("bottom", "0")
+		//.css("left", "0")
+		.css("width", "210px")
+		.css("height", "60px")
+		.css("font-size","14px");	
 	
 	$("#yaziOrta #ornekKesir",container).append("<div id='ornekKesirPay'>");
 	$("#yaziOrta #ornekKesir #ornekKesirPay",container).append("29");
@@ -116,7 +127,8 @@ Animation.init=function(container){
 		yaziSol:0,
 		yuzde:0,
 		kesir:0,
-		ondalik:0
+		ondalik:0,
+		iyla:0
 	};
 	
 	Animation.onFrame = function(event){
@@ -124,11 +136,19 @@ Animation.init=function(container){
 		$('#ornekYuzde').css("opacity", exampleHelper.yuzde);
 		$('#ornekKesir').css("opacity", exampleHelper.kesir);
 		$('#ornekOndalik').css("opacity", exampleHelper.ondalik);
+		$('#iyla').css("opacity", exampleHelper.iyla);
 		
 	}
 	
 	exampleHelper.animate = Item.prototype.animate;
 	
+	exampleHelper.animate({
+		style:{
+			iyla:1
+		},
+		duration:1000,
+		delay:7000
+	});
 	
 	exampleHelper.animate({
 		style:{
@@ -163,6 +183,7 @@ Animation.init=function(container){
 		delay:3000
 	});
 	
+	
 };
 
 Interaction.init = function(container){
@@ -184,6 +205,7 @@ Interaction.init = function(container){
 	$("#sol",container).append("<input id='giris' type='text' maxlength=3  onkeypress='return SadeceRakam(event)' min='0' max='100'/>");
 	
 	$("#sol",container).append("<div id='kesir1'>");
+	
 	$('#kesir1').css("position","absolute")
 				.css("left", "30px")
 				.css("top", "40px")
@@ -238,7 +260,7 @@ Interaction.init = function(container){
 	$("#orta2 #esit2",container).append("=");
 	$(container).append("<style>#esit2{position:absolute; top: 30px; left:80px;  width:20px; height:20px;}</style>");
 	$(container).append("<style>#girdiCevap2{width:30px; height:30px; margin:auto;position:absolute;  left:0; right:0; z-index:2} .payda{margin:auto;position:absolute; top: 50px; left:0; right:0; width:35px; height:10px; text-align:center}</style>");
-	
+		
 	// orta3'in içindeki nesnelerin bilgieri
 	$("#orta3",container).append("<input id='girdiCevap3' type='text' maxlength=2 onkeypress='return SadeceRakam(event)'/>");
 	$("#orta3",container).append("<div id='yuzde2'>");
@@ -257,15 +279,18 @@ Interaction.init = function(container){
 	$(container).append("<button class='control_button'id='btnKontrol'>Kontrol</button>");
 	$(container).append("<style>.control_button{position:absolute; top:250px; right:50px; }</style>");
 	
-	// sonraki divi
-	$(container).append("<div id='sonraki'>");
-	$("#sonraki", container).append("<div id='dikdortgen'>");
-	$("#dikdortgen", container).append("<div id='yazi'>Sonraki</div>");
-	$("#sonraki", container).append("<div id='ucgen'>");
-	$(container).append("<style>#sonraki{position:absolute; top:250px; right:120px; height: 30px;cursor:pointer;color:"+divSonrakiYaziRenk+";</style>");
-	$(container).append("<style>#yazi{ position:absolute; vertical-align:middle; height:30px; top:3px;} #dikdortgen{position:absolute; margin:auto; bottom: 0px; right:0px; top:0px; left:0px; width:70px; height:30px; background:"+divSonrakiFillRenk + "}</style>");
-	$(container).append("<style>#ucgen{position:absolute; top:0px; left:70px; width:0, height:0; border-left: 30px solid "+divSonrakiFillRenk+";border-top: 15px solid transparent;border-bottom: 15px solid transparent;}</style>");
-	$("#sonraki").hide();
+	//sonraki divi
+	$(container).append("<div id='sonraki' class='next_button'>");
+	$("#sonraki").html("Sonraki")
+		.css("position","absolute")
+		.css("height","15px")
+		.css("width","80px")
+		.css("right","50px")
+		//.css("left","0")
+		.css("margin","auto")
+		.css("top","250px")
+		.css("text-align","center")
+		.hide();
 	
 	// Cevap divleri 3 ana div var.
 	$(container).append("<div id='Corta1'>");
@@ -313,11 +338,11 @@ Interaction.init = function(container){
 	// 3 cevap divin yazı ayarı
 	$(container).append("<style> #Cevap1, #Cevap2, #Cevap3{text-align:center} </style>");
 	
-
-	$("input").css("text-align","center");
+		$(".payda").css("font-size","18px");
+	$("input").css("text-align","center").css("font-size","18px");
 	$("input").addClass("input");
 	$("input").addClass("number_input_field");
-	$("#sol, #orta1, #orta2, #orta3, #Corta1, #Corta2, #Corta3").css("font-size","16px");
+	$("#sol, #orta1, #orta2, #orta3, #Corta1, #Corta2, #Corta3").css("font-size","18px");
 	/*
 	// 10*10'luk büyük kare çiziliyor.
 	function bosKareCiz(){
@@ -439,7 +464,9 @@ Interaction.init = function(container){
 			if(girdi<10)
 				ondalikliGirdi="0"+girdi;
 			if((girdi%10)==0)
-				ondalikliGirdi=girdi/10; //console.log("ondalikliGİrdi: "+ondalikliGirdi);
+
+				ondalikliGirdi=girdi/10; 
+
 			if(girdi==100)
 				ondalikliGirdi=1;
 			
@@ -485,7 +512,9 @@ Interaction.init = function(container){
 					$("#Cevap3").html(virgulluCevap);
 					if(cevap<10){
 						$("#girdiCevap3").val("0"+cevap);
-						//console.log("0"+cevap);}
+
+					}
+
 					else
 						$("#girdiCevap3").val(ondalikliGirdi);
 				}
