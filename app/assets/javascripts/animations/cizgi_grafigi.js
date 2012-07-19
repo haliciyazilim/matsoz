@@ -424,7 +424,7 @@ paperAddOns = function () {
 			}
 			
 			var text = new PointText(new Point(xStart + index*xStep + xOffset, yStart + yOffset + gridStartOffset));
-			text.setStyle(xGridLabelStyle);
+			text.set_style(xGridLabelStyle);
 			text.content = chart.xLabels[index];
 			if (xGridLabelStyle.rotation) {
 			 	text.rotate(xGridLabelStyle.rotation);
@@ -434,7 +434,7 @@ paperAddOns = function () {
 		
 		for (index = 0; index < numOfYPoints; index++) {
 			var text = new PointText(new Point(xStart - 10 - gridStartOffset, yStart + index*yStep + 1));
-			text.setStyle(yGridLabelStyle);
+			text.set_style(yGridLabelStyle);
 			text.content = (yMax - yMin) / (numOfYPoints-1) * index + yMin;
 			group.addChild(text);
 		}
