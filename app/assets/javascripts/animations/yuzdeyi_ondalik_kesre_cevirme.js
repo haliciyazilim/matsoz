@@ -279,15 +279,13 @@ Interaction.init = function(container){
 	
 	
 	// kontrol butonu
-	$(container).append("<button class='control_button'id='btnKontrol'>Kontrol</button>");
+	$(container).append("<button class='control_button'id='btnKontrol'>");
 	$(container).append("<style>.control_button{position:absolute; top:250px; right:50px; }</style>");
 	
 	//sonraki divi
-	$(container).append("<div id='sonraki' class='next_button'>");
-	$("#sonraki").html("Sonraki")
+	$(container).append("<button id='sonraki' class='next_button'>");
+	$("#sonraki")
 		.css("position","absolute")
-		.css("height","15px")
-		.css("width","80px")
 		.css("right","50px")
 		//.css("left","0")
 		.css("margin","auto")
