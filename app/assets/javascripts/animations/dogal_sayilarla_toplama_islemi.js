@@ -24,6 +24,109 @@ Interaction.getFramework = function() {
 
 
 Animation.init=function(container){
+	$(container).append("<div id='ornek'>");
+		$("#ornek").css("width","120px")
+		.css("height","130px")
+		.css("margin","auto")
+		.css("position","absolute")
+		//.css("bottom","20px")
+		.css("left","0")
+		.css("right","0")
+		.css("top","40px");
+	
+	$("#ornek",container).append("<div id='ornekToplanan1' class='toplanan'>");
+		$("#ornekToplanan1")
+			.css("top","10px").html(format(93507, {point:'.'})).hide();
+	$("#ornek",container).append("<div id='ornekToplanan2' class='toplanan'>");
+		$("#ornekToplanan2")
+			.css("top","50px").html(format(78235, {point:'.'})).hide();
+	$("#ornek",container).append("<div id='ornekToplam' class='toplanan'>");
+		$("#ornekToplam")
+			//.html("17 1742")
+			.attr("style","top: 100px; width:110px !important").hide();
+	
+	
+	$("#ornek",container).append("<div id='ornekToplamaIsareti'>");
+	$("#ornekToplamaIsareti").css("width","120px")
+		.css("text-align","left")
+		.css("height","30px")
+		.css("margin","auto")
+		.css("position","absolute")
+		//.css("bottom","20px")
+		//.css("left","0")
+		.css("right","0px")
+		.css("font-size","30px")
+		.css("border-bottom","solid 2px black")
+		.css("top","60px")
+		.html("+").hide();
+
+	$("#ornek",container).append("<p id='cevapB1' class='sayilarTek'>");
+		$("#cevapB1")
+			.css("left","101px")
+			.html("2").hide();	
+			
+	$("#ornek",container).append("<p id='cevapB2' class='sayilarTek'>");
+		$("#cevapB2")
+			.css("left","84px")
+			.html("4").hide();
+			
+	$("#ornek",container).append("<p id='cevapB3' class='sayilarTek'>");
+		$("#cevapB3")
+			.css("left","68px")
+			.html("7").hide();
+
+	$("#ornek",container).append("<p id='cevapB4' class='sayilarTek'>");
+		$("#cevapB4")
+			.css("left","45px")
+			.html("1").hide();
+			
+	$("#ornek",container).append("<p id='cevapB5' class='sayilarTek'>");
+		$("#cevapB5")
+			.css("left","27px")
+			.html("7").hide();
+			
+	$("#ornek",container).append("<p id='cevapB6' class='sayilarTek'>");
+		$("#cevapB6")
+			.css("left","11px")
+			.html("1").hide();
+		
+	
+	
+	$("#ornek",container).append("<p id='cevapB1Elde' class='sayilarTek'>");
+		$("#cevapB1Elde")
+			.css("left","84px")
+			.css("color","red")
+			.html("1").hide();
+	$("#ornek",container).append("<p id='cevapB4Elde' class='sayilarTek'>");
+		$("#cevapB4Elde")
+			.css("left","25px")
+			.css("color","red")
+			.html("1").hide();		
+			
+	$(".sayilarTek")
+			.css("position","absolute")
+			.css("top","100px")
+			.css("font-size","30px");
+		
+	// Animasyon		
+	$("#ornekToplanan1").delay(1000).fadeIn(1000);
+	$("#ornekToplanan2").delay(2000).fadeIn(1000);
+	$("#ornekToplamaIsareti").delay(3000).fadeIn(1000);
+	$("#cevapB1, #cevapB1Elde").delay(4000).fadeIn(1000);
+	$("#cevapB1Elde").delay(1000).animate({"top":"-20px"},1000).delay(500).fadeOut(1000);
+	$("#cevapB2").delay(7000).fadeIn(1000);
+	$("#cevapB3").delay(8000).fadeIn(1000);
+	$("#cevapB4, #cevapB4Elde").delay(9000).fadeIn(1000);
+	$("#cevapB4Elde").delay(1000).animate({"top":"-20px"},1000).delay(500).fadeOut(1000);
+	$("#cevapB5, #cevapB6").delay(12000).fadeIn(1000);
+	
+	// arc
+	/*var start = new Point(420, 140);
+	var through = new Point(450, 100);
+	var to = new Point(420, 20);
+	var path = new Path.Arc(start, through, to);
+	path.strokeColor = 'red'
+	path.dashArray=[10,4];*/
 
 
 };
@@ -158,19 +261,17 @@ Interaction.init = function(container){
 		//.css("border","solid 1px black");
 		
 	$("#soru",container).append("<input id='girdi' type='text' maxlength=6  onkeypress='return SadeceRakam(event)'/>");	
+	
 	$("#girdi").css("width","120px")
 		.css("text-align","right")
 		.css("height","30px")
 		.css("margin","auto")
 		.css("position","absolute")
-		//.css("bottom","20px")
-		//.css("left","0")
 		.css("right","0px")
 		.css("font-size","30px")
-		//.css("border-bottom","solid 2px black")
 		.css("top","100px")
-		.html("+");
-	$("input").addClass("input").addClass("number_input_field");
+		.addClass("input")
+		.addClass("number_input_field");
 	
 	$("#girdi").keyup(
 		function(){
@@ -539,17 +640,14 @@ Interaction.init = function(container){
 	
 	
 	// kontrol butonu
-	$(container).append("<button class='control_button' id='btnKontrol'>Kontrol</button>");
+	$(container).append("<button class='control_button' id='btnKontrol'></button>");
 	$(container).append("<style>.control_button{position:absolute; top:250px; right:50px; }</style>");
 	
 	//sonraki divi
-	$(container).append("<div id='sonraki' class='next_button'>");
-	$("#sonraki").html("Sonraki")
+	$(container).append("<button id='sonraki' class='next_button'>");
+	$("#sonraki")
 		.css("position","absolute")
-		.css("height","15px")
-		.css("width","80px")
 		.css("right","50px")
-		//.css("left","0")
 		.css("margin","auto")
 		.css("top","250px")
 		.css("text-align","center")
@@ -567,17 +665,18 @@ Interaction.init = function(container){
 	);
 	$("#sonraki").click(
 		function(){
-			soruSirasi++;
-			$("#soru").html("");
-			$("#geriBildirimText").html("");
-			$("#sonraki").hide();
-			$("#btnKontrol").show();
-			soruGetir();
-			
-				
+			yeniSoru();
 		}
 	);
-	
+	function yeniSoru(){
+		soruSirasi++;
+		$("#soru").html("");
+		$("#geriBildirimText").html("");
+		$("#sonraki").hide();
+		$("#btnKontrol").show();
+		soruGetir();	
+		$("#girdi, #girdi1, #girdi2, #girdi3").trigger("yeniSoru");
+	}
 	var soruSirasiTest=1;
 	function soruGetir(){
 		switch(soruSirasi){
@@ -637,6 +736,7 @@ Interaction.init = function(container){
 				if(icerik==""){
 						$("#geriBildirimText").attr("class","status_alert").html("Bütün kutucukları doldurun.");
 						$("#geriBildirim").show();
+						tusSayac=0;
 					}
 					else{
 					
@@ -661,7 +761,8 @@ Interaction.init = function(container){
 								$("#geriBildirim").show();
 								$("#btnKontrol").hide();
 								$("#sonraki").show();
-								$("#girdi").val(toplam).css("color",yanlisRengi);
+								$("#girdi").val(format(toplam, {point:'.'})).css("color",yanlisRengi);
+								$("#girdi").attr("readonly","readonly").attr("disabled","disabled");
 								icerik="";
 								
 							}
@@ -685,6 +786,7 @@ Interaction.init = function(container){
 				if(icerik==""){
 						$("#geriBildirimText").attr("class","status_alert").html("Bütün kutucukları doldurun.");
 						$("#geriBildirim").show();
+						tusSayac=0;
 					}
 					else{
 					
@@ -709,7 +811,7 @@ Interaction.init = function(container){
 								$("#geriBildirim").show();
 								$("#btnKontrol").hide();
 								$("#sonraki").show();
-								$("#girdi").val(toplam).css("color",yanlisRengi);
+								$("#girdi").val(format(toplam, {point:'.'})).css("color",yanlisRengi);
 								icerik="";
 								
 							}
@@ -738,6 +840,7 @@ Interaction.init = function(container){
 					if(icerik==""){
 						$("#geriBildirimText").attr("class","status_alert").html("Bütün kutucukları doldurun.");
 						$("#geriBildirim").show();
+						tusSayac=0;
 					}
 					else{
 					
@@ -762,7 +865,7 @@ Interaction.init = function(container){
 								$("#geriBildirim").show();
 								$("#btnKontrol").hide();
 								$("#sonraki").show();
-								$("#girdi").val(toplanan1).css("color",yanlisRengi);
+								$("#girdi").val(format(toplanan1, {point:'.'})).css("color",yanlisRengi);
 								icerik="";
 								
 							}
@@ -786,6 +889,7 @@ Interaction.init = function(container){
 					if(icerik==""){
 						$("#geriBildirimText").attr("class","status_alert").html("Bütün kutucukları doldurun.");
 						$("#geriBildirim").show();
+						tusSayac=0;
 					}
 					else{
 					
@@ -810,7 +914,7 @@ Interaction.init = function(container){
 								$("#geriBildirim").show();
 								$("#btnKontrol").hide();
 								$("#sonraki").show();
-								$("#girdi").val(toplanan2).css("color",yanlisRengi);
+								$("#girdi").val(format(toplanan2, {point:'.'})).css("color",yanlisRengi);
 								icerik="";
 								
 							}
@@ -836,6 +940,7 @@ Interaction.init = function(container){
 					if(girdi1=="" || girdi2==""){
 						$("#geriBildirimText").attr("class","status_alert").html("Bütün kutucukları doldurun.");
 						$("#geriBildirim").show();
+						tusSayac=0;
 					}
 					else{
 					
@@ -899,6 +1004,7 @@ Interaction.init = function(container){
 					if(girdi1=="" || girdi2=="" ||girdi3==""){
 						$("#geriBildirimText").attr("class","status_alert").html("Bütün kutucukları doldurun.");
 						$("#geriBildirim").show();
+						tusSayac=0;
 					}
 					else{
 					
@@ -965,6 +1071,7 @@ Interaction.init = function(container){
 					if(girdi1=="" || girdi2=="" ||girdi3==""){
 						$("#geriBildirimText").attr("class","status_alert").html("Bütün kutucukları doldurun.");
 						$("#geriBildirim").show();
+						tusSayac=0;
 					}
 					else{
 					
@@ -1019,6 +1126,23 @@ Interaction.init = function(container){
 		
 		
 	}
+	var tusSayac=1;
+	$(this).keyup(function(event) {
+			if(event.keyCode == 13) {
+				if(tusSayac<3)
+					kontrol();
+				else{
+					yeniSoru();
+					tusSayac=0;
+				}
+					
+				tusSayac++;
+				//console.log("xxxxx tusSayac: "+tusSayac);
+			}
+		});
+		
+
+
 		
 };
 
