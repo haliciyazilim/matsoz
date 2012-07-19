@@ -32,6 +32,8 @@ Animation.init = function(container){
 		middlePoint: new Point(230.5, 140.5),
 		topPoint: new Point(230.5, 40.5),
 		color: new RgbColor(1, 1, 1),
+		shadowColor: new RgbColor(1,1,1),
+		shadowColor2: new RgbColor(1,1,1),
 		
 		rectAPoint: new Point(440.5, 40.5),
 		rectBPoint: new Point(340.5, 40.5),
@@ -131,20 +133,20 @@ Animation.init = function(container){
 	/************************ symmetry lines ***************************/	
 	// triangle symmetry line
 	var triangleSymLine = new Group(); 
-	var line1 = new Path.Line(new Point(230, 30), new Point(230, 150));
+	var line1 = new Path.Line(new Point(230, 34), new Point(230, 146));
 	line1.strokeColor = "red";
 	line1.strokeWidth = 2;
 	line1.dashArray = [7,4];
-	var line2 = new Path.Line(new Point(230, 30), new Point(224, 40));
+	var line2 = new Path.Line(new Point(230, 34), new Point(222, 40));
 	line2.strokeColor = "red";
 	line2.strokeWidth = 2;
-	var line3 = new Path.Line(new Point(230, 30), new Point(236, 40));
+	var line3 = new Path.Line(new Point(230, 34), new Point(238, 40));
 	line3.strokeColor = "red";
 	line3.strokeWidth = 2;
-	var line4 = new Path.Line(new Point(230, 154), new Point(224, 144));
+	var line4 = new Path.Line(new Point(230, 148), new Point(222, 142));
 	line4.strokeColor = "red";
 	line4.strokeWidth = 2;
-	var line5 = new Path.Line(new Point(230, 154), new Point(236, 144));
+	var line5 = new Path.Line(new Point(230, 148), new Point(238, 142));
 	line5.strokeColor = "red";
 	line5.strokeWidth = 2;
 	triangleSymLine.strokeWidth = 2;
@@ -158,24 +160,33 @@ Animation.init = function(container){
 	var squareSymGroup = new Group();
 	var squareSymLine1 = triangleSymLine.clone();
 	squareSymLine1.position = new Point(391, 90);
+	squareSymLine1.strokeColor = "red";
 	squareSymLine1.strokeWidth = 2;
+	//squareSymLine1.insertAbove(rectFirstLine);
 	var squareSymLine2 = squareSymLine1.clone();
 	squareSymLine2.rotate(90);
 	squareSymLine2.position = new Point(390, 90);
+	squareSymLine2.strokeColor = "red";
 	squareSymLine2.strokeWidth = 2;
 	var squareSymLine3 = squareSymLine1.clone();
 	squareSymLine3.rotate(45);
 	squareSymLine3.position = new Point(391, 90);
+	squareSymLine3.strokeColor = "red";
 	squareSymLine3.scale(1.3);
 	squareSymLine3.strokeWidth = 2;
 	var squareSymLine4 = squareSymLine3.clone();
 	squareSymLine4.rotate(-90);
 	squareSymLine4.strokeWidth = 2;
+	squareSymLine4.strokeColor = "red";
 	squareSymGroup.addChild(squareSymLine1);
 	squareSymGroup.addChild(squareSymLine2);
 	squareSymGroup.addChild(squareSymLine3);
 	squareSymGroup.addChild(squareSymLine4);
-	squareSymGroup.opacity = 0;
+	squareSymGroup.insertAbove(rectFirstLine);
+	squareSymGroup.insertAbove(rectSecondLine);
+	squareSymGroup.insertAbove(rectThirdLine);
+	squareSymGroup.insertAbove(rectFourthLine);
+//	squareSymGroup.opacity = 0;
 	
 	// hexagon symmetry lines
 	var hexagonSymGroup = new Group();
@@ -183,31 +194,37 @@ Animation.init = function(container){
 	hexSymLine1.position = new Point(541, 90);
 	hexSymLine1.strokeWidth = 2;
 	hexSymLine1.scale(1.05);
+	hexSymLine1.strokeColor = "red";
 	var hexSymLine2 = squareSymLine1.clone();
 	hexSymLine2.position = new Point(541, 90);
 	hexSymLine2.strokeWidth = 2;
 	hexSymLine2.rotate(30);
 	hexSymLine2.scale(1.15);
+	hexSymLine2.strokeColor = "red";
 	var hexSymLine3 = squareSymLine1.clone();
 	hexSymLine3.position = new Point(541, 90);
 	hexSymLine3.strokeWidth = 2;
 	hexSymLine3.rotate(60);
 	hexSymLine3.scale(1.05);
+	hexSymLine3.strokeColor = "red";
 	var hexSymLine4 = squareSymLine1.clone();
 	hexSymLine4.position = new Point(541, 90);
 	hexSymLine4.strokeWidth = 2;
 	hexSymLine4.rotate(90);
 	hexSymLine4.scale(1.15);
+	hexSymLine4.strokeColor = "red";
 	var hexSymLine5 = squareSymLine1.clone();
 	hexSymLine5.position = new Point(541, 90);
 	hexSymLine5.strokeWidth = 2;
 	hexSymLine5.rotate(120);
 	hexSymLine5.scale(1.05);
+	hexSymLine5.strokeColor = "red";
 	var hexSymLine6 = squareSymLine1.clone();
 	hexSymLine6.position = new Point(541, 90);
 	hexSymLine6.strokeWidth = 2;
 	hexSymLine6.rotate(150);
 	hexSymLine6.scale(1.15);
+	hexSymLine6.strokeColor = "red";
 	hexagonSymGroup = new Group();
 	hexagonSymGroup.addChild(hexSymLine1);
 	hexagonSymGroup.addChild(hexSymLine2);
@@ -215,7 +232,7 @@ Animation.init = function(container){
 	hexagonSymGroup.addChild(hexSymLine4);
 	hexagonSymGroup.addChild(hexSymLine5);
 	hexagonSymGroup.addChild(hexSymLine6);
-	hexagonSymGroup.opacity = 0;
+//	hexagonSymGroup.opacity = 0;
 	/*********************************************************************/
 	
 <!-------------------------------------------------------------------------------->
@@ -274,7 +291,6 @@ Animation.init = function(container){
 	trapSymText.justification = "center";
 	trapSymText.fillColor = "black";
 	trapSymText.content = "simetri ekseni yok";
-	/***********************************************************/
 	
 	var rectPath = new Path();
 	rectPath.moveTo(AnimateHelper.rectDPoint);
@@ -305,6 +321,8 @@ Animation.init = function(container){
 	var rectFirstPath = new Path();
 	var rectFillPath = new Path();
 	var hexFillPath = new Path();
+	var shadowPath = new Path();
+	var shadowPath2 = new Path();
 
 
 	Animation.onFrame = function(event){
@@ -349,8 +367,9 @@ Animation.init = function(container){
 	
 	var triangleStart = 4000;
 	var rectangleStart = triangleStart + 4500;
-	var hexagonStart = rectangleStart + 14500;
-//	var hexagonStart = 1000;
+//	var rectangleStart = 1000;
+//	var hexagonStart = rectangleStart + 14500;
+	var hexagonStart = 1000;
 	var trapezoidStart = hexagonStart+21000;
 //	var trapezoidStart = 1000;
 	
@@ -424,7 +443,8 @@ Animation.init = function(container){
 	AnimateHelper.animate({
 		style: {
 			rectBPoint: new Point(440.5, 140.5),
-			rectAngle:Math.PI
+			rectAngle:Math.PI,
+			shadowColor: new RgbColor(0.88, 0.88, 0.88),
 		},
 		duration: 1000,
 		delay: rectangleStart+1500,
@@ -879,6 +899,10 @@ Animation.init = function(container){
 		},
 		duration: 1000,
 		delay: rectangleStart+13000,
+		update: function(){
+			if(rectFourthLine)
+				rectFourthLine.remove();
+		},
 		animationType: 'easeInEaseOut'
 	});
 	
@@ -907,10 +931,10 @@ Animation.init = function(container){
 			hexPath = new Path();
 			hexPath.moveTo(
 				AnimateHelper.hexAPoint
-					.add(
-						-10*Math.sin(this.hexAngle),
-						10*Math.sin(this.hexAngle)
-					)
+	//				.add(
+//						10*Math.sin(this.hexAngle),
+//						-10*Math.sqrt(3)*Math.sin(this.hexAngle)
+//					)
 			);
 			hexPath.lineTo(AnimateHelper.hexBPoint);
 			hexPath.lineTo(AnimateHelper.hexCPoint);
@@ -918,17 +942,17 @@ Animation.init = function(container){
 			hexPath.lineTo(AnimateHelper.hexEPoint);
 			hexPath.lineTo(
 				AnimateHelper.hexFPoint
-					.add(
-						-10*Math.sin(this.hexAngle),
-						10*Math.sin(this.hexAngle)
-					)
+//					.add(
+//						-10*Math.sqrt(3)*Math.sin(this.hexAngle),
+//						10*Math.sin(this.hexAngle)
+//					)
 				);
 			hexPath.lineTo(
 				AnimateHelper.hexAPoint
-					.add(
-						-10*Math.sin(this.hexAngle),
-						10*Math.sin(this.hexAngle)
-					)
+		//			.add(
+//						10*Math.sin(this.hexAngle),
+//						-10*Math.sqrt(3)*Math.sin(this.hexAngle)
+//					)
 			);
 			hexPath.strokeColor = "black";
 			hexPath.opacity = AnimateHelper.hexOpacity;
@@ -963,10 +987,10 @@ Animation.init = function(container){
 			hexPath = new Path();
 			hexPath.moveTo(
 				AnimateHelper.hexAPoint
-					.add(
-						-10*Math.sin(this.hexAngle),
-						10*Math.sin(this.hexAngle)
-					)
+//					.add(
+//						10*Math.sin(this.hexAngle),
+//						-10*Math.sqrt(3)*Math.sin(this.hexAngle)
+//					)
 			);
 			hexPath.lineTo(AnimateHelper.hexBPoint);
 			hexPath.lineTo(AnimateHelper.hexCPoint);
@@ -974,17 +998,17 @@ Animation.init = function(container){
 			hexPath.lineTo(AnimateHelper.hexEPoint);
 			hexPath.lineTo(
 				AnimateHelper.hexFPoint
-					.add(
-						-10*Math.sin(this.hexAngle),
-						10*Math.sin(this.hexAngle)
-					)
+	//				.add(
+//						-10*Math.sqrt(3)*Math.sin(this.hexAngle),
+//						10*Math.sin(this.hexAngle)
+//					)
 				);
 			hexPath.lineTo(
 				AnimateHelper.hexAPoint
-					.add(
-						-10*Math.sin(this.hexAngle),
-						10*Math.sin(this.hexAngle)
-					)
+	//				.add(
+//						10*Math.sin(this.hexAngle),
+//						-10*Math.sqrt(3)*Math.sin(this.hexAngle)
+//					)
 			);
 			hexPath.strokeColor = "black";
 			hexPath.opacity = AnimateHelper.hexOpacity;
@@ -1020,17 +1044,17 @@ Animation.init = function(container){
 			hexPath.moveTo(AnimateHelper.hexAPoint);
 			hexPath.lineTo(
 				AnimateHelper.hexBPoint
-					.add(
-						-10*Math.sin(this.hexAngle),
-						-10*Math.sin(this.hexAngle)
-					)	
+		//			.add(
+//						-10*Math.sin(this.hexAngle),
+//						-10*Math.sin(this.hexAngle)
+//					)	
 			);
 			hexPath.lineTo(
 				AnimateHelper.hexCPoint
-					.add(
-						-10*Math.sin(this.hexAngle),
-						-10*Math.sin(this.hexAngle)
-					)
+		//			.add(
+//						10*Math.sin(this.hexAngle),
+//						-10*Math.sin(this.hexAngle)
+//					)
 			);
 			hexPath.lineTo(AnimateHelper.hexDPoint);
 			hexPath.lineTo(AnimateHelper.hexEPoint);
@@ -1070,17 +1094,17 @@ Animation.init = function(container){
 			hexPath.moveTo(AnimateHelper.hexAPoint);
 			hexPath.lineTo(
 				AnimateHelper.hexBPoint
-					.add(
-						-10*Math.sin(this.hexAngle),
-						-10*Math.sin(this.hexAngle)
-					)	
+		//			.add(
+//						-10*Math.sin(this.hexAngle),
+//						-10*Math.sin(this.hexAngle)
+//					)	
 			);
 			hexPath.lineTo(
 				AnimateHelper.hexCPoint
-					.add(
-						-10*Math.sin(this.hexAngle),
-						-10*Math.sin(this.hexAngle)
-					)
+	//				.add(
+//						10*Math.sin(this.hexAngle),
+//						-10*Math.sin(this.hexAngle)
+//					)
 			);
 			hexPath.lineTo(AnimateHelper.hexDPoint);
 			hexPath.lineTo(AnimateHelper.hexEPoint);
@@ -1232,16 +1256,16 @@ Animation.init = function(container){
 			hexPath = new Path();
 			hexPath.moveTo(
 				AnimateHelper.hexAPoint
-					.add(
-						-10*Math.sin(this.hexAngle),
-						10*Math.sin(this.hexAngle)
-					)
+		//			.add(
+//						-10*Math.sin(this.hexAngle),
+//						10*Math.sin(this.hexAngle)
+//					)
 			);
 			hexPath.lineTo(
 				AnimateHelper.hexBPoint
 					.add(
-						-10*Math.sin(this.hexAngle),
-						10*Math.sin(this.hexAngle)
+						10*Math.sin(this.hexAngle),
+						-10*Math.sin(this.hexAngle)
 					)
 			);
 			hexPath.lineTo(AnimateHelper.hexGPoint);
@@ -1258,10 +1282,10 @@ Animation.init = function(container){
 			);
 			hexPath.lineTo(
 				AnimateHelper.hexAPoint
-					.add(
-						-10*Math.sin(this.hexAngle),
-						10*Math.sin(this.hexAngle)
-					)
+			//		.add(
+//						-10*Math.sin(this.hexAngle),
+//						10*Math.sin(this.hexAngle)
+//					)
 			);
 			hexPath.strokeColor = "black";
 			hexPath.opacity = AnimateHelper.hexOpacity;
@@ -1279,19 +1303,20 @@ Animation.init = function(container){
 				);
 				hexFillPath.lineTo(
 				AnimateHelper.hexAPoint
-					.add(
-						-10*Math.sin(this.hexAngle),
-						10*Math.sin(this.hexAngle)
-					)
+		//			.add(
+//						-10*Math.sin(this.hexAngle),
+//						10*Math.sin(this.hexAngle)
+//					)
 				);
 				hexFillPath.lineTo(
 				AnimateHelper.hexBPoint
 					.add(
-						-10*Math.sin(this.hexAngle),
-						10*Math.sin(this.hexAngle)
+						10*Math.sin(this.hexAngle),
+						-10*Math.sin(this.hexAngle)
 					)
 				);
 				hexFillPath.lineTo(AnimateHelper.hexGPoint);
+			//	hexFillPath.strokeColor = "black";
 				hexFillPath.fillColor = "white";
 			}
 		},
@@ -1325,16 +1350,16 @@ Animation.init = function(container){
 			hexPath = new Path();
 			hexPath.moveTo(
 				AnimateHelper.hexAPoint
-					.add(
-						-10*Math.sin(this.hexAngle),
-						10*Math.sin(this.hexAngle)
-					)
+			//		.add(
+//						-10*Math.sin(this.hexAngle),
+//						10*Math.sin(this.hexAngle)
+//					)
 			);
 			hexPath.lineTo(
 				AnimateHelper.hexBPoint
 					.add(
-						-10*Math.sin(this.hexAngle),
-						10*Math.sin(this.hexAngle)
+						10*Math.sin(this.hexAngle),
+						-10*Math.sin(this.hexAngle)
 					)
 			);
 			hexPath.lineTo(AnimateHelper.hexGPoint);
@@ -1351,10 +1376,10 @@ Animation.init = function(container){
 			);
 			hexPath.lineTo(
 				AnimateHelper.hexAPoint
-					.add(
-						-10*Math.sin(this.hexAngle),
-						10*Math.sin(this.hexAngle)
-					)
+			//		.add(
+//						-10*Math.sin(this.hexAngle),
+//						10*Math.sin(this.hexAngle)
+//					)
 			);
 			hexPath.strokeColor = "black";
 			hexPath.opacity = AnimateHelper.hexOpacity;
@@ -1372,19 +1397,20 @@ Animation.init = function(container){
 				);
 				hexFillPath.lineTo(
 				AnimateHelper.hexAPoint
-					.add(
-						-10*Math.sin(this.hexAngle),
-						10*Math.sin(this.hexAngle)
-					)
+			//		.add(
+//						-10*Math.sin(this.hexAngle),
+//						10*Math.sin(this.hexAngle)
+//					)
 				);
 				hexFillPath.lineTo(
 				AnimateHelper.hexBPoint
 					.add(
-						-10*Math.sin(this.hexAngle),
-						10*Math.sin(this.hexAngle)
+						10*Math.sin(this.hexAngle),
+						-10*Math.sin(this.hexAngle)
 					)
 				);
 				hexFillPath.lineTo(AnimateHelper.hexGPoint);
+	//			hexFillPath.strokeColor = "black";
 				hexFillPath.fillColor = "white";
 			}
 		},
@@ -1425,16 +1451,16 @@ Animation.init = function(container){
 			);
 			hexPath.lineTo(
 				AnimateHelper.hexBPoint
-					.add(
-						-10*Math.sin(this.hexAngle),
-						-10*Math.sin(this.hexAngle)
-					)
+	//				.add(
+//						-10*Math.sin(this.hexAngle),
+//						-10*Math.sin(this.hexAngle)
+//					)
 			);
 			hexPath.lineTo(
 				AnimateHelper.hexCPoint
 					.add(
-						-10*Math.sin(this.hexAngle),
-						-10*Math.sin(this.hexAngle)
+						10*Math.sin(this.hexAngle),
+						10*Math.sin(this.hexAngle)
 					)
 			);
 			hexPath.lineTo(AnimateHelper.hexKPoint);
@@ -1465,19 +1491,20 @@ Animation.init = function(container){
 				);
 				hexFillPath.lineTo(
 				AnimateHelper.hexBPoint
-					.add(
-						-10*Math.sin(this.hexAngle),
-						-10*Math.sin(this.hexAngle)
-					)
+	//				.add(
+//						-10*Math.sin(this.hexAngle),
+//						-10*Math.sin(this.hexAngle)
+//					)
 				);
 				hexFillPath.lineTo(
 				AnimateHelper.hexCPoint
 					.add(
-						-10*Math.sin(this.hexAngle),
-						-10*Math.sin(this.hexAngle)
+						10*Math.sin(this.hexAngle),
+						10*Math.sin(this.hexAngle)
 					)
 				);
 				hexFillPath.lineTo(AnimateHelper.hexKPoint);
+		//		hexFillPath.strokeColor = "black";
 				hexFillPath.fillColor = "white";
 			}
 		},
@@ -1518,16 +1545,16 @@ Animation.init = function(container){
 			);
 			hexPath.lineTo(
 				AnimateHelper.hexBPoint
-					.add(
-						-10*Math.sin(this.hexAngle),
-						-10*Math.sin(this.hexAngle)
-					)
+			//		.add(
+//						-10*Math.sin(this.hexAngle),
+//						-10*Math.sin(this.hexAngle)
+//					)
 			);
 			hexPath.lineTo(
 				AnimateHelper.hexCPoint
 					.add(
-						-10*Math.sin(this.hexAngle),
-						-10*Math.sin(this.hexAngle)
+						10*Math.sin(this.hexAngle),
+						10*Math.sin(this.hexAngle)
 					)
 			);
 			hexPath.lineTo(AnimateHelper.hexKPoint);
@@ -1558,19 +1585,20 @@ Animation.init = function(container){
 				);
 				hexFillPath.lineTo(
 				AnimateHelper.hexBPoint
-					.add(
-						-10*Math.sin(this.hexAngle),
-						-10*Math.sin(this.hexAngle)
-					)
+		//			.add(
+//						-10*Math.sin(this.hexAngle),
+//						-10*Math.sin(this.hexAngle)
+//					)
 				);
 				hexFillPath.lineTo(
 				AnimateHelper.hexCPoint
 					.add(
-						-10*Math.sin(this.hexAngle),
-						-10*Math.sin(this.hexAngle)
+						10*Math.sin(this.hexAngle),
+						10*Math.sin(this.hexAngle)
 					)
 				);
 				hexFillPath.lineTo(AnimateHelper.hexKPoint);
+		//		hexFillPath.strokeColor = "black";
 				hexFillPath.fillColor = "white";
 			}
 		},
@@ -1619,6 +1647,7 @@ Animation.init = function(container){
 						10*Math.sin(this.hexAngle)
 					)
 			);
+			hexPath.lineTo(AnimateHelper.hexMPoint);
 			hexPath.lineTo(AnimateHelper.hexEPoint);
 			hexPath.lineTo(AnimateHelper.hexFPoint);
 			hexPath.lineTo(AnimateHelper.hexAPoint);
@@ -1695,6 +1724,7 @@ Animation.init = function(container){
 						10*Math.sin(this.hexAngle)
 					)
 			);
+			hexPath.lineTo(AnimateHelper.hexMPoint);
 			hexPath.lineTo(AnimateHelper.hexEPoint);
 			hexPath.lineTo(AnimateHelper.hexFPoint);
 			hexPath.lineTo(AnimateHelper.hexAPoint);
@@ -1898,7 +1928,7 @@ Interaction.init = function(container){
 	$(container).append('<button id="checkBtn" class="control_button"></button>');
 	$('#checkBtn').css("position", "absolute")
 					.css("bottom", "30px")
-					.css("right", "60px");
+					.css("right", "30px");
 	
 //	$(container).append('<button id="againBtn" class="control_button"></button>');
 //	$('#againBtn').css("position", "absolute")
@@ -1908,13 +1938,13 @@ Interaction.init = function(container){
 	$(container).append('<button id="nextBtn" class="next_button"></button>');
 	$('#nextBtn').css("position", "absolute")
 					.css("bottom", "30px")
-					.css("right", "60px");
+					.css("right", "30px");
 	$('#nextBtn').hide();
 					
 	$(container).append('<div id="statuss"></div>');
 	$('#statuss').css("position", "absolute")
-					.css("left", "450px")
-					.css("top", "114px")
+					.css("left", "445px")
+					.css("top", "94px")
 					.css("width", "120px")
 					.css("height", "50px")
 				//	.css("border", "solid")
