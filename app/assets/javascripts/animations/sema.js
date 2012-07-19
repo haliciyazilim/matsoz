@@ -47,14 +47,14 @@ Interaction.init = function(container){
 			
 		this.yazdir=function(){
 			var sonuc=Array();
-			console.log("this.children.name"+this.name);
-			console.log("this.children.length"+this.children.length);
-			console.log("this.children[j].children[i].length"+this.children[1].children.length)
+			//console.log("this.children.name"+this.name);
+			//console.log("this.children.length"+this.children.length);
+			//console.log("this.children[j].children[i].length"+this.children[1].children.length)
 			for (var j=0; j<this.children.length; j++){
-				console.log("ilk for içindeyim");
+				//console.log("ilk for içindeyim");
 				sonuc.push(this.children[j].name);
 				for(var i=0; i<this.children[j].children.length;i++){
-					console.log("yazdır(): "+this.children[j].children[i].name);
+					//console.log("yazdır(): "+this.children[j].children[i].name);
 					sonuc.push(this.children[j].children[i].name);
 				}
 			}
@@ -131,19 +131,19 @@ Interaction.init = function(container){
 	}
 	
 	for(var i=0; i<kitaplar.children[0].children.length;i++)
-		console.log("Edebiyatın bebeleri: "+kitaplar.children[0].children[i].name);
+		//console.log("Edebiyatın bebeleri: "+kitaplar.children[0].children[i].name);
 	
 	var dropableShapes = new Group();
 	
 	
 	
 	//var sozcuk=sozcukler[dizi[soruSirasi]];
-	console.log("145"+sozcuk);
+	//console.log("145"+sozcuk);
 	
 	function semaOlustur(renk,sozcuk){
-		console.log("148"+sozcuk);
-		console.log("149"+sozcuk.name);
-		console.log("uzunluk "+sozcuk.getTreeSize());
+		//console.log("148"+sozcuk);
+		//console.log("149"+sozcuk.name);
+		//console.log("uzunluk "+sozcuk.getTreeSize());
 		var tane=sozcuk.getTreeSize()-1;
 		//console.log("x: "+x);
 		var ebat;
@@ -169,7 +169,7 @@ Interaction.init = function(container){
 			
 		// alt semalar çizdirliyor.
 		var altSemaSayisi=sozcuk.children.length;
-		console.log("Alt Şema Sayısı: "+altSemaSayisi);
+		//console.log("Alt Şema Sayısı: "+altSemaSayisi);
 		var altOrtaNokta=(490/altSemaSayisi)/2;
 		var sonrakiKoordinatlar=2*altOrtaNokta;
 		
@@ -180,7 +180,7 @@ Interaction.init = function(container){
 		for(var i=0;i<altSemaSayisi;i++){
 			var altSemaGroup=new Group();
 			var altSemaKoordinat=altOrtaNokta+i*sonrakiKoordinatlar;
-			console.log("koor"+altSemaKoordinat);
+			//console.log("koor"+altSemaKoordinat);
 			var altSemaSekil=new Path.Rectangle(altSemaKoordinat,140.5,100,40);
 				//sozcuk.children[i].shape = altSemaSekil;
 				
@@ -208,12 +208,12 @@ Interaction.init = function(container){
 			
 			// alt semaların elemanları çiziliyor.
 			var altSemalarElemanSayisi=sozcuk.children[i].children.length;
-			console.log("alt eleman sayisi "+i+": "+altSemalarElemanSayisi);
-			console.log("alt şema koordinat: "+altSemaSekil.position);
+			//console.log("alt eleman sayisi "+i+": "+altSemalarElemanSayisi);
+			//console.log("alt şema koordinat: "+altSemaSekil.position);
 			
 			for(var j=0; j<altSemalarElemanSayisi; j++){
 				var altSemaElemanKoordinat=j*(ebat+10)+altSemaSekil.position.x-((ebat*altSemalarElemanSayisi+10*(altSemalarElemanSayisi-1))/2);
-				console.log("alt eleman koordinat değişkeni: "+altSemaElemanKoordinat);
+				//console.log("alt eleman koordinat değişkeni: "+altSemaElemanKoordinat);
 				var altSemalarElemanSekil=new Path.Rectangle(altSemaElemanKoordinat, (altSemaSekil.position.y+50), ebat, 30);
 				
 				var altSemalarGroup=new Group();
@@ -221,11 +221,11 @@ Interaction.init = function(container){
 				altSemalarElemanSekil.ebeveyn  = altSemaSekil;
 				altSemalarElemanSekil.class = "dropable";
 				dropableShapes.addChild(altSemalarElemanSekil);
-				console.log("elemanlar çiziliyhor");
+				//console.log("elemanlar çiziliyhor");
 				//altSemalarElemanSekil.fillColor="black";
 				altSemalarElemanSekil.strokeColor="black";
 				//alert("elemanlar çiziliyhor");
-				console.log("Alt eleman şekil koordinat: "+altSemalarElemanSekil.position);
+				//console.log("Alt eleman şekil koordinat: "+altSemalarElemanSekil.position);
 			
 				// başlıktan alt şemalara doğrular çiziliyor.
 				var semadanDogru=new Path.Line(new Point(altSemaSekil.position.x,altSemaSekil.position.y+20),new Point(altSemalarElemanSekil.position.x,altSemalarElemanSekil.position.y-15));
@@ -243,7 +243,7 @@ Interaction.init = function(container){
 			}			
 		}
 		
-		console.log("satir 228: "+sonuc);
+		//console.log("satir 228: "+sonuc);
 		
 		var move = function(event){
 			this.translate(event.delta.x,event.delta.y);
@@ -261,7 +261,7 @@ Interaction.init = function(container){
 			}
 		},
 		start = function(event){
-			console.log("Starta girdim")
+			//console.log("Starta girdim")
 			this.ox = this.position.x;
 			this.oy = this.position.y;
 		},
@@ -283,13 +283,13 @@ Interaction.init = function(container){
 				var alttakiBebeSayisi=this.hitShape.bebeSayisi;
 				var tutulanEbeveyn=this.ebeveyn.name;
 				var tutulanBebeSayisi=this.bebeSayisi;
-				console.log("tutulan evebeyn "+tutulanEbeveyn);
-				console.log("tutulan bebesayisi "+tutulanBebeSayisi);
-				console.log("alttaki ebeveyn (content): "+this.hitShape.ebeveyn.content);
-				console.log("alttaki ebeveyn (name): "+this.hitShape.ebeveyn.name);
-				console.log("alttaki bebesayisi "+alttakiBebeSayisi);
-				console.log("tutalan name "+this.name);
-				console.log("alttaki name "+this.hitShape.name);
+				//console.log("tutulan evebeyn "+tutulanEbeveyn);
+				//console.log("tutulan bebesayisi "+tutulanBebeSayisi);
+				//console.log("alttaki ebeveyn (content): "+this.hitShape.ebeveyn.content);
+				//console.log("alttaki ebeveyn (name): "+this.hitShape.ebeveyn.name);
+				//console.log("alttaki bebesayisi "+alttakiBebeSayisi);
+				//console.log("tutalan name "+this.name);
+				//console.log("alttaki name "+this.hitShape.name);
 				if((tutulanEbeveyn==alttakiEbeveyn && alttakiBebeSayisi==tutulanBebeSayisi) )
 				tetkik=true;
 						
@@ -299,16 +299,16 @@ Interaction.init = function(container){
 			
 			  if(tetkik==true){
 				  sayi++;
-				  console.log("tetkik  true if"+tetkik);
+				  //console.log("tetkik  true if"+tetkik);
 				  this.class=null;
 				  //this.position=this.hitShape.position;
 				  this.opacity=0;
 				  //this.hitShape.ebeveyn.name=this.hitShape.name;
 				  //console.log("this.hitShape.evebeyn.name: "+this.hitShape.ebeveyn.name);
 				  this.hitShape.name = this.name;
-				  console.log("asdads"+this.hitShape.name);
+				  //console.log("asdads"+this.hitShape.name);
 				  this.hitShape.content=this.name;
-				  console.log("asdadasd: "+this.hitShape.content);
+				  //console.log("asdadasd: "+this.hitShape.content);
 				  
 				  var yazi= new PointText(this.hitShape.position);
 				  yazi.content=this.children[1].content;
@@ -324,8 +324,7 @@ Interaction.init = function(container){
 				  	$("#kontrolBtn").show();
 			  }
 			  else{
-				  console.log("tetkik false if"+tetkik);
-				  
+
 				  this.animate({
 				  
 					  style:{
@@ -340,17 +339,17 @@ Interaction.init = function(container){
 	  
 		// Elemanlar tek tek yazdırılıyor.
 		
-		console.log("elemanlar: "+sozcuk.yazdir());
+		//console.log("elemanlar: "+sozcuk.yazdir());
 		//var elemanlar=sozcuk.yazdir();
 		var konum=0;
 		var konumSirasi=0;
 		var konumListe=Util.getShuffledArray(tane);
-		console.log(konumListe);
+		//console.log(konumListe);
 		for (var j=0; j<sozcuk.children.length; j++){
 				konum=konumListe[konumSirasi];
 			
-				console.log("semalar 1:");
-				console.log(sozcuk.children[j].name);
+				//console.log("semalar 1:");
+				//console.log(sozcuk.children[j].name);
 				
 				var semaGroup = new Group();
 				var sema = new Path.Rectangle(((konum*(ebat+10))+10),10,ebat,30); //x,y,width,height
@@ -377,7 +376,7 @@ Interaction.init = function(container){
 						
 						konumSirasi++;
 						konum=konumListe[konumSirasi];
-						console.log("337: "+sozcuk.children[j].children[i].name);
+						//console.log("337: "+sozcuk.children[j].children[i].name);
 						//sonuc.push(sozcuk.children[j].children[i].name);
 						
 						var semaGroup = new Group();
@@ -435,7 +434,7 @@ Interaction.init = function(container){
 	function soruGetir(){
 	var dizi=Array();
 	dizi= Util.getShuffledArray(4);
-	console.log("139"+dizi);
+	//console.log("139"+dizi);
 	
 	switch (dizi[soruSirasi]){
 			case 0:
@@ -468,11 +467,11 @@ Interaction.init = function(container){
 		.click(function(){
 			project.activeLayer.remove();
 			var layer = new Layer();
-			console.log("sayi: "+sayi);
+			//console.log("sayi: "+sayi);
 			//semaGroup.remove();
 			soruSirasi++;
-			console.log("xxxxxxxxxxxxxxxxxxxxxxxsoruSirais: "+soruSirasi);
-			console.log("xxxxxxxxxxxxxxxxxxxxxxxsozcuk: "+sozcuk.name);
+			//console.log("xxxxxxxxxxxxxxxxxxxxxxxsoruSirais: "+soruSirasi);
+			//console.log("xxxxxxxxxxxxxxxxxxxxxxxsozcuk: "+sozcuk.name);
 			semaOlustur(semaRengi[1],soruGetir());
 			//window.location.reload()
 			}).hide();

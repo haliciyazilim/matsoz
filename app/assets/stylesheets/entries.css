@@ -2,7 +2,15 @@ body {
 	font-family: "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
 	background-color: #fef8ec;
 }
-
+div#main > a{
+	color:#aaa;
+	font-size:14px;
+	text-decoration:none;
+}
+div#main > a:hover{
+	color:#fff;
+	text-decoration:none;
+}
 /*#main {
 	margin-left: auto;
 	margin-right: auto;
@@ -175,25 +183,17 @@ p.exampleHeader {
 }
 
 .control_button{
-	height: 30px;
-	font-weight: bold;
-	padding: 8px 10px;
-	border-radius: 5px;
-	border: none;
-	cursor: pointer;
-	background-color: #afc87d;
-	color: black;
+	background-image:url(/assets/btn_check.png);
+	height:40px;
+	width:103px;
+	border:none;
 }
 
 .next_button{
-	height: 30px;
-	font-weight: bold;
-	padding: 8px 10px;
-	border-radius: 5px;
-	border: none;
-	cursor: pointer;
-	background-color: #7f9db0;
-	color: black;
+	background-image:url(/assets/btn_next.png);
+	height:40px;
+	width:103px;
+	border:none;
 }
 
 .status_field {

@@ -464,7 +464,9 @@ Interaction.init = function(container){
 			if(girdi<10)
 				ondalikliGirdi="0"+girdi;
 			if((girdi%10)==0)
+
 				ondalikliGirdi=girdi/10; 
+
 			if(girdi==100)
 				ondalikliGirdi=1;
 			
@@ -510,8 +512,9 @@ Interaction.init = function(container){
 					$("#Cevap3").html(virgulluCevap);
 					if(cevap<10){
 						$("#girdiCevap3").val("0"+cevap);
-						//console.log("0"+cevap);
+
 					}
+
 					else
 						$("#girdiCevap3").val(ondalikliGirdi);
 				}

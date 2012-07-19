@@ -52,15 +52,15 @@ Interaction.init = function(container){
 	//console.log(window.location.hash)
 	switch(window.location.hash){
 		case '#triangle':
-	//		console.log('triangle');
+	//		//console.log('triangle');
 			load_triangle_pyramid();
 			break;
 		case '#rectangle':
-	//		console.log('rectangle');
+	//		//console.log('rectangle');
 			load_rectangle_pyramid();
 			break;
 		default:
-	//		console.log('default');
+	//		//console.log('default');
 			load_square_pyramid();
 	}
 	
@@ -126,7 +126,7 @@ function load_square_pyramid() {
 	};
 	// Init drawing system
 	canvas = $('canvas',Interaction.container).get(0);
-	// console.log(canvas);
+	// //console.log(canvas);
 	ctx = canvas.getContext("2d");
 
 	canvasWidth = canvas.width*1;

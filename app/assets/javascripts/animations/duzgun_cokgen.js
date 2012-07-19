@@ -190,7 +190,7 @@ var Animation = {
 			animationType: 'easeInEaseOut',
 			callback:function(){
 				
-				console.log('Im here');
+				//console.log('Im here');
 				$(Animation.container).append('<span style="position:absolute;bottom:10px;left:40px">Eşkenar Üçgen</span>');
 				var raster = new Raster('triangle_pattern');
 				raster.position = Animation.triangle.shape.centerPoint;
@@ -213,7 +213,7 @@ var Animation = {
 			delay:700,
 			animationType: 'easeInEaseOut',
 			callback:function(){
-				console.log('Im here');
+				//console.log('Im here');
 				$(Animation.container).append('<span style="position:absolute;bottom:10px;left:34%">Kare</span>');
 				var raster = new Raster('square_pattern');
 				raster.position = Animation.square.shape.centerPoint;
@@ -238,7 +238,7 @@ var Animation = {
 			delay:750,
 			animationType: 'easeInEaseOut',
 			callback:function(){
-				console.log('Im here');
+				//console.log('Im here');
 				$(Animation.container).append('<span style="position:absolute;bottom:10px;left:53.5%">Düzgün Beşgen</span>');
 				var raster = new Raster('pentagon_pattern');
 				raster.position = Animation.pentagon.shape.centerPoint;
@@ -264,7 +264,7 @@ var Animation = {
 			delay:500,
 			animationType: 'easeInEaseOut',
 			callback:function(){
-				console.log('Im here');
+				//console.log('Im here');
 				$(Animation.container).append('<span style="position:absolute;bottom:10px;left:78%">Düzgün Altıgen</span>');
 				var raster = new Raster('hexagon_pattern');
 				raster.position = Animation.hexagon.shape.centerPoint;
@@ -397,7 +397,7 @@ var start = function(){
 			var time  = distance / velocity;
 			/*this.callback = function(){
 				this.preventDrag = false;
-				console.log(this.preventDrag);
+				//console.log(this.preventDrag);
 			}*/
 			this.animate({
 					style:{

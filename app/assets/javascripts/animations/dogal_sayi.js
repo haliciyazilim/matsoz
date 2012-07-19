@@ -708,7 +708,7 @@ Interaction.init = function(container){
 			for(i=0;i<9;i++){
 				var left=(i*40)+"px";
 				var id="#c_"+i;
-				console.log("left: "+left);
+				//console.log("left: "+left);
 				$("#cevaplar",container).append("<div id='c_"+i+"' class='cevapTek'>");
 					$(id).css("width","40px")
 					.css("height","40px")
@@ -807,11 +807,11 @@ Interaction.init = function(container){
 	rastgeleSayi="999999999";
 	//rastgeleSayi="xw"+rastgele7;
 	var yaziyla= new Array();
-	console.log("denemeSayısı: "+rastgeleSayi+" basamak: "+rastgeleSayi.length);
+	//console.log("denemeSayısı: "+rastgeleSayi+" basamak: "+rastgeleSayi.length);
 	var degisken;
 	for(var i=8; i>=0; i--){
 		var rakam=rastgeleSayi.charAt(i);
-		console.log("rakam_"+i+": "+rakam);
+		//console.log("rakam_"+i+": "+rakam);
 		if(birlerBasamagi[rakam]!=""){
 		switch(i){
 			case 8:
@@ -819,7 +819,7 @@ Interaction.init = function(container){
 					degisken="";
 				else
 					degisken=birlerBasamagi[rakam];
-			yaziyla.push(degisken); console.log("8: "+birlerBasamagi[rakam]);
+			yaziyla.push(degisken); //console.log("8: "+birlerBasamagi[rakam]);
 				
 				break;
 			case 7:
@@ -827,19 +827,19 @@ Interaction.init = function(container){
 					degisken="";
 				else
 					degisken=onlarBasamagi[rakam];
-				yaziyla.push(degisken); console.log("7: "+onlarBasamagi[rakam]);
+				yaziyla.push(degisken); //console.log("7: "+onlarBasamagi[rakam]);
 				break;
 			case 6:
 				
 				if(birlerBasamagi[rakam]=="bir"){
 					degisken="yüz";
-					yaziyla.push(degisken); console.log("6: "+birlerBasamagi[rakam]);}
+					yaziyla.push(degisken); //console.log("6: "+birlerBasamagi[rakam]);}
 				else if(birlerBasamagi[rakam]=="sifir"){
 					degisken="";
 				}
 				else {
 					degisken=birlerBasamagi[rakam]+" yüz";
-				yaziyla.push(degisken); console.log("6: "+birlerBasamagi[rakam]);}
+				yaziyla.push(degisken); //console.log("6: "+birlerBasamagi[rakam]);}
 				
 				break;
 			case 5:
@@ -848,14 +848,14 @@ Interaction.init = function(container){
 				else
 					degisken=birlerBasamagi[rakam]+" bin";
 				
-				yaziyla.push(degisken); console.log("5: "+birlerBasamagi[rakam]);
+				yaziyla.push(degisken); //console.log("5: "+birlerBasamagi[rakam]);
 				break;
 			case 4:
 				if(onlarBasamagi[rakam]=="sifir")
 					degisken="";
 				else
 					degisken=onlarBasamagi[rakam];
-				yaziyla.push(degisken); console.log("4: "+onlarBasamagi[rakam]);
+				yaziyla.push(degisken); //console.log("4: "+onlarBasamagi[rakam]);
 				break;
 			case 3:
 				if(birlerBasamagi[rakam]=="sifir")
@@ -864,7 +864,7 @@ Interaction.init = function(container){
 					degisken="yüz";
 				else
 					degisken=birlerBasamagi[rakam]+" yüz";
-				yaziyla.push(degisken); console.log("3: "+birlerBasamagi[rakam]);
+				yaziyla.push(degisken); //console.log("3: "+birlerBasamagi[rakam]);
 				
 				break;
 			case 2:
@@ -872,21 +872,21 @@ Interaction.init = function(container){
 					degisken="milyon";
 				else
 					degisken=birlerBasamagi[rakam]+" milyon";
-				yaziyla.push(degisken); console.log("2: "+birlerBasamagi[rakam]);
+				yaziyla.push(degisken); //console.log("2: "+birlerBasamagi[rakam]);
 				break;
 			case 1:
 				if(rakam=="w"){
 					rakam=" ";
 					rastgeleSayi=rastgeleSayi.replace("w",rakam);
 					
-					console.log( "sonraki rakam"+rastgeleSayi);
+					//console.log( "sonraki rakam"+rastgeleSayi);
 				}
 				else{
 					if(onlarBasamagi[rakam]=="sifir")
 							degisken="";
 						else
 							degisken=onlarBasamagi[rakam];
-						yaziyla.push(degisken); console.log("1: "+onlarBasamagi[rakam]);
+						yaziyla.push(degisken); //console.log("1: "+onlarBasamagi[rakam]);
 					}
 				break;
 			case 0:
@@ -895,14 +895,14 @@ Interaction.init = function(container){
 					rakam=" ";
 					rastgeleSayi=rastgeleSayi.replace("x",rakam);
 					
-					console.log( "sonraki rakam"+rastgeleSayi);
+					//console.log( "sonraki rakam"+rastgeleSayi);
 				}
 				else{
 					if(birlerBasamagi[rakam]=="bir" ||birlerBasamagi[rakam]=="sifir")
 						degisken="yüz";
 					else
 						degisken=birlerBasamagi[rakam]+" yüz";
-					yaziyla.push(degisken); console.log("0: "+birlerBasamagi[rakam]);
+					yaziyla.push(degisken); //console.log("0: "+birlerBasamagi[rakam]);
 				}
 				break;
 		}
@@ -913,7 +913,7 @@ Interaction.init = function(container){
 	var strYazi="";
 	for(var k=yaziyla.length-1;k>=0;k--)
 		strYazi+=" "+yaziyla[k];
-	console.log(strYazi);
+	//console.log(strYazi);
 	$("#sayilar .yazi").html(strYazi);
 	}
 	
@@ -937,7 +937,7 @@ Interaction.init = function(container){
 		var bir=$("#inputBirler").val();
 		
 		
-		console.log("inputlardaki sayı "+yuzMilyon+onMilyon+milyon+yuzBin+onBin+bin+yuz+on+bir);
+		//console.log("inputlardaki sayı "+yuzMilyon+onMilyon+milyon+yuzBin+onBin+bin+yuz+on+bir);
 		
 		if (milyon=="" || yuzBin==""||onBin==""||bin==""|| yuz==""|| on==""|| bir==""){
 			$("#geriBildirimText").attr("class","status_alert").html("Bütün kutucukları doldurunuz.");
@@ -957,8 +957,8 @@ Interaction.init = function(container){
 				onMilyon=" ";
 				
 			var cevapSayisi=yuzMilyon+onMilyon+milyon+yuzBin+onBin+bin+yuz+on+bir;
-			console.log("Girdi:'"+cevapSayisi+"'");
-			console.log("cevap:'"+rastgeleSayi+"'");
+			//console.log("Girdi:'"+cevapSayisi+"'");
+			//console.log("cevap:'"+rastgeleSayi+"'");
 			if(rastgeleSayi==cevapSayisi){
 				$("#geriBildirimText").attr("class","status_true").html("Tebrikler");
 				$("#btnKontrol").hide();
@@ -967,7 +967,7 @@ Interaction.init = function(container){
 			}
 			else{
 				tiklamaSayisi++;
-				console.log("tik: "+tiklamaSayisi);
+				//console.log("tik: "+tiklamaSayisi);
 				if(tiklamaSayisi<2)
 					$("#geriBildirimText").attr("class","status_alert").html("Tekrar deneyiniz.");
 				else{
@@ -1022,7 +1022,7 @@ Interaction.init = function(container){
 	
 	$("#inputYuzMilyonlar, #inputOnMilyonlar, #inputMilyonlar, #inputYuzBinler, #inputOnBinler, #inputBinler, #inputYuzler, #inputOnlar, #inputBirler").keyup(function(event) {
 		if(event.keyCode == 13) {
-			console.log("Key"+event.keyCode);
+			//console.log("Key"+event.keyCode);
 			kontrol();
 		}
 	});
