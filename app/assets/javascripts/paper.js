@@ -1831,7 +1831,7 @@ var Item = this.Item = Base.extend({
 		if (!this._project)
 			paper.project.activeLayer.addChild(this);
 		this._style = PathStyle.create(this);
-		this.set_style(this._project.getCurrentStyle());
+		this.setStyle(this._project.getCurrentStyle());
 	},
 
 	_changed: function(flags) {
@@ -1895,7 +1895,7 @@ var Item = this.Item = Base.extend({
 		return this._style;
 	},
 
-	set_style: function(style) {
+	setStyle: function(style) {
 		this._style.initialize(style);
 	},
 
@@ -2054,7 +2054,7 @@ var Item = this.Item = Base.extend({
 	},
 
 	_clone: function(copy) {
-		copy.set_style(this._style);
+		copy.setStyle(this._style);
 		if (this._children) {
 			for (var i = 0, l = this._children.length; i < l; i++)
 				copy.addChild(this._children[i].clone());
@@ -4633,7 +4633,7 @@ var Path = this.Path = PathItem.extend({
 				ctx.clip();
 			} else if (!param.compound && (fillColor || strokeColor)) {
 				ctx.save();
-				this._set_styles(ctx);
+				this._setStyles(ctx);
 				if (!fillColor || !strokeColor)
 					ctx.globalAlpha = this._opacity;
 				if (fillColor) {
@@ -4680,7 +4680,7 @@ var Path = this.Path = PathItem.extend({
 	};
 
 	return {
-		_set_styles: function(ctx) {
+		_setStyles: function(ctx) {
 			for (var i in styles) {
 				var style = this._style[i]();
 				if (style)
@@ -5334,7 +5334,7 @@ var CompoundPath = this.CompoundPath = PathItem.extend({
 		param.compound = true;
 		for (var i = 0; i < l; i++)
 			Item.draw(this._children[i], ctx, param);
-		firstChild._set_styles(ctx);
+		firstChild._setStyles(ctx);
 		var fillColor = firstChild.getFillColor(),
 			strokeColor = firstChild.getStrokeColor();
 		if (fillColor) {

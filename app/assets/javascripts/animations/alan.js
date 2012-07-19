@@ -24,7 +24,7 @@ var Animation = {
 					this.shape.add(this.staticPoints[i]);
 				}
 				this.shape.add(this.staticPoints[0]);
-				this.shape.setStyle(style1);			
+				this.shape.set_style(style1);			
 			}
 			if(delay == null || delay == undefined)
 				this.delay = 0;
@@ -58,13 +58,13 @@ var Animation = {
 							this.shape.add(this["point"+i]);
 						}
 						this.shape.add(this["point0"]);
-						this.shape.setStyle(this.style1);
+						this.shape.set_style(this.style1);
 						//console.log(this.fillColor);
 						this.shape.fillColor = this.fillColor;
 								
 					},
 					callback:function(){
-						this.shape.setStyle(this.style2);
+						this.shape.set_style(this.style2);
 						var div = document.createElement('div');
 						$(Animation.container).append(div);
 						$(div)
@@ -93,7 +93,7 @@ var Animation = {
 							var p2 = this.getPoint("lineTo");
 
 							var line = new Path.Line(p1,p2);
-							line.setStyle({strokeWidth:3,strokeColor:"#f00"});
+							line.set_style({strokeWidth:3,strokeColor:"#f00"});
 							line.opacity = 0;
 							line.animate({
 								style:{opacity:1},
@@ -133,12 +133,12 @@ var Animation = {
 			new Path.Line(
 				new Point(p.x,p.y+a*i),
 				new Point(p.x+700,p.y+a*i)
-			).setStyle(gridLineStyle);
+			).set_style(gridLineStyle);
 		for(var i=1;i<20;i++)
 			new Path.Line(
 				new Point(p.x+a*i,p.y),
 				new Point(p.x+a*i,p.y+140)
-			).setStyle(gridLineStyle);
+			).set_style(gridLineStyle);
 		
 		
 		

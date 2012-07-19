@@ -17,6 +17,14 @@ var kareBoyaliFillColor="red";
 var divSonrakiYaziRenk="white";
 var divSonrakiFillRenk="#4682b4";
 
+var sayilarStrokeRenk="#9bd1d9";
+var sayilarFillRenk="#f2fafc";
+var tabloStrokeRenk="#255b63";
+var tabloBirlerFillRenk="#ecf8fa";
+var tabloBinlerFillRenk="#d9f1f5";
+var tabloMilyonlarFillRenk="#bfe8ef";
+var inputStrokeRenk="#9bd1d9";
+
 var Animation = function(){};Animation();
 
 var Interaction = function(){};Interaction();
@@ -39,13 +47,19 @@ Animation.init=function(container){
 				.css("top", "0")
 				.css("bottom", "0")
 				.css("left", "0")
-				.css("width", "210px")
+				.css("width", "500px")
 				.css("height", "60px")
 				.css("text-align","center")
 				.css("line-height","60px")
-				.css("font-size","large");
+				.css("font-size","60px")
+				.css("font-weight","bold")
+				.css("color",tabloStrokeRenk)
+				.css("text-shadow","3px 2px 8px rgba(37,91,99,.50)");
+				//.css("filter", "Shadow(Color=black, Direction=45, Strength=1)");
 				//.css("border","solid 1px black");
-	var deger=format(999999999, {point:'.'});
+				//.css("filter","glow(color=black,strength=2), alpha(opacity=90)");
+				
+				var deger=format(999999999, {point:'.'});
 	//$("#sayi").html(deger);
 	
 	
@@ -196,17 +210,17 @@ Interaction.init = function(container){
 	Main.setObjective("Yandaki doğal sayıları tabloya yerleştiriniz.");
 	
 	$(container).append("<div id='sayilar'>");
-		$("#sayilar").css("width","570px");
-		$("#sayilar").css("height","30px");
-		$("#sayilar").css("position","absolute");
-		$("#sayilar").css("top","5px");
-		//$("#sayilar").css("bottom","0");
-		$("#sayilar").css("left","0");
-		$("#sayilar").css("right","0");
-		$("#sayilar").css("margin","auto");
-		$("#sayilar").css("border","solid 1px black");
-		$("#sayilar").css("font-size","small");
-		$("#sayilar").css("font-weight","bold");
+		$("#sayilar").css("width","570px")
+			.css("height","30px")
+			.css("position","absolute")
+			.css("top","5px")
+			.css("left","0")
+			.css("right","0")
+			.css("margin","auto")
+			.css("border","solid 1px "+sayilarStrokeRenk)
+			.css("font-size","small")
+			.css("font-weight","bold")
+			.css("background-color",sayilarFillRenk);
 		
 	
 	$("#sayilar", container).append("<div class='yazi'>");
@@ -222,15 +236,15 @@ Interaction.init = function(container){
 		$(".yazi").css("margin","auto");
 		
 	$(container).append("<div id=aksiyon>");
-		$("#aksiyon").css("width","360px");
-		$("#aksiyon").css("height","220px");
-		$("#aksiyon").css("position","absolute");
-		$("#aksiyon").css("top","40px");
-		$("#aksiyon").css("left","0");
-		$("#aksiyon").css("right","0");
-		$("#aksiyon").css("margin","auto");
-		$("#aksiyon").css("border","solid 1px black");
-		$("#aksiyon").css("font-size","medium");
+		$("#aksiyon").css("width","360px")
+		.css("height","180px")
+		.css("position","absolute")
+		.css("top","50px")
+		.css("left","0")
+		.css("right","0")
+		.css("margin","auto")
+		.css("border","solid 1px "+tabloStrokeRenk)
+		.css("font-size","medium");
 		
 	
 	// Milyonlar bölümü
@@ -241,8 +255,9 @@ Interaction.init = function(container){
 		$("#milyonlarBol").css("top","0px");
 		$("#milyonlarBol").css("left","0px");
 		//$("#milyonlarYuz").css("right","0");
-		$("#milyonlarBol").css("margin","auto");
-		$("#milyonlarBol").css("border","solid 1px black");
+		$("#milyonlarBol").css("margin","auto")
+			.css("border-right","solid 1px "+tabloStrokeRenk)
+			.css("background-color",tabloMilyonlarFillRenk)
 		$("#milyonlarBol").css("font-size","small");
 		$("#milyonlarBol").css("font-weight","bold");
 		
@@ -259,9 +274,9 @@ Interaction.init = function(container){
 		$("#binlerBol").css("top","0px");
 		$("#binlerBol").css("left","120px");
 		//$("#milyonlarYuz").css("right","0");
-		$("#binlerBol").css("margin","auto");
-		$("#binlerBol").css("border","solid 1px black");
-		$("#binlerBol").css("border-left","none");
+		$("#binlerBol").css("margin","auto")
+			.css("border-left","solid 1px "+tabloStrokeRenk)
+			.css("background-color",tabloBinlerFillRenk)
 		$("#binlerBol").css("font-size","small");
 		$("#binlerBol").css("font-weight","bold");
 		
@@ -270,16 +285,18 @@ Interaction.init = function(container){
 		
 		
 		$("#aksiyon",container).append("<div id=birlerBol>");
-		$("#birlerBol").css("width","120px");
+		$("#birlerBol").css("width","119px");
 		$("#birlerBol").css("height","30px");
 		$("#birlerBol").css("position","absolute");
 		$("#birlerBol").css("top","0");
 		
 		$("#birlerBol").css("left","240px");
 		//$("#milyonlarYuz").css("right","0");
-		$("#birlerBol").css("margin","auto");
-		$("#birlerBol").css("border","solid 1px black");
-		$("#birlerBol").css("border-left","none");
+		$("#birlerBol").css("margin","auto")
+			.css("border-left","solid 1px "+tabloStrokeRenk)
+			
+			.css("background-color",tabloBirlerFillRenk)
+		
 		$("#birlerBol").css("font-size","small");
 		$("#birlerBol").css("font-weight","bold");
 		
@@ -297,31 +314,60 @@ Interaction.init = function(container){
 		$(".yaziBolukler").css("right","0");
 		$(".yaziBolukler").css("margin","auto");	
 		
+		// basamaklar baslık
+	$("#aksiyon",container).append("<div id='basamaklarBaslik' >");
+	
+		$("#basamaklarBaslik").css("width","31px")
+			.css("height","108px")
+			.css("position","absolute")
+			.css("top","30px")
+			.css("left","-32px")
+			.css("margin","auto")
+			.css("border","solid 1px "+tabloStrokeRenk)
+			//.css("background-color", tabloMilyonlarFillRenk)
+			.css("border-right","none").css("border-left","none")
+			.css("font-size","small").css("font-weight","bold");
+		
+		$("#basamaklarBaslik",container).append("<div class='yatayBaslik'>");
+		$("#basamaklarBaslik .yatayBaslik").html("Basamaklar")
+			.css("-webkit-transform","rotate(-90deg)")
+			.css("transform","rotate(-90deg)")
+			.css("-ms-transform","rotate(-90deg)")
+			.css("-moz-transform","rotate(-90deg)")
+			.css("-o-transform","rotate(-90deg)")
+			.css("text-align","left")
+			.css("position","absolute")
+			.css("height","30px")
+			.css("width","150px")
+			.css("bottom","70px")
+			.css("left","-53px")
+			.css("font-size","small");
+		
+		
 		
 		// Yüz milyonlar
 	$("#aksiyon",container).append("<div id='milyonlarBolYuzMilyonlar' >");
 	
 		$("#milyonlarBolYuzMilyonlar").css("width","40px");
-		$("#milyonlarBolYuzMilyonlar").css("height","190px");
+		$("#milyonlarBolYuzMilyonlar").css("height","150px");
 		$("#milyonlarBolYuzMilyonlar").css("position","absolute");
 		$("#milyonlarBolYuzMilyonlar").css("top","30px");
 		$("#milyonlarBolYuzMilyonlar").css("left","0px");
 		//$("#milyonlarYuz").css("right","0");
-		$("#milyonlarBolYuzMilyonlar").css("margin","auto");
-		$("#milyonlarBolYuzMilyonlar").css("border","solid 1px black");
+		$("#milyonlarBolYuzMilyonlar").css("margin","auto")
+			.css("border","solid 1px "+tabloStrokeRenk)
+			.css("background-color", tabloMilyonlarFillRenk)
 		$("#milyonlarBolYuzMilyonlar").css("border-left","none").css("border-bottom","none");
 		$("#milyonlarBolYuzMilyonlar").css("font-size","medium");
 		
-		
-		
 		$("#milyonlarBolYuzMilyonlar",container).append("<div class='yatay'>");
-		$("#milyonlarBolYuzMilyonlar .yatay").html("Yüz milyonlar basamağı");
+		$("#milyonlarBolYuzMilyonlar .yatay").html("Yüz milyonlar ");
 		
 		$("#aksiyon #milyonlarBolYuzMilyonlar",container).append("<div id='girdiYuzMilyonlar' >");
 		$("#girdiYuzMilyonlar").css("width","40px")
 			.css("height","40px")
-			.css("border","solid 1px black")
-			.css("border-bottom", "none")
+			.css("border","solid 1px "+tabloStrokeRenk)
+			//.css("border-bottom", "none")
 			.css("position","absolute")
 			.css("bottom","0px")
 			.css("left","0px")
@@ -342,25 +388,26 @@ Interaction.init = function(container){
 		// on milyonlar
 	$("#aksiyon",container).append("<div id='milyonlarBolOnMilyonlar' >");
 		$("#milyonlarBolOnMilyonlar").css("width","40px");
-		$("#milyonlarBolOnMilyonlar").css("height","190px");
+		$("#milyonlarBolOnMilyonlar").css("height","150px");
 		$("#milyonlarBolOnMilyonlar").css("position","absolute");
 		$("#milyonlarBolOnMilyonlar").css("top","30px");
 		$("#milyonlarBolOnMilyonlar").css("left","40px");
 		//$("#milyonlarYuz").css("right","0");
-		$("#milyonlarBolOnMilyonlar").css("margin","auto");
-		$("#milyonlarBolOnMilyonlar").css("border","solid 1px black");
-		$("#milyonlarBolOnMilyonlar").css("border-left","none").css("border-bottom","none");
+		$("#milyonlarBolOnMilyonlar").css("margin","auto")
+		.css("border","solid 1px "+tabloStrokeRenk)
+		.css("background-color", tabloMilyonlarFillRenk);
+		$("#milyonlarBolOnMilyonlar").css("border-bottom","none");
 		$("#milyonlarBolOnMilyonlar").css("font-size","medium");
 		
 		$("#milyonlarBolOnMilyonlar",container).append("<div class='yatay'>");
-		$("#milyonlarBolOnMilyonlar .yatay").html("On milyonlar basamağı");
+		$("#milyonlarBolOnMilyonlar .yatay").html("On milyonlar ");
 		
 		
 	$("#aksiyon #milyonlarBolOnMilyonlar",container).append("<div id='girdiOnMilyonlar' >");
 		$("#girdiOnMilyonlar").css("width","40px")
 			.css("height","40px")
-			.css("border","solid 1px black")
-			.css("border-bottom", "none")
+			.css("border","solid 1px "+tabloStrokeRenk)
+			//.css("border-bottom", "none")
 			.css("position","absolute")
 			.css("bottom","0px")
 			.css("left","0px")
@@ -383,24 +430,25 @@ Interaction.init = function(container){
 		// milyonlar
 	$("#aksiyon",container).append("<div id='milyonlarBolMilyonlar' >");
 		$("#milyonlarBolMilyonlar").css("width","40px");
-		$("#milyonlarBolMilyonlar").css("height","190px");
+		$("#milyonlarBolMilyonlar").css("height","150px");
 		$("#milyonlarBolMilyonlar").css("position","absolute");
 		$("#milyonlarBolMilyonlar").css("top","30px");
 		$("#milyonlarBolMilyonlar").css("left","80px");
 		//$("#milyonlarYuz").css("right","0");
 		$("#milyonlarBolMilyonlar").css("margin","auto");
-		$("#milyonlarBolMilyonlar").css("border","solid 1px black");
-		$("#milyonlarBolMilyonlar").css("border-left","none").css("border-bottom","none");
+		$("#milyonlarBolMilyonlar").css("border","solid 1px "+tabloStrokeRenk)
+		.css("background-color", tabloMilyonlarFillRenk);
+		$("#milyonlarBolMilyonlar").css("border-bottom","none");
 		$("#milyonlarBolMilyonlar").css("font-size","medium");
 		
 		$("#milyonlarBolMilyonlar",container).append("<div class='yatay'>");
-		$("#milyonlarBolMilyonlar .yatay").html("Milyonlar basamağı");
+		$("#milyonlarBolMilyonlar .yatay").html("Milyonlar ");
 		
 		$("#aksiyon #milyonlarBolMilyonlar",container).append("<div id='girdiMilyonlar' >");
 		$("#girdiMilyonlar").css("width","40px")
 			.css("height","40px")
-			.css("border","solid 1px black")
-			.css("border-bottom", "none")
+			.css("border","solid 1px "+tabloStrokeRenk)
+			//.css("border-bottom", "none")
 			.css("position","absolute")
 			.css("bottom","0px")
 			.css("left","0px")
@@ -425,24 +473,25 @@ Interaction.init = function(container){
 		// Yüz binler
 	$("#aksiyon",container).append("<div id='binlerBolYuzBinler' >");
 		$("#binlerBolYuzBinler").css("width","40px");
-		$("#binlerBolYuzBinler").css("height","190px");
+		$("#binlerBolYuzBinler").css("height","150px");
 		$("#binlerBolYuzBinler").css("position","absolute");
 		$("#binlerBolYuzBinler").css("top","30px");
 		$("#binlerBolYuzBinler").css("left","120px");
 		//$("#milyonlarYuz").css("right","0");
 		$("#binlerBolYuzBinler").css("margin","auto");
-		$("#binlerBolYuzBinler").css("border","solid 1px black");
-		$("#binlerBolYuzBinler").css("border-left","none").css("border-bottom","none");
+		$("#binlerBolYuzBinler").css("border","solid 1px "+tabloStrokeRenk)
+		.css("background-color", tabloBinlerFillRenk);
+		$("#binlerBolYuzBinler").css("border-bottom","none");
 		$("#binlerBolYuzBinler").css("font-size","medium");
 
 		$("#binlerBolYuzBinler",container).append("<div class='yatay'>");
-		$("#binlerBolYuzBinler .yatay").html("Yüz binler basamağı");
+		$("#binlerBolYuzBinler .yatay").html("Yüz binler ");
 		
 		$("#aksiyon #binlerBolYuzBinler",container).append("<div id='girdiYuzBinler' >");
 		$("#girdiYuzBinler").css("width","40px")
 			.css("height","40px")
-			.css("border","solid 1px black")
-			.css("border-bottom", "none")
+			.css("border","solid 1px "+tabloStrokeRenk)
+			//.css("border-bottom", "none")
 			.css("position","absolute")
 			.css("bottom","0px")
 			.css("left","0px")
@@ -466,24 +515,24 @@ Interaction.init = function(container){
 		// on binler
 	$("#aksiyon",container).append("<div id='binlerBolOnBinler' >");
 		$("#binlerBolOnBinler").css("width","40px");
-		$("#binlerBolOnBinler").css("height","190px");
+		$("#binlerBolOnBinler").css("height","150px");
 		$("#binlerBolOnBinler").css("position","absolute");
 		$("#binlerBolOnBinler").css("top","30px");
 		$("#binlerBolOnBinler").css("left","160px");
 		//$("#milyonlarYuz").css("right","0");
 		$("#binlerBolOnBinler").css("margin","auto");
-		$("#binlerBolOnBinler").css("border","solid 1px black");
-		$("#binlerBolOnBinler").css("border-left","none").css("border-bottom","none");
+		$("#binlerBolOnBinler").css("border","solid 1px "+tabloStrokeRenk)
+		.css("background-color", tabloBinlerFillRenk);
+		$("#binlerBolOnBinler").css("border-bottom","none");
 		$("#binlerBolOnBinler").css("font-size","medium");
 		
 		$("#binlerBolOnBinler",container).append("<div class='yatay'>");
-		$("#binlerBolOnBinler .yatay").html("On binler basamağı");
+		$("#binlerBolOnBinler .yatay").html("On binler ");
 		
 		$("#aksiyon #binlerBolOnBinler",container).append("<div id='girdiOnBinler' >");
 		$("#girdiOnBinler").css("width","40px")
 			.css("height","40px")
-			.css("border","solid 1px black")
-			.css("border-bottom", "none")
+			.css("border","solid 1px "+tabloStrokeRenk)
 			.css("position","absolute")
 			.css("bottom","0px")
 			.css("left","0px")
@@ -506,25 +555,26 @@ Interaction.init = function(container){
 		// binler
 	$("#aksiyon",container).append("<div id='binlerBolBinler' >");
 		$("#binlerBolBinler").css("width","40px");
-		$("#binlerBolBinler").css("height","190px");
+		$("#binlerBolBinler").css("height","150px");
 		$("#binlerBolBinler").css("position","absolute");
 		$("#binlerBolBinler").css("top","30px");
 		$("#binlerBolBinler").css("left","200px");
 		//$("#milyonlarYuz").css("right","0");
 		$("#binlerBolBinler").css("margin","auto");
-		$("#binlerBolBinler").css("border","solid 1px black");
-		$("#binlerBolBinler").css("border-left","none").css("border-bottom","none");
+		$("#binlerBolBinler").css("border","solid 1px "+tabloStrokeRenk)
+		.css("background-color", tabloBinlerFillRenk);
+		$("#binlerBolBinler").css("border-bottom","none");
 		$("#binlerBolBinler").css("font-size","medium");
 		
 		$("#binlerBolBinler",container).append("<div class='yatay'>");
-		$("#binlerBolBinler .yatay").html("Binler basamağı");
+		$("#binlerBolBinler .yatay").html("Binler ");
 		
 		
 		$("#aksiyon #binlerBolBinler",container).append("<div id='girdiBinler' >");
 		$("#girdiBinler").css("width","40px")
 			.css("height","40px")
-			.css("border","solid 1px black")
-			.css("border-bottom", "none")
+			.css("border","solid 1px "+tabloStrokeRenk)
+			
 			.css("position","absolute")
 			.css("bottom","0px")
 			.css("left","0px")
@@ -549,24 +599,25 @@ Interaction.init = function(container){
 		// Yüzler
 	$("#aksiyon",container).append("<div id='birlerBolYuzler' >")
 		$("#birlerBolYuzler").css("width","40px")
-		.css("height","190px")
+		.css("height","150px")
 		.css("position","absolute")
 		.css("top","30px")
 		.css("left","240px")
 		.css("margin","auto")
-		.css("border","solid 1px black")
-		.css("border-left","none")
+		.css("border","solid 1px "+tabloStrokeRenk)
+		.css("background-color", tabloBirlerFillRenk)
+		
 		.css("border-bottom","none")
 		.css("font-size","medium");
 
 		$("#birlerBolYuzler",container).append("<div class='yatay'>");
-		$("#birlerBolYuzler .yatay").html("Yüzler basamağı");
+		$("#birlerBolYuzler .yatay").html("Yüzler ");
 		
 		$("#aksiyon #birlerBolYuzler",container).append("<div id='girdiYuzler' >");
 		$("#girdiYuzler").css("width","40px")
 			.css("height","40px")
-			.css("border","solid 1px black")
-			.css("border-bottom", "none")
+			.css("border","solid 1px "+tabloStrokeRenk)
+			
 			.css("position","absolute")
 			.css("bottom","0px")
 			.css("left","0px")
@@ -589,24 +640,23 @@ Interaction.init = function(container){
 		// onlar
 	$("#aksiyon",container).append("<div id='birlerBolOnlar' >");
 		$("#birlerBolOnlar").css("width","40px")
-		.css("height","190px")
+		.css("height","150px")
 		.css("position","absolute")
 		.css("top","30px")
 		.css("left","280px")
 		.css("margin","auto")
-		.css("border","solid 1px black")
-		.css("border-left","none")
+		.css("border","solid 1px "+tabloStrokeRenk)
+		.css("background-color", tabloBirlerFillRenk)
 		.css("border-bottom","none")
 		.css("font-size","medium");
 		
 		$("#birlerBolOnlar",container).append("<div class='yatay'>");
-		$("#birlerBolOnlar .yatay").html("Onlar basamağı");
+		$("#birlerBolOnlar .yatay").html("Onlar ");
 		
 		$("#aksiyon #birlerBolOnlar",container).append("<div id='girdiOnlar' >");
 		$("#girdiOnlar").css("width","40px")
 			.css("height","40px")
-			.css("border","solid 1px black")
-			.css("border-bottom", "none")
+			.css("border","solid 1px "+tabloStrokeRenk)
 			.css("position","absolute")
 			.css("bottom","0px")
 			.css("left","0px")
@@ -627,25 +677,24 @@ Interaction.init = function(container){
 		
 		// birler
 	$("#aksiyon",container).append("<div id='birlerBolBirler' >");
-		$("#birlerBolBirler").css("width","40px")
-		.css("height","190px")
+		$("#birlerBolBirler").css("width","39px")
+		.css("height","150px")
 		.css("position","absolute")
 		.css("top","30px")
 		.css("left","320px")
 		.css("margin","auto")
-		.css("border","solid 1px black")
-		.css("border-left","none")
+		.css("border","solid 1px "+tabloStrokeRenk)
+		.css("background-color", tabloBirlerFillRenk)
 		.css("border-bottom","none")
 		.css("font-size","medium");
 		
 		$("#birlerBolBirler",container).append("<div class='yatay'>");
-		$("#birlerBolBirler .yatay").html("Birler basamağı");
+		$("#birlerBolBirler .yatay").html("Birler ");
 		
 		$("#aksiyon #birlerBolBirler",container).append("<div id='girdiBirler' >");
-		$("#girdiBirler").css("width","40px")
+		$("#girdiBirler").css("width","39px")
 			.css("height","40px")
-			.css("border","solid 1px black")
-			.css("border-bottom", "none")
+			.css("border","solid 1px "+tabloStrokeRenk)
 			.css("position","absolute")
 			.css("bottom","0px")
 			.css("left","0px")
@@ -663,8 +712,10 @@ Interaction.init = function(container){
 			.css("margin","auto")
 			.css("height","30px")
 			.css("width","30px");
-	$("input").css("text-align","center");
-	$("input").addClass("input");
+	$("input")
+		.css("text-align","center")
+		.css("border-color",inputStrokeRenk)
+		.addClass("input");
 	
 		
 	// cevap inputları
@@ -700,8 +751,9 @@ Interaction.init = function(container){
 			//.css("bottom","20px")
 			.css("left","113px")
 			//.css("right","0")
-			.css("top","270px")
-			.css("font-size","medium");
+			.css("top","245px")
+			.css("font-size","22px")
+			.css("font-weight", "bold");
 			
 			//.css("border","solid 1px black");
 			
@@ -730,14 +782,18 @@ Interaction.init = function(container){
 		}
 		// yatay sınıfının classları
 		$(".yatay").css("-webkit-transform","rotate(-90deg)");
+		$(".yatay").css("transform","rotate(-90deg)");
+		$(".yatay").css("-ms-transform","rotate(-90deg)");
+		$(".yatay").css("-moz-transform","rotate(-90deg)");
+		$(".yatay").css("-o-transform","rotate(-90deg)");
+		
+		
 		//$("#milyonlarBolYuzMilyonlar .yazi").css("-writing-mode","tb-rl");
 		//-webkit-transform:rotate(-90deg);
-		//$(".yatay").css("text-align","center");
+		$(".yatay").css("text-align","left");
 		$(".yatay").css("position","absolute");
 		$(".yatay").css("height","30px");
 		$(".yatay").css("width","150px");
-		
-		//$("#yatay").css("top","0px");
 		$(".yatay").css("bottom","110px");
 		$(".yatay").css("left","-50px");
 		//$("#yatay").css("right","200px");
@@ -752,28 +808,21 @@ Interaction.init = function(container){
 	
 	
 	// kontrol butonu
-	$(container).append("<button class='control_button'id='btnKontrol'>Kontrol</button>");
-	$(container).append("<style>.control_button{position:absolute; top:230px; right:25px;  }</style>");
+	$(container).append("<button class='control_button'id='btnKontrol'></button>");
+	$(container).append("<style>.control_button{position:absolute; top:240px; right:10px;  }</style>");
 	
-	// sonraki divi
-	$(container).append("<div id='sonraki'>");
-	$("#sonraki", container).append("<div id='dikdortgen'>");
-	$("#dikdortgen", container).append("<div id='yazi'>Sonraki</div>");
-	$("#sonraki", container).append("<div id='ucgen'>");
-	$(container).append("<style>#sonraki{position:absolute; top:230px; right:110px; height: 30px;cursor:pointer;color:"+divSonrakiYaziRenk+";</style>");
-	$(container).append("<style> #dikdortgen{position:absolute; margin:auto; bottom: 0px; right:0px; top:0px; left:0px; width:70px; height:30px; background:"+divSonrakiFillRenk + "}</style>");
-	$(container).append("<style>#ucgen{position:absolute; top:0px; left:70px; width:0, height:0; border-left: 30px solid "+divSonrakiFillRenk+";border-top: 15px solid transparent;border-bottom: 15px solid transparent;}</style>");
-	$("#yazi").css("width","50px")
-	.css("position","absolute")
-	.css("height","13px")
-	.css("top","0")
-	.css("bottom","0")
-	.css("left","0")
-	.css("right","0")
-	.css("margin","auto");
-
-	
-	$("#sonraki").hide();
+	//sonraki divi
+	$(container).append("<button id='sonraki' class='next_button'></button>");
+	$("#sonraki")
+		.css("position","absolute")
+		//.css("height","15px")
+		//.css("width","80px")
+		.css("right","10px")
+		//.css("left","0")
+		.css("margin","auto")
+		.css("top","240px")
+		.css("text-align","center")
+		.hide();
 		
 		//$("#yatay").css("width","40px  !important");
 		//$("#yatay").css("height","210px  !important");
@@ -784,7 +833,7 @@ Interaction.init = function(container){
 	var onlarBasamagi=["sifir","on","yirmi","otuz","kırk","elli","atmış","yetmiş","seksen","doksan"];
 	
 	//console.log("basamak: "+rastgeleBasamak+" sayi9: "+rastgele9+" sayi8: "+rastgele8+" sayi7: "+rastgele7+" basamakSayisi: "+rastgele9.length);
-	//console.log("basamak: "+rastgeleBasamak+" sayi: "+rastgeleSayi+"sayını basamağı: "+rastgeleSayi.length);
+	//console.log("basamak: "+rastgeleBasamak+" sayi: "+rastgeleSayi+"sayını : "+rastgeleSayi.length);
 	function sayiUret(){
 	
 	
@@ -804,7 +853,7 @@ Interaction.init = function(container){
 	if(rastgeleBasamak==3)
 		rastgeleSayi=rastgele9;
 	//rastgeleSayi=String(Math.floor((Math.random()*900000000)+100000000));
-	rastgeleSayi="999999999";
+	//rastgeleSayi="999999999";
 	//rastgeleSayi="xw"+rastgele7;
 	var yaziyla= new Array();
 	//console.log("denemeSayısı: "+rastgeleSayi+" basamak: "+rastgeleSayi.length);
@@ -833,13 +882,17 @@ Interaction.init = function(container){
 				
 				if(birlerBasamagi[rakam]=="bir"){
 					degisken="yüz";
-					yaziyla.push(degisken); //console.log("6: "+birlerBasamagi[rakam]);}
+
+					yaziyla.push(degisken); //console.log("6: "+birlerBasamagi[rakam]);
+				}
 				else if(birlerBasamagi[rakam]=="sifir"){
 					degisken="";
 				}
 				else {
 					degisken=birlerBasamagi[rakam]+" yüz";
-				yaziyla.push(degisken); //console.log("6: "+birlerBasamagi[rakam]);}
+
+				yaziyla.push(degisken); //console.log("6: "+birlerBasamagi[rakam]);
+				}
 				
 				break;
 			case 5:

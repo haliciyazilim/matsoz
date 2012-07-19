@@ -28,7 +28,7 @@ var Animation = {
 		p1 = new Point(x-100,y);
 		var R = 75;
 		var circleCenter = new Path.Circle(p1,4);
-		circleCenter.setStyle({
+		circleCenter.set_style({
 			fillColor:'#000'
 		});
 		var circleCenterText = new PointText(
@@ -38,7 +38,7 @@ var Animation = {
 			)
 		);
 		circleCenterText.content = 'O';
-		circleCenterText.setStyle({
+		circleCenterText.set_style({
 			strokeColor:'#000',
 			fillColor:'#000'
 		});
@@ -66,7 +66,7 @@ var Animation = {
 						new Point(x,y),
 						3
 					);
-				dot.setStyle({
+				dot.set_style({
 					fillColor:'#000'
 				});
 				pointGroup.addChild(dot);
@@ -87,7 +87,7 @@ var Animation = {
 					endAngle = 1079;
 					Animation.circle.remove();
 					Animation.circle = new Path.Circle(p1,R);
-					Animation.circle.setStyle({
+					Animation.circle.set_style({
 						strokeColor:'#000',
 						strokeWidth:1
 					});
@@ -106,7 +106,7 @@ var Animation = {
 										   
 					Animation.circle = new Path.Arc(point1, point2, point3);
 					
-					Animation.circle.setStyle({
+					Animation.circle.set_style({
 						strokeColor:'#000',
 						strokeWidth:1
 					});
@@ -129,7 +129,7 @@ var Animation = {
 						y+R*Math.sin(-Math.PI*0.1)
 					)
 				)
-				line.setStyle({
+				line.set_style({
 					strokeWidth:1,
 					strokeColor:'#000'
 				});
@@ -300,7 +300,7 @@ Interaction.drawCircle = function(){
 				Interaction.drawCircle.textR = new PointText(new Point(Interaction.drawCircle.x+Interaction.r*0.2,Interaction.drawCircle.y+15));
 				Interaction.drawCircle.textR.content = "r = "+(Interaction.radius.innerHTML);
 				Interaction.drawCircle.lineR = new Path.Line(new Point(Interaction.drawCircle.x,Interaction.drawCircle.y),new Point(Interaction.drawCircle.x+Interaction.r,Interaction.drawCircle.y));
-				Interaction.drawCircle.lineR.setStyle(lineStyle);
+				Interaction.drawCircle.lineR.set_style(lineStyle);
 				$(Interaction.status).hide();
 				Interaction.status.innerHTML = "O merkezli ve "+(Interaction.radius.innerHTML)+" birim yarıçaplı çember ";
 				$(Interaction.status).show();
@@ -354,7 +354,7 @@ Interaction.drawCircle = function(){
 			var point3 = new Point(center.x + Math.cos(endAngle) * radius,
 								   center.y + Math.sin(endAngle) * radius);
 			Interaction.drawCircle.circle = new Path.Arc(point1, point2, point3);
-			Interaction.drawCircle.circle.setStyle(circleStyle);
+			Interaction.drawCircle.circle.set_style(circleStyle);
 			Interaction.drawCircle.circle.opacity = Interaction.drawCircle._o>200 ? 1 :Interaction.drawCircle._o/200; 
 			Interaction._o_old = Interaction.drawCircle._o;
 			Interaction.drawCircle.circle.moveBelow(Interaction.drawCircle.compass.group);

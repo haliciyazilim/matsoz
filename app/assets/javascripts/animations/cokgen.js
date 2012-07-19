@@ -29,7 +29,7 @@ var Animation = {
 					shape.vertexArray[i],
 					shape.vertexArray[(i+1)%length]
 				);
-				line.setStyle(animationEdgeStyle);
+				line.set_style(animationEdgeStyle);
 				var angle = Math.floor(Math.random()*180)-90;
 				var x = Math.floor(Math.random()*400)-200;
 				var y = Math.floor(Math.random()*50)-25;
@@ -145,25 +145,25 @@ Interaction.init = function(container){
 	project.activeLayer.removeChildren();
 	Interaction.dropableShapes = {
 		
-		setStyle : function(style){
+		set_style : function(style){
 			if(style == dropableShapeDefaultStyle){
-				Interaction.dropableShapes.triangle.setStyle(dropableShapeDefaultTriangleStyle);
-				Interaction.dropableShapes.rectangle.setStyle(dropableShapeDefaultRectangleStyle);
-				Interaction.dropableShapes.pentagon.setStyle(dropableShapeDefaultPentagonStyle);
-				Interaction.dropableShapes.hexagon.setStyle(dropableShapeDefaultHexagonStyle);
+				Interaction.dropableShapes.triangle.set_style(dropableShapeDefaultTriangleStyle);
+				Interaction.dropableShapes.rectangle.set_style(dropableShapeDefaultRectangleStyle);
+				Interaction.dropableShapes.pentagon.set_style(dropableShapeDefaultPentagonStyle);
+				Interaction.dropableShapes.hexagon.set_style(dropableShapeDefaultHexagonStyle);
 			}
 			else{
-				Interaction.dropableShapes.triangle.setStyle(style);
-				Interaction.dropableShapes.rectangle.setStyle(style);
-				Interaction.dropableShapes.pentagon.setStyle(style);
-				Interaction.dropableShapes.hexagon.setStyle(style);
+				Interaction.dropableShapes.triangle.set_style(style);
+				Interaction.dropableShapes.rectangle.set_style(style);
+				Interaction.dropableShapes.pentagon.set_style(style);
+				Interaction.dropableShapes.hexagon.set_style(style);
 			}
 		}
 		
 	};
 	Interaction.createDropableShapesLeft(0,0,w*0.2,h*0.8);
 	Interaction.createDropableShapesRight(w*0.8,0,w*0.2,h*0.8);
-	Interaction.dropableShapes.setStyle(dropableShapeDefaultStyle);
+	Interaction.dropableShapes.set_style(dropableShapeDefaultStyle);
 	Interaction.generateRandomShapes(w*0.2,10,w*0.6,h);
 	Interaction.paper = {width:500,height:300};
 	Interaction.preventDrag = false;
@@ -220,13 +220,13 @@ var start = function(){
 			return;
 		this.odx += dx;
 		this.ody += dy;
-		Interaction.dropableShapes.setStyle(dropableShapeDefaultStyle);
+		Interaction.dropableShapes.set_style(dropableShapeDefaultStyle);
 		this.position = [this.position.x + dx,this.position.y + dy];
 		var hitResult = project.activeLayer.hitTest([x,y],{ fill: true, stroke: true, segments: true, tolerance: 2, class: "dropableShape" });
 		if(hitResult){
 			this.inDropableShape = true;
 			this.hitShape = hitResult.item
-			this.hitShape.setStyle(dropableShapeHoverStyle);
+			this.hitShape.set_style(dropableShapeHoverStyle);
 		}else{
 			this.inDropableShape = false;
 			this.hitShape = null;
@@ -238,7 +238,7 @@ var start = function(){
 		if(this.preventDrag == true)
 			return;
 		this.preventDrag=true;
-		Interaction.dropableShapes.setStyle(dropableShapeDefaultStyle);
+		Interaction.dropableShapes.set_style(dropableShapeDefaultStyle);
 		
 		var revert = false;
 		if(this.inDropableShape == true){
@@ -260,16 +260,16 @@ var start = function(){
 				});
 				this.class = null;
 				
-				this.hitShape.setStyle(dropableShapeDroppedTrueStyle);
+				this.hitShape.set_style(dropableShapeDroppedTrueStyle);
 				setTimeout(function(){
-						Interaction.dropableShapes.setStyle(dropableShapeDefaultStyle);
+						Interaction.dropableShapes.set_style(dropableShapeDefaultStyle);
 					},400);
 			}
 			else{
 				revert = true;
-				this.hitShape.setStyle(dropableShapeDroppedFalseStyle);
+				this.hitShape.set_style(dropableShapeDroppedFalseStyle);
 				setTimeout(function(){
-						Interaction.dropableShapes.setStyle(dropableShapeDefaultStyle);
+						Interaction.dropableShapes.set_style(dropableShapeDefaultStyle);
 					},400);
 			}
 		}

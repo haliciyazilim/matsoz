@@ -140,3 +140,7 @@ Main.setObjective = function(str){
 };
 
 Main();
+
+
+//console.log = function(){};
+

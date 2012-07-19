@@ -52,7 +52,7 @@ var Animation = {
 		var p2 = new Point(x+100+R,y);
 		var p3 = new Point(x+100,y+R);
 		var circleCenter = new Path.Circle(p1,4);
-		circleCenter.setStyle({
+		circleCenter.set_style({
 			fillColor:'#000'
 		});
 		var circleCenterText = new PointText(
@@ -62,7 +62,7 @@ var Animation = {
 			)
 		);
 		circleCenterText.content = 'O';
-		circleCenterText.setStyle({
+		circleCenterText.set_style({
 			strokeColor:'#000',
 			fillColor:'#000'
 		});
@@ -87,7 +87,7 @@ var Animation = {
 				if(Animation.line1)
 					Animation.line1.remove();
 				Animation.line1 = new Path.Line(p1,p2.getRotatedPoint(-animationHelper.angle,p1));
-				Animation.line1.setStyle(animationEdgeStyle);
+				Animation.line1.set_style(animationEdgeStyle);
 				radiusText.position = radiusText.firstPosition.getRotatedPoint(-animationHelper.angle,p1)
 				
 				if( animationHelper.radiusOpacity > 0)
@@ -96,13 +96,13 @@ var Animation = {
 					Animation.arc.remove();
 				 
 				Animation.arc = new Path.ArcByAngle(p1,R,-animationHelper.angle);
-				Animation.arc.setStyle(animationEdgeStyle);
+				Animation.arc.set_style(animationEdgeStyle);
 			}
 			else if(animationHelper.angle == 360){
 				if(Animation.line1)
 					Animation.line1.remove();
 				Animation.line1 = new Path.Line(p1,p2);
-				Animation.line1.setStyle(animationEdgeStyle);
+				Animation.line1.set_style(animationEdgeStyle);
 				radiusText.animate({
 					style:{opacity:0},
 					duration:500
@@ -110,7 +110,7 @@ var Animation = {
 				if(Animation.arc)
 					Animation.arc.remove();
 				Animation.arc = new Path.Circle(p1,R);
-				Animation.arc.setStyle(animationEdgeStyle);
+				Animation.arc.set_style(animationEdgeStyle);
 				
 			}
 			else if(animationHelper.angle > 361 && animationHelper.angle < 720){
@@ -127,12 +127,12 @@ var Animation = {
 				if(animationHelper.angle < 710){
 					Animation.arc.remove();
 					Animation.arc = new Path.ArcByAngle(_p1,R,-270-animationHelper.angle,-270);
-					Animation.arc.setStyle(animationEdgeStyle);
+					Animation.arc.set_style(animationEdgeStyle);
 				}
 				if(Animation.line2)
 					Animation.line2.remove();
 				Animation.line2 = new Path.Line(p3,_p);
-				Animation.line2.setStyle(animationEdgeStyle);
+				Animation.line2.set_style(animationEdgeStyle);
 			}
 			else if (animationHelper.angle == 720){
 				Animation.arc.remove();
@@ -146,23 +146,23 @@ var Animation = {
 				if(animationHelper.angle < 1079){
 					Animation.arc.remove();
 					Animation.arc = new Path.ArcByAngle(_p1,R,-270-angle-360,-270);
-					Animation.arc.setStyle(animationEdgeStyle);
+					Animation.arc.set_style(animationEdgeStyle);
 				}
 				if(Animation.line2)
 					Animation.line2.remove();
 				Animation.line2 = new Path.Line(p3,_p);
-				Animation.line2.setStyle(animationEdgeStyle);
+				Animation.line2.set_style(animationEdgeStyle);
 			}
 			else if(animationHelper.angle == 1080){
 				Animation.onFrame = null;
 				Animation.line2.remove();
 				circleCenter = new Path.Circle(p1,4);
-				circleCenter.setStyle({
+				circleCenter.set_style({
 					fillColor:'#000'
 				});
 				Animation.arc.remove();
 				Animation.arc = new Path.Circle( p1,R);
-				Animation.arc.setStyle(animationEdgeStyle);
+				Animation.arc.set_style(animationEdgeStyle);
 				
 				circleCenterText = new PointText(
 					new Point(
@@ -171,13 +171,13 @@ var Animation = {
 					)
 				);
 				circleCenterText.content = 'O';
-				circleCenterText.setStyle({
+				circleCenterText.set_style({
 					strokeColor:'#000',
 					fillColor:'#000'
 				});
 				radiusText.opacity = 1;
 				Animation.line1 = new Path.Line(p1,p2);
-				Animation.line1.setStyle(animationEdgeStyle);
+				Animation.line1.set_style(animationEdgeStyle);
 				
 				var div = document.createElement('div')
 				$(Animation.container).append(div);

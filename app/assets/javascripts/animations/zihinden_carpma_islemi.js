@@ -8,8 +8,8 @@ var Animation = {
 			function textAnimate(point,content,style,animateStyle,delay,callback){
 				var pT1 = new PointText(point);
 				pT1.content = content;
-				pT1.setStyle(animationTextStyle);
-				pT1.setStyle(style);
+				pT1.set_style(animationTextStyle);
+				pT1.set_style(style);
 				pT1.animate({
 					style:animateStyle,
 					duration:1000,
