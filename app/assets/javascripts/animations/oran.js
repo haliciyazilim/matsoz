@@ -32,17 +32,17 @@ function gulGetir(){
 	var j=0;
 	for(var i=0; i<5; i++){
 		var isim="gul"+i;
-		var left=(i*40+50)+"px";		
-		$(container).append("<img class='cicekler' id='"+isim+"' src='/assets/animations/oran/gul.png' />");
+		var left=(i*50+50)+"px";		
+		$(container).append("<img class='cicekler' id='"+isim+"' src='/assets/animations/oran/cicek_gul.png' />");
 		$("#"+isim).css("position", "absolute");
 			if(i>=4){
 				$("#"+isim).css("top","130px");
-				$("#"+isim).css("left", "60px");
+				$("#"+isim).css("left", "70px");
 				
 			}
 			else if(i>=2 && i<4){
 			
-			left=(j*40+50)+"px";
+			left=(j*50+50)+"px";
 				$("#"+isim).css("top","70px");
 				$("#"+isim).css("left", left)
 				j++;
@@ -60,7 +60,7 @@ function laleGetir(){
 	for(var i=0; i<4; i++){
 		var isim="lale"+i;
 		var left=(i*40+660)+"px";		
-		$(container).append("<img class='cicekler' id='"+isim+"' src='/assets/animations/oran/lale.png' />");
+		$(container).append("<img class='cicekler' id='"+isim+"' src='/assets/animations/oran/cicek_lale.png' />");
 		$("#"+isim).css("position", "absolute");
 			if(i>=4){
 				$("#"+isim).css("top","105px");
@@ -86,7 +86,7 @@ gulGetir();
 laleGetir();
 function aciklamalariGetir(){
 	var aciklama=Array();
-		aciklama[0]="Güllerin lalere oranı";
+		aciklama[0]="Güllerin lalelere oranı";
 		aciklama[1]="Lalelerin güllere oranı";
 		aciklama[2]="Güllerin tüm çiçeklere oranı";
 		aciklama[3]="Lalelerin tüm çiçeklere oranı";
@@ -103,22 +103,22 @@ function aciklamalariGetir(){
 		
 		if(i>1){
 				var top=(i-2)*70+40;
-				var left="420px";
-				var soruUzunlugu="180px";
+				var left="400px";
+				var soruUzunlugu="200px";
 			}
 		else{
 			var top=i*70+40;
 			var left="170px";
-			var soruUzunlugu="140px";
+			var soruUzunlugu="160px";
 			}
 		$(container).append("<div id='"+cerceveId+"' class='ornekCerceve'>");
-			$("#"+cerceveId,container).append("<div class='soru' id='"+soruId+"'>");
+			$("#"+cerceveId,container).append("<div class='soruOrnek' id='"+soruId+"'>");
 			$("#"+cerceveId,container).append("<div class='girdiler'>");
 			$("#"+cerceveId+" .girdiler",container).append("<div id='"+payId+"'>");
 			$("#"+cerceveId+" .girdiler",container).append("<div class='kesir'>");
 			$("#"+cerceveId+" .girdiler",container).append("<div id='"+paydaId+"'>");
 				$(".ornekCerceve")
-					.css("width","210px")
+					.css("width","240px")
 					.css("height","90px")
 					//.css("border","solid 1px black")
 					.css("font-size","14px");
@@ -129,7 +129,7 @@ function aciklamalariGetir(){
 					
 					.css("margin","auto").hide();
 			
-			$(".ornekCerceve .soru")
+			$(".ornekCerceve .soruOrnek")
 					.css("height","60px")
 					.css("float","left")
 					//.css("border","solid 1px black")
@@ -239,24 +239,31 @@ function maviBilyeYap(){
 		var birlik=Math.floor(girdi%3);
 			
 		var girilenKareSayisi=3;
-		
+		var idKontrol=0;
 		for(j=0;j<onluk && j<6;j++){
-					
+				idKontrol++;	
 			if(j==(onluk-1))
 				girilenKareSayisi=birlik;
 			else
 				var girilenKareSayisi=3;
 						
 			for(i=0; i<girilenKareSayisi && i<10;i++){
-						
-				var bilye = new Path.Circle(i*25+30, j*25+30,10);
+				idKontrol++;		
+				/*var bilye = new Path.Circle(i*25+30, j*25+30,10);
 		var renkler = [['white', 0.0], ['blue', 0.3]];
 		var gradient = new Gradient(renkler);
 		var from = bilye.bounds.topLeft;
 		var to = bilye.bounds.bottomRight;
 		var gradientColor = new GradientColor(gradient, from, to);
 		bilye.fillColor = gradientColor;
-		maviBilyeGrubu.addChild(bilye);
+		maviBilyeGrubu.addChild(bilye);*/
+		var maviBilyeId="#maviBilye"+idKontrol;
+		$(container).append("<img class='mavi_bilye'  id='maviBilye"+idKontrol+"' src='/assets/animations/oran/bilye_mavi.png' />");
+		$(maviBilyeId)
+		.css("position", "absolute")
+		.css("top",j*25+30)
+		.css("left", i*25+30);
+		
 
 			}}
 				
@@ -265,29 +272,36 @@ function maviBilyeYap(){
 function kirmiziBilyeYap(){
 
 		var girdi=kirmiziBilye;
-				
+			
 		var onluk=Math.floor(girdi/3)==0?1:Math.floor(girdi/3+1);
 		var birlik=Math.floor(girdi%3);
 			
 		var girilenKareSayisi=3;
-		
+		var idKontrol=0;
 		for(j=0;j<onluk && j<6;j++){
-					
+			idKontrol++;	
 			if(j==(onluk-1))
 				girilenKareSayisi=birlik;
 			else
 				var girilenKareSayisi=3;
 						
 			for(i=0; i<girilenKareSayisi && i<10;i++){
-						
-				var bilye = new Path.Circle(i*25+500, j*25+30,10);
+				idKontrol++;		
+				/*var bilye = new Path.Circle(i*25+500, j*25+30,10);
 		var renkler = [['white', 0.0], ['red', 0.3]];
 		var gradient = new Gradient(renkler);
 		var from = bilye.bounds.topLeft;
 		var to = bilye.bounds.bottomRight;
 		var gradientColor = new GradientColor(gradient, from, to);
 		bilye.fillColor = gradientColor;
-		kirmiziBilyeGrubu.addChild(bilye);
+		kirmiziBilyeGrubu.addChild(bilye);*/
+		
+				var kirmiziBilyeId="#kirmiziBilye"+idKontrol;
+				$(container).append("<img class='kirmizi_bilye'  id='kirmiziBilye"+idKontrol+"' src='/assets/animations/oran/bilye_kirmizi.png' />");
+				$(kirmiziBilyeId)
+					.css("position", "absolute")
+					.css("top",j*25+30)
+					.css("left", i*25+500);
 
 			}}
 				
@@ -305,7 +319,7 @@ soruOlustur();
 	$("#cerceve .girdiler",container).append("<div class='kesir'>");
 	$("#cerceve .girdiler",container).append("<input class='girdiPayda' type='text' maxlength=3  onkeypress='return SadeceRakam(event)'>");
 	
-		$("#cerceve").css("width","310px")
+		$("#cerceve").css("width","340px")
 		.css("height","90px")
 		.css("position","absolute")
 		.css("top","20px")
@@ -324,7 +338,7 @@ soruOlustur();
 	$("#cerceveCevap .girdiler",container).append("<div id='girdiPay'>");
 	$("#cerceveCevap .girdiler",container).append("<div class='kesir'>");
 	$("#cerceveCevap .girdiler",container).append("<div id='girdiPayda'>");
-		$("#cerceveCevap").css("width","310px")
+		$("#cerceveCevap").css("width","340px")
 		.css("height","90px")
 		.css("position","absolute")
 		.css("top","160px")
@@ -337,7 +351,7 @@ soruOlustur();
 	
 	
 		$("#cerceve .soru, #cerceveCevap .soru")
-			.css("width","250px")
+			.css("width","270px")
 			.css("height","90px")
 			.css("float","left")
 			//.css("border","solid 1px black")
@@ -394,25 +408,19 @@ soruOlustur();
 	
 	
 	// kontrol butonu
-	$(container).append("<button class='control_button'id='btnKontrol'>Kontrol</button>");
+	$(container).append("<button class='control_button'id='btnKontrol'>");
 	$(container).append("<style>.control_button{position:absolute; top:230px; right:25px;  }</style>");
 	
-	// sonraki divi
-	$(container).append("<div id='sonraki'>");
-	$("#sonraki", container).append("<div id='dikdortgen'>");
-	$("#dikdortgen", container).append("<div id='yazi'>Sonraki</div>");
-	$("#sonraki", container).append("<div id='ucgen'>");
-	$(container).append("<style>#sonraki{position:absolute; top:230px; right:110px; height: 30px;cursor:pointer;color:"+divSonrakiYaziRenk+";</style>");
-	$(container).append("<style> #dikdortgen{position:absolute; margin:auto; bottom: 0px; right:0px; top:0px; left:0px; width:70px; height:30px; background:"+divSonrakiFillRenk + "}</style>");
-	$(container).append("<style>#ucgen{position:absolute; top:0px; left:70px; width:0, height:0; border-left: 30px solid "+divSonrakiFillRenk+";border-top: 15px solid transparent;border-bottom: 15px solid transparent;}</style>");
-	$("#yazi").css("width","50px")
-	.css("position","absolute")
-	.css("height","13px")
-	.css("top","0")
-	.css("bottom","0")
-	.css("left","0")
-	.css("right","0")
-	.css("margin","auto");
+	//sonraki divi
+	$(container).append("<button id='sonraki' class='next_button'>");
+	$("#sonraki")
+		.css("position","absolute")
+		.css("right","25px")
+		//.css("left","0")
+		.css("margin","auto")
+		.css("top","230px")
+
+		.hide();
 
 	
 	$("#sonraki").hide();
