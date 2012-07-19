@@ -553,7 +553,7 @@ Main.paperInit = function() {
 		
 		for (var key in style) {
 			if (style.hasOwnProperty(key)) {
-				this.style[key] = style[key];
+				this[key] = style[key];
 			}
 		}
 		return this;
