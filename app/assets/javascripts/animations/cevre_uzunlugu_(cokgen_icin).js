@@ -26,18 +26,11 @@ var Animation = {
 			size,
 			[120,210,330],
 			0
-		)
+		);
 		
 		triangle.setStyle(animationEdgeStyle);
-		
-		//var t = triangle.rasterize();
-//		t.vertexArray = triangle.vertexArray;
-//		triangle.remove();
-//		triangle = t;
 		triangle.angle = 0;
 		triangle.lastTransformation = triangle.matrix;
-//		console.log(triangle.vertexArray[1])
-//		console.log(triangle.vertexArray[2].x,triangle.vertexArray[2].y);
 		triangle.texts = [];
 		triangle.texts[0] = new PointText(new Point(triangle.vertexArray[0].x,triangle.vertexArray[0].y-10));
 		triangle.texts[0].content = 'C';
@@ -109,7 +102,7 @@ var Animation = {
 				).setStyle({strokeColor:'#f00',strokeWidth:2});
 				for(var i=0;i<this.texts.length;i++)
 					this.texts[i].firstPosition = this.texts[i].position;
-				console.log(this.vertexArray[1])
+				//console.log(this.vertexArray[1])
 				triangle.angle = 0;
 				
 			}
@@ -400,7 +393,8 @@ Interaction.setStatus = function(msg,isCorrect){
 var TestGenerator = function(){}; TestGenerator();
 
 TestGenerator.nextQuestion = function(){
-	project.activeLayer.removeChildren();
+	Main.interactionProject.activeLayer.removeChildren();
+	//project.activeLayer.removeChildren();
 	TestGenerator.shape = null;
 	TestGenerator.trial = 0;
 	TestGenerator.values = null;
@@ -420,7 +414,7 @@ TestGenerator.nextQuestion = function(){
 	TestGenerator.letters = (Math.random()>0.5 ? ["A","B","C","D","E"]:["K","L","M","N","P"]);
 	var count = (Interaction.count++)%Interaction.shuffledArray.length;
 	TestGenerator.shape = Interaction.shuffledArray[count];
-	///*TEST*/TestGenerator.shape = 2;/*TEST*/
+	///*TEST*/TestGenerator.shape = 6;/*TEST*/
 	switch(TestGenerator.shape){
 		case 0:
 			var a = Math.floor(Math.random()*10)+5;
@@ -664,6 +658,7 @@ function trapezoid(a,_a,b,c,measure,paper){
 		_w= _t * _a / H; 
 		h = _t;
 	}
+	_w *= 0.3; 
 	x = (paper.width - w) * 0.5;
 	y = (paper.height - h) * 0.5;
 	var trapezoid = new Path.Trapezoid( new Point(x,y) , new Size(w,h), _w );

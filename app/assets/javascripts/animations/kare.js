@@ -30,7 +30,7 @@ Interaction.images = [{
 Interaction.init = function(container) {
 	paperAddOns();
 	
-	Main.setObjective('Karenin iç açıları toplamı 360° dir. Bunu görmek için "Göster" düğmesine tıklayınız.')
+	Main.setObjective('Karenin iç açıları toplamı 360° dir. Bunu görmek için "Göster" düğmesine basınız.')
 	
 	// Images
 	var fullImage = new Raster('fullImage');

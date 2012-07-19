@@ -195,9 +195,9 @@ Interaction.init = function(container){
 	
 		yuvarlak=sira%2==0?yuvarlakOn:yuvarlakYuz;
 		yazi=sira%2==0?"onluğa":"yüzlüğe";
-		console.log("sira"+sira+"yuvarlak: "+yuvarlak);
-		console.log("en yakın onluk: "+yuvarlakOn);
-		console.log("en yakın yüzlük: "+yuvarlakYuz);
+		//console.log("sira"+sira+"yuvarlak: "+yuvarlak);
+		//console.log("en yakın onluk: "+yuvarlakOn);
+		//console.log("en yakın yüzlük: "+yuvarlakYuz);
 		
 		
 		return sayi;
@@ -229,18 +229,18 @@ Interaction.init = function(container){
 				
 				girdi=$("#girdi").val();
 				if(event.keyCode == 13) {
-					console.log("Key"+event.keyCode);
+					//console.log("Key"+event.keyCode);
 					kontrol();
 				}
 				
 				
-				console.log("girdi: "+girdi);
+				//console.log("girdi: "+girdi);
 			}
 	);
 	
 	});
 
-	console.log("Sayi: "+sayi);
+	//console.log("Sayi: "+sayi);
 	
 	$(".sayi").css("color","#0070c0","!important").css("font-size","20px");
 	
@@ -312,20 +312,20 @@ Interaction.init = function(container){
 			$("#geriBildirimText").html("");
 			girdi=$("#girdi").val();
 			if(event.keyCode == 13) {
-				console.log("Key"+event.keyCode);
+				//console.log("Key"+event.keyCode);
 				kontrol();
 			}
 			
 			
-			console.log("girdi: "+girdi);
+			//console.log("girdi: "+girdi);
 		}
 	);
 	var tiklama=0;
 	function kontrol(){
 		
-		console.log("kontrole girdim."+girdi+" "+yuvarlak);
+		//console.log("kontrole girdim."+girdi+" "+yuvarlak);
 		if ($("#girdi").val()==""){
-			console.log("if girdi boşsa girdim."+girdi+" "+yuvarlak);
+			//console.log("if girdi boşsa girdim."+girdi+" "+yuvarlak);
 			//alert();
 			$("#geriBildirimText").attr("class","status_alert").html("Bütün kutucukları doldurunuz.");
 			//alert();
@@ -339,7 +339,7 @@ Interaction.init = function(container){
 		else{
 			tiklama++;
 			if(girdi==yuvarlak){
-			console.log("if doğruysa girdim."+girdi+" "+yuvarlak);
+			//console.log("if doğruysa girdim."+girdi+" "+yuvarlak);
 				$("#geriBildirimText").attr("class","status_true").html("Tebrikler");
 				$("#btnKontrol").hide();
 				$("#sonraki").show();
@@ -349,7 +349,7 @@ Interaction.init = function(container){
 			}
 			
 			else if(tiklama>2 ||girdi!=yuvarlak){
-			console.log("if doğruysa girdim."+girdi+" "+yuvarlak);
+			//console.log("if doğruysa girdim."+girdi+" "+yuvarlak);
 				$("#geriBildirimText").attr("class","status_false").html("Yanlış.<br /> Doğru Cevap:");
 				$("#cerceveCevap").show();
 				$("#btnKontrol").hide();

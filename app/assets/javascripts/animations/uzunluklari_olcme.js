@@ -213,8 +213,8 @@ Interaction.init = function(container){
 	/***************************************/
 	
 	//console.log("questionNum: "+questionNum);
-//	console.log("question: "+question+" "+questionUnit);
-//	console.log("answer: "+answer+" "+answerUnit);
+//	//console.log("question: "+question+" "+questionUnit);
+//	//console.log("answer: "+answer+" "+answerUnit);
 
 	/* creating neccessary html elements */
 	if(ascDescPicker % 2 == 1){
@@ -520,9 +520,9 @@ Interaction.init = function(container){
 					answer1 = parseFloat(question.replace(/,/g, "."));
 					answer2 = factor;
 					answer3 = answer1 * answer2;
-					console.log(answer1);
-					console.log(answer2);
-					console.log(answer3);
+					//console.log(answer1);
+					//console.log(answer2);
+					//console.log(answer3);
 					
 					if(ans11 == answer1 && ans22 == answer2 && ans33 == answer3) {
 						$('#statuss').get(0).className = "status_true";

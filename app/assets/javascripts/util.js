@@ -1,13 +1,14 @@
-// JavaScript Document
+
 var Util = {
-	isInteger: function (value) {
-		var intRegex = /^\d+$/;
-		return intRegex.test(value);
-	},
 	
+	isInteger: function (value) {
+			var intRegex = /^\d+$/;
+			return intRegex.test(value);
+		},
+		
 	isNumber: function (n) {
-	  return !isNaN(parseFloat(n)) && isFinite(n);
-	},
+			return !isNaN(parseFloat(n)) && isFinite(n);
+		},
 
 	findDistance:function (x1,y1,x2,y2){
 			var _i = x1-x2;
@@ -76,40 +77,49 @@ var Util = {
 		},
 	
 	loadImages: function(imageArray, callback) {
-		var totalNoOfImages = imageArray.length;
-		for (var key in imageArray) {
-			image = imageArray[key];
-			var img = $("<img id='"+image.id+"' />").attr('src', image.src).load(function() {
-				if (!this.complete || typeof this.naturalWidth == "undefined" || this.naturalWidth == 0 || this.naturalWidth == null) {
-					throw "Broken Image: " + image;
-					totalNoOfImages--;
-				} else {
-					totalNoOfImages--;
-					if (totalNoOfImages == 0) {
-						callback();
+			var totalNoOfImages = imageArray.length;
+			for (var key in imageArray) {
+				image = imageArray[key];
+				var img = $("<img id='"+image.id+"' />").attr('src', image.src).load(function() {
+					if (!this.complete || typeof this.naturalWidth == "undefined" || this.naturalWidth == 0 || this.naturalWidth == null) {
+						throw "Broken Image: " + image;
+						totalNoOfImages--;
+					} else {
+						totalNoOfImages--;
+						if (totalNoOfImages == 0) {
+							callback();
+						}
 					}
-				}
-			});
-			$("head").append(img);
-		}
-	},
+				});
+				$("head").append(img);
+			}
+		},
 	getShuffledArray : function(to,from){
-		if(from == null || from == undefined )
-			from = 0;
-		var a = [];
-		for(var i=from,index=0; i<to ;i++,index++){
-			a[index] = i;
+			if(from == null || from == undefined )
+				from = 0;
+			var a = [];
+			for(var i=from,index=0; i<to ;i++,index++){
+				a[index] = i;
+			}
+			var len = Math.floor(to - from);
+			
+			for(var i = len-1; i>=0 ; i--) {
+				var p = parseInt(Math.random()*len,10);
+				var t = a[i];
+				a[i] = a[p];
+				a[p] = t;
+			}
+			return a;
+		},
+	centerOfPoints:function(points){
+			var total_x = 0;
+			var total_y = 0;
+			for(var i=0;i<points.length;i++){
+				total_x += points[i].x;
+				total_y += points[i].y;
+			}
+			var x = total_x / points.length;
+			var y = total_y / points.length;
+			return new Point(x,y);
 		}
-		var len = Math.floor(to - from);
-		
-		for(var i = len-1; i>=0 ; i--) {
-			var p = parseInt(Math.random()*len,10);
-			var t = a[i];
-			a[i] = a[p];
-			a[p] = t;
-		}
-		return a;	
-	
-	}
-	
 };

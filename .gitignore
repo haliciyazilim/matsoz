@@ -16,3 +16,7 @@
 
 # Ignore coverage reports
 /coverage
+
+# Ignore development environment files
+/app/assets/javascripts/plugins/do_not_commit_this.js
+
