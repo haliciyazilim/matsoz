@@ -138,17 +138,6 @@ var Interaction = {
 			Interaction.yCubes = yCubes;
 			Interaction.zCubes = zCubes;
 			
-<<<<<<< HEAD
-<<<<<<< HEAD
-			for(var i=0; i<cubes.length;i++){
-				//console.log(cubes[i].x,cubes[i].y,cubes[i].z)
-				var p = zero.add(cubes[i].x*a,-cubes[i].y*a);
-				p = p.add(-cubes[i].z*a*0.3,cubes[i].z*a*0.3)
-				cubes[i].draw(p,a);
-			}
-=======
-=======
->>>>>>> development
 			//console.log(xCubes,yCubes,zCubes);
 
 			for(var i=0; i< xCubes ; i++)
@@ -160,7 +149,6 @@ var Interaction = {
 			
 			Interaction.cubes = cubes;
 			UnitCube.drawCubes(cubes,zero,a);
->>>>>>> development
 		},
 	showCubes : function(distance){
 			if(Interaction.pause == true)
@@ -240,8 +228,6 @@ UnitCube.compare = function(a,b){
 			return -1;
 		return 0;
 }
-<<<<<<< HEAD
-=======
 UnitCube.drawCubes = function(cubes,zero,a){
 	//decide the draw order 				
 	cubes.sort(UnitCube.compare);
@@ -272,7 +258,3 @@ UnitCube.explode = function(cubes,zero,a,distance){
 		cubes[i].draw(p,a);
 	}
 }
-<<<<<<< HEAD
->>>>>>> development
-=======
->>>>>>> development
