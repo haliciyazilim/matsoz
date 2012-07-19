@@ -55,8 +55,11 @@ Animation.init=function(container){
 				.css("font-weight","bold")
 				.css("color",tabloStrokeRenk)
 				.css("text-shadow","3px 2px 8px rgba(37,91,99,.50)");
+				//.css("filter", "Shadow(Color=black, Direction=45, Strength=1)");
 				//.css("border","solid 1px black");
-	var deger=format(999999999, {point:'.'});
+				//.css("filter","glow(color=black,strength=2), alpha(opacity=90)");
+				
+				var deger=format(999999999, {point:'.'});
 	//$("#sayi").html(deger);
 	
 	
@@ -805,16 +808,16 @@ Interaction.init = function(container){
 	
 	
 	// kontrol butonu
-	$(container).append("<button class='control_button'id='btnKontrol'>Kontrol</button>");
-	$(container).append("<style>.control_button{position:absolute; top:240px; right:25px;  }</style>");
+	$(container).append("<button class='control_button'id='btnKontrol'></button>");
+	$(container).append("<style>.control_button{position:absolute; top:240px; right:10px;  }</style>");
 	
 	//sonraki divi
-	$(container).append("<div id='sonraki' class='next_button'>");
-	$("#sonraki").html("Sonraki")
+	$(container).append("<button id='sonraki' class='next_button'></button>");
+	$("#sonraki")
 		.css("position","absolute")
-		.css("height","15px")
+		//.css("height","15px")
 		//.css("width","80px")
-		.css("right","25px")
+		.css("right","10px")
 		//.css("left","0")
 		.css("margin","auto")
 		.css("top","240px")
