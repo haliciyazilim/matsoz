@@ -211,7 +211,7 @@ Animation.init=function(container){
 	
 	
 	$("#toplanan1B5, #toplanan2B5").delay(24000).fadeIn(1000).delay(3000).fadeOut(1000);
-	$("#cevapB5").delay(26000).fadeIn(1000);
+	$("#cevapB5, #cevapB6").delay(26000).fadeIn(1000);
 	
 	
 	
@@ -398,6 +398,15 @@ Interaction.init = function(container){
 	$("#girdi").keyup(
 		function(){
 			var icerik=$(this).val();
+			
+			$(this).val(icerik);
+			console.log($(this).val());
+		}
+	);
+	
+	$("#girdi").change(
+		function(){
+			var icerik=$(this).val();
 			var index = icerik.indexOf(" ", 0);
 			while (index != -1) {
     			icerik = icerik.replace(" ", "");
@@ -493,6 +502,15 @@ Interaction.init = function(container){
 				});
 	
 	$("#girdi").keyup(
+		function(){
+			var icerik=$(this).val();
+			
+			$(this).val(icerik);
+			console.log($(this).val());
+		}
+	);
+	
+	$("#girdi").change(
 		function(){
 			var icerik=$(this).val();
 			var index = icerik.indexOf(" ", 0);
@@ -615,6 +633,15 @@ Interaction.init = function(container){
 				});
 	
 	$("#girdi").keyup(
+		function(){
+			var icerik=$(this).val();
+			
+			$(this).val(icerik);
+			console.log($(this).val());
+		}
+	);
+	
+	$("#girdi").change(
 		function(){
 			var icerik=$(this).val();
 			var index = icerik.indexOf(" ", 0);
