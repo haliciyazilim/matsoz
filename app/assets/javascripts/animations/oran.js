@@ -48,7 +48,7 @@ function gulGetir(){
 				j++;
 			}
 			else{
-				$("#"+isim).css("top", "0px");
+				$("#"+isim).css("top", "10px");
 				$("#"+isim).css("left", left);
 			}
 

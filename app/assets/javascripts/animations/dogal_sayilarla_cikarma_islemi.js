@@ -125,27 +125,27 @@ Animation.init=function(container){
 	$("#ornek",container).append("<p id='cevapB1' class='sayilarTekToplam'>");
 		$("#cevapB1")
 			.css("left","101px")
-			.html("2").hide();	
+			.html("7").hide();	
 			
 	$("#ornek",container).append("<p id='cevapB2' class='sayilarTekToplam'>");
 		$("#cevapB2")
 			.css("left","84px")
-			.html("4").hide();
+			.html("6").hide();
 			
 	$("#ornek",container).append("<p id='cevapB3' class='sayilarTekToplam'>");
 		$("#cevapB3")
 			.css("left","68px")
-			.html("7").hide();
+			.html("2").hide();
 
 	$("#ornek",container).append("<p id='cevapB4' class='sayilarTekToplam'>");
 		$("#cevapB4")
 			.css("left","45px")
-			.html("1").hide();
+			.html("5").hide();
 			
 	$("#ornek",container).append("<p id='cevapB5' class='sayilarTekToplam'>");
 		$("#cevapB5")
 			.css("left","27px")
-			.html("7").hide();
+			.html("1").hide();
 			
 	$("#ornek",container).append("<p id='cevapB6' class='sayilarTekToplam'>");
 		$("#cevapB6")
@@ -419,7 +419,17 @@ Interaction.init = function(container){
 					}
 				});
 	
+	$
 	$("#girdi").keyup(
+		function(){
+			var icerik=$(this).val();
+			
+			$(this).val(icerik);
+			console.log($(this).val());
+		}
+	);
+	
+	$("#girdi").change(
 		function(){
 			var icerik=$(this).val();
 			var index = icerik.indexOf(" ", 0);
@@ -526,6 +536,15 @@ Interaction.init = function(container){
 				});
 	
 	$("#girdi").keyup(
+		function(){
+			var icerik=$(this).val();
+			
+			$(this).val(icerik);
+			console.log($(this).val());
+		}
+	);
+	
+	$("#girdi").change(
 		function(){
 			var icerik=$(this).val();
 			var index = icerik.indexOf(" ", 0);
@@ -658,6 +677,15 @@ Interaction.init = function(container){
 				});
 	
 	$("#girdi").keyup(
+		function(){
+			var icerik=$(this).val();
+			
+			$(this).val(icerik);
+			console.log($(this).val());
+		}
+	);
+	
+	$("#girdi").change(
 		function(){
 			var icerik=$(this).val();
 			var index = icerik.indexOf(" ", 0);
