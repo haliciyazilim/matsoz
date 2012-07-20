@@ -206,7 +206,7 @@ Interaction.init = function(container){
 	sayi=rastgeleSayi();
 	
 	
-	$("#cerceve").html("<strong class='sayi'>"+sayi+"</strong> en yakın "+yazi +" yuvarlanırsa <input type='text' class='sayi' id='girdi' maxlength=4  onkeypress='return SadeceRakam(event)'> olur.");
+	$("#cerceve").html("<strong class='sayi'>"+sayi+"</strong> en yakın "+yazi +" yuvarlanırsa <input type='text' class='sayi' id='girdi' maxlength=5  onkeypress='return SadeceRakam(event)'> olur.");
 	$("#cerceveCevap").html("<strong class='sayi' id='soruSayisi'>"+sayi+"</strong> en yakın "+yazi +" yuvarlanırsa <strong class='sayi' id='dogruCevap'>"+yuvarlak+"</strong> olur.");
 	$("#dogruCevap").css("color",dogruCevapGosterimRengi);
 
@@ -259,17 +259,19 @@ Interaction.init = function(container){
 	
 	
 	// kontrol butonu
-	$(container).append("<button class='control_button'id='btnKontrol'>Kontrol</button>");
+	$(container).append("<button class='control_button'id='btnKontrol'>");
 	$(container).append("<style>.control_button{position:absolute; top:230px; right:25px;  }</style>");
 	
-	// sonraki divi
-	$(container).append("<div id='sonraki'>");
-	$("#sonraki", container).append("<div id='dikdortgen'>");
-	$("#dikdortgen", container).append("<div id='yazi'>Sonraki</div>");
-	$("#sonraki", container).append("<div id='ucgen'>");
-	$(container).append("<style>#sonraki{position:absolute; top:230px; right:110px; height: 30px;cursor:pointer;color:"+divSonrakiYaziRenk+";</style>");
-	$(container).append("<style> #dikdortgen{position:absolute; margin:auto; bottom: 0px; right:0px; top:0px; left:0px; width:70px; height:30px; background:"+divSonrakiFillRenk + "}</style>");
-	$(container).append("<style>#ucgen{position:absolute; top:0px; left:70px; width:0, height:0; border-left: 30px solid "+divSonrakiFillRenk+";border-top: 15px solid transparent;border-bottom: 15px solid transparent;}</style>");
+	//sonraki divi
+	$(container).append("<button id='sonraki' class='next_button'>");
+	$("#sonraki")
+		.css("position","absolute")
+		.css("right","25px")
+		.css("margin","auto")
+		.css("top","230px")
+		.css("text-align","center")
+		.hide();
+	
 	$("#yazi").css("width","50px")
 	.css("position","absolute")
 	.css("height","13px")

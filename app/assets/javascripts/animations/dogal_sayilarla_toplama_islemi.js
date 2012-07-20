@@ -60,50 +60,128 @@ Animation.init=function(container){
 		.css("top","60px")
 		.html("+").hide();
 
-	$("#ornek",container).append("<p id='cevapB1' class='sayilarTek'>");
+	// toplanan1
+	$("#ornek",container).append("<p id='toplanan1B1' class='sayilarTekToplanan1'>");
+		$("#toplanan1B1")
+			.css("left","102px")
+			.html("7")
+			.hide();	
+			
+	$("#ornek",container).append("<p id='toplanan1B2' class='sayilarTekToplanan1'>");
+		$("#toplanan1B2")
+			.css("left","86px")
+			.html("0")
+			.hide();
+			
+	$("#ornek",container).append("<p id='toplanan1B3' class='sayilarTekToplanan1'>");
+		$("#toplanan1B3")
+			.css("left","68px")
+			.html("5")
+			.hide();
+
+	$("#ornek",container).append("<p id='toplanan1B4' class='sayilarTekToplanan1'>");
+		$("#toplanan1B4")
+			.css("left","45px")
+			.html("3")
+			.hide();
+			
+	$("#ornek",container).append("<p id='toplanan1B5' class='sayilarTekToplanan1'>");
+		$("#toplanan1B5")
+			.css("left","27px")
+			.html("9")
+			.hide();
+
+	
+	$(".sayilarTekToplanan1")
+			.css("position","absolute")
+			.css("top","10px")
+			.css("font-size","30px")
+			.css("font-weight","bold");
+	
+	
+	// toplanan2
+	$("#ornek",container).append("<p id='toplanan2B1' class='sayilarTekToplanan2'>");
+		$("#toplanan2B1")
+			.css("left","102px")
+			.html("5")
+			.hide();	
+			
+	$("#ornek",container).append("<p id='toplanan2B2' class='sayilarTekToplanan2'>");
+		$("#toplanan2B2")
+			.css("left","86px")
+			.html("3")
+			.hide();
+			
+	$("#ornek",container).append("<p id='toplanan2B3' class='sayilarTekToplanan2'>");
+		$("#toplanan2B3")
+			.css("left","68px")
+			.html("2")
+			.hide();
+
+	$("#ornek",container).append("<p id='toplanan2B4' class='sayilarTekToplanan2'>");
+		$("#toplanan2B4")
+			.css("left","45px")
+			.html("8")
+			.hide();
+			
+	$("#ornek",container).append("<p id='toplanan2B5' class='sayilarTekToplanan2'>");
+		$("#toplanan2B5")
+			.css("left","27px")
+			.html("7")
+			.hide();
+
+	
+	$(".sayilarTekToplanan2")
+			.css("position","absolute")
+			.css("top","50px")
+			.css("font-size","30px")
+			.css("font-weight","bold");
+	
+// Toplam
+	$("#ornek",container).append("<p id='cevapB1' class='sayilarTekToplam'>");
 		$("#cevapB1")
 			.css("left","101px")
 			.html("2").hide();	
 			
-	$("#ornek",container).append("<p id='cevapB2' class='sayilarTek'>");
+	$("#ornek",container).append("<p id='cevapB2' class='sayilarTekToplam'>");
 		$("#cevapB2")
 			.css("left","84px")
 			.html("4").hide();
 			
-	$("#ornek",container).append("<p id='cevapB3' class='sayilarTek'>");
+	$("#ornek",container).append("<p id='cevapB3' class='sayilarTekToplam'>");
 		$("#cevapB3")
 			.css("left","68px")
 			.html("7").hide();
 
-	$("#ornek",container).append("<p id='cevapB4' class='sayilarTek'>");
+	$("#ornek",container).append("<p id='cevapB4' class='sayilarTekToplam'>");
 		$("#cevapB4")
 			.css("left","45px")
 			.html("1").hide();
 			
-	$("#ornek",container).append("<p id='cevapB5' class='sayilarTek'>");
+	$("#ornek",container).append("<p id='cevapB5' class='sayilarTekToplam'>");
 		$("#cevapB5")
 			.css("left","27px")
 			.html("7").hide();
 			
-	$("#ornek",container).append("<p id='cevapB6' class='sayilarTek'>");
+	$("#ornek",container).append("<p id='cevapB6' class='sayilarTekToplam'>");
 		$("#cevapB6")
 			.css("left","11px")
 			.html("1").hide();
 		
 	
 	
-	$("#ornek",container).append("<p id='cevapB1Elde' class='sayilarTek'>");
+	$("#ornek",container).append("<p id='cevapB1Elde' class='sayilarTekToplam'>");
 		$("#cevapB1Elde")
 			.css("left","84px")
 			.css("color","red")
 			.html("1").hide();
-	$("#ornek",container).append("<p id='cevapB4Elde' class='sayilarTek'>");
+	$("#ornek",container).append("<p id='cevapB4Elde' class='sayilarTekToplam'>");
 		$("#cevapB4Elde")
 			.css("left","25px")
 			.css("color","red")
 			.html("1").hide();		
 			
-	$(".sayilarTek")
+	$(".sayilarTekToplam")
 			.css("position","absolute")
 			.css("top","100px")
 			.css("font-size","30px");
@@ -112,14 +190,39 @@ Animation.init=function(container){
 	$("#ornekToplanan1").delay(1000).fadeIn(1000);
 	$("#ornekToplanan2").delay(2000).fadeIn(1000);
 	$("#ornekToplamaIsareti").delay(3000).fadeIn(1000);
-	$("#cevapB1, #cevapB1Elde").delay(4000).fadeIn(1000);
-	$("#cevapB1Elde").delay(1000).animate({"top":"-20px"},1000).delay(500).fadeOut(1000);
-	$("#cevapB2").delay(7000).fadeIn(1000);
-	$("#cevapB3").delay(8000).fadeIn(1000);
-	$("#cevapB4, #cevapB4Elde").delay(9000).fadeIn(1000);
-	$("#cevapB4Elde").delay(1000).animate({"top":"-20px"},1000).delay(500).fadeOut(1000);
-	$("#cevapB5, #cevapB6").delay(12000).fadeIn(1000);
 	
+	$("#toplanan1B1, #toplanan2B1").delay(4000).fadeIn(1000);
+	//$(".sayilarTekToplanan2").delay(4000).fadeIn(1000);
+	
+	//$("#toplanan1B1, #toplanan2B1").delay(1000).animate({"font-weight":"bold"},500);
+	$("#cevapB1, #cevapB1Elde").delay(6000).fadeIn(1000);
+	$("#toplanan1B1, #toplanan2B1").delay(1000).fadeOut(1000);
+	$("#cevapB1Elde")
+	.delay(2000).animate({"top":"-20px"},1000).delay(2000).fadeOut(1000);
+	
+	$("#toplanan1B2, #toplanan2B2").delay(10000).fadeIn(1000).delay(3000).fadeOut(1000);
+	$("#cevapB2").delay(12000).fadeIn(1000);
+	
+	$("#toplanan1B3, #toplanan2B3").delay(14000).fadeIn(1000).delay(3000).fadeOut(1000);
+	$("#cevapB3").delay(16000).fadeIn(1000);
+	
+	$("#toplanan1B4, #toplanan2B4").delay(18000).fadeIn(1000).delay(3000).fadeOut(1000);
+	$("#cevapB4, #cevapB4Elde").delay(20000).fadeIn(1000);
+	$("#cevapB4Elde")
+	.delay(2000).animate({"top":"-20px"},1000).delay(2000).fadeOut(1000);
+	
+	
+	$("#toplanan1B5, #toplanan2B5").delay(24000).fadeIn(1000).delay(3000).fadeOut(1000);
+	$("#cevapB5").delay(26000).fadeIn(1000);
+	
+	
+	
+	/*
+	$("#cevapB3").delay(10000).fadeIn(1000);
+	$("#cevapB4, #cevapB4Elde").delay(11000).fadeIn(1000);
+	$("#cevapB4Elde").delay(1000).animate({"top":"-20px"},1000).delay(500).fadeOut(1000);
+	$("#cevapB5, #cevapB6").delay(14000).fadeIn(1000);
+	*/
 	// arc
 	/*var start = new Point(420, 140);
 	var through = new Point(450, 100);
@@ -165,6 +268,7 @@ Interaction.init = function(container){
 	
 	//Eldesiz
 	function eldesizToplama(){
+		
 		console.log("soruSirasi: "+soruSirasi+" eldessiz");
 		nihaiToplanan1="";
 		nihaiToplanan2="";	
@@ -272,6 +376,26 @@ Interaction.init = function(container){
 		.css("top","100px")
 		.addClass("input")
 		.addClass("number_input_field");
+		
+	
+	$("#girdi").keydown(function(event){
+					var pos;
+					if(event.keyCode == 8)
+						pos = 1;
+					else
+						pos = 0; 
+					if(this.createTextRange){
+						var textRange = node.createTextRange();
+						textRange.collapse(true);
+						textRange.moveEnd(pos);
+						textRange.moveStart(pos);
+						textRange.select();
+						return true;
+					}else if(this.setSelectionRange){
+						this.setSelectionRange(pos,pos);
+						return true;
+					}
+				});
 	
 	$("#girdi").keyup(
 		function(){
@@ -350,6 +474,25 @@ Interaction.init = function(container){
 		.css("top","100px")
 		.html("+");
 	$("input").addClass("input").addClass("number_input_field");
+	
+	$("#girdi").keydown(function(event){
+					var pos;
+					if(event.keyCode == 8)
+						pos = 1;
+					else
+						pos = 0; 
+					if(this.createTextRange){
+						var textRange = node.createTextRange();
+						textRange.collapse(true);
+						textRange.moveEnd(pos);
+						textRange.moveStart(pos);
+						textRange.select();
+						return true;
+					}else if(this.setSelectionRange){
+						this.setSelectionRange(pos,pos);
+						return true;
+					}
+				});
 	
 	$("#girdi").keyup(
 		function(){
@@ -454,7 +597,24 @@ Interaction.init = function(container){
 		.css("font-size","30px");
 		//.css("border","solid 1px black");
 		
-
+	$("#girdi").keydown(function(event){
+					var pos;
+					if(event.keyCode == 8)
+						pos = 1;
+					else
+						pos = 0; 
+					if(this.createTextRange){
+						var textRange = node.createTextRange();
+						textRange.collapse(true);
+						textRange.moveEnd(pos);
+						textRange.moveStart(pos);
+						textRange.select();
+						return true;
+					}else if(this.setSelectionRange){
+						this.setSelectionRange(pos,pos);
+						return true;
+					}
+				});
 	
 	$("#girdi").keyup(
 		function(){
@@ -593,14 +753,16 @@ Interaction.init = function(container){
 		.css("font-size","30px");
 		//.css("border","solid 1px black");
 		
-
-	
+		
 	$("#girdi1").keyup(
 		function(){
 			girdi1=$(this).val();
 			$("#geriBildirim").hide();
 		}
 	);
+	
+	
+	
 	$("#girdi2").keyup(
 		function(){
 			girdi2=$(this).val();
@@ -608,6 +770,7 @@ Interaction.init = function(container){
 		}
 	);
 	
+		
 	$("#girdi3").keyup(
 		function(){
 			girdi3=$(this).val();
@@ -1127,6 +1290,46 @@ Interaction.init = function(container){
 		
 	}
 	var tusSayac=1;
+	
+	$("#girdi").keydown(function(event){
+					var pos;
+					if(event.keyCode == 8)
+						pos = 1;
+					else
+						pos = 0; 
+					if(this.createTextRange){
+						var textRange = node.createTextRange();
+						textRange.collapse(true);
+						textRange.moveEnd(pos);
+						textRange.moveStart(pos);
+						textRange.select();
+						return true;
+					}else if(this.setSelectionRange){
+						this.setSelectionRange(pos,pos);
+						return true;
+					}
+				});
+	
+	
+	$("#girdi").live("yeniGirdi", function(){$(this).keydown(function(event){
+					var pos;
+					if(event.keyCode == 8)
+						pos = 1;
+					else
+						pos = 0; 
+					if(this.createTextRange){
+						var textRange = node.createTextRange();
+						textRange.collapse(true);
+						textRange.moveEnd(pos);
+						textRange.moveStart(pos);
+						textRange.select();
+						return true;
+					}else if(this.setSelectionRange){
+						this.setSelectionRange(pos,pos);
+						return true;
+					}
+				});
+	});
 	$(this).keyup(function(event) {
 			if(event.keyCode == 13) {
 				if(tusSayac<3)

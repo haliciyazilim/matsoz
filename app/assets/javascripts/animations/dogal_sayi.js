@@ -1004,14 +1004,14 @@ Interaction.init = function(container){
 		}
 		else{
 			
-			if (yuzMilyon=="")
+			if (yuzMilyon=="" || yuzMilyon=="0" || yuzMilyon==0)
 				yuzMilyon=" ";
-			if (onMilyon=="")
+			if ((yuzMilyon=="" || yuzMilyon=="0" || yuzMilyon==0) &(onMilyon=="" || onMilyon=="0" | onMilyon==0))
 				onMilyon=" ";
 				
 			var cevapSayisi=yuzMilyon+onMilyon+milyon+yuzBin+onBin+bin+yuz+on+bir;
-			//console.log("Girdi:'"+cevapSayisi+"'");
-			//console.log("cevap:'"+rastgeleSayi+"'");
+			console.log("Girdi:'"+cevapSayisi+"'");
+			console.log("cevap:'"+rastgeleSayi+"'");
 			if(rastgeleSayi==cevapSayisi){
 				$("#geriBildirimText").attr("class","status_true").html("Tebrikler");
 				$("#btnKontrol").hide();

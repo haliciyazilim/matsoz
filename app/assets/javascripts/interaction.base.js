@@ -1,5 +1,7 @@
 function InteractionBase(){
 	
+	Interaction.inputs = [];
+	
 	Interaction.setStatus = function(str,cls){
 		$(Interaction.status ).html(str);
 		if(cls === true)
@@ -23,8 +25,19 @@ function InteractionBase(){
 		$(Interaction.status).css(css);
 	};
 	
-	Interaction.appendInput = function(css){
-		Interaction.input = document.createElement('input');
+	Interaction.appendInput = function(css,isNumber){
+		
+		var input = document.createElement('input');
+		if(isNumber!=undefined || isNumber != null)
+			input.setAttribute('isNumber',isNumber);
+		else	
+			input.setAttribute('isNumber','true');
+		
+			
+		if(Interaction.inputs.length == 0)
+			Interaction.input = input;
+		
+		Interaction.inputs.push(input);
 		$(Interaction.container).append(Interaction.input);
 		Interaction.input.setAttribute('type','text');
 		$(Interaction.input)
@@ -74,17 +87,30 @@ function InteractionBase(){
 	Interaction.checkAnswer = function(){
 		if(Interaction.pause == true)
 			return;
-		var value = $(Interaction.input).val();
 		
-		if(value == "" ||isNaN(value) && value.indexOf(',') < 0){
-			Interaction.setStatus('Lütfen bir sayı giriniz.',false);
-			return;
+		var value = $(Interaction.input).val();
+		var values = [];
+		
+
+		for(var i=0; i<Interaction.inputs.length;i++){
+			values[i] = Interaction.inputs[i].value;
+			if(Interaction.inputs[i].getAttribute('isNumber') == 'true'){			
+				if(values[i] == "" ||isNaN(values[i]) && values[i].indexOf(',') < 0){
+					Interaction.setStatus('Lütfen bir sayı giriniz.',false);
+					return;
+				}
+				if(values[i].indexOf('.') > 0){
+					Interaction.setStatus('Lütfen ondalıklı sayıları virgülle yazınız.',false);
+					return;
+				}
+			}
 		}
-		if(value.indexOf('.') > 0){
-			Interaction.setStatus('Lütfen ondalıklı sayıları virgülle yazınız.',false);
-			return;
-		}
-		var isCorrect = Interaction.isAnswerCorrect(value);
+		var isCorrect;
+		
+		if(Interaction.inputs.length == 1)
+			 isCorrect = Interaction.isAnswerCorrect(value);
+		else
+			 isCorrect = Interaction.isAnswerCorrect(values);
 
 		if(isCorrect){
 			Interaction.setStatus('Tebrikler!',true);
@@ -102,7 +128,6 @@ function InteractionBase(){
 		}
 		if(isCorrect || Interaction.trial > 0){
 			Interaction.button.onclick = Interaction.prepareNextQuestion;
-			//Interaction.showCubes(20);
 			Interaction.button.className = 'next_button';
 		}
 		Interaction.trial++;
