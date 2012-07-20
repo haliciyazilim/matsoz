@@ -1,15 +1,17 @@
 var cubeStyle = {
 	strokeColor:'#000',
 	strokeWidth:1,
-	fillColor:'#D99594'
+	fillColor:'#ffd9d9'
 };
 var Animation = {
 	init:function(container){
 			Main.animationProject.activeLayer.removeChildren();
 			Animation.container = container;
+			Animation.xZ = 0.4;
+			Animation.yZ = 0.5;
 			var w=$(container).width(), h=$(container).height();
 			var x = 100;
-			var y = 50;
+			var y = 20;
 			Animation.a = 30;
 			Animation.xCube = 7;
 			Animation.yCube = 2;
@@ -21,8 +23,8 @@ var Animation = {
 					Animation.yCube*Animation.a
 				),    
 				new Size(
-					Animation.zCube*0.3*Animation.a,
-					Animation.zCube*0.3*Animation.a
+					Animation.zCube*Animation.xZ*Animation.a,
+					Animation.zCube*Animation.yZ*Animation.a
 				)
 			).set_style({
 				strokeWidth:2,
@@ -45,7 +47,7 @@ var Animation = {
 			Animation.countSpan = $('span#count',div).get(0);
 			
 			Animation.zeroPoint = new Point(
-				x + (Animation.zCube-1)*0.3*Animation.a,
+				x + (Animation.zCube-1)*Animation.xZ*Animation.a,
 				y + (Animation.yCube-1)*Animation.a
 			);
 			Animation.cubes = [];
@@ -54,7 +56,7 @@ var Animation = {
 					for(var k=0;k<Animation.zCube;k++)
 						Animation.cubes.push(new UnitCube(i,j,k));
 			
-			UnitCube.drawCubes(Animation.cubes,Animation.zeroPoint,Animation.a);
+			UnitCube.drawCubes(Animation.cubes,Animation.zeroPoint,Animation.a,Animation);
 			Animation.cubes[0].shape.insertBelow(Animation.rectPrizm.children[4]);
 			for(var i=1;i<Animation.cubes.length;i++){
 				Animation.cubes[i].shape.opacity = 0;
@@ -84,6 +86,8 @@ var Interaction = {
 				width:$(container).width(),
 				height:$(container).height()
 			}
+			Interaction.xZ = 0.4;
+			Interaction.yZ = 0.5;
 			Interaction.appendInput({
 				position:'static'
 			});
@@ -148,7 +152,7 @@ var Interaction = {
 				cubes.push(new UnitCube(Math.floor(i/3),0,i%3+1));
 			
 			Interaction.cubes = cubes;
-			UnitCube.drawCubes(cubes,zero,a);
+			UnitCube.drawCubes(cubes,zero,a,Interaction);
 		},
 	showCubes : function(distance){
 			if(Interaction.pause == true)
@@ -161,7 +165,8 @@ var Interaction = {
 						Interaction.cubes,
 						Interaction.zeroPoint,
 						Interaction.a,
-						this.distance
+						this.distance,
+						Interaction
 					);
 				}
 			});
@@ -206,10 +211,10 @@ function UnitCube(x,y,z){
 	this.y = y;
 	this.z = z;
 	
-	this.draw = function(p,a){
+	this.draw = function(p,a,_s){
 		if(this.shape)
 			this.shape.remove();
-		this.shape = new Path.Cube(p,a);
+		this.shape = new Path.Cube(p,a,new Point(_s.xZ,_s.yZ));
 		this.shape.set_style(cubeStyle);
 	};
 }
@@ -228,9 +233,10 @@ UnitCube.compare = function(a,b){
 			return -1;
 		return 0;
 }
-UnitCube.drawCubes = function(cubes,zero,a){
+UnitCube.drawCubes = function(cubes,zero,a,_s){
 	//decide the draw order 				
 	cubes.sort(UnitCube.compare);
+	
 	//draw the cubes
 	for(var i=0; i<cubes.length;i++){
 		var p = zero.add(
@@ -238,23 +244,24 @@ UnitCube.drawCubes = function(cubes,zero,a){
 			Math.floor(-cubes[i].y*a)+0.5
 		);
 		p = p.add(
-			Math.floor(-cubes[i].z*a*0.3),
-			Math.floor(cubes[i].z*a*0.3)
+			Math.floor(-cubes[i].z*a*_s.xZ),
+			Math.floor(cubes[i].z*a*_s.yZ)
 		);
-		cubes[i].draw(p,a);
+		
+		cubes[i].draw(p,a,_s);
 	}
 }
-UnitCube.explode = function(cubes,zero,a,distance){
+UnitCube.explode = function(cubes,zero,a,distance,_s){
 	//decide the draw order 				
 	cubes.sort(UnitCube.compare);
 	//draw the cubes
 	for(var i=0; i<cubes.length;i++){
 		//console.log(cubes[i].x,cubes[i].y,cubes[i].z)
 		var p = zero.add(cubes[i].x*a,-cubes[i].y*a);
-		p = p.add(-cubes[i].z*a*0.3,cubes[i].z*a*0.3);
+		p = p.add(-cubes[i].z*a*_s.xZ,cubes[i].z*a*_s.yZ);
 		p = p.add(distance*cubes[i].x,0);
 		p = p.add(0,-distance*cubes[i].y);
-		p = p.add(-cubes[i].z*distance*0.3,cubes[i].z*distance*0.3);
-		cubes[i].draw(p,a);
+		p = p.add(-cubes[i].z*distance*_s.xZ,cubes[i].z*_s.yZ);
+		cubes[i].draw(p,a,_s);
 	}
 }
