@@ -18,39 +18,39 @@ Animation.init = function(container){
 	
 	var tableGroup = new Group();
 	
-	var horiLine = new Path.Line(new Point(187, 60), new Point(589, 60));
+	var horiLine = new Path.Line(new Point(176.5, 60.5), new Point(602.5, 60.5));
 	horiLine.strokeColor = "grey";
-	horiLine.strokeWidth = 2;
+	horiLine.strokeWidth = 1;
 	tableGroup.addChild(horiLine);
 
-	var vertLine = new Path.Line(new Point(252, 42), new Point(252, 78));
+	var vertLine = new Path.Line(new Point(245.5, 40.5), new Point(245.5, 80.5));
 	vertLine.strokeColor = "grey";
-	vertLine.strokeWidth = 2;
+	vertLine.strokeWidth = 1;
 	tableGroup.addChild(vertLine);
 	
-	var vertLine2 = new Path.Line(new Point(287, 42), new Point(287, 78));
+	var vertLine2 = new Path.Line(new Point(279.5, 40.5), new Point(279.5, 80.5));
 	vertLine2.strokeColor = "grey";
-	vertLine2.strokeWidth = 2;
+	vertLine2.strokeWidth = 1;
 	tableGroup.addChild(vertLine2);
 	
-	var vertLine3 = new Path.Line(new Point(359, 42), new Point(359, 78));
+	var vertLine3 = new Path.Line(new Point(356.5, 40.5), new Point(356.5, 80.5));
 	vertLine3.strokeColor = "grey";
-	vertLine3.strokeWidth = 2;
+	vertLine3.strokeWidth = 1;
 	tableGroup.addChild(vertLine3);
 	
-	var vertLine4 = new Path.Line(new Point(431, 42), new Point(431, 78));
+	var vertLine4 = new Path.Line(new Point(434.5, 40.5), new Point(434.5, 80.5));
 	vertLine4.strokeColor = "grey";
-	vertLine4.strokeWidth = 2;
+	vertLine4.strokeWidth = 1;
 	tableGroup.addChild(vertLine4);
 	
-	var vertLine5 = new Path.Line(new Point(474, 42), new Point(474, 78));
+	var vertLine5 = new Path.Line(new Point(480.5, 40.5), new Point(480.5, 80.5));
 	vertLine5.strokeColor = "grey";
-	vertLine5.strokeWidth = 2;
+	vertLine5.strokeWidth = 1;
 	tableGroup.addChild(vertLine5);
 	
-	var vertLine6 = new Path.Line(new Point(546, 42), new Point(546, 78));
+	var vertLine6 = new Path.Line(new Point(557.5, 40.5), new Point(557.5, 80.5));
 	vertLine6.strokeColor = "grey";
-	vertLine6.strokeWidth = 2;
+	vertLine6.strokeWidth = 1;
 	tableGroup.addChild(vertLine6);
 			
 	$(container).append('<img id="calendar" src="/assets/animations/aritmetik_ortalama/calendar.png" />');
@@ -83,75 +83,124 @@ Animation.init = function(container){
 					.css("text-align", "center")
 					.css("width", "320x");
 	
-	$('#datasHolderDiv').append('<div id="monday">Pazartesi 25°</div>');
+	$('#datasHolderDiv').append('<div id="monday">Pazartesi</div>');
 	$('#monday').css("position", "absolute")
-					.css("left", "-4px")
-					.css("top", "26px")
+					.css("left", "-14px")
+					.css("top", "24px")
 					.css("font-size", 14)
 					.css("text-align", "center")
 					.css("width", "50px")
-					.css("line-height","18px")
-					.css("height", "26px");
+					.css("font-weight", "bold");
+	$('#datasHolderDiv').append('<div id="mondayD">25°</div>');
+	$('#mondayD').css("position", "absolute")
+					.css("left", "6px")
+					.css("top", "48px")
+					.css("font-size", 14)
+					.css("text-align", "center")
+					.css("opacity", 0)
+					.delay(4000).animate({opacity:1}, 500)
 	
-	$('#datasHolderDiv').append('<div id="tuesday">Salı 27°</div>');
+	$('#datasHolderDiv').append('<div id="tuesday">Salı</div>');
 	$('#tuesday').css("position", "absolute")
-					.css("left", "58px")
-					.css("top", "26px")
+					.css("left", "50px")
+					.css("top", "24px")
 					.css("font-size", 14)
 					.css("text-align", "center")
-					.css("line-height","18px")
 					.css("width", "40px")
-					.css("height", "26px");
+					.css("font-weight", "bold");
+	$('#datasHolderDiv').append('<div id="tuesdayD">27°</div>');
+	$('#tuesdayD').css("position", "absolute")
+					.css("left", "60px")
+					.css("top", "48px")
+					.css("font-size", 14)
+					.css("text-align", "center")
+					.css("opacity", 0)
+					.delay(5000).animate({opacity:1}, 500)
 	
-	$('#datasHolderDiv').append('<div id="wednesday">Çarşamba 30°</div>');
+	$('#datasHolderDiv').append('<div id="wednesday">Çarşamba</div>');
 	$('#wednesday').css("position", "absolute")
-					.css("left", "100px")
-					.css("top", "26px")
+					.css("left", "92px")
+					.css("top", "24px")
 					.css("font-size", 14)
 					.css("text-align", "center")
-					.css("line-height","18px")
 					.css("width", "54px")
-					.css("height", "26px");
+					.css("font-weight", "bold");
+	$('#datasHolderDiv').append('<div id="wednesdayD">30°</div>');
+	$('#wednesdayD').css("position", "absolute")
+					.css("left", "116px")
+					.css("top", "48px")
+					.css("font-size", 14)
+					.css("text-align", "center")
+					.css("opacity", 0)
+					.delay(6000).animate({opacity:1}, 500)
 	
-	$('#datasHolderDiv').append('<div id="thursday">Perşembe 29°</div>');
+	$('#datasHolderDiv').append('<div id="thursday">Perşembe</div>');
 	$('#thursday').css("position", "absolute")
-					.css("left", "172px")
-					.css("top", "26px")
+					.css("left", "170px")
+					.css("top", "24px")
 					.css("font-size", 14)
 					.css("text-align", "center")
-					.css("line-height","18px")
 					.css("width", "54px")
-					.css("height", "26px");
+					.css("font-weight", "bold");
+	$('#datasHolderDiv').append('<div id="thursdayD">29°</div>');
+	$('#thursdayD').css("position", "absolute")
+					.css("left", "196px")
+					.css("top", "48px")
+					.css("font-size", 14)
+					.css("text-align", "center")
+					.css("opacity", 0)
+					.delay(7000).animate({opacity:1}, 500)
 					
-	$('#datasHolderDiv').append('<div id="friday">Cuma 32°</div>');
+	$('#datasHolderDiv').append('<div id="friday">Cuma</div>');
 	$('#friday').css("position", "absolute")
-					.css("left", "240px")
-					.css("top", "26px")
+					.css("left", "244px")
+					.css("top", "24px")
 					.css("font-size", 14)
 					.css("text-align", "center")
-					.css("line-height","18px")
 					.css("width", "44px")
-					.css("height", "26px");
+					.css("font-weight", "bold");
+	$('#datasHolderDiv').append('<div id="fridayD">32°</div>');
+	$('#fridayD').css("position", "absolute")
+					.css("left", "258px")
+					.css("top", "48px")
+					.css("font-size", 14)
+					.css("text-align", "center")
+					.css("opacity", 0)
+					.delay(8000).animate({opacity:1}, 500)
 					
-	$('#datasHolderDiv').append('<div id="saturday">Cumartesi 28°</div>');
+	$('#datasHolderDiv').append('<div id="saturday">Cumartesi</div>');
 	$('#saturday').css("position", "absolute")
-					.css("left", "288px")
-					.css("top", "26px")
+					.css("left", "292px")
+					.css("top", "24px")
 					.css("font-size", 14)
 					.css("text-align", "center")
-					.css("line-height","18px")
 					.css("width", "54px")
-					.css("height", "26px");
-					
-	$('#datasHolderDiv').append('<div id="sunday">Pazar 26°</div>');
-	$('#sunday').css("position", "absolute")
-					.css("left", "356px")
-					.css("top", "26px")
+					.css("font-weight", "bold");
+	$('#datasHolderDiv').append('<div id="saturdayD">28°</div>');
+	$('#saturdayD').css("position", "absolute")
+					.css("left", "316px")
+					.css("top", "48px")
 					.css("font-size", 14)
 					.css("text-align", "center")
-					.css("line-height","18px")
+					.css("opacity", 0)
+					.delay(9000).animate({opacity:1}, 500)
+					
+	$('#datasHolderDiv').append('<div id="sunday">Pazar</div>');
+	$('#sunday').css("position", "absolute")
+					.css("left", "366px")
+					.css("top", "24px")
+					.css("font-size", 14)
+					.css("text-align", "center")
 					.css("width", "46px")
-					.css("height", "26px");
+					.css("font-weight", "bold");
+	$('#datasHolderDiv').append('<div id="sundayD">26°</div>');
+	$('#sundayD').css("position", "absolute")
+					.css("left", "380px")
+					.css("top", "48px")
+					.css("font-size", 14)
+					.css("text-align", "center")
+					.css("opacity", 0)
+					.delay(10000).animate({opacity:1}, 500)
 					
 	$(container).append('<div id="executionDiv"></div>');
 	$('#executionDiv').css("position", "absolute")
@@ -851,14 +900,14 @@ Interaction.init = function(container){
 					.css("text-align", "center")
 					.css("height", "30px");
 					
-	$(container).append('<button id="checkBtn" class="control_button">Kontrol</button>');
+	$(container).append('<button id="checkBtn" class="control_button"></button>');
 	$('#checkBtn').css("position", "absolute")
 					.css("bottom", "20px")
 					.css("right", "66px");
 					
 	$('#checkBtn').show();
 	
-	$(container).append('<button id="nextBtn" class="next_button">Sonraki</button>');
+	$(container).append('<button id="nextBtn" class="next_button"></button>');
 	$('#nextBtn').css("position", "absolute")
 					.css("bottom", "20px")
 					.css("right", "66px");

@@ -74,26 +74,7 @@ Interaction.init = function () {
 	
 	group.opacity = 0.4;
 	
-	
-	
-	var line = new Path.Line(new Point(10,10), new Point(100,100));
-	
-	line.strokeColor = 'black';
-	line.setStyle({
-		strokeColor: 'blue',
-		dashArray: [3, 2],
-		opacity: 0.1
-	});
-	
-	line.strokeColor = 'red';
-	
-	line.setStyle({
-		strokeColor: 'black'
-	});
-	// line.strokeWidth = 2;
-	// 
-	// line.dashArray = [3,2];
-	
+	console.log('ebik!');
 	Main.setObjective("So far, so good!");
 	
 	

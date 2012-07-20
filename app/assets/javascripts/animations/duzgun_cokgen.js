@@ -51,7 +51,7 @@ var Animation = {
 				if(this.shape)
 					this.shape.remove();
 				this.shape = new Path.EquiradialPolygon(this.position,this.size,this.angles,0);
-				this.shape.setStyle(animationShapeStyle);
+				this.shape.set_style(animationShapeStyle);
 			}
 			this.redraw = function(angles){
 				this.setAngles(angles);

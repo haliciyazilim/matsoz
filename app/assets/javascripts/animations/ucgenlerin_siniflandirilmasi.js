@@ -617,11 +617,11 @@ function Triangle(i,j,k,paper){
 			x = p1.x + Math.sqrt(2) * k/2 * Math.cos(_t);
 			y = p1.y - Math.sqrt(2) * k/2 * Math.sin(_t);
 			var line1 = new Path.Line(new Point(x1,y1), new Point(x,y));
-			line1.setStyle(edgeStyle);
+			line1.set_style(edgeStyle);
 			var line2 = new Path.Line(new Point(x2,y2), new Point(x,y));
-			line2.setStyle(edgeStyle)
+			line2.set_style(edgeStyle)
 			var circle= new Path.Circle(new Point((p1.x+x)*0.5,(p1.y+y)*0.5),1);
-			circle.setStyle({fillColor:'#000'});
+			circle.set_style({fillColor:'#000'});
 			k = k/1.5;
 		}
 		else{
@@ -631,7 +631,7 @@ function Triangle(i,j,k,paper){
 			var path = new Path();
 			path.add(_p1);
 			path.arcTo([x,y],_p2);
-			path.setStyle(edgeStyle);
+			path.set_style(edgeStyle);
 		}
 		var _x,_y;//for the text
 		_x = p1.x + Math.sqrt(2) * k* Math.cos(_t);
@@ -641,10 +641,10 @@ function Triangle(i,j,k,paper){
 		if(_y > p1.y)
 			_y += 10;
 		//var circle = new Path.Circle([_x,_y],2);
-		//circle.setStyle({fillColor:'#000'});
+		//circle.set_style({fillColor:'#000'});
 		var text = new PointText(_x,_y);
 		text.content = ""+_A+"°";
-		text.setStyle(textStyle);
+		text.set_style(textStyle);
 	}
 	this.showAngle = function(angle){
 		switch(angle){

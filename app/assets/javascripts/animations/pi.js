@@ -40,7 +40,7 @@ var Animation = {
 		var shapes = [];
 		var circleCenter = new Point(x-100,y);
 		var circle = new Path.Circle(circleCenter,R);
-		circle.setStyle(circularAreaStyle);
+		circle.set_style(circularAreaStyle);
 		
 		var text = new PointText(
 			new Point(
@@ -50,7 +50,7 @@ var Animation = {
 		)
 		text.content = 'O';
 		var circlePoint = new Path.Circle(circleCenter,3);
-		circlePoint.setStyle({fillColor:'#000'});
+		circlePoint.set_style({fillColor:'#000'});
 		var radius = new Path.Line(
 			circleCenter,
 			new Point(
@@ -58,7 +58,7 @@ var Animation = {
 				circleCenter.y + R*Math.sin(Util.degreeToRadian(-15))
 			)
 		);
-		radius.setStyle(circularAreaStyle);
+		radius.set_style(circularAreaStyle);
 		var radius2 = new Path.Line(
 			circleCenter,
 			new Point(
@@ -66,7 +66,7 @@ var Animation = {
 				circleCenter.y + R*Math.sin(Util.degreeToRadian(-195))
 			)
 		)
-		radius2.setStyle(circularAreaStyle);
+		radius2.set_style(circularAreaStyle);
 		var rText = new PointText(new Point(
 				circleCenter.x + R*Math.cos(Util.degreeToRadian(-15))*0.5,
 				circleCenter.y + R*Math.sin(Util.degreeToRadian(-15))*0.5+15
@@ -294,7 +294,7 @@ var Interaction = {
 	},
 	drawRuler:function(x,y){
 		Interaction.ruler = new Raster('ruler');
-		Interaction.ruler.setStyle(rulerStyle)
+		Interaction.ruler.set_style(rulerStyle)
 		var firstPosition = new Point(
 			x+Interaction.ruler.bounds.width*0.5,
 			y+Interaction.ruler.bounds.height*0.5
@@ -328,9 +328,9 @@ var Interaction = {
 			Interaction.circleRadius
 		);
 		circle.insertBelow(Interaction.ruler);
-		circle.setStyle(circleStyle);
+		circle.set_style(circleStyle);
 		var point = new Path.Circle(Interaction.circlePosition,2);
-		point.setStyle({
+		point.set_style({
 			fillColor:circleStyle.strokeColor
 		});
 		point.insertBelow(Interaction.ruler);
@@ -356,7 +356,7 @@ var Interaction = {
 					drawLineHelper.position,
 					Interaction.circleRadius
 				);
-				Interaction.drawLine.arc.setStyle(circleStyle);
+				Interaction.drawLine.arc.set_style(circleStyle);
 				Interaction.drawLine.arc.opacity = 0.5;
 			}
 			else if(drawLineHelper.angle > 0 && drawLineHelper.angle <= 360){				
@@ -379,7 +379,7 @@ var Interaction = {
 						-270+drawLineHelper.angle+360,
 						-270
 					);
-					Interaction.drawLine.arc.setStyle(circleStyle);
+					Interaction.drawLine.arc.set_style(circleStyle);
 					Interaction.drawLine.arc.opacity = 0.5;
 				}
 				if(Interaction.drawLine.line)
@@ -394,7 +394,7 @@ var Interaction = {
 						drawLineHelper.position.y+Interaction.circleRadius
 					)
 				);
-				Interaction.drawLine.line.setStyle(circleStyle);
+				Interaction.drawLine.line.set_style(circleStyle);
 			}
 			else{
 				Interaction.pause = false;
