@@ -26,17 +26,13 @@ function InteractionBase(){
 	};
 	
 	Interaction.appendInput = function(css,isNumber){
-		
 		var input = document.createElement('input');
 		if(isNumber!=undefined || isNumber != null)
 			input.setAttribute('isNumber',isNumber);
 		else	
 			input.setAttribute('isNumber','true');
-		
-			
 		if(Interaction.inputs.length == 0)
 			Interaction.input = input;
-		
 		Interaction.inputs.push(input);
 		$(Interaction.container).append(input);
 		input.setAttribute('type','text');
