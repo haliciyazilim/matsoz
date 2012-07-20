@@ -162,7 +162,8 @@ var Animation = {
 			textGroup.addChild(text2);
 			textGroup.addChild(text3);
 			textGroup.addChild(text4);
-			textGroup.opacity = 0;
+			for(i = 0; i < 3; i++)
+				textGroup.children[i].opacity = 0;
 			
 			var solnText1 = new PointText(new Point(560, 120));
 			solnText1.content = "3 + 3 + 3 + 3 = 12";
@@ -216,15 +217,16 @@ var Animation = {
 				delay: 5000,
 				animationType: 'easeInEaseOut'
 			});
-			
-			textGroup.animate({
-				style:{
-					opacity:1
-				},
-				duration:500,
-				delay: 7000,
-				animationType: 'easeInEaseOut'
-			});
+			for(i = 0; i < 3; i++){
+				textGroup.children[i].animate({
+					style:{
+						opacity:1
+					},
+					duration:1000,
+					delay: 6000,
+					animationType: 'easeInEaseOut'
+				});
+			}
 			
 			solnText1.animate({
 				style:{

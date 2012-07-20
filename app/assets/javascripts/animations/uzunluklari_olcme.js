@@ -404,7 +404,7 @@ Interaction.init = function(container){
 	$('#checkBtn').css("position", "absolute")
 					.css("bottom", "30px")
 					.css("right", "66px");
-//	$('#checkBtn').hide();
+	$('#checkBtn').show();
 	
 	$(container).append('<button id="nextBtn" class="next_button">Sonraki</button>');
 	$('#nextBtn').css("position", "absolute")

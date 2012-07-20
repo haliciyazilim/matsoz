@@ -368,8 +368,8 @@ Animation.init = function(container){
 	var triangleStart = 4000;
 	var rectangleStart = triangleStart + 4500;
 //	var rectangleStart = 1000;
-//	var hexagonStart = rectangleStart + 14500;
-	var hexagonStart = 1000;
+	var hexagonStart = rectangleStart + 14500;
+//	var hexagonStart = 1000;
 	var trapezoidStart = hexagonStart+21000;
 //	var trapezoidStart = 1000;
 	
