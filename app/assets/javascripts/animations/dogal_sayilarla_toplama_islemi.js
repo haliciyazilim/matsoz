@@ -8,8 +8,6 @@
  * 
  */
 
-var semaRengi=["green","yellow","blue","black"];
-
 var dropableShapeHoverStyle = {fillColor:'#afa'};
 var dropableShapeDefaultStyle = {fillColor:'#fff'}
 var yanlisRengi="#d42b19";
