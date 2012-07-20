@@ -38,9 +38,9 @@ function InteractionBase(){
 			Interaction.input = input;
 		
 		Interaction.inputs.push(input);
-		$(Interaction.container).append(Interaction.input);
-		Interaction.input.setAttribute('type','text');
-		$(Interaction.input)
+		$(Interaction.container).append(input);
+		input.setAttribute('type','text');
+		$(input)
 			.attr({
 				'class':'number_input_field',
 				'maxlength':'3'
@@ -53,7 +53,7 @@ function InteractionBase(){
 					Interaction.button.click();
 			});
 		
-		$(Interaction.input).css(css);
+		$(input).css(css);
 	};
 	
 	Interaction.appendButton = function(css){
@@ -75,8 +75,10 @@ function InteractionBase(){
 			return;
 		if(Interaction.status)
 			Interaction.setStatus('');
-		if(Interaction.input)
-			Interaction.input.value = '';
+		for(i = 0; i < Interaction.inputs.length; i++){
+			if(Interaction.inputs[i])
+				Interaction.inputs[i].value = '';
+		}
 		if(Interaction.button){
 			Interaction.button.className = 'control_button';
 			Interaction.button.onclick = Interaction.checkAnswer;
