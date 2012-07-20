@@ -38,9 +38,9 @@ function InteractionBase(){
 			Interaction.input = input;
 		
 		Interaction.inputs.push(input);
-		$(Interaction.container).append(Interaction.input);
-		Interaction.input.setAttribute('type','text');
-		$(Interaction.input)
+		$(Interaction.container).append(input);
+		input.setAttribute('type','text');
+		$(input)
 			.attr({
 				'class':'number_input_field',
 				'maxlength':'3'
@@ -53,7 +53,7 @@ function InteractionBase(){
 					Interaction.button.click();
 			});
 		
-		$(Interaction.input).css(css);
+		$(input).css(css);
 	};
 	
 	Interaction.appendButton = function(css){
