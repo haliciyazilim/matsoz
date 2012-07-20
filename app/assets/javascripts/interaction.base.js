@@ -75,8 +75,10 @@ function InteractionBase(){
 			return;
 		if(Interaction.status)
 			Interaction.setStatus('');
-		if(Interaction.input)
-			Interaction.input.value = '';
+		for(i = 0; i < Interaction.inputs.length; i++){
+			if(Interaction.inputs[i])
+				Interaction.inputs[i].value = '';
+		}
 		if(Interaction.button){
 			Interaction.button.className = 'control_button';
 			Interaction.button.onclick = Interaction.checkAnswer;
