@@ -26,17 +26,13 @@ function InteractionBase(){
 	};
 	
 	Interaction.appendInput = function(css,isNumber){
-		
 		var input = document.createElement('input');
 		if(isNumber!=undefined || isNumber != null)
 			input.setAttribute('isNumber',isNumber);
 		else	
 			input.setAttribute('isNumber','true');
-		
-			
 		if(Interaction.inputs.length == 0)
 			Interaction.input = input;
-		
 		Interaction.inputs.push(input);
 		$(Interaction.container).append(input);
 		input.setAttribute('type','text');
@@ -94,6 +90,7 @@ function InteractionBase(){
 		var values = [];
 		
 
+
 		for(var i=0; i<Interaction.inputs.length;i++){
 			values[i] = Interaction.inputs[i].value;
 			if(Interaction.inputs[i].getAttribute('isNumber') == 'true'){			
@@ -113,6 +110,7 @@ function InteractionBase(){
 			 isCorrect = Interaction.isAnswerCorrect(value);
 		else
 			 isCorrect = Interaction.isAnswerCorrect(values);
+
 
 		if(isCorrect){
 			Interaction.setStatus('Tebrikler!',true);
