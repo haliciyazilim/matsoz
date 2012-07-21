@@ -65,9 +65,17 @@ Main.paperInit = function() {
 		rhomboid.vertexArray = vertexArray;
 		return rhomboid;
 	}
-	Path.Cube = function(p,a){
+	Path.Cube = function(p,a,_s){
+		var xK,yK;
+		if(_s){
+			xK = _s.x;
+			yK = _s.y;
+		}else{
+			xK = 0.3;
+			yK = 0.5;
+		}
 		var x=p.x,y=p.y;
-		var _x=x+a*0.3,_y=y+a*0.3;
+		var _x=x+a*xK,_y=y+a*yK;
 		var group = new Group();
 		
 		var p1 = new Point(x	,_y);
