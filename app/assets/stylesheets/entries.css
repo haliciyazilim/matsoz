@@ -184,6 +184,7 @@ p.exampleHeader {
 
 .control_button{
 	background-image:url(/assets/btn_check.png);
+	background-color: #fff;
 	height:40px;
 	width:103px;
 	border:none;
