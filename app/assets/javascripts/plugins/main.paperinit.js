@@ -65,9 +65,17 @@ Main.paperInit = function() {
 		rhomboid.vertexArray = vertexArray;
 		return rhomboid;
 	}
-	Path.Cube = function(p,a){
+	Path.Cube = function(p,a,_s){
+		var xK,yK;
+		if(_s){
+			xK = _s.x;
+			yK = _s.y;
+		}else{
+			xK = 0.3;
+			yK = 0.5;
+		}
 		var x=p.x,y=p.y;
-		var _x=x+a*0.3,_y=y+a*0.3;
+		var _x=x+a*xK,_y=y+a*yK;
 		var group = new Group();
 		
 		var p1 = new Point(x	,_y);
@@ -451,23 +459,45 @@ Main.paperInit = function() {
 		return trianglePrisim;
 	}
 	
-	Path.SegmentedRectangle = function (x, y, width, height, horizontalSegments, verticalSegments, paintedSegments, fillColor) {
+	Path.SegmentedRectangle = function (x, y, width, height, horizontalSegments, verticalSegments, paintedSegments, fillColor, fillOrder) {
+		if (fillOrder == null || fillOrder == undefined) {
+			fillOrder = false;
+		}
+		
 		var segRec = new Group();
 		var Rec = new Path();
 		var paint = 0;
 		
-		for(j = 0; j < verticalSegments; j++)
-		{
+		if (fillOrder) {
 			for(i = 0; i < horizontalSegments; i++)
 			{
-				Rec = Path.Rectangle(new Point(x + i * width/horizontalSegments, y + j * height/verticalSegments), new Size(width/horizontalSegments, height/verticalSegments));
-				Rec.strokeColor = '#000';
-				Rec.strokeWidth = 1;
-				segRec.addChild(Rec);
-				if(paint < paintedSegments)
+				for(j = 0; j < verticalSegments; j++)
 				{
-					Rec.fillColor = fillColor;
-					paint += 1;
+					Rec = Path.Rectangle(new Point(x + i * width/horizontalSegments, y + j * height/verticalSegments), new Size(width/horizontalSegments, height/verticalSegments));
+					Rec.strokeColor = '#000';
+					Rec.strokeWidth = 1;
+					segRec.addChild(Rec);
+					if(paint < paintedSegments)
+					{
+						Rec.fillColor = fillColor;
+						paint += 1;
+					}
+				}
+			}
+		} else {		
+			for(j = 0; j < verticalSegments; j++)
+			{
+				for(i = 0; i < horizontalSegments; i++)
+				{
+					Rec = Path.Rectangle(new Point(x + i * width/horizontalSegments, y + j * height/verticalSegments), new Size(width/horizontalSegments, height/verticalSegments));
+					Rec.strokeColor = '#000';
+					Rec.strokeWidth = 1;
+					segRec.addChild(Rec);
+					if(paint < paintedSegments)
+					{
+						Rec.fillColor = fillColor;
+						paint += 1;
+					}
 				}
 			}
 		}
@@ -475,13 +505,23 @@ Main.paperInit = function() {
 		
 	};
 	
-	Path.SegmentedCircle = function (center, radius, paintedPieces, totalPieces, fillColor) {
+	Path.SegmentedCircle = function (center, radius, paintedPieces, totalPieces, fillColor, fillOrder) {
+		if (fillOrder == null || fillOrder == undefined) {
+			fillOrder = false;
+		}
+		
 		var segCirc = new Group();
 		var i;
 		var angle =  2 * Math.PI / totalPieces;
 		var startAngle = -Math.PI/2;
 		var endAngle = startAngle + angle;
-		var paint = 0;
+		
+		var paint;
+		if (fillOrder) {
+			paint = totalPieces;
+		} else {
+			paint = 0;
+		}
 
 		for(i=0; i < totalPieces; i++)
 		{
@@ -505,10 +545,20 @@ Main.paperInit = function() {
 			Circ.strokeColor = '#000';
 			Circ.strokeWidth = 1;
 			segCirc.addChild(Circ);
-			if(paint < paintedPieces)
-			{
-				Circ.fillColor = fillColor;
-				paint += 1;
+			
+			if (!fillOrder) {
+				if(paint < paintedPieces)
+				{
+					Circ.fillColor = fillColor;
+					paint += 1;
+				}
+			} else {
+				if(paint <= paintedPieces)
+				{
+					Circ.fillColor = fillColor;
+				}
+				
+				paint -= 1;
 			}
 
 		}

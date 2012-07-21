@@ -36,27 +36,28 @@ Animation.init = function(container){
 	var table2Group = new Group();
 	
 	var titleRect = new Path.Rectangle(new Point(300.5, 10.5), new Size(100, 30))
-	titleRect.strokeColor = "black";
-	titleRect.fillColor = "#F5A9A9";
+	titleRect.strokeColor = "#a9a9a9";
+	titleRect.fillColor = "#E6E6E6";
 	table2Group.addChild(titleRect);
 	
 	var titleLine = new Path.Line(new Point(300.5, 10.5), new Point(400.5, 40.5));
-	titleLine.strokeColor = "black";
+	titleLine.strokeColor = "#a9a9a9";
 	table2Group.addChild(titleLine);
 	
 	// day Rects
 	for(i = 0; i < 6; i++) {
 		var daysRect = new Path.Rectangle(new Point(300.5, 40.5+(20*i)), new Size(100, 20))
-		daysRect.strokeColor = "black";
-		daysRect.fillColor = "#F5A9A9";
+		daysRect.strokeColor = "#a9a9a9";
+		if(i % 2 == 1)
+			daysRect.fillColor = "#E6E6E6";
 		table2Group.addChild(daysRect);
 	}
 	
 	// category Rects
 	for(i = 0; i < 4; i++) {
 		var categoriesRect = new Path.Rectangle(new Point(400.5+(60*i), 10.5), new Size(60, 30));
-		categoriesRect.strokeColor = "black";
-		categoriesRect.fillColor = "#F5A9A9";
+		categoriesRect.strokeColor = "#a9a9a9";
+		categoriesRect.fillColor = "#E6E6E6";
 		table2Group.addChild(categoriesRect);
 	}
 	
@@ -65,8 +66,9 @@ Animation.init = function(container){
 	for(i = 0; i < 4; i++) {
 		for(j = 0; j < 6; j++) {
 			var datas2Rect = new Path.Rectangle(new Point(400.5+(60*i), 40.5+(20*j)), new Size(60, 20));
-			datas2Rect.strokeColor = "black";
-		//	datas2Rect.fillColor = "#F7BE81";
+			datas2Rect.strokeColor = "#a9a9a9";
+			if(j % 2 == 1)
+				datas2Rect.fillColor = "#E6E6E6";
 			table2Group.addChild(datas2Rect)
 		}
 	}
@@ -98,42 +100,48 @@ Animation.init = function(container){
 	$('#mondayText').css("position", "absolute")
 				.css("left", "20px")
 				.css("top", "30px")
-				.css("font-size", 16)
+				.css("font-size", 14)
+				.css("font-weight", "bold")
 				.css("text-align", "center");
 	
 	$('#table2Div').append('<p id="tuesdayText" >Salı</p>');
 	$('#tuesdayText').css("position", "absolute")
 				.css("left", "20px")
 				.css("top", "51px")
-				.css("font-size", 16)
+				.css("font-size", 14)
+				.css("font-weight", "bold")
 				.css("text-align", "center");
 	
 	$('#table2Div').append('<p id="wednesdayText" >Çarşamba</p>');
 	$('#wednesdayText').css("position", "absolute")
 				.css("left", "20px")
 				.css("top", "70px")
-				.css("font-size", 16)
+				.css("font-size", 14)
+				.css("font-weight", "bold")
 				.css("text-align", "center");
 	
 	$('#table2Div').append('<p id="thursdayText" >Perşembe</p>');
 	$('#thursdayText').css("position", "absolute")
 				.css("left", "20px")
 				.css("top", "90px")
-				.css("font-size", 16)
+				.css("font-size", 14)
+				.css("font-weight", "bold")
 				.css("text-align", "center");
 	
 	$('#table2Div').append('<p id="fridayText" >Cuma</p>');
 	$('#fridayText').css("position", "absolute")
 				.css("left", "20px")
 				.css("top", "110px")
-				.css("font-size", 16)
+				.css("font-size", 14)
+				.css("font-weight", "bold")
 				.css("text-align", "center");
 	
 	$('#table2Div').append('<p id="saturdayText" >Cumartesi</p>');
 	$('#saturdayText').css("position", "absolute")
 				.css("left", "20px")
 				.css("top", "130px")
-				.css("font-size", 16)
+				.css("font-size", 14)
+				.css("font-weight", "bold")
 				.css("text-align", "center");
 	
 	
@@ -142,28 +150,32 @@ Animation.init = function(container){
 	$('#novelText').css("position", "absolute")
 				.css("left", "112px")
 				.css("top", "10px")
-				.css("font-size", 16)
+				.css("font-size", 14)
+				.css("font-weight", "bold")
 				.css("text-align", "center");
 	
 	$('#table2Div').append('<p id="storyText" >Hikâye</p>');
 	$('#storyText').css("position", "absolute")
 				.css("left", "172px")
 				.css("top", "10px")
-				.css("font-size", 16)
+				.css("font-size", 14)
+				.css("font-weight", "bold")
 				.css("text-align", "center");
 	
 	$('#table2Div').append('<p id="poemText" >Şiir</p>');
 	$('#poemText').css("position", "absolute")
 				.css("left", "242px")
 				.css("top", "10px")
-				.css("font-size", 16)
+				.css("font-size", 14)
+				.css("font-weight", "bold")
 				.css("text-align", "center");
 	
 	$('#table2Div').append('<p id="otherText" >Diğer</p>');
 	$('#otherText').css("position", "absolute")
 				.css("left", "298px")
 				.css("top", "10px")
-				.css("font-size", 16)
+				.css("font-size", 14)
+				.css("font-weight", "bold")
 				.css("text-align", "center");
 	
 	var datas2 = new Array(6, 9, 2, 5, 4, 5, 0, 7, 7, 2, 1, 4, 3, 2, 3, 6,
@@ -182,7 +194,7 @@ Animation.init = function(container){
 			$('#'+id).css("position", "absolute")
 						.css("left", leftStr)
 						.css("top", topStr)
-						.css("font-size", 16)
+						.css("font-size", 14)
 						.css("opacity",0);
 			$('#'+id).delay(7500+(500*i)+250*(i*4+j)).animate({opacity:1},250)
 		}

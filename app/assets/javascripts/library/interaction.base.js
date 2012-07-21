@@ -1,5 +1,7 @@
 function InteractionBase(){
 	
+	Interaction.inputs = [];
+	
 	Interaction.setStatus = function(str,cls){
 		$(Interaction.status ).html(str);
 		if(cls === true)
@@ -23,11 +25,18 @@ function InteractionBase(){
 		$(Interaction.status).css(css);
 	};
 	
-	Interaction.appendInput = function(css){
-		Interaction.input = document.createElement('input');
-		$(Interaction.container).append(Interaction.input);
-		Interaction.input.setAttribute('type','text');
-		$(Interaction.input)
+	Interaction.appendInput = function(css,isNumber){
+		var input = document.createElement('input');
+		if(isNumber!=undefined || isNumber != null)
+			input.setAttribute('isNumber',isNumber);
+		else	
+			input.setAttribute('isNumber','true');
+		if(Interaction.inputs.length == 0)
+			Interaction.input = input;
+		Interaction.inputs.push(input);
+		$(Interaction.container).append(input);
+		input.setAttribute('type','text');
+		$(input)
 			.attr({
 				'class':'number_input_field',
 				'maxlength':'3'
@@ -40,7 +49,7 @@ function InteractionBase(){
 					Interaction.button.click();
 			});
 		
-		$(Interaction.input).css(css);
+		$(input).css(css);
 	};
 	
 	Interaction.appendButton = function(css){
@@ -62,8 +71,10 @@ function InteractionBase(){
 			return;
 		if(Interaction.status)
 			Interaction.setStatus('');
-		if(Interaction.input)
-			Interaction.input.value = '';
+		for(i = 0; i < Interaction.inputs.length; i++){
+			if(Interaction.inputs[i])
+				Interaction.inputs[i].value = '';
+		}
 		if(Interaction.button){
 			Interaction.button.className = 'control_button';
 			Interaction.button.onclick = Interaction.checkAnswer;
@@ -74,17 +85,32 @@ function InteractionBase(){
 	Interaction.checkAnswer = function(){
 		if(Interaction.pause == true)
 			return;
-		var value = $(Interaction.input).val();
 		
-		if(value == "" ||isNaN(value) && value.indexOf(',') < 0){
-			Interaction.setStatus('Lütfen bir sayı giriniz.',false);
-			return;
+		var value = $(Interaction.input).val();
+		var values = [];
+		
+
+
+		for(var i=0; i<Interaction.inputs.length;i++){
+			values[i] = Interaction.inputs[i].value;
+			if(Interaction.inputs[i].getAttribute('isNumber') == 'true'){			
+				if(values[i] == "" ||isNaN(values[i]) && values[i].indexOf(',') < 0){
+					Interaction.setStatus('Lütfen bir sayı giriniz.',false);
+					return;
+				}
+				if(values[i].indexOf('.') > 0){
+					Interaction.setStatus('Lütfen ondalıklı sayıları virgülle yazınız.',false);
+					return;
+				}
+			}
 		}
-		if(value.indexOf('.') > 0){
-			Interaction.setStatus('Lütfen ondalıklı sayıları virgülle yazınız.',false);
-			return;
-		}
-		var isCorrect = Interaction.isAnswerCorrect(value);
+		var isCorrect;
+		
+		if(Interaction.inputs.length == 1)
+			 isCorrect = Interaction.isAnswerCorrect(value);
+		else
+			 isCorrect = Interaction.isAnswerCorrect(values);
+
 
 		if(isCorrect){
 			Interaction.setStatus('Tebrikler!',true);
@@ -102,7 +128,6 @@ function InteractionBase(){
 		}
 		if(isCorrect || Interaction.trial > 0){
 			Interaction.button.onclick = Interaction.prepareNextQuestion;
-			//Interaction.showCubes(20);
 			Interaction.button.className = 'next_button';
 		}
 		Interaction.trial++;

@@ -1,6 +1,6 @@
-var fillColor = '#255b63'//'#bfe8ef';
+var fillColor = '#bfe8ef';
 var rectStyle = {
-	fillColor:'#bfe8ef',
+	fillColor:fillColor,
 	strokeWidth:1,
 	strokeColor:'#255b63'
 }
@@ -9,7 +9,7 @@ var Animation = {
 			var div = document.createElement('div');
 			$(container).append(div);
 			$(div)
-				.append('<div id="addend1"><span class="3">2</span>,<span class="2">3</span><span class="1">8</span></div><div id="addend2"><span class="3">1</span>,<span class="2">2</span><span class="1">6</span></div><div id="line"><img src="/assets/animations/plus_sign.png" /></div><br/>')
+				.append('<div id="addend1"><span class="3">2</span>,<span class="2">3</span><span class="1">8</span></div><div id="addend2"><span class="3">1</span>,<span class="2">2</span><span class="1">6</span></div><div id="line"><img src="/assets/animations/minus_sign.png" /></div><br/>')
 				.append('<div id="result"></div>')
 				.css({
 					width:120,
@@ -41,49 +41,44 @@ var Animation = {
 				top:'-35px'
 			})
 			var size = new Size(40,40)
-			var segmRectSize = new Size(40,40)
 			var p1 = new Point(450,0).add(0.5,0.5);
 			var r1 = new Path.Rectangle(p1, size);
 			r1.set_style(rectStyle);
 			var r2 = new Path.Rectangle(p1.add(-10,10),size);
 			r2.set_style(rectStyle);
 			var p2 = p1.add(60,0)
-			var y1 = Path.SegmentedRectangle(p2.x,p2.y,segmRectSize.width,segmRectSize.height,10,10,38,fillColor);
-			y1.strokeColor = rectStyle.fillColor;
+			var y1 = Path.SegmentedRectangle(p2.x,p2.y,size.width,size.height,10,10,38,fillColor);
 			
 			var p1 = new Point(450,55).add(0.5,0.5);
 			var r1 = new Path.Rectangle(p1, size);
 			r1.set_style(rectStyle);
 			var p2 = p1.add(60,0)
-			var y1 = Path.SegmentedRectangle(p2.x,p2.y,segmRectSize.width,segmRectSize.height,10,10,26,fillColor);
-			y1.strokeColor = rectStyle.fillColor;
+			var y1 = Path.SegmentedRectangle(p2.x,p2.y,size.width,size.height,10,10,26,fillColor);
 			
 			var p3 = p1.add(0,50);
 			var p4 = p3.add(60,0);
 			$('span.1').delay(1000).animate({color:'#f00'},1000).delay(2000).animate({color:'#000'},2000);
 			$('span.2').delay(5000).animate({color:'#f00'},1000).delay(2000).animate({color:'#000'},2000);
 			$('span.3').delay(9000).animate({color:'#f00'},1000).delay(2000).animate({color:'#000'},2000);
-		//	$('span.3, span.2, span.1').delay(7000).animate({color:'#000'},100);
 			setTimeout(function(){
-				$('#result').html('0,14');
+				$('#result').html('0,02');
 			},2500);
 			setTimeout(function(){
-				$('#result').html('0,64');
+				$('#result').html('0,12');
 			},6500);
 			setTimeout(function(){
-				$('#result').html('3,64');
+				$('#result').html('1,12');
 			},10500);
 			Animation.rectDraw = function(){
 				if(Animation.rect)
 					Animation.rect.remove();
-				Animation.rect = Path.SegmentedRectangle(p4.x,p4.y,segmRectSize.width,segmRectSize.height,10,10,Math.floor(this.count),fillColor);
-				Animation.rect.strokeColor = rectStyle.fillColor;
+				Animation.rect = Path.SegmentedRectangle(p4.x,p4.y,size.width,size.height,10,10,Math.floor(this.count),fillColor);
 			}
 			
 			new AnimationHelper({
 				count:0
 			}).animate({
-				style:{count:14},
+				style:{count:2},
 				duration:1000,
 				delay:3000,
 				update:Animation.rectDraw
@@ -92,7 +87,7 @@ var Animation = {
 			new AnimationHelper({
 				count:14
 			}).animate({
-				style:{count:64},
+				style:{count:12},
 				duration:1000,
 				delay:7000,
 				update:Animation.rectDraw	
@@ -103,27 +98,11 @@ var Animation = {
 				callback:function(){
 					var r3 = new Path.Rectangle(p3, size);
 					r3.set_style(rectStyle);
-					var r4 = new Path.Rectangle(p3.add(-10,10),size);
-					r4.set_style(rectStyle);
-					var r5 = new Path.Rectangle(p3.add(-20,20),size);
-					r5.set_style(rectStyle);
 					r3.opacity =0;
-					r4.opacity =0
-					r5.opacity =0
 					r3.animate({
 						style:{opacity:1},
 						duration:1000
-					})
-					r4.animate({
-						style:{opacity:1},
-						delay:1200,
-						duration:1000
-					})
-					r5.animate({
-						style:{opacity:1},
-						delay:2400,
-						duration:1000
-					})
+					});
 				}	
 			})
 	}
@@ -136,7 +115,7 @@ var Interaction = {
 		},
 	init:function(container){
 			Interaction.container = container;
-			Main.setObjective('Yandaki ondalık kesirleri toplayınız ve kontrol ediniz.');
+			Main.setObjective('Yandaki ondalık kesirleri çıkarma ve kontrol ediniz.');
 			Interaction.paper = {
 				width:$(container).width(),
 				height:$(container).height()
@@ -172,17 +151,11 @@ var Interaction = {
 						return true;
 					}
 				})
-				.keyup(function(event){
-					
-//					if(this.value.length == 3 && (event.keyCode == 8 || event.keyCode == 46))
-				//		this.value = ','+this.value;
-					
-					
-				})
+				
 			var div = document.createElement('div');
 			$(container).append(div);
 			$(div)
-				.html('<div id="addend1"></div><div id="addend2"></div><div id="line"><img src="/assets/animations/plus_sign.png" /></div><br/>')
+				.html('<div id="addend1"></div><div id="addend2"></div><div id="line"><img src="/assets/animations/minus_sign.png" /></div><br/>')
 				.append(Interaction.input)
 				.css({
 					width:120,
@@ -222,13 +195,15 @@ var Interaction = {
 			if(Interaction.solutionDiv)
 				$(Interaction.solutionDiv).remove();
 			function checkAddend2(){
-				(Interaction.addend1+Interaction.addend2)*10
+				(Interaction.addend1-Interaction.addend2)*10
 			}
 			Interaction.addend1 = Math.floor(Math.random()*1000)/100;
 			do
 				Interaction.addend2 = Math.floor(Math.random()*1000)/100;
 				while(
 					function(){
+						if(Interaction.addend1 < Interaction.addend2)
+							return true;
 						var t = Interaction.addend1+Interaction.addend2;
 						var float = t - Math.floor(t);
 						if(Math.floor(t * 100)%10 == 0)
@@ -242,7 +217,7 @@ var Interaction = {
 			
 		},
 	isAnswerCorrect : function(value){
-			if(value == Util.numberTurkishFloating(Interaction.addend1 + Interaction.addend2,2))
+			if(value == Util.numberTurkishFloating(Interaction.addend1 - Interaction.addend2,2))
 				return true;
 			else 
 				return false;

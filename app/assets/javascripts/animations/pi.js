@@ -269,8 +269,8 @@ var Interaction = {
 		;
 		Interaction.pause = false;
 		Interaction.drawRuler(10,10);
-		Interaction.circleRadius = 30;
-		Interaction.circlePosition = new Point(50,150);
+		Interaction.circleRadius = 60;
+		Interaction.circlePosition = new Point(75,75);
 		Interaction.nextQuestion();
 	},
 	nextQuestion:function(){

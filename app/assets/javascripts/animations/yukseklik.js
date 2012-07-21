@@ -84,8 +84,7 @@ var Interaction = {
 		$(container).append(Interaction.nextButton);
 		$(Interaction.nextButton)
 			.attr({
-				value:'Sonraki',
-				class:'control_button'
+				class:'next_button'
 			})
 			.css({
 				position:'absolute',
