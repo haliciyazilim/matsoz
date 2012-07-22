@@ -12,160 +12,546 @@ var Interaction =function(){};Interaction();
 
 var createFraction = function (container, name, x, y, nominator, denominator, lineWidth) {
 	if (lineWidth == null || lineWidth == undefined) {
-		lineWidth = 34;
+		lineWidth = 20;
 	}
 	
 	$(container).append('<div id="'+name+'"></div>').css("font-size", 16);
 	$('#'+name).css("position", "absolute")
-				.css("top", "100px")
-				.css("left", "48px")
-				.css("width", "40px")
-				.css("height", "40px");
+				.css("left", x+"px")
+				.css("top", y+"px");
 	
 	$('#'+name).append('<div class="fractionLine"></div>');
-	$('#'+name+'.fractionLine').css("position","absolute")
-								.css("left", "16px")
+	$('#'+name+' .fractionLine').css("position","absolute")
+								.css("left", (26-lineWidth/2) + "px")
 								.css("top", "16px")
-								.css("width", "20px")
+								.css("width", lineWidth+"px")
 								.css("height", "1px")
 								.css("padding", 0)
 								.css("border-top", "2px solid");
 	
-	// $('#'+name).append('<p id="animNom1">1</p>');
-	// $('#animNom1').css("position", "absolute")
-	// 			.css("text-align", "center")
-	// 			.css("top", "0px")
-	// 			.css("left", "10px")
-	// 			.css("width", "34px");
-	// 
-	// $('#'+name).append('<p id="animDenom1">2</p>');
-	// $('#animDenom1').css("position", "absolute")
-	// 			.css("text-align", "center")
-	// 			.css("top", "20px")
-	// 			.css("left", "10px")
-	// 			.css("width", "34px");
-	// 			
+	$('#'+name).append('<p class="fractionNominator">'+nominator+'</p>');
+	$('#'+name+' .fractionNominator').css("position", "absolute")
+									.css("text-align", "center")
+									.css("top", "0px")
+									.css("left", "7px")
+									.css("width", "40px");
+	
+	$('#'+name).append('<p class="fractionDenominator">'+denominator+'</p>');
+	$('#'+name+' .fractionDenominator').css("position", "absolute")
+										.css("text-align", "center")
+										.css("top", "20px")
+										.css("left", "7px")
+										.css("width", "40px");
+				
 	return $('#'+name);
 }
 
 Animation.init = function(container) {	
-	var pie1, pie2, pie3;
+	var pie1, pie2, pie3, pie4, pie5;
 	var pieGroup1 = new Group();
 	
-	var pie4, pie5, pie6;
+	var pie6, pie7, pie8, pie9, pie10;
 	var pieGroup2 = new Group();
 
 	pie1 = new Path.SegmentedCircle(new Point(0, 0), 30, 1, 2, animationFillColor, true);
 	pie1.strokeColor = animationStrokeColor;
 	pie1.strokeWidth = animationStrokeWidth;
+	pie1.opacity = 0;
 	pieGroup1.addChild(pie1);
 	
-	pie2 = new Path.SegmentedCircle(new Point(100, 0), 30, 1, 2, animationFillColor, true);
+	pie2 = new Path.SegmentedCircle(new Point(0, 0), 30, 1, 2, animationFillColor, true);
 	pie2.strokeColor = animationStrokeColor;
 	pie2.strokeWidth = strokeWidth;
+	pie2.opacity = 0;
 	pieGroup1.addChild(pie2);
 	
-	pie3 = new Path.SegmentedCircle(new Point(200, 0), 30, 1, 2, animationFillColor, true);
+	pie3 = new Path.SegmentedCircle(new Point(120, 0), 30, 2, 4, animationFillColor, true);
 	pie3.strokeColor = animationStrokeColor;
-	pie3.strokeWidth = animationStrokeWidth;
+	pie3.strokeWidth = strokeWidth;
+	pie3.opacity = 0;
 	pieGroup1.addChild(pie3);
-
-
-	// fraction 1
-	$(container).append('<div id="fraction1"></div>').css("font-size", 16);
-	$('#fraction1').css("position", "absolute")
-				.css("top", "100px")
-				.css("left", "48px")
-				.css("width", "40px")
-				.css("height", "40px");
 	
-	$('#fraction1').append('<div id="animLine1"></div>');
-	$('#animLine1').css("position","absolute")
-				.css("left", "16px")
-				.css("top", "16px")
-				.css("width", "20px")
-				.css("height", "1px")
-				.css("padding", 0)
-				.css("border-top", "2px solid");
-	
-	$('#fraction1').append('<p id="animNom1">1</p>');
-	$('#animNom1').css("position", "absolute")
-				.css("text-align", "center")
-				.css("top", "0px")
-				.css("left", "10px")
-				.css("width", "34px");
-	
-	$('#fraction1').append('<p id="animDenom1">2</p>');
-	$('#animDenom1').css("position", "absolute")
-				.css("text-align", "center")
-				.css("top", "20px")
-				.css("left", "10px")
-				.css("width", "34px");
-
-	
-	// // fraction 2
-	// $(container).append('<div id="fraction2"></div>').css("font-size", 16);
-	// $('#fraction2').css("position", "absolute")
-	// 			.css("top", "100px")
-	// 			.css("left", "48px")
-	// 			.css("width", "40px")
-	// 			.css("height", "40px");
-	// 
-	// $('#fraction2').append('<div id="animLine2"></div>');
-	// $('#animLine2').css("position","absolute")
-	// 			.css("left", "16px")
-	// 			.css("top", "16px")
-	// 			.css("width", "20px")
-	// 			.css("height", "1px")
-	// 			.css("padding", 0)
-	// 			.css("border-top", "2px solid");
-	// 
-	// $('#fraction2').append('<p id="animNom2">1</p>');
-	// $('#animNom2').css("position", "absolute")
-	// 			.css("text-align", "center")
-	// 			.css("top", "0px")
-	// 			.css("left", "10px")
-	// 			.css("width", "34px");
-	// 
-	// $('#fraction2').append('<p id="animDenom2">2</p>');
-	// $('#animDenom2').css("position", "absolute")
-	// 			.css("text-align", "center")
-	// 			.css("top", "20px")
-	// 			.css("left", "10px")
-	// 						.css("width", "34px");	
-	// 
-	
-	
-	
-	
-	pieGroup1.position = new Point(160,40);
-	
-	
-	
-	
-	pie4 = new Path.SegmentedCircle(new Point(0, 0), 30, 1, 2, animationFillColor, true);
+	pie4 = new Path.SegmentedCircle(new Point(120, 0), 30, 2, 4, animationFillColor, true);
 	pie4.strokeColor = animationStrokeColor;
 	pie4.strokeWidth = animationStrokeWidth;
-	pieGroup2.addChild(pie4);
+	pie4.opacity = 0;
+	pieGroup1.addChild(pie4);
 	
-	pie5 = new Path.SegmentedCircle(new Point(100, 0), 30, 1, 2, animationFillColor, true);
+	pie5 = new Path.SegmentedCircle(new Point(240, 0), 30, 4, 8, animationFillColor, true);
 	pie5.strokeColor = animationStrokeColor;
-	pie5.strokeWidth = strokeWidth;
-	pieGroup2.addChild(pie5);
+	pie5.strokeWidth = animationStrokeWidth;
+	pie5.opacity = 0;
+	pieGroup1.addChild(pie5);
+
 	
-	pie6 = new Path.SegmentedCircle(new Point(200, 0), 30, 1, 2, animationFillColor, true);
+	pieGroup1.position = new Point(160,40);
+
+
+	createFraction(container, "fraction1", 28, 100, 1, 2);
+	
+	createFraction(container, "fraction2", 126, 100, "1 x 2", "2 x 2", 42);	
+	createFraction(container, "fraction3", 178, 100, "2", "4");
+	$("#fraction3").append('<p class="equalSign">=</p>');
+	$('#fraction3 .equalSign').css("position", "relative")
+								.css("top", "9px");
+								
+								
+	createFraction(container, "fraction4", 244, 100, "2 x 2", "4 x 2", 42);	
+	createFraction(container, "fraction5", 296, 100, "4", "8");
+	$("#fraction5").append('<p class="equalSign">=</p>');
+	$('#fraction5 .equalSign').css("position", "relative")
+								.css("top", "9px");
+	
+	
+	
+	createFraction(container, "fraction6", 106, 152, "1", "2");
+	createFraction(container, "fraction7", 148, 152, "2", "4");
+	$("#fraction7").append('<p class="equalSign">=</p>');
+	$('#fraction7 .equalSign').css("position", "relative")
+								.css("top", "9px");
+	createFraction(container, "fraction8", 190, 152, "4", "8");
+	$("#fraction8").append('<p class="equalSign">=</p>');
+	$('#fraction8 .equalSign').css("position", "relative")
+								.css("top", "9px");
+
+	
+	
+	
+	pie6 = new Path.SegmentedCircle(new Point(0, 0), 30, 4, 8, animationFillColor, true);
 	pie6.strokeColor = animationStrokeColor;
 	pie6.strokeWidth = animationStrokeWidth;
+	pie6.opacity = 0;
 	pieGroup2.addChild(pie6);
 	
-	pieGroup2.position = new Point(600,40);
+	pie7 = new Path.SegmentedCircle(new Point(0, 0), 30, 2, 4, animationFillColor, true);
+	pie7.strokeColor = animationStrokeColor;
+	pie7.strokeWidth = animationStrokeWidth;
+	pie7.opacity = 0;
+	pieGroup2.addChild(pie7);
+	
+	pie8 = new Path.SegmentedCircle(new Point(0, 0), 30, 4, 8, animationFillColor, true);
+	pie8.strokeColor = animationStrokeColor;
+	pie8.strokeWidth = animationStrokeWidth;
+	pie8.opacity = 0;
+	pieGroup2.addChild(pie8);
+	
+	pie9 = new Path.SegmentedCircle(new Point(120, 0), 30, 1, 2, animationFillColor, true);
+	pie9.strokeColor = animationStrokeColor;
+	pie9.strokeWidth = animationStrokeWidth;
+	pie9.opacity = 0;
+	pieGroup2.addChild(pie9);
+	
+	pie10 = new Path.SegmentedCircle(new Point(120, 0), 30, 2, 4, animationFillColor, true);
+	pie10.strokeColor = animationStrokeColor;
+	pie10.strokeWidth = animationStrokeWidth;
+	pie10.opacity = 0;
+	pieGroup2.addChild(pie10);
+	
+	pieGroup2.position = new Point(537,40);
 	
 	
+	var offset = 437;
+	createFraction(container, "fraction9", 28 + offset, 100, 4, 8);
+	
+	createFraction(container, "fraction10", 126 + offset, 100, "4 ÷ 2", "4 ÷ 2", 42);	
+	createFraction(container, "fraction11", 178 + offset, 100, "2", "4");
+	$("#fraction11").append('<p class="equalSign">=</p>');
+	$('#fraction11 .equalSign').css("position", "relative")
+								.css("top", "9px");
+								
+								
+	createFraction(container, "fraction12", 244 + offset, 100, "2 ÷ 2", "4 ÷ 2", 42);	
+	createFraction(container, "fraction13", 296 + offset, 100, "1", "2");
+	$("#fraction13").append('<p class="equalSign">=</p>');
+	$('#fraction13 .equalSign').css("position", "relative")
+								.css("top", "9px");
+								
+								
+								
+	
+	createFraction(container, "fraction14", 106 + offset, 152, "4", "8");
+	createFraction(container, "fraction15", 148 + offset, 152, "2", "4");
+	$("#fraction15").append('<p class="equalSign">=</p>');
+	$('#fraction15 .equalSign').css("position", "relative")
+								.css("top", "9px");
+	createFraction(container, "fraction16", 190 + offset, 152, "1", "2");
+	$("#fraction16").append('<p class="equalSign">=</p>');
+	$('#fraction16 .equalSign').css("position", "relative")
+								.css("top", "9px");
+								
+								
+								
+	var animationHelper = new AnimationHelper({
+		fraction1Opacity: 0,
+		fraction2Opacity: 0,
+		fraction3Opacity: 0,
+		fraction4Opacity: 0,
+		fraction5Opacity: 0,
+		fraction6Opacity: 0,
+		fraction7Opacity: 0,
+		fraction8Opacity: 0,
+		
+		fraction9Opacity: 0,
+		fraction10Opacity: 0,
+		fraction11Opacity: 0,
+		fraction12Opacity: 0,
+		fraction13Opacity: 0,
+		fraction14Opacity: 0,
+		fraction15Opacity: 0,
+		fraction16Opacity: 0,
+	})
+								
+	Animation.onFrame = function(event){
+		$('#fraction1').css("opacity", animationHelper.fraction1Opacity);
+		$('#fraction2').css("opacity", animationHelper.fraction2Opacity);
+		$('#fraction3').css("opacity", animationHelper.fraction3Opacity);
+		$('#fraction4').css("opacity", animationHelper.fraction4Opacity);
+		$('#fraction5').css("opacity", animationHelper.fraction5Opacity);
+		$('#fraction6').css("opacity", animationHelper.fraction6Opacity);
+		$('#fraction7').css("opacity", animationHelper.fraction7Opacity);
+		$('#fraction8').css("opacity", animationHelper.fraction8Opacity);
+		
+		$('#fraction9').css("opacity", animationHelper.fraction9Opacity);
+		$('#fraction10').css("opacity", animationHelper.fraction10Opacity);
+		$('#fraction11').css("opacity", animationHelper.fraction11Opacity);
+		$('#fraction12').css("opacity", animationHelper.fraction12Opacity);
+		$('#fraction13').css("opacity", animationHelper.fraction13Opacity);
+		$('#fraction14').css("opacity", animationHelper.fraction14Opacity);
+		$('#fraction15').css("opacity", animationHelper.fraction15Opacity);
+		$('#fraction16').css("opacity", animationHelper.fraction16Opacity);
+	}
+	
+	var duration = 1000;
+	var delay = 0;
+	var totalDelay = 0;
+	
+	pie1.animate({
+		style: {
+			opacity: 1
+		},
+		duration: duration,
+		delay: totalDelay += duration + delay,
+		animationType: 'easeInEaseOut'
+	});
+		
+	animationHelper.animate({
+		style: {
+			fraction1Opacity: 1
+		},
+		duration: duration,
+		delay: totalDelay += duration + delay,
+		animationType: 'easeInEaseOut',
+	});
+	
+	pie2.animate({
+		style: {
+			opacity: 1
+		},
+		duration: duration,
+		delay: totalDelay,
+		animationType: 'easeInEaseOut'
+	});
+	
+	pie2.animate({
+		style: {
+			position: new Point(pieGroup1.position.x, pieGroup1.position.y)
+		},
+		duration: duration,
+		delay: totalDelay += duration + delay,
+		animationType: 'easeInEaseOut'
+	});
+	
+	pie3.animate({
+		style: {
+			opacity: 1
+		},
+		duration: duration,
+		delay: totalDelay += duration + delay,
+		animationType: 'easeInEaseOut',
+	});
+	
+	pie2.animate({
+		style: {
+			opacity: 0
+		},
+		duration: duration,
+		delay: totalDelay + duration,
+		animationType: 'easeInEaseOut'
+	});
+	
+	animationHelper.animate({
+		style: {
+			fraction2Opacity: 1
+		},
+		duration: duration,
+		delay: totalDelay += duration + delay,
+		animationType: 'easeInEaseOut'
+	});
+	
+	animationHelper.animate({
+		style: {
+			fraction3Opacity: 1
+		},
+		duration: duration,
+		delay: totalDelay += duration + delay,
+		animationType: 'easeInEaseOut'
+	});
+	
+	pie4.animate({
+		style: {
+			opacity: 1
+		},
+		duration: duration,
+		delay: totalDelay,
+		animationType: 'easeInEaseOut',
+	});
+
+	pie4.animate({
+		style: {
+			position: new Point(pieGroup1.position.x + 120, pieGroup1.position.y)
+		},
+		duration: duration,
+		delay: totalDelay += duration + delay,
+		animationType: 'easeInEaseOut'
+	});
+	
+	pie5.animate({
+		style: {
+			opacity: 1
+		},
+		duration: duration,
+		delay: totalDelay += duration + delay,
+		animationType: 'easeInEaseOut',
+	});
+	
+	pie4.animate({
+		style: {
+			opacity: 0
+		},
+		duration: duration,
+		delay: totalDelay + duration,
+		animationType: 'easeInEaseOut'
+	});
+	
+	animationHelper.animate({
+		style: {
+			fraction4Opacity: 1
+		},
+		duration: duration,
+		delay: totalDelay += duration + delay,
+		animationType: 'easeInEaseOut'
+	});
+	
+	animationHelper.animate({
+		style: {
+			fraction5Opacity: 1
+		},
+		duration: duration,
+		delay: totalDelay += duration + delay,
+		animationType: 'easeInEaseOut'
+	});
+	
+	animationHelper.animate({
+		style: {
+			fraction6Opacity: 1
+		},
+		duration: duration,
+		delay: totalDelay += duration + delay,
+		animationType: 'easeInEaseOut'
+	});
+	
+	animationHelper.animate({
+		style: {
+			fraction7Opacity: 1
+		},
+		duration: duration,
+		delay: totalDelay += duration + delay,
+		animationType: 'easeInEaseOut'
+	});
+	
+	animationHelper.animate({
+		style: {
+			fraction8Opacity: 1
+		},
+		duration: duration,
+		delay: totalDelay += duration + delay,
+		animationType: 'easeInEaseOut'
+	});
 	
 	
+	totalDelay += duration;
 	
-	createFraction(container, "deneme", 200, 200, 2, 2, 34);
 	
+	pie6.animate({
+		style: {
+			opacity: 1
+		},
+		duration: duration,
+		delay: totalDelay += duration + delay,
+		animationType: 'easeInEaseOut'
+	});
+		
+	animationHelper.animate({
+		style: {
+			fraction9Opacity: 1
+		},
+		duration: duration,
+		delay: totalDelay += duration + delay,
+		animationType: 'easeInEaseOut',
+	});
+	
+	pie7.animate({
+		style: {
+			opacity: 1
+		},
+		duration: duration,
+		delay: totalDelay,
+		animationType: 'easeInEaseOut'
+	});
+	
+	pie8.animate({
+		style: {
+			opacity: 1
+		},
+		duration: duration,
+		delay: totalDelay,
+		animationType: 'easeInEaseOut'
+	});
+	
+	pie7.animate({
+		style: {
+			position: new Point(pieGroup2.position.x + 60, pieGroup2.position.y)
+		},
+		duration: duration,
+		delay: totalDelay += duration + delay,
+		animationType: 'easeInEaseOut'
+	});
+	
+	pie8.animate({
+		style: {
+			position: new Point(pieGroup2.position.x + 60, pieGroup2.position.y)
+		},
+		duration: duration,
+		delay: totalDelay,
+		animationType: 'easeInEaseOut'
+	});
+	
+	pie8.animate({
+		style: {
+			opacity: 0
+		},
+		duration: duration,
+		delay: totalDelay += duration + delay,
+		animationType: 'easeInEaseOut',
+	});
+	
+	animationHelper.animate({
+		style: {
+			fraction10Opacity: 1
+		},
+		duration: duration,
+		delay: totalDelay += duration + delay,
+		animationType: 'easeInEaseOut'
+	});
+	
+	animationHelper.animate({
+		style: {
+			fraction11Opacity: 1
+		},
+		duration: duration,
+		delay: totalDelay += duration + delay,
+		animationType: 'easeInEaseOut'
+	});
+	
+	pie9.animate({
+		style: {
+			opacity: 1
+		},
+		duration: duration,
+		delay: totalDelay,
+		animationType: 'easeInEaseOut',
+	});
+	
+	pie10.animate({
+		style: {
+			opacity: 1
+		},
+		duration: duration,
+		delay: totalDelay,
+		animationType: 'easeInEaseOut',
+	});
+
+	pie9.animate({
+		style: {
+			position: new Point(pieGroup2.position.x + 180, pieGroup2.position.y)
+		},
+		duration: duration,
+		delay: totalDelay += duration + delay,
+		animationType: 'easeInEaseOut'
+	});
+	
+	pie10.animate({
+		style: {
+			position: new Point(pieGroup2.position.x + 180, pieGroup2.position.y)
+		},
+		duration: duration,
+		delay: totalDelay,
+		animationType: 'easeInEaseOut'
+	});
+	
+	pie10.animate({
+		style: {
+			opacity: 0
+		},
+		duration: duration,
+		delay: totalDelay += duration + delay,
+		animationType: 'easeInEaseOut',
+	});
+	
+	animationHelper.animate({
+		style: {
+			fraction12Opacity: 1
+		},
+		duration: duration,
+		delay: totalDelay += duration + delay,
+		animationType: 'easeInEaseOut'
+	});
+	
+	animationHelper.animate({
+		style: {
+			fraction13Opacity: 1
+		},
+		duration: duration,
+		delay: totalDelay += duration + delay,
+		animationType: 'easeInEaseOut'
+	});
+	
+	animationHelper.animate({
+		style: {
+			fraction14Opacity: 1
+		},
+		duration: duration,
+		delay: totalDelay += duration + delay,
+		animationType: 'easeInEaseOut'
+	});
+	
+	animationHelper.animate({
+		style: {
+			fraction15Opacity: 1
+		},
+		duration: duration,
+		delay: totalDelay += duration + delay,
+		animationType: 'easeInEaseOut'
+	});
+	
+	animationHelper.animate({
+		style: {
+			fraction16Opacity: 1
+		},
+		duration: duration,
+		delay: totalDelay += duration + delay,
+		animationType: 'easeInEaseOut'
+	});
 }
 
 
@@ -180,28 +566,6 @@ Interaction.init = function(container){
 	//animationInit(Raphael("animation_container"));
 	interactionInit(container);
 };
-
-// function animationInit(paper) {
-// 	var imgArray = [];
-// 	
-// 	imgArray.push(paper.image("/assets/animations/denk_kesir/1.png",0,0,512,185).attr({opacity: 0}));
-// 	imgArray.push(paper.image("/assets/animations/denk_kesir/2.png",0,0,512,185).attr({opacity: 0}));
-// 	imgArray.push(paper.image("/assets/animations/denk_kesir/3.png",0,0,512,185).attr({opacity: 0}));
-// 	imgArray.push(paper.image("/assets/animations/denk_kesir/4.png",0,0,512,185).attr({opacity: 0}));
-// 	
-// 	var appearAnim = Raphael.animation({opacity: 1}, 1000, ">");
-// 	var disappearAnim = Raphael.animation({opacity: 0}, 1000, "linear");
-// 	
-// 	for (i = 0; i < imgArray.length; i++) {
-// 			imgArray[i].animate(appearAnim.delay(i*2000));
-// 	}
-// 		
-// 	for (i = 0; i < imgArray.length - 1; i++) {
-// 		imgArray[i].attr({opacity: 1});
-// 		imgArray[i].animate(disappearAnim.delay((i+1)*2000));
-// 		imgArray[i].attr({opacity: 0});
-// 	}
-// }
 
 function interactionInit(container) {
 	var smallFractionDenominator = Math.floor(Math.random() * 4) + 2;
@@ -386,15 +750,29 @@ function interactionInit(container) {
 	var tryCount = 0;
 	
 	submit = function(){
+		if (tryCount == -1) {
+			pie1.remove();
+			pie2.remove();
+			
+			$('#statuss').remove();				
+			$('#textInput').remove();
+			$('#submitButton').remove();
+			
+			$('#firstF').remove();
+			$('#secondF').remove();
+			
+			interactionInit(container);
+			
+			return;
+		}
 		
-
-		    var val = $('#textInput').val();
-			var intRegex = /^\d+$/;
-		    if(!intRegex.test(val)) {
-				$('#statuss').get(0).className = "status_alert";
-				$('#statuss').html("Lütfen kutucuklara sayı giriniz.");
-				return;
-			}
+	    var val = $('#textInput').val();
+		var intRegex = /^\d+$/;
+	    if(!intRegex.test(val)) {
+			$('#statuss').get(0).className = "status_alert";
+			$('#statuss').html("Lütfen kutucuklara sayı giriniz.");
+			return;
+		}
 		
 		var correct;
 		
@@ -416,19 +794,7 @@ function interactionInit(container) {
 			});
 			
 			$('#submitButton').get(0).className = "next_button";
-			$('#submitButton').click(function() {
-				pie1.remove();
-				pie2.remove();
-				
-				$('#statuss').remove();				
-				$('#textInput').remove();
-				$('#submitButton').remove();
-				
-				$('#firstF').remove();
-				$('#secondF').remove();
-				
-				interactionInit(container);
-			});
+			tryCount = -1;
 		} else {
 			tryCount++;
 			
@@ -455,18 +821,7 @@ function interactionInit(container) {
 				$('#statuss').html("Olmadı! Doğru cevap yukarıda gösterilmiştir.");
 				
 				$('#submitButton').get(0).className = "next_button";
-				$('#submitButton').click(function() {
-					pie1.remove();
-					pie2.remove();
-
-					$('#statuss').remove();				
-					$('#textInput').remove();
-					$('#submitButton').remove();
-
-					$('#firstF').remove();
-					$('#secondF').remove();
-					interactionInit(paper);
-				});
+				tryCount = -1;
 			}
 		}
 	};
