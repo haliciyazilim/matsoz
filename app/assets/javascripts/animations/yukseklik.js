@@ -13,7 +13,7 @@ var heightLineStyle = {
 	strokeWidth:2
 };
 var textStyle = {
-
+	fontSize:16
 }
 var Animation = {
 	images:[
@@ -74,7 +74,7 @@ var Interaction = {
 	},
 	
 	init : function(container){
-		Main.setObjective('Yandaki geometrik şeklin köşelerinden herhangi birine fare ile tıklayınız. Belirlediğiniz noktaya göre yüksekliğin bulunuşunu inceleyiniz.');
+		Main.setObjective('Yandaki geometrik şeklin köşelerinden herhangi birine basınız. Belirlediğiniz noktaya göre yüksekliğin bulunuşunu inceleyiniz.');
 		Interaction.container = container;
 		Interaction.paper = {width:$(container).width(), height: $(container).height()}
 
@@ -135,7 +135,7 @@ var Interaction = {
 				Interaction.shape = new Path.EquiradialPolygon(new Point(X,Y),new Size(W,H),[90,240,300],phase);		
 				break;
 			case 6://trapezoid
-				Interaction.shape = new Path.Trapezoid(new Point(X,Y),new Size(W,H*0.5),W*0.1,W*0.4,phase);
+				Interaction.shape = new Path.Trapezoid(new Point(X,Y),new Size(W,H*0.5),W*0.4,W*0.2,phase);
 				break;
 			case 7://IsoscelesTrapezoid
 				Interaction.shape = new Path.IsoscelesTrapezoid(new Point(X,Y),new Size(W,H*0.5),W*0.3,phase);
@@ -146,13 +146,17 @@ var Interaction = {
 				
 		};
 		Interaction.shape.set_style(shapeStyle);
-		Interaction.drawHeightLine(0);
+		var diffPoint = Interaction.shape.centerPoint.subtract(new Point(Interaction.paper.width*0.5,Interaction.paper.height*0.5)).multiply(-1,-1);
+		Interaction.shape.translate(diffPoint);
+		
 		for(var i=0;i<Interaction.shape.vertexArray.length;i++){
+			Interaction.shape.vertexArray[i] = Interaction.shape.vertexArray[i].add(diffPoint);
 			var j = (i+1)%Interaction.shape.vertexArray.length;
-			var p = Interaction.shape.vertexArray[i].findPointTo(Interaction.shape.centerPoint,-15)
+			var p = Interaction.shape.vertexArray[i].findPointTo(Interaction.shape.centerPoint,-20).add(-5,5)
 			Interaction.printVertexLetters(p);
 		}	
 		
+		Interaction.drawHeightLine(0);
 	},
 	createTool : function(){
 		
@@ -219,17 +223,21 @@ var Interaction = {
 				new Path.Line(h,c)
 					.set_style(dashedLineStyle)
 			);
-		var t_p = h.findPointTo(p,-15);
+		var t_p = h.findPointTo(p,-20).add(-5,5);
 		if(Interaction.drawHeightLine.vertexLetter)
 			Interaction.drawHeightLine.vertexLetter.position = t_p;
 		else
 			Interaction.drawHeightLine.vertexLetter = Interaction.printVertexLetters(t_p);
+		var circ = new Path.Circle(Util.centerOfPoints([p,h]),12).set_style({fillColor:'#dedede',strokeColor:'#000'});
 		var hText = new PointText(
-			h.add(p)
-				.multiply(0.5,0.5)
-				.add(-10,10)
+			Util.centerOfPoints([p,h]).add(-5,7)
 		); 
+		hText.set_style(textStyle);
 		hText.content = 'h';
+		var pCircle = new Path.Circle(p,4);
+		pCircle.set_style({fillColor:'#000'})
+		Interaction.heightLine.addChild(pCircle);
+		Interaction.heightLine.addChild(circ);
 		Interaction.heightLine.addChild(hText);
 	},
 	printVertexLetters : function(p){

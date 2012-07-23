@@ -114,7 +114,7 @@ Animation.init = function(container){
 	linesGroup.addChild(horiLine);
 	linesGroup.addChild(horiLine2);
 	linesGroup.addChild(minusLine);
-	linesGroup.position = new Point(694.5, 136.5);
+	linesGroup.position = new Point(674.5, 136.5);
 	
 	// html elements
 	
@@ -466,7 +466,7 @@ Animation.init = function(container){
 	$(container).append('<div id="secondEq"></div>');
 	$('#secondEq').css("position", "absolute")
 				.css("top", "127px")
-				.css("left", "674px")
+				.css("left", "654px")
 				.css("width", "72px")
 				.css("height", "62px")
 				.css("font-size", 18);
@@ -501,6 +501,42 @@ Animation.init = function(container){
 				.css("left", "20px")
 				.css("font-size", 18);
 	
+	// first3F
+	$(container).append('<div id="first3F"></div>');
+	$('#first3F').css("position", "absolute")
+				.css("top", "128px")
+				.css("left", "736px")
+			//	.css("border", "solid")
+				.css("width", "40px")
+				.css("height", "40px");
+				
+	$('#first3F').append('<p id="whh33">2</p>');
+	$('#whh33').css("position", "absolute")
+				.css("top", "12px")
+				.css("left", "0px")
+				.css("font-size", 18);
+	
+	$('#first3F').append('<div id="exLine33"></div>');
+	$('#exLine33').css("position","absolute")
+				.css("left", "14px")
+				.css("top", "20px")
+				.css("width", "22px")
+				.css("height", "1px")
+				.css("padding", 0)
+				.css("border-top", "2px solid");
+	
+	$('#first3F').append('<p id="nomm33">4</p>');
+	$('#nomm33').css("position", "absolute")
+				.css("top", "0px")
+				.css("left", "20px")
+				.css("font-size", 18);
+	
+	$('#first3F').append('<p id="denomm33">9</p>');
+	$('#denomm33').css("position", "absolute")
+				.css("top", "22px")
+				.css("left", "20px")
+				.css("font-size", 18);
+	
 	
 	arr.opacity = 0;
 	firstRect.opacity = 0;
@@ -522,6 +558,7 @@ Animation.init = function(container){
 		firstFOpacity: 0,
 		secondFOpacity: 0,
 		first2FOpacity: 0,
+		first3FOpacity: 0,
 		second2FOpacity: 0,
 		second2FColor: 0,
 		first2FColor: 0,
@@ -561,6 +598,7 @@ Animation.init = function(container){
 		$('#lastt').css("opacity", exampleHelper.lasttOpacity);
 		$('#lastt').css("color", exampleHelper.lasttColor);
 		$('#first2F').css("opacity", exampleHelper.first2FOpacity);
+		$('#first3F').css("opacity", exampleHelper.first3FOpacity);
 		$('#second2F').css("opacity", exampleHelper.second2FOpacity);
 		$('#second2F').css("color", exampleHelper.second2FColor);
 		$('#eqqq').css("opacity", exampleHelper.eqqqOpacity);
@@ -917,10 +955,19 @@ Animation.init = function(container){
 	
 	exampleHelper.animate({
 		style: {
+			first3FOpacity: 1,
+		},
+		duration: 1000,
+		delay: 25500,
+		animationType: 'easeInEaseOut'
+	});
+	
+	exampleHelper.animate({
+		style: {
 			first2FColor: "#88ACE0"
 		},
 		duration: 500,
-		delay: 25500,
+		delay: 26500,
 		animationType: 'easeInEaseOut'
 	});
 }
@@ -1178,19 +1225,28 @@ Interaction.init = function(container){
 	$(container).append('<div id="answer"></div>');
 	$('#answer').css("position", "absolute")
 					.css("left", "134px")
-					.css("top", "164px")
-					.css("width", "240px")
-					.css("height", "30px")
+					.css("top", "144px")
+					.css("width", "260px")
+					.css("height", "96px")
 					.css("font-size", 18)
-					.css("text-align", "center")
-					.css("color", answerColor);
+					.css("color", answerColor)
+				//	.css("border", "solid")
+	
+	$('#answer').append('<div id="divison123"></div>')
+	$('#divison123').css("position", "absolute")
+					.css("top", "0px")
+					.css("left", "100px")
+					.css("width", "60px")
+					.css("height", "76px")
+					.css("font-size", 20)
+			//		.css("border", "solid")
 					
-	$(container).append('<button id="checkBtn" class="control_button">Kontrol</button>');
+	$(container).append('<button id="checkBtn" class="control_button"></button>');
 	$('#checkBtn').css("position", "absolute")
 					.css("left", "460px")
 					.css("top", "240px");
 	
-	$(container).append('<button id="nextBtn" class="next_button">Sonraki</button>');
+	$(container).append('<button id="nextBtn" class="next_button"></button>');
 	$('#nextBtn').css("position", "absolute")
 					.css("left", "460px")
 					.css("top", "240px");
@@ -1230,10 +1286,24 @@ Interaction.init = function(container){
 					{
 						$('#statuss').get(0).className = "status_true";
 						$('#statuss').html("Tebrikler!");
-						$('#answer').html("Cevap: "+nominator+" = ("+ans11+" x "+ans33+") + "+ans22);
+					//	$('#answer').html("Cevap: "+nominator+" = ("+ans11+" x "+ans33+") + "+ans22);
+						Interaction.pause = true;
+						Animation.division = new LongDivision(nominator,denominator,$('#divison123'));
+						setTimeout(
+							'Animation.division.nextStep(1000);'
+							,1000);
+						setTimeout(
+							'Animation.division.nextStep(1000);'
+							,2000);
+
+						setTimeout(
+							'Interaction.pause = false;'
+							,3000);
+						
 						$('#checkBtn').hide();
 						$('#nextBtn').show();
 					}
+
 					
 					// second wrong answer state
 					else if(trial == 1)
@@ -1246,10 +1316,22 @@ Interaction.init = function(container){
 						$('#textInput1').css("color", inputBoxAnswerColor);
 						$('#textInput2').css("color", inputBoxAnswerColor);
 						$('#textInput3').css("color", inputBoxAnswerColor);
-						$('#answer').html("Cevap: "+nominator+" = ("+ans11+" x "+ans33+") + "+ans22);
+				//		$('#answer').html("Cevap: "+nominator+" = ("+ans11+" x "+ans33+") + "+ans22);
+						Interaction.pause = true;
+						Animation.division = new LongDivision(nominator,denominator,$('#divison123'));
+						setTimeout(
+							'Animation.division.nextStep(1000);'
+							,1000);
+						setTimeout(
+							'Animation.division.nextStep(1000);'
+							,2000);
+						setTimeout(
+							'Interaction.pause = false;'
+							,3000);
 						$('#checkBtn').hide();
 						$('#nextBtn').show();
 						trial += 1;
+						
 					}
 					
 					// first wrong answer state
@@ -1285,7 +1367,34 @@ Interaction.init = function(container){
 					{
 						$('#statuss').get(0).className = "status_true";
 						$('#statuss').html("Tebrikler!");
-						$('#answer').html("Cevap: ("+wh+" x "+denom+") + "+nom+" = "+ans2);
+						var answerStr = "Cevap: ("+wh+" x "+denom+") + "+nom+" = ";
+						$('#answer').html('<p id="ans">'+answerStr+'</p>');
+						$('#ans').css("position", "absolute")
+									.css("top", "2px")
+									.css("right", "70px")
+									.css("text-align", "right")
+						$('#answer').append('<div id="ansLine"></div>')
+						$('#ansLine').css("position", "absolute")
+									.css("top", "20px")
+									.css("right", "38px")
+									.css("width", "23px")
+									.css("height", "1px")
+									.css("padding", 0)
+									.css("border-top", "2px solid");
+						$('#answer').append('<p id="ansNom"></div>')
+						$('#ansNom').css("position", "absolute")
+										.css("top", "0px")
+										.css("left", "200px")
+										.css("text-align", "center")
+										.css("width", "20px")
+						$('#ansNom').html(ans22);
+						$('#answer').append('<p id="ansDenom"></div>')
+						$('#ansDenom').css("position", "absolute")
+										.css("top", "24px")
+										.css("left", "200px")
+										.css("text-align", "center")
+										.css("width", "20px")
+						$('#ansDenom').html(denom);
 						$('#checkBtn').hide();
 						$('#nextBtn').show();
 					}
@@ -1299,7 +1408,34 @@ Interaction.init = function(container){
 						$('#textInput3').val(ans33);
 						$('#textInput2').css("color", inputBoxAnswerColor);
 						$('#textInput3').css("color", inputBoxAnswerColor);
-						$('#answer').html("Cevap: ("+wh+" x "+denom+") + "+nom+" = "+ans2);
+						var answerStr = "Cevap: ("+wh+" x "+denom+") + "+nom+" = ";
+						$('#answer').html('<p id="ans">'+answerStr+'</p>');
+						$('#ans').css("position", "absolute")
+									.css("top", "2px")
+									.css("right", "70px")							
+									.css("text-align", "right")
+						$('#answer').append('<div id="ansLine"></div>')
+						$('#ansLine').css("position", "absolute")
+									.css("top", "20px")
+									.css("right", "38px")
+									.css("width", "23px")
+									.css("height", "1px")
+									.css("padding", 0)
+									.css("border-top", "2px solid");
+						$('#answer').append('<p id="ansNom"></div>')
+						$('#ansNom').css("position", "absolute")
+										.css("top", "0px")
+										.css("left", "200px")
+										.css("text-align", "center")
+										.css("width", "20px")
+						$('#ansNom').html(ans22);
+						$('#answer').append('<p id="ansDenom"></div>')
+						$('#ansDenom').css("position", "absolute")
+										.css("top", "24px")
+										.css("left", "200px")
+										.css("text-align", "center")
+										.css("width", "20px")
+						$('#ansDenom').html(denom);
 						$('#checkBtn').hide();
 						$('#nextBtn').show();
 						trial += 1;
@@ -1321,6 +1457,8 @@ Interaction.init = function(container){
 		
 		// nextBtn click func. -> remove whole html elements and call interaction init again
 		$('#nextBtn').click(function() {
+			if(Interaction.pause)
+				return;
 			$('#textInput3').remove();
 			$('#textInput2').remove();
 		

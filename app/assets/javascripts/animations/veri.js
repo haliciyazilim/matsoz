@@ -16,504 +16,314 @@ Interaction.getFramework = function() {
 Animation.init = function(container){
 	Animation.container = container;
 	
-	// 1.38
-	$(container).append('<img id="firstBoy" src="/assets/animations/veri/1.41-child.png" />');
-	$('#firstBoy').css("width", "60px")
-				.css("height", "100px")
-				.css("position", "absolute")
-				.css("left", "110px")
-				.css("bottom", "50px");
-	 // 1.39
-	$(container).append('<img id="secondBoy" src="/assets/animations/veri/1.41-child.png" />');
-	$('#secondBoy').css("width", "60px")
-				.css("height", "106px")
-				.css("position", "absolute")
-				.css("left", "110px")
-				.css("bottom", "50px");
-	// 1.40
-	$(container).append('<img id="thirdBoy" src="/assets/animations/veri/1.41-child.png" />');
-	$('#thirdBoy').css("width", "60px")
-				.css("height", "112px")
-				.css("position", "absolute")
-				.css("left", "110px")
-				.css("bottom", "50px");
-	// 1.41
-	$(container).append('<img id="fourthBoy" src="/assets/animations/veri/1.41-child.png" />');
-	$('#fourthBoy').css("width", "60px")
-				.css("height", "118px")
-				.css("position", "absolute")
-				.css("left", "110px")
-				.css("bottom", "50px");
-	// 1.42
-	$(container).append('<img id="fifthBoy" src="/assets/animations/veri/1.41-child.png" />');
-	$('#fifthBoy').css("width", "60px")
-				.css("height", "124px")
-				.css("position", "absolute")
-				.css("left", "110px")
-				.css("bottom", "50px");
 	
-	// paper2
-	$(container).append('<img id="paper2" src="/assets/animations/veri/paper2.png" />');
-	$('#paper2').css("width", "100px")
-				.css("height", "194px")
+	
+	$(container).append('<img id="mainIm" src="/assets/animations/veri/FUTBOL.jpg" />');
+	$('#mainIm').css("width", "757px")
+				.css("height", "170px")
 				.css("position", "absolute")
-				.css("left", "584px")
-				.css("top", "6px");
+				.css("left", "0px")
+				.css("bottom", "0px")
+				.css("opacity", 0);
+	
+	var animStart = 3500;
+	
+	$(container).append('<img id="player7" src="/assets/animations/veri/futbolcu_07.png" />');
+	$('#player7')
+				.css("width", "58px")
+				.css("height", "76px")
+				.css("position", "absolute")
+				.css("left", "52px")
+				.css("top", "52px")
+				.css("opacity", 0)
+				.delay(24000).animate({opacity: 1}, 1000)
 				
-	$(container).append('<div id="paper2Div"></div>');
-	$('#paper2Div').css("position", "absolute")
-					.css("top", "10px")
-					.css("left", "590px")
-					.css("width", "80px")
-					.css("height", "160px")
-					.css("text-align", "center")
-			//		.css("border", "solid")
+	$(container).append('<img id="player8" src="/assets/animations/veri/futbolcu_08.png" />');
+	$('#player8')
+				.css("width", "62px")
+				.css("height", "76px")
+				.css("position", "absolute")
+				.css("left", "126px")
+				.css("top", "46px")
+				.css("opacity", 0)
+				.delay(27500).animate({opacity: 1}, 1000)
 	
-	// player's length text
-	$('#paper2Div').append('<p id="firstLength">1.41</p>');
-	$('#firstLength').css("position", "absolute")
-						.css("top", "2px")
-						.css("left", "2px")
-						.css("font-size", 12);
+	$(container).append('<img id="player9" src="/assets/animations/veri/futbolcu_09.png" />');
+	$('#player9')
+				.css("width", "50px")
+				.css("height", "84px")
+				.css("position", "absolute")
+				.css("left", "188px")
+				.css("top", "42px")
+				.css("opacity", 0)
+				.delay(31000).animate({opacity: 1}, 1000)	
 	
-	$('#paper2Div').append('<p id="secondLength">1.40</p>');
-	$('#secondLength').css("position", "absolute")
-						.css("top", "18px")
-						.css("left", "2px")
-						.css("font-size", 12);
+	$(container).append('<img id="player10" src="/assets/animations/veri/futbolcu_10.png" />');
+	$('#player10')
+				.css("width", "47px")
+				.css("height", "79px")
+				.css("position", "absolute")
+				.css("left", "250px")
+				.css("top", "53px")
+				.css("opacity", 0)
+				.delay(34500).animate({opacity: 1}, 1000)
 	
-	$('#paper2Div').append('<p id="thirdLength">1.39</p>');
-	$('#thirdLength').css("position", "absolute")
-						.css("top", "34px")
-						.css("left", "2px")
-						.css("font-size", 12);
+	$(container).append('<img id="player11" src="/assets/animations/veri/futbolcu_11.png" />');
+	$('#player11')
+				.css("width", "56px")
+				.css("height", "76px")
+				.css("position", "absolute")
+				.css("left", "304px")
+				.css("top", "57px")
+				.css("opacity", 0)
+				.delay(38000).animate({opacity: 1}, 1000)	
 	
-	$('#paper2Div').append('<p id="fourthLength">1.40</p>');
-	$('#fourthLength').css("position", "absolute")
-						.css("top", "50px")
-						.css("left", "2px")
-						.css("font-size", 12);
-						
-	$('#paper2Div').append('<p id="fifthLength">1.40</p>');
-	$('#fifthLength').css("position", "absolute")
-						.css("top", "66px")
-						.css("left", "2px")
-						.css("font-size", 12);
+	$(container).append('<img id="player1" src="/assets/animations/veri/futbolcu_01.png" />');
+	$('#player1')
+				.css("width", "58px")
+				.css("height", "80px")
+				.css("position", "absolute")
+				.css("left", "35px")
+				.css("top", "105px")
+				.css("opacity", 0)
+				.delay(3000).animate({opacity: 1}, 1000)
 	
-	$('#paper2Div').append('<p id="sixthLength">1.41</p>');
-	$('#sixthLength').css("position", "absolute")
-						.css("top", "82px")
-						.css("left", "2px")
-						.css("font-size", 12);
+	$(container).append('<img id="player2" src="/assets/animations/veri/futbolcu_02.png" />');
+	$('#player2')
+				.css("width", "58px")
+				.css("height", "80px")
+				.css("position", "absolute")
+				.css("left", "82px")
+				.css("top", "90px")
+				.css("opacity", 0)
+				.delay(6500).animate({opacity: 1}, 1000)
 	
-	$('#paper2Div').append('<p id="seventhLength">1.38</p>');
-	$('#seventhLength').css("position", "absolute")
-						.css("top", "98px")
-						.css("left", "2px")
-						.css("font-size", 12);
+	$(container).append('<img id="player3" src="/assets/animations/veri/futbolcu_03.png" />');
+	$('#player3')
+				.css("width", "58px")
+				.css("height", "80px")
+				.css("position", "absolute")
+				.css("left", "147px")
+				.css("top", "100px")
+				.css("opacity", 0)
+				.delay(10000).animate({opacity: 1}, 1000)
 	
-	$('#paper2Div').append('<p id="eighthLength">1.40</p>');
-	$('#eighthLength').css("position", "absolute")
-						.css("top", "114px")
-						.css("left", "2px")
-						.css("font-size", 12);
+	$(container).append('<img id="player4" src="/assets/animations/veri/futbolcu_04.png" />');
+	$('#player4')
+				.css("width", "57px")
+				.css("height", "84px")
+				.css("position", "absolute")
+				.css("left", "208px")
+				.css("top", "100px")
+				.css("opacity", 0)
+				.delay(13500).animate({opacity: 1}, 1000)
 	
-	$('#paper2Div').append('<p id="ninthLength">1.42</p>');
-	$('#ninthLength').css("position", "absolute")
-						.css("top", "130px")
-						.css("left", "2px")
-						.css("font-size", 12);
+	$(container).append('<img id="player5" src="/assets/animations/veri/futbolcu_05.png" />');
+	$('#player5')
+				.css("width", "51px")
+				.css("height", "84px")
+				.css("position", "absolute")
+				.css("left", "280px")
+				.css("top", "99px")
+				.css("opacity", 0)
+				.delay(17000).animate({opacity: 1}, 1000)
 	
-	$('#paper2Div').append('<p id="tenthLength">1.39</p>');
-	$('#tenthLength').css("position", "absolute")
-						.css("top", "146px")
-						.css("left", "2px")
-						.css("font-size", 12);
+	$(container).append('<img id="player6" src="/assets/animations/veri/futbolcu_06.png" />');
+	$('#player6')
+				.css("width", "58px")
+				.css("height", "76px")
+				.css("position", "absolute")
+				.css("left", "344px")
+				.css("top", "105px")
+				.css("opacity", 0)
+				.delay(20500).animate({opacity: 1}, 1000)
 	
-	$('#paper2Div').append('<p id="eleventhLength">1.41</p>');
-	$('#eleventhLength').css("position", "absolute")
-						.css("top", "162px")
-						.css("left", "2px")
-						.css("font-size", 12);
+	$(container).append('<img id="infoo" src="/assets/animations/veri/veri_f_yazi.png" />');
+	$('#infoo')
+				.css("width", "110px")
+				.css("height", "70px")
+				.css("position", "absolute")
+				.css("left", "372px")
+				.css("top", "48px")
+				.css("opacity", 0)
+				.delay(1000).animate({opacity: 1}, 1000)
 	
-	$(container).append('<div id="infoText">Okul futbol takımındaki öğrencilerin boy uzunlukları ölçüm sonuçları.</div>')
-	$('#infoText').css("position", "absolute")
-					.css("top", "72px")
-					.css("left", "194px")
-					.css("width", "357px")
-					.css("height", "60px")
-					.css("text-align", "center")
-					.css("color", "#29088A")
-					.css("font-size", 22);
+	$(container).append('<img id="ball" src="/assets/animations/veri/veri_futbol_topu.png" />');
+	$('#ball')
+				.css("width", "34px")
+				.css("height", "30px")
+				.css("position", "absolute")
+				.css("left", "438px")
+				.css("top", "146px")
+				.css("opacity", 0)
+				.delay(2000).animate({opacity: 1}, 1000)
+	
+	$(container).append('<img id="datasPad" src="/assets/animations/veri/veri_tabla.png" />');
+	$('#datasPad')
+				.css("width", "256px")
+				.css("height", "150px")
+				.css("position", "absolute")
+				.css("left", "475px")
+				.css("top", "40px")
+				.css("opacity", 0)
+				.delay(2000).animate({opacity: 1}, 1000)
+	
 					
-	exampleHelper = {
-		firstBoyOpacity: 0,
-		secondBoyOpacity: 0,
-		thirdBoyOpacity: 0,
-		fourthBoyOpacity: 0,
-		fifthBoyOpacity: 0,
-		infoTextOpacity: 0,
-		paper2Opacity: 0,
-		firstLengthOpacity: 0,
-		secondLengthOpacity: 0,
-		thirdLengthOpacity: 0,
-		fourthLengthOpacity: 0,
-		fifthLengthOpacity: 0,
-		sixthLengthOpacity: 0,
-		seventhLengthOpacity: 0,
-		eighthLengthOpacity: 0,
-		ninthLengthOpacity: 0,
-		tenthLengthOpacity: 0,
-		eleventhLengthOpacity: 0
-	};
+	$(container).append('<p id="data1">1.41</p>');
+	$('#data1').css("position", "absolute")
+				.css("width", "0px")
+				.css("top", "60px")
+				.css("left", "540px")
+				.css("opacity", 0)
+				.delay(animStart+1000).animate({opacity: 1, width: '30px'}, 1000)
 	
-	exampleHelper.animate = Item.prototype.animate;
+	$(container).append('<p id="data2">1.40</p>');
+	$('#data2').css("position", "absolute")
+				.css("top", "60px")
+				.css("left", "580px")
+				.css("width", '0px')
+				.css("opacity", 0)
+				.delay(animStart+4500).animate({opacity: 1, width: '30px'}, 1000)
 	
-	Animation.onFrame = function(event){
-		$('#firstBoy').css("opacity", exampleHelper.firstBoyOpacity);
-		$('#secondBoy').css("opacity", exampleHelper.secondBoyOpacity);
-		$('#thirdBoy').css("opacity", exampleHelper.thirdBoyOpacity);
-		$('#fourthBoy').css("opacity", exampleHelper.fourthBoyOpacity);
-		$('#fifthBoy').css("opacity", exampleHelper.fifthBoyOpacity);
-		$('#paper2').css("opacity", exampleHelper.paper2Opacity);
-		$('#infoText').css("opacity", exampleHelper.infoTextOpacity);
-		$('#firstLength').css("opacity", exampleHelper.firstLengthOpacity);
-		$('#secondLength').css("opacity", exampleHelper.secondLengthOpacity);
-		$('#thirdLength').css("opacity", exampleHelper.thirdLengthOpacity);
-		$('#fourthLength').css("opacity", exampleHelper.fourthLengthOpacity);
-		$('#fifthLength').css("opacity", exampleHelper.fifthLengthOpacity);
-		$('#sixthLength').css("opacity", exampleHelper.sixthLengthOpacity);
-		$('#seventhLength').css("opacity", exampleHelper.seventhLengthOpacity);
-		$('#eighthLength').css("opacity", exampleHelper.eighthLengthOpacity);
-		$('#ninthLength').css("opacity", exampleHelper.ninthLengthOpacity);
-		$('#tenthLength').css("opacity", exampleHelper.tenthLengthOpacity);
-		$('#eleventhLength').css("opacity", exampleHelper.eleventhLengthOpacity);
-	}
+	$(container).append('<p id="data3">1.39</p>');
+	$('#data3').css("position", "absolute")
+				.css("width", "0px")
+				.css("top", "60px")
+				.css("left", "620px")
+				.css("opacity", 0)
+				.delay(animStart+8000).animate({opacity: 1, width: '30px'}, 1000)
 	
-	// info text
-	exampleHelper.animate({
-		style: {
-			infoTextOpacity: 1
-		},
-		duration: 1000,
-		delay: 1000,
-		animationType: 'easeInEaseOut'
-	});
+	$(container).append('<p id="data4">1.40</p>');
+	$('#data4').css("position", "absolute")
+				.css("width", "0px")
+				.css("top", "60px")
+				.css("left", "660px")
+				.css("opacity", 0)
+				.delay(animStart+11500).animate({opacity: 1, width: '30px'}, 1000)
 	
-	// paper comes
-	exampleHelper.animate({
-		style: {
-			paper2Opacity: 1
-		},
-		duration: 1000,
-		delay: 2000,
-		animationType: 'easeInEaseOut'
-	});
+	$(container).append('<p id="data5">1.40</p>');
+	$('#data5').css("position", "absolute")
+				.css("width", "0px")
+				.css("top", "94px")
+				.css("left", "540px")
+				.css("opacity", 0)
+				.delay(animStart+15000).animate({opacity: 1, width: '30px'}, 1000)
 	
+	$(container).append('<p id="data6">1.41</p>');
+	$('#data6').css("position", "absolute")
+				.css("width", "0px")
+				.css("top", "94px")
+				.css("left", "580px")
+				.css("opacity", 0)
+				.delay(animStart+18500).animate({opacity: 1, width: '30px'}, 1000)
 	
-	// first player
-	exampleHelper.animate({
-		style: {
-			fourthBoyOpacity: 1
-		},
-		duration: 1000,
-		delay: 4000,
-		animationType: 'easeInEaseOut'
-	});
+	$(container).append('<p id="data7">1.38</p>');
+	$('#data7').css("position", "absolute")
+				.css("width", "0px")
+				.css("top", "94px")
+				.css("left", "620px")
+				.css("opacity", 0)
+				.delay(animStart+22000).animate({opacity: 1, width: '30px'}, 1000)
 	
-	exampleHelper.animate({
-		style: {
-			firstLengthOpacity: 1
-		},
-		duration: 1000,
-		delay: 4500,
-		animationType: 'easeInEaseOut'
-	});
+	$(container).append('<p id="data8">1.40</p>');
+	$('#data8').css("position", "absolute")
+				.css("width", "0px")
+				.css("top", "94px")
+				.css("left", "660px")
+				.css("opacity", 0)
+				.delay(animStart+25500).animate({opacity: 1, width: '30px'}, 1000)
 	
-	// second player
-	exampleHelper.animate({
-		style: {
-			fourthBoyOpacity: 0
-		},
-		duration: 1000,
-		delay: 6000,
-		animationType: 'easeInEaseOut'
-	});
+	$(container).append('<p id="data9">1.42</p>');
+	$('#data9').css("position", "absolute")
+				.css("width", "0px")
+				.css("top", "128px")
+				.css("left", "540px")
+				.css("opacity", 0)
+				.delay(animStart+29000).animate({opacity: 1, width: '30px'}, 1000)
 	
-	exampleHelper.animate({
-		style: {
-			thirdBoyOpacity: 1
-		},
-		duration: 1000,
-		delay: 6000,
-		animationType: 'easeInEaseOut'
-	});
+	$(container).append('<p id="data10">1.39</p>');
+	$('#data10').css("position", "absolute")
+				.css("width", "0px")
+				.css("top", "128px")
+				.css("left", "580px")
+				.css("opacity", 0)
+				.delay(animStart+32500).animate({opacity: 1, width: '30px'}, 1000)
 	
-	exampleHelper.animate({
-		style: {
-			secondLengthOpacity: 1
-		},
-		duration: 1000,
-		delay: 6500,
-		animationType: 'easeInEaseOut'
-	});
+	$(container).append('<p id="data11">1.41</p>');
+	$('#data11').css("position", "absolute")
+				.css("width", "0px")
+				.css("top", "128px")
+				.css("left", "620px")
+				.css("opacity", 0)
+				.delay(animStart+36000).animate({opacity: 1, width: '30px'}, 1000)
 	
-	// third player
-	exampleHelper.animate({
-		style: {
-			thirdBoyOpacity: 0
-		},
-		duration: 1000,
-		delay: 8000,
-		animationType: 'easeInEaseOut'
-	})
+	$(container).append('<img id="pencil" src="/assets/animations/veri/kursun_kalem_.png" />');
+	$('#pencil')
+				.css("width", "70px")
+				.css("height", "110px")
+				.css("position", "absolute")
+				.css("left", "535px")
+				.css("top", "-34px")
+				.css("opacity", 0)
+				
+	$('#pencil').delay(animStart).animate({opacity: 1}, 500)
+				.delay(500).animate({left: '+=30'}, 1000)
+				.delay(0).animate({opacity: 0}, 500)
+				.delay(0).animate({left: '+=10'}, 0)
 	
-	exampleHelper.animate({
-		style: {
-			secondBoyOpacity: 1
-		},
-		duration: 1000,
-		delay: 8000,
-		animationType: 'easeInEaseOut'
-	});
+	$('#pencil').delay(950).animate({opacity:1}, 500)
+				.delay(500).animate({left: '+=30'}, 1000)
+				.delay(0).animate({opacity: 0}, 500)
+				.delay(0).animate({left: '+=10'}, 0)
 	
-	exampleHelper.animate({
-		style: {
-			thirdLengthOpacity: 1
-		},
-		duration: 1000,
-		delay: 8500,
-		animationType: 'easeInEaseOut'
-	});
+	$('#pencil').delay(950).animate({opacity:1}, 500)
+				.delay(500).animate({left: '+=30'}, 1000)
+				.delay(0).animate({opacity: 0}, 500)
+				.delay(0).animate({left: '+=10'}, 0)
 	
-	// fourth player
-	exampleHelper.animate({
-		style: {
-			secondBoyOpacity: 0
-		},
-		duration: 1000,
-		delay: 10000,
-		animationType: 'easeInEaseOut'
-	})
+	$('#pencil').delay(970).animate({opacity:1}, 500)
+				.delay(500).animate({left: '+=30'}, 1000)
+				.delay(0).animate({opacity: 0}, 500)
+				.delay(0).animate({left: '535px', top: '0px'}, 0)
 	
-	exampleHelper.animate({
-		style: {
-			thirdBoyOpacity: 1
-		},
-		duration: 1000,
-		delay: 10000,
-		animationType: 'easeInEaseOut'
-	});
+	$('#pencil').delay(970).animate({opacity:1}, 500)
+				.delay(500).animate({left: '+=30'}, 1000)
+				.delay(0).animate({opacity: 0}, 500)
+				.delay(0).animate({left: '+=10'}, 0)
 	
-	exampleHelper.animate({
-		style: {
-			fourthLengthOpacity: 1
-		},
-		duration: 1000,
-		delay: 10500,
-		animationType: 'easeInEaseOut'
-	});
+	$('#pencil').delay(970).animate({opacity:1}, 500)
+				.delay(500).animate({left: '+=30'}, 1000)
+				.delay(0).animate({opacity: 0}, 500)
+				.delay(0).animate({left: '+=10'}, 0)
 	
-	//fifth player
-	exampleHelper.animate({
-		style: {
-			thirdBoyOpacity: 0
-		},
-		duration: 1000,
-		delay: 12000,
-		animationType: 'easeInEaseOut'
-	})
+	$('#pencil').delay(970).animate({opacity:1}, 500)
+				.delay(500).animate({left: '+=30'}, 1000)
+				.delay(0).animate({opacity: 0}, 500)
+				.delay(0).animate({left: '+=10'}, 0)
 	
-	exampleHelper.animate({
-		style: {
-			thirdBoyOpacity: 1
-		},
-		duration: 1000,
-		delay: 12020,
-		animationType: 'easeInEaseOut'
-	});
+	$('#pencil').delay(970).animate({opacity:1}, 500)
+				.delay(500).animate({left: '+=30'}, 1000)
+				.delay(0).animate({opacity: 0}, 500)
+				.delay(0).animate({left: '535px', top: '34px'}, 0)
 	
-	exampleHelper.animate({
-		style: {
-			fifthLengthOpacity: 1
-		},
-		duration: 1000,
-		delay: 12500,
-		animationType: 'easeInEaseOut'
-	});
+	$('#pencil').delay(970).animate({opacity:1}, 500)
+				.delay(500).animate({left: '+=30'}, 1000)
+				.delay(0).animate({opacity: 0}, 500)
+				.delay(0).animate({left: '+=10'}, 0)
 	
-	// sixth player
-	exampleHelper.animate({
-		style: {
-			thirdBoyOpacity: 0
-		},
-		duration: 1000,
-		delay: 14000,
-		animationType: 'easeInEaseOut'
-	})
+	$('#pencil').delay(970).animate({opacity:1}, 500)
+				.delay(500).animate({left: '+=30'}, 1000)
+				.delay(0).animate({opacity: 0}, 500)
+				.delay(0).animate({left: '+=10'}, 0)
 	
-	exampleHelper.animate({
-		style: {
-			fourthBoyOpacity: 1
-		},
-		duration: 1000,
-		delay: 14000,
-		animationType: 'easeInEaseOut'
-	});
-	
-	exampleHelper.animate({
-		style: {
-			sixthLengthOpacity: 1
-		},
-		duration: 1000,
-		delay: 14500,
-		animationType: 'easeInEaseOut'
-	});
-	
-	// seventh player
-	exampleHelper.animate({
-		style: {
-			fourthBoyOpacity: 0
-		},
-		duration: 1000,
-		delay: 16000,
-		animationType: 'easeInEaseOut'
-	})
-	
-	exampleHelper.animate({
-		style: {
-			firstBoyOpacity: 1
-		},
-		duration: 1000,
-		delay: 16000,
-		animationType: 'easeInEaseOut'
-	});
-	
-	exampleHelper.animate({
-		style: {
-			seventhLengthOpacity: 1
-		},
-		duration: 1000,
-		delay: 16500,
-		animationType: 'easeInEaseOut'
-	});
-	
-	// eighth player
-	exampleHelper.animate({
-		style: {
-			firstBoyOpacity: 0
-		},
-		duration: 1000,
-		delay: 18000,
-		animationType: 'easeInEaseOut'
-	})
-	
-	exampleHelper.animate({
-		style: {
-			thirdBoyOpacity: 1
-		},
-		duration: 1000,
-		delay: 18000,
-		animationType: 'easeInEaseOut'
-	});
-	
-	exampleHelper.animate({
-		style: {
-			eighthLengthOpacity: 1
-		},
-		duration: 1000,
-		delay: 18500,
-		animationType: 'easeInEaseOut'
-	});
-	
-	
-	// ninth player
-	exampleHelper.animate({
-		style: {
-			thirdBoyOpacity: 0
-		},
-		duration: 1000,
-		delay: 20000,
-		animationType: 'easeInEaseOut'
-	})
-	
-	exampleHelper.animate({
-		style: {
-			fifthBoyOpacity: 1
-		},
-		duration: 1000,
-		delay: 20000,
-		animationType: 'easeInEaseOut'
-	});
-	
-	exampleHelper.animate({
-		style: {
-			ninthLengthOpacity: 1
-		},
-		duration: 1000,
-		delay: 20500,
-		animationType: 'easeInEaseOut'
-	});
-	
-	// tenth player
-	exampleHelper.animate({
-		style: {
-			fifthBoyOpacity: 0
-		},
-		duration: 1000,
-		delay: 22000,
-		animationType: 'easeInEaseOut'
-	})
-	
-	exampleHelper.animate({
-		style: {
-			secondBoyOpacity: 1
-		},
-		duration: 1000,
-		delay: 22000,
-		animationType: 'easeInEaseOut'
-	});
-	
-	exampleHelper.animate({
-		style: {
-			tenthLengthOpacity: 1
-		},
-		duration: 1000,
-		delay: 22500,
-		animationType: 'easeInEaseOut'
-	});
-	
-	// eleventh player
-	exampleHelper.animate({
-		style: {
-			secondBoyOpacity: 0
-		},
-		duration: 1000,
-		delay: 24000,
-		animationType: 'easeInEaseOut'
-	})
-	
-	exampleHelper.animate({
-		style: {
-			fourthBoyOpacity: 1
-		},
-		duration: 1000,
-		delay: 24000,
-		animationType: 'easeInEaseOut'
-	});
-	
-	exampleHelper.animate({
-		style: {
-			eleventhLengthOpacity: 1
-		},
-		duration: 1000,
-		delay: 24500,
-		animationType: 'easeInEaseOut'
-	});
-
-	
+	$('#pencil').delay(970).animate({opacity:1}, 500)
+				.delay(500).animate({left: '+=30'}, 1000)
+				.delay(0).animate({opacity: 0}, 500)
+				.delay(0).animate({left: '+=10'}, 0)
 }
 
+var index = 0;
+var shuffledQuesArr = Util.getShuffledArray(15);
 // interaction init
 Interaction.init = function(container){
 	
@@ -606,12 +416,12 @@ Interaction.init = function(container){
 					.css("height", "20px")
 					.css("text-align", "center")
 					
-	$(container).append('<button id="checkBtn" class="control_button">Kontrol</button>');
+	$(container).append('<button id="checkBtn" class="control_button"></button>');
 	$('#checkBtn').css("position", "absolute")
 					.css("left", "490px")
 					.css("top", "240px");
 	
-	$(container).append('<button id="nextBtn" class="next_button">Sonraki</button>');
+	$(container).append('<button id="nextBtn" class="next_button"></button>');
 	$('#nextBtn').css("position", "absolute")
 					.css("left", "490px")
 					.css("top", "240px");
@@ -619,7 +429,6 @@ Interaction.init = function(container){
 	nextQuestion();
 	
 	// generate nextQuestion func. -> datas stay same but question changes..
-	var questionIndex;
 	function nextQuestion()
 	{
 		$('#nextBtn').hide();
@@ -627,12 +436,13 @@ Interaction.init = function(container){
 		$('#statuss').html("");
 		$('#textInput1').val("");
 		$('#textInput1').css("color", inputBoxColor);
-		var randQuestion = Math.floor(Math.random() * 15);
-		questionIndex = randQuestion;
 		$('#question').html("");
-		$('#question').html(questions[randQuestion]);
-		var trial2 = 0;
-		trial = trial2;	
+		$('#question').html(questions[shuffledQuesArr[index]]);
+		if(index == 14)
+			index = 0;
+		else
+			index += 1;
+		trial = 0;
 	}
 	
 	// submit function -> check whether input field is filled and give neccessary feedbacks
@@ -654,7 +464,7 @@ Interaction.init = function(container){
 			{
 				// generate answer wrt. given question
 				var answer = 0;
-				switch(questionIndex)
+				switch(shuffledQuesArr[index-1])
 				{
 					case 0:
 						for(i = 0; i < 30; i++)

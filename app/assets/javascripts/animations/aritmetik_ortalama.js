@@ -159,7 +159,7 @@ Animation.init = function(container){
 					.css("text-align", "center")
 					.css("width", "44px")
 					.css("font-weight", "bold");
-	$('#datasHolderDiv').append('<div id="fridayD">32°</div>');
+	$('#datasHolderDiv').append('<div id="fridayD">31°</div>');
 	$('#fridayD').css("position", "absolute")
 					.css("left", "258px")
 					.css("top", "48px")
@@ -262,7 +262,7 @@ Animation.init = function(container){
 				.css("text-align", "center")
 				.css("width", "40px")
 				
-	$('#numerator').append('<div id="fifthN">+ 32</div>')
+	$('#numerator').append('<div id="fifthN">+ 31</div>')
 	$('#fifthN').css("position", "absolute")
 				.css("left", "126px")
 				.css("top", "0px")
@@ -683,215 +683,594 @@ Interaction.init = function(container){
 	var fraction1, fraction2;
 	var datas = new Array();
 	
-	for(i = 0; i < 4; i++) {
-		datas[i] = Math.floor(Math.random() * 19) + 2;
+	var randomize = Math.floor(Math.random() * 3);
+//	var randomize = 2;
+	
+	if(randomize % 3 == 0){
+		for(i = 0; i < 4; i++) {
+			datas[i] = Math.floor(Math.random() * 19) + 2;
+		}
+		do {
+			datas[i] = Math.floor(Math.random() * 19) + 2;
+			for(var j = 0, total = 0; j < datas.length; j++)
+				total += datas[j];
+		}
+		while(total % 5 != 0)
 	}
-	do {
-		datas[i] = Math.floor(Math.random() * 19) + 2;
-		total = datas[0] + datas[1] + datas[2] + datas[3] + datas[4];
+	else if(randomize % 3 == 1){
+		for(i = 0; i < 3; i++) {
+			datas[i] = Math.floor(Math.random() * 19) + 2;
+		}
+		do {
+			datas[i] = Math.floor(Math.random() * 19) + 2;
+			for(var j = 0, total = 0; j < datas.length; j++)
+				total += datas[j];
+		}
+		while(total % 4 != 0)
 	}
-	while(total % 5 != 0)
-
-	$(container).append('<div id="datasDiv"></div>');
-	$('#datasDiv').css("position", "absolute")
-						.css("left", "180px")
-						.css("top", "6px")
-						.css("width", "200px")
-						.css("height", "20px")
-						.css("text-align", "center");
+	else{
+		for(i = 0; i < 2; i++) {
+			datas[i] = Math.floor(Math.random() * 19) + 2;
+		}
+		do {
+			datas[i] = Math.floor(Math.random() * 19) + 2;
+			for(var j = 0, total = 0; j < datas.length; j++)
+				total += datas[j];
+		}
+		while(total % 3 != 0)
+	}
+	console.log(datas);
+	console.log(total);
 	
-	$(container).append('<div id="questionDiv"></div>');
-	$('#questionDiv').css("position", "absolute")
-						.css("left", "40px")
-						.css("top", "35px")
-						.css("width", "400px")
-						.css("height", "210px");
-	
-	$('#questionDiv').append('<div id="avgText">Aritmetik Ortalama</div>');
-	$('#avgText').css("position", "absolute")
-					.css("left", "0px")
-					.css("top", "32px")
-					.css("font-size", 18)
-					.css("text-align", "center")
-					.css("width", "100px");
-					
-	$('#questionDiv').append('<p id="equal1" >=</p>');
-		$('#equal1').css("position", "absolute")
-				.css("left", "120px")
-				.css("top", "48px")
-				.css("font-size", 18)
-				
-	$('#questionDiv').append('<div id="line1"></div>');
-	$('#line1').css("position","absolute")
-				.css("left", "144px")
-				.css("top", "56px")
-				.css("width", "252px")
-				.css("height", "1px")
-				.css("padding", 0)
-				.css("border-top", "2px solid")
-	
-	$('#questionDiv').append('<input id="textInput1" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
-	$('#textInput1').css("width", "32")
-					.css("box-sizing","border-box")
-					.css("padding", "0")
-					.css("height", "30")
-					.css("font-size", 18)
-					.css("position", "absolute")
-					.css("left", "146px")
-					.css("top", "20px")
-					.css("text-align", "center");
-					
-	$('#textInput1').addClass('input');
-			
-	$('#questionDiv').append('<p id="plus1" >+</p>');
-		$('#plus1').css("position", "absolute")
-					.css("font-size", 18)
-					.css("left", "182px")
-					.css("top", "28px");
-	
-	$('#questionDiv').append('<input id="textInput2" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
-	$('#textInput2').css("width", "32")
-					.css("height", "30")
-					.css("box-sizing","border-box")
-					.css("padding", "0")
-					.css("font-size", 18)
-					.css("position", "absolute")
-					.css("left", "200px")
-					.css("top", "20px")
-					.css("text-align", "center");
-					
-	$('#textInput2').addClass('input');
+	if(randomize % 3 == 0){
+		$(container).append('<div id="datasDiv"></div>');
+		$('#datasDiv').css("position", "absolute")
+							.css("left", "180px")
+							.css("top", "6px")
+							.css("width", "200px")
+							.css("height", "20px")
+							.css("text-align", "center");
 		
-	$('#questionDiv').append('<p id="plus2" >+</p>');
-		$('#plus2').css("position", "absolute")
-					.css("font-size", 18)
-					.css("left", "236px")
-					.css("top", "28px");
-	
-	$('#questionDiv').append('<input id="textInput3" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
-	$('#textInput3').css("width", "32")
-					.css("height", "30")
-					.css("box-sizing","border-box")
-					.css("padding", "0")
-					.css("font-size", 18)
-					.css("position", "absolute")
-					.css("left", "254px")
-					.css("top", "20px")
-					.css("text-align", "center");
-	
-	$('#textInput3').addClass('input');
+		$(container).append('<div id="questionDiv"></div>');
+		$('#questionDiv').css("position", "absolute")
+							.css("left", "40px")
+							.css("top", "35px")
+							.css("width", "400px")
+							.css("height", "210px");
 		
-	$('#questionDiv').append('<p id="plus3" >+</p>');
-		$('#plus3').css("position", "absolute")
-					.css("font-size", 18)
-					.css("left", "290px")
-					.css("top", "28px");
-		
-	$('#questionDiv').append('<input id="textInput4" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
-	$('#textInput4').css("width", "32")
-					.css("height", "30")
-					.css("box-sizing","border-box")
-					.css("padding", "0")
-					.css("font-size", 18)
-					.css("position", "absolute")
-					.css("left", "308px")
-					.css("top", "20px")
-					.css("text-align", "center");
-	
-	$('#textInput4').addClass('input');
-		
-	$('#questionDiv').append('<p id="plus4" >+</p>');
-		$('#plus4').css("position", "absolute")
-					.css("font-size", 18)
-					.css("left", "344px")
-					.css("top", "28px");
-	
-	$('#questionDiv').append('<input id="textInput5" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
-	$('#textInput5').css("width", "32")
-					.css("height", "30")
-					.css("box-sizing","border-box")
-					.css("padding", "0")
-					.css("font-size", 18)
-					.css("position", "absolute")
-					.css("left", "362px")
-					.css("top", "20px")
-					.css("text-align", "center");
-	
-	$('#textInput5').addClass('input');
-		
-	$('#questionDiv').append('<input id="textInput6" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
-	$('#textInput6').css("width", "32")
-					.css("height", "30")
-					.css("box-sizing","border-box")
-					.css("padding", "0")
-					.css("font-size", 18)
-					.css("position", "absolute")
-					.css("left", "254px")
-					.css("top", "64px")
-					.css("text-align", "center");
-	
-	$('#textInput6').addClass('input');
-		
-	$('#questionDiv').append('<p id="equal2" >=</p>');
-		$('#equal2').css("position", "absolute")
-					.css("font-size", 18)
+		$('#questionDiv').append('<div id="avgText">Aritmetik Ortalama</div>');
+		$('#avgText').css("position", "absolute")
+						.css("left", "0px")
+						.css("top", "32px")
+						.css("font-size", 18)
+						.css("text-align", "center")
+						.css("width", "100px");
+						
+		$('#questionDiv').append('<p id="equal1" >=</p>');
+			$('#equal1').css("position", "absolute")
 					.css("left", "120px")
-					.css("top", "160px");
-
-	
-	$('#questionDiv').append('<div id="line2"></div>');
-	$('#line2').css("position","absolute")
-				.css("left", "144px")
-				.css("top", "168px")
-				.css("width", "36px")
-				.css("height", "1px")
-				.css("padding", 0)
-				.css("border-top", "2px solid")
-	
-	$('#questionDiv').append('<input id="textInput7" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
-	$('#textInput7').css("width", "32")
-					.css("box-sizing","border-box")
-					.css("padding", "0")
-					.css("height", "30")
+					.css("top", "48px")
 					.css("font-size", 18)
-					.css("position", "absolute")
-					.css("left", "146px")
-					.css("top", "132px")
-					.css("text-align", "center");
 					
-	$('#textInput7').addClass('input');
-					
-	$('#questionDiv').append('<input id="textInput8" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
-	$('#textInput8').css("width", "32")
-					.css("height", "30")
-					.css("box-sizing","border-box")
-					.css("padding", "0")
-					.css("font-size", 18)
-					.css("position", "absolute")
-					.css("left", "146px")
-					.css("top", "176px")
-					.css("text-align", "center");
-	
-	$('#textInput8').addClass('input');
+		$('#questionDiv').append('<div id="line1"></div>');
+		$('#line1').css("position","absolute")
+					.css("left", "144px")
+					.css("top", "56px")
+					.css("width", "252px")
+					.css("height", "1px")
+					.css("padding", 0)
+					.css("border-top", "2px solid")
 		
-	$('#questionDiv').append('<p id="equal3" >=</p>');
-		$('#equal3').css("position", "absolute")
-					.css("font-size", 18)
-					.css("left", "190px")
-					.css("top", "160px");
+		$('#questionDiv').append('<input id="textInput1" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
+		$('#textInput1').css("width", "32")
+						.css("box-sizing","border-box")
+						.css("padding", "0")
+						.css("height", "30")
+						.css("font-size", 18)
+						.css("position", "absolute")
+						.css("left", "146px")
+						.css("top", "20px")
+						.css("text-align", "center");
+						
+		$('#textInput1').addClass('input');
+				
+		$('#questionDiv').append('<p id="plus1" >+</p>');
+			$('#plus1').css("position", "absolute")
+						.css("font-size", 18)
+						.css("left", "182px")
+						.css("top", "28px");
 		
-	$('#questionDiv').append('<input id="textInput9" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
-	$('#textInput9').css("width", "32")
-					.css("height", "30")
-					.css("box-sizing","border-box")
-					.css("padding", "0")
+		$('#questionDiv').append('<input id="textInput2" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
+		$('#textInput2').css("width", "32")
+						.css("height", "30")
+						.css("box-sizing","border-box")
+						.css("padding", "0")
+						.css("font-size", 18)
+						.css("position", "absolute")
+						.css("left", "200px")
+						.css("top", "20px")
+						.css("text-align", "center");
+						
+		$('#textInput2').addClass('input');
+			
+		$('#questionDiv').append('<p id="plus2" >+</p>');
+			$('#plus2').css("position", "absolute")
+						.css("font-size", 18)
+						.css("left", "236px")
+						.css("top", "28px");
+		
+		$('#questionDiv').append('<input id="textInput3" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
+		$('#textInput3').css("width", "32")
+						.css("height", "30")
+						.css("box-sizing","border-box")
+						.css("padding", "0")
+						.css("font-size", 18)
+						.css("position", "absolute")
+						.css("left", "254px")
+						.css("top", "20px")
+						.css("text-align", "center");
+		
+		$('#textInput3').addClass('input');
+			
+		$('#questionDiv').append('<p id="plus3" >+</p>');
+			$('#plus3').css("position", "absolute")
+						.css("font-size", 18)
+						.css("left", "290px")
+						.css("top", "28px");
+			
+		$('#questionDiv').append('<input id="textInput4" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
+		$('#textInput4').css("width", "32")
+						.css("height", "30")
+						.css("box-sizing","border-box")
+						.css("padding", "0")
+						.css("font-size", 18)
+						.css("position", "absolute")
+						.css("left", "308px")
+						.css("top", "20px")
+						.css("text-align", "center");
+		
+		$('#textInput4').addClass('input');
+			
+		$('#questionDiv').append('<p id="plus4" >+</p>');
+			$('#plus4').css("position", "absolute")
+						.css("font-size", 18)
+						.css("left", "344px")
+						.css("top", "28px");
+		
+		$('#questionDiv').append('<input id="textInput5" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
+		$('#textInput5').css("width", "32")
+						.css("height", "30")
+						.css("box-sizing","border-box")
+						.css("padding", "0")
+						.css("font-size", 18)
+						.css("position", "absolute")
+						.css("left", "362px")
+						.css("top", "20px")
+						.css("text-align", "center");
+		
+		$('#textInput5').addClass('input');
+			
+		$('#questionDiv').append('<input id="textInput6" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
+		$('#textInput6').css("width", "32")
+						.css("height", "30")
+						.css("box-sizing","border-box")
+						.css("padding", "0")
+						.css("font-size", 18)
+						.css("position", "absolute")
+						.css("left", "254px")
+						.css("top", "64px")
+						.css("text-align", "center");
+		
+		$('#textInput6').addClass('input');
+			
+		$('#questionDiv').append('<p id="equal2" >=</p>');
+			$('#equal2').css("position", "absolute")
+						.css("font-size", 18)
+						.css("left", "120px")
+						.css("top", "160px");
+	
+		
+		$('#questionDiv').append('<div id="line2"></div>');
+		$('#line2').css("position","absolute")
+					.css("left", "144px")
+					.css("top", "168px")
+					.css("width", "36px")
+					.css("height", "1px")
+					.css("padding", 0)
+					.css("border-top", "2px solid")
+		
+		$('#questionDiv').append('<input id="textInput7" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
+		$('#textInput7').css("width", "32")
+						.css("box-sizing","border-box")
+						.css("padding", "0")
+						.css("height", "30")
+						.css("font-size", 18)
+						.css("position", "absolute")
+						.css("left", "146px")
+						.css("top", "132px")
+						.css("text-align", "center");
+						
+		$('#textInput7').addClass('input');
+						
+		$('#questionDiv').append('<input id="textInput8" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
+		$('#textInput8').css("width", "32")
+						.css("height", "30")
+						.css("box-sizing","border-box")
+						.css("padding", "0")
+						.css("font-size", 18)
+						.css("position", "absolute")
+						.css("left", "146px")
+						.css("top", "176px")
+						.css("text-align", "center");
+		
+		$('#textInput8').addClass('input');
+			
+		$('#questionDiv').append('<p id="equal3" >=</p>');
+			$('#equal3').css("position", "absolute")
+						.css("font-size", 18)
+						.css("left", "190px")
+						.css("top", "160px");
+			
+		$('#questionDiv').append('<input id="textInput9" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
+		$('#textInput9').css("width", "32")
+						.css("height", "30")
+						.css("box-sizing","border-box")
+						.css("padding", "0")
+						.css("font-size", 18)
+						.css("position", "absolute")
+						.css("left", "210px")
+						.css("top", "152px")
+						.css("text-align", "center");
+		$('#textInput9').addClass('input');
+	}	
+	else if(randomize % 3 == 1){
+		$(container).append('<div id="datasDiv"></div>');
+		$('#datasDiv').css("position", "absolute")
+							.css("left", "180px")
+							.css("top", "6px")
+							.css("width", "200px")
+							.css("height", "20px")
+							.css("text-align", "center");
+		
+		$(container).append('<div id="questionDiv"></div>');
+		$('#questionDiv').css("position", "absolute")
+							.css("left", "40px")
+							.css("top", "35px")
+							.css("width", "400px")
+							.css("height", "210px");
+		
+		$('#questionDiv').append('<div id="avgText">Aritmetik Ortalama</div>');
+		$('#avgText').css("position", "absolute")
+						.css("left", "0px")
+						.css("top", "32px")
+						.css("font-size", 18)
+						.css("text-align", "center")
+						.css("width", "100px");
+						
+		$('#questionDiv').append('<p id="equal1" >=</p>');
+			$('#equal1').css("position", "absolute")
+					.css("left", "120px")
+					.css("top", "48px")
 					.css("font-size", 18)
-					.css("position", "absolute")
-					.css("left", "210px")
-					.css("top", "152px")
-					.css("text-align", "center");
-	$('#textInput9').addClass('input');
 					
+		$('#questionDiv').append('<div id="line1"></div>');
+		$('#line1').css("position","absolute")
+					.css("left", "144px")
+					.css("top", "56px")
+					.css("width", "202px")
+					.css("height", "1px")
+					.css("padding", 0)
+					.css("border-top", "2px solid")
+		
+		$('#questionDiv').append('<input id="textInput1" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
+		$('#textInput1').css("width", "32")
+						.css("box-sizing","border-box")
+						.css("padding", "0")
+						.css("height", "30")
+						.css("font-size", 18)
+						.css("position", "absolute")
+						.css("left", "146px")
+						.css("top", "20px")
+						.css("text-align", "center");
+						
+		$('#textInput1').addClass('input');
+				
+		$('#questionDiv').append('<p id="plus1" >+</p>');
+			$('#plus1').css("position", "absolute")
+						.css("font-size", 18)
+						.css("left", "182px")
+						.css("top", "28px");
+		
+		$('#questionDiv').append('<input id="textInput2" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
+		$('#textInput2').css("width", "32")
+						.css("height", "30")
+						.css("box-sizing","border-box")
+						.css("padding", "0")
+						.css("font-size", 18)
+						.css("position", "absolute")
+						.css("left", "200px")
+						.css("top", "20px")
+						.css("text-align", "center");
+						
+		$('#textInput2').addClass('input');
+			
+		$('#questionDiv').append('<p id="plus2" >+</p>');
+			$('#plus2').css("position", "absolute")
+						.css("font-size", 18)
+						.css("left", "236px")
+						.css("top", "28px");
+		
+		$('#questionDiv').append('<input id="textInput3" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
+		$('#textInput3').css("width", "32")
+						.css("height", "30")
+						.css("box-sizing","border-box")
+						.css("padding", "0")
+						.css("font-size", 18)
+						.css("position", "absolute")
+						.css("left", "254px")
+						.css("top", "20px")
+						.css("text-align", "center");
+		
+		$('#textInput3').addClass('input');
+			
+		$('#questionDiv').append('<p id="plus3" >+</p>');
+			$('#plus3').css("position", "absolute")
+						.css("font-size", 18)
+						.css("left", "290px")
+						.css("top", "28px");
+			
+		$('#questionDiv').append('<input id="textInput4" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
+		$('#textInput4').css("width", "32")
+						.css("height", "30")
+						.css("box-sizing","border-box")
+						.css("padding", "0")
+						.css("font-size", 18)
+						.css("position", "absolute")
+						.css("left", "308px")
+						.css("top", "20px")
+						.css("text-align", "center");
+		
+		$('#textInput4').addClass('input');
+			
+		$('#questionDiv').append('<input id="textInput6" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
+		$('#textInput6').css("width", "32")
+						.css("height", "30")
+						.css("box-sizing","border-box")
+						.css("padding", "0")
+						.css("font-size", 18)
+						.css("position", "absolute")
+						.css("left", "226px")
+						.css("top", "64px")
+						.css("text-align", "center");
+		
+		$('#textInput6').addClass('input');
+			
+		$('#questionDiv').append('<p id="equal2" >=</p>');
+			$('#equal2').css("position", "absolute")
+						.css("font-size", 18)
+						.css("left", "120px")
+						.css("top", "160px");
+	
+		
+		$('#questionDiv').append('<div id="line2"></div>');
+		$('#line2').css("position","absolute")
+					.css("left", "144px")
+					.css("top", "168px")
+					.css("width", "36px")
+					.css("height", "1px")
+					.css("padding", 0)
+					.css("border-top", "2px solid")
+		
+		$('#questionDiv').append('<input id="textInput7" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
+		$('#textInput7').css("width", "32")
+						.css("box-sizing","border-box")
+						.css("padding", "0")
+						.css("height", "30")
+						.css("font-size", 18)
+						.css("position", "absolute")
+						.css("left", "146px")
+						.css("top", "132px")
+						.css("text-align", "center");
+						
+		$('#textInput7').addClass('input');
+						
+		$('#questionDiv').append('<input id="textInput8" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
+		$('#textInput8').css("width", "32")
+						.css("height", "30")
+						.css("box-sizing","border-box")
+						.css("padding", "0")
+						.css("font-size", 18)
+						.css("position", "absolute")
+						.css("left", "146px")
+						.css("top", "176px")
+						.css("text-align", "center");
+		
+		$('#textInput8').addClass('input');
+			
+		$('#questionDiv').append('<p id="equal3" >=</p>');
+			$('#equal3').css("position", "absolute")
+						.css("font-size", 18)
+						.css("left", "190px")
+						.css("top", "160px");
+			
+		$('#questionDiv').append('<input id="textInput9" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
+		$('#textInput9').css("width", "32")
+						.css("height", "30")
+						.css("box-sizing","border-box")
+						.css("padding", "0")
+						.css("font-size", 18)
+						.css("position", "absolute")
+						.css("left", "210px")
+						.css("top", "152px")
+						.css("text-align", "center");
+		$('#textInput9').addClass('input');
+	}
+	else {
+		$(container).append('<div id="datasDiv"></div>');
+		$('#datasDiv').css("position", "absolute")
+							.css("left", "180px")
+							.css("top", "6px")
+							.css("width", "200px")
+							.css("height", "20px")
+							.css("text-align", "center");
+		
+		$(container).append('<div id="questionDiv"></div>');
+		$('#questionDiv').css("position", "absolute")
+							.css("left", "40px")
+							.css("top", "35px")
+							.css("width", "400px")
+							.css("height", "210px");
+		
+		$('#questionDiv').append('<div id="avgText">Aritmetik Ortalama</div>');
+		$('#avgText').css("position", "absolute")
+						.css("left", "0px")
+						.css("top", "32px")
+						.css("font-size", 18)
+						.css("text-align", "center")
+						.css("width", "100px");
+						
+		$('#questionDiv').append('<p id="equal1" >=</p>');
+			$('#equal1').css("position", "absolute")
+					.css("left", "120px")
+					.css("top", "48px")
+					.css("font-size", 18)
+					
+		$('#questionDiv').append('<div id="line1"></div>');
+		$('#line1').css("position","absolute")
+					.css("left", "144px")
+					.css("top", "56px")
+					.css("width", "152px")
+					.css("height", "1px")
+					.css("padding", 0)
+					.css("border-top", "2px solid")
+		
+		$('#questionDiv').append('<input id="textInput1" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
+		$('#textInput1').css("width", "32")
+						.css("box-sizing","border-box")
+						.css("padding", "0")
+						.css("height", "30")
+						.css("font-size", 18)
+						.css("position", "absolute")
+						.css("left", "146px")
+						.css("top", "20px")
+						.css("text-align", "center");
+						
+		$('#textInput1').addClass('input');
+				
+		$('#questionDiv').append('<p id="plus1" >+</p>');
+			$('#plus1').css("position", "absolute")
+						.css("font-size", 18)
+						.css("left", "182px")
+						.css("top", "28px");
+		
+		$('#questionDiv').append('<input id="textInput2" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
+		$('#textInput2').css("width", "32")
+						.css("height", "30")
+						.css("box-sizing","border-box")
+						.css("padding", "0")
+						.css("font-size", 18)
+						.css("position", "absolute")
+						.css("left", "200px")
+						.css("top", "20px")
+						.css("text-align", "center");
+						
+		$('#textInput2').addClass('input');
+			
+		$('#questionDiv').append('<p id="plus2" >+</p>');
+			$('#plus2').css("position", "absolute")
+						.css("font-size", 18)
+						.css("left", "236px")
+						.css("top", "28px");
+		
+		$('#questionDiv').append('<input id="textInput3" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
+		$('#textInput3').css("width", "32")
+						.css("height", "30")
+						.css("box-sizing","border-box")
+						.css("padding", "0")
+						.css("font-size", 18)
+						.css("position", "absolute")
+						.css("left", "254px")
+						.css("top", "20px")
+						.css("text-align", "center");
+		
+		$('#textInput3').addClass('input');
+			
+		$('#questionDiv').append('<input id="textInput6" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
+		$('#textInput6').css("width", "32")
+						.css("height", "30")
+						.css("box-sizing","border-box")
+						.css("padding", "0")
+						.css("font-size", 18)
+						.css("position", "absolute")
+						.css("left", "202px")
+						.css("top", "64px")
+						.css("text-align", "center");
+		
+		$('#textInput6').addClass('input');
+			
+		$('#questionDiv').append('<p id="equal2" >=</p>');
+			$('#equal2').css("position", "absolute")
+						.css("font-size", 18)
+						.css("left", "120px")
+						.css("top", "160px");
+	
+		
+		$('#questionDiv').append('<div id="line2"></div>');
+		$('#line2').css("position","absolute")
+					.css("left", "144px")
+					.css("top", "168px")
+					.css("width", "36px")
+					.css("height", "1px")
+					.css("padding", 0)
+					.css("border-top", "2px solid")
+		
+		$('#questionDiv').append('<input id="textInput7" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
+		$('#textInput7').css("width", "32")
+						.css("box-sizing","border-box")
+						.css("padding", "0")
+						.css("height", "30")
+						.css("font-size", 18)
+						.css("position", "absolute")
+						.css("left", "146px")
+						.css("top", "132px")
+						.css("text-align", "center");
+						
+		$('#textInput7').addClass('input');
+						
+		$('#questionDiv').append('<input id="textInput8" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
+		$('#textInput8').css("width", "32")
+						.css("height", "30")
+						.css("box-sizing","border-box")
+						.css("padding", "0")
+						.css("font-size", 18)
+						.css("position", "absolute")
+						.css("left", "146px")
+						.css("top", "176px")
+						.css("text-align", "center");
+		
+		$('#textInput8').addClass('input');
+			
+		$('#questionDiv').append('<p id="equal3" >=</p>');
+			$('#equal3').css("position", "absolute")
+						.css("font-size", 18)
+						.css("left", "190px")
+						.css("top", "160px");
+			
+		$('#questionDiv').append('<input id="textInput9" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
+		$('#textInput9').css("width", "32")
+						.css("height", "30")
+						.css("box-sizing","border-box")
+						.css("padding", "0")
+						.css("font-size", 18)
+						.css("position", "absolute")
+						.css("left", "210px")
+						.css("top", "152px")
+						.css("text-align", "center");
+		$('#textInput9').addClass('input');
+	}
+					
+	
+	
 	$(container).append('<div id="statuss"></div>');
 	$('#statuss').css("position", "absolute")
 					.css("left", "144px")
@@ -915,7 +1294,7 @@ Interaction.init = function(container){
 	
 	
 						
-	for(i = 0; i < 5; i++) {
+	for(i = 0; i < datas.length; i++) {
 		if(datas[i-1] >= 10) {
 			var leftStr = ""+(8+40*i)+"px";
 		}
@@ -928,7 +1307,7 @@ Interaction.init = function(container){
 						.css("top", "0px")
 						.css("text-align", "center")
 						.css("font-size", 18)
-		if(i != 4) {
+		if(i != datas.length-1) {
 			$('#data'+i).html(""+datas[i]+",");
 		}
 		else {
@@ -936,86 +1315,252 @@ Interaction.init = function(container){
 		}
 	}
 	
+	function CheckDatas(datas, ans){
+		var correctN = 0;
+		
+		for(var i = 0; i < datas.length; i++){
+			for(var j = 0; j < datas.length; j++){
+				if(ans[j] == datas[i])
+					ans[j] = -1;
+			}
+		}
+		
+		for(var i = 0; i < datas.length; i++){
+			if(ans[i] == -1)
+				correctN += 1;
+		}
+		if (correctN == datas.length)
+			return true;
+		else
+			return false;
+	}
+	
 	var trial = 0;				
 	submit = function() {
 		// if this is the 3rd trial or more do nothing
 		if(trial == 2)
 			return;
-			
-		var ans1, ans2, ans3, ans4, ans5, ans6, ans7, ans8, ans9;
-		ans1 = $('#textInput1').val();
-		ans2 = $('#textInput2').val();
-		ans3 = $('#textInput3').val();
-		ans4 = $('#textInput4').val();
-		ans5 = $('#textInput5').val();
-		ans6 = $('#textInput6').val();
-		ans7 = $('#textInput7').val();
-		ans8 = $('#textInput8').val();
-		ans9 = $('#textInput9').val();
-		// check whether input field is empty or not (also given input is integer or not)
-		if(ans1 == "" || ans2 == "" || ans3 == "" || ans4 == "" || ans5 == "" || ans6 == "" || ans7 == "" || ans8 == "" || ans9 == "" || 
-			!Util.isInteger(ans1) || !Util.isInteger(ans2) || !Util.isInteger(ans3) || !Util.isInteger(ans4) || !Util.isInteger(ans5) || !Util.isInteger(ans6) || !Util.isInteger(ans7) ||
-			!Util.isInteger(ans8) || !Util.isInteger(ans9)) {
-			$('#statuss').get(0).className = "status_alert";
-			$('#statuss').html("Lütfen kutucuklara sayı giriniz.");
+		
+		if(randomize % 3 == 0){
+			var ans1, ans2, ans3, ans4, ans5, ans6, ans7, ans8, ans9;
+			ans1 = $('#textInput1').val();
+			ans2 = $('#textInput2').val();
+			ans3 = $('#textInput3').val();
+			ans4 = $('#textInput4').val();
+			ans5 = $('#textInput5').val();
+			ans6 = $('#textInput6').val();
+			ans7 = $('#textInput7').val();
+			ans8 = $('#textInput8').val();
+			ans9 = $('#textInput9').val();
+			var ansArr = new Array();
+			ansArr[0] = ans1;
+			ansArr[1] = ans2;
+			ansArr[2] = ans3;
+			ansArr[3] = ans4;
+			ansArr[4] = ans5;
+			// check whether input field is empty or not (also given input is integer or not)
+			if(ans1 == "" || ans2 == "" || ans3 == "" || ans4 == "" || ans5 == "" || ans6 == "" || ans7 == "" || ans8 == "" || ans9 == "" || 
+				!Util.isInteger(ans1) || !Util.isInteger(ans2) || !Util.isInteger(ans3) || !Util.isInteger(ans4) || !Util.isInteger(ans5) || !Util.isInteger(ans6) || !Util.isInteger(ans7) ||
+				!Util.isInteger(ans8) || !Util.isInteger(ans9)) {
+				$('#statuss').get(0).className = "status_alert";
+				$('#statuss').html("Lütfen kutucuklara sayı giriniz.");
+			}
+			else {
+				// generate answers wrt. given numbers
+				answer1 = datas[0];
+				answer2 = datas[1];
+				answer3 = datas[2];
+				answer4 = datas[3];
+				answer5 = datas[4];
+				answer6 = datas.length;
+				answer7 = total;
+				answer8 = datas.length;
+				answer9 = total/datas.length;
+				
+				// correct answer state
+				if(CheckDatas(datas, ansArr) && ans6 == answer6 && ans7 == answer7 && ans8 == answer8 && ans9 == answer9) {
+					$('#statuss').get(0).className = "status_true";
+					$('#statuss').html("Tebrikler!");
+					$('#checkBtn').hide();
+					$('#nextBtn').show();
+				}
+				// second wrong answer state
+				else if(trial == 1) {
+					$('#statuss').get(0).className = "status_false";
+					$('#statuss').html("Olmadı! Doğru cevap yukarıda gösterilmiştir.");
+					$('#textInput1').css("color", inputBoxAnswerColor);
+					$('#textInput2').css("color", inputBoxAnswerColor);
+					$('#textInput3').css("color", inputBoxAnswerColor);
+					$('#textInput4').css("color", inputBoxAnswerColor);
+					$('#textInput5').css("color", inputBoxAnswerColor);
+					$('#textInput6').css("color", inputBoxAnswerColor);
+					$('#textInput7').css("color", inputBoxAnswerColor);
+					$('#textInput8').css("color", inputBoxAnswerColor);
+					$('#textInput9').css("color", inputBoxAnswerColor);
+					$('#textInput1').val(answer1);
+					$('#textInput2').val(answer2);
+					$('#textInput3').val(answer3);
+					$('#textInput4').val(answer4);
+					$('#textInput5').val(answer5);
+					$('#textInput6').val(answer6);
+					$('#textInput7').val(answer7);
+					$('#textInput8').val(answer8);
+					$('#textInput9').val(answer9);
+					$('#checkBtn').hide();
+					$('#nextBtn').show();
+					trial += 1;
+				}
+				// first wrong answer state
+				else if(trial == 0) {	
+					trial += 1;
+					$('#statuss').get(0).className = "status_false";
+					$('#statuss').html("Tekrar deneyiniz.");
+				}
+			}
+		}
+		else if(randomize % 3 == 2){
+			var ans1, ans2, ans3, ans6, ans7, ans8, ans9;
+			ans1 = $('#textInput1').val();
+			ans2 = $('#textInput2').val();
+			ans3 = $('#textInput3').val();
+			ans6 = $('#textInput6').val();
+			ans7 = $('#textInput7').val();
+			ans8 = $('#textInput8').val();
+			ans9 = $('#textInput9').val();
+			var ansArr = new Array();
+			ansArr[0] = ans1;
+			ansArr[1] = ans2;
+			ansArr[2] = ans3;
+			// check whether input field is empty or not (also given input is integer or not)
+			if(ans1 == "" || ans2 == "" || ans3 == "" || ans6 == "" || ans7 == "" || ans8 == "" || ans9 == "" || 
+				!Util.isInteger(ans1) || !Util.isInteger(ans2) || !Util.isInteger(ans3) || !Util.isInteger(ans6) || !Util.isInteger(ans7) ||
+				!Util.isInteger(ans8) || !Util.isInteger(ans9)) {
+				$('#statuss').get(0).className = "status_alert";
+				$('#statuss').html("Lütfen kutucuklara sayı giriniz.");
+			}
+			else {
+				// generate answers wrt. given numbers
+				answer1 = datas[0];
+				answer2 = datas[1];
+				answer3 = datas[2];
+				answer6 = datas.length;
+				answer7 = total;
+				answer8 = datas.length;
+				answer9 = total/datas.length;
+				
+				// correct answer state
+				if(CheckDatas(datas, ansArr) && ans6 == answer6 && ans7 == answer7 && ans8 == answer8 && ans9 == answer9) {
+					$('#statuss').get(0).className = "status_true";
+					$('#statuss').html("Tebrikler!");
+					$('#checkBtn').hide();
+					$('#nextBtn').show();
+				}
+				// second wrong answer state
+				else if(trial == 1) {
+					$('#statuss').get(0).className = "status_false";
+					$('#statuss').html("Olmadı! Doğru cevap yukarıda gösterilmiştir.");
+					$('#textInput1').css("color", inputBoxAnswerColor);
+					$('#textInput2').css("color", inputBoxAnswerColor);
+					$('#textInput3').css("color", inputBoxAnswerColor);
+					$('#textInput6').css("color", inputBoxAnswerColor);
+					$('#textInput7').css("color", inputBoxAnswerColor);
+					$('#textInput8').css("color", inputBoxAnswerColor);
+					$('#textInput9').css("color", inputBoxAnswerColor);
+					$('#textInput1').val(answer1);
+					$('#textInput2').val(answer2);
+					$('#textInput3').val(answer3);
+					$('#textInput6').val(answer6);
+					$('#textInput7').val(answer7);
+					$('#textInput8').val(answer8);
+					$('#textInput9').val(answer9);
+					$('#checkBtn').hide();
+					$('#nextBtn').show();
+					trial += 1;
+				}
+				// first wrong answer state
+				else if(trial == 0) {	
+					trial += 1;
+					$('#statuss').get(0).className = "status_false";
+					$('#statuss').html("Tekrar deneyiniz.");
+				}
+			}
 		}
 		else {
-			// generate answers wrt. given numbers
-			answer1 = datas[0];
-			answer2 = datas[1];
-			answer3 = datas[2];
-			answer4 = datas[3];
-			answer5 = datas[4];
-			answer6 = 5;
-			answer7 = total;
-			answer8 = 5;
-			answer9 = total/5;
-			
-			// correct answer state
-			if(ans1 == answer1 && ans2 == answer2 && ans3 == answer3 && ans4 == answer4 && ans5 == answer5 && ans6 == answer6 &&
-			ans7 == answer7 && ans8 == answer8 && ans9 == answer9) {
-				$('#statuss').get(0).className = "status_true";
-				$('#statuss').html("Tebrikler!");
-				$('#checkBtn').hide();
-				$('#nextBtn').show();
+			var ans1, ans2, ans3, ans4, ans6, ans7, ans8, ans9;
+			ans1 = $('#textInput1').val();
+			ans2 = $('#textInput2').val();
+			ans3 = $('#textInput3').val();
+			ans4 = $('#textInput4').val();
+			ans6 = $('#textInput6').val();
+			ans7 = $('#textInput7').val();
+			ans8 = $('#textInput8').val();
+			ans9 = $('#textInput9').val();
+			var ansArr = new Array();
+			ansArr[0] = ans1;
+			ansArr[1] = ans2;
+			ansArr[2] = ans3;
+			ansArr[3] = ans4;
+			// check whether input field is empty or not (also given input is integer or not)
+			if(ans1 == "" || ans2 == "" || ans3 == "" || ans4 == "" || ans6 == "" || ans7 == "" || ans8 == "" || ans9 == "" || 
+				!Util.isInteger(ans1) || !Util.isInteger(ans2) || !Util.isInteger(ans3) || !Util.isInteger(ans4) || !Util.isInteger(ans6) || !Util.isInteger(ans7) ||
+				!Util.isInteger(ans8) || !Util.isInteger(ans9)) {
+				$('#statuss').get(0).className = "status_alert";
+				$('#statuss').html("Lütfen kutucuklara sayı giriniz.");
 			}
-			// second wrong answer state
-			else if(trial == 1) {
-				$('#statuss').get(0).className = "status_false";
-				$('#statuss').html("Olmadı! Doğru cevap yukarıda gösterilmiştir.");
-				$('#textInput1').css("color", inputBoxAnswerColor);
-				$('#textInput2').css("color", inputBoxAnswerColor);
-				$('#textInput3').css("color", inputBoxAnswerColor);
-				$('#textInput4').css("color", inputBoxAnswerColor);
-				$('#textInput5').css("color", inputBoxAnswerColor);
-				$('#textInput6').css("color", inputBoxAnswerColor);
-				$('#textInput7').css("color", inputBoxAnswerColor);
-				$('#textInput8').css("color", inputBoxAnswerColor);
-				$('#textInput9').css("color", inputBoxAnswerColor);
-				$('#textInput1').val(answer1);
-				$('#textInput2').val(answer2);
-				$('#textInput3').val(answer3);
-				$('#textInput4').val(answer4);
-				$('#textInput5').val(answer5);
-				$('#textInput6').val(answer6);
-				$('#textInput7').val(answer7);
-				$('#textInput8').val(answer8);
-				$('#textInput9').val(answer9);
-				$('#checkBtn').hide();
-				$('#nextBtn').show();
-				trial += 1;
-			}
-			// first wrong answer state
-			else if(trial == 0) {	
-				trial += 1;
-				$('#statuss').get(0).className = "status_false";
-				$('#statuss').html("Tekrar deneyiniz.");
+			else {
+				// generate answers wrt. given numbers
+				answer1 = datas[0];
+				answer2 = datas[1];
+				answer3 = datas[2];
+				answer4 = datas[3];
+				answer6 = datas.length;
+				answer7 = total;
+				answer8 = datas.length;
+				answer9 = total/datas.length;
+				
+				// correct answer state
+				if(CheckDatas(datas, ansArr) && ans6 == answer6 && ans7 == answer7 && ans8 == answer8 && ans9 == answer9) {
+					$('#statuss').get(0).className = "status_true";
+					$('#statuss').html("Tebrikler!");
+					$('#checkBtn').hide();
+					$('#nextBtn').show();
+				}
+				// second wrong answer state
+				else if(trial == 1) {
+					$('#statuss').get(0).className = "status_false";
+					$('#statuss').html("Olmadı! Doğru cevap yukarıda gösterilmiştir.");
+					$('#textInput1').css("color", inputBoxAnswerColor);
+					$('#textInput2').css("color", inputBoxAnswerColor);
+					$('#textInput3').css("color", inputBoxAnswerColor);
+					$('#textInput4').css("color", inputBoxAnswerColor);
+					$('#textInput6').css("color", inputBoxAnswerColor);
+					$('#textInput7').css("color", inputBoxAnswerColor);
+					$('#textInput8').css("color", inputBoxAnswerColor);
+					$('#textInput9').css("color", inputBoxAnswerColor);
+					$('#textInput1').val(answer1);
+					$('#textInput2').val(answer2);
+					$('#textInput3').val(answer3);
+					$('#textInput4').val(answer4);
+					$('#textInput6').val(answer6);
+					$('#textInput7').val(answer7);
+					$('#textInput8').val(answer8);
+					$('#textInput9').val(answer9);
+					$('#checkBtn').hide();
+					$('#nextBtn').show();
+					trial += 1;
+				}
+				// first wrong answer state
+				else if(trial == 0) {	
+					trial += 1;
+					$('#statuss').get(0).className = "status_false";
+					$('#statuss').html("Tekrar deneyiniz.");
+				}
 			}
 		}
 	}
 	
 	// checkBtn click func. -> call submit	
-		$('#checkBtn').click(submit);
+	$('#checkBtn').click(submit);
 		
 	// nextBtn click func. -> remove whole html elements and call interaction init again
 	$('#nextBtn').click(function() {
@@ -1023,7 +1568,6 @@ Interaction.init = function(container){
 			$('#datasDiv').remove();
 			$('#checkBtn').remove();
 			$('#nextBtn').remove();
-			$('#answer').remove();
 			$('#statuss').remove();
 			$('#line1').remove();
 			$('#line2').remove();
@@ -1053,17 +1597,22 @@ Interaction.init = function(container){
 		}
 	});
 	
-	$("#textInput4").keypress(function(event) {
-		if(event.keyCode == 13) {
-			submit();
-		}
-	});
+	if($("#textInput4")){
+		$("#textInput4").keypress(function(event) {
+			if(event.keyCode == 13) {
+				submit();
+			}
+		});
+	}
 	
-	$("#textInput5").keypress(function(event) {
-		if(event.keyCode == 13) {
-			submit();
-		}
-	});
+	if($("#textInput5")){
+		$("#textInput5").keypress(function(event) {
+			if(event.keyCode == 13) {
+				submit();
+			}
+		});
+	}
+	
 	
 	$("#textInput6").keypress(function(event) {
 		if(event.keyCode == 13) {
