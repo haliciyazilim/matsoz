@@ -6,6 +6,10 @@ var edgeStyle = {'stroke-width':'2px'};
 var angleStyle = {'fill':'#DDD'};
 var inputBoxAnswerColor = "green";
 var inputBoxColor = "black";
+var animationTableStrokeColor = "#a9a9a9";
+var animationTableFillColor = "#E6E6E6";
+var interactionTableStrokeColor = "#a9a9a9";
+var interactionTableFillColor = "#d9f1f5";
 
 var Animation =function(){};Animation();
 var Interaction =function(){};Interaction();
@@ -36,28 +40,28 @@ Animation.init = function(container){
 	var table2Group = new Group();
 	
 	var titleRect = new Path.Rectangle(new Point(300.5, 10.5), new Size(100, 30))
-	titleRect.strokeColor = "#a9a9a9";
-	titleRect.fillColor = "#E6E6E6";
+	titleRect.strokeColor = animationTableStrokeColor;
+	titleRect.fillColor = animationTableFillColor;
 	table2Group.addChild(titleRect);
 	
 	var titleLine = new Path.Line(new Point(300.5, 10.5), new Point(400.5, 40.5));
-	titleLine.strokeColor = "#a9a9a9";
+	titleLine.strokeColor = animationTableStrokeColor;
 	table2Group.addChild(titleLine);
 	
 	// day Rects
 	for(i = 0; i < 6; i++) {
 		var daysRect = new Path.Rectangle(new Point(300.5, 40.5+(20*i)), new Size(100, 20))
-		daysRect.strokeColor = "#a9a9a9";
+		daysRect.strokeColor = animationTableStrokeColor;
 		if(i % 2 == 1)
-			daysRect.fillColor = "#E6E6E6";
+			daysRect.fillColor = animationTableFillColor;
 		table2Group.addChild(daysRect);
 	}
 	
 	// category Rects
 	for(i = 0; i < 4; i++) {
 		var categoriesRect = new Path.Rectangle(new Point(400.5+(60*i), 10.5), new Size(60, 30));
-		categoriesRect.strokeColor = "#a9a9a9";
-		categoriesRect.fillColor = "#E6E6E6";
+		categoriesRect.strokeColor = animationTableStrokeColor;
+		categoriesRect.fillColor = animationTableFillColor;
 		table2Group.addChild(categoriesRect);
 	}
 	
@@ -66,9 +70,9 @@ Animation.init = function(container){
 	for(i = 0; i < 4; i++) {
 		for(j = 0; j < 6; j++) {
 			var datas2Rect = new Path.Rectangle(new Point(400.5+(60*i), 40.5+(20*j)), new Size(60, 20));
-			datas2Rect.strokeColor = "#a9a9a9";
+			datas2Rect.strokeColor = animationTableStrokeColor;
 			if(j % 2 == 1)
-				datas2Rect.fillColor = "#E6E6E6";
+				datas2Rect.fillColor = animationTableFillColor;
 			table2Group.addChild(datas2Rect)
 		}
 	}
@@ -99,7 +103,7 @@ Animation.init = function(container){
 	$('#table2Div').append('<p id="mondayText" >Pazartesi</p>');
 	$('#mondayText').css("position", "absolute")
 				.css("left", "20px")
-				.css("top", "30px")
+				.css("top", "32px")
 				.css("font-size", 14)
 				.css("font-weight", "bold")
 				.css("text-align", "center");
@@ -107,7 +111,7 @@ Animation.init = function(container){
 	$('#table2Div').append('<p id="tuesdayText" >Salı</p>');
 	$('#tuesdayText').css("position", "absolute")
 				.css("left", "20px")
-				.css("top", "51px")
+				.css("top", "53px")
 				.css("font-size", 14)
 				.css("font-weight", "bold")
 				.css("text-align", "center");
@@ -115,7 +119,7 @@ Animation.init = function(container){
 	$('#table2Div').append('<p id="wednesdayText" >Çarşamba</p>');
 	$('#wednesdayText').css("position", "absolute")
 				.css("left", "20px")
-				.css("top", "70px")
+				.css("top", "72px")
 				.css("font-size", 14)
 				.css("font-weight", "bold")
 				.css("text-align", "center");
@@ -123,7 +127,7 @@ Animation.init = function(container){
 	$('#table2Div').append('<p id="thursdayText" >Perşembe</p>');
 	$('#thursdayText').css("position", "absolute")
 				.css("left", "20px")
-				.css("top", "90px")
+				.css("top", "92px")
 				.css("font-size", 14)
 				.css("font-weight", "bold")
 				.css("text-align", "center");
@@ -131,7 +135,7 @@ Animation.init = function(container){
 	$('#table2Div').append('<p id="fridayText" >Cuma</p>');
 	$('#fridayText').css("position", "absolute")
 				.css("left", "20px")
-				.css("top", "110px")
+				.css("top", "112px")
 				.css("font-size", 14)
 				.css("font-weight", "bold")
 				.css("text-align", "center");
@@ -139,7 +143,7 @@ Animation.init = function(container){
 	$('#table2Div').append('<p id="saturdayText" >Cumartesi</p>');
 	$('#saturdayText').css("position", "absolute")
 				.css("left", "20px")
-				.css("top", "130px")
+				.css("top", "132px")
 				.css("font-size", 14)
 				.css("font-weight", "bold")
 				.css("text-align", "center");
@@ -373,7 +377,8 @@ Animation.init = function(container){
 	});
 }
 
-
+var index = 0;
+var shuffledQuesArr = Util.getShuffledArray(19);
 
 // interaction init
 Interaction.init = function(container){
@@ -383,8 +388,25 @@ Interaction.init = function(container){
 	
 	var questions = new Array();
 	questions[0] = "5. sınıftan Yüzmeyi seçen kaç öğrenci var?";
-	questions[1] = "Voleybolu seçen toplam kaç öğrenci var?";
-	questions[2] = "5. sınıfta kaç öğrenci var?";
+	questions[1] = "5. sınıftan Voleybolu seçen kaç öğrenci var?";
+	questions[2] = "5. sınıftan Atletizmi seçen kaç öğrenci var?";
+	questions[3] = "5. sınıfta kaç öğrenci var?";
+	questions[4] = "6. sınıftan Yüzmeyi seçen kaç öğrenci var?";
+	questions[5] = "6. sınıftan Voleybolu seçen kaç öğrenci var?";
+	questions[6] = "6. sınıftan Atletizmi seçen kaç öğrenci var?";
+	questions[7] = "6. sınıfta kaç öğrenci var?";
+	questions[8] = "7. sınıftan Yüzmeyi seçen kaç öğrenci var?";
+	questions[9] = "7. sınıftan Voleybolu seçen kaç öğrenci var?";
+	questions[10] = "7. sınıftan Atletizmi seçen kaç öğrenci var?";
+	questions[11] = "7. sınıfta kaç öğrenci var?";
+	questions[12] = "8. sınıftan Yüzmeyi seçen kaç öğrenci var?";
+	questions[13] = "8. sınıftan Voleybolu seçen kaç öğrenci var?";
+	questions[14] = "8. sınıftan Atletizmi seçen kaç öğrenci var?";
+	questions[15] = "8. sınıfta kaç öğrenci var?";
+	questions[16] = "Yüzmeyi seçen toplam kaç öğrenci var?";
+	questions[17] = "Voleybolu seçen toplam kaç öğrenci var?";
+	questions[18] = "Atletizmi seçen toplam kaç öğrenci var?";
+	
 	
 	var datas = new Array();
 	for(i = 0; i < 12; i++) {
@@ -395,23 +417,24 @@ Interaction.init = function(container){
 	var tableGroup = new Group();
 	
 	var titleClassRect = new Path.Rectangle(new Point(20.5, 40.5), new Size(110, 60));
-	titleClassRect.strokeColor = "black";
-	titleClassRect.fillColor = "#F7BE81";
+	titleClassRect.strokeColor = interactionTableStrokeColor;
+	titleClassRect.fillColor = interactionTableFillColor;
 	tableGroup.addChild(titleClassRect);
 	
 	// class Rects
 	for(i = 0; i < 4; i++) {
 		var classesRect = new Path.Rectangle(new Point(20.5, 100.5 +(30*i)), new Size(110, 30))
-		classesRect.strokeColor = "black";
-		classesRect.fillColor = "#F7BE81";
+		classesRect.strokeColor = interactionTableStrokeColor;
+		if(i % 2 == 1)
+			classesRect.fillColor = interactionTableFillColor;
 		tableGroup.addChild(classesRect);
 	}
 	
 	// sports Rects
 	for(i = 0; i < 3; i++) {
 		var sportsRect = new Path.Rectangle(new Point(130.5+(70*i), 40.5), new Size(70, 60))
-		sportsRect.strokeColor = "black";
-		sportsRect.fillColor = "#F7BE81";
+		sportsRect.strokeColor = interactionTableStrokeColor;
+		sportsRect.fillColor = interactionTableFillColor;
 		tableGroup.addChild(classesRect);
 	}
 	
@@ -419,8 +442,9 @@ Interaction.init = function(container){
 	for(i = 0; i < 3; i++) {
 		for(j = 0; j < 4; j++) {
 			var datasRect = new Path.Rectangle(new Point(130.5+(70*i), 100.5+(30*j)), new Size(70, 30));
-			datasRect.strokeColor = "black";
-		//	datasRect.fillColor = "#F7BE81";
+			datasRect.strokeColor = interactionTableStrokeColor;
+			if(j % 2 == 1)
+				datasRect.fillColor = interactionTableFillColor;
 			tableGroup.addChild(datasRect)
 		}
 	}
@@ -461,6 +485,7 @@ Interaction.init = function(container){
 				.css("left", "18px")
 				.css("top", "72px")
 				.css("font-size", 16)
+				.css("font-weight", "bold")
 				.css("text-align", "center");
 	
 	$('#tableDiv').append('<p id="sixthClassText" >6. Sınıf</p>');
@@ -468,6 +493,7 @@ Interaction.init = function(container){
 				.css("left", "18px")
 				.css("top", "102px")
 				.css("font-size", 16)
+				.css("font-weight", "bold")
 				.css("text-align", "center");
 	
 	$('#tableDiv').append('<p id="seventhClassText" >7. Sınıf</p>');
@@ -475,6 +501,7 @@ Interaction.init = function(container){
 				.css("left", "18px")
 				.css("top", "132px")
 				.css("font-size", 16)
+				.css("font-weight", "bold")
 				.css("text-align", "center");
 	
 	$('#tableDiv').append('<p id="eighthClassText" >8. Sınıf</p>');
@@ -482,6 +509,7 @@ Interaction.init = function(container){
 				.css("left", "18px")
 				.css("top", "162px")
 				.css("font-size", 16)
+				.css("font-weight", "bold")
 				.css("text-align", "center");
 	
 	// sports Texts
@@ -491,13 +519,15 @@ Interaction.init = function(container){
 				.css("left", "122px")
 				.css("top", "28px")
 				.css("font-size", 16)
+				.css("font-weight", "bold")
 				.css("text-align", "center");
 	
 	$('#tableDiv').append('<p id="volleyballText" >Voleybol</p>');
 	$('#volleyballText').css("position", "absolute")
-				.css("left", "188px")
+				.css("left", "186px")
 				.css("top", "28px")
 				.css("font-size", 16)
+				.css("font-weight", "bold")
 				.css("text-align", "center");
 	
 	$('#tableDiv').append('<p id="athletismText" >Atletizm</p>');
@@ -505,6 +535,7 @@ Interaction.init = function(container){
 				.css("left", "260px")
 				.css("top", "28px")
 				.css("font-size", 16)
+				.css("font-weight", "bold")
 				.css("text-align", "center");
 				
 	// question div
@@ -518,11 +549,11 @@ Interaction.init = function(container){
 	
 	// input box
 	$(container).append('<input id="textInput1" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
-		$('#textInput1').css("width", "32")
+	$('#textInput1').css("width", "32")
 					.css("height", "30")
 					.css("box-sizing","border-box")
 					.css("padding", "0")
-					.css("font-size", 16)
+					.css("font-size", 18)
 					.css("position", "absolute")
 					.css("left", "430px")
 					.css("top", "130px")
@@ -534,21 +565,21 @@ Interaction.init = function(container){
 	$(container).append('<div id="statuss"></div>');
 	$('#statuss').css("position", "absolute")
 					.css("left", "160px")
-					.css("top", "260px")
+					.css("top", "250px")
 					.css("width", "200px")
 					.css("height", "20px")
 					.css("text-align", "center")
 	
 	// buttons				
-	$(container).append('<button id="checkBtn" class="control_button">Kontrol</button>');
+	$(container).append('<button id="checkBtn" class="control_button"></button>');
 	$('#checkBtn').css("position", "absolute")
 					.css("bottom", "20px")
-					.css("right", "40px");
+					.css("right", "60px");
 	
-	$(container).append('<button id="nextBtn" class="next_button">Sonraki</button>');
+	$(container).append('<button id="nextBtn" class="next_button"></button>');
 	$('#nextBtn').css("position", "absolute")
 					.css("bottom", "20px")
-					.css("right", "40px");
+					.css("right", "60px");
 	$('#nextBtn').hide();
 	
 	for(i = 0; i < 4; i++)
@@ -573,7 +604,6 @@ Interaction.init = function(container){
 	
 	nextQuestion();
 	
-	var questionIndex;
 	function nextQuestion()
 	{
 		$('#nextBtn').hide();
@@ -581,12 +611,15 @@ Interaction.init = function(container){
 		$('#statuss').html("");
 		$('#textInput1').val("");
 		$('#textInput1').css("color", inputBoxColor);
-		var randQuestion = Math.floor(Math.random() * 3);
-		questionIndex = randQuestion;
 		$('#question').html("");
-		$('#question').html(questions[randQuestion]);
-		var trial2 = 0;
-		trial = trial2;	
+		console.log(shuffledQuesArr);
+		console.log("index: "+index);
+		$('#question').html(questions[shuffledQuesArr[index]]);
+		if(index == 18)
+			index = 0;
+		else
+			index += 1;
+		trial = 0;
 	}
 	
 	var trial;
@@ -604,15 +637,63 @@ Interaction.init = function(container){
 		else {
 			// generate answer wrt. given question
 			var answer = 0;
-			switch(questionIndex) {
+			switch(shuffledQuesArr[index-1]) {
 				case 0:
 					answer = datas[0];
 					break;
 				case 1:
-					answer = datas[1] + datas[4] + datas[7] + datas[10]
+					answer = datas[1];
 					break;
 				case 2:
+					answer = datas[2];
+					break;
+				case 3:
 					answer = datas[0] + datas[1] + datas[2];
+					break;
+				case 4:
+					answer = datas[3];
+					break;
+				case 5:
+					answer = datas[4];
+					break;
+				case 6:
+					answer = datas[5];
+					break;
+				case 7:
+					answer = datas[3] + datas[4] + datas[5];
+					break;
+				case 8:
+					answer = datas[6];
+					break;
+				case 9:
+					answer = datas[7];
+					break;
+				case 10:
+					answer = datas[8];
+					break;
+				case 11:
+					answer = datas[6] + datas[7] + datas[8];
+					break;
+				case 12:
+					answer = datas[9];
+					break;
+				case 13:
+					answer = datas[10];
+					break;
+				case 14:
+					answer = datas[11];
+					break;
+				case 15:
+					answer = datas[9] + datas[10] + datas[11];
+					break;
+				case 16:
+					answer = datas[0] + datas[3] + datas[6] + datas[9];
+					break;
+				case 17:
+					answer = datas[1] + datas[4] + datas[7] + datas[10];
+					break;
+				case 18:
+					answer = datas[2] + datas[5] + datas[8] + datas[11];
 					break;
 			}
 			

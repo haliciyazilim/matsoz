@@ -6,6 +6,8 @@ var edgeStyle = {'stroke-width':'2px'};
 var angleStyle = {'fill':'#DDD'};
 var inputBoxAnswerColor = "green";
 var inputBoxColor = "black";
+var interactionShapesStrokeColor="#255b63";
+var interactionShapesFillColor="#bfe8ef";
 
 var Animation = function(){};Animation();
 var Interaction =function(){};Interaction();
@@ -357,8 +359,6 @@ Interaction.init = function(container){
 	var rect, rect2, rect3;
 	var frag1, frag2;
 	var circ;
-	var fillColor = "#00AF33";
-
 	// neccessary nom and denom variables
 	var firstNominator;
 	var firstDenominator;
@@ -387,48 +387,52 @@ Interaction.init = function(container){
 	var randomize = Math.round(Math.random()*10);
 	if (randomize % 3 == 0) // get circle
 	{
-		circ = new Path.SegmentedCircle(new Point(118.5, 76.5), 66, firstNominator, firstDenominator, fillColor);
+		circ = new Path.SegmentedCircle(new Point(118.5, 76.5), 66, firstNominator, firstDenominator, interactionShapesFillColor);
+		circ.strokeColor = interactionShapesStrokeColor;
 	}
 	else if(randomize % 3 == 1) // get square
 	{
 		if(firstDenominator == 20)
 		{
-			rect2 = new Path.SegmentedRectangle(60.5, 15.5, 120, 120, 4, 5, firstNominator, fillColor);
+			rect2 = new Path.SegmentedRectangle(60.5, 15.5, 120, 120, 4, 5, firstNominator, interactionShapesFillColor);
 		}
 		else if(firstDenominator == 10)
 		{
-			rect2 = new Path.SegmentedRectangle(60.5, 15.5, 120, 120, 2, 5, firstNominator, fillColor);
+			rect2 = new Path.SegmentedRectangle(60.5, 15.5, 120, 120, 2, 5, firstNominator, interactionShapesFillColor);
 		}
 		else if(firstDenominator == 5)
 		{
-			rect2 = new Path.SegmentedRectangle(60.5, 15.5, 120, 120, 1, 5, firstNominator, fillColor);
+			rect2 = new Path.SegmentedRectangle(60.5, 15.5, 120, 120, 1, 5, firstNominator, interactionShapesFillColor);
 		}
 		else
 		{
-			rect2 = new Path.SegmentedRectangle(60.5, 15.5, 120, 120, firstDenominator/2, 2, firstNominator, fillColor);
+			rect2 = new Path.SegmentedRectangle(60.5, 15.5, 120, 120, firstDenominator/2, 2, firstNominator, interactionShapesFillColor);
 		}
+		rect2.strokeColor = interactionShapesStrokeColor;
 	}
 	else // get rectangle
 	{
 		if(firstDenominator == 20)
 		{
-			rect3 = new Path.SegmentedRectangle(60.5, 15.5, 80, 120, 4, 5, firstNominator, fillColor);
+			rect3 = new Path.SegmentedRectangle(60.5, 15.5, 80, 120, 4, 5, firstNominator, interactionShapesFillColor);
 		}
 		else if(firstDenominator == 10)
 		{
-			rect3 = new Path.SegmentedRectangle(60.5, 15.5, 80, 120, 2, 5, firstNominator, fillColor);
+			rect3 = new Path.SegmentedRectangle(60.5, 15.5, 80, 120, 2, 5, firstNominator, interactionShapesFillColor);
 		}
 		else if(firstDenominator == 5)
 		{
-			rect3 = new Path.SegmentedRectangle(60.5, 15.5, 80.5, 120, 1, 5, firstNominator, fillColor);
+			rect3 = new Path.SegmentedRectangle(60.5, 15.5, 80.5, 120, 1, 5, firstNominator, interactionShapesFillColor);
 		}
 		else
 		{
-			rect3 = new Path.SegmentedRectangle(60.5, 15.5, 80, 120, firstDenominator/2, 2, firstNominator, fillColor);
+			rect3 = new Path.SegmentedRectangle(60.5, 15.5, 80, 120, firstDenominator/2, 2, firstNominator, interactionShapesFillColor);
 		}
+		rect3.strokeColor = interactionShapesStrokeColor;
 	}
 	
 	rect = new Path.SegmentedRectangle(400.5, 15.5, 120, 120, 10, 10, 0);
+	rect.strokeColor = interactionShapesStrokeColor;
 	
 	// creating neccessary html element
 	$(container).append('<div id="questionDiv"></div>');
@@ -724,7 +728,7 @@ Interaction.init = function(container){
 					$('#nextBtn').show();
 					for(i = 0; i < secondNominatorAns; i++)
 					{
-						rect.children[i].fillColor = "#00AF33";
+						rect.children[i].fillColor = interactionShapesFillColor;
 					}
 				
 					var firstStr = secondNominatorAns.toString();
@@ -758,7 +762,7 @@ Interaction.init = function(container){
 					$('#textInput6').val(percentageAns);
 					for(i = 0; i < secondNominatorAns; i++)
 					{
-						rect.children[i].fillColor = "#00AF33";
+						rect.children[i].fillColor = interactionShapesFillColor;
 					}
 					var firstStr = secondNominatorAns.toString();
 					var secondNum = firstStr.charAt(1);

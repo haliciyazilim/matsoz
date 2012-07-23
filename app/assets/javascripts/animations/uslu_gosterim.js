@@ -18,16 +18,26 @@ Animation.init = function(container){
 	
 	$(container).append('<div id="animDiv"></div>')
 	$('#animDiv').css("position", "absolute")
-				.css("top", "10px")
-				.css("left", "240px")
+				.css("top", "60px")
+				.css("left", "40px")
 				.css("width", "280px")
-				.css("height", "140px")
+				.css("height", "100px")
 				.css("font-size", 24)
+		//		.css("border", "solid")
+	$(container).append('<div id="animDiv2"></div>')
+	$('#animDiv2').css("position", "absolute")
+				.css("top", "60px")
+				.css("left", "440px")
+				.css("width", "280px")
+				.css("height", "100px")
+				.css("font-size", 24)
+	//			.css("border", "solid")
 	// five square			
-	$('#animDiv').append('<p id="five">5</p>')
+	$(container).append('<p id="five">5</p>')
 	$('#five').css("position", "absolute")
-				.css("top", "10px")
-				.css("left", "150px")
+				.css("top", "30px")
+				.css("left", "390px")
+				.css("font-size", 24)
 				.css("opacity", 0)
 				.delay(1000)
 				.animate({opacity:1}, 1000)
@@ -94,33 +104,33 @@ Animation.init = function(container){
 	
 	// five cube
 	
-	$('#animDiv').append('<p id="fiveT2">5\'in küpü:</p>')
+	$('#animDiv2').append('<p id="fiveT2">5\'in küpü:</p>')
 	$('#fiveT2').css("position", "absolute")
-				.css("top", "106px")
+				.css("top", "42px")
 				.css("left", "14px")
 				.css("opacity", 0)
 				.delay(8500)
 				.animate({opacity:1}, 1000)
 	
-	$('#animDiv').append('<p id="fiveE2">5 x 5 x 5</p>')
+	$('#animDiv2').append('<p id="fiveE2">5 x 5 x 5</p>')
 	$('#fiveE2').css("position", "absolute")
-				.css("top", "106px")
+				.css("top", "42px")
 				.css("left", "134px")
 				.css("opacity", 0)
 				.delay(9500)
 				.animate({opacity:1}, 1000)
-	$('#animDiv').append('<p id ="eq3">=</p>');
+	$('#animDiv2').append('<p id ="eq3">=</p>');
 	$('#eq3').css("position", "absolute")
 				.css("left", "234px")
-				.css("top", "106px")
+				.css("top", "42px")
 				.css("opacity", 0)
 				.delay(11500)
 				.animate({opacity:1}, 1000)
 	
-	$('#animDiv').append('<div id ="fs2"><p id="f2">5</p><p id="s2">3</p></div>');
+	$('#animDiv2').append('<div id ="fs2"><p id="f2">5</p><p id="s2">3</p></div>');
 	$('#fs2').css("position", "absolute")
 				.css("left", "264px")
-				.css("top", "106px")
+				.css("top", "42px")
 	$('#f2').css("position", "absolute")
 				.css("left", "0px")
 				.css("top", "0px")
@@ -134,23 +144,33 @@ Animation.init = function(container){
 				.css("opacity", 0)
 				.delay(13500)
 				.animate({opacity:1}, 500)
-	$('#animDiv').append('<img id="curv2" src="/assets/animations/curve.png" />')	
+	$('#animDiv2').append('<img id="curv2" src="/assets/animations/curve.png" />')	
 	$('#curv2').css("position", "absolute")
-				.css("top", "124px")
+				.css("top", "60px")
 				.css("left", "130px")
 				.css("width", "96px")
 				.css("height", "14px")
 				.css("opacity", 0)
 				.delay(10500)
 				.animate({opacity:1}, 1000)
-	$('#animDiv').append('<p id="th">3 tane</p>')
+	$('#animDiv2').append('<p id="th">3 tane</p>')
 	$('#th').css("position", "absolute")
-				.css("top", "140px")
+				.css("top", "76px")
 				.css("left", "158px")
 				.css("font-size", 12)
 				.css("opacity", 0)
 				.delay(10500)
 				.animate({opacity:1}, 1000)
+	
+	var fCirc = new Path.Circle(new Point(382, 28), 14);
+	fCirc.strokeColor = "black";
+	fCirc.opacity = 0;
+	
+	var fLine = new Path.Line(new Point(382.5, 50.5), new Point(382.5, 180.5));
+	fLine.strokeColor = "grey";
+	fLine.dashArray = [3,2];
+	fLine.opacity = 0;
+	
 	
 	var arcGroup = new Group();
 	var arc = new Path.Arc(new Point(420.5, 80.5), new Point(480.5, 78.5), new Point(490.5, 56.5))
@@ -162,13 +182,32 @@ Animation.init = function(container){
 	arcGroup.addChild(arc);
 	arcGroup.addChild(line1);
 	arcGroup.addChild(line2);
+	arcGroup.position = new Point(256, 124);
 	arcGroup.opacity = 0;
 	
 	var arcGroup2 = arcGroup.clone();
 	arcGroup2.strokeColor = "black";
-	arcGroup2.position = new Point(470.5, 140.5);
+	arcGroup2.position = new Point(670, 128);
 	arcGroup2.scale(1.2);
 	arcGroup2.opacity = 0;
+	
+	fCirc.animate({
+		style: {
+			opacity: 1,
+		},
+		duration: 1000,
+		delay: 1000,
+		animationType: 'easeInEaseOut'
+	});
+	
+	fLine.animate({
+		style: {
+			opacity: 1,
+		},
+		duration:1000,
+		delay: 1000,
+		animationType: 'easeInEaseOut'
+	});
 	
 	arcGroup.animate({
 		style:{
@@ -215,7 +254,7 @@ Interaction.init = function(container){
 		$('#num').css("position", "absolute")
 				.css("right", "232px")
 				.css("top", "40px")
-				.css("font-size", 24)
+				.css("font-size", 28)
 				.css("text-align", "right")
 		$('#questionDiv').append('<p id ="power"></p>');
 		$('#power').css("position", "absolute")
@@ -226,7 +265,7 @@ Interaction.init = function(container){
 		$('#eq').css("position", "absolute")
 				.css("left", "50px")
 				.css("top", "40px")
-				.css("font-size", 24)
+				.css("font-size", 28)
 				.css("text-align", "right")
 		
 		$('#questionDiv').append('<input id="textInput1" class="inp" type="text" pattern="[0-9]*" maxlength="8"/>');
@@ -234,10 +273,10 @@ Interaction.init = function(container){
 						.css("box-sizing","border-box")
 						.css("padding", "0")
 						.css("height", "30")
-						.css("font-size", 18)
+						.css("font-size", 24)
 						.css("position", "absolute")
 						.css("left", "72px")
-						.css("top", "36px")
+						.css("top", "39px")
 						.css("text-align", "center");					
 		$('#textInput1').addClass('input');
 		
@@ -263,33 +302,33 @@ Interaction.init = function(container){
 						.css("top", "40px")
 						.css("right", "200px")
 						.css("text-align", "right")
-						.css("font-size", 24)
+						.css("font-size", 28)
 		$('#questionDiv').append('<p id ="eq">=</p>');
 		$('#eq').css("position", "absolute")
 				.css("left", "70px")
 				.css("top", "40px")
-				.css("font-size", 24)
+				.css("font-size", 28)
 				.css("text-align", "right")
 		$('#questionDiv').append('<input id="textInput1" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
 		$('#textInput1').css("width", "32")
 						.css("box-sizing","border-box")
 						.css("padding", "0")
 						.css("height", "30")
-						.css("font-size", 18)
+						.css("font-size", 24)
 						.css("position", "absolute")
 						.css("left", "90px")
 						.css("top", "36px")
 						.css("text-align", "center");					
 		$('#textInput1').addClass('input');
 		$('#questionDiv').append('<input id="textInput2" class="inp" type="text" pattern="[0-9]*" maxlength="1"/>');
-		$('#textInput2').css("width", "32")
+		$('#textInput2').css("width", "22")
 						.css("box-sizing","border-box")
 						.css("padding", "0")
-						.css("height", "30")
-						.css("font-size", 18)
+						.css("height", "20")
+						.css("font-size", 16)
 						.css("position", "absolute")
 						.css("left", "122px")
-						.css("top", "6px")
+						.css("top", "16px")
 						.css("text-align", "center");					
 		$('#textInput1').addClass('input');
 		
