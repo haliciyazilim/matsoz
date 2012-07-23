@@ -50,6 +50,8 @@ function InteractionBase(){
 			});
 		
 		$(input).css(css);
+		
+		return input;
 	};
 	
 	Interaction.appendButton = function(css){
@@ -88,13 +90,11 @@ function InteractionBase(){
 		
 		var value = $(Interaction.input).val();
 		var values = [];
-		
-
 
 		for(var i=0; i<Interaction.inputs.length;i++){
 			values[i] = Interaction.inputs[i].value;
 			if(Interaction.inputs[i].getAttribute('isNumber') == 'true'){			
-				if(values[i] == "" ||isNaN(values[i]) && values[i].indexOf(',') < 0){
+				if(values[i] == "" ||isNaN(values[i]) && values[i].indexOf(',') < 0) {
 					Interaction.setStatus('Lütfen bir sayı giriniz.',false);
 					return;
 				}
