@@ -75,6 +75,10 @@ var Util = {
 	rand01: function(){
 			return Math.floor(Math.random()*2);
 		},
+		
+	randomInteger: function(start, end) {
+			return Math.floor(Math.random()*(end-start)+start)
+		},
 	
 	loadImages: function(imageArray, callback) {
 			var totalNoOfImages = imageArray.length;
