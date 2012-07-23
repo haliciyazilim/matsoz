@@ -185,7 +185,7 @@ Animation.init=function(container){
 };
 
 Interaction.init = function(container){
-	Main.setObjective("Yandaki yüzlük tabloların altındaki kutulara istediğiniz sayıları yazınız. “<” (küçük)  ya da “>” (büyük) işaretlerinden uygun olanına fare ile tıklayarak yüzdeleri karşılaştırınız. Daha sonra doğruluğunu kontrol ediniz");
+	Main.setObjective("Yandaki yüzlük tabloların altındaki kutulara istediğiniz sayıları yazınız. <br />“<” (küçük)  ya da “>” (büyük) işaretlerinden uygun olanına fare ile tıklayarak yüzdeleri karşılaştırınız. Daha sonra doğruluğunu kontrol ediniz");
 	
 	//sol div bilgileri	
 	$(container).append("<div id='sol'>");
@@ -407,21 +407,28 @@ Interaction.init = function(container){
     		}
 	    	return;
 		});  
-	
-	$("#buyuk").click(
-		function(){
+		
+	function buyuk(){
 			$("#girdiCevap2").val("");
 			$("#girdiCevap2").val(">");
 			$("#geriBildirim").hide();
 		}
+	
+	$("#buyuk").click(
+		function(){
+			buyuk();
+		}
 	);
 	
-	$("#kucuk").click(
-		function(){
+	function kucuk(){
 			$("#girdiCevap2").val("");
 			$("#girdiCevap2").val("<");
 			$("#geriBildirim").hide();
 		}
+	
+	$("#kucuk").click(function(){
+		kucuk();
+	}
 	);
 	
 	
@@ -479,6 +486,9 @@ Interaction.init = function(container){
 						$("#geriBildirimText").attr("class","status_true").html("Tebrikler");
 						$("#geriBildirim").show();
 						
+						$("#kucuk").unbind("click");
+						$("#buyuk").unbind("click");
+						
 					}
 					
 				else if(girdi1>girdi2)
@@ -492,6 +502,11 @@ Interaction.init = function(container){
 					$("#geriBildirim").show();
 					$("#btnKontrol").hide();
 					$("#sonraki").show();
+					$("#kucuk").unbind("click");
+					$("#buyuk").unbind("click");
+					//$("#buyuk").attr("id","b");
+					
+					
 				}
 			
 			}
@@ -503,6 +518,9 @@ Interaction.init = function(container){
 					//$("#geriBildirim").removeClass("status_false").addClass("status_true");
 					$("#geriBildirimText").attr("class","status_true").html("Tebrikler");
 					$("#geriBildirim").show();
+					
+					$("#kucuk").unbind("click");
+					$("#buyuk").unbind("click");
 					
 				}
 				else if(girdi1<girdi2)
@@ -520,6 +538,9 @@ Interaction.init = function(container){
 					$("#geriBildirim").show();
 					$("#btnKontrol").hide();
 					$("#sonraki").show();
+					
+					$("#kucuk").unbind("click");
+					$("#buyuk").unbind("click");
 				}
 			}
 			
@@ -574,6 +595,10 @@ Interaction.init = function(container){
 			$("#girdiCevap1").val("");
 			$("#girdiCevap2").val("");
 			$("#girdiCevap3").val("");
+			
+			$("#kucuk").bind("click", kucuk);
+			$("#buyuk").bind("click", buyuk);
+			
 			bosKareSol.yap();
 			bosKareSag.yap();
 			

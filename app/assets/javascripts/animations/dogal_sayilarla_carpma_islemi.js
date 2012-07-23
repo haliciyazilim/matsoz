@@ -24,7 +24,281 @@ Interaction.getFramework = function() {
 
 Animation.init=function(container){
 	
+		$(container).append("<div id='ornek'>");
+		$("#ornek").css("width","120px")
+		.css("height","130px")
+		.css("margin","auto")
+		.css("position","absolute")
+		//.css("bottom","20px")
+		.css("left","290px")
+		//.css("right","0")
+		.css("top","40px");
+	
+	/*$("#ornek",container).append("<div id='ornekToplanan1' class='toplanan'>");
+		$("#ornekToplanan1")
+			.css("top","10px").html(format(10502, {point:'.'}))//.hide();
+	$("#ornek",container).append("<div id='ornekToplanan2' class='toplanan'>");
+		$("#ornekToplanan2")
+			.css("top","50px").html(format(10235, {point:'.'}))//.hide();
+	$("#ornek",container).append("<div id='ornekToplam' class='toplanan'>");*/
+		$("#ornekToplam")
+			//.html("17 1742")
+			.attr("style","top: 100px; width:110px !important")//.hide();
+	
+	
+	$("#ornek",container).append("<div id='ornekCarpmaIsareti'>");
+	$("#ornekCarpmaIsareti").css("width","50px")
+		.css("text-align","left")
+		.css("height","15px")
+		.css("margin","auto")
+		.css("position","absolute")
+		//.css("bottom","20px")
+		//.css("left","0")
+		.css("right","0px")
+		.css("font-size","15px")
+		.css("border-bottom","solid 2px black")
+		.css("top","25px")
+		.html("x").hide();
+		
+	$("#ornek",container).append("<div id='ornekToplamaIsareti'>");
+	$("#ornekToplamaIsareti").css("width","80px")
+		.css("text-align","left")
+		.css("height","15px")
+		.css("margin","auto")
+		.css("position","absolute")
+		//.css("bottom","20px")
+		//.css("left","0")
+		.css("right","0px")
+		.css("font-size","15px")
+		.css("border-bottom","solid 2px black")
+		.css("top","90px")
+		.html("+").hide();
 
+	// toplanan1
+	$("#ornek",container).append("<p id='toplanan1B1' class='sayilarTekToplanan1'>");
+		$("#toplanan1B1")
+			.css("left","109px")
+			.html("2")
+			.hide();	
+			
+	$("#ornek",container).append("<p id='toplanan1B2' class='sayilarTekToplanan1'>");
+		$("#toplanan1B2")
+			.css("left","98px")
+			.html("0")
+			.hide();
+			
+	$("#ornek",container).append("<p id='toplanan1B3' class='sayilarTekToplanan1'>");
+		$("#toplanan1B3")
+			.css("left","87px")
+			.html("5")
+			.hide();
+	
+	// toplanan2
+	$("#ornek",container).append("<p id='toplanan2B1' class='sayilarTekToplanan2'>");
+		$("#toplanan2B1")
+			.css("left","109px")
+			.html("5")
+			.hide();	
+			
+	$("#ornek",container).append("<p id='toplanan2B2' class='sayilarTekToplanan2'>");
+		$("#toplanan2B2")
+			.css("left","98px")
+			.html("3")
+			.hide();
+			
+	$("#ornek",container).append("<p id='toplanan2B3' class='sayilarTekToplanan2'>");
+		$("#toplanan2B3")
+			.css("left","87px")
+			.html("2")
+			.hide();
+
+	//çarpim1
+	$("#ornek",container).append("<p id='carpim1B1' class='sayilarTekCarpim1'>");
+		$("#carpim1B1")
+			.css("left","109px")
+			.html("0")
+			.hide();	
+			
+	$("#ornek",container).append("<p id='carpim1B2' class='sayilarTekCarpim1'>");
+		$("#carpim1B2")
+			.css("left","98px")
+			.html("0")
+			.hide();
+			
+	$("#ornek",container).append("<p id='carpim1B3' class='sayilarTekCarpim1'>");
+		$("#carpim1B3")
+			.css("left","87px")
+			.html("5")
+			.hide();
+	$("#ornek",container).append("<p id='carpim1B4' class='sayilarTekCarpim1'>");
+		$("#carpim1B4")
+			.css("left","75px")
+			.html("2")
+			.hide();
+	
+	//çarpim2
+	$("#ornek",container).append("<p id='carpim2B1' class='sayilarTekCarpim2'>");
+		$("#carpim2B1")
+			.css("left","98px")
+			.html("6")
+			.hide();	
+			
+	$("#ornek",container).append("<p id='carpim2B2' class='sayilarTekCarpim2'>");
+		$("#carpim2B2")
+			.css("left","87px")
+			.html("0")
+			.hide();
+			
+	$("#ornek",container).append("<p id='carpim2B3' class='sayilarTekCarpim2'>");
+		$("#carpim2B3")
+			.css("left","75px")
+			.html("5")
+			.hide();
+	$("#ornek",container).append("<p id='carpim2B4' class='sayilarTekCarpim2'>");
+		$("#carpim2B4")
+			.css("left","63px")
+			.html("1")
+			.hide();
+	//çarpim3
+	$("#ornek",container).append("<p id='carpim3B1' class='sayilarTekCarpim3'>");
+		$("#carpim3B1")
+			.css("left","87px")
+			.html("4")
+			.hide();	
+			
+	$("#ornek",container).append("<p id='carpim3B2' class='sayilarTekCarpim3'>");
+		$("#carpim3B2")
+			.css("left","75px")
+			.html("0")
+			.hide();
+			
+	$("#ornek",container).append("<p id='carpim3B3' class='sayilarTekCarpim3'>");
+		$("#carpim3B3")
+			.css("left","63px")
+			.html("0")
+			.hide();
+	$("#ornek",container).append("<p id='carpim3B4' class='sayilarTekCarpim3'>");
+		$("#carpim3B4")
+			.css("left","51px")
+			.html("1")
+			.hide();
+// Toplam
+	$("#ornek",container).append("<p id='cevapB1' class='sayilarTekToplam'>");
+		$("#cevapB1")
+			.css("left","51px")
+			.html("117970").hide();	
+			
+	/*$("#ornek",container).append("<p id='cevapB2' class='sayilarTekToplam'>");
+		$("#cevapB2")
+			.css("left","98px")
+			.html("6").hide();
+			
+	$("#ornek",container).append("<p id='cevapB3' class='sayilarTekToplam'>");
+		$("#cevapB3")
+			.css("left","87px")
+			.html("2").hide();
+
+	$("#ornek",container).append("<p id='cevapB4' class='sayilarTekToplam'>");
+		$("#cevapB4")
+			.css("left","75px")
+			.html("5").hide();
+			
+	$("#ornek",container).append("<p id='cevapB5' class='sayilarTekToplam'>");
+		$("#cevapB5")
+			.css("left","63px")
+			.html("1").hide();
+			
+	$("#ornek",container).append("<p id='cevapB6' class='sayilarTekToplam'>");
+		$("#cevapB6")
+			.css("left","51px")
+			.html("1").hide();*/
+		
+	
+	
+	$("#ornek",container).append("<p id='cevapB2Elde' class='sayilarTekCarpim1'>");
+		$("#cevapB2Elde")
+			.css("left","98px")
+			.css("color","black")
+			.html("1").hide();
+	
+	
+	
+	$(".toplanan")
+			.css("font-size","20px")
+			.css("float","right");
+			
+	$(".sayilarTekToplanan1")
+			.css("position","absolute")
+			.css("top","0px")
+			.css("font-size","20px");
+			//.css("font-weight","bold");	
+			
+	$(".sayilarTekToplanan2")
+			.css("position","absolute")
+			.css("top","20px")
+			.css("font-size","20px");
+			//.css("font-weight","bold");
+	
+	$(".sayilarTekCarpim1")
+			.css("position","absolute")
+			.css("top","45px")
+			.css("font-size","20px");
+			//.css("font-weight","bold");
+	$(".sayilarTekCarpim2")
+			.css("position","absolute")
+			.css("top","65px")
+			.css("font-size","20px");
+			//.css("font-weight","bold");
+	$(".sayilarTekCarpim3")
+			.css("position","absolute")
+			.css("top","85px")
+			.css("font-size","20px");
+			//.css("font-weight","bold");	
+	
+	$(".sayilarTekToplam")
+			.css("position","absolute")
+			.css("top","107px")
+			.css("font-size","20px")
+			.css("");
+			
+	
+	
+	
+	// Animasyon	
+	var renk="#FF8C00";
+	$("#toplanan1B1, #toplanan1B2, #toplanan1B3, #toplanan1B4, #toplanan1B5").delay(1000).fadeIn(1000);
+	$("#toplanan2B1, #toplanan2B2, #toplanan2B3, #toplanan2B4, #toplanan2B5").delay(2000).fadeIn(1000);
+	$("#ornekCarpmaIsareti").delay(3000).fadeIn(1000);
+	$("#toplanan1B1").delay(2000).animate({color:renk},1000).delay(3000).animate({color:"#000000"},1000);
+	$("#toplanan2B1").delay(1000).animate({color:renk},1000).delay(10000).animate({color:"#000000"},1000);
+	$("#carpim1B1, #cevapB2Elde").delay(5000).fadeIn(1000);
+	$("#cevapB2Elde").delay(1000).animate({left:"145px", top:"20px", color:"#f00000"},1000);
+	$("#toplanan1B2").delay(6000).animate({color:renk},1000);
+	$("#carpim1B2").delay(9000).fadeIn(1000).delay(1000).fadeOut(1000);
+	$("#cevapB2Elde").delay(2000).animate({left:"98px", top:"45px"},1000).delay(500).animate({color: "#000000"},1000);
+	$("#toplanan1B2").delay(3000).animate({color:"#000000"},1000);
+	$("#toplanan1B3").delay(10000).animate({color:renk},1000).delay(2000).animate({color: "#000000"},1000);;
+	$("#carpim1B3, #carpim1B4").delay(14000).fadeIn(1000);
+	
+	$("#toplanan1B1").delay(7000).animate({color:renk},1000).delay(3000).animate({color:"#000000"},1000);
+	$("#toplanan2B2").delay(13000).animate({color:renk},1000).delay(10000).animate({color:"#000000"},1000);
+	$("#carpim2B1").delay(18000).fadeIn(1000);
+	$("#toplanan1B2").delay(7000).animate({color:renk},1000).delay(3000).animate({color:"#000000"},1000);
+	$("#carpim2B2").delay(22000).fadeIn(1000);
+	$("#toplanan1B3").delay(8000).animate({color:renk},1000).delay(3000).animate({color:"#000000"},1000);
+	$("#carpim2B3, #carpim2B4").delay(26000).fadeIn(1000);
+	
+	$("#toplanan1B1").delay(8000).animate({color:renk},1000).delay(3000).animate({color:"#000000"},1000);
+	$("#toplanan2B3").delay(26000).animate({color:renk},1000).delay(10000).animate({color:"#000000"},1000);
+	$("#carpim3B1").delay(32000).fadeIn(1000);
+	$("#toplanan1B2").delay(7000).animate({color:renk},1000).delay(3000).animate({color:"#000000"},1000);
+	$("#carpim3B2").delay(34000).fadeIn(1000);
+	$("#toplanan1B3").delay(7000).animate({color:renk},1000).delay(3000).animate({color:"#000000"},1000);
+	$("#carpim3B3, #carpim3B4").delay(37000).fadeIn(1000);
+	
+	$("#ornekToplamaIsareti").delay(38000).fadeIn(1000);
+	$("#cevapB1").delay(40000).fadeIn(1000);
+			
 
 };
 
@@ -41,7 +315,7 @@ Interaction.init = function(container){
 		//.css("bottom","20px")
 		.css("left","0")
 		.css("right","0")
-		.css("top","10px")
+		.css("top","0px")
 		.css("font-size","20px");
 		//.css("border","solid 1px black");
 	
@@ -49,7 +323,7 @@ Interaction.init = function(container){
 	$(container).append("<div class='status_field' id='geriBildirim'>");
 	$("#geriBildirim", container).append("<div id='geriBildirimText'></div>");
 	$("#geriBildirim").css("position","absolute")
-		.css("top","170px")
+		.css("top","258px")
 		.css("right","0")
 		.css("left","0")
 		.css("margin","auto");
@@ -86,15 +360,22 @@ Interaction.init = function(container){
 	);
 	function yeniSoru(){
 		soruSirasi++;
+		soruId++;
 		$("#soru").html("");
 		$("#geriBildirimText").html("");
 		$("#sonraki").hide();
 		$("#btnKontrol").show();
-		soruGetir();	
+		
+		if(soruSirasi<=7)
+				soruGetir();
+			else
+				randomSoruGetir();
+				
 		$("#girdi, #girdi1, #girdi2, #girdi3").trigger("yeniSoru");
 	}
 	
-	var soruSirasi=6;
+	var soruSirasi=0;
+	var soruId=0;
 	
 	//Normal Çarpma için
 	var carpma1="";
@@ -163,12 +444,12 @@ Interaction.init = function(container){
 		
 		 if(i==(carpan2Str.length-1)){
 			$("#soru",container).append("<div id='toplamaIsareti'>");
-			$("#toplamaIsareti").css("width","120px")
+			$("#toplamaIsareti").css("width",120+i*20+"px")
 				.css("text-align","left")
 				.css("height","30px")
 				.css("margin","auto")
 				.css("position","absolute")
-				.css("right",right)
+				.css("right","0px")
 				.css("font-size","30px")
 				.css("border-bottom","solid 2px black")
 				.css("top",(top+5)+"px")
@@ -193,10 +474,10 @@ Interaction.init = function(container){
 		
 	
 	
-	$("#soru",container).append("<div id='toplam' class='carpan'>");
+	/*$("#soru",container).append("<div id='toplam' class='carpan'>");
 				$("#toplam")
 				.attr("style","top:210px; right:32px !important")
-				.html(format(toplam, {point:'.'}));
+				.html(format(toplam, {point:'.'}));*/
 				
 	$("input").addClass("input").addClass("number_input_field");
 	
@@ -291,6 +572,9 @@ Interaction.init = function(container){
 	var icerik= new Array();
 	for (var i=0; i<=carpan2Str.length; i++){
 		icerik[i]=carpan1*carpan2Str.charAt(carpan2Str.length-i);
+		
+		if(icerik[i]==0)
+			icerik[i]="000";
 		console.log("icerik_"+i+": "+icerik[i]);
 	}
 	
@@ -316,12 +600,12 @@ Interaction.init = function(container){
 		
 		 if(i==(carpan2Str.length-1)){
 			$("#soru",container).append("<div id='toplamaIsareti'>");
-			$("#toplamaIsareti").css("width","120px")
+			$("#toplamaIsareti").css("width",80+i*20+"px")
 				.css("text-align","left")
 				.css("height","30px")
 				.css("margin","auto")
 				.css("position","absolute")
-				.css("right",right)
+				.css("right","0px")
 				.css("font-size","30px")
 				.css("border-bottom","solid 2px black")
 				.css("top",(top+5)+"px")
@@ -393,7 +677,7 @@ Interaction.init = function(container){
 	//Tek Çarpanlar
 	
 	function tekCarpanlar(){
-		if (soruSirasi==5){
+		if (soruId==6){
 				
 		carpan1="";
 		carpan2="";
@@ -411,18 +695,18 @@ Interaction.init = function(container){
 		
 	
 	$("#soru",container).append("<input id='girdi1' type='text' maxlength=1  onkeypress='return SadeceRakam(event)'/>");	
-		$("#girdi1").attr("style","width:16px !important; right:35px !important; ").css("top","7px").css("z-index","5");
+		$("#girdi1").attr("style"," right:35px !important; ").css("top","7px").css("z-index","5");
 	$("#soru",container).append("<input id='girdi2' type='text' maxlength=1  onkeypress='return SadeceRakam(event)'/>");
-		$("#girdi2").attr("style","width:16px !important; right:0px !important; ").css("top","47px").css("z-index","5");
+		$("#girdi2").attr("style"," right:0px !important; ").css("top","47px").css("z-index","5");
 
 	$("input").addClass("input").addClass("number_input_field");
 	
-	$("#girdi1, #girdi2").css("width","120px")
+	$("#girdi1, #girdi2").css("width","16px")
 		.css("text-align","right")
 		.css("height","30px")
 		.css("margin","auto")
 		.css("position","absolute")
-		.css("right","0px")
+		//.css("right","0px")
 		.css("font-size","30px");
 		
 	$("#soru",container).append("<div id='carpan1' class='carpan'>");
@@ -479,12 +763,12 @@ Interaction.init = function(container){
 		
 		 if(i==(carpan2Str.length-1)){
 			$("#soru",container).append("<div id='toplamaIsareti'>");
-			$("#toplamaIsareti").css("width","120px")
+			$("#toplamaIsareti").css("width",80+i*10+"px")
 				.css("text-align","left")
 				.css("height","30px")
 				.css("margin","auto")
 				.css("position","absolute")
-				.css("right",right)
+				.css("right","0px")
 				.css("font-size","30px")
 				.css("border-bottom","solid 2px black")
 				.css("top",(top+5)+"px")
@@ -550,7 +834,7 @@ Interaction.init = function(container){
 	
 	
 		}
-		else if (soruSirasi==6){
+		else if (soruId==7){
 				
 		carpan1="";
 		carpan2="";
@@ -568,20 +852,20 @@ Interaction.init = function(container){
 		
 	
 	$("#soru",container).append("<input id='girdi1' type='text' maxlength=1  onkeypress='return SadeceRakam(event)'/>");	
-		$("#girdi1").attr("style","width:16px !important; right:0px !important; ").css("top","7px").css("z-index","5");
+		$("#girdi1").attr("style"," right:0px !important; ").css("top","7px").css("z-index","5");
 	$("#soru",container).append("<input id='girdi2' type='text' maxlength=1  onkeypress='return SadeceRakam(event)'/>");
-		$("#girdi2").attr("style","width:16px !important; right:18px !important; ").css("top","47px").css("z-index","5");
+		$("#girdi2").attr("style","right:18px !important; ").css("top","47px").css("z-index","5");
 	$("#soru",container).append("<input id='girdi3' type='text' maxlength=1  onkeypress='return SadeceRakam(event)'/>");
-		$("#girdi3").attr("style","width:16px !important; right:33px !important; ").css("top","130px").css("z-index","5");
+		$("#girdi3").attr("style","right:33px !important; ").css("top","130px").css("z-index","5");
 
 	$("input").addClass("input").addClass("number_input_field");
 	
-	$("#girdi1, #girdi2, #girdi3").css("width","120px")
+	$("#girdi1, #girdi2, #girdi3").css("width","16px")
 		.css("text-align","right")
 		.css("height","30px")
 		.css("margin","auto")
 		.css("position","absolute")
-		.css("right","0px")
+		//.css("right","0px")
 		.css("font-size","30px");
 		
 	$("#soru",container).append("<div id='carpan1' class='carpan'>");
@@ -619,6 +903,13 @@ Interaction.init = function(container){
 			}
 		else*/
 			icerik[i]=carpan1*carpan2Str.charAt(carpan2Str.length-i);
+			
+			if(icerik[i]==0){
+				console.log("içerik sıfır");
+				icerik[i]="000";
+				
+			
+			}
 		console.log("icerik_"+i+": "+icerik[i]);
 	}
 	
@@ -644,12 +935,12 @@ Interaction.init = function(container){
 		
 		 if(i==(carpan2Str.length-1)){
 			$("#soru",container).append("<div id='toplamaIsareti'>");
-			$("#toplamaIsareti").css("width","120px")
+			$("#toplamaIsareti").css("width",120+i*20+"px")
 				.css("text-align","left")
 				.css("height","30px")
 				.css("margin","auto")
 				.css("position","absolute")
-				.css("right",right)
+				.css("right","0px")
 				.css("font-size","30px")
 				.css("border-bottom","solid 2px black")
 				.css("top",(top+5)+"px")
@@ -716,214 +1007,54 @@ Interaction.init = function(container){
 	
 		}
 		
-		else{
-				
-		carpan1="";
-		carpan2="";
-		var icerik="";
-		var rastgeleSayi=(Math.floor(Math.random()*10)+1);
-		var sayiSiniri=rastgeleSayi%2?100:10;
-		console.log("basamak: "+rastgeleSayi+" sayi: "+sayiSiniri);
-		carpan1=Math.floor(Math.random()*100+100);
-		console.log(carpan1);
-		carpan2=Math.floor(Math.random()*100+sayiSiniri);
-		console.log(carpan2);
-		var toplam=carpan1*carpan2;
-		
-		
-		
-	
-	$("#soru",container).append("<input id='girdi1' type='text' maxlength=1  onkeypress='return SadeceRakam(event)'/>");	
-		$("#girdi1").attr("style","width:16px !important; right:35px !important; ").css("top","7px").css("z-index","5");
-	$("#soru",container).append("<input id='girdi2' type='text' maxlength=1  onkeypress='return SadeceRakam(event)'/>");
-		$("#girdi2").attr("style","width:16px !important; right:0px !important; ").css("top","47px").css("z-index","5");
-
-	$("input").addClass("input").addClass("number_input_field");
-	
-	$("#girdi1, #girdi2").css("width","120px")
-		.css("text-align","right")
-		.css("height","30px")
-		.css("margin","auto")
-		.css("position","absolute")
-		.css("right","0px")
-		.css("font-size","30px");
-		
-	$("#soru",container).append("<div id='carpan1' class='carpan'>");
-		$("#carpan1")
-		.css("top","10px").html(format(carpan1, {point:'.'}));
-		
-			
-	$("#soru",container).append("<div id='carpan2' class='carpan'>");
-		$("#carpan2")
-		.css("top","50px").html(format(carpan2, {point:'.'}));
-		
-	$("#soru",container).append("<div id='carpmaIsareti'>");
-	$("#carpmaIsareti").css("width","100px")
-		.css("text-align","left")
-		.css("height","30px")
-		.css("margin","auto")
-		.css("position","absolute")
-		//.css("bottom","20px")
-		//.css("left","0")
-		.css("right","0px")
-		.css("font-size","30px")
-		.css("border-bottom","solid 2px black")
-		.css("top","60px")
-		.html("x");
-		
-	
-		
-	var carpan2Str=carpan2.toString();
-	var icerik= new Array();
-	for (var i=0; i<=carpan2Str.length; i++){
-		icerik[i]=carpan1*carpan2Str.charAt(carpan2Str.length-i);
-		console.log("icerik_"+i+": "+icerik[i]);
-	}
-	
-	for(var i=0; i<carpan2Str.length;i++){
-		var top=(100+35*i);
-		var right=(i*16);
-		var id=i+1;
-		
-		
-			$("#soru",container).append("<div id='sonuc"+id+"'/>");	
-			$("#sonuc"+id).css("width","100px")
-				.css("text-align","right")
-				.css("height","30px")
-				.css("margin","auto")
-				.css("position","absolute")
-				//.css("bottom","20px")
-				//.css("left","0")
-				.css("right",right)
-				.css("font-size","30px")
-				.css("top",top+"px")
-				.css("z-index","5")
-				.html(icerik[i+1]);
-		
-		 if(i==(carpan2Str.length-1)){
-			$("#soru",container).append("<div id='toplamaIsareti'>");
-			$("#toplamaIsareti").css("width","120px")
-				.css("text-align","left")
-				.css("height","30px")
-				.css("margin","auto")
-				.css("position","absolute")
-				.css("right",right)
-				.css("font-size","30px")
-				.css("border-bottom","solid 2px black")
-				.css("top",(top+5)+"px")
-				.html("+");
-				
-			$("#soru",container).append("<div id='sonucToplam'/>");	
-			$("#sonucToplam").css("width",120+(i-1)*16+"px")
-				.css("text-align","right")
-				.css("height","30px")
-				.css("margin","auto")
-				.css("position","absolute")
-				//.css("bottom","20px")
-				//.css("left","0")
-				.css("right","0px")
-				.css("font-size","30px")
-				.css("top",top+40+"px")
-				.css("z-index","5")
-				.html(toplam);
-				
-				
-		
-		
-		}
-	}
-	
-	
-		
-	
-	
-
-				
-	$("input").addClass("input").addClass("number_input_field");
-	
-	$(".carpan").css("width","100px")
-		.css("text-align","right")
-		.css("height","30px")
-		.css("margin","auto")
-		.css("position","absolute")
-		//.css("bottom","20px")
-		//.css("left","0")
-		.css("right","0px")
-		.css("font-size","30px");
-		//.css("border","solid 1px black");
-	$("#girdi").keydown(function(event){
-					var pos;
-					if(event.keyCode == 8)
-						pos = 1;
-					else
-						pos = 0; 
-					if(this.createTextRange){
-						var textRange = node.createTextRange();
-						textRange.collapse(true);
-						textRange.moveEnd(pos);
-						textRange.moveStart(pos);
-						textRange.select();
-						return true;
-					}else if(this.setSelectionRange){
-						this.setSelectionRange(pos,pos);
-						return true;
-					}
-				});
-	
-	
-	
-		}
-	
 	}
 	
 	
 	function soruGetir(){
-		switch(soruSirasi){
+		switch(soruId){
 			
 			case 0:
 			case 1:
-				carpma();
-				
-				
-				break;
 			case 2:
+				console.log("soru İD: "+soruId);
+				carpma();
+				break;
+			
 			case 3:
 			case 4:
-				bilinmeyenCarpanlar();
-				
-				break;
 			case 5:
+				console.log("soru İD: "+soruId);
+				bilinmeyenCarpanlar();
+				break;
+
 			case 6:
 			case 7:
+				console.log("soru İD: "+soruId);
 				tekCarpanlar();
 				break;
-			case 8:
-			case 9:
-				console.log("Sou birer bilinmeyen");
-				soruSekil=soruSekilSira[soruNo];
-				console.log("dsd"+soruNo);
-				soruNo++;
-				soruBirerBilinmeyen();
-				
-				console.log("xxxxxxxxxxxxxxxxxxxSoru Şekil: "+soruSekil);
-				break;
-			case 10:
-				eldesizToplama();
-				soruSirasi=1;
-				break;
-			
-			
 		}
+		
 	}
 	
-soruGetir();
+yeniSoru();
+
+	function randomSoruGetir(){
+		console.log("random moddayim");
+		var randomSayi=Math.floor(Math.random()*8);
+		
+		
+		soruId=randomSayi;
+		console.log("soru sirası: "+soruSirasi);
+		soruGetir();
+	}
 
 kontrolSayaci=0;
 	function kontrol(){
-		switch (soruSirasi){
-			case 10:
+		switch (soruId){
+			
 			case 0:
 			case 1:
+			case 2:
 			
 				console.log("girdim normal çarpma");
 				toplam=carpan1*carpan2;
@@ -945,7 +1076,10 @@ kontrolSayaci=0;
 						icerik= new Array();
 						
 						for (var i=0; i<=carpan2Str.length; i++){
+						
 								icerik[i]=carpan1*carpan2Str.charAt(carpan2Str.length-i);
+								if(icerik[i]==0)
+									icerik[i]="000";
 								console.log("icerik_"+i+": "+icerik[i]);
 						}
 					
@@ -1007,9 +1141,10 @@ kontrolSayaci=0;
 						}
 					}
 				break;
-			case 2:
+			
 			case 3:
 			case 4:
+			case 5:
 			
 				var icerik=$("#girdi").val();
 				var index = icerik.indexOf(" ", 0);
@@ -1054,8 +1189,8 @@ kontrolSayaci=0;
 						}
 					}
 				break;
-			case 5:
-
+			
+			case 6:
 					
 					console.log("girdim soruBirerBilinmeyen1");
 					carpan1Basamak=carpan1.toString().charAt(carpan1.toString().length-3)
@@ -1117,12 +1252,15 @@ kontrolSayaci=0;
 					}
 				
 				break;
-				case 6:
-					console.log("girdim soruBirerBilinmeyen1");
+				case 7:
+					console.log("girdim soruBirerBilinmeyen2");
 					carpan1Basamak=carpan1.toString().charAt(carpan1.toString().length-1)
 					carpan2Basamak=carpan2.toString().charAt(carpan2.toString().length-2)
 					
-					carpan3Basamak=(carpan1*carpan2Basamak).toString().charAt((carpan1*carpan2Basamak).toString().length-2);
+					if(carpan1*carpan2Basamak==0)
+						carpan3Basamak=0;
+					else					
+						carpan3Basamak=(carpan1*carpan2Basamak).toString().charAt((carpan1*carpan2Basamak).toString().length-2);
 					console.log("toplam1Basamak: "+carpan1Basamak);
 					console.log("carpan1: "+carpan1);
 					console.log("toplam2Basamak: "+carpan2Basamak);
@@ -1187,74 +1325,6 @@ kontrolSayaci=0;
 							}
 						}
 					}
-				break;
-				case 7:
-					console.log("girdim soruBirerBilinmeyen3");
-					toplam=toplanan1+toplanan2;
-					
-					toplanan1Basamak=toplanan1.toString().charAt(toplanan1.toString().length-3);
-					toplanan2Basamak=toplanan2.toString().charAt(toplanan2.toString().length-4);
-					toplanan3Basamak=toplanan2.toString().charAt(toplanan2.toString().length-1);
-					console.log("toplam1Basamak: "+toplanan1Basamak);
-					console.log("toplam1: "+toplanan1);
-					console.log("toplam2Basamak: "+toplanan2Basamak);
-					console.log("toplanan2: "+toplanan2);
-					console.log("toplam3Basamak: "+toplanan3Basamak);
-					console.log("toplanan2: "+toplanan2);
-										
-					console.log("toplam: "+toplam);
-					
-					if(girdi1=="" || girdi2=="" ||girdi3==""){
-						$("#geriBildirimText").attr("class","status_alert").html("Bütün kutucukları doldurun.");
-						$("#geriBildirim").show();
-						tusSayac=0;
-					}
-					else{
-					
-						if(toplanan1Basamak==girdi1 && toplanan2Basamak==girdi2 &&toplanan3Basamak==girdi3){
-							$("#geriBildirimText").attr("class","status_true").html("Tebrikler.");
-							$("#geriBildirim").show();
-							$("#btnKontrol").hide();
-							$("#sonraki").show();
-							girdi1="";
-							girdi2="";
-							girdi3="";
-						}
-						else{
-							kontrolSayaci++;
-							if(kontrolSayaci<2){
-								$("#geriBildirimText").attr("class","status_alert").html("Tekrar deneyiniz.");
-								$("#geriBildirim").show();
-								
-							}
-							else{
-								kontrolSayaci=0;
-								$("#geriBildirimText").attr("class","status_false").html("Yanlış.<br /> Doğru cevap yukarıdadır.");
-								$("#geriBildirim").show();
-								$("#btnKontrol").hide();
-								$("#sonraki").show();
-								
-								if(toplanan1Basamak!=girdi1)
-									$("#girdi1").val(toplanan1Basamak).css("color",yanlisRengi);
-								else
-									$("#girdi1").css("color",dogruRengi);
-								
-								if(toplanan2Basamak!=girdi2)
-									$("#girdi2").val(toplanan2Basamak).css("color",yanlisRengi);
-								else
-									$("#girdi2").css("color",dogruRengi);
-								
-								if(toplanan3Basamak!=girdi3)
-									$("#girdi3").val(toplanan3Basamak).css("color",yanlisRengi);
-								else
-									$("#girdi3").css("color",dogruRengi);
-								girdi1="";
-								girdi2="";
-								girdi3="";
-							}
-						}
-					}
-				
 				break;
 				}
 	}
