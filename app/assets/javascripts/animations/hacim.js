@@ -261,7 +261,7 @@ UnitCube.explode = function(cubes,zero,a,distance,_s){
 		p = p.add(-cubes[i].z*a*_s.xZ,cubes[i].z*a*_s.yZ);
 		p = p.add(distance*cubes[i].x,0);
 		p = p.add(0,-distance*cubes[i].y);
-		p = p.add(-cubes[i].z*distance*_s.xZ,cubes[i].z*_s.yZ);
+		p = p.add(-cubes[i].z*distance*_s.xZ,cubes[i].z*distance*_s.yZ);
 		cubes[i].draw(p,a,_s);
 	}
 }
