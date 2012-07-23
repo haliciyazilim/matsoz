@@ -180,9 +180,9 @@ var Interaction = {
 			Interaction.divisor = Math.floor(Math.random()*9+1)*Math.pow(10,Interaction.zeros);
 			Interaction.dividend = Interaction.divisor*Math.floor(Math.random()*990+10);
 			/*<[TEST VALUES*/
-			//	Interaction.zeros = 1;
-//				Interaction.divisor = 800;
-//				Interaction.dividend = 9999;
+//				Interaction.zeros = 0;
+//				Interaction.divisor = 12;
+//				Interaction.dividend = 28;
 			/*TEST VALUES]>*/
 			$(Interaction.dividendDiv).html(Interaction.dividend);
 			$(Interaction.divisorDiv).html(Interaction.divisor);
@@ -242,6 +242,8 @@ var Interaction = {
 				var div = Interaction.division.nextStep(1000);
 				if(div!=null)
 					setTimeout(callNextStep,1500);
+				else
+					Interaction.pause = false;
 			}
 			setTimeout(callNextStep,500);
 		},
