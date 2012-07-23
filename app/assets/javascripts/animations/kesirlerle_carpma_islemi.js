@@ -131,7 +131,7 @@ var Animation = {
 						opacity: 1,
 					},
 					duration:1000,
-					delay:4500,
+					delay:3500,
 					animationType: 'easeInEaseOut'
 				});
 				execGroup.children[1].children[i].animate({
@@ -139,7 +139,7 @@ var Animation = {
 						opacity: 1,
 					},
 					duration:1000,
-					delay:4500,
+					delay:3500,
 					animationType: 'easeInEaseOut'
 				});
 			}
@@ -148,7 +148,7 @@ var Animation = {
 					opacity: 1,
 				},
 				duration:1000,
-				delay:4500,
+				delay:3500,
 				animationType: 'easeInEaseOut'
 			});
 			execGroup.children[3].animate({
@@ -156,7 +156,7 @@ var Animation = {
 					opacity: 1,
 				},
 				duration:1000,
-				delay:4500,
+				delay:3500,
 				animationType: 'easeInEaseOut'
 			});
 			for(i = 0; i < 3; i++){
@@ -165,7 +165,7 @@ var Animation = {
 						opacity:1
 					},
 					duration:1000,
-					delay:5500,
+					delay:4500,
 					animationType: 'easeInEaseOut'
 				});
 			}

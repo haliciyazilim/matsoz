@@ -400,13 +400,13 @@ Interaction.init = function(container){
 		
 	}
 	
-	$(container).append('<button id="checkBtn" class="control_button">Kontrol</button>');
+	$(container).append('<button id="checkBtn" class="control_button"></button>');
 	$('#checkBtn').css("position", "absolute")
 					.css("bottom", "30px")
 					.css("right", "66px");
 	$('#checkBtn').show();
 	
-	$(container).append('<button id="nextBtn" class="next_button">Sonraki</button>');
+	$(container).append('<button id="nextBtn" class="next_button"></button>');
 	$('#nextBtn').css("position", "absolute")
 					.css("bottom", "30px")
 					.css("right", "66px");

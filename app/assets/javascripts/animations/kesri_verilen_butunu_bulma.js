@@ -128,16 +128,16 @@ var Animation = {
 			
 			var rectGroup = new Group();
 			var rect1 = new Path.Rectangle(new Point(60.5, 36.5), new Size(110,110));
-			rect1.strokeColor = "black";
+			rect1.strokeColor = "#a9a9a9";
 			rect1.opacity = 0;
 			var rect2 = new Path.Rectangle(new Point(170.5, 36.5), new Size(110,110));
-			rect2.strokeColor = "black";
+			rect2.strokeColor = "#a9a9a9";
 			rect2.opacity = 0;
 			var rect3 = new Path.Rectangle(new Point(280.5, 36.5), new Size(110,110));
-			rect3.strokeColor = "black";
+			rect3.strokeColor = "#a9a9a9";
 			rect3.opacity = 0;
 			var rect4 = new Path.Rectangle(new Point(390.5, 36.5), new Size(110,110));
-			rect4.strokeColor = "black";
+			rect4.strokeColor = "#a9a9a9";
 			rect4.opacity = 0;
 			
 			var text1 = new PointText(new Point(110, 170));
@@ -233,7 +233,7 @@ var Animation = {
 					opacity:1
 				},
 				duration: 1000,
-				delay: 8500,
+				delay: 7500,
 				animationType: 'easeInEaseOut'
 			});
 			
@@ -242,7 +242,7 @@ var Animation = {
 					opacity:1
 				},
 				duration: 1000,
-				delay: 10000,
+				delay: 9000,
 				animationType: 'easeInEaseOut'
 			});
 
