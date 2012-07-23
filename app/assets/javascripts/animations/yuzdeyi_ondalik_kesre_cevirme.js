@@ -454,7 +454,7 @@ Interaction.init = function(container){
 			
 			// ondalikliGirdi inputa girilen değer kırpılmış olduğu için sorun çıkartıyordu. Alttaki satırla halledildi.
 			
-			if(cevap1==undefined ||cevap1=="" || cevap2==undefined || cevap2=="" || cevap3==undefined || cevap3==""){
+			if(cevap1===undefined ||cevap1==="" || cevap2===undefined || cevap2==="" || cevap3===undefined || cevap3===""){
 				$("#geriBildirimText").attr("class","status_alert").html("Bütün kutucukları doldurunuz.");
 				$("#geriBildirim").show();
 				

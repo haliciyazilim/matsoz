@@ -144,10 +144,10 @@ Animation.init=function(container){
 	$("#ornekSayi2").delay(9000).fadeIn(500);
 	$("#ornekYazi1_2").delay(10000).fadeIn(500);
 	
-	$("#ornekSayi3").delay(7000).fadeIn(500);
-	$("#ornekYazi2_1").delay(8000).fadeIn(500);
-	$("#ornekSayi4").delay(9000).fadeIn(500);
-	$("#ornekYazi2_2").delay(10000).fadeIn(500);
+	$("#ornekSayi3").delay(11000).fadeIn(500);
+	$("#ornekYazi2_1").delay(12000).fadeIn(500);
+	$("#ornekSayi4").delay(13000).fadeIn(500);
+	$("#ornekYazi2_2").delay(14000).fadeIn(500);
 	
 };
 
