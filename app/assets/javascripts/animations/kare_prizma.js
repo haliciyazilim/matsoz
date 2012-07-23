@@ -151,7 +151,7 @@ function load() {
 		new Point(0, 0, -1),
 		true /* double-sided */,
 		Polygon.SOLID,
-		[100, 100, 100,0.8]
+		[81, 124, 130,1]
 	));
 
 	// Front
@@ -160,7 +160,7 @@ function load() {
 		new Point(0, 0, 1),
 		true /* double-sided */,
 		Polygon.SOLID,
-		[100, 100, 100,0.8]
+		[146, 173, 177,1]
 	));
 
 	// Top
@@ -169,7 +169,7 @@ function load() {
 		new Point(0, 1, 0),
 		false /* single-sided */,
 		Polygon.WIRE,
-		[200, 200, 200,0.8]
+		[168, 189, 193,1]
 	));
 
 	// Transparent Top
@@ -178,7 +178,7 @@ function load() {
 		new Point(0, 1, 0),
 		false /* single-sided */,
 		Polygon.SOLID,
-		[200, 200, 200,0.8]
+		[168, 189, 193,1]
 	));
 
 	// Left
@@ -187,7 +187,7 @@ function load() {
 		new Point(-1, 0, 0),
 		true /* double-sided */,
 		Polygon.SOLID,
-		[150, 150, 150,0.8]
+		[102, 140, 145,1]
 	));
 
 	// Right
@@ -196,7 +196,7 @@ function load() {
 		new Point(1, 0, 0),
 		true /* double-sided */,
 		Polygon.SOLID,
-		[50, 50, 50,0.8]
+		[124, 157, 161,1]
 	));
 
 	// Create a floor shape and add it to the scene
@@ -214,7 +214,7 @@ function load() {
 		new Point(0, 1, 0),
 		false /* single-sided */,
 		Polygon.SOLID,
-		[200, 200, 200,0.8]
+		[58, 107, 114,1]
 	));
 
 	//setInterval('loop()', 20);

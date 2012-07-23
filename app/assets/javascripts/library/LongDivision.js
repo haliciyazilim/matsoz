@@ -9,6 +9,9 @@ function LongDivision(n,d,container){
 	this.lastIndent = 0;
 	this.container = container;
 	$(container).html('<div id="dividend"></div><div id="divisor"></div><div id="answer"></div>');
+	$(container).css({
+		textAlign:'left'
+	});
 	this.nodes = {};
 	this.fontSize = parseInt($(container).css('font-size'),10)+2;
 

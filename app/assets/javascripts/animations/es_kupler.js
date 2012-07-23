@@ -5,81 +5,54 @@ var cubeStyle = {
 };
 var Animation = {
 	init:function(container){
-			Main.animationProject.activeLayer.removeChildren();
-			Animation.container = container;
-			Animation.xZ = 0.4;
-			Animation.yZ = 0.5;
-			var w=$(container).width(), h=$(container).height();
-			var x = 100;
-			var y = 20;
-			Animation.a = 30;
-			Animation.xCube = 7;
-			Animation.yCube = 2;
-			Animation.zCube = 4;
-			Animation.rectPrizm = new Path.RectanglePrisim(
-				new Point(x,y),
-				new Size(
-					Animation.xCube*Animation.a,
-					Animation.yCube*Animation.a
-				),    
-				new Size(
-					Animation.zCube*Animation.xZ*Animation.a,
-					Animation.zCube*Animation.yZ*Animation.a
-				)
-			).set_style({
-				strokeWidth:2,
-				strokeColor:'#000'
-			});
-			
-			
-			var div = document.createElement('div');
-			$(container).append(div);
-			$(div)
-				.css({
-					position:'absolute',
-					top:'50px',
-					right:'200px',
-					lineHeight:'30px',
-					textAlign:'center'
-				})
-				.html('Dikdörtgenler prizmasının <br/> hacmi <br/> <span id="count"></span> birim küptür.')
-			
-			Animation.countSpan = $('span#count',div).get(0);
-			
-			Animation.zeroPoint = new Point(
-				x + (Animation.zCube-1)*Animation.xZ*Animation.a,
-				y + (Animation.yCube-1)*Animation.a
-			);
-			Animation.cubes = [];
-			for(var i=0;i<Animation.xCube;i++)
-				for(var j=0;j<Animation.yCube;j++)
-					for(var k=0;k<Animation.zCube;k++)
-						Animation.cubes.push(new UnitCube(i,j,k));
-			
-			UnitCube.drawCubes(Animation.cubes,Animation.zeroPoint,Animation.a,Animation);
-			Animation.cubes[0].shape.insertBelow(Animation.rectPrizm.children[4]);
-			for(var i=1;i<Animation.cubes.length;i++){
-				Animation.cubes[i].shape.opacity = 0;
-				Animation.cubes[i].shape.insertAbove(Animation.cubes[i-1].shape);
-				Animation.cubes[i].shape.__i = i+1;
-				Animation.cubes[i].shape.animate({
-					style:{opacity:1},
-					duration:1,
-					delay:i*100,
-					callback:function(){
-						$(Animation.countSpan).html(this.__i);
-					}
-				});
-				
-			}
+		
 		}
 }
 
 var Interaction = {
+	images:[
+			{
+				id:'isometric_paper',
+				src:'/assets/animations/es_kupler/isometric_paper.png'
+			}
+		],
 	getFramework:function(){
 			return 'paper';
 		},
+	pathInit:function(){
+		Path.IsometricCube = function(p,a,h){
+			var p1,p2,p3,p4,p5,p6;
+			p1 = p.add(0,h*0.5);
+			p2 = p.add(0,h*0.5+a);
+			p3 = p.add(a*Math.sqrt(2)*0.5,a+h);
+			p4 = p.add(a*Math.sqrt(2),a+h*0.5);
+			p5 = p.add(a*Math.sqrt(2),h*0.5);
+			p6 = p.add(a*Math.sqrt(2)*0.5,0);
+			p7 = p.add(a*Math.sqrt(2)*0.5,h);
+			var vertexArray = [];
+			vertexArray.push(p1);
+			vertexArray.push(p2);
+			vertexArray.push(p3);
+			vertexArray.push(p4);
+			vertexArray.push(p5);
+			vertexArray.push(p6);
+			var centerPoint = Util.centerOfPoints(vertexArray);
+			var cube = new Group();
+			var outline = new Path();
+			for(var i=0;i<vertexArray.length;i++){
+				outline.add(vertexArray[i]);
+			}
+			outline.closed = true;
+			
+			cube.addChild(outline);
+			cube.addChild(new Path.Line(p1,p7));
+			cube.addChild(new Path.Line(p5,p7));
+			cube.addChild(new Path.Line(p3,p7));
+			return cube;
+		}
+	},
 	init:function(container){
+			Interaction.pathInit();
 			Interaction.container = container;
 			Main.setObjective('Yandaki yapının hacminin kaç birim küp olduğunu bulunuz ve kontrol ediniz.');
 			Interaction.paper = {
@@ -110,12 +83,12 @@ var Interaction = {
 					top:'130px',
 					right:'20px'
 				});
-
 			Interaction.xCubes = 0;
 			Interaction.yCubes = 0;
 			Interaction.zCubes = 0;
-			Interaction.zeroPoint = new Point(120,160);
-			Interaction.a = 30;
+			Interaction.zeroPoint = new Point(150,130);
+			Interaction.a = 40;
+			Interaction.h = 30;
 			Interaction.prepareNextQuestion();
 		},
 	nextQuestion:function(){
@@ -123,6 +96,8 @@ var Interaction = {
 				return;
 			Interaction.pause = false;
 			Main.interactionProject.activeLayer.removeChildren();
+			Interaction.isometricPaper = new Raster('isometric_paper');
+			Interaction.isometricPaper.position = Interaction.zeroPoint.add(17,25);
 			var zero = Interaction.zeroPoint;
 			var a = Interaction.a;
 			
@@ -152,7 +127,7 @@ var Interaction = {
 				cubes.push(new UnitCube(Math.floor(i/3),0,i%3+1));
 			
 			Interaction.cubes = cubes;
-			UnitCube.drawCubes(cubes,zero,a,Interaction);
+			UnitCube.drawCubesOneByOne(cubes,zero,a,Interaction,500);
 		},
 	showCubes : function(distance){
 			if(Interaction.pause == true)
@@ -214,7 +189,7 @@ function UnitCube(x,y,z){
 	this.draw = function(p,a,_s){
 		if(this.shape)
 			this.shape.remove();
-		this.shape = new Path.Cube(p,a,new Point(_s.xZ,_s.yZ));
+		this.shape = new Path.IsometricCube(p,a,Interaction.h);
 		this.shape.set_style(cubeStyle);
 	};
 }
@@ -233,24 +208,58 @@ UnitCube.compare = function(a,b){
 			return -1;
 		return 0;
 }
-UnitCube.drawCubes = function(cubes,zero,a,_s){
+UnitCube.drawCubes = function(cubes,zero,a,h){
 	//decide the draw order 				
 	cubes.sort(UnitCube.compare);
 	
 	//draw the cubes
 	for(var i=0; i<cubes.length;i++){
 		var p = zero.add(
-			Math.floor(cubes[i].x*a)+0.5,
+			0.5,
 			Math.floor(-cubes[i].y*a)+0.5
 		);
 		p = p.add(
-			Math.floor(-cubes[i].z*a*_s.xZ),
-			Math.floor(cubes[i].z*a*_s.yZ)
+			Math.floor(cubes[i].x*a*Math.sqrt(2)*0.5),
+			Math.floor(cubes[i].x*Interaction.h*0.5)
+		);
+		p = p.add(
+			Math.floor(-cubes[i].z*a*Math.sqrt(2)*0.5),
+			Math.floor(cubes[i].z*Interaction.h*0.5)
 		);
 		
 		cubes[i].draw(p,a,_s);
 	}
 }
+UnitCube.drawCubesOneByOne = function(cubes,zero,a,_s,delay){
+	
+	cubes.sort(UnitCube.compare);
+	
+	for(var i=0; i<cubes.length;i++){
+		var p = zero.add(
+			0.5,
+			Math.floor(-cubes[i].y*a)+0.5
+		);
+		p = p.add(
+			Math.floor(cubes[i].x*a*Math.sqrt(2)*0.5),
+			Math.floor(cubes[i].x*Interaction.h*0.5)
+		);
+		p = p.add(
+			Math.floor(-cubes[i].z*a*Math.sqrt(2)*0.5),
+			Math.floor(cubes[i].z*Interaction.h*0.5)
+		);
+		
+		cubes[i].draw(p,a,_s);
+		cubes[i].shape.opacity = 0;
+		cubes[i].shape.animate({
+			style:{opacity:1},
+			delay:delay*i,
+			duration:delay
+			
+		});
+		
+	}
+}
+
 UnitCube.explode = function(cubes,zero,a,distance,_s){
 	//decide the draw order 				
 	cubes.sort(UnitCube.compare);
@@ -265,3 +274,4 @@ UnitCube.explode = function(cubes,zero,a,distance,_s){
 		cubes[i].draw(p,a,_s);
 	}
 }
+
