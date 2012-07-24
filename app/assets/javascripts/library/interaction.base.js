@@ -88,7 +88,7 @@ function InteractionBase(){
 	*	example call
 	*	Interaction.addInput({
 	*		isNumber:true,
-	*		maxlength:5,
+	*		maxLength:5,
 	*		reverseText:false,
 	*		css:{
 	*			width:35px,
@@ -99,7 +99,6 @@ function InteractionBase(){
 	*		correctAnswer:function(){
 	*				return Interaction.value1 / Interaction.value2;
 	*		},
-	*		
 	*	})
 	*/
 
@@ -118,7 +117,7 @@ function InteractionBase(){
 		return input;
 	}
 	
-	Interaction.createInput = function(isNumber,maxlength){
+	Interaction.createInput = function(isNumber,maxLength){
 		var input = document.createElement('input');
 		if(isNumber==true){
 			input.setAttribute('onkeypress','return Interaction.__inputFilter__onlyNumbers(event)');
@@ -130,7 +129,10 @@ function InteractionBase(){
 		$(input)
 			.attr({
 				'class':'input',
-				'maxlength':maxlength
+				'maxLength':maxLength
+			})
+			.css({
+				width:parseInt($(input).css('fontSize'),10)*maxLength*0.5+2
 			})
 			.keyup(function(event){
 				if(event.keyCode == 13)
@@ -190,7 +192,6 @@ function InteractionBase(){
 		if(Interaction.__inputVersion == 2){
 			isCorrect = true;
 			for(var i=0; i<Interaction.inputs.length;i++){
-				var correctAnswer = Interaction.inputs[i].isAnswerCorrect;
 				var value = Interaction.inputs[i].value;
 				if($(Interaction.inputs[i]).val() == ""){
 					Interaction.__status(Interaction.__status.EMPTY);
@@ -207,8 +208,14 @@ function InteractionBase(){
 					//Interaction.setStatus('Lütfen ondalıklı sayıları virgülle yazınız.',false);
 					return;
 				}
-				//not implemented yet
-				if(typeof correctAnswer == 'function'){
+				
+				var isInputCorrect;
+				if(typeof Interaction.inputs[i].correctAnswer == 'function')
+					isInputCorrect = (value == Interaction.inputs[i].correctAnswer(value));
+				else
+					isInputCorrect = (value == Interaction.inputs[i].correctAnswer);
+				
+				if(isInputCorrect === true){
 					$(Interaction.inputs[i]).addClass('input_user_answer_correct');
 				}
 				else{
