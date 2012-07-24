@@ -110,14 +110,13 @@ function InteractionBase(){
 		if(opt.correctAnswer == undefined){
 			throw 'You have to define a correctAnswer object or value';
 		}
-		var input = Interaction.createInput(opt.isNumber,opt.maxLength);		
+		var input = Interaction.createInput(opt.isNumber,opt.maxLength, opt.css);		
 		input.correctAnswer = opt.correctAnswer;
 		Interaction.inputs.push(input);
-		$(input).css(opt.css);
 		return input;
 	}
 	
-	Interaction.createInput = function(isNumber,maxLength){
+	Interaction.createInput = function(isNumber,maxLength,css){
 		var input = document.createElement('input');
 		if(isNumber==true){
 			input.setAttribute('onkeypress','return Interaction.__inputFilter__onlyNumbers(event)');
@@ -131,13 +130,23 @@ function InteractionBase(){
 				'class':'input',
 				'maxLength':maxLength
 			})
-			.css({
-				width:parseInt($(input).css('fontSize'),10)*maxLength*0.5+2
-			})
 			.keyup(function(event){
 				if(event.keyCode == 13)
 					Interaction.button.click();
 			})
+			.css({
+				width:(parseInt($(".input").css('font-size'),10)*(maxLength*0.5+0.5))+"px",
+				height:(parseInt($(".input").css('font-size'),10)*1.2)+"px"
+			});
+			
+		if (css) {
+			$(input).css(css)
+			.css({
+				width:(parseInt($(input).css('font-size'),10)*(maxLength*0.5+0.5))+"px",
+				height:(parseInt($(input).css('font-size'),10)*1.2)+"px"
+			});
+		}
+			
 		return input;
 	};
 	
