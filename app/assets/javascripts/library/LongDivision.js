@@ -75,7 +75,7 @@ LongDivision.prototype.nextStep = function(duration){
 				height:this.fontSize*2+2,
 				float:'left',
 				width:$(this.container).width()
-			});
+			}).addClass("step");
 		$('.up',div)
 			.html(''+stepAnswer*this.d)
 			.css({
