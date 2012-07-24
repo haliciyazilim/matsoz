@@ -192,6 +192,7 @@ p.exampleHeader {
 
 .next_button{
 	background-image:url(/assets/btn_next.png);
+	background-color: #fff;
 	height:40px;
 	width:103px;
 	border:none;

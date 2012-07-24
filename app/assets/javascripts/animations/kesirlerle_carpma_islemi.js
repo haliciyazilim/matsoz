@@ -207,7 +207,8 @@ var Interaction = {
 			$(Interaction.inputs[0]).attr('maxlength', '2')
 			$(Interaction.inputs[1]).attr('maxlength', '2')
 			
-			var questionDiv = document.createElement('questionDiv')
+			var questionDiv = document.createElement('div')
+			questionDiv.id = 'questionDiv';
 			$(container).append(questionDiv);
 			$(questionDiv)
 				.html('<p id="nom1">2</p><div id="line1"></div><p id="denom1">5</p><p id="cross">x</p><p id="nom2">1</p><div id="line2"></div><p id="denom2">3</p><p id="eq">=</p><div id="line3"></div>')
@@ -221,7 +222,7 @@ var Interaction = {
 					top: '40px',
 					fontSize: '24px',
 					textAlign: 'left',
-				//	border: "solid"
+			//		border: "solid"
 				});
 			$('#line1')
 				.css({

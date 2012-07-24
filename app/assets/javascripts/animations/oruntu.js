@@ -35,6 +35,7 @@ var Interaction = {
 				left: "50px",
 				top: "100px",
 				width: "490px",
+				"line-height": "42px",
 				'font-size': "32px",
 				'text-align': 'center'
 			})
@@ -43,24 +44,10 @@ var Interaction = {
 			$("#answerEntry").css({
 				position: "absolute",
 				top: "170px",
-				left: "100px"
+				left: "130px",
+				width:"300px",
+				"text-align": "center"
 			})
-			
-			Interaction.input1 = Interaction.appendInput({
-				top: '160px',
-				left: '366px',
-				width: '60px'
-			});
-			
-			$(Interaction.input1).attr('maxlength', 4);
-			
-			Interaction.input2 = Interaction.appendInput({
-				top: '160px',
-				left: '446px',
-				width: '60px'
-			});
-			
-			$(Interaction.input2).attr('maxlength', 4);
 			
 			Interaction.appendButton({
 				bottom: '10px',
@@ -69,7 +56,7 @@ var Interaction = {
 			
 			Interaction.appendStatus({
 				top: '260px',
-				left: '100px',
+				left: '114px',
 				width: '327px',
 				'text-align': 'center'
 			})
@@ -79,24 +66,14 @@ var Interaction = {
 	nextQuestion: function(){		
 			Interaction.pattern = [];
 			var count = (Interaction.count++)%Interaction.shuffledArray.length;
-			//count = 7;
 			
-			if (count < 6) {
-				$("#answerEntry").html("Soru işareti yerine gelecek sayıyı giriniz: ");
-				
-				$(Interaction.input2).val(0);
-				$(Interaction.input2).css('visibility', 'hidden');
+			if (Interaction.count < 6) {
+				$("#answerEntry").html("Yukarıdaki boşluğu doldurunuz.");
 			} else {
-				$("#answerEntry").html("Soru işareti yerine gelecek sayıları sırasıyla giriniz: ");
-				$("#answerEntry").css({
-					left: "40px"
-				});
-				
-				$(Interaction.input2).css('visibility', 'visible');
+				$("#answerEntry").html("Yukarıdaki boşlukları doldurunuz.");
 			}
 			
 			switch (Interaction.shuffledArray[count]) {
-			//	switch (6) {
 				case 0: 			// Addition
 					var startNumber = Util.randomInteger(1, 10);
 					var increment = Util.randomInteger(1, 10);
@@ -196,68 +173,118 @@ var Interaction = {
 					
 			}
 			
-			if (count < 6) {
-				if (count < 3) {
+			if (Interaction.count < 6) {
+				if (Interaction.count < 3) {
 					Interaction.questionIndex = PATTERN_SIZE - 1;
 				} else {
 					Interaction.questionIndex = Util.randomInteger(0, PATTERN_SIZE);
 				}
 			
-				Interaction.correctAnswer = Interaction.pattern[Interaction.questionIndex];
-				Interaction.pattern[Interaction.questionIndex] = '?';
-			
-				var patternString = ""+Interaction.pattern[0];
-				for (i = 1; i < Interaction.pattern.length; i++) {
-					patternString += ", " + Interaction.pattern[i];
-				}
-			
-				$("#patternContainer").html(patternString);
+				Interaction.pattern[Interaction.questionIndex] = Interaction.addInput({
+					isNumber:true,
+					maxLength: (""+Interaction.pattern[Interaction.questionIndex]).length,
+					css: {
+						position: "relative",
+						"font-size": "32px"
+					},
+					correctAnswer: Interaction.pattern[Interaction.questionIndex]
+				});			
 			} else {
-				//Interaction.questionIndex1 = 
+				Interaction.questionIndex1 = Util.randomInteger(0, PATTERN_SIZE - 1);
+				
+				do {
+					Interaction.questionIndex2 = Util.randomInteger(Interaction.questionIndex1 + 1, PATTERN_SIZE);					
+				} while (Interaction.questionIndex2 == Interaction.questionIndex1);
+				
+				Interaction.pattern[Interaction.questionIndex1] = Interaction.addInput({
+					isNumber:true,
+					maxLength: (""+Interaction.pattern[Interaction.questionIndex1]).length,
+					css: {
+						position: "relative",
+						"font-size": "32px"
+					},
+					correctAnswer: Interaction.pattern[Interaction.questionIndex1]
+				});
+				
+				Interaction.pattern[Interaction.questionIndex2] = Interaction.addInput({
+					isNumber:true,
+					maxLength: (""+Interaction.pattern[Interaction.questionIndex2]).length,
+					css: {
+						position: "relative",
+						"font-size": "32px"
+					},
+					correctAnswer: Interaction.pattern[Interaction.questionIndex2]
+				});
+			}
+			
+			$("#patternContainer").html("");
+			$("#patternContainer").append(Interaction.pattern[0]);
+			
+			for (i = 1; i < Interaction.pattern.length; i++) {
+				$("#patternContainer").append(", ");
+				$("#patternContainer").append(Interaction.pattern[i]);
 			}
 		},
 	isAnswerCorrect : function(value){
-			return value[0] == Interaction.correctAnswer;
+		
 		},
 	onCorrectAnswer : function(){
-			var patternString = "";
-			if (Interaction.questionIndex == 0) {
-				patternString += "<span class='status_true' style='font-size: 32px'>" + Interaction.correctAnswer + "</span>";
+			$("#patternContainer").html("");
+			
+			if (typeof Interaction.pattern[0] == "number") {
+				$("#patternContainer").append(Interaction.pattern[0]);
 			} else {
-				patternString += Interaction.pattern[0];
+				$("#patternContainer").append("<span class='status_true' style='font-size: 32px'>" + Interaction.pattern[0].correctAnswer + "</span>");
 			}
-
+			
 			for (i = 1; i < Interaction.pattern.length; i++) {
-				if (i == Interaction.questionIndex) {
-					patternString += ", <span class='status_true' style='font-size: 32px'>" + Interaction.correctAnswer + "</span>";
+				$("#patternContainer").append(", ");
+				
+				if (typeof Interaction.pattern[i] == "number") {
+					$("#patternContainer").append(Interaction.pattern[i]);
 				} else {
-					patternString += ", " + Interaction.pattern[i];
-				}
+					$("#patternContainer").append("<span class='status_true' style='font-size: 32px'>" + Interaction.pattern[i].correctAnswer + "</span>");
+				}	
 			}
-	
-			$("#patternContainer").html(patternString);
 		},
 	onWrongAnswer : function(){
 		
 		},
 	onFail : function(){
-			Interaction.setStatus('Olmadı! Doğru cevap ' + Interaction.correctAnswer + ' olacaktı.', false);
-			
-			var patternString = "";
-			if (Interaction.questionIndex == 0) {
-				patternString += "<span class='status_false' style='font-size: 32px'>" + Interaction.correctAnswer + "</span>";
+			if (Interaction.count < 6) {
+				Interaction.setStatus('Olmadı! Doğru cevap ' + Interaction.pattern[Interaction.questionIndex].correctAnswer + ' olacaktı.', false);
 			} else {
-				patternString += Interaction.pattern[0];
+				if (Interaction.questionIndex1 < Interaction.questionIndex2) {
+					Interaction.setStatus('Olmadı! Doğru cevaplar '
+					 						+ Interaction.pattern[Interaction.questionIndex1].correctAnswer
+					 						+ ' ve '
+					 						+ Interaction.pattern[Interaction.questionIndex2].correctAnswer
+					 						+ ' olacaktı.', false);
+				} else {
+					Interaction.setStatus('Olmadı! Doğru cevaplar '
+					 						+ Interaction.pattern[Interaction.questionIndex2].correctAnswer
+					 						+ ' ve '
+					 						+ Interaction.pattern[Interaction.questionIndex1].correctAnswer
+					 						+ ' olacaktı.', false);
+				}
+			}
+			
+			$("#patternContainer").html("");
+			
+			if (typeof Interaction.pattern[0] == "number") {
+				$("#patternContainer").append(Interaction.pattern[0]);
+			} else {
+				$("#patternContainer").append("<span class='status_true' style='font-size: 32px'>" + Interaction.pattern[0].correctAnswer + "</span>");
 			}
 			
 			for (i = 1; i < Interaction.pattern.length; i++) {
-				if (i == Interaction.questionIndex) {
-					patternString += ", <span class='status_false' style='font-size: 32px'>" + Interaction.correctAnswer + "</span>";
+				$("#patternContainer").append(", ");
+				
+				if (typeof Interaction.pattern[i] == "number") {
+					$("#patternContainer").append(Interaction.pattern[i]);
 				} else {
-					patternString += ", " + Interaction.pattern[i];
-				}
+					$("#patternContainer").append( "<span class='status_true' style='font-size: 32px'>" + Interaction.pattern[i].correctAnswer + "</span>");
+				}	
 			}
-		
-			$("#patternContainer").html(patternString);
 		},
 }
