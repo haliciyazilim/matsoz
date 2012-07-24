@@ -192,6 +192,7 @@ p.exampleHeader {
 
 .next_button{
 	background-image:url(/assets/btn_next.png);
+	background-color: #fff;
 	height:40px;
 	width:103px;
 	border:none;
@@ -225,6 +226,29 @@ p.exampleHeader {
 	font-size: 14px;
 }
 
+.input[type="text"]{
+	width:35px;
+	height:30px;
+	font-size:16px;
+	text-align:center;
+	font-weight:bold;
+}
+.input[type="text"]:focus{
+	-moz-box-shadow: 0px 0px 10px #f55;
+	-webkit-box-shadow: 0px 0px 10px #f55;
+	box-shadow: 0px 0px 10px #f55;
+}
+.input_user_answer_correct[type="text"]{
+
+}
+
+.input_user_answer_wrong[type="text"]{
+
+}
+
+.input_correct_answer[type="text"]{
+
+}
 
 /*Egemen's classes*/
 img {
