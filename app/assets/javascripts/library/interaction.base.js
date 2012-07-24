@@ -2,6 +2,44 @@ function InteractionBase(){
 	
 	Interaction.inputs = [];
 	Interaction.__inputVersion = 0;
+	Interaction.__status = function(e){
+		switch(e){
+			case Interaction.__status.WRONG:
+					Interaction.setStatus('Yanlış cevap, tekrar deneyiniz.',false);
+				break;
+				
+			case Interaction.__status.FAIL:
+				break;
+				
+			case Interaction.__status.CORRECT:
+				Interaction.setStatus('Tebrikler!',true);
+				break;
+				
+			case Interaction.__status.FLOATING:
+				Interaction.setStatus('Lütfen ondalıklı sayıları virgülle yazınız.',false);
+				break;
+				
+			case Interaction.__status.EMPTY:
+				if(Interaction.inputs.length > 1)
+					Interaction.setStatus('Lütfen tüm kutucukları doldurunuz');
+				else
+					Interaction.setStatus('Lütfen kutucuğu doldurunuz');
+				break;
+				
+			case Interaction.__status.NUMBER:
+				if(Interaction.inputs.length > 1)
+					Interaction.setStatus('Lütfen kutucuklara sayı giriniz',false);
+				else
+					Interaction.setStatus('Lütfen bir sayı giriniz.',false);
+				break;
+		}
+	}
+	Interaction.__status.WRONG 	= 1;
+	Interaction.__status.FAIL 	 = 2;
+	Interaction.__status.CORRECT  = 3;
+	Interaction.__status.FLOATING = 4;
+	Interaction.__status.EMPTY 	= 5;
+	Interaction.__status.NUMBER   = 6;
 	
 	Interaction.setStatus = function(str,cls){
 		$(Interaction.status ).html(str);
@@ -11,11 +49,8 @@ function InteractionBase(){
 			$(Interaction.status ).get(0).className = 'status_false';
 		else
 			$(Interaction.status ).get(0).className = 'status';
-	
 	};
-	Interaction.setStatusByEnum = function(){
-		
-	}
+	
 	Interaction.appendStatus = function(css){
 		Interaction.status = document.createElement('div');
 		$(Interaction.container).append(Interaction.status);
@@ -54,6 +89,7 @@ function InteractionBase(){
 	*	Interaction.addInput({
 	*		isNumber:true,
 	*		maxlength:5,
+	*		reverseText:false,
 	*		css:{
 	*			width:35px,
 	*			fontSize:22px
@@ -61,11 +97,12 @@ function InteractionBase(){
 	*		correctAnswer:15,
 	*		or
 	*		correctAnswer:function(){
-	*			return Interaction.value1 / Interaction.value2;
-	*		}
+	*				return Interaction.value1 / Interaction.value2;
+	*		},
+	*		
 	*	})
-	*
 	*/
+
 	Interaction.addInput = function(opt){
 		if(Interaction.__inputVersion == 1){
 			throw 'You cannot use Interaction.addInput after Interaction.appendInput';
@@ -156,18 +193,21 @@ function InteractionBase(){
 				var correctAnswer = Interaction.inputs[i].isAnswerCorrect;
 				var value = Interaction.inputs[i].value;
 				if($(Interaction.inputs[i]).val() == ""){
-					Interaction.setStatus('Lütfen tüm kutucukları doldurunuz');
+					Interaction.__status(Interaction.__status.EMPTY);
+					//Interaction.setStatus('Lütfen tüm kutucukları doldurunuz');
 					return;
 				}
 				if(value == "" ||isNaN(value) && value.indexOf(',') < 0) {
-					Interaction.setStatus('Lütfen bir sayı giriniz.',false);
+					Interaction.__status(Interaction.__status.NUMBER);
+					//Interaction.setStatus('Lütfen bir sayı giriniz.',false);
 					return;
 				}
 				if(value.indexOf('.') > 0){
-					Interaction.setStatus('Lütfen ondalıklı sayıları virgülle yazınız.',false);
+					Interaction.__status(Interaction.__status.FLOATING);
+					//Interaction.setStatus('Lütfen ondalıklı sayıları virgülle yazınız.',false);
 					return;
 				}
-				
+				//not implemented yet
 				if(typeof correctAnswer == 'function'){
 					$(Interaction.inputs[i]).addClass('input_user_answer_correct');
 				}
@@ -188,11 +228,13 @@ function InteractionBase(){
 					if(Interaction.inputs[i].getAttribute('isNumber') == 'true'){			
 						
 						if(values[i] == "" ||isNaN(values[i]) && values[i].indexOf(',') < 0) {
-							Interaction.setStatus('Lütfen bir sayı giriniz.',false);
+							Interaction.__status(Interaction.__status.NUMBER);
+							//Interaction.setStatus('Lütfen bir sayı giriniz.',false);
 							return;
 						}
 						if(values[i].indexOf('.') > 0){
-							Interaction.setStatus('Lütfen ondalıklı sayıları virgülle yazınız.',false);
+							Interaction.__status(Interaction.__status.FLOATING);
+							//Interaction.setStatus('Lütfen ondalıklı sayıları virgülle yazınız.',false);
 							return;
 						}
 					}
@@ -204,12 +246,14 @@ function InteractionBase(){
 		
 		//call user-defined functions
 		if(isCorrect){
-			Interaction.setStatus('Tebrikler!',true);
+			Interaction.__status(Interaction.__status.CORRECT);
+//			Interaction.setStatus('Tebrikler!',true);
 			if(Interaction.onCorrectAnswer)
 				Interaction.onCorrectAnswer();
 		}
 		else if(Interaction.trial == 0){
-			Interaction.setStatus('Yanlış cevap, tekrar deneyiniz.',false);
+			Interaction.__status(Interaction.__status.WRONG);
+//			Interaction.setStatus('Yanlış cevap, tekrar deneyiniz.',false);
 			if(Interaction.onWrongAnswer)
 				Interaction.onWrongAnswer();
 		}
