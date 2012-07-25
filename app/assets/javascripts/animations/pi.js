@@ -201,13 +201,16 @@ var Interaction = {
 		$(ac)
 			.attr({
 				class:'control_button',
-				value:'Aç',
+				value:'',
 				onClick:'Interaction.drawLine()'
 			})
 			.css({
+				backgroundImage:'url(/assets/animations/btn_gray_expand.png)',
 				position:'absolute',
 				top:'200px',
-				left:'30px'
+				left:'30px',
+				width:'32px',
+				height:'31px',
 			});
 		
 		Interaction.input = document.createElement('input');
@@ -234,7 +237,6 @@ var Interaction = {
 		$(Interaction.button)
 			.attr({
 				class:'control_button',
-				value:'Kontrol',
 				onClick:'Interaction.checkAnswer()'
 			})
 			.css({
@@ -247,7 +249,7 @@ var Interaction = {
 		$(Interaction.status).css({
 			position:'absolute',
 			top:'260px',
-			right:'150px',
+			right:'160px',
 			width:'400px',
 			height:'50px',
 			textAlign:'right'
@@ -283,7 +285,7 @@ var Interaction = {
 		Interaction.trial = 0;
 		Interaction.drawCircle();
 		Interaction.setStatus('');
-		Interaction.button.value = 'Kontrol';
+		Interaction.button.className = 'control_button';
 		Interaction.button.onclick = Interaction.checkAnswer;
 		Interaction.input.value = '';
 		Interaction.ruler.animate({
@@ -296,7 +298,7 @@ var Interaction = {
 		Interaction.ruler = new Raster('ruler');
 		Interaction.ruler.set_style(rulerStyle)
 		var firstPosition = new Point(
-			x+Interaction.ruler.bounds.width*0.5,
+			x+Interaction.ruler.bounds.width,
 			y+Interaction.ruler.bounds.height*0.5
 		);
 		Interaction.ruler.position = firstPosition;
@@ -309,7 +311,9 @@ var Interaction = {
 				this.drag = true;
 		}
 		tool.onMouseDrag = function(event){
-			if(this.drag){
+			
+			console.log();
+			if(this.drag && Interaction.ruler.position.x+event.delta.x > 447){
 				Interaction.ruler.position = [
 					Interaction.ruler.position.x + event.delta.x,
 					Interaction.ruler.position.y + event.delta.y
@@ -447,13 +451,13 @@ var Interaction = {
 			Interaction.trial++;
 			if(Interaction.trial > 1){
 				Interaction.setStatus('Yanlış, doğru cevap: 3,14 ya da 3,1 ya da 3 olacaktı',false);
-				Interaction.button.value = 'Sonraki';
+				Interaction.button.className = 'next_button';
 				Interaction.button.onclick = Interaction.nextQuestion;
 			}			
 		}
 		else{
 			Interaction.setStatus('Tebrikler !',true);
-			Interaction.button.value = 'Sonraki';
+			Interaction.button.className = 'next_button';
 			Interaction.button.onclick = Interaction.nextQuestion;
 		}
 	},

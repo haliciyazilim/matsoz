@@ -1,6 +1,6 @@
-var fillColor = '#bfe8ef';
+var fillColor = '#255b63'//'#bfe8ef';
 var rectStyle = {
-	fillColor:fillColor,
+	fillColor:'#bfe8ef',
 	strokeWidth:1,
 	strokeColor:'#255b63'
 }
@@ -48,13 +48,13 @@ var Animation = {
 			r2.set_style(rectStyle);
 			var p2 = p1.add(60,0)
 			var y1 = Path.SegmentedRectangle(p2.x,p2.y,size.width,size.height,10,10,38,fillColor);
-			
+			y1.strokeColor = rectStyle.fillColor;
 			var p1 = new Point(450,55).add(0.5,0.5);
 			var r1 = new Path.Rectangle(p1, size);
 			r1.set_style(rectStyle);
 			var p2 = p1.add(60,0)
 			var y1 = Path.SegmentedRectangle(p2.x,p2.y,size.width,size.height,10,10,26,fillColor);
-			
+			y1.strokeColor = rectStyle.fillColor;
 			var p3 = p1.add(0,50);
 			var p4 = p3.add(60,0);
 			$('span.1').delay(1000).animate({color:'#f00'},1000).delay(2000).animate({color:'#000'},2000);
@@ -73,6 +73,7 @@ var Animation = {
 				if(Animation.rect)
 					Animation.rect.remove();
 				Animation.rect = Path.SegmentedRectangle(p4.x,p4.y,size.width,size.height,10,10,Math.floor(this.count),fillColor);
+				Animation.rect.strokeColor = rectStyle.fillColor
 			}
 			
 			new AnimationHelper({

@@ -95,26 +95,28 @@ var Animation = {
 							var line = new Path.Line(p1,p2);
 							line.set_style({strokeWidth:3,strokeColor:"#f00"});
 							line.opacity = 0;
+							line._this_span = this.span;
+							line._this_container = this.container;
+							line.spanColor = new RgbColor(0,0,0);
 							line.animate({
-								style:{opacity:1},
+								style:{opacity:1,spanColor:new RgbColor(1,0,0)},
 								duration:500,
 								delay:0+delay,
 								callback:function(){
 									this.animate({
-										style:{opacity:0},
+										style:{opacity:0,spanColor:new RgbColor(0,0,0)},
 										duration:500,
 										delay:500,
+										update:function(){
+											$(this._this_span,this._this_container).css({color:this.spanColor.toCssString()})
+											},
 										callback:this.remove
 									})
-										
 								},
+								update:function(){
+									$(this._this_span,this._this_container).css({color:this.spanColor.toCssString()})
+								}
 							});
-							$(this.span,this.container)
-								.css({color:'#000'})
-								.delay(0+delay)
-								.animate({color:'#f00'},500)
-								.delay(500)
-								.animate({color:'#000'},500);
 						}
 						new flashLine("span#1",div,this.point0,0);
 						new flashLine("span#2",div,this.point0,1500);
@@ -269,7 +271,6 @@ Interaction.init = function(container){
 	$('div#T',Interaction.R).append('&nbsp;<span id="input_measure"></span>²');
 	Interaction.button = document.createElement('input');
 	Interaction.button.setAttribute('type','button');
-	Interaction.button.value = 'Kontrol';
 	Interaction.button.onclick = TestGenerator.checkAnswer;
 	Interaction.button.className = 'control_button';
 	$('div#B',Interaction.R).append(Interaction.button);
@@ -301,9 +302,9 @@ TestGenerator.nextQuestion = function(){
 	TestGenerator.shape = null;
 	TestGenerator.trial = 0;
 	TestGenerator.values = null;
-	project.activeLayer.removeChildren();
+	Main.interactionProject.activeLayer.removeChildren();
 	Interaction.setStatus('');
-	Interaction.button.value = 'Kontrol';
+	Interaction.button.className = 'control_button';
 	Interaction.input.value = '';
 	Interaction.input.style.color = '';
 	Interaction.button.onclick = TestGenerator.checkAnswer;
@@ -381,7 +382,8 @@ TestGenerator.checkAnswer = function(){
 		Interaction.setStatus('Tebrikler !',true);
 		Interaction.button.onclick = TestGenerator.nextQuestion;
 		Interaction.input.onkeyup = TestGenerator.nextQuestion;
-		Interaction.button.value = 'Sonraki';
+		//Interaction.button.value = 'Sonraki';
+		Interaction.button.className = 'next_button';
 	}
 	else{
 		Interaction.setStatus('Tekrar deneyiniz. ',false);
@@ -394,7 +396,8 @@ TestGenerator.checkAnswer = function(){
 		Interaction.setStatus('Yanlış. Doğru cevap: '+TestGenerator.values.area+' '+TestGenerator.getMeasure() + '²',false);
 		Interaction.button.onclick = TestGenerator.nextQuestion;
 		Interaction.input.onkeyup = TestGenerator.nextQuestion;
-		Interaction.button.value = 'Sonraki';
+		//Interaction.button.value = 'Sonraki';
+		Interaction.button.className = 'next_button';
 	}	
 	else{
 		TestGenerator.trial++;

@@ -211,15 +211,14 @@ Interaction.images = [
 ];
 
 Interaction.init = function(container){
-	Main.setObjective('Aşağıdaki cetvel ve pergeli kullanarak seçeceğiniz yarıçap uzunluğuna sahip çemberi aşağıdaki “Çiz” düğmesine tıklayarak çiziniz.');
+	Main.setObjective('Yandaki cetvel ve pergeli kullanarak seçeceğiniz yarıçap uzunluğuna sahip çemberi aşağıdaki “Çiz” düğmesine tıklayarak çiziniz.');
 
 	Interaction.container = container;
 	Interaction.paper = {width:$(container).width(),height:$(container).height()};
 	Interaction.button = document.createElement('input');
 	Interaction.button.type = "button";
-	Interaction.button.value = 'Çiz';
 	Interaction.button.onclick = Interaction.drawCircle;
-	Interaction.button.className = 'control_button'
+	Interaction.button.className = 'draw_button'
 	$(Interaction.button).css({
 			position:'absolute',
 			top:'30px',

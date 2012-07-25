@@ -230,12 +230,13 @@ Interaction.images = [
 	}
 ];
 Interaction.init = function(container){
-	Main.setObjective('Aşağıdaki çemberin yarıçapını cetvel yardımıyla ölçünüz ve çevresini hesaplayınız. Bulduğunuz sonucu aşağıdaki kutucuğa yazınız ve “Kontrol” düğmesine basınız. <span style="font-weight:bold;">(π = 3 alınız.)</span>');
+	Main.setObjective('Yandaki çemberin yarıçapını cetvel yardımıyla ölçünüz ve çevresini hesaplayınız. Bulduğunuz sonucu aşağıdaki kutucuğa yazınız ve “Kontrol” düğmesine basınız. <span style="font-weight:bold;">(π = 3 alınız.)</span>');
 	Interaction.container = container;
 	$(Interaction.container).append('<div id="B" style="position:absolute; top:70%; left:0%; width:100%; "></div>');
 	//Interaction.paper = new Raphael( $('div#T',Interaction.container).get(0) ,$('div#T',Interaction.container).width(),$(Interaction.container).height()*0.6);
 	Interaction.paper = {width:$(container).width(),height:$(container).height()}
-	$('div#B',Interaction.container).html('<div style="text-align:right;padding-right:130px;">Çevre&nbsp;=&nbsp;<input type="text" style="width:35px;height:30px;font-size:16px;font-weight:bold;text-align:center;" id="input" maxlength="3" />&nbsp;br</div><div style="text-align:right;"><span id="status"></span>&emsp;<input type="button" id="control" class="control_button" value="Kontrol" onclick="Interaction.checkAnswer()" /></div>');
+	$('div#B',Interaction.container).html('<div style="text-align:right;padding-right:130px;position:relative;top:-20px;">Çevre&nbsp;=&nbsp;<input type="text" style="width:35px;height:30px;font-size:16px;font-weight:bold;text-align:center;" id="input" maxlength="3" />&nbsp;br</div><div style="text-align:right;"><span id="status" style="position:relative;top:10px;"></span>&emsp;<input type="button" id="control" class="control_button" onclick="Interaction.checkAnswer()" /></div>');
+	Interaction.status = $('#status').get(0);
 	Interaction.control = $('#control',Interaction.container).get(0);
 	Interaction.input = $('#input',Interaction.container).get(0);
 	Interaction.drawRuler();
@@ -280,7 +281,7 @@ Interaction.nextQuestion = function(){
 	if(Interaction.circleSet)
 		Interaction.circleSet.remove();
 	Interaction.control.onclick = Interaction.checkAnswer;
-	Interaction.control.value = 'Kontrol';
+	Interaction.control.className = 'control_button';
 	Interaction.input.value = '';
 	Interaction.setStatus('');
 	Interaction.trial = 0;
@@ -307,7 +308,7 @@ Interaction.checkAnswer = function(){
 	
 	if(answer == rightAnswer){
 		Interaction.setStatus('Tebrikler!',true);
-		Interaction.control.value = 'Sonraki';
+		Interaction.control.className = 'next_button';
 		Interaction.control.onclick = Interaction.nextQuestion;
 		Interaction.input.onkeyup = Interaction.nextQuestion;
 	}
@@ -323,6 +324,7 @@ Interaction.checkAnswer = function(){
 	else{
 		Interaction.setStatus('Yanlış, doğru cevap: '+rightAnswer,false);
 		Interaction.control.onclick = Interaction.nextQuestion;
+		Interaction.control.className = 'next_button';
 		Interaction.input.onkeyup = Interaction.nextQuestion;
 		Interaction.input.value = rightAnswer;
 	}
