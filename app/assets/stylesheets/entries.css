@@ -197,6 +197,21 @@ p.exampleHeader {
 	width:103px;
 	border:none;
 }
+.repeat_button{
+	background-image:url(/assets/btn_repeat.png);
+	background-color: #fff;
+	height:40px;
+	width:103px;
+	border:none;
+}
+.draw_button{
+	background-image:url(/assets/btn_gray_draw.png);
+	background-color: #fff;
+	height:31px;
+	width:32px;
+	border:none;
+}
+
 
 .status_field {
 	text-align: center;
