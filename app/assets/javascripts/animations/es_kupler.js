@@ -4,8 +4,101 @@ var cubeStyle = {
 	fillColor:'#ffd9d9'
 };
 var Animation = {
+	pathInit:function(){
+			Path.Cube3d = function(p,a,xAngle,yAngle,zAngle){
+				yAngle = yAngle%90 - 45;
+				if(zAngle == undefined)
+					zAngle =0;
+				function calculateRotation(p,o,angle){
+					return p.getRotatedPoint(angle,o)
+						.subtract(o)
+						.multiply(1,Math.sin(Util.degreeToRadian(xAngle)))
+						.add(o);
+				}
+				var p1,p2,p3,p4,p5,p6;
+				var poBottom,poTop,poCenter;
+				var a_2_ = a*Math.sqrt(2);
+				p1 = p.add(0,a_2_*0.5);
+				p2 = p.add(0,a_2_*0.5+a);
+				p3 = p.add(a*Math.sqrt(2)*0.5,a+a_2_);
+				p4 = p.add(a*Math.sqrt(2),a+a_2_*0.5);
+				p5 = p.add(a*Math.sqrt(2),a_2_*0.5);
+				p6 = p.add(a*Math.sqrt(2)*0.5,0);
+				p7 = p.add(a*Math.sqrt(2)*0.5,a_2_);
+				
+				poBottom = Util.centerOfPoints([p2,p4]);
+				poTop = Util.centerOfPoints([p1,p5]);
+				poCenter = Util.centerOfPoints([p1,p2,p3,p4,p5,p6]);
+				
+				poBottom = poBottom.getRotatedPoint(zAngle,poCenter); 
+				poTop = poTop.getRotatedPoint(zAngle,poCenter);
+				
+				p1 = calculateRotation(p1,poTop,yAngle).getRotatedPoint(zAngle,poCenter);
+				p5 = calculateRotation(p5,poTop,yAngle).getRotatedPoint(zAngle,poCenter);
+				p6 = calculateRotation(p6,poTop,yAngle).getRotatedPoint(zAngle,poCenter);
+				p7 = calculateRotation(p7,poTop,yAngle).getRotatedPoint(zAngle,poCenter);
+				p2 = calculateRotation(p2,poBottom,yAngle).getRotatedPoint(zAngle,poCenter);
+				p3 = calculateRotation(p3,poBottom,yAngle).getRotatedPoint(zAngle,poCenter);
+				p4 = calculateRotation(p4,poBottom,yAngle).getRotatedPoint(zAngle,poCenter);
+				//rotate top points;
+				var vertexArray = [];
+				vertexArray.push(p1);
+				vertexArray.push(p2);
+				vertexArray.push(p3);
+				vertexArray.push(p4);
+				vertexArray.push(p5);
+				vertexArray.push(p6);
+				var centerPoint = Util.centerOfPoints(vertexArray);
+				var cube = new Group();
+				var outline = new Path();
+				
+				
+				for(var i=0;i<vertexArray.length;i++){
+					outline.add(vertexArray[i]);
+				}
+				
+				outline.closed = true;
+				cube.addChild(outline);
+				cube.addChild(new Path.Line(p1,p7));
+				cube.addChild(new Path.Line(p5,p7));
+				cube.addChild(new Path.Line(p3,p7));
+				//poBottom.showOnCanvas();
+				//poTop.showOnCanvas();
+				//poCenter.showOnCanvas();
+				return cube;
+			}
+		},
 	init:function(container){
-		
+			Animation.pathInit();
+			Animation.container = container;
+			Animation.angle = 0;
+			var p = new Point(200,50);
+			
+			var animHelp = new AnimationHelper({
+				yAngle:0,
+				zAngle:0,
+				xAngle:30
+			});
+//			Animation.text = new PointText(300,50);
+			
+			animHelp.animate({
+				style:{yAngle:600,zAngle:0,xAngle:-30},
+				duration:3000,
+				animationType:'easeInEaseOut',
+				update:function(){
+					if(Animation.cube)
+						Animation.cube.remove();
+					//Animation.text.content = ""+Math.floor(this.angle);	
+					Animation.cube = new Path.Cube3d(p,50,this.xAngle,this.yAngle,this.zAngle);
+					Animation.cube.set_style(cubeStyle);
+					
+					
+					
+				}
+			})
+			
+			
+			
 		}
 }
 
@@ -20,41 +113,41 @@ var Interaction = {
 			return 'paper';
 		},
 	pathInit:function(){
-		Path.IsometricCube = function(p,a,h){
-			var p1,p2,p3,p4,p5,p6;
-			p1 = p.add(0,h*0.5);
-			p2 = p.add(0,h*0.5+a);
-			p3 = p.add(a*Math.sqrt(2)*0.5,a+h);
-			p4 = p.add(a*Math.sqrt(2),a+h*0.5);
-			p5 = p.add(a*Math.sqrt(2),h*0.5);
-			p6 = p.add(a*Math.sqrt(2)*0.5,0);
-			p7 = p.add(a*Math.sqrt(2)*0.5,h);
-			var vertexArray = [];
-			vertexArray.push(p1);
-			vertexArray.push(p2);
-			vertexArray.push(p3);
-			vertexArray.push(p4);
-			vertexArray.push(p5);
-			vertexArray.push(p6);
-			var centerPoint = Util.centerOfPoints(vertexArray);
-			var cube = new Group();
-			var outline = new Path();
-			for(var i=0;i<vertexArray.length;i++){
-				outline.add(vertexArray[i]);
+			Path.IsometricCube = function(p,a,h){
+				var p1,p2,p3,p4,p5,p6;
+				p1 = p.add(0,h*0.5);
+				p2 = p.add(0,h*0.5+a);
+				p3 = p.add(a*Math.sqrt(2)*0.5,a+h);
+				p4 = p.add(a*Math.sqrt(2),a+h*0.5);
+				p5 = p.add(a*Math.sqrt(2),h*0.5);
+				p6 = p.add(a*Math.sqrt(2)*0.5,0);
+				p7 = p.add(a*Math.sqrt(2)*0.5,h);
+				var vertexArray = [];
+				vertexArray.push(p1);
+				vertexArray.push(p2);
+				vertexArray.push(p3);
+				vertexArray.push(p4);
+				vertexArray.push(p5);
+				vertexArray.push(p6);
+				var centerPoint = Util.centerOfPoints(vertexArray);
+				var cube = new Group();
+				var outline = new Path();
+				for(var i=0;i<vertexArray.length;i++){
+					outline.add(vertexArray[i]);
+				}
+				outline.closed = true;
+				
+				cube.addChild(outline);
+				cube.addChild(new Path.Line(p1,p7));
+				cube.addChild(new Path.Line(p5,p7));
+				cube.addChild(new Path.Line(p3,p7));
+				return cube;
 			}
-			outline.closed = true;
-			
-			cube.addChild(outline);
-			cube.addChild(new Path.Line(p1,p7));
-			cube.addChild(new Path.Line(p5,p7));
-			cube.addChild(new Path.Line(p3,p7));
-			return cube;
-		}
-	},
+		},
 	init:function(container){
 			Interaction.pathInit();
 			Interaction.container = container;
-			Main.setObjective('Yandaki yapının hacminin kaç birim küp olduğunu bulunuz ve kontrol ediniz.');
+			Main.setObjective('Yandaki yapının kaç tane eş küp ile oluşturulduğunu bulunuz.');
 			Interaction.paper = {
 				width:$(container).width(),
 				height:$(container).height()
@@ -104,14 +197,14 @@ var Interaction = {
 			var cubes = [];
 			var zCubes, xCubes, yCubes;
 			do
-				xCubes = Math.floor(Math.random()*4)+3;
+				xCubes = Math.floor(Math.random()*4)+2;
 				while(Interaction.xCubes == xCubes)
 			do
-				yCubes = Math.floor(Math.random()*3)+1;
+				yCubes = Math.floor(Math.random()*2)+1;
 				while(Interaction.yCubes == yCubes)
 			do
-				zCubes = Math.floor(Math.random()*7)+1;
-			while(zCubes/4 > xCubes-2 || Interaction.zCubes == zCubes)
+				zCubes = Math.floor(Math.random()*4)+1;
+			while(Interaction.zCubes == zCubes)
 			
 			Interaction.xCubes = xCubes;
 			Interaction.yCubes = yCubes;
@@ -120,11 +213,11 @@ var Interaction = {
 			//console.log(xCubes,yCubes,zCubes);
 
 			for(var i=0; i< xCubes ; i++)
-				cubes.push(new UnitCube(i-1,0,0));
+				cubes.push(new UnitCube(i,0,0));
 			for(var i=0; i< yCubes ; i++)
 				cubes.push(new UnitCube(0,i+1,0));
 			for(var i=0; i< zCubes ; i++)
-				cubes.push(new UnitCube(Math.floor(i/3),0,i%3+1));
+				cubes.push(new UnitCube(0,0,i+1));
 			
 			Interaction.cubes = cubes;
 			UnitCube.drawCubesOneByOne(cubes,zero,a,Interaction,500);
@@ -151,6 +244,7 @@ var Interaction = {
 				update:animHelp.update,
 				callback:function(){
 					Interaction.pause = false;
+					
 					/*this.animate({
 						style:{distance:0},
 						duration:1000,
@@ -253,7 +347,7 @@ UnitCube.drawCubesOneByOne = function(cubes,zero,a,_s,delay){
 		cubes[i].shape.animate({
 			style:{opacity:1},
 			delay:delay*i,
-			duration:delay
+			duration:100
 			
 		});
 		

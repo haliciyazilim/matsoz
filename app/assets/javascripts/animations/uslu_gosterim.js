@@ -44,31 +44,37 @@ Animation.init = function(container){
 	
 	$('#animDiv').append('<p id="fiveT">5\'in karesi:</p>')
 	$('#fiveT').css("position", "absolute")
-				.css("top", "42px")
-				.css("left", "20px")
+				.css("top", "22px")
+				.css("left", "98px")
 				.css("opacity", 0)
 				.delay(2000)
 				.animate({opacity:1}, 1000)
 	
 	$('#animDiv').append('<p id="fiveE">5 x 5</p>')
 	$('#fiveE').css("position", "absolute")
-				.css("top", "42px")
-				.css("left", "146px")
+				.css("top", "56px")
+				.css("left", "96px")
+				.css("font-size", 26)
+				.css("font-weight", "bold")
 				.css("opacity", 0)
 				.delay(3000)
 				.animate({opacity:1}, 1000)
 	$('#animDiv').append('<p id ="eq2">=</p>');
 	$('#eq2').css("position", "absolute")
-				.css("left", "210px")
-				.css("top", "42px")
+				.css("left", "162px")
+				.css("top", "56px")
+				.css("font-size", 26)
+				.css("font-weight", "bold")
 				.css("opacity", 0)
 				.delay(5000)
 				.animate({opacity:1}, 1000)
 	
 	$('#animDiv').append('<div id ="fs"><p id="f">5</p><p id="s">2</p></div>');
 	$('#fs').css("position", "absolute")
-				.css("left", "240px")
-				.css("top", "42px")
+				.css("left", "184px")
+				.css("top", "56px")
+				.css("font-size", 26)
+				.css("font-weight", "bold")
 			//	.css("opacity", 0)
 	$('#f').css("position", "absolute")
 				.css("left", "0px")
@@ -77,17 +83,18 @@ Animation.init = function(container){
 				.delay(5000)
 				.animate({opacity:1}, 1000)
 	$('#s').css("position", "absolute")
-				.css("left", "14px")
-				.css("top", "-6px")
-				.css("font-size", 16)
+				.css("left", "-78px") // 16px
+				.css("top", "36px")	// -6px
+				.css("font-size", 16)  // font-size 16
+				.css("font-weight", "bold")
+		//		.css("color", "#f00")
 				.css("opacity", 0)
-				.delay(7000)
-				.animate({opacity:1}, 500)
+				.delay(6000).animate({left: '16px', top:'-6px', opacity: 4}, 1500)
 	
 	$('#animDiv').append('<img id="curv1" src="/assets/animations/curve.png" />')	
 	$('#curv1').css("position", "absolute")
-				.css("top", "60px")
-				.css("left", "142px")
+				.css("top", "80px")
+				.css("left", "96px")
 				.css("width", "58px")
 				.css("height", "14px")
 				.css("opacity", 0)
@@ -95,8 +102,8 @@ Animation.init = function(container){
 				.animate({opacity:1}, 1000)
 	$('#animDiv').append('<p id="tw">2 tane</p>')
 	$('#tw').css("position", "absolute")
-				.css("top", "74px")
-				.css("left", "154px")
+				.css("top", "94px")
+				.css("left", "108px")
 				.css("font-size", 12)
 				.css("opacity", 0)
 				.delay(4000)
@@ -106,31 +113,37 @@ Animation.init = function(container){
 	
 	$('#animDiv2').append('<p id="fiveT2">5\'in küpü:</p>')
 	$('#fiveT2').css("position", "absolute")
-				.css("top", "42px")
-				.css("left", "14px")
+				.css("top", "22px")
+				.css("left", "96px")
 				.css("opacity", 0)
 				.delay(8500)
 				.animate({opacity:1}, 1000)
 	
 	$('#animDiv2').append('<p id="fiveE2">5 x 5 x 5</p>')
 	$('#fiveE2').css("position", "absolute")
-				.css("top", "42px")
-				.css("left", "134px")
+				.css("top", "56px")
+				.css("left", "76px")
+				.css("font-size", 26)
+				.css("font-weight", "bold")
 				.css("opacity", 0)
 				.delay(9500)
 				.animate({opacity:1}, 1000)
 	$('#animDiv2').append('<p id ="eq3">=</p>');
 	$('#eq3').css("position", "absolute")
-				.css("left", "234px")
-				.css("top", "42px")
+				.css("left", "182px")
+				.css("top", "56px")
+				.css("font-size", 26)
+				.css("font-weight", "bold")
 				.css("opacity", 0)
 				.delay(11500)
 				.animate({opacity:1}, 1000)
 	
 	$('#animDiv2').append('<div id ="fs2"><p id="f2">5</p><p id="s2">3</p></div>');
 	$('#fs2').css("position", "absolute")
-				.css("left", "264px")
-				.css("top", "42px")
+				.css("left", "204px")
+				.css("top", "56px")
+				.css("font-size", 26)
+				.css("font-weight", "bold")
 	$('#f2').css("position", "absolute")
 				.css("left", "0px")
 				.css("top", "0px")
@@ -138,16 +151,18 @@ Animation.init = function(container){
 				.delay(11500)
 				.animate({opacity:1}, 1000)
 	$('#s2').css("position", "absolute")
-				.css("left", "14px")
-				.css("top", "-6px")
+				.css("left", "-98px")
+				.css("top", "36px")
 				.css("font-size", 16)
+				.css("font-weight", "bold")
 				.css("opacity", 0)
-				.delay(13500)
-				.animate({opacity:1}, 500)
+				.delay(12500).animate({left: '16px', top:'-6px', opacity: 4}, 1500)
+				
+				.delay(0).animate({opacity:1, left: '16px', top: '-6px', fontSize: '16px', fontWeight: 'bold'}, 2000)
 	$('#animDiv2').append('<img id="curv2" src="/assets/animations/curve.png" />')	
 	$('#curv2').css("position", "absolute")
-				.css("top", "60px")
-				.css("left", "130px")
+				.css("top", "80px")
+				.css("left", "78px")
 				.css("width", "96px")
 				.css("height", "14px")
 				.css("opacity", 0)
@@ -155,8 +170,8 @@ Animation.init = function(container){
 				.animate({opacity:1}, 1000)
 	$('#animDiv2').append('<p id="th">3 tane</p>')
 	$('#th').css("position", "absolute")
-				.css("top", "76px")
-				.css("left", "158px")
+				.css("top", "94px")
+				.css("left", "108px")
 				.css("font-size", 12)
 				.css("opacity", 0)
 				.delay(10500)
@@ -171,7 +186,7 @@ Animation.init = function(container){
 	fLine.dashArray = [3,2];
 	fLine.opacity = 0;
 	
-	
+/*	
 	var arcGroup = new Group();
 	var arc = new Path.Arc(new Point(420.5, 80.5), new Point(480.5, 78.5), new Point(490.5, 56.5))
 	arc.strokeColor = "black";
@@ -182,14 +197,14 @@ Animation.init = function(container){
 	arcGroup.addChild(arc);
 	arcGroup.addChild(line1);
 	arcGroup.addChild(line2);
-	arcGroup.position = new Point(256, 124);
+	arcGroup.position = new Point(204, 136);
 	arcGroup.opacity = 0;
 	
 	var arcGroup2 = arcGroup.clone();
 	arcGroup2.strokeColor = "black";
-	arcGroup2.position = new Point(670, 128);
+	arcGroup2.position = new Point(619, 138);
 	arcGroup2.scale(1.2);
-	arcGroup2.opacity = 0;
+	arcGroup2.opacity = 0;*/
 	
 	fCirc.animate({
 		style: {
@@ -208,7 +223,7 @@ Animation.init = function(container){
 		delay: 1000,
 		animationType: 'easeInEaseOut'
 	});
-	
+/*	
 	arcGroup.animate({
 		style:{
 			opacity: 1,
@@ -225,7 +240,7 @@ Animation.init = function(container){
 		duration: 1000,
 		delay: 12500,
 		animationType: 'easeInEaseOut'
-	});
+	});*/
 	
 	
 	

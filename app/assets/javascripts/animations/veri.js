@@ -418,13 +418,13 @@ Interaction.init = function(container){
 					
 	$(container).append('<button id="checkBtn" class="control_button"></button>');
 	$('#checkBtn').css("position", "absolute")
-					.css("left", "490px")
-					.css("top", "240px");
+					.css("right", "30px")
+					.css("bottom", "30px");
 	
 	$(container).append('<button id="nextBtn" class="next_button"></button>');
 	$('#nextBtn').css("position", "absolute")
-					.css("left", "490px")
-					.css("top", "240px");
+					.css("right", "30px")
+					.css("bottom", "30px");
 	$('#nextBtn').hide();
 	nextQuestion();
 	
@@ -794,7 +794,7 @@ Interaction.init = function(container){
 					$('#textInput1').val(answer);
 					$('#textInput1').css("color", inputBoxAnswerColor);
 
-					switch(questionIndex)
+					switch(shuffledQuesArr[index-1])
 					{
 						// if answer is wrong, give the answer and make the answer datas red
 						case 0:
