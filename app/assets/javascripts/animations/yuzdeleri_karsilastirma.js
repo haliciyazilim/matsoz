@@ -185,6 +185,7 @@ Animation.init=function(container){
 };
 
 Interaction.init = function(container){
+
 	Main.setObjective("Yandaki yüzlük tabloların altındaki kutulara istediğiniz sayıları yazınız. <br />“<” (küçük)  ya da “>” (büyük) işaretlerinden uygun olanına fare ile tıklayarak yüzdeleri karşılaştırınız. Daha sonra doğruluğunu kontrol ediniz");
 	
 	//sol div bilgileri	
@@ -373,9 +374,9 @@ Interaction.init = function(container){
     			//bosKareSol.yap();
     			//$("#girisSol").val("");
     		}
-    		if(   $("#girisSol").val()==$("#girisSag").val()){
+    		if($("#girisSol").val()!="" && $("#girisSag").val()!="" && $("#girisSol").val()==$("#girisSag").val()){
     			//alert("Sayılar birbirine eşit olmamalıdır. Lütfen yeniden sayı giriniz.");
-    			//console.log("sol: "+$("#girisSol").val()+ " sag: "+$("#girisSag").val());
+    			console.log("sol: "+$("#girisSol").val()+ " sag: "+$("#girisSag").val());
     			$('#geriBildirimText').attr("class","status_alert");
 				$('#geriBildirimText').html("Sayılar birbirine eşit olmamalıdır. Lütfen yeniden sayı giriniz.");
 				$("#geriBildirim").show();
@@ -436,7 +437,7 @@ Interaction.init = function(container){
 	$("#btnKontrol").click(
 		function(){
 			
-			//console.log("kontrole basıldı");
+			console.log("kontrole basıldı");
 			
 			kontrol();
 		}
@@ -555,7 +556,7 @@ Interaction.init = function(container){
 	
 	$("#girisSol").keyup(function(event) {
 		if(event.keyCode == 13) {
-			//console.log("Key"+event.keyCode);
+			console.log("Key"+event.keyCode);
 			kontrol();
 		}
 	});
