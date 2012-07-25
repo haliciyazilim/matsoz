@@ -171,6 +171,27 @@ function InteractionBase(){
 			});
 		$(Interaction.button).css(css);
 	};
+	
+	
+	Interaction.setRandomGenerator = function(to,from){
+		var NUMBER_OF_SHAPES;
+		if(isNaN(from))
+			from=0;
+		NUMBER_OF_SHAPES = to - from;
+		
+		Interaction.__randomGenerator = {
+			NUMBER_OF_SHAPES : NUMBER_OF_SHAPES,
+			index : from,
+			shuffledArray : Util.getShuffledArray(NUMBER_OF_SHAPES),
+			nextNumber:function(){
+				Interaction.__randomGenerator.index = Interaction.__randomGenerator.index%Interaction.__randomGenerator.NUMBER_OF_SHAPES;
+				var number = Interaction.__randomGenerator.shuffledArray[Interaction.__randomGenerator.index];
+				Interaction.__randomGenerator.index ++;
+				return number;
+			}
+		}
+	}
+	
 	Interaction.prepareNextQuestion = function(){
 		if(Interaction.pause)
 			return;
@@ -188,15 +209,19 @@ function InteractionBase(){
 		}
 		if(Interaction.button){
 			Interaction.button.className = 'control_button';
-			Interaction.button.onclick = Interaction.checkAnswer;
+			Interaction.button.onclick = Interaction.__checkAnswer;
 		}
 		Interaction.trial = 0;
-		Interaction.nextQuestion();
+		if(Interaction.__randomGenerator)
+			Interaction.nextQuestion(Interaction.__randomGenerator.nextNumber());	
+		else
+			Interaction.nextQuestion();
 	};
-	Interaction.checkAnswer = function(){
+	Interaction.__checkAnswer = function(){
 		if(Interaction.pause == true)
 			return;
-			
+		if(Interaction.preCheck && Interaction.preCheck() == false)
+			return;
 		var isCorrect;
 		if(Interaction.__inputVersion == 2){
 			isCorrect = true;
