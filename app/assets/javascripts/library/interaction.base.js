@@ -21,9 +21,9 @@ function InteractionBase(){
 				
 			case Interaction.__status.EMPTY:
 				if(Interaction.inputs.length > 1)
-					Interaction.setStatus('Lütfen tüm kutucukları doldurunuz');
+					Interaction.setStatus('Lütfen tüm kutucukları doldurunuz', "alert");
 				else
-					Interaction.setStatus('Lütfen kutucuğu doldurunuz');
+					Interaction.setStatus('Lütfen kutucuğu doldurunuz', "alert");
 				break;
 				
 			case Interaction.__status.NUMBER:
@@ -47,6 +47,9 @@ function InteractionBase(){
 			$(Interaction.status ).get(0).className = 'status_true';
 		else if(cls === false)
 			$(Interaction.status ).get(0).className = 'status_false';
+		else if (cls == 'alert') {
+			$(Interaction.status ).get(0).className = 'status_alert';
+		}
 		else
 			$(Interaction.status ).get(0).className = 'status';
 	};
