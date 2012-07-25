@@ -6,10 +6,14 @@ var Animation = {
 		var rect5 = new Path.SegmentedRectangle(280.5, 10.5, 40, 80, 1, 1, 1, fillColor)
 		rect5.opacity = 0;
 		var rect1 = new Path.SegmentedRectangle(60.5, 10.5, 160, 80, 2, 1, 1, fillColor);
+		rect1.opacity = 0;
 		var rect2 = new Path.SegmentedRectangle(280.5, 10.5, 160, 80, 8, 1, 2, fillColor);
+		rect2.opacity = 0;
 		var rect3 = new Path.SegmentedRectangle(500.5, 10.5, 160, 80, 8, 1, 0, fillColor);
+		rect3.opacity = 0;
 
 		var arrow = new Path.OneSidedArrow(new Point(450, 50), new Point(490, 50), 10, 30);
+		arrow.opacity = 0;
 		
 		var dashedLinesGroup = new Group();
 		for(i = 0; i < 7; i++){
@@ -25,51 +29,535 @@ var Animation = {
 		pluss.fillColor = "black";
 		pluss.fontSize = 26;
 		pluss.content = "+";
-		var firstFracGroup = new Group();
-		var firstNom = new PointText(new Point(224, 120));
-		firstNom.justification = "center";
-		firstNom.fillColor = "black";
-		firstNom.content = "1";
-		firstNom.fontSize = 12;
-		var firstDenom = new PointText(new Point(225, 146));
-		firstDenom.justification = "center";
-		firstDenom.fillColor = "black";
-		firstDenom.content = "2";
-		firstDenom.fontSize = 12;
-		var firstLine = new Path.Line(new Point(218, 126), new Point(232, 126));
-		firstLine.strokeColor = "black";
-		firstLine.strokeWidth = 2;
-		firstFracGroup.addChild(firstNom);
-		firstFracGroup.addChild(firstDenom);
-		firstFracGroup.addChild(firstLine);
-		firstFracGroup.position = new Point(30, 50)
+		pluss.opacity = 0;
 		
-		firstFracGroup.animate({
-			style:{
-			},
-			duration:500,
-			delay:1000,
+		var arr = new Group(); 
+		var arroww = new Path.OneSidedArrow(new Point(50, 164), new Point(690, 164), 10, 30);
+		var arroww2 = new Path.OneSidedArrow(new Point(690, 164), new Point(691, 164), 10, 30);
+		arroww.rotate(180);
+		arr.addChild(arroww);
+		arr.addChild(arroww2);
+		arr.opacity = 0;
+		
+		var bigDots = new Group();
+		var bigDot1 = new Path.Circle(new Point(90.5, 164.5), 4);
+		bigDot1.strokeColor = "black";
+		bigDot1.fillColor = "black";
+		var bigDot2 = new Path.Circle(new Point(650.5, 164.5), 4);
+		bigDot2.strokeColor = "black";
+		bigDot2.fillColor = "black";
+		bigDots.addChild(bigDot1);
+		bigDots.addChild(bigDot2);
+		bigDots.opacity = 0;
+		
+		var smallDots = new Group();
+		for(i = 0; i < 7; i++){
+			var smallDot = new Path.Circle(new Point(160.5+(70*i), 164.5), 2);
+			smallDot.strokeColor = "black";
+			smallDot.fillColor = "black";
+			smallDots.addChild(smallDot);
+		}
+		smallDots.opacity = 0;
+		
+		var arcGroup = new Group();
+		var arc = new Path.Arc(new Point(380, 159), new Point(436, 142), new Point(500, 154));
+		arc.strokeColor = "black";
+		var linee1 = new Path.Line(new Point(500,154), new Point(494,146));
+		linee1.strokeColor = "black";
+		var linee2 = new Path.Line(new Point(500,154), new Point(490,156));
+		linee2.strokeColor = "black";
+		arcGroup.addChild(arc);
+		arcGroup.addChild(linee1);
+		arcGroup.addChild(linee2);
+		arcGroup.opacity = 0;
+		
+		$(container).append('<div id="frac22"><p id="nom22">1</p><div id="line22"></div><p id="denom22">2</p></div>')
+		
+		$('#frac22').css({
+				position: "absolute",
+				left: "0px",
+				top: "0px"
+			});
+		
+		$('#line22')
+			.css({
+				padding: 0,
+				margin: 0,
+				borderTop: "1px solid",
+				width: "14px",
+				height: "1px",
+				position: "absolute",
+				left: "148px",
+				top: "123px",
+			});
+		$('#nom22')
+			.css({
+				padding: 0,
+				margin: 0,
+				position: "absolute",
+				left: "140px",
+				top:"108px",
+				textAlign: "center",
+				width: "30px",
+			//	border: "solid"
+			});
+		$('#denom22')
+			.css({
+				padding: 0,
+				margin: 0,
+				position: "absolute",
+				left: "140px",
+				top:"126px",
+				textAlign: "center",
+				width: "30px",
+			//	border: "solid"	
+			});
+		
+		$('#frac22').css("opacity", 0)
+		$('#frac22').delay(2000).animate({opacity: 1}, 1000)
+					.delay(1000).animate({opacity: 0}, 1000)
+		
+		$(container).append('<div id="frac33"><p id="nom33">1 x 4</p><div id="line33"></div><p id="denom33">2 x 4</p></div>')
+		
+		$('#frac33').css({
+				position: "absolute",
+				left: "0px",
+				top: "0px",
+		//		width: "120px"
+			});
+		
+		$('#line33')
+			.css({
+				padding: 0,
+				borderTop: "1px solid",
+				width: "34px",
+				height: "1px",
+				position: "absolute",
+				left: "139px",
+				top: "123px",
+			});
+		$('#nom33')
+			.css({
+				position: "absolute",
+				left: "136px",
+				top:"108px",
+				textAlign: "center",
+				width: "40px",
+			//	border: "solid"
+			});
+		$('#denom33')
+			.css({
+				position: "absolute",
+				left: "136px",
+				top:"126px",
+				textAlign: "center",
+				width: "40px",
+			//	border: "solid"	
+			});
+		
+		$('#frac33').css("opacity", 0);
+		$('#frac33').delay(4000).animate({opacity: 1}, 1000)
+					.delay(1000).animate({opacity: 0}, 1000)
+
+		
+		$(container).append('<div id="frac44"><p id="nom44">4</p><div id="line44"></div><p id="denom44">8</p></div>')
+		
+		$('#frac44').css({
+				position: "absolute",
+				left: "0px",
+				top: "0px"
+			});
+		
+		$('#line44')
+			.css({
+				padding: 0,
+				borderTop: "1px solid",
+				width: "14px",
+				height: "1px",
+				position: "absolute",
+				left: "148px",
+				top: "123px",
+			});
+		$('#nom44')
+			.css({
+				position: "absolute",
+				left: "140px",
+				top:"108px",
+				textAlign: "center",
+				width: "30px",
+			//	border: "solid"
+			});
+		$('#denom44')
+			.css({
+				position: "absolute",
+				left: "140px",
+				top:"126px",
+				textAlign: "center",
+				width: "30px",
+			//	border: "solid"	
+			});
+		$('#frac44').css("opacity", 0);
+		$('#frac44').delay(6000).animate({opacity: 1}, 1000)
+		
+		$(container).append('<div id="frac55"><p id="nom55">2</p><div id="line55"></div><p id="denom55">8</p></div>')
+		
+		$('#frac55')
+			.css({
+				position: "absolute",
+				left: "0px",
+				top: "0px",
+			});
+		
+		$('#line55')
+			.css({
+				padding: 0,
+				borderTop: "2px solid",
+				width: "14px",
+				height: "1px",
+				position: "absolute",
+				left: "368px",
+				top: "123px",
+			});
+		$('#nom55')
+			.css({
+				padding: 0,
+				position: "absolute",
+				left: "360px",
+				top:"108px",
+				textAlign: "center",
+				width: "30px",
+			//	border: "solid"
+			});
+		$('#denom55')
+			.css({
+				padding: 0,
+				position: "absolute",
+				left: "360px",
+				top:"126px",
+				textAlign: "center",
+				width: "30px",
+			//	border: "solid"	
+			});
+		$('#frac55').css("opacity", 0)
+		$('#frac55').delay(2000).animate({opacity: 1}, 1000)
+		
+		$(container).append('<div id="frac66"><p id="nom66">4</p><div id="line66"></div><p id="denom66">8</p><p id="pls">+</p><p id="nom666">2</p><div id="line666"></div><p id="denom666">8</p><p id="eqq">=</p><p id="nom6666">6</p><div id="line6666"></div><p id="denom6666">8</p></div>')
+		
+		$('#frac66')
+			.css({
+				position: "absolute",
+				left: "0px",
+				top: "0px",
+			});
+		
+		$('#line66')
+			.css({
+				padding: 0,
+				borderTop: "2px solid",
+				width: "14px",
+				height: "1px",
+				position: "absolute",
+				left: "558px",
+				top: "123px",
+			});
+		$('#nom66')
+			.css({
+				position: "absolute",
+				left: "550px",
+				top:"108px",
+				textAlign: "center",
+				width: "30px",
+			//	border: "solid"
+			});
+		$('#denom66')
+			.css({
+				position: "absolute",
+				left: "550px",
+				top:"126px",
+				textAlign: "center",
+				width: "30px",
+			//	border: "solid"	
+			});
+		
+		$('#pls')
+			.css({
+				position: "absolute",
+				left: "578px",
+				top:"117px",	
+			});
 			
-			callback:function(){
-				this.children[0].content = "1 x 4";
-				this.children[1].content = "2 x 4";
-				this.children[2].scale(2.4);
+		$('#line666')
+			.css({
+				padding: 0,
+				borderTop: "2px solid",
+				width: "14px",
+				height: "1px",
+				position: "absolute",
+				left: "590px",
+				top: "123px",
+			});
+		$('#nom666')
+			.css({
+				position: "absolute",
+				left: "582px",
+				top:"108px",
+				textAlign: "center",
+				width: "30px",
+			//	border: "solid"
+			});
+		$('#denom666')
+			.css({
+				position: "absolute",
+				left: "582px",
+				top:"126px",
+				textAlign: "center",
+				width: "30px",
+			//	border: "solid"	
+			});
+		
+		$('#eqq')
+			.css({
+				position: "absolute",
+				left: "610px",
+				top:"117px",	
+			});
+		
+		$('#line6666')
+			.css({
+				padding: 0,
+				borderTop: "2px solid",
+				width: "14px",
+				height: "1px",
+				position: "absolute",
+				left: "622px",
+				top: "123px",
+			});
+		$('#nom6666')
+			.css({
+				position: "absolute",
+				left: "614px",
+				top:"108px",
+				textAlign: "center",
+				width: "30px",
+			//	border: "solid"
+			});
+		$('#denom6666')
+			.css({
+				position: "absolute",
+				left: "614px",
+				top:"126px",
+				textAlign: "center",
+				width: "30px",
+			//	border: "solid"	
+			});
+		
+		$('#frac66').css("opacity", 0).delay(11000).animate({opacity: 1}, 1000)
+		$('#line6666').css("opacity", 0).delay(12500).animate({opacity: 1}, 1000)
+		$('#nom6666').css("opacity", 0).delay(12500).animate({opacity: 1}, 1000)
+		$('#denom6666').css("opacity", 0).delay(12500).animate({opacity: 1}, 1000)
+		
+		$(container).append('<p id="zerro">0</p>')
+		$('#zerro').css({
+			position: "absolute",
+			left: "99px",
+			top: "150px",
+			fontSize: 24,
+		//	fontWeight: "bold"
+		});
+		$('#zerro').css("opacity", 0).delay(16000).animate({opacity: 1}, 1000)
+		
+		$(container).append('<p id="onne">1</p>')
+		$('#onne').css({
+			position: "absolute",
+			left: "657px",
+			top: "150px",
+			fontSize: 24,
+		//	fontWeight: "bold"
+		});
+		$('#onne').css("opacity", 0).delay(16000).animate({opacity: 1}, 1000)
+		
+		$(container).append('<div id="frac222"><p id="nom222">1</p><div id="line222"></div><p id="denom222">2</p></div>')
+		
+		$('#frac222')
+			.css({
+				position: "absolute",
+				left: "0px",
+				top: "0px",
+			});
+		
+		$('#line222')
+			.css({
+				padding: 0,
+				borderTop: "2px solid",
+				width: "14px",
+				height: "1px",
+				position: "absolute",
+				left: "378px",
+				top: "159px",
+			});
+		$('#nom222')
+			.css({
+				position: "absolute",
+				left: "370px",
+				top:"144px",
+				textAlign: "center",
+				width: "30px",
+			//	border: "solid"
+			});
+		$('#denom222')
+			.css({
+				position: "absolute",
+				left: "370px",
+				top:"162px",
+				textAlign: "center",
+				width: "30px",
+			//	border: "solid"	
+			});
+		
+		$('#frac222').css("opacity", 0);
+		$('#frac222').delay(18000).animate({opacity: 1}, 1000)
+					 .delay(2000).animate({opacity: 0}, 1000)
+		
+		$(container).append('<div id="frac333"><p id="nom333">4</p><div id="line333"></div><p id="denom333">8</p></div>')
+		
+		$('#frac333')
+			.css({
+				position: "absolute",
+				left: "0px",
+				top: "0px",
+			});
+		
+		$('#line333')
+			.css({
+				padding: 0,
+				borderTop: "2px solid",
+				width: "14px",
+				height: "1px",
+				position: "absolute",
+				left: "378px",
+				top: "159px",
+			});
+		$('#nom333')
+			.css({
+				position: "absolute",
+				left: "370px",
+				top:"144px",
+				textAlign: "center",
+				width: "30px",
+			//	border: "solid"
+			});
+		$('#denom333')
+			.css({
+				position: "absolute",
+				left: "370px",
+				top:"162px",
+				textAlign: "center",
+				width: "30px",
+			//	border: "solid"	
+			});
+		
+		$('#frac333').css("opacity", 0);
+		$('#frac333').delay(21000).animate({opacity: 1}, 1000)
+		
+		
+		$(container).append('<div id="frac444"><p id="nom444">6</p><div id="line444"></div><p id="denom444">8</p></div>')
+		
+		$('#frac444')
+			.css({
+				position: "absolute",
+				left: "0px",
+				top: "0px",
+			});
+		
+		$('#line444')
+			.css({
+				padding: 0,
+				borderTop: "2px solid",
+				width: "14px",
+				height: "1px",
+				position: "absolute",
+				left: "518px",
+				top: "159px",
+			});
+		$('#nom444')
+			.css({
+				position: "absolute",
+				left: "510px",
+				top:"144px",
+				textAlign: "center",
+				width: "30px",
+			//	border: "solid"
+			});
+		$('#denom444')
+			.css({
+				position: "absolute",
+				left: "510px",
+				top:"162px",
+				textAlign: "center",
+				width: "30px",
+			//	border: "solid"	
+			});
+		$('#frac444').css("opacity", 0);
+		$('#frac444').delay(22000).animate({opacity: 1}, 1000)
+		
+		$(container).append('<div id="frac555"><p id="nom555">2</p><div id="line555"></div><p id="denom555">8</p></div>')
+		
+		$('#frac555')
+			.css({
+				position: "absolute",
+				left: "0px",
+				top: "0px",
+			});
+		
+		$('#line555')
+			.css({
+				padding: 0,
+				borderTop: "2px solid",
+				width: "14px",
+				height: "1px",
+				position: "absolute",
+				left: "448px",
+				top: "139px",
+			});
+		$('#nom555')
+			.css({
+				position: "absolute",
+				left: "440px",
+				top:"124px",
+				textAlign: "center",
+				width: "30px",
+			//	border: "solid"
+			});
+		$('#denom555')
+			.css({
+				position: "absolute",
+				left: "440px",
+				top:"142px",
+				textAlign: "center",
+				width: "30px",
+			//	border: "solid"	
+			});
+		$('#frac555').css("opacity", 0)
+		$('#frac555').delay(19000).animate({opacity: 1}, 1000)
+		
+		
+		
+		rect1.animate({
+			style:{
+				opacity: 1,
 			},
-			animationType: 'easeInEaseOut',
+			duration: 1000,
+			delay: 1000,
+			animationType: 'easeOut'
 		});
 		
-		firstFracGroup.animate({
+		rect2.animate({
 			style:{
+				opacity: 1,
 			},
-			duration:500,
-			delay:2000,
-			
-			callback:function(){
-				this.children[0].content = "4";
-				this.children[1].content = "8";
-				this.children[2].scale(0.42);
-			},
-			animationType: 'easeInEaseOut',
+			duration: 1000,
+			delay: 1000,
+			animationType: 'easeOut'
 		});
 		
 		dashedLinesGroup.animate({
@@ -77,19 +565,36 @@ var Animation = {
 				opacity:1
 			},
 			duration: 1000,
-			delay: 1000,
+			delay: 6000,
 			animationType: 'easeInEaseOut'
 		});
 		
-			
-		rect4.animate({
+		pluss.animate({
 			style:{
-				opacity: 0.5,
-				position: new Point(300.5, 40.5)
+				opacity:1
 			},
-			duration: 2000,
-			delay: 2000,
-			animationType: 'easeIn'
+			duration: 1000,
+			delay: 8000,
+			animationType: 'easeInEaseOut'
+		});
+		
+		arrow.animate({
+			style:{
+				opacity: 1
+			},
+			duration: 1000,
+			delay: 8000,
+			animationType: 'easeInEaseOut'
+		
+		});
+		
+		rect3.animate({
+			style:{
+				opacity: 1
+			},
+			duration: 1000,
+			delay: 9000,
+			animationType: 'easeInEaseOut'
 		});
 		
 		rect4.animate({
@@ -97,29 +602,56 @@ var Animation = {
 				opacity: 1,
 				position: new Point(540.5, 50.5)
 			},
-			duration: 2000,
-			delay: 4000,
-			animationType: 'easeOut'
+			duration: 3000,
+			delay: 10000,
+			animationType: 'easeInEaseOut'
 		});
 		
-		rect5.animate({
-			style:{
-				opacity: 0.5,
-				position: new Point(480.5, 90.5)
-			},
-			duration: 2000,
-			delay: 2000,
-			animationType: 'linear'
-		});
 		
 		rect5.animate({
 			style:{
 				opacity: 1,
 				position: new Point(600.5, 50.5)
 			},
-			duration: 2000,
-			delay: 4000,
-			animationType: 'linear'
+			duration: 3000,
+			delay: 10000,
+			animationType: 'easeInEaseOut'
+		});
+		
+		arr.animate({
+			style:{
+				opacity: 1,
+			},
+			duration:1000,
+			delay:14000,
+			animationType: 'easeInEaseOut'
+		});
+		
+		bigDots.animate({
+			style:{
+				opacity: 1,
+			},
+			duration:1000,
+			delay:15000,
+			animationType: 'easeInEaseOut'
+		});
+		
+		smallDots.animate({
+			style:{
+				opacity: 1,
+			},
+			duration:1000,
+			delay:17000,
+			animationType: 'easeInEaseOut'
+		});
+		
+		arcGroup.animate({
+			style:{
+				opacity: 1,
+			},
+			duration: 1000,
+			delay:19000,
+			animationType: 'easeInEaseOut'
 		});
 	}
 }
