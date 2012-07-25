@@ -554,9 +554,6 @@ Animation.init = function(container) {
 	});
 }
 
-
-
-
 Interaction.getFramework = function () {
 	return 'paper';
 }
