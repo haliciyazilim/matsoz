@@ -566,19 +566,19 @@ Interaction.init = function(container){
 	});
 		
 	// enter keypress action
-	$("#textInput1").keypress(function(event) {
+	$("#textInput1").keyup(function(event) {
 		if(event.keyCode == 13) {
 			submit();
 		}
 	});
 	
-	$("#textInput2").keypress(function(event) {
+	$("#textInput2").keyup(function(event) {
 		if(event.keyCode == 13) {
 			submit();
 		}
 	});
 	
-	$("#textInput3").keypress(function(event) {
+	$("#textInput3").keyup(function(event) {
 		if(event.keyCode == 13) {
 			submit();
 		}
