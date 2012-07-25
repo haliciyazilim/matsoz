@@ -186,7 +186,7 @@ Animation.init=function(container){
 
 Interaction.init = function(container){
 
-	Main.setObjective("Yandaki yüzlük tabloların altındaki kutulara istediğiniz sayıları yazınız. <br />“<” (küçük)  ya da “>” (büyük) işaretlerinden uygun olanına fare ile tıklayarak yüzdeleri karşılaştırınız. Daha sonra doğruluğunu kontrol ediniz");
+	Main.setObjective("Yandaki yüzlük tabloların altındaki kutulara istediğiniz sayıları yazınız. <br />“<” (küçük)  ya da <br /> “>” (büyük) işaretlerinden uygun olanına fare ile tıklayarak yüzdeleri karşılaştırınız. Daha sonra doğruluğunu kontrol ediniz");
 	
 	//sol div bilgileri	
 	$(container).append("<div id='sol'>");
