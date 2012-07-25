@@ -79,6 +79,9 @@ var Util = {
 	randomInteger: function(start, end) {
 			return Math.floor(Math.random()*(end-start)+start)
 		},
+	randomDigit : function(){
+			return Util.randomInteger(0,10);
+		},
 	
 	loadImages: function(imageArray, callback) {
 			var totalNoOfImages = imageArray.length;
