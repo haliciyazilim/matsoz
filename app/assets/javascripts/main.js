@@ -1,6 +1,12 @@
 // JavaScript Document
 
 var Main = function(){
+	
+	if(navigator.appName == "Microsoft Internet Explorer"){
+		console ={
+			log: function(){}
+		}
+	}
 	$(document).ready(Main.init);
 }
 
@@ -15,6 +21,7 @@ Main.init = function(){
 	Main.animation = $('.ornek').get(0);
 	Main.objective = $('.mavikontrol').get(0);
 	//Main.InteractionContainer.appendChild(Main.ObjectiveContainer);
+	
 	var framework;
 	if (typeof(Interaction.getFramework) == "function") {
 		framework = Interaction.getFramework();
