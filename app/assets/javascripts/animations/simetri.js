@@ -1927,13 +1927,13 @@ Interaction.init = function(container){
 	
 	$(container).append('<button id="checkBtn" class="control_button"></button>');
 	$('#checkBtn').css("position", "absolute")
-					.css("bottom", "30px")
-					.css("right", "30px");
+					.css("bottom", "10px")
+					.css("right", "120px");
 	
-//	$(container).append('<button id="againBtn" class="control_button"></button>');
-//	$('#againBtn').css("position", "absolute")
-//					.css("bottom", "30px")
-//					.css("right", "10px");
+	$(container).append('<button id="againBtn" class="repeat_button"></button>');
+	$('#againBtn').css("position", "absolute")
+					.css("bottom", "10px")
+					.css("right", "10px");
 	
 	$(container).append('<button id="nextBtn" class="next_button"></button>');
 	$('#nextBtn').css("position", "absolute")

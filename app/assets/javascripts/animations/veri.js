@@ -1009,7 +1009,7 @@ Interaction.init = function(container){
 	});
 	
 	// enter keypress action
-	$("#textInput1").keypress(function(event) {
+	$("#textInput1").keyup(function(event) {
 		if(event.keyCode == 13) {
 			submit();
 		}

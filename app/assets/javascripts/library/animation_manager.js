@@ -26,6 +26,10 @@ AnimationManager.Animation = function (item, animationHash) {
 		this.animationType = 'linear';	
 	}
 	
+	if (typeof(animationHash.init) == "function") {
+		this.init = animationHash.init;
+	}
+	
 	if (typeof(animationHash.callback) == "function") {
 		this.callback = animationHash.callback;
 	}
@@ -86,6 +90,11 @@ AnimationManager.update = function(event) {
 		
 		if (animation.startTime < currentTime) {
 			if (animation.idle) {
+				if (animation.init) {
+					animation.item.init = animation.init;
+					animation.item.init();
+				}
+				
 				animation.startHash = {};
 				animation.endHash = {};
 				for (var key in animation.style) {

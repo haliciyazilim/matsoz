@@ -41,6 +41,9 @@ Interaction.init = function () {
 	circ3.fillColor = '#f55';
 	
 	circ3.animate({
+		init: function () {
+			circ3.position = new Point(400, 200);
+		},
 		style: {
 			position: new Point(400, 180)
 		},
