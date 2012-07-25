@@ -226,7 +226,7 @@ Animation.init = function(container){
 	$('#executionDiv').append('<div id="numerator"></div>');
 	$('#numerator').css("position", "absolute")
 					.css("left", "198px")
-					.css("top", "8px")
+					.css("top", "9px")
 					.css("font-size", 16)
 					.css("text-align", "center")
 					.css("width", "320x");
@@ -234,14 +234,14 @@ Animation.init = function(container){
 	$('#numerator').append('<div id="firstN">25</div>')
 	$('#firstN').css("position", "absolute")
 				.css("left", "0px")
-				.css("top", "0px")
+				.css("top", "2px")
 				.css("font-size", 16)
 				.css("text-align", "center")
 	
 	$('#numerator').append('<div id="secondN">+ 27</div>')
 	$('#secondN').css("position", "absolute")
 				.css("left", "20px")
-				.css("top", "0px")
+				.css("top", "2px")
 				.css("font-size", 16)
 				.css("text-align", "center")
 				.css("width", "40px")
@@ -249,7 +249,7 @@ Animation.init = function(container){
 	$('#numerator').append('<div id="thirdN">+ 30</div>')
 	$('#thirdN').css("position", "absolute")
 				.css("left", "56px")
-				.css("top", "0px")
+				.css("top", "2px")
 				.css("font-size", 16)
 				.css("text-align", "center")
 				.css("width", "40px")
@@ -257,7 +257,7 @@ Animation.init = function(container){
 	$('#numerator').append('<div id="fourthN">+ 29</div>')
 	$('#fourthN').css("position", "absolute")
 				.css("left", "92px")
-				.css("top", "0px")
+				.css("top", "2px")
 				.css("font-size", 16)
 				.css("text-align", "center")
 				.css("width", "40px")
@@ -265,7 +265,7 @@ Animation.init = function(container){
 	$('#numerator').append('<div id="fifthN">+ 31</div>')
 	$('#fifthN').css("position", "absolute")
 				.css("left", "126px")
-				.css("top", "0px")
+				.css("top", "2px")
 				.css("font-size", 16)
 				.css("text-align", "center")
 				.css("width", "40px")
@@ -273,7 +273,7 @@ Animation.init = function(container){
 	$('#numerator').append('<div id="sixthN">+ 28</div>')
 	$('#sixthN').css("position", "absolute")
 				.css("left", "164px")
-				.css("top", "0px")
+				.css("top", "2px")
 				.css("font-size", 16)
 				.css("text-align", "center")
 				.css("width", "40px")
@@ -281,7 +281,7 @@ Animation.init = function(container){
 	$('#numerator').append('<div id="seventhN">+ 26</div>')
 	$('#seventhN').css("position", "absolute")
 				.css("left", "202px")
-				.css("top", "0px")
+				.css("top", "2px")
 				.css("font-size", 16)
 				.css("text-align", "center")
 				.css("width", "40px")
@@ -293,6 +293,7 @@ Animation.init = function(container){
 				.css("width", "242px")
 				.css("height", "1px")
 				.css("padding", 0)
+			//	.css("font-weight", "bold")
 				.css("border-top", "2px solid");
 				
 	$('#executionDiv').append('<div id="denumerator">7</div>');
@@ -311,8 +312,8 @@ Animation.init = function(container){
 	
 	$('#executionDiv').append('<div id="numerator2">196</div>');
 	$('#numerator2').css("position", "absolute")
-					.css("left", "471px")
-					.css("top", "6px")
+					.css("left", "474px")
+					.css("top", "11px")
 					.css("font-size", 16)
 					.css("text-align", "center")
 					.css("width", "320x");
@@ -323,7 +324,7 @@ Animation.init = function(container){
 				.css("top", "30px")
 				.css("width", "39px")
 				.css("height", "1px")
-				.css("padding", 0)
+			//	.css("padding", 0)
 				.css("border-top", "2px solid");
 	
 	$('#executionDiv').append('<div id="denumerator2">7</div>');
@@ -719,8 +720,6 @@ Interaction.init = function(container){
 		}
 		while(total % 3 != 0)
 	}
-	console.log(datas);
-	console.log(total);
 	
 	if(randomize % 3 == 0){
 		$(container).append('<div id="datasDiv"></div>');
@@ -1579,26 +1578,26 @@ Interaction.init = function(container){
 	});
 		
 	// enter keypress action
-	$("#textInput1").keypress(function(event) {
+	$("#textInput1").keyup(function(event) {
 		if(event.keyCode == 13) {
 			submit();
 		}
 	});
 	
-	$("#textInput2").keypress(function(event) {
+	$("#textInput2").keyup(function(event) {
 		if(event.keyCode == 13) {
 			submit();
 		}
 	});
 	
-	$("#textInput3").keypress(function(event) {
+	$("#textInput3").keyup(function(event) {
 		if(event.keyCode == 13) {
 			submit();
 		}
 	});
 	
 	if($("#textInput4")){
-		$("#textInput4").keypress(function(event) {
+		$("#textInput4").keyup(function(event) {
 			if(event.keyCode == 13) {
 				submit();
 			}
@@ -1606,7 +1605,7 @@ Interaction.init = function(container){
 	}
 	
 	if($("#textInput5")){
-		$("#textInput5").keypress(function(event) {
+		$("#textInput5").keyup(function(event) {
 			if(event.keyCode == 13) {
 				submit();
 			}
@@ -1614,25 +1613,25 @@ Interaction.init = function(container){
 	}
 	
 	
-	$("#textInput6").keypress(function(event) {
+	$("#textInput6").keyup(function(event) {
 		if(event.keyCode == 13) {
 			submit();
 		}
 	});
 	
-	$("#textInput7").keypress(function(event) {
+	$("#textInput7").keyup(function(event) {
 		if(event.keyCode == 13) {
 			submit();
 		}
 	});
 	
-	$("#textInput8").keypress(function(event) {
+	$("#textInput8").keyup(function(event) {
 		if(event.keyCode == 13) {
 			submit();
 		}
 	});
 	
-	$("#textInput9").keypress(function(event) {
+	$("#textInput9").keyup(function(event) {
 		if(event.keyCode == 13) {
 			submit();
 		}
