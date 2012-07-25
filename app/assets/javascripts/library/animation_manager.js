@@ -92,7 +92,7 @@ AnimationManager.update = function(event) {
 			if (animation.idle) {
 				if (animation.init) {
 					animation.item.init = animation.init;
-					animation.init();
+					animation.item.init();
 				}
 				
 				animation.startHash = {};
