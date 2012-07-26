@@ -64,14 +64,17 @@ function InteractionBase(){
 		$(Interaction.status).css(css);
 	};
 	
-	Interaction.appendInput = function(css,isNumber){
+	Interaction.appendInput = function(css,isNumber,isEmpty){
 		if(Interaction.__inputVersion == 2){
 			throw 'You cannot use Interaction.appendInput after Interaction.addInput ';
 		}
+		if(isEmpty == undefined)
+			isEmpty = false;
 		Interaction.__inputVersion = 1;
 		if(isNumber == undefined || isNumber == null)
 			isNumber = true;
 		var input = Interaction.createInput(isNumber,3);
+		input.isEmpty = isEmpty;
 		$(input)
 			.css({
 				position:'absolute'
@@ -267,8 +270,12 @@ function InteractionBase(){
 				for(var i=0; i<Interaction.inputs.length;i++){
 					values[i] = Interaction.inputs[i].value;
 					if(Interaction.inputs[i].getAttribute('isNumber') == 'true'){			
-						
-						if(values[i] == "" ||isNaN(values[i]) && values[i].indexOf(',') < 0) {
+						if(!Interaction.inputs[i].isEmpty && $(Interaction.inputs[i]).val() == ""){
+							Interaction.__status(Interaction.__status.EMPTY);
+							//Interaction.setStatus('Lütfen tüm kutucukları doldurunuz');
+							return;
+						}
+						if(isNaN(values[i]) && values[i].indexOf(',') < 0) {
 							Interaction.__status(Interaction.__status.NUMBER);
 							//Interaction.setStatus('Lütfen bir sayı giriniz.',false);
 							return;
