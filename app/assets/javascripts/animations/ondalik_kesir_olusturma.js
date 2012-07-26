@@ -7,7 +7,7 @@ var textRectStyle = {
 var animationTextRectStyle = {
 	fillColor:'#fdd',
 	strokeColor:'#000',
-	strokeWidth:1,
+	strokeWidth:2,
 	fontSize:13
 }
 var questionTextStyle = {
@@ -17,7 +17,7 @@ var questionTextStyle = {
 var Animation = {
 	init:function(container){
 			Animation.container = container;
-			Animation.referencePoint = new Point(100.5,15.5);
+			Animation.referencePoint = new Point(100,15);
 			Animation.textRectSize = new Size(30,30);
 			function TextRect (p,s,t){
 				var rect = new Path.Rectangle(p,s);
