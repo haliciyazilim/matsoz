@@ -1,84 +1,62 @@
-
-Animation = {}
-Interaction = {}
-
-Interaction.getFramework = function () {
-	return 'paper';
+var Animation = {
+	init:function(container){
+		
+		}
 }
 
-Interaction.init = function () {
-	circ1 = new Path.Circle(new Point(50, 60), 20);
-	circ1.strokeWidth = 2;
-	circ1.strokeColor = 'black';
-	circ1.fillColor = '#f55';
-	
-	circ1.animate({
-		style: {
-			position: new Point(400, 60)
+var Interaction = {
+	getFramework:function(){
+			return 'paper';
 		},
-		duration: 4000,
-		delay: 1000,
-		animationType: 'linear'
-	})
-	
-	circ2 = new Path.Circle(new Point(50, 120), 20);
-	circ2.strokeWidth = 2;
-	circ2.strokeColor = 'black';
-	circ2.fillColor = '#f55';
-	
-	circ2.animate({
-		style: {
-			position: new Point(400, 120)
-		},
-		duration: 4000,
-		delay: 1000,
-		animationType: 'easeInEaseOut'
-	})
-	
-	circ3 = new Path.Circle(new Point(50, 180), 20);
-	circ3.strokeWidth = 2;
-	circ3.strokeColor = 'black';
-	circ3.fillColor = '#f55';
-	
-	circ3.animate({
-		init: function () {
-			circ3.position = new Point(400, 200);
-		},
-		style: {
-			position: new Point(400, 180)
-		},
-		duration: 4000,
-		delay: 1000,
-		animationType: 'easeIn'
-	})
-	
-	circ4 = new Path.Circle(new Point(50, 240), 20);
-	circ4.strokeWidth = 2;
-	circ4.strokeColor = 'black';
-	circ4.fillColor = '#f55';
-	
-	circ4.animate({
-		style: {
-			position: new Point(400, 240)
-		},
-		duration: 4000,
-		delay: 1000,
-		animationType: 'easeOut'
-	})
-	
-	group = new Group();
-	triangle = new Path.Triangle(new Point(300, 100), new Point(400, 200), new Point(500, 100));
-	triangle.position = new Point(200,200);
-	triangle.strokeColor = 'black';
-	triangle.fillColor = '#f55';
+	init:function(container){
+			Interaction.container = container;
+			Main.setObjective('');
+			Interaction.paper = {
+				width:$(container).width(),
+				height:$(container).height()
+			}
+			
+			/*
+				Initialize your interaction here
+			*/
+			
+			var input = Interaction.addInput({
+				isNumber:true,
+				maxLength:5,
+				isAnswerCorrect:function(value){
+						if(value==5)
+							return true;
+						return false;
+					},
+				css:{
+						position:'absolute',
+						top:'100px',
+						left:'100px'
+					}	
+			});
+			Interaction.appendStatus({
+				bottom:'40px',
+				right:'160px'	
+			})
+			Interaction.appendButton({
+				bottom:'30px',
+				right:'40px'	
+			})
+			Interaction.container.appendChild(input);
+			
+			Interaction.prepareNextQuestion();
 
-	group.addChild(triangle);
-	group.setMatrix(new Matrix().rotate(15, 0, 0));
-	
-	group.opacity = 0.4;
-	
-	console.log('ebik!');
-	Main.setObjective("So far, so good!");
-	
-	
+		},
+	isAnswerCorrect : function(value){
+		
+		},
+	onCorrectAnswer : function(){
+		
+		},
+	onWrongAnswer : function(){
+		
+		},
+	onFail : function(){
+		
+		},
 }

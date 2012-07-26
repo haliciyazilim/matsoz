@@ -1,7 +1,7 @@
 // JavaScript Document
 
 /*Styles*/
-var textStyle = {fontSize:16,strokeColor:'#fff',strokeWidth:0,fillColor:'#fff'};
+var textStyle = {fontSize:16,fillColor:'#fff',justification:'center'};
 var edgeStyle = {'stroke-width':'2px'};
 var angleStyle = {'fill':'#DDD'};
 //var shapeStyle = {'fill':'#fff','shape-rendering':'crispEdges'};
@@ -286,6 +286,25 @@ Interaction.getFramework = function() {
 	return 'paper';
 }
 
+Interaction.images = [
+	{
+		id:'dropable_default',
+		src:'/assets/animations/cokgenler/dropable_default.png'	
+	},
+	{
+		id:'dropable_hover',
+		src:'/assets/animations/cokgenler/dropable_hover.png'	
+	},
+	{
+		id:'dropable_false',
+		src:'/assets/animations/cokgenler/dropable_false.png'	
+	},
+	{
+		id:'dropable_true',
+		src:'/assets/animations/cokgenler/dropable_true.png'	
+	},
+]
+
 Interaction.init = function(container){
 	Main.setObjective('Yandaki çokgenlerden düzgün olanları seçiniz.');
 	Interaction.container = container;
@@ -303,22 +322,19 @@ Interaction.init = function(container){
 	if(Interaction.status == null || Interaction.status == 'undefined'){
 		Interaction.status = document.createElement('div');
 		Interaction.status.className = 'status_true';
-		$(Interaction.status).css({'position':'absolute','top':''+(h-40)+'px','left':'0px','padding-left':'20px'});
+		$(Interaction.status).css({'position':'absolute','top':''+(h-40)+'px','left':'20px','padding-left':'20px'});
 		Interaction.container.appendChild(Interaction.status);
 	}
 	else
 		Interaction.setStatus('');
 	var drag = new Tool();
 	drag.onMouseDown = function(event){
-		//Interaction.circleSet.start()
 		if(event.item){
 			drag.shape = event.item;
 			event.item.start();
 		}
 	};
 	drag.onMouseDrag = function(event){
-		//Interaction.circleSet.move(event.delta.x,event.delta.y,event.point.x,event.point.y)
-		//console.log(event.item);
 		if(drag.shape)
 			drag.shape.move(event.delta.x,event.delta.y,event.point.x,event.point.y);
 	};
@@ -331,7 +347,6 @@ Interaction.init = function(container){
 };
 
 var start = function(){
-		//console.log('start preventDrag: '+this.preventDrag);
 		this.ox = this.position.x;
 		this.oy = this.position.y;
 		this.odx = 0;
@@ -351,13 +366,13 @@ var start = function(){
 		this.ody += dy;
 		Interaction.dropableShape.style = dropableShapeDefaultStyle;
 		this.position = [this.position.x + dx,this.position.y + dy];
-		var hitResult = Interaction.dropableShape.hitTest([x,y]);
+		var hitResult = Interaction.dropableShape.bounds.contains(new Point(x,y));
 		if(hitResult){
 			this.inDropableShape = true;
-			Interaction.dropableShape.style = dropableShapeHoverStyle;
+			Interaction.changeDropableShape('dropable_hover');
 		}
 		else{
-			Interaction.dropableShape.style = dropableShapeDefaultStyle;
+			Interaction.changeDropableShape('dropable_default');
 			this.inDropableShape = false;
 		}
 		return true;
@@ -365,29 +380,25 @@ var start = function(){
 	up = function(){
 		if(this.preventDrag == true)
 			return;
-		//console.log("abc");
 		this.preventDrag=true;
 		Interaction.dropableShape.style = dropableShapeDefaultStyle;
 		
 		var revert = false;
 		if(this.inDropableShape == true){
 			if(this.isRegular === true){
-				//this.animate({opacity:0.1},400,this.remove);
 				this.remove();
 				this.isRegular = false;
-				
-				//Interaction.dropableShape.animate(dropableShapeDroppedTrueStyle,400,this.callback);
-				Interaction.dropableShape.style = dropableShapeDroppedTrueStyle;
+				Interaction.changeDropableShape('dropable_true');
 				setTimeout(function(){
-						Interaction.dropableShape.style = dropableShapeDefaultStyle;
-					},400);
+						Interaction.changeDropableShape('dropable_default');
+					},600);
 			}
 			else{
 				revert = true;
-				Interaction.dropableShape.style = dropableShapeDroppedFalseStyle;
+				Interaction.changeDropableShape('dropable_false');
 				setTimeout(function(){
-						Interaction.dropableShape.style = dropableShapeDefaultStyle;
-					},400);
+						Interaction.changeDropableShape('dropable_default');
+					},600);
 			}
 		}
 		else
@@ -414,7 +425,7 @@ var start = function(){
 				isExist=true;
 		if(isExist == false){
 		
-			Interaction.setStatus('Tebrikler bütün düzgün çokgenleri buldunuz. <input type="button" onclick="Interaction.init(Interaction.container);" value="Baştan Başla" class="control_button"/>');
+			Interaction.setStatus('<span class="status_true" style="position:relative;top:10px;">Tebrikler bütün düzgün çokgenleri buldunuz.</span> &emsp;<input type="button" onclick="Interaction.init(Interaction.container);" class="repeat_button"/>');
 		
 		}
 	};
@@ -422,6 +433,7 @@ Interaction.generateRandomShapes = function(X,Y,WIDTH,HEIGHT){
 	Interaction.shapes = [];
 	var maxW = WIDTH*0.25;
 	var maxH = HEIGHT*0.3;
+	shapeStyle.fillColor = new RgbColor(1,1,1,0)
 	do{///generate shapes randomly
 		var x,y,w,h;
 		var p = Interaction.findSpace(WIDTH,HEIGHT);
@@ -525,18 +537,28 @@ Interaction.createDropableShape = function(X,Y,WIDTH,HEIGHT){
 	length = Math.min(WIDTH,HEIGHT);
 	w = length * 0.90;
 	h = length * 0.80;
-	x = X + (WIDTH-w)*0.5;
-	y = Y + (HEIGHT-h) * 0.5;
-	Interaction.dropableShape = new Path.Oval(new Rectangle(new Point(x,y), new Size(w,h)));
-	Interaction.dropableShape.style = dropableShapeDefaultStyle;
-	var t1 = new PointText(new Point(x+w*0.2,y+h*0.4));
-	t1.style = textStyle;
+	x = X + (WIDTH)*0.5;
+	y = Y + (HEIGHT) * 0.5;
+	//Interaction.dropableShape = new Path.Oval(new Rectangle(new Point(x,y), new Size(w,h)));
+	//Interaction.dropableShape.style = dropableShapeDefaultStyle;
+	Interaction.dropableShape = new Raster('dropable_default');
+	Interaction.dropableShape.position = new Point(x,y)
+	var t1 = new PointText(new Point(x,y-5));
+	t1.set_style(textStyle);
 	t1.content = "Düzgün";
-	var t1 = new PointText(new Point(x+w*0.2,y+h*0.4+20));
-	t1.style = textStyle;
+	var t1 = new PointText(new Point(x,y+20));
+	t1.set_style(textStyle);
 	t1.content = "Çokgen";
 
 };
+
+Interaction.changeDropableShape = function(id){
+	Interaction.dropableShape.setImage($('#'+id).get(0));
+	Interaction.dropableShape.setVisible(false);
+	Interaction.dropableShape.setVisible(true);
+	console.log("I'm here")
+	
+}
 
 //find left-upper-most empty space to place a shape
 Interaction.findSpace = function(w,h){

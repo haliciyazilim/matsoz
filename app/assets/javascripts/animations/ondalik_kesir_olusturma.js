@@ -492,7 +492,7 @@ var Interaction = {
 					duration:1000
 				})
 			}
-			Interaction.setStatus('Yanlış cevap. Doğrusu '+Interaction.correctAnswer+' olacaktı',false);
+			Interaction.setStatus('Yanlış cevap. Doğrusu '+Interaction.correctAnswer.replace('.',',')+' olacaktı',false);
 		},
 }
 

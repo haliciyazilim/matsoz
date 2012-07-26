@@ -304,7 +304,7 @@ TestGenerator.tryAgain = function(){
 	TestGenerator.trial ++;
 	TestGenerator.selectedA = null;
 	TestGenerator.selectedE = null;
-	Interaction.hideStatus();
+	Interaction.setStatus('');
 	TestGenerator.stopCheckAnswer = false;
 }
 TestGenerator.printVertexLetters = function(p){
@@ -319,7 +319,7 @@ TestGenerator.printVertexLetters = function(p){
 TestGenerator.nextQuestion = function(){
 	//prepare question
 	TestGenerator.letters = (Math.random()>0.5 ? ["A","B","C"]:["B","C","A"]);
-	Interaction.hideStatus();
+	Interaction.setStatus('');
 	project.activeLayer.removeChildren();
 	$(".tg ul li").removeClass('A_selected');
 	$(".tg ul li").removeClass('E_selected');
