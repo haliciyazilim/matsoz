@@ -23,7 +23,6 @@ Animation.init = function(container){
 				.css("width", "280px")
 				.css("height", "100px")
 				.css("font-size", 24)
-		//		.css("border", "solid")
 	$(container).append('<div id="animDiv2"></div>')
 	$('#animDiv2').css("position", "absolute")
 				.css("top", "60px")
@@ -31,7 +30,6 @@ Animation.init = function(container){
 				.css("width", "280px")
 				.css("height", "100px")
 				.css("font-size", 24)
-	//			.css("border", "solid")
 	// five square			
 	$(container).append('<p id="five">5</p>')
 	$('#five').css("position", "absolute")
@@ -87,7 +85,7 @@ Animation.init = function(container){
 				.css("top", "36px")	// -6px
 				.css("font-size", 16)  // font-size 16
 				.css("font-weight", "bold")
-		//		.css("color", "#f00")
+				.css("color", "red")
 				.css("opacity", 0)
 				.delay(6000).animate({left: '16px', top:'-6px', opacity: 4}, 1500)
 	
@@ -155,6 +153,7 @@ Animation.init = function(container){
 				.css("top", "36px")
 				.css("font-size", 16)
 				.css("font-weight", "bold")
+				.css("color", "red")
 				.css("opacity", 0)
 				.delay(12500).animate({left: '16px', top:'-6px', opacity: 4}, 1500)
 				
@@ -223,25 +222,6 @@ Animation.init = function(container){
 		delay: 1000,
 		animationType: 'easeInEaseOut'
 	});
-/*	
-	arcGroup.animate({
-		style:{
-			opacity: 1,
-		},
-		duration: 1000,
-		delay: 6000,
-		animationType: 'easeInEaseOut'
-	});
-	
-	arcGroup2.animate({
-		style:{
-			opacity: 1,
-		},
-		duration: 1000,
-		delay: 12500,
-		animationType: 'easeInEaseOut'
-	});*/
-	
 	
 	
 }
@@ -276,6 +256,7 @@ Interaction.init = function(container){
 				.css("left", "34px")
 				.css("top", "30px")
 				.css("font-size", 16)
+				.css("font-weight", "bold")
 		$('#questionDiv').append('<p id ="eq">=</p>');
 		$('#eq').css("position", "absolute")
 				.css("left", "50px")
@@ -284,7 +265,7 @@ Interaction.init = function(container){
 				.css("text-align", "right")
 		
 		$('#questionDiv').append('<input id="textInput1" class="inp" type="text" pattern="[0-9]*" maxlength="8"/>');
-		$('#textInput1').css("width", "100")
+		$('#textInput1').css("width", "116px")
 						.css("box-sizing","border-box")
 						.css("padding", "0")
 						.css("height", "30")
@@ -341,6 +322,7 @@ Interaction.init = function(container){
 						.css("padding", "0")
 						.css("height", "20")
 						.css("font-size", 16)
+						.css("font-weight", "bold")
 						.css("position", "absolute")
 						.css("left", "122px")
 						.css("top", "16px")

@@ -92,8 +92,6 @@ LongDivision.prototype.nextStep = function(duration){
 		}
 		$(div).attr('pLeft',pLeft);
 		
-		console.log("stepDividend "+stepDividend + ": "+(""+stepDividend).length,pLeft,$(div).attr('pLeft'));
-		
 		//$('.up',div).css({paddingLeft:this.fontSize*0.5*paddingLeft});
 		
 		$('.line',div)

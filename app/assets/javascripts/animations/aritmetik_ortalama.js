@@ -725,7 +725,7 @@ Interaction.init = function(container){
 		$(container).append('<div id="datasDiv"></div>');
 		$('#datasDiv').css("position", "absolute")
 							.css("left", "180px")
-							.css("top", "6px")
+							.css("top", "16px")
 							.css("width", "200px")
 							.css("height", "20px")
 							.css("text-align", "center");
