@@ -496,7 +496,7 @@ Interaction.init = function(container){
 				{
 					$("#geriBildirimText").attr("class","status_false").html("Yanlış. Cevap:");
 					
-					$(container).append("<style>#girdiCevap2{color:"+dogruCevapGosterimRengi+"}");
+					//$(container).append("<style>#girdiCevap2{color:"+dogruCevapGosterimRengi+"}");
 					$("#gCevaplar").html("%"+girdi1+" <stroke class='cevapİsaret'>></stroke> %"+girdi2);
 					$("#gCevaplar").show();
 					
@@ -528,7 +528,7 @@ Interaction.init = function(container){
 				{
 					$("#geriBildirimText").attr("class","status_false").html("Yanlış. Cevap:");
 					
-					$(container).append("<style>#girdiCevap2{color:"+dogruCevapGosterimRengi+"}");
+					//$(container).append("<style>#girdiCevap2{color:"+dogruCevapGosterimRengi+"}");
 					$("#gCevaplar").html("%"+girdi1+" <stroke class='cevapİsaret'><</stroke> %"+girdi2);
 					
 					$("#gGirdiCevap1").val($("#girdiCevap1").val());
