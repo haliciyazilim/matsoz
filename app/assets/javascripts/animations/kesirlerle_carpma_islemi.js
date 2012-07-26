@@ -189,7 +189,7 @@ var Interaction = {
 				height: '32px',
 				textAlign: 'center',
 				position: 'absolute',
-				left: '152px',
+				left: '150px',
 				top: "22px",
 				fontSize: '20px', 
 			});
@@ -199,7 +199,7 @@ var Interaction = {
 				height: '32px',
 				textAlign: 'center',
 				position: 'absolute',
-				left: '152px',
+				left: '150px',
 				top: "66px",
 				fontSize: '20px', 
 			});
@@ -211,7 +211,7 @@ var Interaction = {
 			questionDiv.id = 'questionDiv';
 			$(container).append(questionDiv);
 			$(questionDiv)
-				.html('<p id="nom1">2</p><div id="line1"></div><p id="denom1">5</p><p id="cross">x</p><p id="nom2">1</p><div id="line2"></div><p id="denom2">3</p><p id="eq">=</p><div id="line3"></div>')
+				.html('<div id="firstFracc"><div id="nom1"></div><div id="line1"></div><div id="denom1"></div></div><p id="cross">x</p><div id="secondFracc"><div id="nom2"></div><div id="line2"></div><div id="denom2"></div></div><p id="eq">=</p><div id="line3"></div>')
 				.append(Interaction.inputs[0])
 				.append(Interaction.inputs[1])
 				.css({
@@ -222,80 +222,66 @@ var Interaction = {
 					top: '40px',
 					fontSize: '24px',
 					textAlign: 'left',
-			//		border: "solid"
 				});
-			$('#line1')
-				.css({
-					padding: 0,
-					borderTop: "2px solid",
-					width: "30px",
-					height: "1px",
-					position: "absolute",
-					left: "20px",
-					top: "60px",
-				});
-			$('#nom1')
-				.css({
-					position: "absolute",
-					left: "28px",
-					top:"34px",
-					textAlign: "center",	
-				});
-			$('#denom1')
-				.css({
-					position: "absolute",
-					left: "18px",
-					top:"64px",
-					textAlign: "center",
-					width: "30px",
-			//		border: "solid"	
-				});
+			$('#firstFracc').css("position", "absolute")
+					.css("top", "36px")
+					.css("left", "24px")
+					.css("width", "30px")
+					.css("height", "51px")
+					.css("padding", 0)
+					.css("margin", 0)
+					.css("line-height","25px")
+					
+			$('#line1').css("height", "1px")
+				.css("border-top", "2px solid")
+				.css("padding", 0)
+				
+			$('#nom1').css("text-align", "center")
+				.css("height", "25px")
+				
+			$('#denom1').css("text-align", "center")
+				.css("height", "25px")
+				
 			$('#cross')
 				.css({
 					position: "absolute",
-					left: "62px",
+					left: "65px",
 					top:"48px",	
 				});
-			$('#line2')
-				.css({
-					padding: 0,
-					borderTop: "2px solid",
-					width: "30px",
-					height: "1px",
-					position: "absolute",
-					left: "84px",
-					top: "60px",
-				});
-			$('#nom2')
-				.css({
-					position: "absolute",
-					left: "92px",
-					top:"34px",
-					textAlign: "center",	
-				});
-			$('#denom2')
-				.css({
-					position: "absolute",
-					left: "82px",
-					top:"64px",
-					textAlign: "center",
-					width: "30px",
-				//	border: "solid"	
-				});
+			
+			$('#secondFracc').css("position", "absolute")
+					.css("top", "36px")
+					.css("left", "86px")
+					.css("width", "30px")
+					.css("height", "51px")
+					.css("padding", 0)
+					.css("margin", 0)
+					.css("line-height","25px")
+			
+			$('#line2').css("height", "1px")
+				.css("border-top", "2px solid")
+				.css("padding", 0)
+				
+			$('#nom2').css("text-align", "center")
+				.css("height", "25px")
+				
+			$('#denom2').css("text-align", "center")
+				.css("height", "25px")
+				
 			$('#eq')
 				.css({
 					position: "absolute",
-					left: "126px",
-					top:"49px",	
+					left: "124px",
+					top:"50px",	
 				});
 			$('#line3')
 				.css({
 					padding: 0,
 					borderTop: "2px solid",
-					width: "32px",
+					width: "36px",
 					height: "1px",
 					position: "absolute",
-					left: "152px",
+					left: "148px",
 					top: "60px",
 				});			
 			Interaction.appendStatus({
@@ -345,7 +331,7 @@ var Interaction = {
 	onWrongAnswer : function(){		
 		},
 	onFail : function(){
-			Interaction.setStatus('Yanlış cevap, doğrusu yukarıda gösterilmiştir.');
+			Interaction.setStatus('Yanlış cevap, doğrusu yukarıda gösterilmiştir.', false);
 			Interaction.inputs[0].value = Interaction.nom1 * Interaction.nom2;
 			Interaction.inputs[1].value = Interaction.denom1 * Interaction.denom2;
 			Interaction.inputs[0].style.color = "green";
