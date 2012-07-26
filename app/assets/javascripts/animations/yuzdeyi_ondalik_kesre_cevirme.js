@@ -436,18 +436,21 @@ Interaction.init = function(container){
 	
 	$("#sonraki").click(
 		function(){
-			$("#giris, #girdiCevap1, #girdiCevap2, #girdiCevap3").val("");
-			$("#geriBildirim, #Corta1, #Corta2, #Corta3, #sonraki").hide();
-			$("#btnKontrol").show();
-			tiklamaSayisi=0;
-			bosKare.yap();
-			$(container).append("<style>#Cevap1, #Cevap2, #Cevap3, #girdiCevap1, #girdiCevap2, #girdiCevap3{color:black;}</style>");
-			
-			cevap1=""; cevap2=""; cevap3="";
-			//console.log("sonraki c1: "+cevap1+" c2: "+cevap2+" c3: "+cevap3);
+			yeniSoru();
 		}
 		
 	);
+	
+	function yeniSoru(){
+		$("#giris, #girdiCevap1, #girdiCevap2, #girdiCevap3").val("");
+		$("#geriBildirim, #Corta1, #Corta2, #Corta3, #sonraki").hide();
+		$("#btnKontrol").show();
+		tiklamaSayisi=0;
+		bosKare.yap();
+		$(container).append("<style>#Cevap1, #Cevap2, #Cevap3, #girdiCevap1, #girdiCevap2, #girdiCevap3{color:'black';}</style>");
+		cevap1=""; cevap2=""; cevap3="";
+		
+	}
 	
 	function kontrol(){
 			console.log("c1: "+cevap1+" c2: "+cevap2+" c3: "+cevap3);
@@ -520,16 +523,22 @@ Interaction.init = function(container){
 					else
 						$("#girdiCevap3").val(ondalikliGirdi);
 				}
+				
+			
 				$("#Cevap1, #Cevap2").html(cevap);
 				$("#girdiCevap1, #girdiCevap2").val(cevap);
 				//$("#Cevap3").html(cevap/100);
 				
 				
-				$(container).append("<style>#Cevap1, #Cevap2, #Cevap3, #girdiCevap1, #girdiCevap2, #girdiCevap3{color:"+dogruCevapGosterimRengi+";}</style>");
+				//$(container).append("<style>#Cevap1, #Cevap2, #Cevap3, #girdiCevap1,  #girdiCevap3{color:"+dogruCevapGosterimRengi+";}</style>");
 				
 					//$("#btnKontrol").hide();
 				$("#geriBildirim, #Corta1, #Corta2, #Corta3, #sonraki").show();
 					
+				}
+				if(tiklamaSayisi==3){
+				console.log("tikalam 3'e grdim");
+				yeniSoru();
 				}
 			}		
 					
