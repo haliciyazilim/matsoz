@@ -18,7 +18,8 @@ Interaction.getFramework = function() {
 Animation.init = function(container){
 	Animation.container = container;
 	var emptyRect, segmentedRect, rectt, rectt2;
-	var fillColor = "#DD7500";
+	//var fillColor = "#DD7500";
+	var fillColor = "#FFDEAD";
 	
 	// empty 4
 	emptyRect = new Path.Rectangle(new Point(88.5, 50.5), new Size(80, 80));

@@ -549,8 +549,8 @@ Interaction.init = function(container){
 	
 	// input box
 	$(container).append('<input id="textInput1" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
-	$('#textInput1').css("width", "32")
-					.css("height", "30")
+	$('#textInput1').css("width", "42")
+					.css("height", "40")
 					.css("box-sizing","border-box")
 					.css("padding", "0")
 					.css("font-size", 18)
@@ -584,14 +584,14 @@ Interaction.init = function(container){
 	
 	for(i = 0; i < 4; i++)
 	{
-		var topStr = ""+(74+28*i)+"px";
+		var topStr = ""+(74+29*i)+"px";
 		for(j = 0; j < 3; j++)
 		{
 			if(datas[i*3+j] >= 10) {
-				var leftStr = ""+(142+64*j)+"px";
+				var leftStr = ""+(142+66*j)+"px";
 			}
 			else {
-				var leftStr = ""+(146+64*j)+"px";
+				var leftStr = ""+(146+67*j)+"px";
 			}
 			$('#tableDiv').append('<p id="data'+i*6+j+'"></p>');
 			$('#data'+i*6+j).html(datas[i*3+j]);

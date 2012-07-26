@@ -1254,13 +1254,7 @@ Animation.init = function(container){
 				hexPath.remove();
 			
 			hexPath = new Path();
-			hexPath.moveTo(
-				AnimateHelper.hexAPoint
-		//			.add(
-//						-10*Math.sin(this.hexAngle),
-//						10*Math.sin(this.hexAngle)
-//					)
-			);
+			hexPath.moveTo(AnimateHelper.hexAPoint);
 			hexPath.lineTo(
 				AnimateHelper.hexBPoint
 					.add(
@@ -1280,13 +1274,7 @@ Animation.init = function(container){
 						10*Math.sin(this.hexAngle)
 					)
 			);
-			hexPath.lineTo(
-				AnimateHelper.hexAPoint
-			//		.add(
-//						-10*Math.sin(this.hexAngle),
-//						10*Math.sin(this.hexAngle)
-//					)
-			);
+			hexPath.lineTo(AnimateHelper.hexAPoint);
 			hexPath.strokeColor = "black";
 			hexPath.opacity = AnimateHelper.hexOpacity;
 			if(this.hexAngle > Math.PI*0.5){
@@ -1301,13 +1289,7 @@ Animation.init = function(container){
 						10*Math.sin(this.hexAngle)
 					)
 				);
-				hexFillPath.lineTo(
-				AnimateHelper.hexAPoint
-		//			.add(
-//						-10*Math.sin(this.hexAngle),
-//						10*Math.sin(this.hexAngle)
-//					)
-				);
+				hexFillPath.lineTo(AnimateHelper.hexAPoint);
 				hexFillPath.lineTo(
 				AnimateHelper.hexBPoint
 					.add(
@@ -1316,10 +1298,15 @@ Animation.init = function(container){
 					)
 				);
 				hexFillPath.lineTo(AnimateHelper.hexGPoint);
-			//	hexFillPath.strokeColor = "black";
+				hexFillPath.strokeColor = "black";
 				hexFillPath.fillColor = "white";
 			}
+			if(this.hexAngle < Math.PI*0.5){
+				if(hexFillPath)
+					hexFillPath.remove();
+			}
 		},
+		
 		animationType: 'easeInEaseOut'
 	});
 	
@@ -1348,13 +1335,7 @@ Animation.init = function(container){
 				hexPath.remove();
 			
 			hexPath = new Path();
-			hexPath.moveTo(
-				AnimateHelper.hexAPoint
-			//		.add(
-//						-10*Math.sin(this.hexAngle),
-//						10*Math.sin(this.hexAngle)
-//					)
-			);
+			hexPath.moveTo(AnimateHelper.hexAPoint);
 			hexPath.lineTo(
 				AnimateHelper.hexBPoint
 					.add(
@@ -1374,13 +1355,7 @@ Animation.init = function(container){
 						10*Math.sin(this.hexAngle)
 					)
 			);
-			hexPath.lineTo(
-				AnimateHelper.hexAPoint
-			//		.add(
-//						-10*Math.sin(this.hexAngle),
-//						10*Math.sin(this.hexAngle)
-//					)
-			);
+			hexPath.lineTo(AnimateHelper.hexAPoint);
 			hexPath.strokeColor = "black";
 			hexPath.opacity = AnimateHelper.hexOpacity;
 			if(this.hexAngle > Math.PI*0.5){
@@ -1395,13 +1370,7 @@ Animation.init = function(container){
 						10*Math.sin(this.hexAngle)
 					)
 				);
-				hexFillPath.lineTo(
-				AnimateHelper.hexAPoint
-			//		.add(
-//						-10*Math.sin(this.hexAngle),
-//						10*Math.sin(this.hexAngle)
-//					)
-				);
+				hexFillPath.lineTo(AnimateHelper.hexAPoint);
 				hexFillPath.lineTo(
 				AnimateHelper.hexBPoint
 					.add(
@@ -1410,8 +1379,12 @@ Animation.init = function(container){
 					)
 				);
 				hexFillPath.lineTo(AnimateHelper.hexGPoint);
-	//			hexFillPath.strokeColor = "black";
+				hexFillPath.strokeColor = "black";
 				hexFillPath.fillColor = "white";
+			}
+			if(this.hexAngle < Math.PI*0.5){
+				if(hexFillPath)
+					hexFillPath.remove();
 			}
 		},
 		animationType: 'easeInEaseOut'
@@ -1449,13 +1422,7 @@ Animation.init = function(container){
 						-10*Math.sin(this.hexAngle)
 					)
 			);
-			hexPath.lineTo(
-				AnimateHelper.hexBPoint
-	//				.add(
-//						-10*Math.sin(this.hexAngle),
-//						-10*Math.sin(this.hexAngle)
-//					)
-			);
+			hexPath.lineTo(AnimateHelper.hexBPoint);
 			hexPath.lineTo(
 				AnimateHelper.hexCPoint
 					.add(
@@ -1489,13 +1456,7 @@ Animation.init = function(container){
 						-10*Math.sin(this.hexAngle)
 					)
 				);
-				hexFillPath.lineTo(
-				AnimateHelper.hexBPoint
-	//				.add(
-//						-10*Math.sin(this.hexAngle),
-//						-10*Math.sin(this.hexAngle)
-//					)
-				);
+				hexFillPath.lineTo(AnimateHelper.hexBPoint);
 				hexFillPath.lineTo(
 				AnimateHelper.hexCPoint
 					.add(
@@ -1504,10 +1465,15 @@ Animation.init = function(container){
 					)
 				);
 				hexFillPath.lineTo(AnimateHelper.hexKPoint);
-		//		hexFillPath.strokeColor = "black";
+				hexFillPath.strokeColor = "black";
 				hexFillPath.fillColor = "white";
 			}
+			if(this.hexAngle < Math.PI*0.5){
+				if(hexFillPath)
+					hexFillPath.remove();				
+			}
 		},
+		
 		animationType: 'easeInEaseOut'
 	});
 	
@@ -1543,13 +1509,7 @@ Animation.init = function(container){
 						-10*Math.sin(this.hexAngle)
 					)
 			);
-			hexPath.lineTo(
-				AnimateHelper.hexBPoint
-			//		.add(
-//						-10*Math.sin(this.hexAngle),
-//						-10*Math.sin(this.hexAngle)
-//					)
-			);
+			hexPath.lineTo(AnimateHelper.hexBPoint);
 			hexPath.lineTo(
 				AnimateHelper.hexCPoint
 					.add(
@@ -1583,13 +1543,7 @@ Animation.init = function(container){
 						-10*Math.sin(this.hexAngle)
 					)
 				);
-				hexFillPath.lineTo(
-				AnimateHelper.hexBPoint
-		//			.add(
-//						-10*Math.sin(this.hexAngle),
-//						-10*Math.sin(this.hexAngle)
-//					)
-				);
+				hexFillPath.lineTo(AnimateHelper.hexBPoint);
 				hexFillPath.lineTo(
 				AnimateHelper.hexCPoint
 					.add(
@@ -1598,10 +1552,16 @@ Animation.init = function(container){
 					)
 				);
 				hexFillPath.lineTo(AnimateHelper.hexKPoint);
-		//		hexFillPath.strokeColor = "black";
+				hexFillPath.strokeColor = "black";
 				hexFillPath.fillColor = "white";
 			}
+			if(this.hexAngle < Math.PI*0.5){
+				if(hexFillPath)
+					hexFillPath.remove();
+				
+			}
 		},
+		
 		animationType: 'easeInEaseOut'
 	});
 	
@@ -1675,8 +1635,7 @@ Animation.init = function(container){
 				);
 				hexFillPath.lineTo(AnimateHelper.hexMPoint);
 				hexFillPath.strokeColor = "black";
-				hexFillPath.fillColor = "white";
-			
+				hexFillPath.fillColor = "white";		
 			}
 		},
 		animationType: 'easeInEaseOut'
