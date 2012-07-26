@@ -1,3 +1,9 @@
+function __Styles(){
+	/*
+	* write your styles here without using 'var' definer
+	*/
+}
+
 var Animation = {
 	init:function(container){
 			Animation.container = container;
@@ -18,7 +24,7 @@ var Interaction = {
 			}
 			
 			/*
-				Initialize your interaction here
+			*	Initialize your interaction here
 			*/
 			
 			Interaction.prepareNextQuestion();
@@ -26,6 +32,11 @@ var Interaction = {
 	nextQuestion: function(randomNumber){
 	
 		},
+		
+	/*
+	*	this function is called inside Interaction.__checkAnswer() function
+	*	if this function returns false, check answer operation is cancelled
+	*/
 	preCheck : function(){
 		
 		},
