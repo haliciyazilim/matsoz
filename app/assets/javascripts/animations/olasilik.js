@@ -11,6 +11,14 @@ var Animation = {
 		{
 			id:'piechart',
 			src:'/assets/animations/olasilik/pie_chart.png'
+		},
+		{
+			id:'point',
+			src:'/assets/animations/olasilik/point.png'
+		},
+		{
+			id:'arrow',
+			src:'/assets/animations/olasilik/arrow.png'
 		}
 	],
 	showResult:function(){
@@ -95,26 +103,19 @@ var Animation = {
 		
 		var p1 = new Point(x-150,y);
 		var piechart = new Raster('piechart');
+		
 		piechart.position = p1;
 		
-		Animation.arrow = new Path.OneSidedArrow(
-			new Point(
-				p1.x-10,
-				p1.y
-			),
-			new Point(
-				p1.x+piechart.bounds.width*0.4,
-				p1.y
-			),
-			20,
-			30
-		);
+		Animation.arrow = new Raster('arrow');
+		Animation.arrow.position = p1.add(10,0);
+		
 		Animation.arrow.set_style({
 			strokeWidth:6,
 			strokeColor:'#f00',
 			fillColor:'#f00'
 		})
-		Animation.arrowPoint = new Path.Circle(p1,5);
+		Animation.arrowPoint = new Raster('point');
+		Animation.arrowPoint.position = p1;
 		Animation.arrowPoint.set_style({
 			strokeColor:'#000',
 			fillColor:'#000'

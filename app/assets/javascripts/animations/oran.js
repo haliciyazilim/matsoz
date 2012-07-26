@@ -232,7 +232,8 @@ switch(soruSecimi)
 }
 
 function maviBilyeYap(){
-
+		
+		$(".mavi_bilye").remove();
 		var girdi=maviBilye;
 				
 		var onluk=Math.floor(girdi/3)==0?1:Math.floor(girdi/3+1);
@@ -270,7 +271,7 @@ function maviBilyeYap(){
 			}	
 
 function kirmiziBilyeYap(){
-
+		$(".kirmizi_bilye").remove();
 		var girdi=kirmiziBilye;
 			
 		var onluk=Math.floor(girdi/3)==0?1:Math.floor(girdi/3+1);

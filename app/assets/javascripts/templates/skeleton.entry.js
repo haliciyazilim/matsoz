@@ -1,5 +1,6 @@
 var Animation = {
 	init:function(container){
+			Animation.container = container;
 		
 		}
 }
@@ -22,8 +23,11 @@ var Interaction = {
 			
 			Interaction.prepareNextQuestion();
 		},
-	nextQuestion: function(){
+	nextQuestion: function(randomNumber){
 	
+		},
+	preCheck : function(){
+		
 		},
 	isAnswerCorrect : function(value){
 		

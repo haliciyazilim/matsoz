@@ -356,7 +356,6 @@ Interaction.init = function(container){
 	$('div#B > div#L',Interaction.container).append('&nbsp;<span id="input_measure"></span>');
 	Interaction.button = document.createElement('input');
 	Interaction.button.setAttribute('type','button');
-	Interaction.button.value = 'Kontrol';
 	Interaction.button.onclick = TestGenerator.checkAnswer;
 	Interaction.button.className = 'control_button';
 	$('div#B > div#R',Interaction.container).append(Interaction.button);
@@ -399,7 +398,7 @@ TestGenerator.nextQuestion = function(){
 	TestGenerator.trial = 0;
 	TestGenerator.values = null;
 	Interaction.setStatus('');
-	Interaction.button.value = 'Kontrol';
+	Interaction.button.className = 'control_button';
 	Interaction.input.value = '';
 	Interaction.input.onkeyup = function(e){
 		if(e.keyCode == 13)
@@ -519,7 +518,7 @@ TestGenerator.checkAnswer = function(){
 	else if(value == TestGenerator.values.cevre){
 		Interaction.setStatus('Tebrikler !',true);
 		Interaction.button.onclick = TestGenerator.nextQuestion;
-		Interaction.button.value = 'Sonraki';
+		Interaction.button.className = 'next_button';
 		Interaction.input.onkeyup = TestGenerator.nextQuestion;
 	}
 	else{
@@ -532,7 +531,7 @@ TestGenerator.checkAnswer = function(){
 		Interaction.input.onkeyup = TestGenerator.nextQuestion;
 		Interaction.setStatus('Yanlış. Doğru cevap: '+TestGenerator.values.cevre+' '+TestGenerator.getMeasure(),false);
 		Interaction.button.onclick = TestGenerator.nextQuestion;
-		Interaction.button.value = 'Sonraki';
+		Interaction.button.className = 'next_button';
 	}	
 	else{
 		Interaction.button.onlick = TestGenerator.nextQuestion;

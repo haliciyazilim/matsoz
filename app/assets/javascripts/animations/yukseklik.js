@@ -40,9 +40,9 @@ var Animation = {
 		var r2 = new Raster('redline');
 		var r3 = new Raster('height');
 		
-		r1.position = new Point(p);
-		r2.position = new Point(p);
-		r3.position = new Point(p);
+		r1.position = p;
+		r2.position = p;
+		r3.position = p;
 		
 		r1.opacity = 0;
 		r2.opacity = 0;

@@ -67,14 +67,17 @@ function InteractionBase(){
 		$(Interaction.status).css(css);
 	};
 	
-	Interaction.appendInput = function(css,isNumber){
+	Interaction.appendInput = function(css,isNumber,isEmpty){
 		if(Interaction.__inputVersion == 2){
 			throw 'You cannot use Interaction.appendInput after Interaction.addInput ';
 		}
+		if(isEmpty == undefined)
+			isEmpty = false;
 		Interaction.__inputVersion = 1;
 		if(isNumber == undefined || isNumber == null)
 			isNumber = true;
 		var input = Interaction.createInput(isNumber,3);
+		input.isEmpty = isEmpty;
 		$(input)
 			.css({
 				position:'absolute'
@@ -174,6 +177,27 @@ function InteractionBase(){
 			});
 		$(Interaction.button).css(css);
 	};
+	
+	
+	Interaction.setRandomGenerator = function(to,from){
+		var NUMBER_OF_SHAPES;
+		if(isNaN(from))
+			from=0;
+		NUMBER_OF_SHAPES = to - from;
+		
+		Interaction.__randomGenerator = {
+			NUMBER_OF_SHAPES : NUMBER_OF_SHAPES,
+			index : from,
+			shuffledArray : Util.getShuffledArray(NUMBER_OF_SHAPES),
+			nextNumber:function(){
+				Interaction.__randomGenerator.index = Interaction.__randomGenerator.index%Interaction.__randomGenerator.NUMBER_OF_SHAPES;
+				var number = Interaction.__randomGenerator.shuffledArray[Interaction.__randomGenerator.index];
+				Interaction.__randomGenerator.index ++;
+				return number;
+			}
+		}
+	}
+	
 	Interaction.prepareNextQuestion = function(){
 		if(Interaction.pause)
 			return;
@@ -191,15 +215,19 @@ function InteractionBase(){
 		}
 		if(Interaction.button){
 			Interaction.button.className = 'control_button';
-			Interaction.button.onclick = Interaction.checkAnswer;
+			Interaction.button.onclick = Interaction.__checkAnswer;
 		}
 		Interaction.trial = 0;
-		Interaction.nextQuestion();
+		if(Interaction.__randomGenerator)
+			Interaction.nextQuestion(Interaction.__randomGenerator.nextNumber());	
+		else
+			Interaction.nextQuestion();
 	};
-	Interaction.checkAnswer = function(){
+	Interaction.__checkAnswer = function(){
 		if(Interaction.pause == true)
 			return;
-			
+		if(Interaction.preCheck && Interaction.preCheck() == false)
+			return;
 		var isCorrect;
 		if(Interaction.__inputVersion == 2){
 			isCorrect = true;
@@ -245,8 +273,12 @@ function InteractionBase(){
 				for(var i=0; i<Interaction.inputs.length;i++){
 					values[i] = Interaction.inputs[i].value;
 					if(Interaction.inputs[i].getAttribute('isNumber') == 'true'){			
-						
-						if(values[i] == "" ||isNaN(values[i]) && values[i].indexOf(',') < 0) {
+						if(!Interaction.inputs[i].isEmpty && $(Interaction.inputs[i]).val() == ""){
+							Interaction.__status(Interaction.__status.EMPTY);
+							//Interaction.setStatus('Lütfen tüm kutucukları doldurunuz');
+							return;
+						}
+						if(isNaN(values[i]) && values[i].indexOf(',') < 0) {
 							Interaction.__status(Interaction.__status.NUMBER);
 							//Interaction.setStatus('Lütfen bir sayı giriniz.',false);
 							return;

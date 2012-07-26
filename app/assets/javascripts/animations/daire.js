@@ -227,12 +227,15 @@ Interaction.init = function(container){
 	Interaction.paper = {width:$(container).width(),height:$(container).height()};
 	Interaction.button = document.createElement('input');
 	Interaction.button.type = "button";
-	Interaction.button.value = 'Çiz';
 	Interaction.button.onclick = Interaction.drawCircle;
 	Interaction.button.className = 'control_button'
+	
 	$(Interaction.button).css({
+			backgroundImage:'url(/assets/animations/btn_gray_draw.png)',
 			position:'absolute',
 			top:'20px',
+			width:'32px',
+			height:'31px',
 			left:Interaction.paper.width * 0.5
 		});
 	$(Interaction.button).hide();
@@ -448,7 +451,7 @@ Interaction.showCircularRegion = function(){
 		if(angle > 360){
 			clearInterval(Interaction.showCircularRegion.t);
 			$(Interaction.status).hide();
-			Interaction.status.innerHTML += ' <input type="button" class="control_button" style="margin-top:5px;" value="Yeniden çizdir" onclick="Interaction.nextQuestion()">';
+			Interaction.status.innerHTML += ' <input type="button" class="repeat_button" style="margin-top:5px;" onclick="Interaction.nextQuestion()">';
 			$(Interaction.status).show();
 			return;
 		}

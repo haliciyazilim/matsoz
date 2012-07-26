@@ -302,7 +302,7 @@ var Interaction = {
 				Interaction.inputs.push($(".down input", asamalarArray[i]).get(0));
 				}
 				else
-					$(".up, .down").css("color",Interaction.dogruCevapRengi);
+					$("#cevap .up, #cevap .down").css("color",Interaction.dogruCevapRengi);
 
 			}
 			$("#soru .input")
@@ -480,6 +480,8 @@ var Interaction = {
 				else
 					randomSoruGetir();	
 			}
+			$("#cevap").animate({opacity:"0"},1000);
+			$("#soru").delay(800).animate({right:"0px"},1000);
 			
 			function randomSoruGetir(){
 				console.log("random moddayim");
@@ -595,8 +597,7 @@ var Interaction = {
 				var cBolen=normalIslem.bolen;
 				cevapIslem= new NormalBolmeIslemi(cBolen,cBolunen, "cevap");
 				cevapIslem.yap();
-				$("#soru").animate({right:"250px"},1000);
-				$("#cevap").delay(500).animate({opacity:"1",},1000);
+				
 				
 				break;
 			case 6:
@@ -605,8 +606,7 @@ var Interaction = {
 				var cBolen=bolunensizIslem.bolen;
 				cevapIslem= new BolunensizBolmeIslemi(cBolen,cBolunen, "cevap");
 				cevapIslem.yap();
-				$("#soru").animate({right:"250px"},1000);
-				$("#cevap").delay(500).animate({opacity:"1",},1000);
+				
 				break;
 			case 8:
 			case 9:
@@ -614,10 +614,11 @@ var Interaction = {
 				var cBolen=bolensizIslem.bolen;
 				cevapIslem= new BolensizBolmeIslemi(cBolen,cBolunen, "cevap");
 				cevapIslem.yap();
-				$("#soru").animate({right:"250px"},1000);
-				$("#cevap").delay(500).animate({opacity:"1",},1000);
+				
 				break;
 		}
+		$("#soru").animate({right:"250px"},1000);
+		$("#cevap").delay(500).animate({opacity:"1",},1000);
 		Interaction.setStatus('Yanlış cevap, doğrusu sağ tarafta.',false);
 		
 		},

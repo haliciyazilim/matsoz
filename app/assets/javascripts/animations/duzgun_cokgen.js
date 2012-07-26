@@ -281,6 +281,7 @@ var Animation = {
 	}
 };
 var Interaction =function(){};Interaction();
+
 Interaction.getFramework = function() {
 	return 'paper';
 }
