@@ -395,7 +395,7 @@ Interaction.init = function(container){
 	
 
 	// girdiler ilgili olaylar
-	var cevap1,cevap2,cevap3;
+	var cevap1="",cevap2="",cevap3="";
 
 	$("#girdiCevap1").change(function(){
 		cevap1=parseInt($("#girdiCevap1").val());
@@ -450,11 +450,12 @@ Interaction.init = function(container){
 	);
 	
 	function kontrol(){
-			//console.log("c1: "+cevap1+" c2: "+cevap2+" c3: "+cevap3);
+			console.log("c1: "+cevap1+" c2: "+cevap2+" c3: "+cevap3);
 			
 			// ondalikliGirdi inputa girilen değer kırpılmış olduğu için sorun çıkartıyordu. Alttaki satırla halledildi.
 			
 			if(cevap1===undefined ||cevap1==="" || cevap2===undefined || cevap2==="" || cevap3===undefined || cevap3===""){
+			//if($("#girdiCevap1").val()=="" || $("#girdiCevap2").val()=="" || $("#girdiCevap3").val()==""){
 				$("#geriBildirimText").attr("class","status_alert").html("Bütün kutucukları doldurunuz.");
 				$("#geriBildirim").show();
 				
