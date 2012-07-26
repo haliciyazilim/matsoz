@@ -548,7 +548,7 @@ var Interaction = {
 		},
 	init:function(container){
 			Interaction.container = container;
-			Main.setObjective('');
+			Main.setObjective('Yandaki kesri ondalık kesre çeviriniz ve tabloya yerleştiriniz.');
 			Interaction.paper = {
 				width:$(container).width(),
 				height:$(container).height()
