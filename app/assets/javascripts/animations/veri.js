@@ -36,7 +36,7 @@ Animation.init = function(container){
 				.css("left", "52px")
 				.css("top", "52px")
 				.css("opacity", 0)
-				.delay(24000).animate({opacity: 1}, 1000)
+				.delay(13000).animate({opacity: 1}, 1000)
 				
 	$(container).append('<img id="player8" src="/assets/animations/veri/futbolcu_08.png" />');
 	$('#player8')
@@ -46,7 +46,7 @@ Animation.init = function(container){
 				.css("left", "126px")
 				.css("top", "46px")
 				.css("opacity", 0)
-				.delay(27500).animate({opacity: 1}, 1000)
+				.delay(14500).animate({opacity: 1}, 1000)
 	
 	$(container).append('<img id="player9" src="/assets/animations/veri/futbolcu_09.png" />');
 	$('#player9')
@@ -56,7 +56,7 @@ Animation.init = function(container){
 				.css("left", "188px")
 				.css("top", "42px")
 				.css("opacity", 0)
-				.delay(31000).animate({opacity: 1}, 1000)	
+				.delay(16000).animate({opacity: 1}, 1000)	
 	
 	$(container).append('<img id="player10" src="/assets/animations/veri/futbolcu_10.png" />');
 	$('#player10')
@@ -66,7 +66,7 @@ Animation.init = function(container){
 				.css("left", "250px")
 				.css("top", "53px")
 				.css("opacity", 0)
-				.delay(34500).animate({opacity: 1}, 1000)
+				.delay(17500).animate({opacity: 1}, 1000)
 	
 	$(container).append('<img id="player11" src="/assets/animations/veri/futbolcu_11.png" />');
 	$('#player11')
@@ -76,7 +76,7 @@ Animation.init = function(container){
 				.css("left", "304px")
 				.css("top", "57px")
 				.css("opacity", 0)
-				.delay(38000).animate({opacity: 1}, 1000)	
+				.delay(19000).animate({opacity: 1}, 1000)	
 	
 	$(container).append('<img id="player1" src="/assets/animations/veri/futbolcu_01.png" />');
 	$('#player1')
@@ -96,7 +96,7 @@ Animation.init = function(container){
 				.css("left", "82px")
 				.css("top", "90px")
 				.css("opacity", 0)
-				.delay(6500).animate({opacity: 1}, 1000)
+				.delay(5500).animate({opacity: 1}, 1000)
 	
 	$(container).append('<img id="player3" src="/assets/animations/veri/futbolcu_03.png" />');
 	$('#player3')
@@ -106,7 +106,7 @@ Animation.init = function(container){
 				.css("left", "147px")
 				.css("top", "100px")
 				.css("opacity", 0)
-				.delay(10000).animate({opacity: 1}, 1000)
+				.delay(7000).animate({opacity: 1}, 1000)
 	
 	$(container).append('<img id="player4" src="/assets/animations/veri/futbolcu_04.png" />');
 	$('#player4')
@@ -116,7 +116,7 @@ Animation.init = function(container){
 				.css("left", "208px")
 				.css("top", "100px")
 				.css("opacity", 0)
-				.delay(13500).animate({opacity: 1}, 1000)
+				.delay(8500).animate({opacity: 1}, 1000)
 	
 	$(container).append('<img id="player5" src="/assets/animations/veri/futbolcu_05.png" />');
 	$('#player5')
@@ -126,7 +126,7 @@ Animation.init = function(container){
 				.css("left", "280px")
 				.css("top", "99px")
 				.css("opacity", 0)
-				.delay(17000).animate({opacity: 1}, 1000)
+				.delay(10000).animate({opacity: 1}, 1000)
 	
 	$(container).append('<img id="player6" src="/assets/animations/veri/futbolcu_06.png" />');
 	$('#player6')
@@ -136,7 +136,7 @@ Animation.init = function(container){
 				.css("left", "344px")
 				.css("top", "105px")
 				.css("opacity", 0)
-				.delay(20500).animate({opacity: 1}, 1000)
+				.delay(11500).animate({opacity: 1}, 1000)
 	
 	$(container).append('<img id="infoo" src="/assets/animations/veri/veri_f_yazi.png" />');
 	$('#infoo')
@@ -144,7 +144,7 @@ Animation.init = function(container){
 				.css("height", "70px")
 				.css("position", "absolute")
 				.css("left", "372px")
-				.css("top", "48px")
+				.css("top", "34px")
 				.css("opacity", 0)
 				.delay(1000).animate({opacity: 1}, 1000)
 	
@@ -175,7 +175,7 @@ Animation.init = function(container){
 				.css("top", "60px")
 				.css("left", "540px")
 				.css("opacity", 0)
-				.delay(animStart+1000).animate({opacity: 1, width: '30px'}, 1000)
+				.delay(animStart+1100).animate({opacity: 1, width: '30px'}, 1000)
 	
 	$(container).append('<p id="data2">1.40</p>');
 	$('#data2').css("position", "absolute")
@@ -183,7 +183,7 @@ Animation.init = function(container){
 				.css("left", "580px")
 				.css("width", '0px')
 				.css("opacity", 0)
-				.delay(animStart+4500).animate({opacity: 1, width: '30px'}, 1000)
+				.delay(animStart+2600).animate({opacity: 1, width: '30px'}, 1000)
 	
 	$(container).append('<p id="data3">1.39</p>');
 	$('#data3').css("position", "absolute")
@@ -191,7 +191,7 @@ Animation.init = function(container){
 				.css("top", "60px")
 				.css("left", "620px")
 				.css("opacity", 0)
-				.delay(animStart+8000).animate({opacity: 1, width: '30px'}, 1000)
+				.delay(animStart+4100).animate({opacity: 1, width: '30px'}, 1000)
 	
 	$(container).append('<p id="data4">1.40</p>');
 	$('#data4').css("position", "absolute")
@@ -199,7 +199,7 @@ Animation.init = function(container){
 				.css("top", "60px")
 				.css("left", "660px")
 				.css("opacity", 0)
-				.delay(animStart+11500).animate({opacity: 1, width: '30px'}, 1000)
+				.delay(animStart+5600).animate({opacity: 1, width: '30px'}, 1000)
 	
 	$(container).append('<p id="data5">1.40</p>');
 	$('#data5').css("position", "absolute")
@@ -207,7 +207,7 @@ Animation.init = function(container){
 				.css("top", "94px")
 				.css("left", "540px")
 				.css("opacity", 0)
-				.delay(animStart+15000).animate({opacity: 1, width: '30px'}, 1000)
+				.delay(animStart+7100).animate({opacity: 1, width: '30px'}, 1000)
 	
 	$(container).append('<p id="data6">1.41</p>');
 	$('#data6').css("position", "absolute")
@@ -215,7 +215,7 @@ Animation.init = function(container){
 				.css("top", "94px")
 				.css("left", "580px")
 				.css("opacity", 0)
-				.delay(animStart+18500).animate({opacity: 1, width: '30px'}, 1000)
+				.delay(animStart+8600).animate({opacity: 1, width: '30px'}, 1000)
 	
 	$(container).append('<p id="data7">1.38</p>');
 	$('#data7').css("position", "absolute")
@@ -223,7 +223,7 @@ Animation.init = function(container){
 				.css("top", "94px")
 				.css("left", "620px")
 				.css("opacity", 0)
-				.delay(animStart+22000).animate({opacity: 1, width: '30px'}, 1000)
+				.delay(animStart+10100).animate({opacity: 1, width: '30px'}, 1000)
 	
 	$(container).append('<p id="data8">1.40</p>');
 	$('#data8').css("position", "absolute")
@@ -231,7 +231,7 @@ Animation.init = function(container){
 				.css("top", "94px")
 				.css("left", "660px")
 				.css("opacity", 0)
-				.delay(animStart+25500).animate({opacity: 1, width: '30px'}, 1000)
+				.delay(animStart+11600).animate({opacity: 1, width: '30px'}, 1000)
 	
 	$(container).append('<p id="data9">1.42</p>');
 	$('#data9').css("position", "absolute")
@@ -239,7 +239,7 @@ Animation.init = function(container){
 				.css("top", "128px")
 				.css("left", "540px")
 				.css("opacity", 0)
-				.delay(animStart+29000).animate({opacity: 1, width: '30px'}, 1000)
+				.delay(animStart+13100).animate({opacity: 1, width: '30px'}, 1000)
 	
 	$(container).append('<p id="data10">1.39</p>');
 	$('#data10').css("position", "absolute")
@@ -247,7 +247,7 @@ Animation.init = function(container){
 				.css("top", "128px")
 				.css("left", "580px")
 				.css("opacity", 0)
-				.delay(animStart+32500).animate({opacity: 1, width: '30px'}, 1000)
+				.delay(animStart+14600).animate({opacity: 1, width: '30px'}, 1000)
 	
 	$(container).append('<p id="data11">1.41</p>');
 	$('#data11').css("position", "absolute")
@@ -255,7 +255,7 @@ Animation.init = function(container){
 				.css("top", "128px")
 				.css("left", "620px")
 				.css("opacity", 0)
-				.delay(animStart+36000).animate({opacity: 1, width: '30px'}, 1000)
+				.delay(animStart+16100).animate({opacity: 1, width: '30px'}, 1000)
 	
 	$(container).append('<img id="pencil" src="/assets/animations/veri/kursun_kalem_.png" />');
 	$('#pencil')
@@ -268,58 +268,57 @@ Animation.init = function(container){
 				
 	$('#pencil').delay(animStart).animate({opacity: 1}, 500)
 				.delay(500).animate({left: '+=30'}, 1000)
-				.delay(0).animate({opacity: 0}, 500)
+		//		.delay(0).animate({opacity: 0}, 500)
 				.delay(0).animate({left: '+=10'}, 0)
 	
-	$('#pencil').delay(950).animate({opacity:1}, 500)
+	$('#pencil')//.delay(950).animate({opacity:1}, 500)
 				.delay(500).animate({left: '+=30'}, 1000)
-				.delay(0).animate({opacity: 0}, 500)
+		//		.delay(0).animate({opacity: 0}, 500)
 				.delay(0).animate({left: '+=10'}, 0)
 	
-	$('#pencil').delay(950).animate({opacity:1}, 500)
+	$('#pencil')//.delay(950).animate({opacity:1}, 500)
 				.delay(500).animate({left: '+=30'}, 1000)
-				.delay(0).animate({opacity: 0}, 500)
+		//		.delay(0).animate({opacity: 0}, 500)
 				.delay(0).animate({left: '+=10'}, 0)
 	
-	$('#pencil').delay(970).animate({opacity:1}, 500)
+	$('#pencil')//.delay(970).animate({opacity:1}, 500)
 				.delay(500).animate({left: '+=30'}, 1000)
-				.delay(0).animate({opacity: 0}, 500)
+		//		.delay(0).animate({opacity: 0}, 500)
 				.delay(0).animate({left: '535px', top: '0px'}, 0)
 	
-	$('#pencil').delay(970).animate({opacity:1}, 500)
+	$('#pencil')//.delay(970).animate({opacity:1}, 500)
 				.delay(500).animate({left: '+=30'}, 1000)
-				.delay(0).animate({opacity: 0}, 500)
+		//		.delay(0).animate({opacity: 0}, 500)
 				.delay(0).animate({left: '+=10'}, 0)
 	
-	$('#pencil').delay(970).animate({opacity:1}, 500)
+	$('#pencil')//.delay(970).animate({opacity:1}, 500)
 				.delay(500).animate({left: '+=30'}, 1000)
-				.delay(0).animate({opacity: 0}, 500)
+		//		.delay(0).animate({opacity: 0}, 500)
 				.delay(0).animate({left: '+=10'}, 0)
 	
-	$('#pencil').delay(970).animate({opacity:1}, 500)
+	$('#pencil')//.delay(970).animate({opacity:1}, 500)
 				.delay(500).animate({left: '+=30'}, 1000)
-				.delay(0).animate({opacity: 0}, 500)
+		//		.delay(0).animate({opacity: 0}, 500)
 				.delay(0).animate({left: '+=10'}, 0)
 	
-	$('#pencil').delay(970).animate({opacity:1}, 500)
+	$('#pencil')//.delay(970).animate({opacity:1}, 500)
 				.delay(500).animate({left: '+=30'}, 1000)
-				.delay(0).animate({opacity: 0}, 500)
+		//		.delay(0).animate({opacity: 0}, 500)
 				.delay(0).animate({left: '535px', top: '34px'}, 0)
 	
-	$('#pencil').delay(970).animate({opacity:1}, 500)
+	$('#pencil')//.delay(970).animate({opacity:1}, 500)
 				.delay(500).animate({left: '+=30'}, 1000)
-				.delay(0).animate({opacity: 0}, 500)
+		//		.delay(0).animate({opacity: 0}, 500)
 				.delay(0).animate({left: '+=10'}, 0)
 	
-	$('#pencil').delay(970).animate({opacity:1}, 500)
+	$('#pencil')//.delay(970).animate({opacity:1}, 500)
 				.delay(500).animate({left: '+=30'}, 1000)
-				.delay(0).animate({opacity: 0}, 500)
+		//		.delay(0).animate({opacity: 0}, 500)
 				.delay(0).animate({left: '+=10'}, 0)
 	
-	$('#pencil').delay(970).animate({opacity:1}, 500)
+	$('#pencil')//.delay(970).animate({opacity:1}, 500)
 				.delay(500).animate({left: '+=30'}, 1000)
 				.delay(0).animate({opacity: 0}, 500)
-				.delay(0).animate({left: '+=10'}, 0)
 }
 
 var index = 0;
@@ -358,19 +357,19 @@ Interaction.init = function(container){
 	}
 	
 	// adding neccesary html element -> images, datas, question, input box and buttons
-	$(container).append('<img id="paper" src="/assets/animations/veri/paper.png" />');
-	$('#paper').css("width", "180px")
-				.css("height", "150px")
+	$(container).append('<img id="paper" src="/assets/animations/veri/veri_02.jpg" />');
+	$('#paper').css("width", "413px")
+				.css("height", "284px")
 				.css("position", "absolute")
-				.css("left", "160px")
-				.css("top", "50px");
+				.css("left", "0px")
+				.css("top", "0px");
 	
 	for(i = 0; i < 5; i++)
 	{
-		var topStr = ""+(64+24*i)+"px";
+		var topStr = ""+(114+24*i)+"px";
 		for(j = 0; j < 6; j++)
 		{
-			var leftStr = ""+(170+26*j)+"px";
+			var leftStr = ""+(210+26*j)+"px";
 			$(container).append('<p id="data'+i*6+j+'"></p>');
 			$('#data'+i*6+j).html(datas[i*6+j]);
 			$('#data'+i*6+j).css("position", "absolute")
@@ -380,51 +379,45 @@ Interaction.init = function(container){
 		}
 	}
 				
-	$(container).append('<img id="apartment" src="/assets/animations/veri/apartment.png" />');
-	$('#apartment').css("width", "140px")
-				.css("height", "150px")
-				.css("position", "absolute")
-				.css("left", "0px")
-				.css("top", "50px");
-				
 	$(container).append('<p id="question" ></p>');
 	$('#question').css("position", "absolute")
-				.css("left", "360px")
-				.css("top", "60px")
-				.css("width", "190px")
+				.css("left", "300px")
+				.css("top", "30px")
+				.css("width", "230px")
 				.css("font-size", 18)
 				.css("text-align", "center");
 				
 	$(container).append('<input id="textInput1" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
-		$('#textInput1').css("width", "32")
-					.css("height", "30")
+		$('#textInput1').css("width", "42")
+					.css("height", "40")
 					.css("box-sizing","border-box")
 					.css("padding", "0")
 					.css("font-size", 22)
 					.css("position", "absolute")
-					.css("left", "434px")
-					.css("top", "140px")
+					.css("left", "474px")
+					.css("top", "98px")
 					.css("text-align", "center");
 					
 	$('#textInput1').addClass('input');
 
 	$(container).append('<div id="statuss"></div>');
 	$('#statuss').css("position", "absolute")
-					.css("left", "160px")
-					.css("top", "240px")
-					.css("width", "200px")
-					.css("height", "20px")
+					.css("left", "414px")
+					.css("top", "160px")
+					.css("width", "160px")
+					.css("height", "50px")
 					.css("text-align", "center")
+				//	.css("border", "solid")
 					
 	$(container).append('<button id="checkBtn" class="control_button"></button>');
 	$('#checkBtn').css("position", "absolute")
-					.css("right", "30px")
-					.css("bottom", "30px");
+					.css("right", "40px")
+					.css("bottom", "20px");
 	
 	$(container).append('<button id="nextBtn" class="next_button"></button>');
 	$('#nextBtn').css("position", "absolute")
-					.css("right", "30px")
-					.css("bottom", "30px");
+					.css("right", "40px")
+					.css("bottom", "20px");
 	$('#nextBtn').hide();
 	nextQuestion();
 	
@@ -804,7 +797,7 @@ Interaction.init = function(container){
 								{
 									if(datas[i*6+j] == 1)
 									{
-										$('#data'+i*6+j).css("color", "red");
+										$('#data'+i*6+j).css("color", "green");
 									}
 								}
 							}
@@ -816,7 +809,7 @@ Interaction.init = function(container){
 								{
 									if(datas[i*6+j] == 2)
 									{
-										$('#data'+i*6+j).css("color", "red");
+										$('#data'+i*6+j).css("color", "green");
 									}
 								}
 							}
@@ -828,7 +821,7 @@ Interaction.init = function(container){
 								{
 									if(datas[i*6+j] == 3)
 									{
-										$('#data'+i*6+j).css("color", "red");
+										$('#data'+i*6+j).css("color", "green");
 									}
 								}
 							}
@@ -840,7 +833,7 @@ Interaction.init = function(container){
 								{
 									if(datas[i*6+j] == 4)
 									{
-										$('#data'+i*6+j).css("color", "red");
+										$('#data'+i*6+j).css("color", "green");
 									}
 								}
 							}
@@ -852,7 +845,7 @@ Interaction.init = function(container){
 								{
 									if(datas[i*6+j] == 5)
 									{
-										$('#data'+i*6+j).css("color", "red");
+										$('#data'+i*6+j).css("color", "green");
 									}
 								}
 							}
@@ -864,7 +857,7 @@ Interaction.init = function(container){
 								{
 									if(datas[i*6+j] == 0)
 									{
-										$('#data'+i*6+j).css("color", "red");
+										$('#data'+i*6+j).css("color", "green");
 									}
 								}
 							}
@@ -876,7 +869,7 @@ Interaction.init = function(container){
 								{
 									if(datas[i*6+j] != 0)
 									{
-										$('#data'+i*6+j).css("color", "red");
+										$('#data'+i*6+j).css("color", "green");
 									}
 								}
 							}
@@ -886,7 +879,7 @@ Interaction.init = function(container){
 							{
 								for(j = 0; j < 6; j++)
 								{
-									$('#data'+i*6+j).css("color", "red");
+									$('#data'+i*6+j).css("color", "green");
 								}
 							}
 							break;
@@ -897,7 +890,7 @@ Interaction.init = function(container){
 								{
 									if(datas[i*6+j] > 1)
 									{
-										$('#data'+i*6+j).css("color", "red");
+										$('#data'+i*6+j).css("color", "green");
 									}
 								}
 							}
@@ -909,7 +902,7 @@ Interaction.init = function(container){
 								{
 									if(datas[i*6+j] > 2)
 									{
-										$('#data'+i*6+j).css("color", "red");
+										$('#data'+i*6+j).css("color", "green");
 									}
 								}
 							}
@@ -921,7 +914,7 @@ Interaction.init = function(container){
 								{
 									if(datas[i*6+j] > 3)
 									{
-										$('#data'+i*6+j).css("color", "red");
+										$('#data'+i*6+j).css("color", "green");
 									}
 								}
 							}
@@ -933,7 +926,7 @@ Interaction.init = function(container){
 								{
 									if(datas[i*6+j] < 2)
 									{
-										$('#data'+i*6+j).css("color", "red");
+										$('#data'+i*6+j).css("color", "green");
 									}
 								}
 							}
@@ -945,7 +938,7 @@ Interaction.init = function(container){
 								{
 									if(datas[i*6+j] < 3)
 									{
-										$('#data'+i*6+j).css("color", "red");
+										$('#data'+i*6+j).css("color", "green");
 									}
 								}
 							}
@@ -957,7 +950,7 @@ Interaction.init = function(container){
 								{
 									if(datas[i*6+j] < 4)
 									{
-										$('#data'+i*6+j).css("color", "red");
+										$('#data'+i*6+j).css("color", "green");
 									}
 								}
 							}
@@ -969,7 +962,7 @@ Interaction.init = function(container){
 								{
 									if(datas[i*6+j] < 5)
 									{
-										$('#data'+i*6+j).css("color", "red");
+										$('#data'+i*6+j).css("color", "green");
 									}
 								}
 							}
