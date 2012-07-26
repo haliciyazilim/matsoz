@@ -307,17 +307,20 @@ var Interaction = {
 		Interaction.ruler.class = 'ruler';
 		var tool = new Tool();
 		tool.onMouseDown = function(event){
-			if(Interaction.ruler.bounds.contains(event.point))
+			if(Interaction.ruler.bounds.contains(event.point)){
 				this.drag = true;
+				this.totalDelta = new Point(0,0);
+				this.firstPosition = Interaction.ruler.position;
+			}
+			
 		}
 		tool.onMouseDrag = function(event){
-			
-			console.log();
-			if(this.drag && Interaction.ruler.position.x+event.delta.x > 447){
-				Interaction.ruler.position = [
-					Interaction.ruler.position.x + event.delta.x,
-					Interaction.ruler.position.y + event.delta.y
-				];
+			var newPoint = this.firstPosition.add(this.totalDelta).add(event.delta);
+			if(Interaction.isLineDrawed && newPoint.x < 450){
+				Interaction.ruler.position = this.firstPosition.add(this.totalDelta);
+			}else{
+				Interaction.ruler.position = this.firstPosition.add(newPoint);
+				this.totalDelta = this.totalDelta.add(event.delta);
 			}
 		}
 		tool.onMouseUp = function(){
@@ -331,19 +334,24 @@ var Interaction = {
 			Interaction.circlePosition,
 			Interaction.circleRadius
 		);
-		circle.insertBelow(Interaction.ruler);
+		
 		circle.set_style(circleStyle);
 		var point = new Path.Circle(Interaction.circlePosition,2);
 		point.set_style({
 			fillColor:circleStyle.strokeColor
 		});
-		point.insertBelow(Interaction.ruler);
+		
+		
+		Interaction.ruler.insertAbove(circle);
+		Interaction.ruler.insertAbove(point);
+		
 		Interaction.circle.addChild(circle);
 		Interaction.circle.addChild(point);
 	},
 	drawLine: function(){
 		if(Interaction.pause === true)
 			return;
+		Interaction.isLineDrawed = true;
 		var drawLineHelper = new AnimationHelper({
 			position:new Point(
 				Interaction.circlePosition.x,
@@ -399,6 +407,7 @@ var Interaction = {
 					)
 				);
 				Interaction.drawLine.line.set_style(circleStyle);
+				Interaction.ruler.insertAbove(Interaction.drawLine.line);
 			}
 			else{
 				Interaction.pause = false;
