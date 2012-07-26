@@ -1,7 +1,7 @@
 // JavaScript Document
 
 /*Styles*/
-var textStyle = {fontSize:16,fillColor:'#fff',justification:'center'};
+var textStyle = {fontSize:12,fillColor:'#fff',justification:'center'};
 var edgeStyle = {'stroke-width':'2px'};
 var angleStyle = {'fill':'#DDD'};
 //var shapeStyle = {'fill':'#fff','shape-rendering':'crispEdges'};
@@ -386,7 +386,21 @@ var start = function(){
 		var revert = false;
 		if(this.inDropableShape == true){
 			if(this.isRegular === true){
-				this.remove();
+				this.opacityX = 1;
+				this.scaleRatio = 0.9;
+				this.animate({
+					style:{
+						opacityX:-0.3,
+						scaleRatio:1
+					},
+					duration:500,
+					update:function(){
+						if(this.opacityX < 0.7)
+							this.opacity = this.opacityX+0.3;
+						this.scale(this.scaleRatio);	
+					},
+					callback:this.remove
+				});
 				this.isRegular = false;
 				Interaction.changeDropableShape('dropable_true');
 				setTimeout(function(){
@@ -543,10 +557,23 @@ Interaction.createDropableShape = function(X,Y,WIDTH,HEIGHT){
 	//Interaction.dropableShape.style = dropableShapeDefaultStyle;
 	Interaction.dropableShape = new Raster('dropable_default');
 	Interaction.dropableShape.position = new Point(x,y)
-	var t1 = new PointText(new Point(x,y-5));
+	
+	
+	//shadow
+	var t1 = new PointText(new Point(x+1,y-2));
 	t1.set_style(textStyle);
 	t1.content = "Düzgün";
-	var t1 = new PointText(new Point(x,y+20));
+	t1.fillColor='#2f4f54';
+	var t1 = new PointText(new Point(x+1,y+13));
+	t1.set_style(textStyle);
+	t1.content = "Çokgen";
+	t1.fillColor='#2f4f54';
+	
+	//foreground
+	var t1 = new PointText(new Point(x,y-3));
+	t1.set_style(textStyle);
+	t1.content = "Düzgün";
+	var t1 = new PointText(new Point(x,y+12));
 	t1.set_style(textStyle);
 	t1.content = "Çokgen";
 
