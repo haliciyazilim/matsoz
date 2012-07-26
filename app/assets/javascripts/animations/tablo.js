@@ -612,8 +612,6 @@ Interaction.init = function(container){
 		$('#textInput1').val("");
 		$('#textInput1').css("color", inputBoxColor);
 		$('#question').html("");
-		console.log(shuffledQuesArr);
-		console.log("index: "+index);
 		$('#question').html(questions[shuffledQuesArr[index]]);
 		if(index == 18)
 			index = 0;
@@ -735,7 +733,7 @@ Interaction.init = function(container){
 	});
 	
 	// enter keypress action
-	$("#textInput1").keypress(function(event) {
+	$("#textInput1").keyup(function(event) {
 		if(event.keyCode == 13) {
 			submit();
 		}

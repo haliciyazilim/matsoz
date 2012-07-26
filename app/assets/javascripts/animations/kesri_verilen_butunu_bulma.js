@@ -15,7 +15,7 @@ var Animation = {
 		var marblesDiv = document.createElement('marbleDiv');
 		$(container).append(animDiv);
 		$(animDiv)
-			.html('<div id="ques12"><p id="nom2">1</p><div id="line2"></div><p id="denom2">4</p></div><p id="a2">\'ü</p><p id="ques22">3</p><p id="b2">tane olan bilyelerin tamamı kaç bilyedir?</p>')
+			.html('<div id="ques12"><p id="nom2">1</p><div id="line2"></div><p id="denom2">4</p></div><p id="a2">\'i</p><p id="ques22">3</p><p id="b2">tane olan bilyelerin tamamı kaç bilyedir?</p>')
 			.css({
 				width: '400px',
 				height: '120px',
@@ -276,7 +276,7 @@ var Interaction = {
 			var questionDiv = document.createElement('questionDiv')
 			$(container).append(questionDiv);
 			$(questionDiv)
-				.html('<div id="ques1"><p id="nom"></p><div id="line"></div><p id="denom"></p></div><p id="a">\'i</p><p id="ques2"></p><p id="b">olan kesrin tamamı</p><p id="c">olur</p>')
+				.html('<div id="ques1"><p id="nom"></p><div id="line"></div><p id="denom"></p></div><p id="a"></p><p id="ques2"></p><p id="b">olan kesrin tamamı</p><p id="c">olur</p>')
 				.append(Interaction.input)
 				.css({
 					width: '400px',
@@ -301,11 +301,12 @@ var Interaction = {
 				.css({
 				//	border: "solid",
 					width: "30px",
-					height: "60px",
+					height: "30px",
 					position: "absolute",
-					left: "66px",
+					left: "74px",
 					top: "18px",
-					textAlign: "center"
+					textAlign: "center",
+				//	border: "solid"
 				});
 			$('#nom')
 				.css({
@@ -322,13 +323,16 @@ var Interaction = {
 			$('#a')
 				.css({
 					position: "absolute",
-					left: "54px",
+					left: "50px",
 					top:"18px",
+				//	border: "solid",
+					textAlign: "center",
+					width: "20px"
 				});
 			$('#b')
 				.css({
 					position: "absolute",
-					left: "102px",
+					left: "106px",
 					top:"18px",
 				});
 			$('#c')
@@ -362,6 +366,7 @@ var Interaction = {
 			Interaction.nomD = $('#nom').get(0);
 			Interaction.denomD = $('#denom').get(0);
 			Interaction.ques2Div = $('#ques2').get(0);
+			Interaction.aDiv = $('#a').get(0);
 			Interaction.prepareNextQuestion();
 		},
 	nextQuestion: function(){	
@@ -372,7 +377,12 @@ var Interaction = {
 			do
 				Interaction.nom = Math.floor(Math.random() * 3) + 1;
 				while((Interaction.denom * Interaction.num) % Interaction.nom != 0 || Interaction.nom >= Interaction.denom)
-			
+			if(Interaction.nom == 1)
+				$(Interaction.aDiv).html("'i")
+			else if(Interaction.nom == 2)
+				$(Interaction.aDiv).html("'si")
+			else if(Interaction.nom == 3)
+				$(Interaction.aDiv).html("'ü")
 			$(Interaction.nomD).html(Interaction.nom);
 			$(Interaction.denomD).html(Interaction.denom);
 			$(Interaction.ques2Div).html(Interaction.num);
@@ -391,7 +401,7 @@ var Interaction = {
 		
 		},
 	onFail : function(){
-			Interaction.setStatus('Yanlış cevap, doğrusu yukarıda gösterilmiştir.');
+			Interaction.setStatus('Yanlış cevap, doğrusu yukarıda gösterilmiştir.', false);
 			Interaction.solutionDiv = $(Interaction.questionDiv).clone().insertAfter(Interaction.questionDiv);
 			var answerStr;
 			var anss = this.denom*this.num/this.nom

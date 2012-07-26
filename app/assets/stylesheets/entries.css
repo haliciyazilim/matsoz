@@ -213,6 +213,14 @@ p.exampleHeader {
 }
 
 
+.repeat_button{
+	background-image:url(/assets/btn_repeat.png);
+	background-color: #fff;
+	height:40px;
+	width:103px;
+	border:none;
+}
+
 .status_field {
 	text-align: center;
 	width: 200px;

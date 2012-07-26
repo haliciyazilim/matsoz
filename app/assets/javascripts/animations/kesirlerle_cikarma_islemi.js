@@ -1,13 +1,13 @@
 var Animation = {
 	init:function(container){
-		var fillColor = "#99f"
-		var rect4 = new Path.SegmentedRectangle(60.5, 10.5, 80, 80, 1, 1, 1, fillColor);
+		var fillColor = "#FFDEAD"
+		var rect4 = new Path.SegmentedRectangle(560.5, 10.5, 20, 80, 1, 1, 1, fillColor);
 		rect4.opacity = 0;
-		var rect5 = new Path.SegmentedRectangle(280.5, 10.5, 40, 80, 1, 1, 1, fillColor)
+		var rect5 = new Path.SegmentedRectangle(500.5, 10.5, 60, 80, 1, 1, 1, fillColor)
 		rect5.opacity = 0;
 		var rect1 = new Path.SegmentedRectangle(60.5, 10.5, 160, 80, 2, 1, 1, fillColor);
 		rect1.opacity = 0;
-		var rect2 = new Path.SegmentedRectangle(280.5, 10.5, 160, 80, 8, 1, 2, fillColor);
+		var rect2 = new Path.SegmentedRectangle(280.5, 10.5, 160, 80, 8, 1, 1, fillColor);
 		rect2.opacity = 0;
 		var rect3 = new Path.SegmentedRectangle(500.5, 10.5, 160, 80, 8, 1, 0, fillColor);
 		rect3.opacity = 0;
@@ -28,7 +28,7 @@ var Animation = {
 		pluss.justification = "center";
 		pluss.fillColor = "black";
 		pluss.fontSize = 26;
-		pluss.content = "+";
+		pluss.content = "-";
 		pluss.opacity = 0;
 		
 		var arr = new Group(); 
@@ -60,11 +60,11 @@ var Animation = {
 		smallDots.opacity = 0;
 		
 		var arcGroup = new Group();
-		var arc = new Path.Arc(new Point(380, 159), new Point(436, 142), new Point(500, 154));
+		var arc = new Path.Arc(new Point(360, 159), new Point(346, 150), new Point(310, 154));
 		arc.strokeColor = "black";
-		var linee1 = new Path.Line(new Point(500,154), new Point(494,146));
+		var linee1 = new Path.Line(new Point(310,154), new Point(314,146));
 		linee1.strokeColor = "black";
-		var linee2 = new Path.Line(new Point(500,154), new Point(490,156));
+		var linee2 = new Path.Line(new Point(310,154), new Point(320,156));
 		linee2.strokeColor = "black";
 		arcGroup.addChild(arc);
 		arcGroup.addChild(linee1);
@@ -82,8 +82,7 @@ var Animation = {
 		$('#line22')
 			.css({
 				padding: 0,
-				margin: 0,
-				borderTop: "1px solid",
+				borderTop: "2px solid",
 				width: "14px",
 				height: "1px",
 				position: "absolute",
@@ -92,8 +91,6 @@ var Animation = {
 			});
 		$('#nom22')
 			.css({
-				padding: 0,
-				margin: 0,
 				position: "absolute",
 				left: "140px",
 				top:"108px",
@@ -103,8 +100,6 @@ var Animation = {
 			});
 		$('#denom22')
 			.css({
-				padding: 0,
-				margin: 0,
 				position: "absolute",
 				left: "140px",
 				top:"126px",
@@ -113,7 +108,7 @@ var Animation = {
 			//	border: "solid"	
 			});
 		
-		$('#frac22').css("opacity", 0)
+		$('#frac22').css("opacity", 0);
 		$('#frac22').delay(2000).animate({opacity: 1}, 1000)
 					.delay(1000).animate({opacity: 0}, 1000)
 		
@@ -122,14 +117,13 @@ var Animation = {
 		$('#frac33').css({
 				position: "absolute",
 				left: "0px",
-				top: "0px",
-		//		width: "120px"
+				top: "0px"
 			});
 		
 		$('#line33')
 			.css({
 				padding: 0,
-				borderTop: "1px solid",
+				borderTop: "2px solid",
 				width: "34px",
 				height: "1px",
 				position: "absolute",
@@ -139,19 +133,19 @@ var Animation = {
 		$('#nom33')
 			.css({
 				position: "absolute",
-				left: "136px",
+				left: "140px",
 				top:"108px",
 				textAlign: "center",
-				width: "40px",
+				width: "30px",
 			//	border: "solid"
 			});
 		$('#denom33')
 			.css({
 				position: "absolute",
-				left: "136px",
+				left: "140px",
 				top:"126px",
 				textAlign: "center",
-				width: "40px",
+				width: "30px",
 			//	border: "solid"	
 			});
 		
@@ -171,7 +165,7 @@ var Animation = {
 		$('#line44')
 			.css({
 				padding: 0,
-				borderTop: "1px solid",
+				borderTop: "2px solid",
 				width: "14px",
 				height: "1px",
 				position: "absolute",
@@ -199,13 +193,12 @@ var Animation = {
 		$('#frac44').css("opacity", 0);
 		$('#frac44').delay(6000).animate({opacity: 1}, 1000)
 		
-		$(container).append('<div id="frac55"><p id="nom55">2</p><div id="line55"></div><p id="denom55">8</p></div>')
+		$(container).append('<div id="frac55"><p id="nom55">1</p><div id="line55"></div><p id="denom55">8</p></div>')
 		
-		$('#frac55')
-			.css({
+		$('#frac55').css({
 				position: "absolute",
 				left: "0px",
-				top: "0px",
+				top: "0px"
 			});
 		
 		$('#line55')
@@ -220,7 +213,6 @@ var Animation = {
 			});
 		$('#nom55')
 			.css({
-				padding: 0,
 				position: "absolute",
 				left: "360px",
 				top:"108px",
@@ -230,7 +222,6 @@ var Animation = {
 			});
 		$('#denom55')
 			.css({
-				padding: 0,
 				position: "absolute",
 				left: "360px",
 				top:"126px",
@@ -241,14 +232,7 @@ var Animation = {
 		$('#frac55').css("opacity", 0)
 		$('#frac55').delay(2000).animate({opacity: 1}, 1000)
 		
-		$(container).append('<div id="frac66"><p id="nom66">4</p><div id="line66"></div><p id="denom66">8</p><p id="pls">+</p><p id="nom666">2</p><div id="line666"></div><p id="denom666">8</p><p id="eqq">=</p><p id="nom6666">6</p><div id="line6666"></div><p id="denom6666">8</p></div>')
-		
-		$('#frac66')
-			.css({
-				position: "absolute",
-				left: "0px",
-				top: "0px",
-			});
+		$(container).append('<div id="frac66"><p id="nom66">4</p><div id="line66"></div><p id="denom66">8</p><p id="pls">-</p><p id="nom666">1</p><div id="line666"></div><p id="denom666">8</p><p id="eqq">=</p><p id="nom6666">3</p><div id="line6666"></div><p id="denom6666">8</p></div>')
 		
 		$('#line66')
 			.css({
@@ -378,13 +362,6 @@ var Animation = {
 		
 		$(container).append('<div id="frac222"><p id="nom222">1</p><div id="line222"></div><p id="denom222">2</p></div>')
 		
-		$('#frac222')
-			.css({
-				position: "absolute",
-				left: "0px",
-				top: "0px",
-			});
-		
 		$('#line222')
 			.css({
 				padding: 0,
@@ -420,13 +397,6 @@ var Animation = {
 		
 		$(container).append('<div id="frac333"><p id="nom333">4</p><div id="line333"></div><p id="denom333">8</p></div>')
 		
-		$('#frac333')
-			.css({
-				position: "absolute",
-				left: "0px",
-				top: "0px",
-			});
-		
 		$('#line333')
 			.css({
 				padding: 0,
@@ -460,14 +430,7 @@ var Animation = {
 		$('#frac333').delay(21000).animate({opacity: 1}, 1000)
 		
 		
-		$(container).append('<div id="frac444"><p id="nom444">6</p><div id="line444"></div><p id="denom444">8</p></div>')
-		
-		$('#frac444')
-			.css({
-				position: "absolute",
-				left: "0px",
-				top: "0px",
-			});
+		$(container).append('<div id="frac444"><p id="nom444">3</p><div id="line444"></div><p id="denom444">8</p></div>')
 		
 		$('#line444')
 			.css({
@@ -476,13 +439,13 @@ var Animation = {
 				width: "14px",
 				height: "1px",
 				position: "absolute",
-				left: "518px",
+				left: "308px",
 				top: "159px",
 			});
 		$('#nom444')
 			.css({
 				position: "absolute",
-				left: "510px",
+				left: "300px",
 				top:"144px",
 				textAlign: "center",
 				width: "30px",
@@ -491,7 +454,7 @@ var Animation = {
 		$('#denom444')
 			.css({
 				position: "absolute",
-				left: "510px",
+				left: "300px",
 				top:"162px",
 				textAlign: "center",
 				width: "30px",
@@ -500,14 +463,7 @@ var Animation = {
 		$('#frac444').css("opacity", 0);
 		$('#frac444').delay(22000).animate({opacity: 1}, 1000)
 		
-		$(container).append('<div id="frac555"><p id="nom555">2</p><div id="line555"></div><p id="denom555">8</p></div>')
-		
-		$('#frac555')
-			.css({
-				position: "absolute",
-				left: "0px",
-				top: "0px",
-			});
+		$(container).append('<div id="frac555"><p id="nom555">1</p><div id="line555"></div><p id="denom555">8</p></div>')
 		
 		$('#line555')
 			.css({
@@ -516,14 +472,14 @@ var Animation = {
 				width: "14px",
 				height: "1px",
 				position: "absolute",
-				left: "448px",
-				top: "139px",
+				left: "343px",
+				top: "143px",
 			});
 		$('#nom555')
 			.css({
 				position: "absolute",
-				left: "440px",
-				top:"124px",
+				left: "335px",
+				top:"128px",
 				textAlign: "center",
 				width: "30px",
 			//	border: "solid"
@@ -531,8 +487,8 @@ var Animation = {
 		$('#denom555')
 			.css({
 				position: "absolute",
-				left: "440px",
-				top:"142px",
+				left: "335px",
+				top:"146px",
 				textAlign: "center",
 				width: "30px",
 			//	border: "solid"	
@@ -600,10 +556,18 @@ var Animation = {
 		rect4.animate({
 			style:{
 				opacity: 1,
-				position: new Point(540.5, 50.5)
 			},
-			duration: 3000,
+			duration: 1000,
 			delay: 10000,
+			animationType: 'easeInEaseOut'
+		});
+		
+		rect4.animate({
+			style:{
+				opacity: 0,
+			},
+			duration: 1000,
+			delay: 12000,
 			animationType: 'easeInEaseOut'
 		});
 		
@@ -611,9 +575,8 @@ var Animation = {
 		rect5.animate({
 			style:{
 				opacity: 1,
-				position: new Point(600.5, 50.5)
 			},
-			duration: 3000,
+			duration: 1000,
 			delay: 10000,
 			animationType: 'easeInEaseOut'
 		});
@@ -662,7 +625,7 @@ var Interaction = {
 		},
 	init:function(container){
 			Interaction.container = container;
-			Main.setObjective('Yandaki toplama işlemini yapınız ve kontrol ediniz.');
+			Main.setObjective('Yandaki çıkarma işlemini yapınız ve kontrol ediniz.');
 			Interaction.paper = {
 				width:$(container).width(),
 				height:$(container).height()
@@ -714,7 +677,7 @@ var Interaction = {
 			Interaction.questionDiv.id = 'questionDiv';
 			$(Interaction.container).append(Interaction.questionDiv);
 			$(Interaction.questionDiv)
-				.html('<div id="firstNum"></div><p id="plus">+</p><p id="nom2"></p><div id="line2"></div><p id="denom2"></p><p id="eq">=</p><div id="line3">')
+				.html('<div id="firstNum"></div><p id="plus">-</p><p id="nom2"></p><div id="line2"></div><p id="denom2"></p><p id="eq">=</p><div id="line3">')
 				.append(Interaction.inputs[0])
 				.append(Interaction.inputs[1])
 				.css({
@@ -783,7 +746,7 @@ var Interaction = {
 			Interaction.randomize3 = Math.floor(Math.random() * 2);	// denominator relationship
 			Interaction.randomize4 = Math.floor(Math.random() * 2 )   // small fraction
 			var a, b, c, d, wh;
-			
+		//	if(0){
 			if(Interaction.randomize % 3 == 0){ // two fraction
 				$('#firstNum').html('<p id="nom1"></p><div id="line1"></div><p id="denom1"></p>')
 				
@@ -815,28 +778,36 @@ var Interaction = {
 					});
 					if(Interaction.randomize2 % 2 == 0){ // simple fraction
 						if(Interaction.randomize3 % 2 == 0){ // equal denominators
-							a = Math.floor(Math.random() * 8) + 3;
+							a = Math.floor(Math.random() * 10) + 3;
 							Interaction.denom1 = a;
 							Interaction.denom2 = a;
 							do
-								b = Math.floor(Math.random() * 9) + 1;
+								b = Math.floor(Math.random() * 11) + 1;
 								while(b >= a)
 							do
-								c = Math.floor(Math.random() * 9) + 1;
-								while(c >= a)
+								c = Math.floor(Math.random() * 11) + 1;
+								while(c >= a || c == b)
 							
-							Interaction.nom1 = b;
-							Interaction.nom2 = c;
+							Interaction.nom1 = Math.max(b,c);
+							Interaction.nom2 = Math.min(b,c);
 						}
 						else{ // not-equal denominators ( x-2x or 2x-x)
-							a = Math.floor(Math.random() * 4) + 2
+							a = Math.floor(Math.random() * 6) + 2
 							b = a * 2;
 							do
-								c = Math.floor(Math.random() * 4) + 1;
+								c = Math.floor(Math.random() * 5) + 1;
 								while(c >= a)
+							if(Interaction.randomize4 % 2 == 0){
 							do
-								d = Math.floor(Math.random() * 7) + 3;
-								while(d >= b)
+								d = Math.floor(Math.random() * 13) + 1;
+								while(d >= b || d >= 2*c)
+							}
+							else{
+							do
+								d = Math.floor(Math.random() * 9) + 1;
+								while(d >= b || d <= 2*c)
+							}
+							
 							if(Interaction.randomize4 % 2 == 0){
 								Interaction.denom1 = a;
 								Interaction.denom2 = b;
@@ -861,20 +832,27 @@ var Interaction = {
 								while(b <= a || b % a == 0)
 							do
 								c = Math.floor(Math.random() * 12) + 4;
-								while(c <= a || c % a == 0)
+								while(c <= a || c % a == 0 || c == b)
 							
-							Interaction.nom1 = b;
-							Interaction.nom2 = c;
+							Interaction.nom1 = Math.max(b,c);
+							Interaction.nom2 = Math.min(b,c);
 						}
 						else{ // not-equal denominators ( x-2x or 2x-x)
 							a = Math.floor(Math.random() * 4) + 2;
 							b = a * 2;
 							do
-								c = Math.floor(Math.random() * 4) + 3;
+								c = Math.floor(Math.random() * 5) + 3;
 								while(c <= a || c % a == 0)
-							do
-								d = Math.floor(Math.random() * 7) + 5;
-								while(d <= b || d % b == 0)
+							if(Interaction.randomize4 % 2 == 0){
+								do
+									d = Math.floor(Math.random() * 12) + 5;
+									while(d <= b || d % b == 0 || d >= 2*c)
+							}
+							else{
+								do
+									d = Math.floor(Math.random() * 12) + 5;
+									while(d <= b || d % b == 0 || d <= 2*c)
+							}
 							
 							if(Interaction.randomize4 % 2 == 0){
 								Interaction.denom1 = a;
@@ -900,6 +878,7 @@ var Interaction = {
 					$(Interaction.nom2D).html(Interaction.nom2);
 					$(Interaction.denom2D).html(Interaction.denom2);	
 			}
+	//		else if(0){
 			else if(Interaction.randomize % 3 == 1){ // two fraction -> one of them with wh
 				$('#firstNum').html('<p id="wh1"></p><p id="nom1"></p><div id="line1"></div><p id="denom1"></p>')
 				$('#wh1')
@@ -940,23 +919,23 @@ var Interaction = {
 				if(Interaction.randomize2 % 2 == 0){ // simple fraction
 						if(Interaction.randomize3 % 2 == 0){ // equal denominators
 							wh2 = Math.floor(Math.random() * 4) + 1
-							a = Math.floor(Math.random() * 8) + 3;
+							a = Math.floor(Math.random() * 10) + 3;
 							Interaction.denom1 = a;
 							Interaction.denom2 = a;
 							Interaction.wh = wh2;
 							do
-								b = Math.floor(Math.random() * 9) + 1;
+								b = Math.floor(Math.random() * 11) + 1;
 								while(b >= a)
 							do
-								c = Math.floor(Math.random() * 9) + 1;
-								while(c >= a)
+								c = Math.floor(Math.random() * 11) + 1;
+								while(c >= a )
 							
 							Interaction.nom1 = b;
 							Interaction.nom2 = c;
 						}
 						else{ // not-equal denominators ( x-2x or 2x-x)
 							wh2 = Math.floor(Math.random() * 4) + 1
-							a = Math.floor(Math.random() * 4) + 2
+							a = Math.floor(Math.random() * 6) + 2
 							b = a * 2;
 							do
 								c = Math.floor(Math.random() * 4) + 1;
@@ -964,20 +943,13 @@ var Interaction = {
 							do
 								d = Math.floor(Math.random() * 7) + 3;
 								while(d >= b)
-							if(Interaction.randomize4 % 2 == 0){
-								Interaction.denom1 = a;
-								Interaction.denom2 = b;
-								Interaction.nom1 = c;
-								Interaction.nom2 = d;
-								Interaction.wh = wh2;
-							}
-							else{
-								Interaction.denom1 = b;
-								Interaction.denom2 = a;
-								Interaction.nom1 = d;
-								Interaction.nom2 = c;
-								Interaction.wh = wh2;
-							}		
+							
+							Interaction.denom1 = a;
+							Interaction.denom2 = b;
+							Interaction.nom1 = c;
+							Interaction.nom2 = d;
+							Interaction.wh = wh2;
+							
 						}
 					}
 					else{ // compound fraction
@@ -994,8 +966,8 @@ var Interaction = {
 								c = Math.floor(Math.random() * 12) + 4;
 								while(c <= a || c % a == 0)
 							
-							Interaction.nom1 = b;
-							Interaction.nom2 = c;
+							Interaction.nom1 = Math.max(b,c);
+							Interaction.nom2 = Math.min(b,c);
 						}
 						else{ // not-equal denominators ( x-2x or 2x-x)
 							wh2 = Math.floor(Math.random() * 4) + 1
@@ -1009,18 +981,11 @@ var Interaction = {
 								d = Math.floor(Math.random() * 7) + 5;
 								while(d <= b || d % b == 0)
 							
-							if(Interaction.randomize4 % 2 == 0){
-								Interaction.denom1 = a;
-								Interaction.denom2 = b;
-								Interaction.nom1 = c;
-								Interaction.nom2 = d;
-							}
-							else{
-								Interaction.denom1 = b;
-								Interaction.denom2 = a;
-								Interaction.nom1 = d;
-								Interaction.nom2 = c;
-							}		
+							
+							Interaction.denom1 = a;
+							Interaction.denom2 = b;
+							Interaction.nom1 = c;
+							Interaction.nom2 = d;		
 						}
 					}
 					Interaction.nomD = $('#nom1').get(0);
@@ -1059,10 +1024,14 @@ var Interaction = {
 				else{ // compound fraction
 					a = Math.floor(Math.random() * 6) + 2;
 					do
-						b = Math.floor(Math.random() * 12) + 4;
-						while(b <= a || b % a == 0)
+						b = Math.floor(Math.random() * 12) + 3;
+						while(b <= a || b % a == 0 || b / a >= 5)
 					Interaction.nom2 = b;
 					Interaction.denom2 = a;
+					do
+						wh2 = Math.floor(Math.random() * 4 + 2);
+						while(wh2 * a < b)
+					Interaction.wh = wh2;
 				}
 				
 				Interaction.nom2D = $('#nom2').get(0);
@@ -1077,7 +1046,7 @@ var Interaction = {
 	isAnswerCorrect : function(values){
 			if(Interaction.randomize % 3 == 0){
 				Interaction.maxDenom = Math.max(Interaction.denom1, Interaction.denom2);
-				Interaction.answer1 = Interaction.nom1 * (Interaction.maxDenom/Interaction.denom1) + Interaction.nom2 * (Interaction.maxDenom/Interaction.denom2);
+				Interaction.answer1 = Interaction.nom1 * (Interaction.maxDenom/Interaction.denom1) - Interaction.nom2 * (Interaction.maxDenom/Interaction.denom2);
 				Interaction.answer2 = Interaction.maxDenom;
 				if(values[0] * Interaction.answer2 == values[1] * Interaction.answer1)
 					return true;
@@ -1086,7 +1055,7 @@ var Interaction = {
 			}
 			else if(Interaction.randomize % 3 == 1){
 				Interaction.maxDenom = Math.max(Interaction.denom1, Interaction.denom2);
-				Interaction.answer1 = (Interaction.nom1 * (Interaction.maxDenom/Interaction.denom1) + Interaction.nom2 * (Interaction.maxDenom/Interaction.denom2)) + (Interaction.maxDenom * Interaction.wh);
+				Interaction.answer1 = ((Interaction.maxDenom * Interaction.wh)+(Interaction.nom1 * (Interaction.maxDenom/Interaction.denom1)) - Interaction.nom2 * (Interaction.maxDenom/Interaction.denom2));
 				Interaction.answer2 = Interaction.maxDenom;
 				if(values[0] * Interaction.answer2 == values[1] * Interaction.answer1)
 					return true;
@@ -1094,7 +1063,7 @@ var Interaction = {
 					return false;
 			}
 			else{
-				Interaction.answer1 = Interaction.nom2 + (Interaction.wh * Interaction.denom2);
+				Interaction.answer1 = (Interaction.wh * Interaction.denom2) - Interaction.nom2;
 				Interaction.answer2 = Interaction.denom2;
 				if(values[0] * Interaction.answer2 == values[1] * Interaction.answer1)
 					return true;

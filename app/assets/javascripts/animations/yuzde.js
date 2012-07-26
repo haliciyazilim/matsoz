@@ -566,17 +566,19 @@ Interaction.init = function(container){
 					.css("position", "absolute")
 					.css("left", "202px")
 					.css("top", "42px");
-				
-	$(container).append('<button id="checkBtn" class="control_button"></button>');
+		
+	
+	$(container).append("<button id='nextBtn' class='next_button'>");
+	$('#nextBtn').css("position", "absolute")
+					.css("bottom", "20px")
+					.css("right", "66px")
+					.hide();
+		
+	$(container).append("<button id='checkBtn' class='control_button'>");
 	$('#checkBtn').css("position", "absolute")
 					.css("bottom", "20px")
 					.css("right", "66px");
-	
-	$(container).append('<button id="nextBtn" class="next_button"></button>');
-	$('#nextBtn').css("position", "absolute")
-					.css("bottom", "20px")
-					.css("right", "66px");
-	$('#nextBtn').hide();
+
 					
 	$(container).append('<div id="statuss"></div>');
 	$('#statuss').css("position", "absolute")
@@ -673,7 +675,7 @@ Interaction.init = function(container){
 	
 	// submit func. -> check whether input field is filled and give neccessary feedbacks
 	var trial = 0;				
-	submit = function()
+	function Check(){
 		{
 			// if this is the 3rd trial or more do nothing
 			if(trial == 2)
@@ -782,13 +784,16 @@ Interaction.init = function(container){
 					$('#statuss').html("Tekrar deneyiniz.");
 				}
 			}
-		};
+		}
+	}
 	
 	// checkBtn click func. -> call submit
-	$('#checkBtn').click(submit);
+	$('#checkBtn').click(function(){
+		Check();
+	});
 	
 	// nextBtn click func. -> remove whole html elements and call interaction init func. again
-	$('#nextBtn').click(function() {
+	$("#nextBtn").click(function() {
 		$('#textInput1').remove();
 		$('#textInput2').remove();
 		$('#textInput3').remove();
@@ -827,33 +832,33 @@ Interaction.init = function(container){
 	});
 	
 	// enter keypress action
-	$("#textInput1").keypress(function(event) {
+	$("#textInput1").keyup(function(event) {
 		if(event.keyCode == 13) {
-			submit();
+			Check();
 		}
 	});
 	
-	$("#textInput2").keypress(function(event) {
+	$("#textInput2").keyup(function(event) {
 		if(event.keyCode == 13) {
-			submit();
+			Check();
 		}
 	});
 	
-	$("#textInput3").keypress(function(event) {
+	$("#textInput3").keyup(function(event) {
 		if(event.keyCode == 13) {
-			submit();
+			Check();
 		}
 	});
 	
-	$("#textInput5").keypress(function(event) {
+	$("#textInput5").keyup(function(event) {
 		if(event.keyCode == 13) {
-			submit();
+			Check();
 		}
 	});
 	
-	$("#textInput6").keypress(function(event) {
+	$("#textInput6").keyup(function(event) {
 		if(event.keyCode == 13) {
-			submit();
+			Check();
 		}
 	});
 }
