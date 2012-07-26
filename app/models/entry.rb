@@ -63,7 +63,7 @@ class String
 end
 
 class Entry < ActiveRecord::Base
-  has_attached_file :instructions,
+  has_attached_file :thumbnail,
                     :storage => :s3,
                     :bucket => ENV['S3_BUCKET_NAME'],
                     :s3_credentials => {
@@ -71,7 +71,7 @@ class Entry < ActiveRecord::Base
                       :secret_access_key => ENV['S3_SECRET']
                     }
   
-  attr_accessible :word, :meaning, :instructions, :additionalInfo
+  attr_accessible :word, :meaning, :thumbnail, :additionalInfo
 
   validates :word, :presence => true
   
