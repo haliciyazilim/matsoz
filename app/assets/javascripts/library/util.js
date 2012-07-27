@@ -128,5 +128,31 @@ var Util = {
 			var x = total_x / points.length;
 			var y = total_y / points.length;
 			return new Point(x,y);
+		},
+		
+	createProjectionMatrix: function (viewportWidth, viewportHeight, nearPlaneWidth, nearPlaneHeight, nearPlaneZ) {
+			return [
+				viewportWidth/nearPlaneWidth,				   				0, 	-1/nearPlaneZ*viewportWidth/2, 		0,
+										   0, -viewportHeight/nearPlaneHeight, -1/nearPlaneZ*viewportHeight/2, 		0,
+										   0, 								0, 					-1/nearPlaneZ, 		0,
+										   0, 								0, 								0, 		1
+			];
+		},
+	
+	project: function(point, matrix) {
+			if (!point[3]) {
+				point[3] = 1;
+			}
+		
+			x = matrix[0] * point[0] + matrix[1] * point[1] + matrix[2] * point[2] + matrix[3] * point[3];
+			y = matrix[4] * point[0] + matrix[5] * point[1] + matrix[6] * point[2] + matrix[7] * point[3];
+			z = matrix[8] * point[0] + matrix[9] * point[1] + matrix[10] * point[2] + matrix[11] * point[3];
+
+			x = x/z;
+			y = y/z;
+		
+			return new Point(x, y);
 		}
+		
+	
 };
