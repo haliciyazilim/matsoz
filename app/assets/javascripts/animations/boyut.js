@@ -19,12 +19,13 @@ var threeDimensionalShapeStyle = {
 var dashedLineStyle = {
 	strokeColor : "#000"
 }
-//var bowlHoverStyle = {'stroke':'#999','fill':'#ff9'};
 var bowlHoverStyle = {strokeColor : '#000', fillColor :'#ff9' , strokeWidth : 2}
 //var bowlDefaultStyle = {'stroke':'#000','fill':'#fff'};
 var bowlDroppedTrueStyle = {strokeColor : '#0f0', fillColor :'#afa' }//{'stroke':'#0f0','fill':'#afa'};
 var bowlDroppedFalseStyle = {strokeColor : '#f00', fillColor :'#faa' }//{'stroke':'#f00','fill':'#faa'};
 var bowlDefaultStyle = {fillColor: '#fff', strokeColor : '#000' , strokeWidth : 2}
+	
+
 /*Styles*/
 
 var Animation = {};
@@ -210,19 +211,26 @@ Interaction.getFramework = function() {
 }
 Interaction.init = function(container){
 	Main.setObjective('Yandaki nesneleri kaç boyutlu olduğuna göre sınıflandırmak için fare ile sürükleyerek ilgili sepete atınız.');
+	
+	bowlHoverStyle.fillColor = new RgbColor(1,1,0.6); //:'#ff9' , strokeWidth : 2}
+	//var bowlDefaultStyle = {'stroke':'#000','fill':'#fff'};
+	bowlDroppedTrueStyle.fillColor = new RgbColor(0.7,1,0.7)// :'#afa' }//{'stroke':'#0f0','fill':'#afa'};
+	bowlDroppedFalseStyle.fillColor = new RgbColor(1,0.7,0.7)//:'#faa' }//{'stroke':'#f00','fill':'#faa'};
+	bowlDefaultStyle.fillColor = new RgbColor(1,1,1);//: '#fff', strokeColor : '#000' , strokeWidth : 2}
+	
 	Interaction.container = container;
 	Interaction.container.top = $(container).offset().top;
 	Interaction.container.left = $(container).offset().left;
 	Interaction.paper = {width:$(container).width(), height: $(container).height()}
 	var w = Interaction.paper.width;
 	var h = Interaction.paper.height;
-	oneDimensionalShapeStyle.fillColor = new RgbColor(255,255,255,0);
+	oneDimensionalShapeStyle.fillColor = new RgbColor(1,1,1,0);
 	threeDimensionalShapeStyle.fillColor = new RgbColor(0.8,0.8,0.8,0.8)
 	Interaction.shapeCount = 1;
 	Interaction.generateBowls(w,h);
 	Interaction.nextQuestion();
 	var drag = new Tool();
-	drag.setHitTestOptions({ fill: true, stroke: true, segments: true, tolerance: 15 });
+	drag.setHitTestOptions({ fill: true, stroke: true, segments: true, tolerance: 25 });
 	drag.onMouseDown = function(event){
 		if(event.item){
 			drag.shape = event.item;
@@ -432,11 +440,11 @@ Interaction.generateRandomShape = function(x,y,w,h){
 			Interaction.shape.dimension = 1;
 			break;
 		case 16:
-			Interaction.shape = new Path.Trapezoid(new Point(x,y),new Size(w,h),w*0.6);
+			Interaction.shape = new Path.Trapezoid(new Point(x,y),new Size(w,h),w*0.2);
 			Interaction.shape.dimension = 1;
 			break;
 		case 17:
-			Interaction.shape = new Path.Trapezoid(new Point(x,y),new Size(w,h),w*0.4);
+			Interaction.shape = new Path.Trapezoid(new Point(x,y),new Size(w,h),w*0.3);
 			Interaction.shape.dimension = 2;
 			break;
 		case 18:

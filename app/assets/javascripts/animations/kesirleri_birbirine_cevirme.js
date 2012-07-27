@@ -122,81 +122,75 @@ Animation.init = function(container){
 	$(container).append('<div id="firstF"></div>');
 	$('#firstF').css("position", "absolute")
 				.css("top", "16px")
-				.css("left", "26px")
-			//	.css("border", "solid")
-				.css("width", "40px")
-				.css("height", "40px");
+				.css("left", "20px")
+				.css("width", "46px")
+				.css("height", "41px")
+				.css("font-size", 18)
+				.css("padding", 0)
+				.css("margin", 0)
+				.css("line-height","18px")
 				
-	$('#firstF').append('<p id="whh">2</p>');
-	$('#whh').css("position", "absolute")
-				.css("top", "12px")
-				.css("left", "0px")
+	$('#firstF').append('<div id="whh">2</div>');
+	$('#whh').css("height", "41px")
+			.css("text-align", "center")
+			.css("width","24px")
+			.css("float", "left")
+			.css("line-height","41px")
 
-				.css("font-size", 18);
 	
+	$('#firstF').append('<fiv id="nomm">4</fiv>');
+	$('#nomm').css("text-align", "center")
+				.css("width","22px")
+				.css("float", "left")
+				.css("height", "20px")
+		
 	$('#firstF').append('<div id="exLine"></div>');
-	$('#exLine').css("position","absolute")
-				.css("left", "14px")
-				.css("top", "20px")
-				.css("width", "22px")
+	$('#exLine').css("width", "22px")
 				.css("height", "1px")
-				.css("margin-top", "2px")
-			//	.css("margin-top", "2px")
 				.css("border-top", "2px solid")
+				.css("padding", 0)
+				.css("float", "left")
 	
-	$('#firstF').append('<p id="nomm">4</p>');
-	$('#nomm').css("position", "absolute")
-				.css("top", "0px")
-				.css("left", "20px")
-				.css("height", "22px")
-
-			//	.css("border", "solid")
-				.css("font-size", 18);
-	
-	$('#firstF').append('<p id="denomm">9</p>');
-	$('#denomm').css("position", "absolute")
-				.css("top", "22px")
-				.css("left", "20px")
-				.css("height", "22px")
-
-			//	.css("border", "solid")
-				.css("font-size", 18);
+	$('#firstF').append('<div id="denomm">9</div>');
+	$('#denomm').css("text-align", "center")
+				.css("width","22px")
+				.css("float", "left")
+				.css("height", "20px")
 	
 	// secondF
 	$(container).append('<div id="secondF"></div>');
 	$('#secondF').css("position", "absolute")
-				.css("top", "154px")
-				.css("left", "30px")
-				.css("width", "40px")
-				.css("height", "40px");
+				.css("top", "152px")
+				.css("left", "38px")
+				.css("width", "26px")
+				.css("height", "41px")
+				.css("font-size", 18)
+				.css("padding", 0)
+				.css("margin", 0)
+				.css("line-height","18px")
+	
+		
+	$('#secondF').append('<div id="nomm2">22</div>');
+	$('#nomm2').css("text-align", "center")
+				.css("height", "20px")
 	
 	$('#secondF').append('<div id="exLine2"></div>');
-	$('#exLine2').css("position","absolute")
-				.css("left", "8px")
-				.css("top", "20px")
-				.css("width", "22px")
-				.css("height", "1px")
+	$('#exLine2').css("height", "1px")
+				.css("border-top", "2px solid")
 				.css("padding", 0)
-				.css("border-top", "2px solid");
+
 	
-	$('#secondF').append('<p id="nomm2">22</p>');
-	$('#nomm2').css("position", "absolute")
-				.css("top", "0px")
-				.css("left", "8px")
-				.css("font-size", 18);
-	
-	$('#secondF').append('<p id="denomm2">9</p>');
-	$('#denomm2').css("position", "absolute")
-				.css("top", "22px")
-				.css("left", "14px")
-				.css("font-size", 18);
+	$('#secondF').append('<div id="denomm2">9</div>');
+	$('#denomm2').css("text-align", "center")
+				.css("height", "20px")
 				
 	// 0, 1, 2, 3
 	
 	$(container).append('<div id="whs"></div>');
 	$('#whs').css("position", "absolute")
-				.css("top", "66px")
+				.css("top", "76px")
 				.css("left", "60px")
+				.css("font-size", 18)
 				.css("width", "440px")
 				.css("height", "26px");
 	
@@ -204,28 +198,24 @@ Animation.init = function(container){
 	$('#zzero').css("position", "absolute")
 				.css("top", "0px")
 				.css("left", "10px")
-				.css("font-size", 18)
 				.css("color", "grey");
 				
 	$('#whs').append('<p id="oone">1</p>');
 	$('#oone').css("position", "absolute")
 				.css("top", "0px")
 				.css("left", "144px")
-				.css("font-size", 18)
 				.css("color", "grey");
 				
 	$('#whs').append('<p id="ttwo">2</p>');
 	$('#ttwo').css("position", "absolute")
 				.css("top", "0px")
 				.css("left", "280px")
-				.css("font-size", 18)
 				.css("color", "grey");
 	
 	$('#whs').append('<p id="tthree">3</p>');
 	$('#tthree').css("position", "absolute")
 				.css("top", "0px")
 				.css("left", "415px")
-				.css("font-size", 18)
 				.css("color", "grey");
 	
 	// 0/9, 9/9, 18/9, 22/9s
@@ -240,121 +230,110 @@ Animation.init = function(container){
 	$('#fracss').append('<div id="zeroo"></div>');
 	$('#zeroo').css("position", "absolute")
 				.css("top", "2px")
-				.css("left", "8px")
-				.css("width", "40px")
-				.css("height", "30px")
+				.css("left", "16px")
+				.css("width", "20px")
+				.css("height", "41px")
+				.css("font-size", 18)
+				.css("padding", 0)
+				.css("margin", 0)
+				.css("line-height","18px")
 				.css("color", "grey");
+
 	
+	$('#zeroo').append('<div id="zNom">0</div>');
+	$('#zNom').css("text-align", "center")
+				.css("height", "20px")
+	
+		
 	$('#zeroo').append('<div id="zLine"></div>');
-	$('#zLine').css("position","absolute")
-				.css("left", "8px")
-				.css("top", "20px")
-				.css("width", "22px")
-				.css("height", "1px")
+	$('#zLine').css("height", "1px")
 				.css("padding", 0)
 				.css("border-top", "2px solid");
 	
-	$('#zeroo').append('<p id="zNom">0</p>');
-	$('#zNom').css("position", "absolute")
-				.css("top", "0px")
-				.css("left", "14px")
-				.css("font-size", 18);
-	
-	$('#zeroo').append('<p id="zDenom">9</p>');
-	$('#zDenom').css("position", "absolute")
-				.css("top", "22px")
-				.css("left", "14px")
-				.css("font-size", 18);
+	$('#zeroo').append('<div id="zDenom">9</div>');
+	$('#zDenom').css("text-align", "center")
+				.css("height", "20px")
 				
 	// 9/9
 	$('#fracss').append('<div id="onee"></div>');
 	$('#onee').css("position", "absolute")
 				.css("top", "2px")
-				.css("left", "143px")
-				.css("width", "40px")
-				.css("height", "30px")
+				.css("left", "151px")
+				.css("width", "20px")
+				.css("height", "41px")
+				.css("font-size", 18)
+				.css("padding", 0)
+				.css("margin", 0)
+				.css("line-height","18px")
 				.css("color", "grey");
+
 	
+	$('#onee').append('<p id="oNom">9</p>');
+	$('#oNom').css("text-align", "center")
+				.css("height", "20px")
+		
 	$('#onee').append('<div id="oLine"></div>');
-	$('#oLine').css("position","absolute")
-				.css("left", "8px")
-				.css("top", "20px")
-				.css("width", "22px")
-				.css("height", "1px")
+	$('#oLine').css("height", "1px")
 				.css("padding", 0)
 				.css("border-top", "2px solid");
 	
-	$('#onee').append('<p id="oNom">9</p>');
-	$('#oNom').css("position", "absolute")
-				.css("top", "0px")
-				.css("left", "14px")
-				.css("font-size", 18);
-	
 	$('#onee').append('<p id="oDenom">9</p>');
-	$('#oDenom').css("position", "absolute")
-				.css("top", "22px")
-				.css("left", "14px")
-				.css("font-size", 18);
+	$('#oDenom').css("text-align", "center")
+				.css("height", "20px")
 				
 	// 18/9
 	$('#fracss').append('<div id="twoo"></div>');
 	$('#twoo').css("position", "absolute")
 				.css("top", "2px")
-				.css("left", "278px")
-				.css("width", "40px")
-				.css("height", "30px")
+				.css("left", "286px")
+				.css("width", "20px")
+				.css("height", "41px")
+				.css("font-size", 18)
+				.css("padding", 0)
+				.css("margin", 0)
+				.css("line-height","18px")
 				.css("color", "grey");
 	
+	$('#twoo').append('<p id="tNom">18</p>');
+	$('#tNom').css("text-align", "center")
+				.css("height", "20px")
+	
 	$('#twoo').append('<div id="tLine"></div>');
-	$('#tLine').css("position","absolute")
-				.css("left", "8px")
-				.css("top", "20px")
-				.css("width", "22px")
-				.css("height", "1px")
+	$('#tLine').css("height", "1px")
 				.css("padding", 0)
 				.css("border-top", "2px solid");
-	
-	$('#twoo').append('<p id="tNom">18</p>');
-	$('#tNom').css("position", "absolute")
-				.css("top", "0px")
-				.css("left", "8px")
-				.css("font-size", 18);
+
 	
 	$('#twoo').append('<p id="tDenom">9</p>');
-	$('#tDenom').css("position", "absolute")
-				.css("top", "22px")
-				.css("left", "14px")
-				.css("font-size", 18);
+	$('#tDenom').css("text-align", "center")
+				.css("height", "20px")
 	
 	// 22/9
 	$('#fracss').append('<div id="lastt"></div>');
 	$('#lastt').css("position", "absolute")
 				.css("top", "2px")
-				.css("left", "338px")
-				.css("width", "40px")
-				.css("height", "30px")
+				.css("left", "346px")
+				.css("width", "20px")
+				.css("height", "41px")
+				.css("font-size", 18)
+				.css("padding", 0)
+				.css("margin", 0)
+				.css("line-height","18px")
 				.css("color", "grey");
+		
+	$('#lastt').append('<p id="lNom">22</p>');
+	$('#lNom').css("text-align", "center")
+				.css("height", "20px")
 	
 	$('#lastt').append('<div id="lLine"></div>');
-	$('#lLine').css("position","absolute")
-				.css("left", "8px")
-				.css("top", "20px")
-				.css("width", "22px")
-				.css("height", "1px")
+	$('#lLine').css("height", "1px")
 				.css("padding", 0)
 				.css("border-top", "2px solid");
-	
-	$('#lastt').append('<p id="lNom">22</p>');
-	$('#lNom').css("position", "absolute")
-				.css("top", "0px")
-				.css("left", "8px")
-				.css("font-size", 18);
+
 	
 	$('#lastt').append('<p id="lDenom">9</p>');
-	$('#lDenom').css("position", "absolute")
-				.css("top", "22px")
-				.css("left", "14px")
-				.css("font-size", 18);
+	$('#lDenom').css("text-align", "center")
+				.css("height", "20px")
 	
 	// firstF2
 			
@@ -362,39 +341,43 @@ Animation.init = function(container){
 	$('#first2F').css("position", "absolute")
 				.css("top", "60px")
 				.css("left", "592px")
-				.css("width", "40px")
-				.css("height", "40px");
+				.css("width", "46px")
+				.css("height", "41px")
+				.css("font-size", 18)
+				.css("padding", 0)
+				.css("margin", 0)
+				.css("line-height","18px")
 				
 	$('#first2F').append('<p id="whh2">2</p>');
-	$('#whh2').css("position", "absolute")
-				.css("top", "12px")
-				.css("left", "0px")
-				.css("font-size", 18);
+	$('#whh2').css("height", "41px")
+			.css("text-align", "center")
+			.css("width","24px")
+			.css("float", "left")
+			.css("line-height","41px")
+		
+	$('#first2F').append('<p id="nomm3">4</p>');
+	$('#nomm3').css("text-align", "center")
+				.css("width","22px")
+				.css("float", "left")
+				.css("height", "20px")
 	
 	$('#first2F').append('<div id="exLine3"></div>');
-	$('#exLine3').css("position","absolute")
-				.css("left", "14px")
-				.css("top", "20px")
-				.css("width", "22px")
+	$('#exLine3').css("width", "22px")
 				.css("height", "1px")
+				.css("border-top", "2px solid")
 				.css("padding", 0)
-				.css("border-top", "2px solid");
-	
-	$('#first2F').append('<p id="nomm3">4</p>');
-	$('#nomm3').css("position", "absolute")
-				.css("top", "0px")
-				.css("left", "20px")
-				.css("font-size", 18);
+				.css("float", "left")
+
 	
 	$('#first2F').append('<p id="denomm3">9</p>');
-	$('#denomm3').css("position", "absolute")
-				.css("top", "22px")
-				.css("left", "20px")
-				.css("font-size", 18);
+	$('#denomm3').css("text-align", "center")
+				.css("width","22px")
+				.css("float", "left")
+				.css("height", "20px")
 				
 	$(container).append('<p id="eqqq" >=</p>');
 	$('#eqqq').css("position", "absolute")
-				.css("left", "650px")
+				.css("left", "660px")
 				.css("top", "70px")
 				.css("font-size", 18);
 				
@@ -402,30 +385,27 @@ Animation.init = function(container){
 	$(container).append('<div id="second2F"></div>');
 	$('#second2F').css("position", "absolute")
 				.css("top", "60px")
-				.css("left", "680px")
-				.css("width", "40px")
-				.css("height", "40px");
-	
-	$('#second2F').append('<div id="exLine4"></div>');
-	$('#exLine4').css("position","absolute")
-				.css("left", "8px")
-				.css("top", "20px")
-				.css("width", "22px")
-				.css("height", "1px")
+				.css("left", "694px")
+				.css("width", "26px")
+				.css("height", "41px")
+				.css("font-size", 18)
 				.css("padding", 0)
-				.css("border-top", "2px solid");
+				.css("margin", 0)
+				.css("line-height","18px")
+
 	
 	$('#second2F').append('<p id="nomm4">22</p>');
-	$('#nomm4').css("position", "absolute")
-				.css("top", "0px")
-				.css("left", "10px")
-				.css("font-size", 18);
+	$('#nomm4').css("text-align", "center")
+				.css("height", "20px")
+		
+	$('#second2F').append('<div id="exLine4"></div>');
+	$('#exLine4').css("height", "1px")
+				.css("border-top", "2px solid")
+				.css("padding", 0)
 	
 	$('#second2F').append('<p id="denomm4">9</p>');
-	$('#denomm4').css("position", "absolute")
-				.css("top", "22px")
-				.css("left", "14px")
-				.css("font-size", 18);
+	$('#denomm4').css("text-align", "center")
+				.css("height", "20px")
 				
 	// firstEq
 			
@@ -437,38 +417,41 @@ Animation.init = function(container){
 				.css("height", "40px")
 				.css("font-size", 18);
 	
-	$('#firstEq').append('<p id="nomm5">2 x 9</p>');
+	$('#firstEq').append('<p id="nomm5">(2 x 9)</p>');
 	$('#nomm5').css("position", "absolute")
 				.css("top", "0px")
-				.css("left", "0px")
+				.css("left", "-12px")
 				.css("font-size", 18);
 				
-	$('#firstEq').append('<p id="nomm55">+ 4</p>');
+	$('#firstEq').append('<p id="nomm55">+ 4 =</p>');
 	$('#nomm55').css("position", "absolute")
 				.css("top", "0px")
 				.css("left", "44px")
 				.css("font-size", 18);
-				
-	$('#firstEq').append('<p id="nomm555">= 22</p>');
-	$('#nomm555').css("position", "absolute")
-				.css("top", "0px")
-				.css("left", "78px")
-				.css("font-size", 18);
 	
-	$('#firstEq').append('<div id="exLine5"></div>');
-	$('#exLine5').css("position","absolute")
-				.css("left", "92px")
-				.css("top", "20px")
-				.css("width", "22px")
-				.css("height", "1px")
+	$('#firstEq').append('<div id="firstEqF"></div>');
+	$('#firstEqF').css("position", "absolute")
+				.css("top", "-2px")
+				.css("left", "90px")
+				.css("width", "26px")
+				.css("height", "41px")
+				.css("font-size", 18)
 				.css("padding", 0)
-				.css("border-top", "2px solid");
+				.css("margin", 0)
+				.css("line-height","18px")
+				
+	$('#firstEqF').append('<div id="nomm555">22</div>');
+	$('#nomm555').css("text-align", "center")
+				.css("height", "20px")
 	
-	$('#firstEq').append('<p id="denomm5">9</p>');
-	$('#denomm5').css("position", "absolute")
-				.css("top", "22px")
-				.css("left", "98px")
-				.css("font-size", 18);
+	$('#firstEqF').append('<div id="exLine5"></div>');
+	$('#exLine5').css("height", "1px")
+				.css("border-top", "2px solid")
+				.css("padding", 0)
+	
+	$('#firstEqF').append('<div id="denomm5">9</div>');
+	$('#denomm5').css("text-align", "center")
+				.css("height", "20px")
 				
 	// secondEq		
 	$(container).append('<div id="secondEq"></div>');
@@ -513,37 +496,40 @@ Animation.init = function(container){
 	$(container).append('<div id="first3F"></div>');
 	$('#first3F').css("position", "absolute")
 				.css("top", "128px")
-				.css("left", "736px")
-			//	.css("border", "solid")
-				.css("width", "40px")
-				.css("height", "40px");
+				.css("left", "728px")
+				.css("width", "46px")
+				.css("height", "41px")
+				.css("font-size", 18)
+				.css("padding", 0)
+				.css("margin", 0)
+				.css("line-height","18px")
 				
 	$('#first3F').append('<p id="whh33">2</p>');
-	$('#whh33').css("position", "absolute")
-				.css("top", "12px")
-				.css("left", "0px")
-				.css("font-size", 18);
+	$('#whh33').css("height", "41px")
+			.css("text-align", "center")
+			.css("width","24px")
+			.css("float", "left")
+			.css("line-height","41px")
+		
+	$('#first3F').append('<p id="nomm33">4</p>');
+	$('#nomm33').css("text-align", "center")
+				.css("width","22px")
+				.css("float", "left")
+				.css("height", "20px")
 	
 	$('#first3F').append('<div id="exLine33"></div>');
-	$('#exLine33').css("position","absolute")
-				.css("left", "14px")
-				.css("top", "20px")
-				.css("width", "22px")
+	$('#exLine33').css("width", "22px")
 				.css("height", "1px")
+				.css("border-top", "2px solid")
 				.css("padding", 0)
-				.css("border-top", "2px solid");
-	
-	$('#first3F').append('<p id="nomm33">4</p>');
-	$('#nomm33').css("position", "absolute")
-				.css("top", "0px")
-				.css("left", "20px")
-				.css("font-size", 18);
+				.css("float", "left")
+
 	
 	$('#first3F').append('<p id="denomm33">9</p>');
-	$('#denomm33').css("position", "absolute")
-				.css("top", "22px")
-				.css("left", "20px")
-				.css("font-size", 18);
+	$('#denomm33').css("text-align", "center")
+				.css("width","22px")
+				.css("float", "left")
+				.css("height", "20px")
 	
 	
 	arr.opacity = 0;
@@ -1006,11 +992,9 @@ Interaction.init = function(container){
 	while(denominator >= nominator || denominator < 2 || (nominator % denominator) == 0)
 	
 	// make (bileşik kesir -> tam sayılı kesir) convertion
-	if(randomize % 2 == 0)
-	{	
+	if(randomize % 2 == 0)	{	
 		// creating neccessary html elements
 
-		
 		$(container).append('<div id="questionDiv"></div>');
 		$('#questionDiv').css("position", "absolute")
 						.css("left", "180px")
@@ -1019,60 +1003,48 @@ Interaction.init = function(container){
 						.css("height", "76")
 						.css("padding", 0)
 		
-		$('#questionDiv').append('<p id="nom" ></p>');
-		$('#nom').css("position", "absolute")
-				.css("font-size", 18)
-				.css("top", "14px")
+		$('#questionDiv').append('<div id="firstFrac"></div>')
+		$('#firstFrac').css("position", "absolute")
+						.css("left", "0px")
+						.css("top", "9px")
+						.css("width", "35px")
+						.css("height", "61px")
+						.css("font-size", 26)
+						.css("padding", 0)
+						.css("margin", 0)
+						.css("line-height","30px")
+						
+		
+		$('#firstFrac').append('<div id="nom" ></div>');
+		$('#nom').css("height", "30px")
 				.css("text-align", "center")
 		$('#nom').html(nominator);
-		
-		if(nominator < 10)
-		{
-			$('#nom').css("left", "16px")
-		}
-		else
-		{
-			$('#nom').css("left", "10px")
-		}
 				
-		$('#questionDiv').append('<div id="line1"></div>');
-		$('#line1').css("position","absolute")
-				.css("left", "4px")
-				.css("top", "37px")
-				.css("width", "36px")
-				.css("height", "1px")
+		$('#firstFrac').append('<div id="line1"></div>');
+		$('#line1').css("height", "1px")
 				.css("padding", 0)
 				.css("border-top", "2px solid")
 				
-		$('#questionDiv').append('<p id="denom" ></p>');
-		$('#denom').css("position", "absolute")
-				.css("font-size", 18)
-				.css("top", "40px")
-				.css("text-align", "center")
+		$('#firstFrac').append('<div id="denom" ></div>');
+		$('#denom').css("text-align", "center")
+				   .css("height", "30px")
 		$('#denom').html(denominator);
-		if(denominator < 10)
-		{
-			$('#denom').css("left", "16px")
-		}
-		else
-		{
-			$('#denom').css("left", "10px")
-		}
-
 		
 		$('#questionDiv').append('<p id="equal1" >=</p>');
 		$('#equal1').css("position", "absolute")
-				.css("left", "46px")
-				.css("top", "31px");
+				.css("left", "44px")
+				.css("top", "26px")
+				.css("font-size", 26)
+				
 		
 		$('#questionDiv').append('<input id="textInput1" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
 		$('#textInput1').css("width", "32")
 					.css("height", "30")
-					.css("font-size", 18)
+					.css("font-size", 22)
 					.css("box-sizing","border-box")
 					.css("padding", "0")
 					.css("position", "absolute")
-					.css("left", "60px")
+					.css("left", "64px")
 					.css("top", "22px")
 					.css("text-align", "center");
 					
@@ -1081,11 +1053,11 @@ Interaction.init = function(container){
 		$('#questionDiv').append('<input id="textInput2" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
 		$('#textInput2').css("width", "32")
 					.css("height", "30")
-					.css("font-size", 18)
+					.css("font-size", 22)
 					.css("box-sizing","border-box")
 					.css("padding", "0")
 					.css("position", "absolute")
-					.css("left", "102px")
+					.css("left", "104px")
 					.css("top", "2px")
 					.css("text-align", "center");
 					
@@ -1094,11 +1066,11 @@ Interaction.init = function(container){
 		$('#questionDiv').append('<input id="textInput3" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
 		$('#textInput3').css("width", "32")
 					.css("height", "30")
-					.css("font-size", 18)
+					.css("font-size", 22)
 					.css("box-sizing","border-box")
 					.css("padding", "0")
 					.css("position", "absolute")
-					.css("left", "102px")
+					.css("left", "104px")
 					.css("top", "44px")
 					.css("text-align", "center");
 	
@@ -1106,7 +1078,7 @@ Interaction.init = function(container){
 	
 		$('#questionDiv').append('<div id="line2"></div>');
 		$('#line2').css("position","absolute")
-				.css("left", "100px")
+				.css("left", "102px")
 				.css("top", "37px")
 				.css("width", "36px")
 				.css("height", "1px")
@@ -1128,74 +1100,64 @@ Interaction.init = function(container){
 						.css("width", "128")
 						.css("height", "76");
 		
-		$('#questionDiv').append('<p id="wh" ></p>');
-		$('#wh').css("position", "absolute")
-				.css("font-size", 18)
-				.css("top", "27px");
+		$('#questionDiv').append('<div id="firstFrac"></div>')
+		$('#firstFrac').css("position", "absolute")
+						.css("left", "-6px")
+						.css("top", "9px")
+						.css("width", "73px")
+						.css("height", "61px")
+						.css("font-size", 26)
+						.css("padding", 0)
+						.css("margin", 0)
+						.css("line-height","30px")
+		
+		$('#firstFrac').append('<div id="wh" ></div>');
+		$('#wh').css("height", "61px")
+				.css("text-align", "center")
+				.css("width","38")
+				.css("float", "left")
+				.css("line-height", "61px")
 		$('#wh').html(wh);
 		
-		if(wh < 10)
-		{
-			$('#wh').css("left", "8px")
-		}
-		else
-		{
-			$('#wh').css("left", "-2px")
-		}
 		
-		$('#questionDiv').append('<p id="nom" ></p>');
-		$('#nom').css("position", "absolute")
-				.css("font-size", 18)
-				.css("top", "14px");
+		$('#firstFrac').append('<div id="nom" ></div>');
+		$('#nom').css("text-align", "center")
+				.css("width","30")
+				.css("float", "left")
+				.css("height", "30px")
 		$('#nom').html(nom);
 		
-		if(nom < 10)
-		{
-			$('#nom').css("left", "36px")
-		}
-		else
-		{
-			$('#nom').css("left", "30px")
-		}
 		
-		$('#questionDiv').append('<p id="denom" ></p>');
-		$('#denom').css("position", "absolute")
-					.css("font-size", 18)
-					.css("top", "40px");
-		$('#denom').html(denom);
 		
-		if(denom < 10)
-		{
-			$('#denom').css("left", "36px")
-		}
-		else
-		{
-			$('#denom').css("left", "30px")
-		}
-		
-	$('#questionDiv').append('<div id="line1"></div>');
-		$('#line1').css("position","absolute")
-				.css("left", "24px")
-				.css("top", "37px")
-				.css("width", "36px")
+		$('#firstFrac').append('<div id="line1"></div>');
+		$('#line1').css("width", "35px")
 				.css("height", "1px")
 				.css("padding", 0)
 				.css("border-top", "2px solid")
+				.css("float", "left")
+		
+		$('#firstFrac').append('<div id="denom" ></div>');
+		$('#denom').css("text-align", "center")
+					.css("width","30")
+					.css("float", "left")
+					.css("height", "30px")
+		$('#denom').html(denom);
+
 		
 		$('#questionDiv').append('<p id="equal1" >=</p>');
 		$('#equal1').css("position", "absolute")
-				.css("left", "68px")
-				.css("top", "28px")
-				.css("font-size", 18);
+				.css("left", "74px")
+				.css("top", "26px")
+				.css("font-size", 26);
 		
 		$('#questionDiv').append('<input id="textInput2" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
 		$('#textInput2').css("width", "32")
 					.css("height", "30")
-					.css("font-size", 18)
+					.css("font-size", 22)
 					.css("box-sizing","border-box")
 					.css("padding", "0")
 					.css("position", "absolute")
-					.css("left", "90px")
+					.css("left", "98px")
 					.css("top", "2px")
 					.css("text-align", "center");
 					
@@ -1204,11 +1166,11 @@ Interaction.init = function(container){
 		$('#questionDiv').append('<input id="textInput3" class="inp" type="text" pattern="[0-9]*" maxlength="2"/>');
 		$('#textInput3').css("width", "32")
 					.css("height", "30")
-					.css("font-size", 18)
+					.css("font-size", 22)
 					.css("box-sizing","border-box")
 					.css("padding", "0")
 					.css("position", "absolute")
-					.css("left", "90px")
+					.css("left", "98px")
 					.css("top", "44px")
 					.css("text-align", "center");
 	
@@ -1216,8 +1178,8 @@ Interaction.init = function(container){
 		
 		$('#questionDiv').append('<div id="line2"></div>');
 		$('#line2').css("position","absolute")
-				.css("left", "88px")
-				.css("top", "37px")
+				.css("left", "96px")
+				.css("top", "38px")
 				.css("width", "36px")
 				.css("height", "1px")
 				.css("padding", 0)
@@ -1250,25 +1212,16 @@ Interaction.init = function(container){
 					.css("width", "60px")
 					.css("height", "76px")
 					.css("font-size", 20)
-			//		.css("border", "solid")
 					
 	$(container).append('<button id="checkBtn" class="control_button"></button>');
 	$('#checkBtn').css("position", "absolute")
 					.css("left", "460px")
 					.css("top", "240px");
-/*	
-	$(container).append('<button id="nextBtn" class="next_button"></button>');
-	$('#nextBtn').css("position", "absolute")
-					.css("left", "460px")
-					.css("top", "240px");
-	$('#nextBtn').hide();*/
-	
 	// submit func. -> check whether input field is filled and give neccessary feedbacks
 	var trial = 0;				
 	submit = function()
 		{
 			if($('#checkBtn').get(0).className == "control_button"){
-				console.log("submit start");
 				// if this is the 3rd trial or more do nothing
 				if(trial == 2)
 					return;
@@ -1284,7 +1237,6 @@ Interaction.init = function(container){
 					// check whether input field is empty or not (also given input is integer or not)
 					if(ans1 == "" || ans2 == "" || ans3 == "" || !Util.isInteger(ans1) || !Util.isInteger(ans2) || !Util.isInteger(ans3))		
 					{
-						console.log("im here");
 						$('#statuss').get(0).className = "status_alert";
 						$('#statuss').html("Lütfen kutucuklara sayı giriniz.");
 					}
@@ -1296,35 +1248,16 @@ Interaction.init = function(container){
 						ans33 = denominator;
 						
 						// correct answer state
-						if(ans1 == ans11 && ans2 == ans22 && ans3 == ans33)
+						if(ans1 == ans11 && (ans2 * ans33 == ans3 * ans22))
 						{
-							console.log("im here");
 							$('#statuss').get(0).className = "status_true";
 							$('#statuss').html("Tebrikler!");
-						//	$('#answer').html("Cevap: "+nominator+" = ("+ans11+" x "+ans33+") + "+ans22);
-							Interaction.pause = true;
-							Animation.division = new LongDivision(nominator,denominator,$('#divison123'));
-							setTimeout(
-								'Animation.division.nextStep(1000);'
-								,1000);
-							setTimeout(
-								'Animation.division.nextStep(1000);'
-								,2000);
-	
-							setTimeout(
-								'Interaction.pause = false;'
-								,3000);
-							
-							//$('#checkBtn').hide();
-//							$('#nextBtn').show();
 							$('#checkBtn').get(0).className = "next_button";
 						}
-	
 						
 						// second wrong answer state
 						else if(trial == 1)
 						{
-							console.log("im here");
 							$('#statuss').get(0).className = "status_false";
 							$('#statuss').html("Olmadı! Doğru cevap yukarıda gösterilmiştir.");
 							$('#textInput1').val(ans11);
@@ -1333,8 +1266,6 @@ Interaction.init = function(container){
 							$('#textInput1').css("color", inputBoxAnswerColor);
 							$('#textInput2').css("color", inputBoxAnswerColor);
 							$('#textInput3').css("color", inputBoxAnswerColor);
-					//		$('#answer').html("Cevap: "+nominator+" = ("+ans11+" x "+ans33+") + "+ans22);
-						//	Interaction.pause = true;
 							Animation.division = new LongDivision(nominator,denominator,$('#divison123'));
 							setTimeout(
 								'Animation.division.nextStep(1000);'
@@ -1342,11 +1273,6 @@ Interaction.init = function(container){
 							setTimeout(
 								'Animation.division.nextStep(1000);'
 								,2000);
-						//	setTimeout(
-	//							'Interaction.pause = false;'
-	//							,3000);
-							//$('#checkBtn').hide();
-//							$('#nextBtn').show();
 							$('#checkBtn').get(0).className = "next_button";
 							trial += 1;
 							
@@ -1361,7 +1287,6 @@ Interaction.init = function(container){
 						}
 					}
 				}
-				
 				// (tam sayılı kesir -> bileşik kesir convertion)
 				else
 				{
@@ -1371,7 +1296,6 @@ Interaction.init = function(container){
 					// check whether input field is empty or not (also given input is integer or not)
 					if(ans2 == "" || ans3 == "" || !Util.isInteger(ans2) || !Util.isInteger(ans3))		
 					{
-						console.log("im here");
 						$('#statuss').get(0).className = "status_alert";
 						$('#statuss').html("Lütfen kutucuklara sayı giriniz.");
 					}
@@ -1382,48 +1306,16 @@ Interaction.init = function(container){
 						ans33 = denominator;
 						
 						// correct answer state
-						if(ans2 == ans22 && ans3 == ans33)
+						if(ans2 * ans33 == ans3 * ans22)
 						{
-							console.log("im here");
 							$('#statuss').get(0).className = "status_true";
 							$('#statuss').html("Tebrikler!");
-							var answerStr = "Cevap: ("+wh+" x "+denom+") + "+nom+" = ";
-							$('#answer').html('<p id="ans">'+answerStr+'</p>');
-							$('#ans').css("position", "absolute")
-										.css("top", "2px")
-										.css("right", "70px")
-										.css("text-align", "right")
-							$('#answer').append('<div id="ansLine"></div>')
-							$('#ansLine').css("position", "absolute")
-										.css("top", "20px")
-										.css("right", "38px")
-										.css("width", "23px")
-										.css("height", "1px")
-										.css("padding", 0)
-										.css("border-top", "2px solid");
-							$('#answer').append('<p id="ansNom"></div>')
-							$('#ansNom').css("position", "absolute")
-											.css("top", "0px")
-											.css("left", "200px")
-											.css("text-align", "center")
-											.css("width", "20px")
-							$('#ansNom').html(ans22);
-							$('#answer').append('<p id="ansDenom"></div>')
-							$('#ansDenom').css("position", "absolute")
-											.css("top", "24px")
-											.css("left", "200px")
-											.css("text-align", "center")
-											.css("width", "20px")
-							$('#ansDenom').html(denom);
 							$('#checkBtn').get(0).className = "next_button";
-//							$('#checkBtn').hide();
-//							$('#nextBtn').show();
 						}
 						
 						// second wrong answer state
 						else if(trial == 1)
 						{
-							console.log("im here");
 							$('#statuss').get(0).className = "status_false";
 							$('#statuss').html("Olmadı! Doğru cevap yukarıda gösterilmiştir.");
 							$('#textInput2').val(ans22);
@@ -1459,8 +1351,6 @@ Interaction.init = function(container){
 											.css("width", "20px")
 							$('#ansDenom').html(denom);
 							$('#checkBtn').get(0).className = "next_button";
-//							$('#checkBtn').hide();
-//							$('#nextBtn').show();
 							trial += 1;
 						}
 						
@@ -1475,63 +1365,17 @@ Interaction.init = function(container){
 				}
 			}
 			else{
-				if(Interaction.pause)
-					return;
-				$('#textInput3').remove();
-				$('#textInput2').remove();
-			
-				if(randomize % 2 == 0)
-				{
-					$('#textInput1').remove();
-				}
-				
-				if(randomize % 2 == 1) {
-					$('#wh').remove();
-				}
-	
-				$('#equal1').remove();
-	
-				$('#checkBtn').remove();
-				$('#nextBtn').remove();
-				$('#answer').remove();
-				$('#statuss').remove();
-				$('#line1').remove();
-				$('#line2').remove();
+				var a = $('#interaction_canvas')
+				$(Interaction.container).html("");
+				$(Interaction.container).html(a);
 				Interaction.init(container);
 			}
 		}
 		
-		// checkBtn click func. -> call submit	
-		$('#checkBtn').click(function(){
-			submit();
-			});
-		
-		// nextBtn click func. -> remove whole html elements and call interaction init again
-	/*	$('#nextBtn').click(function() {
-			if(Interaction.pause)
-				return;
-			$('#textInput3').remove();
-			$('#textInput2').remove();
-		
-			if(randomize % 2 == 0)
-			{
-				$('#textInput1').remove();
-			}
-			
-			if(randomize % 2 == 1) {
-				$('#wh').remove();
-			}
-
-			$('#equal1').remove();
-
-			$('#checkBtn').remove();
-			$('#nextBtn').remove();
-			$('#answer').remove();
-			$('#statuss').remove();
-			$('#line1').remove();
-			$('#line2').remove();
-			Interaction.init(container);
-		});*/
+	// checkBtn click func. -> call submit	
+	$('#checkBtn').click(function(){
+		submit();
+	});
 		
 	$('.inp').keydown(function() {
 		$('#statuss').html("");
@@ -1541,7 +1385,6 @@ Interaction.init = function(container){
 	$("#textInput1").keypress(function(event) {
 		
 		if(event.keyCode == 13) {
-			console.log("textInput1 pressed")
 			submit();
 		}
 	});
@@ -1549,7 +1392,6 @@ Interaction.init = function(container){
 	$("#textInput2").keypress(function(event) {
 		
 		if(event.keyCode == 13) {
-			console.log("textInput2 pressed")
 			submit();
 		}
 	});
@@ -1557,7 +1399,6 @@ Interaction.init = function(container){
 	$("#textInput3").keypress(function(event) {
 		
 		if(event.keyCode == 13) {
-			console.log("textInput3 pressed")
 			submit();
 		}
 	});

@@ -1,6 +1,7 @@
 // JavaScript Document
 var animationTextStyle = {
-	fontSize:16
+	fontSize:16,
+	font:'cursive'
 }
 var Animation = {
 

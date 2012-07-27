@@ -347,7 +347,9 @@ Interaction.drawRuler = function(){
 	Interaction.rulerSet = new Raster('ruler');
 	Interaction.br = Math.floor(Interaction.rulerSet.bounds.width*0.1-1);
 	Interaction.rulerSet.name = 'rulerSet';
-	Interaction.rulerSet.position = [x,y];
+	Interaction.rulerSet.position = new Point(Math.floor(x),Math.floor(y)+0.5);
+	console.log([x,y])
+	return;
 	Interaction.br = (Interaction.rulerSet.bounds.width-8) * 0.1
 	Interaction.rulerX=-1;Interaction.rulerY=-1;
 	var move = function (dx,dy) {

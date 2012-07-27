@@ -1,7 +1,7 @@
 // JavaScript Document
 
 /*Styles*/
-var textStyle = {fontSize:16,strokeColor:'#fff',strokeWidth:0,fillColor:'#fff'};
+var textStyle = {fontSize:13,fillColor:'#fff',justification:'center'};
 var edgeStyle = {'stroke-width':'2px'};
 var angleStyle = {'fill':'#DDD'};
 //var shapeStyle = {'fill':'#fff','shape-rendering':'crispEdges'};
@@ -131,7 +131,30 @@ var Animation = {
 		);	
 	}
 };
+
+
 var Interaction =function(){};Interaction();
+
+Interaction.images = [
+	{
+		id:'dropable_default',
+		src:'/assets/animations/cokgenler/dropable_default.png'	
+	},
+	{
+		id:'dropable_hover',
+		src:'/assets/animations/cokgenler/dropable_hover.png'	
+	},
+	{
+		id:'dropable_false',
+		src:'/assets/animations/cokgenler/dropable_false.png'	
+	},
+	{
+		id:'dropable_true',
+		src:'/assets/animations/cokgenler/dropable_true.png'	
+	},
+]
+
+
 Interaction.getFramework = function() {
 	return 'paper';
 }
@@ -144,26 +167,27 @@ Interaction.init = function(container){
 	var h = $(Interaction.container).height();
 	project.activeLayer.removeChildren();
 	Interaction.dropableShapes = {
-		
-		set_style : function(style){
-			if(style == dropableShapeDefaultStyle){
-				Interaction.dropableShapes.triangle.set_style(dropableShapeDefaultTriangleStyle);
-				Interaction.dropableShapes.rectangle.set_style(dropableShapeDefaultRectangleStyle);
-				Interaction.dropableShapes.pentagon.set_style(dropableShapeDefaultPentagonStyle);
-				Interaction.dropableShapes.hexagon.set_style(dropableShapeDefaultHexagonStyle);
-			}
-			else{
-				Interaction.dropableShapes.triangle.set_style(style);
-				Interaction.dropableShapes.rectangle.set_style(style);
-				Interaction.dropableShapes.pentagon.set_style(style);
-				Interaction.dropableShapes.hexagon.set_style(style);
-			}
+		setImage : function(image){
+			Interaction.dropableShapes.triangle.setImage($('#'+image).get(0));
+			Interaction.dropableShapes.rectangle.setImage($('#'+image).get(0));
+			Interaction.dropableShapes.pentagon.setImage($('#'+image).get(0));
+			Interaction.dropableShapes.hexagon.setImage($('#'+image).get(0));
+		},
+		hitTest : function(p){
+			if(Interaction.dropableShapes.triangle.bounds.contains(p))
+				return Interaction.dropableShapes.triangle;
+			if(Interaction.dropableShapes.rectangle.bounds.contains(p))
+				return Interaction.dropableShapes.rectangle;
+			if(Interaction.dropableShapes.pentagon.bounds.contains(p))
+				return Interaction.dropableShapes.pentagon;
+			if(Interaction.dropableShapes.hexagon.bounds.contains(p))
+				return Interaction.dropableShapes.hexagon;
 		}
 		
 	};
 	Interaction.createDropableShapesLeft(0,0,w*0.2,h*0.8);
 	Interaction.createDropableShapesRight(w*0.8,0,w*0.2,h*0.8);
-	Interaction.dropableShapes.set_style(dropableShapeDefaultStyle);
+	//Interaction.dropableShapes.setImage('dropable_default');
 	Interaction.generateRandomShapes(w*0.2,10,w*0.6,h);
 	Interaction.paper = {width:500,height:300};
 	Interaction.preventDrag = false;
@@ -220,13 +244,14 @@ var start = function(){
 			return;
 		this.odx += dx;
 		this.ody += dy;
-		Interaction.dropableShapes.set_style(dropableShapeDefaultStyle);
+		Interaction.dropableShapes.setImage('dropable_default');
 		this.position = [this.position.x + dx,this.position.y + dy];
-		var hitResult = project.activeLayer.hitTest([x,y],{ fill: true, stroke: true, segments: true, tolerance: 2, class: "dropableShape" });
+		//var hitResult = project.activeLayer.hitTest([x,y],{ fill: true, stroke: true, segments: true, tolerance: 2, class: "dropableShape" });
+		var hitResult = Interaction.dropableShapes.hitTest(new Point(x,y));
 		if(hitResult){
 			this.inDropableShape = true;
-			this.hitShape = hitResult.item
-			this.hitShape.set_style(dropableShapeHoverStyle);
+			this.hitShape = hitResult;
+			this.hitShape.setImage($('#dropable_hover').get(0));
 		}else{
 			this.inDropableShape = false;
 			this.hitShape = null;
@@ -238,7 +263,7 @@ var start = function(){
 		if(this.preventDrag == true)
 			return;
 		this.preventDrag=true;
-		Interaction.dropableShapes.set_style(dropableShapeDefaultStyle);
+		Interaction.dropableShapes.setImage('dropable_default');
 		
 		var revert = false;
 		if(this.inDropableShape == true){
@@ -260,16 +285,16 @@ var start = function(){
 				});
 				this.class = null;
 				
-				this.hitShape.set_style(dropableShapeDroppedTrueStyle);
+				this.hitShape.setImage($('#dropable_true').get(0));
 				setTimeout(function(){
-						Interaction.dropableShapes.set_style(dropableShapeDefaultStyle);
+						Interaction.dropableShapes.setImage('dropable_default');
 					},400);
 			}
 			else{
 				revert = true;
-				this.hitShape.set_style(dropableShapeDroppedFalseStyle);
+				this.hitShape.setImage($('#dropable_false').get(0));
 				setTimeout(function(){
-						Interaction.dropableShapes.set_style(dropableShapeDefaultStyle);
+						Interaction.dropableShapes.setImage('dropable_default');
 					},400);
 			}
 		}
@@ -292,7 +317,7 @@ var start = function(){
 				if(Interaction.shapes[i].class == "draggable")
 					isExist=true;
 		if(isExist == false)
-			Interaction.setStatus('Tebrikler bütün çokgenleri doğru şekilde sınıflandırdınız. <input type="button" onclick="Interaction.init(Interaction.container);" value="Baştan Başla" class="control_button"/>');
+			Interaction.setStatus('<span style="position:relative;top:10px">Tebrikler bütün çokgenleri doğru şekilde sınıflandırdınız.</span>&emsp;<input type="button" onclick="Interaction.init(Interaction.container);"  class="repeat_button"/>');
 	};
 Interaction.generateRandomShapes = function(X,Y,WIDTH,HEIGHT){
 	Interaction.shapes = [];
@@ -401,15 +426,21 @@ Interaction.generateRandomShapes = function(X,Y,WIDTH,HEIGHT){
 
 };
 Interaction.createDropableShape = function(x,y,w,h,text){
-	var shape = new Path.Oval(
-		new Rectangle(
-			new Point(x,y),
-			new Size(w,h)
-		)
-	);
+	//var shape = new Path.Oval(
+//		new Rectangle(
+//			new Point(x,y),
+//			new Size(w,h)
+//		)
+//	);
+	var shape = new Raster('dropable_default');
+	shape.position = new Point(x,y)
 	shape.class = "dropableShape";
-	var t1 = new PointText(new Point(x+w*0.5-20,y+h*0.5+5));
-	t1.style = textStyle;
+	var t1 = new PointText(new Point(x+1,y+6));
+	t1.set_style(textStyle);
+	t1.fillColor = '#2f4f54'
+	t1.content = text;
+	var t1 = new PointText(new Point(x,y+5));
+	t1.set_style(textStyle);
 	t1.content = text;
 	return shape;
 }
@@ -417,8 +448,8 @@ Interaction.createDropableShapesLeft = function(X,Y,WIDTH,HEIGHT){
 	var x,y,rx,ry,length;
 	w = WIDTH * 0.90;
 	h = WIDTH * 0.80;
-	x = X + (WIDTH-w)*0.5;
-	y = Y + (HEIGHT-h*2) * 0.5;
+	x = X + (WIDTH)*0.5;
+	y = Y + (HEIGHT-h) * 0.5;
 	Interaction.dropableShapes.triangle = Interaction.createDropableShape(x,y,w,h,"Üçgen");
 	Interaction.dropableShapes.triangle.numberOfEdges = 3;
 	Interaction.dropableShapes.rectangle = Interaction.createDropableShape(x,y+h*1.2,w,h,"Dörtgen");
@@ -430,8 +461,8 @@ Interaction.createDropableShapesRight = function(X,Y,WIDTH,HEIGHT){
 	length = Math.min(WIDTH,HEIGHT);
 	w = length * 0.90;
 	h = length * 0.80;
-	x = X + (WIDTH-w)*0.5;
-	y = Y + (HEIGHT-h*2) * 0.5;
+	x = X + (WIDTH)*0.5;
+	y = Y + (HEIGHT-h) * 0.5;
 	Interaction.dropableShapes.pentagon = Interaction.createDropableShape(x,y,w,h,"Beşgen");
 	Interaction.dropableShapes.pentagon.numberOfEdges = 5;
 	Interaction.dropableShapes.hexagon = Interaction.createDropableShape(x,y+h*1.2,w,h,"Altıgen");

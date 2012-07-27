@@ -293,19 +293,7 @@ Interaction.init = function(container){
 	);
 	
 	$("#sonraki").click(
-		function(){
-			sayi=rastgeleSayi();
-			$("#cerceve").html("<strong class='sayi'>"+sayi+"</strong> en yakın "+yazi +" yuvarlanırsa <input type='text' class='sayi' id='girdi' maxlength=4  onkeypress='return SadeceRakam(event)'> olur.");
-			$("input").trigger("yeniSoru");
-			$(".sayi").trigger("yeniSayi");
-			$("#dogruCevap").html(yuvarlak);
-			$("#soruSayisi").html(sayi);
-			$("#cerceveCevap").hide();
-			$("#sonraki").hide();
-			$("#geriBildirimText").html("");
-			$("#btnKontrol").show();
-			tiklama=0;
-		}
+		function(){yeniSoru();}
 	);
 	
 	var girdi;
@@ -322,7 +310,23 @@ Interaction.init = function(container){
 			//console.log("girdi: "+girdi);
 		}
 	);
+	
+	function yeniSoru(){
+			sayi=rastgeleSayi();
+			$("#cerceve").html("<strong class='sayi'>"+sayi+"</strong> en yakın "+yazi +" yuvarlanırsa <input type='text' class='sayi' id='girdi' maxlength=4  onkeypress='return SadeceRakam(event)'> olur.");
+			$("input").trigger("yeniSoru");
+			$(".sayi").trigger("yeniSayi");
+			$("#dogruCevap").html(yuvarlak);
+			$("#soruSayisi").html(sayi);
+			$("#cerceveCevap").hide();
+			$("#sonraki").hide();
+			$("#geriBildirimText").html("");
+			$("#btnKontrol").show();
+			tiklama=0;
+		}
+	
 	var tiklama=0;
+	
 	function kontrol(){
 		
 		//console.log("kontrole girdim."+girdi+" "+yuvarlak);
@@ -340,6 +344,7 @@ Interaction.init = function(container){
 		}
 		else{
 			tiklama++;
+			console.log("tiklama: "+tiklama);
 			if(girdi==yuvarlak){
 			//console.log("if doğruysa girdim."+girdi+" "+yuvarlak);
 				$("#geriBildirimText").attr("class","status_true").html("Tebrikler");
@@ -356,6 +361,10 @@ Interaction.init = function(container){
 				$("#cerceveCevap").show();
 				$("#btnKontrol").hide();
 				$("#sonraki").show();
+			}
+			if(tiklama==3){
+				console.log("tikalam 3'e grdim");
+				yeniSoru();
 			}
 		}
 	}

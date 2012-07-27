@@ -233,10 +233,10 @@ Interaction.init = function(container){
 	$(Interaction.button).css({
 			backgroundImage:'url(/assets/animations/btn_gray_draw.png)',
 			position:'absolute',
-			top:'20px',
+			top:'145px',
 			width:'32px',
 			height:'31px',
-			left:Interaction.paper.width * 0.5
+			left:'176px'
 		});
 	$(Interaction.button).hide();
 	$(Interaction.button).show();
@@ -350,8 +350,8 @@ Interaction.drawCircle = function(){
 				Interaction.pause = false;
 				Interaction.drawCircle.textO = new PointText(
 					new Point(
-						Interaction.drawCircle.x-10,
-						Interaction.drawCircle.y+10
+						Interaction.drawCircle.x-15,
+						Interaction.drawCircle.y+15
 					)
 				);
 				Interaction.drawCircle.textO.content = "O";
@@ -389,12 +389,20 @@ Interaction.drawCircle = function(){
 					},
 					duration:500
 				});
+				var centerPoint = new Path.Circle(new Point(Interaction.drawCircle.x,Interaction.drawCircle.y),2);
+				centerPoint.set_style({fillColor:'#000'});
+				centerPoint.opacity=0;
+				centerPoint.animate({
+					style:{opacity:1},
+					duration:1000,
+					delay:100
+				})
 				Interaction.scissor = new Raster('scissor');
 				Interaction.scissor.position = new Point(
 					Math.floor(Interaction.drawCircle.x+Interaction.br*9+Interaction.scissor.bounds.width*0.5)+5,
 					Math.floor(Interaction.drawCircle.y+Interaction.scissor.bounds.height*0.5)			
 				);
-				$(Interaction.status).html("O merkezli ve "+(Interaction.radius.innerHTML)+" birim yarıçaplı çember. Daire elde etmek icin makasa tiklayiniz.");
+				$(Interaction.status).html("O merkezli ve "+(Interaction.radius.innerHTML)+" birim yarıçaplı çember. Daire elde etmek için makasa tıklayınız.");
 				Interaction.scissor.tool = new Tool();
 				Interaction.scissor.tool.onMouseDown = function(event){
 					if(Interaction.scissor.bounds.contains(event.point) == true){
@@ -416,6 +424,7 @@ Interaction.drawCircle = function(){
 			var endAngle = Util.degreeToRadians(Interaction.drawCircle._o);
 			
 			Interaction.drawCircle.compass.rotate(-Interaction._o_old+Interaction.drawCircle._o, center);
+			
 			var point1 = new Point(center.x + Math.cos(startAngle) * radius,
 							   center.y + Math.sin(startAngle) * radius);
 			var point2 = new Point(center.x + Math.cos((startAngle+endAngle)/2) * radius,
@@ -542,73 +551,13 @@ Interaction.splitCircularRegion = function(){
 	
 }
 
-function Compass(x,y){
-	this.defaultX = x;
-	this.defaultY = y;
-	this.left = new Raster('compass_left_leg');
-	this.right = new Raster('compass_right_leg');
-	this.knuckle = new Raster('compass_knuckle');
-	this.R = this.left.size.height;
-	this.group = new Group();
-	this.group.addChild(this.left);
-	this.group.addChild(this.right);
-	this.group.addChild(this.knuckle);
-	this.left.position = [
-		x,
-		y-this.left.size.height*0.5
-	]; 
-	this.knuckle.position = [
-		x+this.left.size.width*0.5,
-		y-this.left.size.height-this.knuckle.size.height*0.5
-	];
-	this.right.position = [
-		x+this.left.size.width,
-		y-this.right.size.height*0.5
-	];
 
-	this.d = this.right.position.x -this.left.position.x;
-	
-	this.remove = function(){
-		this.left.remove();
-		this.right.remove();
-		this.knuckle.remove();
-	};
-	this.changeDelta = function(dx){
-		var _betha = Math.acos((this.d)/(2*this.R));
-		var _alpha = Math.acos((this.d+dx)/(2*this.R));
-		var _o = Util.radianToDegree(_betha ) - Util.radianToDegree(_alpha);
-		var dy  = this.R*(Math.sin(_betha) - Math.sin(_alpha));
-		this.left.rotate(
-			_o,
-			[
-				this.defaultX,
-				this.defaultY
-			]
-		);
-		this.right.rotate(
-			-_o,
-			[
-				this.defaultX+this.d,
-				this.defaultY
-			]
-		);
-		this.knuckle.position.y += dy;
-		this.right.position.x += dx;
-		this.knuckle.position.x += dx/2;
-		this.d += dx;
-	};
-	this.rotate = function(angle,point){
-		this.left.rotate(angle,point);
-		this.right.rotate(angle,point);
-		this.knuckle.rotate(angle,point);
-	}
-};
 
 Interaction.initCompass = function(){
-	Interaction.compass = new Compass(Interaction.ruler.bounds.x,Interaction.ruler.bounds.y);
+	Interaction.compass = new Compass(Interaction.ruler.bounds.x+2,Interaction.ruler.bounds.y);
 	Interaction.compass.right.class = "right_leg";
 
-	Interaction.drawCompass(Interaction.br*2);
+	Interaction.drawCompass(Interaction.br*3.5);
 	var tool = new Tool();
 	tool.drag = false;
 	tool.onMouseDown = function(event){
@@ -652,3 +601,4 @@ Interaction.drawRuler = function(){
 	var _yt = y+h*0.4;
 	var _y2 = y+h;
 };
+

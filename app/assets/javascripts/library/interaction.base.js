@@ -1,5 +1,7 @@
 function InteractionBase(){
-	
+	if(window['__Styles'] !== undefined){
+		__Styles();
+	}
 	Interaction.inputs = [];
 	Interaction.__inputVersion = 0;
 	Interaction.__status = function(e){
@@ -226,7 +228,7 @@ function InteractionBase(){
 	Interaction.__checkAnswer = function(){
 		if(Interaction.pause == true)
 			return;
-		if(Interaction.preCheck && Interaction.preCheck() == false)
+		if(Interaction.preCheck && Interaction.preCheck() === false)
 			return;
 		var isCorrect;
 		if(Interaction.__inputVersion == 2){
