@@ -152,6 +152,22 @@ var Util = {
 			y = y/z;
 		
 			return new Point(x, y);
+		},
+	
+	centerOfPoint3s:function(points){
+			var total_x = 0;
+			var total_y = 0;
+			var total_z = 0;
+			for(var i=0;i<points.length;i++){
+				total_x += points[i].x;
+				total_y += points[i].y;
+				total_z += points[i].z;
+			}
+			var x = total_x / points.length;
+			var y = total_y / points.length;
+			var z = total_z / points.length;
+			return new Point3(x,y,z);
+
 		}
 		
 	
