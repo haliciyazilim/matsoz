@@ -130,12 +130,15 @@ var Util = {
 			return new Point(x,y);
 		},
 		
-	createProjectionMatrix: function (viewportWidth, viewportHeight, nearPlaneWidth, nearPlaneHeight, nearPlaneZ) {
+	createProjectionMatrix: function (nearPlaneWidth, nearPlaneHeight, nearPlaneZ, viewportLeft, viewportRight, viewportTop, viewportBottom) {
+			var viewportWidth = viewportLeft-viewportRight;
+			var viewportHeight = viewportBottom-viewportTop;
+		
 			return [
 				viewportWidth/nearPlaneWidth,				   				0, 	-1/nearPlaneZ*viewportWidth/2, 		0,
-										   0, -viewportHeight/nearPlaneHeight, -1/nearPlaneZ*viewportHeight/2, 		0,
-										   0, 								0, 					-1/nearPlaneZ, 		0,
-										   0, 								0, 								0, 		1
+										   0,  -viewportHeight/nearPlaneHeight, -1/nearPlaneZ*viewportHeight/2, 		0,
+										   0,  								 0, 				   -1/nearPlaneZ, 		0,
+										   0,  								 0, 							   0, 		1
 			];
 		},
 	
