@@ -153,7 +153,7 @@ var Util = {
 		
 			return new Point(x, y);
 		},
-	
+
 	centerOfPoint3s:function(points){
 			var total_x = 0;
 			var total_y = 0;
@@ -167,7 +167,6 @@ var Util = {
 			var y = total_y / points.length;
 			var z = total_z / points.length;
 			return new Point3(x,y,z);
-
 		}
 		
 	
