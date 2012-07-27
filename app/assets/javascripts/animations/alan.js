@@ -2,7 +2,12 @@
 
 /*Styles*/
 var textStyle = {'font-size':'16px'};
-var edgeStyle = {strokeColor:'#255b63',strokeWidth:2,fillColor:'#bfe8ef',cursor:'move'};
+var edgeStyle = {
+	strokeColor:'#255b63',
+	fillColor:'#bfe8ef',
+	strokeWidth:2,
+	cursor:'move'
+};
 var angleStyle = {'fill':'#DDD'};
 var gridLineStyle = {strokeColor:'#ccc',strokeWidth:1}
 /*Styles*/
@@ -216,17 +221,13 @@ var Animation = {
 				new Point(p.x+a*17,p.y+a*1),
 				new Point(p.x+a*20,p.y+a*1),
 				new Point(p.x+a*19,p.y+a*3),
-				new Point(p.x+a*16,p.y+a*3),/*
-				new Point(p.x+a*17,p.y+a*1),
-				new Point(p.x+a*19,p.y+a*3)*/
+				new Point(p.x+a*16,p.y+a*3),
 			],
 			[
 				new Point(p.x+a*17,p.y+a*1),
 				new Point(p.x+a*17,p.y+a*1),
 				new Point(p.x+a*19,p.y+a*3),
-				new Point(p.x+a*16,p.y+a*3),/*
-				new Point(p.x+a*17,p.y+a*1),
-				new Point(p.x+a*19,p.y+a*3)*/
+				new Point(p.x+a*16,p.y+a*3),
 			
 			],
 			{strokeColor:"#000",strokeWidth:2,fillColor:new RgbColor(0.5,0.7,1,0.5)},
@@ -375,7 +376,7 @@ TestGenerator.checkAnswer = function(){
 	var isWrong = false;
 	if(value == "" ||isNaN(value)){
 		isWrong = true;
-		Interaction.setStatus('Lütfen bir sayı giriniz.');
+		Interaction.setStatus('Lütfen bir sayı giriniz.',false);
 		return;
 	}
 	else if(value == TestGenerator.values.area){

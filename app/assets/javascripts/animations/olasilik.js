@@ -62,7 +62,7 @@ var Animation = {
 		$(container).append(
 			'<div id="olasilik_table_container">'+
 				'<table id="olasilik_table">'+
-					'<tr>'+
+					'<tr class="dark">'+
 						'<th>Dönme Sayısı</th>'+
 						'<th>Beyaz Gelme Sayısı</th>'+
 						'<th>Yeşil Gelme Sayısı</th>'+
@@ -72,12 +72,12 @@ var Animation = {
 						'<td id="2">&emsp;</td>'+
 						'<td id="3">&emsp;</td>'+
 					'</tr>'+
-					'<tr id="2">'+
+					'<tr id="2" class="dark">'+
 						'<td id="1">&emsp;</td>'+
 						'<td id="2">&emsp;</td>'+
 						'<td id="3">&emsp;</td>'+
 					'</tr>'+
-					'<tr id="3">'+
+					'<tr id="3" >'+
 						'<td id="1">&emsp;</td>'+
 						'<td id="2">&emsp;</td>'+
 						'<td id="3">&emsp;</td>'+
@@ -94,11 +94,14 @@ var Animation = {
 			left:'50%'
 		});
 		$('table#olasilik_table td,table#olasilik_table th',container).css({
-			border:'1px solid #000',
+			border:'1px solid #999',
 			borderCollapse:'hidden',
 			height:'23px',
 			textAlign:'center',
 			verticalAlign:'middle'
+		});
+		$('tr.dark').css({
+			backgroundColor:'#ccc'
 		});
 		
 		var p1 = new Point(x-150,y);

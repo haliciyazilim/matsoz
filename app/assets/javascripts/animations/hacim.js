@@ -1,8 +1,13 @@
 var cubeStyle = {
-	strokeColor:'#000',
+	strokeColor:'#255b63',
 	strokeWidth:1,
-	fillColor:'#ffd9d9'
+	fillColor:'#bfe8ef'
 };
+var animationCubeStyle = {
+	strokeColor:'#666',
+	strokeWidth:1,
+	fillColor:'#ddd'
+}
 var Animation = {
 	init:function(container){
 			Main.animationProject.activeLayer.removeChildren();
@@ -40,9 +45,10 @@ var Animation = {
 					top:'50px',
 					right:'200px',
 					lineHeight:'30px',
-					textAlign:'center'
+					textAlign:'center',
+					fontSize:'16px'
 				})
-				.html('Dikdörtgenler prizmasının <br/> hacmi <br/> <span id="count"></span> birim küptür.')
+				.html('Dikdörtgenler prizmasının <br/> hacmi <br/> <span id="count" style="font-weight:bold"></span> birim küptür.')
 			
 			Animation.countSpan = $('span#count',div).get(0);
 			
@@ -56,7 +62,7 @@ var Animation = {
 					for(var k=0;k<Animation.zCube;k++)
 						Animation.cubes.push(new UnitCube(i,j,k));
 			
-			UnitCube.drawCubes(Animation.cubes,Animation.zeroPoint,Animation.a,Animation);
+			UnitCube.drawCubes(Animation.cubes,Animation.zeroPoint,Animation.a,Animation,animationCubeStyle);
 			Animation.cubes[0].shape.insertBelow(Animation.rectPrizm.children[4]);
 			for(var i=1;i<Animation.cubes.length;i++){
 				Animation.cubes[i].shape.opacity = 0;
@@ -96,8 +102,10 @@ var Interaction = {
 				right:'95px'
 			});
 			Interaction.appendStatus({
-				top:'210px',
-				right:'20px'
+				top:'220px',
+				right:'20px',
+				width:'250px',
+				textAlign:'center'
 			});
 			var div = document.createElement('div');
 			$(container).append(div);
@@ -211,11 +219,15 @@ function UnitCube(x,y,z){
 	this.y = y;
 	this.z = z;
 	
-	this.draw = function(p,a,_s){
+	this.draw = function(p,a,_s,style){
 		if(this.shape)
 			this.shape.remove();
 		this.shape = new Path.Cube(p,a,new Point(_s.xZ,_s.yZ));
-		this.shape.set_style(cubeStyle);
+		if(style)
+			this.shape.set_style(style);
+		else
+			this.shape.set_style(cubeStyle);
+		
 	};
 }
 UnitCube.compare = function(a,b){
@@ -233,7 +245,7 @@ UnitCube.compare = function(a,b){
 			return -1;
 		return 0;
 }
-UnitCube.drawCubes = function(cubes,zero,a,_s){
+UnitCube.drawCubes = function(cubes,zero,a,_s,style){
 	//decide the draw order 				
 	cubes.sort(UnitCube.compare);
 	
@@ -248,7 +260,7 @@ UnitCube.drawCubes = function(cubes,zero,a,_s){
 			Math.floor(cubes[i].z*a*_s.yZ)
 		);
 		
-		cubes[i].draw(p,a,_s);
+		cubes[i].draw(p,a,_s,style);
 	}
 }
 UnitCube.explode = function(cubes,zero,a,distance,_s){
@@ -262,6 +274,7 @@ UnitCube.explode = function(cubes,zero,a,distance,_s){
 		p = p.add(distance*cubes[i].x,0);
 		p = p.add(0,-distance*cubes[i].y);
 		p = p.add(-cubes[i].z*distance*_s.xZ,cubes[i].z*distance*_s.yZ);
+		p = new Point(Math.floor(p.x)+0.5,Math.floor(p.y)+0.5)
 		cubes[i].draw(p,a,_s);
 	}
 }

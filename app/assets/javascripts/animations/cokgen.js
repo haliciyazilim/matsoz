@@ -6,7 +6,9 @@ var edgeStyle = {'stroke-width':'2px'};
 var angleStyle = {'fill':'#DDD'};
 //var shapeStyle = {'fill':'#fff','shape-rendering':'crispEdges'};
 var animationEdgeStyle = {strokeColor:'#000',strokeWidth:2}
-var shapeStyle = {strokeColor:'#000',strokeWidth:2,fillColor:'#fff'};
+function __Styles(){
+	shapeStyle = {strokeColor:'#255b63',strokeWidth:2,fillColor:new RgbColor(1,1,1,0)};
+}
 var dropableShapeHoverStyle = {strokeColor:'#000',fillColor:'#dd9',strokeWidth:2};
 var dropableShapeDefaultStyle = "default"//shadow
 var dropableShapeDefaultTriangleStyle = {strokeColor:'#999',fillColor:'rgb(146,208,80)',strokeWidth:1};
@@ -317,7 +319,7 @@ var start = function(){
 				if(Interaction.shapes[i].class == "draggable")
 					isExist=true;
 		if(isExist == false)
-			Interaction.setStatus('<span style="position:relative;top:10px">Tebrikler bütün çokgenleri doğru şekilde sınıflandırdınız.</span>&emsp;<input type="button" onclick="Interaction.init(Interaction.container);"  class="repeat_button"/>');
+			Interaction.setStatus('<span style="position:relative;top:10px" class="status_true">Tebrikler bütün çokgenleri doğru şekilde sınıflandırdınız.</span>&emsp;<input type="button" onclick="Interaction.init(Interaction.container);"  class="repeat_button"/>');
 	};
 Interaction.generateRandomShapes = function(X,Y,WIDTH,HEIGHT){
 	Interaction.shapes = [];
@@ -375,13 +377,12 @@ Interaction.generateRandomShapes = function(X,Y,WIDTH,HEIGHT){
 				h = w = Math.min(w,h);
 				while(h == w || h > maxH)
 					h =- Math.floor(Math.random()*3)*30+w+30;
-				shape = new Path.Rectangle(new Point(x,y),new Size(w,h));
+				shape = new Path.Rectangle(new Point(x,y+10),new Size(w,h));
 				edgeNumber = 4;
 				break;
 			case 7:
 				var a,b,c;
-				a = b = c = 5;
-				a = 3, b = 4;				
+				c = 5, a = 3, b = 4;				
 				shape = new Triangle(a,b,c,x,y,w,h);
 				edgeNumber = 3;
 				break;
@@ -397,14 +398,14 @@ Interaction.generateRandomShapes = function(X,Y,WIDTH,HEIGHT){
 				var a,b,c;
 				a = b = c = 5;
 				a = 6, b = 8;
-				shape = new Triangle(a,b,c,x,y,w,h);
+				shape = new Triangle(a,b,c,x+5,y-15,w,h);
 				edgeNumber = 3;
 				break;
 			case 11:
 				var a,b,c;
 				a = b = c = 5;
 				a = 4, b = 3;
-				shape = new Triangle(a,b,c,x,y,w,h);
+				shape = new Triangle(a,b,c,x,y-15,w,h);
 				edgeNumber = 3;
 				break
 
@@ -426,7 +427,7 @@ Interaction.generateRandomShapes = function(X,Y,WIDTH,HEIGHT){
 
 };
 Interaction.createDropableShape = function(x,y,w,h,text){
-	//var shape = new Path.Oval(
+//	var shape = new Path.Oval(
 //		new Rectangle(
 //			new Point(x,y),
 //			new Size(w,h)

@@ -11,8 +11,8 @@ var textStyle = {
 };
 var edgeStyle = {
 	strokeWidth : 2,
-	strokeColor : "#000",
-	fillColor: '#fff'
+	strokeColor:'#255b63',
+	fillColor:'#fff',
 };
 var angleStyle = {
 	'stroke-width': '2px'
@@ -292,13 +292,14 @@ Interaction.nextQuestion = function(){
 	var callback = function(){
 		Interaction.preventDrag = false;
 	};
-	Interaction.rulerSet.animate({
-		style:{
-			position:Interaction.rulerSet.firstPosition
-		},
-		duration:300,
-		callback:callback
-	});
+	if(Interaction.rulerSet.firstPosition)
+		Interaction.rulerSet.animate({
+			style:{
+				position:Interaction.rulerSet.firstPosition
+			},
+			duration:300,
+			callback:callback
+		});
 	Interaction.odx=0;
 	Interaction.ody=0;
 }
@@ -348,8 +349,8 @@ Interaction.drawRuler = function(){
 	Interaction.br = Math.floor(Interaction.rulerSet.bounds.width*0.1-1);
 	Interaction.rulerSet.name = 'rulerSet';
 	Interaction.rulerSet.position = new Point(Math.floor(x),Math.floor(y)+0.5);
-	console.log([x,y])
-	return;
+	//console.log([x,y])
+	//return;
 	Interaction.br = (Interaction.rulerSet.bounds.width-8) * 0.1
 	Interaction.rulerX=-1;Interaction.rulerY=-1;
 	var move = function (dx,dy) {
@@ -386,6 +387,6 @@ Interaction.drawRuler = function(){
 	drag.activate();
 	Interaction.rulerSet.move = move;
 	Interaction.rulerSet.up = up;
-	Interaction.rulerSet.firstPosition = new Point(x,y);
+	Interaction.rulerSet.firstPosition = Interaction.rulerSet.position;
 
 }
