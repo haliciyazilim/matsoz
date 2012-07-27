@@ -539,16 +539,16 @@ var Interaction = {
 			case 3:
 			case 4:
 			case 5:
-				console.log(values);
-				console.log(asamaUp);
-				console.log(asamaDown);
+				console.log("values "+parseInt(values));
+				console.log("aşamaUp: "+parseInt(asamaUp));
+				console.log("asamadown: "+parseInt(asamaDown));
 				
 				for(var i=0; i<asamaUp.length; i++){
 					console.log(i+") val "+values[2*i]);
 					console.log(i+") up "+asamaUp[i]);
 					console.log(i+") val "+values[2*i+1]);
-					console.log(i+") up "+asamaDown[i]);
-					if(values[2*i]==asamaUp[i] && values[2*i+1]==asamaDown[i])
+					console.log(i+") up "+parseInt(asamaDown[i]));
+					if(parseInt(values[2*i],10)==parseInt(asamaUp[i],10) && parseInt(values[2*i+1],10)==parseInt(asamaDown[i]),10)
 						denetim=true;
 					else{
 						denetim=false;
@@ -562,14 +562,14 @@ var Interaction = {
 				break;
 			case 6:
 			case 7:
-				if(values==bolunensizIslem.bolunen){
+				if(parseInt(values,10)==parseInt(bolunensizIslem.bolunen,10)){
 				console.log("valu: "+values+" bolunen: "+bolunensizIslem.bolunen);
 				return true;
 				}
 				break;
 			case 8:
 			case 9:
-				if(values==bolensizIslem.bolen){
+				if(parseInt(values,10)==parseInt(bolunensizIslem.bolen,10)){
 				console.log("valu: "+values+" bolunen: "+bolensizIslem.bolen);
 				return true;
 				}

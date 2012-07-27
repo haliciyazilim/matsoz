@@ -15,7 +15,7 @@ var Animation = {
 		var marblesDiv = document.createElement('marbleDiv');
 		$(container).append(animDiv);
 		$(animDiv)
-			.html('<div id="ques12"><p id="nom2">1</p><div id="line2"></div><p id="denom2">4</p></div><p id="a2">\'i</p><p id="ques22">3</p><p id="b2">tane olan bilyelerin tamamı kaç bilyedir?</p>')
+			.html('<div id="ques12"><div id="nom2">1</div><div id="line2"></div><div id="denom2">4</div></div><p id="a2">\'i</p><p id="ques22">3</p><p id="b2">tane olan bilyelerin tamamı kaç bilyedir?</p>')
 			.css({
 				width: '400px',
 				height: '120px',
@@ -28,37 +28,29 @@ var Animation = {
 			})
 			.delay(1000)
 			.animate({opacity:1}, 1000)
-		$('#ques12')
-				.css({
-				//	border: "solid",
-					width: "40px",
-					height: "60px",
-					position: "absolute",
-					left: "10px",
-					top: "10px"
-				});
+			$('#ques12').css("position", "absolute")
+					.css("top", "16px")
+					.css("left", "16px")
+					.css("width", "20px")
+					.css("height", "41px")
+					.css("padding", 0)
+					.css("margin", 0)
+					.css("line-height","18px")
+	
 			$('#ques22')
 				.css({
-				//	border: "solid",
-				//	width: "30px",
 					height: "60px",
 					position: "absolute",
 					left: "60px",
 					top: "18px",
 					textAlign: "left"
 				});
-			$('#nom2')
-				.css({
-					position: "absolute",
-					left: "10px",
-					top:"6px",
-				});
-			$('#denom2')
-				.css({
-					position: "absolute",
-					left: "10px",
-					top:"28px",
-				});
+			$('#nom2').css("text-align", "center")
+				.css("height", "20px")
+				
+			$('#denom2').css("text-align", "center")
+				.css("height", "20px")
+		
 			$('#a2')
 				.css({
 					position: "absolute",
@@ -71,17 +63,9 @@ var Animation = {
 					left: "74px",
 					top:"18px",
 				});
-			$('#line2')
-				.css({
-					height: "1px",
-					padding: 0,
-					borderTop: "2px solid",
-					width: "20px",
-					height: "1px",
-					position: "absolute",
-					left: "4px",
-					top: "24px",
-				});
+			$('#line2').css("height", "1px")
+				.css("border-top", "1px solid")
+				.css("padding", 0)
 			
 			$(container).append(marblesDiv);
 			$(marblesDiv)
@@ -269,14 +253,14 @@ var Interaction = {
 				position: 'absolute',
 				left: '320px',
 				top: "14px",
-				fontSize: '24px', 
+				fontSize: '22px', 
 			});
 			
 			$(Interaction.input).attr('maxlength', '2')
 			var questionDiv = document.createElement('questionDiv')
 			$(container).append(questionDiv);
 			$(questionDiv)
-				.html('<div id="ques1"><p id="nom"></p><div id="line"></div><p id="denom"></p></div><p id="a"></p><p id="ques2"></p><p id="b">olan kesrin tamamı</p><p id="c">olur</p>')
+				.html('<div id="ques1"><div id="nom"></div><div id="line"></div><div id="denom"></div></div><p id="a"></p><p id="ques2"></p><p id="b">olan kesrin tamamı</p><p id="c">olur</p>')
 				.append(Interaction.input)
 				.css({
 					width: '400px',
@@ -284,48 +268,35 @@ var Interaction = {
 					position:'absolute',
 					left: '60px',
 					top: '30px',
-				//	border: 'solid',
 					fontSize: '24px',
 					textAlign: 'left'
 				});
-			$('#ques1')
-				.css({
-				//	border: "solid",
-					width: "40px",
-					height: "60px",
-					position: "absolute",
-					left: "10px",
-					top: "10px"
-				});
+			$('#ques1').css("position", "absolute")
+					.css("top", "16px")
+					.css("left", "16px")
+					.css("width", "25px")
+					.css("height", "51px")
+					.css("padding", 0)
+					.css("margin", 0)
+					.css("line-height","25px")
 			$('#ques2')
 				.css({
-				//	border: "solid",
 					width: "30px",
 					height: "30px",
 					position: "absolute",
 					left: "74px",
 					top: "18px",
 					textAlign: "center",
-				//	border: "solid"
 				});
-			$('#nom')
-				.css({
-					position: "absolute",
-					left: "10px",
-					top:"6px",
-				});
-			$('#denom')
-				.css({
-					position: "absolute",
-					left: "10px",
-					top:"36px",
-				});
+			$('#nom').css("text-align", "center")
+				.css("height", "25px")
+			$('#denom').css("text-align", "center")
+				.css("height", "25px")
 			$('#a')
 				.css({
 					position: "absolute",
 					left: "50px",
 					top:"18px",
-				//	border: "solid",
 					textAlign: "center",
 					width: "20px"
 				});
@@ -341,17 +312,9 @@ var Interaction = {
 					left: "368px",
 					top:"18px",
 				});
-			$('#line')
-				.css({
-					height: "1px",
-					padding: 0,
-					borderTop: "2px solid",
-					width: "30px",
-					height: "1px",
-					position: "absolute",
-					left: "4px",
-					top: "30px",
-				});
+			$('#line').css("height", "1px")
+				.css("border-top", "2px solid")
+				.css("padding", 0)
 
 			
 			Interaction.appendStatus({

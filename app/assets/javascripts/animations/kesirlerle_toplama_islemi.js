@@ -73,211 +73,121 @@ var Animation = {
 		
 		$(container).append('<div id="frac22"><p id="nom22">1</p><div id="line22"></div><p id="denom22">2</p></div>')
 		
-		$('#frac22').css({
-				position: "absolute",
-				left: "0px",
-				top: "0px"
-			});
+		$('#frac22').css("position", "absolute")
+					.css("top", "108px")
+					.css("left", "148px")
+					.css("width", "16px")
+					.css("height", "33px")
+					.css("padding", 0)
+					.css("margin", 0)
+					.css("line-height","16px")
 		
-		$('#line22')
-			.css({
-				padding: 0,
-				margin: 0,
-				borderTop: "1px solid",
-				width: "14px",
-				height: "1px",
-				position: "absolute",
-				left: "148px",
-				top: "123px",
-			});
-		$('#nom22')
-			.css({
-				padding: 0,
-				margin: 0,
-				position: "absolute",
-				left: "140px",
-				top:"108px",
-				textAlign: "center",
-				width: "30px",
-			//	border: "solid"
-			});
-		$('#denom22')
-			.css({
-				padding: 0,
-				margin: 0,
-				position: "absolute",
-				left: "140px",
-				top:"126px",
-				textAlign: "center",
-				width: "30px",
-			//	border: "solid"	
-			});
+		$('#line22').css("height", "1px")
+				.css("border-top", "1px solid")
+				.css("padding", 0)
+				
+		$('#nom22').css("text-align", "center")
+				.css("height", "16px")
+				
+		$('#denom22').css("text-align", "center")
+				.css("height", "16px")
 		
 		$('#frac22').css("opacity", 0)
 		$('#frac22').delay(2000).animate({opacity: 1}, 1000)
 					.delay(1000).animate({opacity: 0}, 1000)
 		
-		$(container).append('<div id="frac33"><p id="nom33">1 x 4</p><div id="line33"></div><p id="denom33">2 x 4</p></div>')
+		$(container).append('<div id="frac33"><div id="nom33">1 x 4</div><div id="line33"></div><div id="denom33">2 x 4</div></div>')
 		
-		$('#frac33').css({
-				position: "absolute",
-				left: "0px",
-				top: "0px",
-		//		width: "120px"
-			});
+		$('#frac33').css("position", "absolute")
+					.css("top", "108px")
+					.css("left", "138px")
+					.css("width", "36px")
+					.css("height", "33px")
+					.css("padding", 0)
+					.css("margin", 0)
+					.css("line-height","16px")
 		
-		$('#line33')
-			.css({
-				padding: 0,
-				borderTop: "1px solid",
-				width: "34px",
-				height: "1px",
-				position: "absolute",
-				left: "139px",
-				top: "123px",
-			});
-		$('#nom33')
-			.css({
-				position: "absolute",
-				left: "136px",
-				top:"108px",
-				textAlign: "center",
-				width: "40px",
-			//	border: "solid"
-			});
-		$('#denom33')
-			.css({
-				position: "absolute",
-				left: "136px",
-				top:"126px",
-				textAlign: "center",
-				width: "40px",
-			//	border: "solid"	
-			});
+		$('#line33').css("height", "1px")
+				.css("border-top", "1px solid")
+				.css("padding", 0)
+				
+		$('#nom33').css("text-align", "center")
+				.css("height", "16px")
+				
+		$('#denom33').css("text-align", "center")
+				.css("height", "16px")
 		
 		$('#frac33').css("opacity", 0);
 		$('#frac33').delay(4000).animate({opacity: 1}, 1000)
 					.delay(1000).animate({opacity: 0}, 1000)
 
 		
-		$(container).append('<div id="frac44"><p id="nom44">4</p><div id="line44"></div><p id="denom44">8</p></div>')
+		$(container).append('<div id="frac44"><div id="nom44">4</div><div id="line44"></div><div id="denom44">8</div></div>')
 		
-		$('#frac44').css({
-				position: "absolute",
-				left: "0px",
-				top: "0px"
-			});
+		$('#frac44').css("position", "absolute")
+					.css("top", "108px")
+					.css("left", "148px")
+					.css("width", "16px")
+					.css("height", "33px")
+					.css("padding", 0)
+					.css("margin", 0)
+					.css("line-height","16px")
 		
-		$('#line44')
-			.css({
-				padding: 0,
-				borderTop: "1px solid",
-				width: "14px",
-				height: "1px",
-				position: "absolute",
-				left: "148px",
-				top: "123px",
-			});
-		$('#nom44')
-			.css({
-				position: "absolute",
-				left: "140px",
-				top:"108px",
-				textAlign: "center",
-				width: "30px",
-			//	border: "solid"
-			});
-		$('#denom44')
-			.css({
-				position: "absolute",
-				left: "140px",
-				top:"126px",
-				textAlign: "center",
-				width: "30px",
-			//	border: "solid"	
-			});
+		$('#line44').css("height", "1px")
+				.css("border-top", "1px solid")
+				.css("padding", 0)
+				
+		$('#nom44').css("text-align", "center")
+				.css("height", "16px")
+				
+		$('#denom44').css("text-align", "center")
+				.css("height", "16px")
+				
 		$('#frac44').css("opacity", 0);
 		$('#frac44').delay(6000).animate({opacity: 1}, 1000)
 		
-		$(container).append('<div id="frac55"><p id="nom55">2</p><div id="line55"></div><p id="denom55">8</p></div>')
+		$(container).append('<div id="frac55"><div id="nom55">2</div><div id="line55"></div><div id="denom55">8</div></div>')
 		
-		$('#frac55')
-			.css({
-				position: "absolute",
-				left: "0px",
-				top: "0px",
-			});
+		$('#frac55').css("position", "absolute")
+					.css("top", "108px")
+					.css("left", "368px")
+					.css("width", "16px")
+					.css("height", "33px")
+					.css("padding", 0)
+					.css("margin", 0)
+					.css("line-height","16px")
 		
-		$('#line55')
-			.css({
-				padding: 0,
-				borderTop: "2px solid",
-				width: "14px",
-				height: "1px",
-				position: "absolute",
-				left: "368px",
-				top: "123px",
-			});
-		$('#nom55')
-			.css({
-				padding: 0,
-				position: "absolute",
-				left: "360px",
-				top:"108px",
-				textAlign: "center",
-				width: "30px",
-			//	border: "solid"
-			});
-		$('#denom55')
-			.css({
-				padding: 0,
-				position: "absolute",
-				left: "360px",
-				top:"126px",
-				textAlign: "center",
-				width: "30px",
-			//	border: "solid"	
-			});
+		$('#line55').css("height", "1px")
+				.css("border-top", "1px solid")
+				.css("padding", 0)
+				
+		$('#nom55').css("text-align", "center")
+				.css("height", "16px")
+				
+		$('#denom55').css("text-align", "center")
+				.css("height", "16px")
+				
 		$('#frac55').css("opacity", 0)
 		$('#frac55').delay(2000).animate({opacity: 1}, 1000)
 		
-		$(container).append('<div id="frac66"><p id="nom66">4</p><div id="line66"></div><p id="denom66">8</p><p id="pls">+</p><p id="nom666">2</p><div id="line666"></div><p id="denom666">8</p><p id="eqq">=</p><p id="nom6666">6</p><div id="line6666"></div><p id="denom6666">8</p></div>')
+		$(container).append('<div id="frac66"><div id="nom66">4</div><div id="line66"></div><div id="denom66">8</div></div><div id="pls">+</div><div id="frac666"><div id="nom666">2</div><div id="line666"></div><div id="denom666">8</div></div><div id="eqq">=</div><div id="frac6666"><div id="nom6666">6</div><div id="line6666"></div><div id="denom6666">8</div></div>')
 		
-		$('#frac66')
-			.css({
-				position: "absolute",
-				left: "0px",
-				top: "0px",
-			});
+		$('#frac66').css("position", "absolute")
+					.css("top", "108px")
+					.css("left", "558px")
+					.css("width", "16px")
+					.css("height", "33px")
+					.css("padding", 0)
+					.css("margin", 0)
+					.css("line-height","16px")
 		
-		$('#line66')
-			.css({
-				padding: 0,
-				borderTop: "2px solid",
-				width: "14px",
-				height: "1px",
-				position: "absolute",
-				left: "558px",
-				top: "123px",
-			});
-		$('#nom66')
-			.css({
-				position: "absolute",
-				left: "550px",
-				top:"108px",
-				textAlign: "center",
-				width: "30px",
-			//	border: "solid"
-			});
-		$('#denom66')
-			.css({
-				position: "absolute",
-				left: "550px",
-				top:"126px",
-				textAlign: "center",
-				width: "30px",
-			//	border: "solid"	
-			});
+		$('#line66').css("height", "1px")
+				.css("border-top", "1px solid")
+				.css("padding", 0)
+		$('#nom66').css("text-align", "center")
+				.css("height", "16px")
+		$('#denom66').css("text-align", "center")
+				.css("height", "16px")
 		
 		$('#pls')
 			.css({
@@ -285,35 +195,23 @@ var Animation = {
 				left: "578px",
 				top:"117px",	
 			});
+		
+		$('#frac666').css("position", "absolute")
+					.css("top", "108px")
+					.css("left", "590px")
+					.css("width", "16px")
+					.css("height", "33px")
+					.css("padding", 0)
+					.css("margin", 0)
+					.css("line-height","16px")
 			
-		$('#line666')
-			.css({
-				padding: 0,
-				borderTop: "2px solid",
-				width: "14px",
-				height: "1px",
-				position: "absolute",
-				left: "590px",
-				top: "123px",
-			});
-		$('#nom666')
-			.css({
-				position: "absolute",
-				left: "582px",
-				top:"108px",
-				textAlign: "center",
-				width: "30px",
-			//	border: "solid"
-			});
-		$('#denom666')
-			.css({
-				position: "absolute",
-				left: "582px",
-				top:"126px",
-				textAlign: "center",
-				width: "30px",
-			//	border: "solid"	
-			});
+		$('#line666').css("height", "1px")
+				.css("border-top", "1px solid")
+				.css("padding", 0)
+		$('#nom666').css("text-align", "center")
+				.css("height", "16px")
+		$('#denom666').css("text-align", "center")
+				.css("height", "16px")
 		
 		$('#eqq')
 			.css({
@@ -322,39 +220,29 @@ var Animation = {
 				top:"117px",	
 			});
 		
-		$('#line6666')
-			.css({
-				padding: 0,
-				borderTop: "2px solid",
-				width: "14px",
-				height: "1px",
-				position: "absolute",
-				left: "622px",
-				top: "123px",
-			});
-		$('#nom6666')
-			.css({
-				position: "absolute",
-				left: "614px",
-				top:"108px",
-				textAlign: "center",
-				width: "30px",
-			//	border: "solid"
-			});
-		$('#denom6666')
-			.css({
-				position: "absolute",
-				left: "614px",
-				top:"126px",
-				textAlign: "center",
-				width: "30px",
-			//	border: "solid"	
-			});
+		$('#frac6666').css("position", "absolute")
+					.css("top", "108px")
+					.css("left", "622px")
+					.css("width", "16px")
+					.css("height", "33px")
+					.css("padding", 0)
+					.css("margin", 0)
+					.css("line-height","16px")
+		$('#line6666').css("height", "1px")
+				.css("border-top", "1px solid")
+				.css("padding", 0)
+		$('#nom6666').css("text-align", "center")
+				.css("height", "16px")
+		$('#denom6666').css("text-align", "center")
+				.css("height", "16px")
 		
 		$('#frac66').css("opacity", 0).delay(11000).animate({opacity: 1}, 1000)
-		$('#line6666').css("opacity", 0).delay(12500).animate({opacity: 1}, 1000)
-		$('#nom6666').css("opacity", 0).delay(12500).animate({opacity: 1}, 1000)
-		$('#denom6666').css("opacity", 0).delay(12500).animate({opacity: 1}, 1000)
+		$('#pls').css("opacity", 0).delay(11000).animate({opacity: 1}, 1000)
+		$('#frac666').css("opacity", 0).delay(11000).animate({opacity: 1}, 1000)
+		$('#eqq').css("opacity", 0).delay(11000).animate({opacity: 1}, 1000)
+		$('#frac6666').css("opacity", 0).delay(13000).animate({opacity: 1}, 500)
+		
+		
 		
 		$(container).append('<p id="zerro">0</p>')
 		$('#zerro').css({
@@ -376,167 +264,99 @@ var Animation = {
 		});
 		$('#onne').css("opacity", 0).delay(16000).animate({opacity: 1}, 1000)
 		
-		$(container).append('<div id="frac222"><p id="nom222">1</p><div id="line222"></div><p id="denom222">2</p></div>')
+		$(container).append('<div id="frac222"><div id="nom222">1</div><div id="line222"></div><div id="denom222">2</div></div>')
 		
-		$('#frac222')
-			.css({
-				position: "absolute",
-				left: "0px",
-				top: "0px",
-			});
+		$('#frac222').css("position", "absolute")
+					.css("top", "143px")
+					.css("left", "378px")
+					.css("width", "16px")
+					.css("height", "33px")
+					.css("padding", 0)
+					.css("margin", 0)
+					.css("line-height","16px")
 		
-		$('#line222')
-			.css({
-				padding: 0,
-				borderTop: "2px solid",
-				width: "14px",
-				height: "1px",
-				position: "absolute",
-				left: "378px",
-				top: "159px",
-			});
-		$('#nom222')
-			.css({
-				position: "absolute",
-				left: "370px",
-				top:"144px",
-				textAlign: "center",
-				width: "30px",
-			//	border: "solid"
-			});
-		$('#denom222')
-			.css({
-				position: "absolute",
-				left: "370px",
-				top:"162px",
-				textAlign: "center",
-				width: "30px",
-			//	border: "solid"	
-			});
+		$('#line222').css("height", "1px")
+				.css("border-top", "1px solid")
+				.css("padding", 0)
+		$('#nom222').css("text-align", "center")
+				.css("height", "16px")
+		$('#denom222').css("text-align", "center")
+				.css("height", "16px")
 		
 		$('#frac222').css("opacity", 0);
 		$('#frac222').delay(18000).animate({opacity: 1}, 1000)
 					 .delay(2000).animate({opacity: 0}, 1000)
 		
-		$(container).append('<div id="frac333"><p id="nom333">4</p><div id="line333"></div><p id="denom333">8</p></div>')
+		$(container).append('<div id="frac333"><div id="nom333">4</div><div id="line333"></div><div id="denom333">8</div></div>')
 		
-		$('#frac333')
-			.css({
-				position: "absolute",
-				left: "0px",
-				top: "0px",
-			});
+		$('#frac333').css("position", "absolute")
+					.css("top", "143px")
+					.css("left", "378px")
+					.css("width", "16px")
+					.css("height", "33px")
+					.css("padding", 0)
+					.css("margin", 0)
+					.css("line-height","16px")
 		
-		$('#line333')
-			.css({
-				padding: 0,
-				borderTop: "2px solid",
-				width: "14px",
-				height: "1px",
-				position: "absolute",
-				left: "378px",
-				top: "159px",
-			});
-		$('#nom333')
-			.css({
-				position: "absolute",
-				left: "370px",
-				top:"144px",
-				textAlign: "center",
-				width: "30px",
-			//	border: "solid"
-			});
-		$('#denom333')
-			.css({
-				position: "absolute",
-				left: "370px",
-				top:"162px",
-				textAlign: "center",
-				width: "30px",
-			//	border: "solid"	
-			});
+		$('#line333').css("height", "1px")
+				.css("border-top", "1px solid")
+				.css("padding", 0)
+				
+		$('#nom333').css("text-align", "center")
+				.css("height", "16px")
+				
+		$('#denom333').css("text-align", "center")
+				.css("height", "16px")
 		
 		$('#frac333').css("opacity", 0);
 		$('#frac333').delay(21000).animate({opacity: 1}, 1000)
 		
 		
-		$(container).append('<div id="frac444"><p id="nom444">6</p><div id="line444"></div><p id="denom444">8</p></div>')
+		$(container).append('<div id="frac444"><div id="nom444">6</div><div id="line444"></div><div id="denom444">8</div></div>')
 		
-		$('#frac444')
-			.css({
-				position: "absolute",
-				left: "0px",
-				top: "0px",
-			});
+		$('#frac444').css("position", "absolute")
+					.css("top", "143px")
+					.css("left", "518px")
+					.css("width", "16px")
+					.css("height", "33px")
+					.css("padding", 0)
+					.css("margin", 0)
+					.css("line-height","16px")
 		
-		$('#line444')
-			.css({
-				padding: 0,
-				borderTop: "2px solid",
-				width: "14px",
-				height: "1px",
-				position: "absolute",
-				left: "518px",
-				top: "159px",
-			});
-		$('#nom444')
-			.css({
-				position: "absolute",
-				left: "510px",
-				top:"144px",
-				textAlign: "center",
-				width: "30px",
-			//	border: "solid"
-			});
-		$('#denom444')
-			.css({
-				position: "absolute",
-				left: "510px",
-				top:"162px",
-				textAlign: "center",
-				width: "30px",
-			//	border: "solid"	
-			});
+		$('#line444').css("height", "1px")
+				.css("border-top", "1px solid")
+				.css("padding", 0)
+				
+		$('#nom444').css("text-align", "center")
+				.css("height", "16px")
+				
+		$('#denom444').css("text-align", "center")
+				.css("height", "16px")
+				
 		$('#frac444').css("opacity", 0);
-		$('#frac444').delay(22000).animate({opacity: 1}, 1000)
+		$('#frac444').delay(23000).animate({opacity: 1}, 1000)
 		
-		$(container).append('<div id="frac555"><p id="nom555">2</p><div id="line555"></div><p id="denom555">8</p></div>')
+		$(container).append('<div id="frac555"><div id="nom555">2</div><div id="line555"></div><div id="denom555">8</div></div>')
 		
-		$('#frac555')
-			.css({
-				position: "absolute",
-				left: "0px",
-				top: "0px",
-			});
+		$('#frac555').css("position", "absolute")
+					.css("top", "122px")
+					.css("left", "448px")
+					.css("width", "16px")
+					.css("height", "33px")
+					.css("padding", 0)
+					.css("margin", 0)
+					.css("line-height","16px")
 		
-		$('#line555')
-			.css({
-				padding: 0,
-				borderTop: "2px solid",
-				width: "14px",
-				height: "1px",
-				position: "absolute",
-				left: "448px",
-				top: "139px",
-			});
-		$('#nom555')
-			.css({
-				position: "absolute",
-				left: "440px",
-				top:"124px",
-				textAlign: "center",
-				width: "30px",
-			//	border: "solid"
-			});
-		$('#denom555')
-			.css({
-				position: "absolute",
-				left: "440px",
-				top:"142px",
-				textAlign: "center",
-				width: "30px",
-			//	border: "solid"	
-			});
+		$('#line555').css("height", "1px")
+				.css("border-top", "1px solid")
+				.css("padding", 0)
+				
+		$('#nom555').css("text-align", "center")
+				.css("height", "16px")
+				
+		$('#denom555').css("text-align", "center")
+				.css("height", "16px")
+				
 		$('#frac555').css("opacity", 0)
 		$('#frac555').delay(19000).animate({opacity: 1}, 1000)
 		
@@ -548,7 +368,7 @@ var Animation = {
 			},
 			duration: 1000,
 			delay: 1000,
-			animationType: 'easeOut'
+			animationType: 'easeInEaseOut'
 		});
 		
 		rect2.animate({
@@ -557,7 +377,7 @@ var Animation = {
 			},
 			duration: 1000,
 			delay: 1000,
-			animationType: 'easeOut'
+			animationType: 'easeInEaseOut'
 		});
 		
 		dashedLinesGroup.animate({
@@ -714,7 +534,7 @@ var Interaction = {
 			Interaction.questionDiv.id = 'questionDiv';
 			$(Interaction.container).append(Interaction.questionDiv);
 			$(Interaction.questionDiv)
-				.html('<div id="firstNum"></div><p id="plus">+</p><p id="nom2"></p><div id="line2"></div><p id="denom2"></p><p id="eq">=</p><div id="line3">')
+				.html('<div id="firstNum"></div><p id="plus">+</p><div id="fracc2"><div id="nom2"></div><div id="line2"></div><div id="denom2"></div></div><p id="eq">=</p><div id="line3">')
 				.append(Interaction.inputs[0])
 				.append(Interaction.inputs[1])
 				.css({
@@ -725,56 +545,49 @@ var Interaction = {
 					top: '40px',
 					fontSize: '24px',
 					textAlign: 'left',
-			//		border: "solid"
 				});
+				
 			$('#plus')
 				.css({
 					position: "absolute",
 					left: "62px",
 					top:"48px",	
 				});
-			$('#line2')
-				.css({
-					padding: 0,
-					borderTop: "2px solid",
-					width: "30px",
-					height: "1px",
-					position: "absolute",
-					left: "84px",
-					top: "60px",
-				});
-			$('#nom2')
-				.css({
-					position: "absolute",
-					left: "83px",
-					top:"34px",
-					textAlign: "center",
-					width: "30px",
-				//	border: "solid"
-				});
-			$('#denom2')
-				.css({
-					position: "absolute",
-					left: "82px",
-					top:"64px",
-					textAlign: "center",
-					width: "30px",
-				//	border: "solid"	
-				});
+				
+			$('#fracc2').css("position", "absolute")
+					.css("top", "34px")
+					.css("left", "85px")
+					.css("width", "30px")
+					.css("height", "51px")
+					.css("padding", 0)
+					.css("margin", 0)
+					.css("line-height","25px")
+					
+			$('#line2').css("height", "1px")
+				.css("border-top", "2px solid")
+				.css("padding", 0)
+				
+			$('#nom2').css("text-align", "center")
+				.css("height", "25px")
+				
+			$('#denom2').css("text-align", "center")
+				.css("height", "25px")
+				
 			$('#eq')
 				.css({
 					position: "absolute",
 					left: "126px",
 					top:"49px",	
 				});
+				
 			$('#line3')
 				.css({
 					padding: 0,
 					borderTop: "2px solid",
-					width: "32px",
+					width: "36px",
 					height: "1px",
 					position: "absolute",
-					left: "152px",
+					left: "150px",
 					top: "60px",
 				});
 			
@@ -785,34 +598,27 @@ var Interaction = {
 			var a, b, c, d, wh;
 			
 			if(Interaction.randomize % 3 == 0){ // two fraction
-				$('#firstNum').html('<p id="nom1"></p><div id="line1"></div><p id="denom1"></p>')
+				$('#firstNum').html('<div id="nom1"></div><div id="line1"></div><div id="denom1"></div>')
 				
-				$('#line1')
-					.css({
-						padding: 0,
-						borderTop: "2px solid",
-						width: "30px",
-						height: "1px",
-						position: "absolute",
-						left: "20px",
-						top: "60px",
-					});
-				$('#nom1')
-					.css({
-						position: "absolute",
-						left: "19px",
-						top:"34px",
-						textAlign: "center",	
-						width: "30px",
-					});
-				$('#denom1')
-					.css({
-						position: "absolute",
-						left: "18px",
-						top:"64px",
-						textAlign: "center",
-						width: "30px",
-					});
+				$('#firstNum').css("position", "absolute")
+					.css("top", "34px")
+					.css("left", "24px")
+					.css("width", "30px")
+					.css("height", "51px")
+					.css("padding", 0)
+					.css("margin", 0)
+					.css("line-height","25px")
+				
+				$('#line1').css("height", "1px")
+				.css("border-top", "2px solid")
+				.css("padding", 0)
+				
+				$('#nom1').css("text-align", "center")
+				.css("height", "25px")
+				
+				$('#denom1').css("text-align", "center")
+				.css("height", "25px")
+					
 					if(Interaction.randomize2 % 2 == 0){ // simple fraction
 						if(Interaction.randomize3 % 2 == 0){ // equal denominators
 							a = Math.floor(Math.random() * 8) + 3;
@@ -900,42 +706,40 @@ var Interaction = {
 					$(Interaction.nom2D).html(Interaction.nom2);
 					$(Interaction.denom2D).html(Interaction.denom2);	
 			}
+				
 			else if(Interaction.randomize % 3 == 1){ // two fraction -> one of them with wh
-				$('#firstNum').html('<p id="wh1"></p><p id="nom1"></p><div id="line1"></div><p id="denom1"></p>')
-				$('#wh1')
-					.css({
-						position: "absolute",
-						left: "-20px",
-						top: "48px",
-						textAlign: "right",
-						width: "30px",
-					});
-				$('#line1')
-					.css({
-						padding: 0,
-						borderTop: "2px solid",
-						width: "30px",
-						height: "1px",
-						position: "absolute",
-						left: "20px",
-						top: "60px",
-					});
-				$('#nom1')
-					.css({
-						position: "absolute",
-						left: "19px",
-						top:"34px",
-						textAlign: "center",	
-						width: "30px",	
-					});
-				$('#denom1')
-					.css({
-						position: "absolute",
-						left: "18px",
-						top:"64px",
-						textAlign: "center",
-						width: "30px",
-					});
+				$('#firstNum').html('<div id="wh1"></div><div id="nom1"></div><div id="line1"></div><div id="denom1"></div>')
+				
+				$('#firstNum').css("position", "absolute")
+					.css("top", "34px")
+					.css("left", "-6px")
+					.css("width", "60px")
+					.css("height", "51px")
+					.css("padding", 0)
+					.css("margin", 0)
+					.css("line-height","25px")
+				
+				$('#wh1').css("height", "51px")
+						.css("text-align", "center")
+						.css("width","30px")
+						.css("float", "left")
+						.css("line-height","51px")
+						
+				$('#line1').css("width", "30px")
+							.css("height", "1px")
+							.css("border-top", "2px solid")
+							.css("padding", 0)
+							.css("float", "left")
+							
+				$('#nom1').css("text-align", "center")
+							.css("width","30px")
+							.css("float", "left")
+							.css("height", "25px")
+							
+				$('#denom1').css("text-align", "center")
+							.css("width","30px")
+							.css("float", "left")
+							.css("height", "25px")
 				
 				if(Interaction.randomize2 % 2 == 0){ // simple fraction
 						if(Interaction.randomize3 % 2 == 0){ // equal denominators
@@ -988,8 +792,8 @@ var Interaction = {
 							Interaction.denom2 = a;
 							Interaction.wh = wh2;
 							do
-								b = Math.floor(Math.random() * 12) + 4;
-								while(b <= a || b % a == 0)
+								b = Math.floor(Math.random() * 6) + 1;
+								while(b >= a )
 							do
 								c = Math.floor(Math.random() * 12) + 4;
 								while(c <= a || c % a == 0)
@@ -1003,24 +807,16 @@ var Interaction = {
 							Interaction.wh = wh2;
 							b = a * 2;
 							do
-								c = Math.floor(Math.random() * 4) + 3;
-								while(c <= a || c % a == 0)
+								c = Math.floor(Math.random() * 4) + 1;
+								while(c >= a)
 							do
 								d = Math.floor(Math.random() * 7) + 5;
 								while(d <= b || d % b == 0)
 							
-							if(Interaction.randomize4 % 2 == 0){
 								Interaction.denom1 = a;
 								Interaction.denom2 = b;
 								Interaction.nom1 = c;
 								Interaction.nom2 = d;
-							}
-							else{
-								Interaction.denom1 = b;
-								Interaction.denom2 = a;
-								Interaction.nom1 = d;
-								Interaction.nom2 = c;
-							}		
 						}
 					}
 					Interaction.nomD = $('#nom1').get(0);
@@ -1037,14 +833,21 @@ var Interaction = {
 			}
 			else{ // one natural number and one fraction
 				$('#firstNum').html('<p id="wh1"></p>')
-				$('#wh1')
-					.css({
-						position: "absolute",
-						left: "26px",
-						top: "48px",
-						textAlign: "right",
-						width: "30px",
-					});
+				
+				$('#firstNum').css("position", "absolute")
+					.css("top", "35px")
+					.css("left", "32px")
+					.css("width", "30px")
+					.css("height", "51px")
+					.css("padding", 0)
+					.css("margin", 0)
+					.css("line-height","25px")
+				
+				$('#wh1').css("height", "51px")
+						.css("text-align", "center")
+						.css("width","30px")
+						.css("float", "left")
+						.css("line-height","51px")
 				
 				wh2 = Math.floor(Math.random() * 4) + 1;
 				Interaction.wh = wh2;
@@ -1109,7 +912,7 @@ var Interaction = {
 		
 		},
 	onFail : function(){
-			Interaction.setStatus('Yanlış cevap, doğrusu yukarıda gösterilmiştir.');
+			Interaction.setStatus('Yanlış cevap, doğrusu yukarıda gösterilmiştir.', false);
 			Interaction.inputs[0].value = Interaction.answer1;
 			Interaction.inputs[1].value = Interaction.answer2;
 			Interaction.inputs[0].style.color = "green";

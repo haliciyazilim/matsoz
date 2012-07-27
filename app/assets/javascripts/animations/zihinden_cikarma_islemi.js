@@ -1,5 +1,8 @@
 var Animation = {
 	init:function(container){
+			
+			$('head').append("<link href='http://fonts.googleapis.com/css?family=Homemade+Apple' rel='stylesheet' type='text/css'>");
+			
 			var div = document.createElement('div');
 				$(container).append(div);
 				$(div)
@@ -10,9 +13,13 @@ var Animation = {
 						position:'absolute',
 						top:'70px',
 						left:'300px',
-						fontSize:'24px',
+						fontSize:'32px',
 						textAlign:'right',
-						lineHeight:'30px'
+						lineHeight:'30px',
+						fontWeight:'700',
+						backgroundColor:'#363',
+						color:'#fff',
+						fontFamily:"'Homemade Apple', cursive"
 					});
 				$('#line',div).css({
 					height:'2px',

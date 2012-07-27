@@ -71,29 +71,6 @@ var Animation = {
 			$("#number4").delay(totalDelay += duration + delay).animate({
 				opacity: 1
 			}, duration);
-			$("#number5").delay(totalDelay += duration + delay).animate({
-				opacity: 1
-			}, duration);
-			$("#number6").delay(totalDelay += duration + delay).animate({
-				opacity: 1
-			}, duration);
-			$("#number7").delay(totalDelay += duration + delay).animate({
-				opacity: 1
-			}, duration);
-			$("#number8").delay(totalDelay += duration + delay).animate({
-				opacity: 1
-			}, duration);
-			$("#number9").delay(totalDelay += duration + delay).animate({
-				opacity: 1
-			}, duration);
-			$("#number10").delay(totalDelay += duration + delay).animate({
-				opacity: 1
-			}, duration);
-			$("#number11").delay(totalDelay += duration + delay).animate({
-				opacity: 1
-			}, duration);
-			
-			
 			
 			$(container).append("<div id='multiplicationArea'></div>");
 			$("#multiplicationArea").css({
@@ -128,20 +105,28 @@ var Animation = {
 			})
 			
 			$("#mult1").append("<span id=mult1_1>3</span>")
-			$("#mult1").append("<span id=mult1_2> x 2 = </span>")
+			$("#mult1").append("<span id=mult1_2><span class='constMult'> x 2 </span>= </span>")
 			$("#mult1").append("<span id=mult1_3>6</span>")
+
+			$("#mult1_2 .constMult").css({
+				color: '#f00'
+			});
 
 			$("#mult1_1").css('opacity', 0);
 			$("#mult1_2").css('opacity', 0);
 			$("#mult1_3").css('opacity', 0);
 			
 			$("#mult2").append("<span id=mult2_1>6</span>")
-			$("#mult2").append("<span id=mult2_2> x 2 = </span>")
+			$("#mult2").append("<span id=mult2_2><span class='constMult'> x 2 </span>= </span>")
 			$("#mult2").append("<span id=mult2_3>12</span>")
 
 			$("#mult2_1").css({
 				position: "relative",
 				top: "-32px"
+			});
+			
+			$("#mult2_2 .constMult").css({
+				color: '#f00'
 			});
 
 			$("#mult2_1").css('opacity', 0);
@@ -149,12 +134,16 @@ var Animation = {
 			$("#mult2_3").css('opacity', 0);
 			
 			$("#mult3").append("<span id=mult3_1>12</span>")
-			$("#mult3").append("<span id=mult3_2> x 2 = </span>")
+			$("#mult3").append("<span id=mult3_2><span class='constMult'> x 2 </span>= </span>")
 			$("#mult3").append("<span id=mult3_3>24</span>")
 
-			$("#mult3_1").css({
+			$("#mult3_1 .constMult").css({
 				position: "relative",
 				top: "-32px"
+			});
+			
+			$("#mult3_2").css({
+				color: '#f00'
 			});
 
 			$("#mult3_1").css('opacity', 0);
@@ -241,6 +230,32 @@ var Animation = {
 			$("#number4 .num").delay((duration + delay) * 2).animate({
 				color: "#000"
 			}, duration);
+			
+			totalDelay += 3000;
+			duration = 300;
+			
+			$("#number5").delay(totalDelay += duration + delay).animate({
+				opacity: 1
+			}, duration);
+			$("#number6").delay(totalDelay += duration + delay).animate({
+				opacity: 1
+			}, duration);
+			$("#number7").delay(totalDelay += duration + delay).animate({
+				opacity: 1
+			}, duration);
+			$("#number8").delay(totalDelay += duration + delay).animate({
+				opacity: 1
+			}, duration);
+			$("#number9").delay(totalDelay += duration + delay).animate({
+				opacity: 1
+			}, duration);
+			$("#number10").delay(totalDelay += duration + delay).animate({
+				opacity: 1
+			}, duration);
+			$("#number11").delay(totalDelay += duration + delay).animate({
+				opacity: 1
+			}, duration);
+			
 		}
 }
 

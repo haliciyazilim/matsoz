@@ -25,7 +25,7 @@ var Animation = {
 		$(Animation.container).append(
 			'<div id="result">'+
 				'<div style="width:150px;line-height:50px;">Yeşil Gelme Olasılığı = </div>'+
-				'<div style="width:120px;line-height:25px;text-align:center;">'+
+				'<div style="width:130px;line-height:25px;text-align:center;">'+
 					'<div>Yeşil Gelme Sayısı</div>'+
 					'<div style="height:1px;border-top:2px solid #000;"></div>'+
 					'<div>Dönme Sayısı</div>'+

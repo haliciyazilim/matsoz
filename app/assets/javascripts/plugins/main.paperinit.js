@@ -57,8 +57,8 @@ Main.paperInit = function() {
 				vertexArray[i] = vertexArray[i].getRotatedPoint(phase,centerPoint);
 			rhomboid.add(vertexArray[i]);
 		}
-		for(var i=0;i<vertexArray.length;i++)
-			rhomboid.add(vertexArray[i]);
+		//for(var i=0;i<vertexArray.length;i++)
+		//	rhomboid.add(vertexArray[i]);
 			
 		rhomboid.centerPoint = centerPoint;
 		rhomboid.closed = true;
