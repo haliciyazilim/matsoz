@@ -1,6 +1,6 @@
 var Animation = {
 	init:function(container){
-		var fillColor = "#99f"
+		var fillColor = "#FFDEAD"
 		var rect4 = new Path.SegmentedRectangle(60.5, 10.5, 80, 80, 1, 1, 1, fillColor);
 		rect4.opacity = 0;
 		var rect5 = new Path.SegmentedRectangle(280.5, 10.5, 40, 80, 1, 1, 1, fillColor)
@@ -32,18 +32,18 @@ var Animation = {
 		pluss.opacity = 0;
 		
 		var arr = new Group(); 
-		var arroww = new Path.OneSidedArrow(new Point(50, 164), new Point(690, 164), 10, 30);
-		var arroww2 = new Path.OneSidedArrow(new Point(690, 164), new Point(691, 164), 10, 30);
+		var arroww = new Path.OneSidedArrow(new Point(170, 164), new Point(650, 164), 10, 30);
+		var arroww2 = new Path.OneSidedArrow(new Point(650, 164), new Point(651, 164), 10, 30);
 		arroww.rotate(180);
 		arr.addChild(arroww);
 		arr.addChild(arroww2);
 		arr.opacity = 0;
 		
 		var bigDots = new Group();
-		var bigDot1 = new Path.Circle(new Point(90.5, 164.5), 4);
+		var bigDot1 = new Path.Circle(new Point(210.5, 164.5), 4);
 		bigDot1.strokeColor = "black";
 		bigDot1.fillColor = "black";
-		var bigDot2 = new Path.Circle(new Point(650.5, 164.5), 4);
+		var bigDot2 = new Path.Circle(new Point(610.5, 164.5), 4);
 		bigDot2.strokeColor = "black";
 		bigDot2.fillColor = "black";
 		bigDots.addChild(bigDot1);
@@ -52,7 +52,7 @@ var Animation = {
 		
 		var smallDots = new Group();
 		for(i = 0; i < 7; i++){
-			var smallDot = new Path.Circle(new Point(160.5+(70*i), 164.5), 2);
+			var smallDot = new Path.Circle(new Point(260.5+(50*i), 164.5), 2);
 			smallDot.strokeColor = "black";
 			smallDot.fillColor = "black";
 			smallDots.addChild(smallDot);
@@ -60,11 +60,11 @@ var Animation = {
 		smallDots.opacity = 0;
 		
 		var arcGroup = new Group();
-		var arc = new Path.Arc(new Point(380, 159), new Point(436, 142), new Point(500, 154));
+		var arc = new Path.Arc(new Point(420, 140), new Point(460, 130), new Point(500, 140));
 		arc.strokeColor = "black";
-		var linee1 = new Path.Line(new Point(500,154), new Point(494,146));
+		var linee1 = new Path.Line(new Point(500,140), new Point(496,132));
 		linee1.strokeColor = "black";
-		var linee2 = new Path.Line(new Point(500,154), new Point(490,156));
+		var linee2 = new Path.Line(new Point(500,140), new Point(490,142));
 		linee2.strokeColor = "black";
 		arcGroup.addChild(arc);
 		arcGroup.addChild(linee1);
@@ -105,6 +105,7 @@ var Animation = {
 					.css("height", "33px")
 					.css("padding", 0)
 					.css("margin", 0)
+					.css("color", "red")
 					.css("line-height","16px")
 		
 		$('#line33').css("height", "1px")
@@ -247,7 +248,7 @@ var Animation = {
 		$(container).append('<p id="zerro">0</p>')
 		$('#zerro').css({
 			position: "absolute",
-			left: "99px",
+			left: "219px",
 			top: "150px",
 			fontSize: 24,
 		//	fontWeight: "bold"
@@ -257,7 +258,7 @@ var Animation = {
 		$(container).append('<p id="onne">1</p>')
 		$('#onne').css({
 			position: "absolute",
-			left: "657px",
+			left: "617px",
 			top: "150px",
 			fontSize: 24,
 		//	fontWeight: "bold"
@@ -268,7 +269,7 @@ var Animation = {
 		
 		$('#frac222').css("position", "absolute")
 					.css("top", "143px")
-					.css("left", "378px")
+					.css("left", "418px")
 					.css("width", "16px")
 					.css("height", "33px")
 					.css("padding", 0)
@@ -291,11 +292,12 @@ var Animation = {
 		
 		$('#frac333').css("position", "absolute")
 					.css("top", "143px")
-					.css("left", "378px")
+					.css("left", "418px")
 					.css("width", "16px")
 					.css("height", "33px")
 					.css("padding", 0)
 					.css("margin", 0)
+					.css("color", "red")
 					.css("line-height","16px")
 		
 		$('#line333').css("height", "1px")
@@ -310,6 +312,31 @@ var Animation = {
 		
 		$('#frac333').css("opacity", 0);
 		$('#frac333').delay(21000).animate({opacity: 1}, 1000)
+					 .delay(2000).animate({opacity: 0}, 0)
+		
+		$(container).append('<div id="frac3333"><div id="nom3333">4</div><div id="line3333"></div><div id="denom3333">8</div></div>')
+		
+		$('#frac3333').css("position", "absolute")
+					.css("top", "143px")
+					.css("left", "418px")
+					.css("width", "16px")
+					.css("height", "33px")
+					.css("padding", 0)
+					.css("margin", 0)
+					.css("line-height","16px")
+		
+		$('#line3333').css("height", "1px")
+				.css("border-top", "1px solid")
+				.css("padding", 0)
+				
+		$('#nom3333').css("text-align", "center")
+				.css("height", "16px")
+				
+		$('#denom3333').css("text-align", "center")
+				.css("height", "16px")
+		
+		$('#frac3333').css("opacity", 0);
+		$('#frac3333').delay(24000).animate({opacity: 1}, 0)
 		
 		
 		$(container).append('<div id="frac444"><div id="nom444">6</div><div id="line444"></div><div id="denom444">8</div></div>')
@@ -339,8 +366,8 @@ var Animation = {
 		$(container).append('<div id="frac555"><div id="nom555">2</div><div id="line555"></div><div id="denom555">8</div></div>')
 		
 		$('#frac555').css("position", "absolute")
-					.css("top", "122px")
-					.css("left", "448px")
+					.css("top", "110px")
+					.css("left", "468px")
 					.css("width", "16px")
 					.css("height", "33px")
 					.css("padding", 0)
@@ -358,7 +385,7 @@ var Animation = {
 				.css("height", "16px")
 				
 		$('#frac555').css("opacity", 0)
-		$('#frac555').delay(19000).animate({opacity: 1}, 1000)
+		$('#frac555').delay(19100).animate({opacity: 1}, 1000)
 		
 		
 		
