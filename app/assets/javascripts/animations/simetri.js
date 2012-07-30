@@ -657,6 +657,10 @@ Animation.init = function(container){
 				rectFillPath.strokeColor = "black";
 				rectFillPath.fillColor = "white";
 			}
+			if(this.rectAngle < Math.PI*0.5){
+				if(rectFillPath)
+					rectFillPath.remove();				
+			}
 		},
 		animationType: 'easeInEaseOut'
 	});
@@ -728,6 +732,10 @@ Animation.init = function(container){
 				);
 				rectFillPath.lineTo(AnimateHelper.rectFPoint);
 				rectFillPath.fillColor = "white";
+			}
+			if(this.rectAngle < Math.PI*0.5){
+				if(rectFillPath)
+					rectFillPath.remove();				
 			}
 		},
 		animationType: 'easeInEaseOut'
@@ -804,6 +812,10 @@ Animation.init = function(container){
 				rectFillPath.strokeColor = "black";
 				rectFillPath.fillColor = "white";
 			}
+			if(this.rectAngle < Math.PI*0.5){
+				if(rectFillPath)
+					rectFillPath.remove();				
+			}
 		},
 		animationType: 'easeInEaseOut'
 	});
@@ -877,6 +889,10 @@ Animation.init = function(container){
 				);
 				rectFillPath.lineTo(AnimateHelper.rectGPoint);
 				rectFillPath.fillColor = "white";
+			}
+			if(this.rectAngle < Math.PI*0.5){
+				if(rectFillPath)
+					rectFillPath.remove();				
 			}
 		},
 		animationType: 'easeInEaseOut'
@@ -1911,10 +1927,14 @@ Interaction.init = function(container){
 	submit = function() {
 		var correct = 0;
 		var correct2 = 0;
-
+		
+		console.log("first: "+ansArr);
 		ansArr = RemoveSamePoints(ansArr);
+		console.log("after removeSamePoints: "+ansArr);
 		ansArr = RemoveLinearPoints(ansArr);
+		console.log("after removeLinearPoints: "+ansArr);
 		answerArr = RemoveLinearPoints(answerArr);
+		console.log("answerArr: "+answerArr)
 		
 		var myLen = answerArr.length;
 		for(i = 0; i < myLen; i++){
@@ -1927,7 +1947,7 @@ Interaction.init = function(container){
 				correct2 += 1;
 			}
 		}
-		if(correct == myLen || correct2 == myLen){
+		if((correct == myLen && ansArr.length == answerArr.length) || (correct2 == myLen && ansArr.length == answerArr.length)){
 			$('#statuss').get(0).className = "status_true";
 			$('#statuss').html("Tebrikler!");
 			$('#checkBtn').hide();

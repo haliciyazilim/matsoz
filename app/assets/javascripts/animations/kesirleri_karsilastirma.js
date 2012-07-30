@@ -20,34 +20,83 @@ var Interaction = {
 			Interaction.sortingDiv.id = 'sortingDiv';
 			$(container).append(Interaction.sortingDiv);
 			$(Interaction.sortingDiv).css({
-							width: '100px',
+							width: '150px',
 							height: '50px',
 							position: 'absolute',
-							left: '200px',
+							left: '180px',
 							top: '10px',
 							padding: 0,
 							margin:0
 						});	
-			$(Interaction.sortingDiv).append('<div id="lessThanDiv"><img id="lessThan" class="drg" src="/assets/animations/yuzdeleri_karsilastirma/sol_ok.png" /></div>');
+			$(Interaction.sortingDiv).append('<div id="lessThanDiv"><img src="/assets/animations/kesirleri_karsilastirma/oran_kucuk_base.png"/><img id="lessThan" src="/assets/animations/kesirleri_karsilastirma/oran_kucuk_fg.png" /><img id="lessThanHover" class="drg" src="/assets/animations/kesirleri_karsilastirma/oran_kucuk_hover.png" /></div>');
 			
-			$('#lessThanDiv').css("height", "40px")
+			$('#lessThanDiv').css("position", "relative")
+							.css("height", "40px")
 							.css("width", "40px")
 							.css("float", "left")
 							.css("line-height", "32px")
+			
+			$('#lessThan').css("position", "absolute")
+							.css("top", "0px")
+							.css("left", "0px")
 							
-			$(Interaction.sortingDiv).append('<div id="greaterThanDiv"><img id="greaterThan" class="drg" src="/assets/animations/yuzdeleri_karsilastirma/sag_ok.png"/></div>'); 
-			$('#greaterThanDiv').css("height", "40px")
+			$('#lessThanHover').css("position", "absolute")
+								.css("top", "0px")
+								.css("left", "0px")
+								.css("opacity", 0)
+			
+			$(Interaction.sortingDiv).append('<div id="equalToDiv"><img src="/assets/animations/kesirleri_karsilastirma/oran_esittir_base.png"/><img id="equalTo" src="/assets/animations/kesirleri_karsilastirma/oran_esittir_fg.png" /><img id="equalToHover" class="drg" src="/assets/animations/kesirleri_karsilastirma/oran_esittir_hover.png" /></div>');
+			
+			$('#equalToDiv').css("position", "relative")
+							.css("height", "40px")
 							.css("width", "40px")
 							.css("float", "left")
 							.css("line-height", "32px")
-															
-			$('.drg').draggable({revert: "invalid", helper: "clone"});
 			
-			$('#sortingDiv img').draggable({
-				stack: "#sortingDiv img",
-				start: function(){
+			$('#equalTo').css("position", "absolute")
+							.css("top", "0px")
+							.css("left", "0px")
+			
+			$('#equalToHover').css("position", "absolute")
+								.css("top", "0px")
+								.css("left", "0px")
+								.css("opacity", 0)
+							
+			$(Interaction.sortingDiv).append('<div id="greaterThanDiv"><img src="/assets/animations/kesirleri_karsilastirma/oran_buyuk_base.png"/><img id="greaterThan" src="/assets/animations/kesirleri_karsilastirma/oran_buyuk_fg.png" /><img id="greaterThanHover" class="drg" src="/assets/animations/kesirleri_karsilastirma/oran_buyuk_hover.png" /></div>'); 
+			
+			$('#greaterThanDiv').css("position", "relative")
+							.css("height", "40px")
+							.css("width", "40px")
+							.css("float", "left")
+							.css("line-height", "32px")
+			
+			$('#greaterThan').css("position", "absolute")
+							.css("top", "0px")
+							.css("left", "0px")
+			
+			$('#greaterThanHover').css("position", "absolute")
+								.css("top", "0px")
+								.css("left", "0px")
+								.css("opacity", 0)
+															
+			
+			$('#sortingDiv .drg').draggable({
+				revert: "invalid",
+				helper: "clone",
+				stack: "#sortingDiv .drg",
+				start: function(event, ui){
 					Interaction.setStatus('');
+					$($(ui.helper.get(0)).siblings(this).get(1)).css("opacity", 0)
+					$(ui.helper.get(0)).css("opacity", 1)
 				},
+				stop: function(event, ui){
+					$(ui.helper.get(0)).css("opacity", 0)
+					if(this.id != Interaction.oldStr+"Hover"){
+						$($(ui.helper.get(0)).siblings(this).get(1)).css("opacity", 1)
+					}
+				//	console.log("im from drag stop");
+			//		console.log(this.id)
+				}
 			});
 			
 			Interaction.questionDiv = document.createElement('div');
@@ -57,8 +106,8 @@ var Interaction = {
 				.css({
 					position:'absolute',
 					left:'100px',
-					top:'60px',
-			//		border:'solid',
+					top:'70px',
+				//	border:'solid',
 					width:'260px',
 					height:'60px',
 					padding:0,
@@ -89,9 +138,11 @@ var Interaction = {
 			Interaction.answerDiv = document.createElement('div');
 			Interaction.answerDiv.id = 'answerDiv'
 			$(Interaction.questionDiv).append(Interaction.answerDiv);
+			
+			$(Interaction.answerDiv).html('<img id="target" src="/assets/animations/kesirleri_karsilastirma/oran_hedef.png" />')
 			$(Interaction.answerDiv).css({
-							width: '40px',
-							height: '40px',
+							width: '54px',
+							height: '54px',
 							position: 'absolute',
 							left: '110px',
 							top: '0px',
@@ -99,13 +150,30 @@ var Interaction = {
 							paddingLeft: '8px',
 							paddingTop: '8px'
 						});
+			$('#target').css("position", "absolute")
+						.css("top", "0px")
+						.css("left", "0px")
 			$(Interaction.answerDiv).droppable({
 						accept: '.drg',
 						drop: function(event, ui){
-							$(this).html('');
-							clone = $(ui.draggable).clone();
-							clone.attr('id', $(clone).get(0).id+"1");
-							$(this).append(clone);
+						//	console.log("im from drop start");
+							if(Interaction.oldActiveStr){
+								$("#"+Interaction.oldActiveStr).css("opacity", 0)
+						//		console.log(Interaction.oldActiveStr);
+								$("#"+Interaction.oldActiveStr.replace("Active", "Hover")).draggable({disabled: false})
+								$("#"+Interaction.oldStr).css("opacity", 1)
+								
+							}
+							var activeStr = $(ui.draggable).get(0).id;
+							$("#"+activeStr).draggable({disabled: true});
+							var oldStr = activeStr.replace("Hover", "");
+							activeStr = activeStr.replace("Hover", "Active");
+							$("#"+activeStr).css("opacity", 1);
+							Interaction.oldActiveStr = activeStr;
+							Interaction.oldStr = oldStr;
+					//		console.log("oldStr: "+Interaction.oldStr)
+					//		console.log("oldActiveStr: "+Interaction.oldActiveStr);
+							
 						}
 					});
 			
@@ -145,8 +213,8 @@ var Interaction = {
 			Interaction.randomNumber = randomNumber;
 			Interaction.randomize = randomize;
 			
-		//	if(randomNumber == 0){ // simple fraction and natural number sorting
-			if(0){
+			if(randomNumber == 0){ // simple fraction and natural number sorting
+		//	if(0){
 				if(randomize == 0){
 			//	if(0) {
 					var fracDiv = document.createElement('div');
@@ -266,8 +334,8 @@ var Interaction = {
 				}
 			}
 			
-		//	else if(randomNumber == 1){ // compound fraction and natural number sorting
-			else if(0){
+			else if(randomNumber == 1){ // compound fraction and natural number sorting
+		//	else if(0){
 				if(randomize == 0){
 			//	if(0) {
 					var fracDiv = document.createElement('div');
@@ -540,8 +608,8 @@ var Interaction = {
 			}
 		},
 	isAnswerCorrect : function(value){
-		//	if(Interaction.randomNumber == 0){
-			if(0){
+			if(Interaction.randomNumber == 0){
+		//	if(0){
 				if(Interaction.randomize == 0){
 					if(Interaction.wh1 > 0)
 						Interaction.answerIdStr = "lessThan";
@@ -562,17 +630,21 @@ var Interaction = {
 				else
 					return false;
 			}
-			else if(0){
-		//	else if(Interaction.randomNumber == 1){
+		//	else if(0){
+			else if(Interaction.randomNumber == 1){
 				if(Interaction.randomize == 0){
 					if(Interaction.nom1/Interaction.denom1 > Interaction.wh1)
 						Interaction.answerIdStr = "greaterThan";
+					else if(Interaction.nom1 / Interaction.denom1 == Interaction.wh1)
+						Interaction.answerIdStr = "equalTo";
 					else
 						Interaction.answerIdStr = "lessThan";
 				}
 				else{
 					if(Interaction.nom1/Interaction.denom1 > Interaction.wh1)
 						Interaction.answerIdStr = "lessThan";
+					else if(Interaction.nom1 / Interaction.denom1 == Interaction.wh1)
+						Interaction.answerIdStr = "equalTo";
 					else
 						Interaction.answerIdStr = "greaterThan";
 				}
@@ -618,12 +690,12 @@ var Interaction = {
 			Interaction.clone2 = $(Interaction.answerIdStr2).clone();
 			Interaction.clone2.attr('id', $(Interaction.clone2).get(0).id+"1")
 			$(Interaction.sortingDiv).append(Interaction.clone2);
-			var top = $(Interaction.answerIdStr2).position().top;
-			var left = $(Interaction.answerIdStr2).position().left;
+			var ansTop = $(Interaction.answerIdStr2).position().top;
+			var ansLeft = $(Interaction.answerIdStr2).position().left;
 			
 			$(Interaction.clone2).css("position", "absolute")
-					.css("top",top)
-					.css("left", left)
+					.css("top",ansTop)
+					.css("left", ansLeft)
 					.css("opacity", 0)
 			$(Interaction.clone2).delay(0).animate(
 				{opacity:1, top: '61px', left:'21px'}, 

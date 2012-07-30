@@ -322,7 +322,7 @@ Animation.init = function(container){
 }
 
 var index = 0;
-var shuffledQuesArr = Util.getShuffledArray(15);
+var shuffledQuesArr = Util.getShuffledArray(16);
 // interaction init
 Interaction.init = function(container){
 	
@@ -348,6 +348,7 @@ Interaction.init = function(container){
 	questions[12] = "Apartmanda çocuk sayısı 3 den az olan kaç aile var?";
 	questions[13] = "Apartmanda çocuk sayısı 4 den az olan kaç aile var?";
 	questions[14] = "Apartmanda çocuk sayısı 5 den az olan kaç aile var?";
+	questions[15] = "Apartmanda kaç çocuk var?";
 	
 	// crate data array randomly -> holds 30 data
 	var datas = new Array();
@@ -409,39 +410,39 @@ Interaction.init = function(container){
 					.css("text-align", "center")
 				//	.css("border", "solid")
 					
-	$(container).append('<button id="checkBtn" class="control_button"></button>');
+	$(container).append('<button id="checkBtn" class="next_button"></button>');
 	$('#checkBtn').css("position", "absolute")
 					.css("right", "40px")
 					.css("bottom", "20px");
 	
-	$(container).append('<button id="nextBtn" class="next_button"></button>');
-	$('#nextBtn').css("position", "absolute")
-					.css("right", "40px")
-					.css("bottom", "20px");
-	$('#nextBtn').hide();
-	nextQuestion();
-	
-	// generate nextQuestion func. -> datas stay same but question changes..
-	function nextQuestion()
-	{
-		$('#nextBtn').hide();
-		$('#checkBtn').show();
-		$('#statuss').html("");
-		$('#textInput1').val("");
-		$('#textInput1').css("color", inputBoxColor);
-		$('#question').html("");
-		$('#question').html(questions[shuffledQuesArr[index]]);
-		if(index == 14)
-			index = 0;
-		else
-			index += 1;
-		trial = 0;
-	}
+
+	PrepareAndCheckQuestions();
 	
 	// submit function -> check whether input field is filled and give neccessary feedbacks
 	var trial;
-	submit = function()
-		{	
+	var deactivate = 0;
+	function PrepareAndCheckQuestions(){
+		if($('#checkBtn').get(0).className == "next_button"){
+			for(i = 0; i < 5; i++){
+				for(j = 0; j < 6; j++){
+					$('#data'+i*6+j).css("color", "black");
+				}
+			}
+			$('#statuss').html("");
+			$('#textInput1').val("");
+			$('#textInput1').css("color", inputBoxColor);
+			$('#question').html("");
+			$('#question').html(questions[shuffledQuesArr[index]]);
+			if(index == 15)
+				index = 0;
+			else
+				index += 1;
+			trial = 0;
+			deactivate = 0;
+			$('#checkBtn').get(0).className = "control_button";
+			$('.inp').get(0).onkeydown = null; 
+		}
+		else{
 			// if this is the 3rd trial or more do nothing
 			if (trial == 2)
 				return;
@@ -588,6 +589,11 @@ Interaction.init = function(container){
 						  }
 					  }
 					  break;
+				  case 15:
+				  	for(i = 0, answer = 0; i < 30; i++){
+						answer += datas[i];
+					}
+				  		
 				}
 				
 				// correct answer state
@@ -595,9 +601,15 @@ Interaction.init = function(container){
 				{
 					$('#statuss').get(0).className = "status_true";
 					$('#statuss').html("Tebrikler!");
-					$('#checkBtn').hide();
-					$('#nextBtn').show();
-					switch(questionIndex)
+					$('#checkBtn').get(0).className = "next_button";
+					deactivate = 1;
+					$('.inp').each(function(index, element) {
+						$(this).get(0).onkeydown = function(event){
+												if(event.keyCode != 13)
+													return false;
+											}   
+					});
+					switch(shuffledQuesArr[index-1])
 					{
 						// if answer is true, make the answer datas green
 						case 0:
@@ -777,6 +789,15 @@ Interaction.init = function(container){
 								}
 							}
 							break;
+						case 15:
+				  			for(i = 0; i < 5; i++)
+							{
+								for(j = 0; j < 6; j++)
+								{
+									$('#data'+i*6+j).css("color", "green");
+								}
+							}
+							break;
 						}
 				}
 				// second wrong answer state
@@ -789,7 +810,7 @@ Interaction.init = function(container){
 
 					switch(shuffledQuesArr[index-1])
 					{
-						// if answer is wrong, give the answer and make the answer datas red
+						// if answer is wrong, give the answer and make the answer datas green
 						case 0:
 							for(i = 0; i < 5; i++)
 							{
@@ -967,11 +988,25 @@ Interaction.init = function(container){
 								}
 							}
 							break;
-						}
-						
-					$('#checkBtn').hide();
-					$('#nextBtn').show();
+						case 15:
+				  			for(i = 0; i < 5; i++)
+							{
+								for(j = 0; j < 6; j++)
+								{
+									$('#data'+i*6+j).css("color", "green");
+								}
+							}
+							break;
+					}
 					trial += 1;
+					deactivate = 1;
+					$('#checkBtn').get(0).className = "next_button";
+					$('.inp').each(function(index, element) {
+						$(this).get(0).onkeydown = function(event){
+												if(event.keyCode != 13)
+													return false;
+											}   
+					});
 				}
 				// first wrong answer state
 				else if(trial == 0)
@@ -982,29 +1017,21 @@ Interaction.init = function(container){
 				}
 			}
 		}
+	}
 		
-	$('#checkBtn').click(submit);
-	
-	// nextBtn click func. -> make the red datas black again if exists, than call nextQuestion func.
-	$('#nextBtn').click(function() {
-		for(i = 0; i < 5; i++)
-		{
-			for(j = 0; j < 6; j++)
-			{
-				$('#data'+i*6+j).css("color", "black");
-			}
-		}
-		nextQuestion();
+	$('#checkBtn').click(function(){
+		PrepareAndCheckQuestions();
 	});
 	
 	$('.inp').keydown(function() {
-		$('#statuss').html("");
+		if(deactivate == 0)
+			$('#statuss').html("");
 	});
 	
 	// enter keypress action
-	$("#textInput1").keyup(function(event) {
+	$(".inp").keyup(function(event) {
 		if(event.keyCode == 13) {
-			submit();
+			$('#checkBtn').click();
 		}
 	});
 }
