@@ -209,6 +209,7 @@ function InteractionBase(){
 			Interaction.flushInputs();
 		for(i = 0; i < Interaction.inputs.length; i++){
 			if(Interaction.inputs[i]){
+				$(Interaction.inputs[i]).get(0).onkeydown = null;
 				Interaction.inputs[i].value = '';
 				$(Interaction.inputs[i]).removeClass('input_user_answer_correct');
 				$(Interaction.inputs[i]).removeClass('input_user_answer_wrong');
@@ -267,10 +268,7 @@ function InteractionBase(){
 			}
 		}
 		else{
-			if(Interaction.inputs.length == 1){
-				var value = $(Interaction.input).val();
-				isCorrect = Interaction.isAnswerCorrect(value);
-			}else if(Interaction.inputs.length > 1){
+			if(Interaction.inputs.length >= 1){
 				var values = [];
 				for(var i=0; i<Interaction.inputs.length;i++){
 					values[i] = Interaction.inputs[i].value;
@@ -292,8 +290,14 @@ function InteractionBase(){
 						}
 					}
 				}
-				isCorrect = Interaction.isAnswerCorrect(values);
-			}else
+				if(Interaction.inputs.length == 1){
+					isCorrect = Interaction.isAnswerCorrect(values[0]);
+				}
+				else{
+					isCorrect = Interaction.isAnswerCorrect(values);
+				}
+			}
+			else
 				isCorrect = Interaction.isAnswerCorrect();
 		}
 		
@@ -335,7 +339,6 @@ function InteractionBase(){
 	};
 	
 	Interaction.__inputFilter__onlyNumbers = function allowOnlyNumber(e,allowedchars){
-		console.log("I'm here");
 		var isPassKey =function (key,allowedchars){
 			if(allowedchars!=null){
 				for(var i=0;i<allowedchars.length;i++){
