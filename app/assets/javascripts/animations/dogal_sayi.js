@@ -316,7 +316,7 @@ Interaction.init = function(container){
 		$(".yaziBolukler").css("margin","auto");	
 		
 		// basamaklar baslık
-	$("#aksiyon",container).append("<div id='basamaklarBaslik' >");
+	/*$("#aksiyon",container).append("<div id='basamaklarBaslik' >");
 	
 		$("#basamaklarBaslik").css("width","31px")
 			.css("height","108px")
@@ -343,7 +343,7 @@ Interaction.init = function(container){
 			.css("bottom","70px")
 			.css("left","-53px")
 			.css("font-size","small");
-		
+		*/
 		
 		
 		// Yüz milyonlar
@@ -1066,9 +1066,8 @@ Interaction.init = function(container){
 		$("#cevaplar").hide();
 		$(this).hide();	
 		$("input").css("color","black");
-		$("#btnKontrol").show(function(){
-			$("#geriBildirimText").html("");
-		});
+		$("#btnKontrol").show();
+		$("#geriBildirimText").html("");
 		}
 	);
 	
