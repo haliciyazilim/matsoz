@@ -17,7 +17,10 @@ var Animation = {
 				.delay(500)
 				.animate({color:"#f00"},500)
 				.delay(500)
-				.animate({opacity:0},500);
+				.animate({opacity:0},500)
+				.delay(3500)
+				.animate({color:'#000'},100)
+				.animate({opacity:1},500);
 			$(Animation.division.nodes.dividend).append(span1);
 			
 			var span2 = document.createElement('span');
@@ -26,15 +29,21 @@ var Animation = {
 				.delay(500)
 				.animate({color:"#f00"},500)
 				.delay(500)
-				.animate({opacity:0},500);
+				.animate({opacity:0},500)
+				.delay(3500)
+				.animate({color:'#000'},100)
+				.animate({opacity:1},500);
 			$(Animation.division.nodes.divisor).append(span2);
 			
 			setTimeout(
-				'Animation.division.nextStep(1000);'
-				,3000);
+				'Animation.division.nextStep(2000);'
+				,4000);
 			setTimeout(
-				'Animation.division.nextStep(1000);'
-				,1000);
+				'Animation.division.nextStep(2000);'
+				,2000);
+			
+			
+			
 			var div2 = document.createElement('div');
 			$(container).append(div2);
 			$(div2).css({
@@ -44,33 +53,43 @@ var Animation = {
 				left:'280px',
 				fontSize:'24px',
 				opacity:0
-			}).delay(4000).animate({opacity:1},1000);
+			}).delay(7000).animate({opacity:1},1000);
 			Animation.division2 = new LongDivision(4581,9,div2);
 			
 			var span3 = document.createElement('span');
 			span3.innerHTML = '00';
 			$(span3).css({color:"#000",opacity:1})
-				.delay(5000)
+				.delay(8000)
 				.animate({color:"#f00"},500)
 				.delay(500)
-				.animate({opacity:0},500);
+				.animate({opacity:0},500)
+				.delay(1500)
+				.animate({color:'#000'},100)
+				.animate({opacity:1},500);;
 			$(Animation.division2.nodes.dividend).append(span3);
 			
 			var span4 = document.createElement('span');
 			span4.innerHTML = '00';
 			$(span4).css({color:"#000",opacity:1})
-				.delay(5000)
+				.delay(8000)
 				.animate({color:"#f00"},500)
 				.delay(500)
-				.animate({opacity:0},500);
+				.animate({opacity:0},500)
+				.delay(1500)
+				.animate({color:'#000'},100)
+				.animate({opacity:1},500);;
 			$(Animation.division2.nodes.divisor).append(span4);
 
 			setTimeout(
-				'Animation.division2.nextStep(1000);'
-				,7000);
+				'Animation.division2.nextStep(2000);'
+				,9000);
 			setTimeout(
-				'Animation.division2.nextStep(1000);'
-				,5000);
+				'Animation.division2.nextStep(2000);'
+				,7000);
+			
+			
+			
+			
 			
 			var div3 = document.createElement('div');
 			$(container).append(div3);
@@ -81,32 +100,38 @@ var Animation = {
 				left:'520px',
 				fontSize:'24px',
 				opacity:0
-			}).delay(8000).animate({opacity:1},1000);
+			}).delay(11000).animate({opacity:1},1000);
 			Animation.division3 = new LongDivision(4581,9,div3);
 			
 			var span5 = document.createElement('span');
 			span5.innerHTML = '000';
 			$(span5).css({color:"#000",opacity:1})
-				.delay(8000)
+				.delay(12000)
 				.animate({color:"#f00"},500)
 				.delay(500)
-				.animate({opacity:0},500);
+				.animate({opacity:0},500)
+				.delay(1500)
+				.animate({color:'#000'},100)
+				.animate({opacity:1},500);;
 			$(Animation.division3.nodes.dividend).append(span5);
 			
 			var span6 = document.createElement('span');
 			span6.innerHTML = '000';
 			$(span6).css({color:"#000",opacity:1})
-				.delay(8000)
+				.delay(12000)
 				.animate({color:"#f00"},500)
 				.delay(500)
-				.animate({opacity:0},500);
+				.animate({opacity:0},500)
+				.delay(1500)
+				.animate({color:'#000'},100)
+				.animate({opacity:1},500);;
 			$(Animation.division3.nodes.divisor).append(span6);
 			setTimeout(
-				'Animation.division3.nextStep(1000);'
-				,11000);
+				'Animation.division3.nextStep(2000);'
+				,13000);
 			setTimeout(
-				'Animation.division3.nextStep(1000);'
-				,9000);
+				'Animation.division3.nextStep(2000);'
+				,11000);
 		}
 }
 
@@ -116,7 +141,7 @@ var Interaction = {
 		},
 	init:function(container){
 			Interaction.container = container;
-			Main.setObjective('');
+			Main.setObjective('Yandaki bölme işlemini yapınız ve kontrol ediniz.');
 			Interaction.paper = {
 				width:$(container).width(),
 				height:$(container).height()
@@ -231,6 +256,7 @@ var Interaction = {
 				.animate({color:"#f00"},500)
 				.delay(500)
 				.animate({opacity:0},500);
+				
 			$(Interaction.division.nodes.dividend).append(span1);
 			$(span2).css({color:"#000",opacity:1})
 				.delay(500)
@@ -242,8 +268,13 @@ var Interaction = {
 				var div = Interaction.division.nextStep(1000);
 				if(div!=null)
 					setTimeout(callNextStep,1500);
-				else
+				else{
 					Interaction.pause = false;
+					$(span1).css({color:"#000"})
+						.animate({opacity:1},1000);
+					$(span2).css({color:"#000"})
+						.animate({opacity:1},1000);
+				}
 			}
 			setTimeout(callNextStep,500);
 		},

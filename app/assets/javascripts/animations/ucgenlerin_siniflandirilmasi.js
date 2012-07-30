@@ -196,6 +196,10 @@ Interaction.init = function(container){
 	Interaction.status = document.createElement('div');
 	Interaction.status.setAttribute('id','status')
 	$(container).append(Interaction.status);
+	Interaction.switchArray = ['00','01','02','10','11','20','21'];
+	$.shuffle(Interaction.switchArray);
+	TestGenerator.count = 0;
+	TestGenerator.swicthSize = 7;
 	TestGenerator($('div#C',container).get(0));
 	
 }
@@ -214,10 +218,10 @@ var TestGenerator = function(container){
 	
 }
 TestGenerator.shadow = function(li){
-	$(li).addClass('shadow');
+	//$(li).addClass('shadow');
 }
 TestGenerator.removeShadow = function(li){
-	$(li).removeClass('shadow');
+	//$(li).removeClass('shadow');
 
 }
 TestGenerator.removeAnswer = function(li){
@@ -331,11 +335,14 @@ TestGenerator.nextQuestion = function(){
 	TestGenerator.selectedA = null;
 	TestGenerator.selectedE = null;
 	TestGenerator.trial = 0;
+	
 	TestGenerator.stopCheckAnswer = false;
+	TestGenerator.count = (TestGenerator.count+1) % TestGenerator.swicthSize;
 	//console.log(TestGenerator.state);
 	///*TEST */ TestGenerator.state = "20";/*TEST*/
 	//switch to a state
-	switch(TestGenerator.state){
+	
+	switch(Interaction.switchArray[TestGenerator.count]){
 		case '00':
 			//dar acili ve cesitkenar
 			var a,b,c;

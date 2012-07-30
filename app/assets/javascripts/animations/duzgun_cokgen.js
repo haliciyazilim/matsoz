@@ -214,7 +214,7 @@ var Animation = {
 			animationType: 'easeInEaseOut',
 			callback:function(){
 				//console.log('Im here');
-				$(Animation.container).append('<span style="position:absolute;bottom:10px;left:34%">Kare</span>');
+				$(Animation.container).append('<span style="position:absolute;bottom:10px;left:26.5%">Kare (Düzgün Dörtgen)</span>');
 				var raster = new Raster('square_pattern');
 				raster.position = Animation.square.shape.centerPoint;
 				raster.opacity = 0;
@@ -306,7 +306,7 @@ Interaction.images = [
 ]
 
 Interaction.init = function(container){
-	Main.setObjective('Yandaki çokgenlerden düzgün olanları seçiniz.');
+	Main.setObjective('Yandaki çokgenlerden düzgün olanları fare yardımıile  "Düzgün Çokgen" bölümüne sürükleyiniz.');
 	Interaction.container = container;
 	Interaction.container.top = $(container).offset().top;
 	Interaction.container.left = $(container).offset().left;
