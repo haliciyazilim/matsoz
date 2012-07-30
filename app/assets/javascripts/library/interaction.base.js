@@ -301,6 +301,13 @@ function InteractionBase(){
 		if(isCorrect){
 			Interaction.__status(Interaction.__status.CORRECT);
 //			Interaction.setStatus('Tebrikler!',true);
+			$(Interaction.inputs).each(function(index, element) {
+            	$(this).get(0).onkeydown = function(event){
+												if(event.keyCode != 13)
+													return false;
+											}   
+            });
+			
 			if(Interaction.onCorrectAnswer)
 				Interaction.onCorrectAnswer();
 		}
@@ -311,6 +318,12 @@ function InteractionBase(){
 				Interaction.onWrongAnswer();
 		}
 		else{
+			$(Interaction.inputs).each(function(index, element) {
+            	$(this).get(0).onkeydown = function(event){
+												if(event.keyCode != 13)
+													return false;
+											}   
+            });
 			if(Interaction.onFail)
 				Interaction.onFail();
 		}
