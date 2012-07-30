@@ -218,7 +218,7 @@ var Interaction = {
 		},
 	init:function(container){
 			Interaction.container = container;
-			Main.setObjective('');
+			Main.setObjective(' Yandaki bölme işlemini yapınız ve kontrol ediniz.');
 			Interaction.paper = {
 				width:$(container).width(),
 				height:$(container).height()
@@ -260,9 +260,15 @@ var Interaction = {
 			NormalBolmeIslemi=function(bolen, bolunen, div){
 					this.bolen=bolen;
 					this.bolunen=bolunen;
+					
+					this.bolen=493;
+					this.bolunen=6141;
+					this.sonuc=Math.floor(this.bolunen/this.bolen);
 					this.div="#"+div
 					this.yap=function(){
 					var bolmeIslemi= new LongDivision(this.bolunen,this.bolen,this.div);
+					
+					
 					
 					asamalarArray=new Array();
 					asamaSonuclari=new Array();
@@ -280,6 +286,20 @@ var Interaction = {
 				i++;
 					
 			}
+			
+			if(this.div=="#soru"){
+				//$("#soru #answer").html("<input class='input' isNumber='true' type='text' maxlength=4></input>");
+				//Interaction.inputs.push($("#soru #answer input", asamalarArray[0]).get(0));
+				
+				var girdi=Interaction.appendInput({
+					left:"62px",
+					//width:"80px",
+					fontSize:"20px",
+					},true,true);
+				$(Interaction.inputs[0]).attr('maxlength', '5')
+				$("#soru #answer",Interaction.container).append(girdi);
+			}
+			
 			//console.log(asamalarArray[2]);
 			for(var i=0; i < asamalarArray.length;i++){
 				
@@ -307,15 +327,21 @@ var Interaction = {
 			}
 			$("#soru .input")
 				.css("width","50px")
-				.css("font-size","20px");
+				.css("font-size","20px")
+				.css("text-align","left")
+				.css("z-index","5");
 				
 			$("#soru .up")
 				.css("margin-bottom","12px")
 				//.css("margin-top","28px");
 				
 			$("#soru .step")
-				.css("height","68px")
+				.css("height","68px");
+				
+				
+			$("#soru .step:first").css("width","60px")
 				//.css("margin-top","28px");
+				
 				
 						};
 			};
@@ -539,18 +565,27 @@ var Interaction = {
 			case 3:
 			case 4:
 			case 5:
-				console.log("values "+parseInt(values));
-				console.log("aşamaUp: "+parseInt(asamaUp));
-				console.log("asamadown: "+parseInt(asamaDown));
 				
 				for(var i=0; i<asamaUp.length; i++){
-					console.log(i+") val "+values[2*i]);
+					console.log(i+") sonuc val "+values[0]);
+					console.log("sonuc"+normalIslem.sonuc);
+					console.log(i+") up val "+values[i+1]);
 					console.log(i+") up "+asamaUp[i]);
-					console.log(i+") val "+values[2*i+1]);
-					console.log(i+") up "+parseInt(asamaDown[i]));
-					if(parseInt(values[2*i],10)==parseInt(asamaUp[i],10) && parseInt(values[2*i+1],10)==parseInt(asamaDown[i]),10)
+					console.log(i+") down val "+values[2*i+1]);
+					console.log(i+") down "+parseInt(asamaDown[i],10));
+					
+					
+					console.log(i+") val"+values[1]);
+					console.log(i+") val"+values[2]);
+					console.log(i+") val"+values[3]);
+					console.log(i+") val"+values[4]);
+					//if(parseInt(values[0],10)===parseInt(normalIslem.sonuc,10) && parseInt(values[i+1],10)===parseInt(asamaUp[i],10) && parseInt(values[i+2],10)===parseInt(asamaDown[i]),10){
+					if((parseInt(values[0],10)==parseInt(normalIslem.sonuc,10)) && (parseInt(values[2*i+1],10)==parseInt(asamaUp[i],10)) && (parseInt(values[2*i+2],10)==parseInt(asamaDown[i],10))){
+						console.log("denetim true");
 						denetim=true;
+					}
 					else{
+						console.log("denetim false");
 						denetim=false;
 						break;
 					}
