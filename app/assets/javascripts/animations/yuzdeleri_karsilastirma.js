@@ -164,7 +164,7 @@ Animation.init=function(container){
 			yaziSag:1,
 		},
 		duration:1000,
-		delay:4000
+		delay:3000
 	});
 	
 	exampleHelper.animate({
@@ -173,7 +173,7 @@ Animation.init=function(container){
 			yuzdeSag:1,
 		},
 		duration:1000,
-		delay:3000
+		delay:4000
 	});
 	
 	
@@ -186,7 +186,8 @@ Animation.init=function(container){
 
 Interaction.init = function(container){
 
-	Main.setObjective("Yandaki yüzlük tabloların altındaki kutulara istediğiniz sayıları yazınız. <br />“<” (küçük)  ya da <br /> “>” (büyük) işaretlerinden uygun olanına fare ile tıklayarak yüzdeleri karşılaştırınız. Daha sonra doğruluğunu kontrol ediniz");
+	Main.setObjective("Yandaki yüzlük tabloların altındaki kutulara 0 ile 100 arasında sayılar yazınız. Sonra ortadaki bölümde oluşan yüzdeler  arasına gelecek <br /> “<” (küçük) ya da <br/>“>” (büyük) işaretlerinden uygun olanına basarak yüzdeleri karşılaştırınız. Daha sonra doğruluğunu kontrol ediniz.");
+	$(Main.objective).css("font-size","14px");
 	
 	//sol div bilgileri	
 	$(container).append("<div id='sol'>");
