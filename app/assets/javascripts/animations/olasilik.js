@@ -36,6 +36,7 @@ var Animation = {
 					'<div style="height:1px;border-top:2px solid #000;"></div>'+
 					'<div>500</div>'+
 				'</div>'+
+				'<div style="width:40px;line-height:50px;text-align:left">&nbsp;=&nbsp;0,37&nbsp;</div>'+
 				'<div style="width:40px;line-height:50px;text-align:left">&nbsp;=&nbsp;%37</div>'+
 			'</div>'
 		);	
@@ -270,7 +271,7 @@ Interaction.getFramework = function() {
 	return 'paper';
 }
 Interaction.init = function(container){
-	Main.setObjective('Aşağıdaki madeni parayı yandaki resme fare ile tıklayarak istediğiniz kadar atarak tura geliş olasılığını izleyiniz.');
+	Main.setObjective('Yandaki madeni parayı yandaki el resmine  fare ile tıklayarak istediğiniz kadar atarak tura geliş olasılığını izleyiniz.');
 	Interaction.container = container;
 	var w = $(container).width();
 	var h = $(container).height();

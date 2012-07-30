@@ -372,7 +372,7 @@ Interaction.init = function(container){
 		textAlign:'center'
 	});
 	Interaction.preventNextQuestion = false;
-	var NUMBER_OF_SHAPES  = 8;
+	var NUMBER_OF_SHAPES  = 7;
 	Interaction.shuffledArray = Util.getShuffledArray(NUMBER_OF_SHAPES);
 	Interaction.count = 0;
 	TestGenerator.nextQuestion();
@@ -420,7 +420,7 @@ TestGenerator.nextQuestion = function(){
 	TestGenerator.letters = (Math.random()>0.5 ? ["A","B","C","D","E"]:["K","L","M","N","P"]);
 	var count = (Interaction.count++)%Interaction.shuffledArray.length;
 	TestGenerator.shape = Interaction.shuffledArray[count];
-	///*TEST*/TestGenerator.shape = 6;/*TEST*/
+	/*TEST*/TestGenerator.shape = 6;/*TEST*/
 	switch(TestGenerator.shape){
 		case 0:
 			var a = Math.floor(Math.random()*10)+5;
@@ -460,19 +460,11 @@ TestGenerator.nextQuestion = function(){
 		
 		case 4:
 			var a,b,c;
-			a = 3,
-			b = 4,
-			c = 5,
-			TestGenerator.values = {a:a,b:b,c:c,cevre:(a+b+c)} ;
-			new Triangle(a,b,c,TestGenerator.getMeasure(),TestGenerator.paper).showEdge('a').showEdge('b').showAngle('B');
-			break;
-		case 5:
-			var a,b,c;
 			a = 6,b = 8,c = 6;
 			TestGenerator.values = {a:a,b:b,c:c,cevre:(a+b+c)} ;
 			new Triangle(a,b,c,TestGenerator.getMeasure(),TestGenerator.paper).showEdge('a').showEdge('b').showAngle('A').showAngle('B');
 			break;
-		case 6:
+		case 5:
 			var a,b,_a,c;
 			a = Math.floor(Math.random()*5)+5;
 			_a = a
@@ -483,7 +475,7 @@ TestGenerator.nextQuestion = function(){
 			TestGenerator.values = {a:a,b:b,c:c,cevre:(a+_a+b+c)};
 			trapezoid(a,_a,b,c,TestGenerator.getMeasure(),TestGenerator.paper);
 			break;
-		case 7:
+		case 6:
 			var a,W;
 			a = Math.floor(Math.random()*6)+6;
 			W = 2*a;
@@ -492,6 +484,14 @@ TestGenerator.nextQuestion = function(){
 			TestGenerator.values = {a:a,cevre:4*a};
 			rhombus(a,W,TestGenerator.getMeasure(),TestGenerator.paper);
 			break;
+		//case 4:
+//			var a,b,c;
+//			a = 3,
+//			b = 4,
+//			c = 5,
+//			TestGenerator.values = {a:a,b:b,c:c,cevre:(a+b+c)} ;
+//			new Triangle(a,b,c,TestGenerator.getMeasure(),TestGenerator.paper).showEdge('a').showEdge('b').showAngle('B');
+//			break;
 	}
 }
 TestGenerator.setMeasure = function(m){ 
@@ -632,14 +632,17 @@ function rhombus(a,W,measure,paper){
 	
 	var rhombus = new Path.Rhombus(new Point(x,y),new Size(w,h));
 	rhombus.style = edgeStyle;
-	var t1 = new PointText(new Point(x-10,y+h*0.30));
+	var t1 = new PointText(new Point(x-20,y+h*0.30));
 	t1.content = ""+(a)+" "+measure;
-	var t2 = new PointText(new Point(x-10,y+h*0.80));
+	var t2 = new PointText(new Point(x-20,y+h*0.80));
 	t2.content = ""+a+" "+measure;
 	var t3 = new PointText(new Point(x+w*0.9,y+h*0.30));
 	t3.content = ""+(a)+" "+measure;
-	var t3 = new PointText(new Point(x+w*0.9,y+h*0.80));
-	t3.content = ""+(a)+" "+measure;
+	var t4 = new PointText(new Point(x+w*0.9,y+h*0.80));
+	t4.content = ""+(a)+" "+measure;
+	t1.characterStyle.justification = 'center'
+	t2.characterStyle.justification = 'center'
+	t3.characterStyle.justification = 'center'
 	
 	TestGenerator.printVertexLetters(
 			[
@@ -667,7 +670,7 @@ function trapezoid(a,_a,b,c,measure,paper){
 	_w *= 0.3; 
 	x = (paper.width - w) * 0.5;
 	y = (paper.height - h) * 0.5;
-	var trapezoid = new Path.Trapezoid( new Point(x,y) , new Size(w,h), _w );
+	var trapezoid = new Path.Trapezoid( new Point(x,y) , new Size(w,h), _w*b/(c+b), _w*c/(c+b));
 	trapezoid.style = edgeStyle;
 	var t1 = new PointText(new Point(x+w*0.5-10,y+15+h));
 	t1.content = ""+(a)+" "+measure;
@@ -681,8 +684,8 @@ function trapezoid(a,_a,b,c,measure,paper){
 			[
 				new Point(x-10,y+h+10),
 				new Point(x+w+10,y+h+10),
-				new Point(x+w-(w-_w)*0.5+10,y-10),
-				new Point(x+(w-_w)*0.5-10,y-10)
+				new Point(x+10,y-10),
+				new Point(x+w-10,y-10)
 			]
 		);
 }

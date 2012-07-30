@@ -51,6 +51,8 @@ var Animation = {
 		var p1 = new Point(x+100,y);
 		var p2 = new Point(x+100+R,y);
 		var p3 = new Point(x+100,y+R);
+		var pT1 = new Point(x+150+R,y-15);
+		var pT2 = new Point(x+150+R,y+15)
 		var circleCenter = new Path.Circle(p1,4);
 		circleCenter.set_style({
 			fillColor:'#000'
@@ -154,7 +156,6 @@ var Animation = {
 				Animation.line2.set_style(animationEdgeStyle);
 			}
 			else if(animationHelper.angle == 1080){
-				Animation.onFrame = null;
 				Animation.line2.remove();
 				circleCenter = new Path.Circle(p1,4);
 				circleCenter.set_style({
@@ -196,6 +197,26 @@ var Animation = {
 						{opacity:1},
 						1000
 					)
+				animationHelper.angle = 1081;
+			}
+			else if(animationHelper.angle == 1081){
+				Animation.onFrame = null;
+				console.log("I'm here")
+				var t1 = new PointText(pT1)
+				t1.content = 'Çevre = Çap × π';
+				var t2 = new PointText(pT2)
+				t2.content = ' Ç = 2 × r × π';
+				t1.opacity = 0;
+				t2.opacity = 0;
+				t1.animate({
+					style:{opacity:1},
+					duration:500
+				});
+				t2.animate({
+					style:{opacity:1},
+					delay:500,
+					duration:500
+				});
 			}
 		}
 		animationHelper.animate({

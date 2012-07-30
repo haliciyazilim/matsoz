@@ -199,7 +199,7 @@ var Interaction = {
 				fontSize:'20px',
 				height:'35px'
 			});
-			$(Interaction.input).attr('maxlength','7')
+			$(Interaction.input).attr('maxlength','8')
 			var div = document.createElement('div');
 			$(container).append(div);
 			$(div)
