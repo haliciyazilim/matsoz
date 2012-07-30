@@ -326,7 +326,7 @@ Interaction.init = function(container){
 		}
 	
 	var tiklama=0;
-	
+	var enter=0;
 	function kontrol(){
 		
 		//console.log("kontrole girdim."+girdi+" "+yuvarlak);
@@ -346,10 +346,13 @@ Interaction.init = function(container){
 			tiklama++;
 			console.log("tiklama: "+tiklama);
 			if(girdi==yuvarlak){
+				enter++;
 			//console.log("if doğruysa girdim."+girdi+" "+yuvarlak);
 				$("#geriBildirimText").attr("class","status_true").html("Tebrikler");
 				$("#btnKontrol").hide();
 				$("#sonraki").show();
+				if (enter==2)
+					yeniSoru();
 			}
 			else if(tiklama<2 && girdi!=yuvarlak){
 				$("#geriBildirimText").attr("class","status_false").html("Tekrar deneyin");
@@ -361,6 +364,7 @@ Interaction.init = function(container){
 				$("#cerceveCevap").show();
 				$("#btnKontrol").hide();
 				$("#sonraki").show();
+				$("#girdi").css("color","red");
 			}
 			if(tiklama==3){
 				console.log("tikalam 3'e grdim");
