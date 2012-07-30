@@ -185,26 +185,6 @@ Animation.init = function(container){
 	fLine.dashArray = [3,2];
 	fLine.opacity = 0;
 	
-/*	
-	var arcGroup = new Group();
-	var arc = new Path.Arc(new Point(420.5, 80.5), new Point(480.5, 78.5), new Point(490.5, 56.5))
-	arc.strokeColor = "black";
-	var line1 = new Path.Line(new Point(490.5, 56.5), new Point(482.5, 62.5));
-	line1.strokeColor = "black";
-	var line2 = new Path.Line(new Point(490.5, 56.5), new Point(496.5, 64.5));
-	line2.strokeColor = "black";
-	arcGroup.addChild(arc);
-	arcGroup.addChild(line1);
-	arcGroup.addChild(line2);
-	arcGroup.position = new Point(204, 136);
-	arcGroup.opacity = 0;
-	
-	var arcGroup2 = arcGroup.clone();
-	arcGroup2.strokeColor = "black";
-	arcGroup2.position = new Point(619, 138);
-	arcGroup2.scale(1.2);
-	arcGroup2.opacity = 0;*/
-	
 	fCirc.animate({
 		style: {
 			opacity: 1,
@@ -358,7 +338,8 @@ Interaction.init = function(container){
 					.css("text-align", "center")
 					.css("height", "30px");
 	
-	var trial = 0;				
+	var trial = 0;
+	var deactivate = 0;				
 	submit = function() {
 		// if this is the 3rd trial or more do nothing
 		if(trial == 2)
@@ -389,6 +370,14 @@ Interaction.init = function(container){
 						$('#statuss').html("Tebrikler!");
 						$('#checkBtn').hide();
 						$('#nextBtn').show();
+						deactivate = 1;
+						$('.inp').each(function(index, element) {
+							$(this).get(0).onkeydown = function(event){
+													if(event.keyCode != 13)
+														return false;
+													$("#nextBtn").click();
+												}   
+					  });
 					}
 					else if(trial == 1){	
 						$('#statuss').get(0).className = "status_false";
@@ -398,6 +387,14 @@ Interaction.init = function(container){
 						$('#checkBtn').hide();
 						$('#nextBtn').show();
 						trial += 1;
+						deactivate = 1;
+						$('.inp').each(function(index, element) {
+            			$(this).get(0).onkeydown = function(event){
+												if(event.keyCode != 13)
+													return false;
+												$("#nextBtn").click();
+											}   
+          		  	});
 					}
 					else if(trial == 0){		
 						trial += 1;
@@ -422,6 +419,14 @@ Interaction.init = function(container){
 					$('#statuss').html("Tebrikler!");
 					$('#checkBtn').hide();
 					$('#nextBtn').show();
+					deactivate = 1;
+					$('.inp').each(function(index, element) {
+						$(this).get(0).onkeydown = function(event){
+												if(event.keyCode != 13)
+													return false;
+												$("#nextBtn").click();
+											}   
+				  });
 				}
 				else if(trial == 1){	
 					$('#statuss').get(0).className = "status_false";
@@ -433,6 +438,14 @@ Interaction.init = function(container){
 					$('#checkBtn').hide();
 					$('#nextBtn').show();
 					trial += 1;
+					deactivate = 1;
+					$('.inp').each(function(index, element) {
+						$(this).get(0).onkeydown = function(event){
+												if(event.keyCode != 13)
+													return false;
+												$("#nextBtn").click();
+											}   
+				  });
 				}
 				else if(trial == 0){		
 					trial += 1;
@@ -455,17 +468,12 @@ Interaction.init = function(container){
 	});
 	
 	$('.inp').keydown(function() {
-		$('#statuss').html("");
+		if(deactivate == 0)
+			$('#statuss').html("");
 	});
 		
 	// enter keypress action
-	$("#textInput1").keyup(function(event) {
-		if(event.keyCode == 13) {
-			submit();
-		}
-	});
-	
-	$("#textInput2").keyup(function(event) {
+	$(".inp").keyup(function(event) {
 		if(event.keyCode == 13) {
 			submit();
 		}
