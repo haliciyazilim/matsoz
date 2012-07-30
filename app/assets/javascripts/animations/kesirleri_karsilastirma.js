@@ -139,7 +139,7 @@ var Interaction = {
 			Interaction.answerDiv.id = 'answerDiv'
 			$(Interaction.questionDiv).append(Interaction.answerDiv);
 			
-			$(Interaction.answerDiv).html('<img id="target" src="/assets/animations/kesirleri_karsilastirma/oran_hedef.png" />')
+			$(Interaction.answerDiv).html('<img id="target" src="/assets/animations/kesirleri_karsilastirma/oran_hedef.png"/>')
 			$(Interaction.answerDiv).css({
 							width: '54px',
 							height: '54px',
