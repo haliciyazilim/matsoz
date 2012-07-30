@@ -792,6 +792,12 @@ function interactionInit(container) {
 			
 			$('#submitButton').get(0).className = "next_button";
 			tryCount = -1;
+			
+			$("#textInput").get(0).onkeydown = function(event){
+				if(event.keyCode != 13) {
+					return false;
+				}
+			}
 		} else {
 			tryCount++;
 			
@@ -819,6 +825,12 @@ function interactionInit(container) {
 				
 				$('#submitButton').get(0).className = "next_button";
 				tryCount = -1;
+				
+				$("#textInput").get(0).onkeydown = function(event){
+					if(event.keyCode != 13) {
+						return false;
+					}
+				}
 			}
 		}
 	};
