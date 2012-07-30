@@ -997,8 +997,8 @@ Interaction.init = function(container){
 
 		$(container).append('<div id="questionDiv"></div>');
 		$('#questionDiv').css("position", "absolute")
-						.css("left", "180px")
-						.css("top", "34px")
+						.css("left", "80px")
+						.css("top", "70px")
 						.css("width", "150")
 						.css("height", "76")
 						.css("padding", 0)
@@ -1197,18 +1197,18 @@ Interaction.init = function(container){
 										
 	$(container).append('<div id="answer"></div>');
 	$('#answer').css("position", "absolute")
-					.css("left", "134px")
+					.css("left", "128px")
 					.css("top", "144px")
-					.css("width", "260px")
+					.css("width", "280px")
 					.css("height", "96px")
-					.css("font-size", 18)
+					.css("font-size", 20)
 					.css("color", answerColor)
 				//	.css("border", "solid")
 	
 	$('#answer').append('<div id="divison123"></div>')
 	$('#divison123').css("position", "absolute")
-					.css("top", "0px")
-					.css("left", "100px")
+					.css("top", "-60px")
+					.css("left", "240px")
 					.css("width", "60px")
 					.css("height", "76px")
 					.css("font-size", 20)
@@ -1218,6 +1218,7 @@ Interaction.init = function(container){
 					.css("left", "460px")
 					.css("top", "240px");
 	// submit func. -> check whether input field is filled and give neccessary feedbacks
+	var deactivate = 0;
 	var trial = 0;				
 	submit = function()
 		{
@@ -1253,6 +1254,14 @@ Interaction.init = function(container){
 							$('#statuss').get(0).className = "status_true";
 							$('#statuss').html("Tebrikler!");
 							$('#checkBtn').get(0).className = "next_button";
+							deactivate = 1;
+							$('.inp').each(function(index, element) {
+							$(this).get(0).onkeydown = function(event){
+													if(event.keyCode != 13)
+														return false;
+													$("#checkBtn").click();
+												}   
+						  });
 						}
 						
 						// second wrong answer state
@@ -1266,6 +1275,7 @@ Interaction.init = function(container){
 							$('#textInput1').css("color", inputBoxAnswerColor);
 							$('#textInput2').css("color", inputBoxAnswerColor);
 							$('#textInput3').css("color", inputBoxAnswerColor);
+							Interaction.pause = 1;
 							Animation.division = new LongDivision(nominator,denominator,$('#divison123'));
 							setTimeout(
 								'Animation.division.nextStep(1000);'
@@ -1273,9 +1283,19 @@ Interaction.init = function(container){
 							setTimeout(
 								'Animation.division.nextStep(1000);'
 								,2000);
+							setTimeout(
+								'Interaction.pause = 0;'
+								,3000);
 							$('#checkBtn').get(0).className = "next_button";
 							trial += 1;
-							
+							deactivate = 1;
+							$('.inp').each(function(index, element) {
+							$(this).get(0).onkeydown = function(event){
+													if(event.keyCode != 13)
+														return false;
+													$("#checkBtn").click();
+												}   
+						});
 						}
 						
 						// first wrong answer state
@@ -1311,6 +1331,14 @@ Interaction.init = function(container){
 							$('#statuss').get(0).className = "status_true";
 							$('#statuss').html("Tebrikler!");
 							$('#checkBtn').get(0).className = "next_button";
+							deactivate = 1;
+							$('.inp').each(function(index, element) {
+							$(this).get(0).onkeydown = function(event){
+													if(event.keyCode != 13)
+														return false;
+													$("#checkBtn").click();
+												}   
+					  		});
 						}
 						
 						// second wrong answer state
@@ -1332,26 +1360,34 @@ Interaction.init = function(container){
 							$('#ansLine').css("position", "absolute")
 										.css("top", "20px")
 										.css("right", "38px")
-										.css("width", "23px")
+										.css("width", "24px")
 										.css("height", "1px")
 										.css("padding", 0)
 										.css("border-top", "2px solid");
 							$('#answer').append('<p id="ansNom"></div>')
 							$('#ansNom').css("position", "absolute")
 											.css("top", "0px")
-											.css("left", "200px")
+											.css("left", "219px")
 											.css("text-align", "center")
 											.css("width", "20px")
 							$('#ansNom').html(ans22);
 							$('#answer').append('<p id="ansDenom"></div>')
 							$('#ansDenom').css("position", "absolute")
 											.css("top", "24px")
-											.css("left", "200px")
+											.css("left", "219px")
 											.css("text-align", "center")
 											.css("width", "20px")
 							$('#ansDenom').html(denom);
 							$('#checkBtn').get(0).className = "next_button";
 							trial += 1;
+							deactivate = 1;
+							$('.inp').each(function(index, element) {
+							$(this).get(0).onkeydown = function(event){
+													if(event.keyCode != 13)
+														return false;
+													$("#checkBtn").click();
+												}   
+					  		});
 						}
 						
 						// first wrong answer state
@@ -1365,10 +1401,14 @@ Interaction.init = function(container){
 				}
 			}
 			else{
-				var a = $('#interaction_canvas')
-				$(Interaction.container).html("");
-				$(Interaction.container).html(a);
-				Interaction.init(container);
+				if(Interaction.pause == 1)
+					return;
+				else{
+					var a = $('#interaction_canvas')
+					$(Interaction.container).html("");
+					$(Interaction.container).html(a);
+					Interaction.init(container);
+				}
 			}
 		}
 		
@@ -1378,26 +1418,12 @@ Interaction.init = function(container){
 	});
 		
 	$('.inp').keydown(function() {
-		$('#statuss').html("");
+		if(deactivate == 0)
+			$('#statuss').html("");
 	});
 		
 	// enter keypress action
-	$("#textInput1").keypress(function(event) {
-		
-		if(event.keyCode == 13) {
-			submit();
-		}
-	});
-	
-	$("#textInput2").keypress(function(event) {
-		
-		if(event.keyCode == 13) {
-			submit();
-		}
-	});
-	
-	$("#textInput3").keypress(function(event) {
-		
+	$(".inp").keypress(function(event) {
 		if(event.keyCode == 13) {
 			submit();
 		}

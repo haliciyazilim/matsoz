@@ -571,16 +571,10 @@ Interaction.init = function(container){
 					.css("text-align", "center")
 	
 	// buttons				
-	$(container).append('<button id="checkBtn" class="control_button"></button>');
+	$(container).append('<button id="checkBtn" class="next_button"></button>');
 	$('#checkBtn').css("position", "absolute")
 					.css("bottom", "20px")
 					.css("right", "60px");
-	
-	$(container).append('<button id="nextBtn" class="next_button"></button>');
-	$('#nextBtn').css("position", "absolute")
-					.css("bottom", "20px")
-					.css("right", "60px");
-	$('#nextBtn').hide();
 	
 	for(i = 0; i < 4; i++)
 	{
@@ -602,140 +596,153 @@ Interaction.init = function(container){
 		}
 	}
 	
-	nextQuestion();
-	
-	function nextQuestion()
-	{
-		$('#nextBtn').hide();
-		$('#checkBtn').show();
-		$('#statuss').html("");
-		$('#textInput1').val("");
-		$('#textInput1').css("color", inputBoxColor);
-		$('#question').html("");
-		$('#question').html(questions[shuffledQuesArr[index]]);
-		if(index == 18)
-			index = 0;
-		else
-			index += 1;
-		trial = 0;
-	}
-	
+	PrepareAndCheckQuestions();
+	var deactivate = 0;
 	var trial;
-	submit = function() {
-		// if this is the 3rd trial or more do nothing
-		if (trial == 2)
-			return;
-			
-		ans1 = $('#textInput1').val();
-		// check whether input field is empty or not (also given input is integer or not)
-		if(ans1 == "" || !Util.isInteger(ans1)) {
-			$('#statuss').get(0).className = "status_alert";
-			$('#statuss').html("Lütfen kutucuklara sayı giriniz.");
+	function PrepareAndCheckQuestions(){
+		if($('#checkBtn').get(0).className == "next_button"){
+			$('#statuss').html("");
+			$('#textInput1').val("");
+			$('#textInput1').css("color", inputBoxColor);
+			$('#question').html("");
+			$('#question').html(questions[shuffledQuesArr[index]]);
+			if(index == 18)
+				index = 0;
+			else
+				index += 1;
+			trial = 0;
+			deactivate = 0;
+			$('#checkBtn').get(0).className = "control_button";
+			$('.inp').get(0).onkeydown = null; 
 		}
-		else {
-			// generate answer wrt. given question
-			var answer = 0;
-			switch(shuffledQuesArr[index-1]) {
-				case 0:
-					answer = datas[0];
-					break;
-				case 1:
-					answer = datas[1];
-					break;
-				case 2:
-					answer = datas[2];
-					break;
-				case 3:
-					answer = datas[0] + datas[1] + datas[2];
-					break;
-				case 4:
-					answer = datas[3];
-					break;
-				case 5:
-					answer = datas[4];
-					break;
-				case 6:
-					answer = datas[5];
-					break;
-				case 7:
-					answer = datas[3] + datas[4] + datas[5];
-					break;
-				case 8:
-					answer = datas[6];
-					break;
-				case 9:
-					answer = datas[7];
-					break;
-				case 10:
-					answer = datas[8];
-					break;
-				case 11:
-					answer = datas[6] + datas[7] + datas[8];
-					break;
-				case 12:
-					answer = datas[9];
-					break;
-				case 13:
-					answer = datas[10];
-					break;
-				case 14:
-					answer = datas[11];
-					break;
-				case 15:
-					answer = datas[9] + datas[10] + datas[11];
-					break;
-				case 16:
-					answer = datas[0] + datas[3] + datas[6] + datas[9];
-					break;
-				case 17:
-					answer = datas[1] + datas[4] + datas[7] + datas[10];
-					break;
-				case 18:
-					answer = datas[2] + datas[5] + datas[8] + datas[11];
-					break;
+		else{
+			// if this is the 3rd trial or more do nothing
+			if (trial == 2)
+				return;
+				
+			ans1 = $('#textInput1').val();
+			// check whether input field is empty or not (also given input is integer or not)
+			if(ans1 == "" || !Util.isInteger(ans1)) {
+				$('#statuss').get(0).className = "status_alert";
+				$('#statuss').html("Lütfen kutucuklara sayı giriniz.");
 			}
-			
-			// correct answer state
-			if(ans1 == answer) {
-				$('#statuss').get(0).className = "status_true";
-				$('#statuss').html("Tebrikler!");
-				$('#checkBtn').hide();
-				$('#nextBtn').show();
-			}
-			// second wrong answer state
-			else if(trial == 1) {
-				$('#statuss').get(0).className = "status_false";
-				$('#statuss').html("Olmadı! Doğru cevap yukarıda gösterilmiştir.");
-				$('#textInput1').val(answer);
-				$('#textInput1').css("color", inputBoxAnswerColor);
-				$('#checkBtn').hide();
-				$('#nextBtn').show();
-				trial += 1;
-			}
-			// first wrong answer state
-			else if(trial == 0) {	
-				trial += 1;
-				$('#statuss').get(0).className = "status_false";
-				$('#statuss').html("Tekrar deneyiniz.");
+			else {
+				// generate answer wrt. given question
+				var answer = 0;
+				switch(shuffledQuesArr[index-1]) {
+					case 0:
+						answer = datas[0];
+						break;
+					case 1:
+						answer = datas[1];
+						break;
+					case 2:
+						answer = datas[2];
+						break;
+					case 3:
+						answer = datas[0] + datas[1] + datas[2];
+						break;
+					case 4:
+						answer = datas[3];
+						break;
+					case 5:
+						answer = datas[4];
+						break;
+					case 6:
+						answer = datas[5];
+						break;
+					case 7:
+						answer = datas[3] + datas[4] + datas[5];
+						break;
+					case 8:
+						answer = datas[6];
+						break;
+					case 9:
+						answer = datas[7];
+						break;
+					case 10:
+						answer = datas[8];
+						break;
+					case 11:
+						answer = datas[6] + datas[7] + datas[8];
+						break;
+					case 12:
+						answer = datas[9];
+						break;
+					case 13:
+						answer = datas[10];
+						break;
+					case 14:
+						answer = datas[11];
+						break;
+					case 15:
+						answer = datas[9] + datas[10] + datas[11];
+						break;
+					case 16:
+						answer = datas[0] + datas[3] + datas[6] + datas[9];
+						break;
+					case 17:
+						answer = datas[1] + datas[4] + datas[7] + datas[10];
+						break;
+					case 18:
+						answer = datas[2] + datas[5] + datas[8] + datas[11];
+						break;
+				}
+				
+				// correct answer state
+				if(ans1 == answer) {
+					$('#statuss').get(0).className = "status_true";
+					$('#statuss').html("Tebrikler!");
+					$('#checkBtn').get(0).className = "next_button";
+					deactivate = 1;
+					$('.inp').each(function(index, element) {
+						$(this).get(0).onkeydown = function(event){
+												if(event.keyCode != 13)
+													return false;
+											}   
+					});
+				}
+				// second wrong answer state
+				else if(trial == 1) {
+					$('#statuss').get(0).className = "status_false";
+					$('#statuss').html("Olmadı! Doğru cevap yukarıda gösterilmiştir.");
+					$('#textInput1').val(answer);
+					$('#textInput1').css("color", inputBoxAnswerColor);
+					trial += 1;
+					deactivate = 1;
+					$('#checkBtn').get(0).className = "next_button";
+					$('.inp').each(function(index, element) {
+						$(this).get(0).onkeydown = function(event){
+												if(event.keyCode != 13)
+													return false;
+											}   
+					});
+				}
+				// first wrong answer state
+				else if(trial == 0) {	
+					trial += 1;
+					$('#statuss').get(0).className = "status_false";
+					$('#statuss').html("Tekrar deneyiniz.");
+				}
 			}
 		}
 	}
 	
 	
-	$('#checkBtn').click(submit);
-	
-	$('#nextBtn').click(function() {
-		nextQuestion();
+	$('#checkBtn').click(function(){
+		PrepareAndCheckQuestions();
 	});
+
 	
 	$('.inp').keydown(function() {
-		$('#statuss').html("");
+		if(deactivate == 0)
+			$('#statuss').html("");
 	});
 	
 	// enter keypress action
-	$("#textInput1").keyup(function(event) {
+	$(".inp").keyup(function(event) {
 		if(event.keyCode == 13) {
-			submit();
+			$('#checkBtn').click();
 		}
 	});
 }

@@ -675,6 +675,7 @@ Interaction.init = function(container){
 	}
 	
 	// submit func. -> check whether input field is filled and give neccessary feedbacks
+	var deactivate = 0;
 	var trial = 0;				
 	function Check(){
 		{
@@ -746,11 +747,20 @@ Interaction.init = function(container){
 						var percent = ConvertPercentage(firstNum, secondNum);
 					}
 					$('#percentage').html("yüzde "+percent);
+					deactivate = 1;
+					$('.inp').each(function(index, element) {
+            			$(this).get(0).onkeydown = function(event){
+												if(event.keyCode != 13)
+													return false;
+												$("#nextBtn").click();
+											}   
+          		  });
 				}
 				
 				// second wrong answer state
 				else if(trial == 1)
 				{
+					deactivate = 1;
 					$('#statuss').get(0).className = "status_false";
 					$('#statuss').html("Olmadı! Doğru cevap yukarıda gösterilmiştir.");
 					$('#textInput1').css("color", inputBoxAnswerColor);
@@ -775,6 +785,13 @@ Interaction.init = function(container){
 					$('#checkBtn').hide();
 					$('#nextBtn').show();
 					trial += 1;
+					$('.inp').each(function(index, element) {
+            			$(this).get(0).onkeydown = function(event){
+												if(event.keyCode != 13)
+													return false;
+												$("#nextBtn").click();
+											}   
+          		  	});
 				}
 				
 				// first wrong answer state
@@ -829,37 +846,15 @@ Interaction.init = function(container){
 	});
 	
 	$('.inp').keydown(function() {
-		$('#statuss').html("");
+		if(deactivate == 0)
+			$('#statuss').html("");
 	});
 	
 	// enter keypress action
-	$("#textInput1").keyup(function(event) {
+	$(".inp").keyup(function(event) {
 		if(event.keyCode == 13) {
 			Check();
 		}
 	});
-	
-	$("#textInput2").keyup(function(event) {
-		if(event.keyCode == 13) {
-			Check();
-		}
-	});
-	
-	$("#textInput3").keyup(function(event) {
-		if(event.keyCode == 13) {
-			Check();
-		}
-	});
-	
-	$("#textInput5").keyup(function(event) {
-		if(event.keyCode == 13) {
-			Check();
-		}
-	});
-	
-	$("#textInput6").keyup(function(event) {
-		if(event.keyCode == 13) {
-			Check();
-		}
-	});
+
 }
