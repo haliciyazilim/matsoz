@@ -11,18 +11,23 @@ Interaction.init = function (container) {
 	var fillColor = "#bfe8ef";
 	var fillColor = new RgbColor(0.75, 0.91, 0.94, 0.7);
 	var strokeColor = "#255b63";
-	var strokeWidth = 2;
+	var strokeWidth = 1;
 	
 	var width = $(container).width();
 	var height = $(container).height();	
 	
-	var matrix = Util.createProjectionMatrix(width, height, 40*width/height, 40, 50);
+	var viewportOffsetX = 300;
+	var viewportOffsetY = 36;
 	
-	var boxSize = 10;
+	var fovFactor = 1.5;
 	
-	var boxCenterX = -80;
-	var boxCenterY = -30;
-	var boxCenterZ = -170;
+	var matrix = Util.createProjectionMatrix(width, height, height * fovFactor, width/2 - viewportOffsetX, -height/2 + viewportOffsetY, width, height);
+	
+	var boxSize = 50;
+	
+	var boxCenterX = -100;
+	var boxCenterY = -120;
+	var boxCenterZ = -height * fovFactor;
 	
 	function createSurface(p1, p2, p3, p4, matrix) {
 		var pp1 = Util.project(p1, matrix);
@@ -31,6 +36,16 @@ Interaction.init = function (container) {
 		var pp4 = Util.project(p4, matrix);
 
 		var path = new Path();
+
+		pp1.x = Math.floor(pp1.x) + 0.5;
+		pp1.y = Math.floor(pp1.y) + 0.5;
+		pp2.x = Math.floor(pp2.x) + 0.5;
+		pp2.y = Math.floor(pp2.y) + 0.5;
+		pp3.x = Math.floor(pp3.x) + 0.5;
+		pp3.y = Math.floor(pp3.y) + 0.5;
+		pp4.x = Math.floor(pp4.x) + 0.5;
+		pp4.y = Math.floor(pp4.y) + 0.5;
+		
 
 		path.add(pp1);
 		path.add(pp2);
@@ -69,13 +84,13 @@ Interaction.init = function (container) {
 		topAngle: 0,
 		leftAngle: 0,
 		rightAngle: 0,
-		backAngle: 0,
+		frontAngle: 0,
 		bottomAngle: 0
 	})
 	
 	animationHelper.animate({
 		style: {
-			topAngle: Math.PI/2
+			topAngle: -Math.PI/2
 		},
 		duration: 1000,
 		delay: 2000,
@@ -93,37 +108,32 @@ Interaction.init = function (container) {
 		delay: 3000,
 		animationType: 'easeInEaseOut',
 		update: function() {
-			topSurface.changed = true;
-			frontSurface.changed = true;
 			rightSurface.changed = true;
-			backSurface.changed = true;
+			frontSurface.changed = true;
 		}
 	})
 	
 	animationHelper.animate({
 		style: {
-			backAngle: Math.PI/2
+			frontAngle: Math.PI/2
 		},
 		duration: 1000,
 		delay: 4000,
 		animationType: 'easeInEaseOut',
 		update: function() {
-			backSurface.changed = true;
+			frontSurface.changed = true;
 		}
 	})
 	
 	animationHelper.animate({
 		style: {
-			leftAngle: Math.PI/2
+			leftAngle: -Math.PI/2
 		},
 		duration: 1000,
 		delay: 5000,
 		animationType: 'easeInEaseOut',
 		update: function() {
 			leftSurface.changed = true;
-			frontSurface.changed = true;
-			topSurface.changed = true;
-//			bottomSurface.changed = true;
 		}
 	})
 	
@@ -136,8 +146,6 @@ Interaction.init = function (container) {
 		animationType: 'easeInEaseOut',
 		update: function() {
 			bottomSurface.changed = true;
-			frontSurface.changed = true;
-			rightSurface.changed = true;
 		}
 	})
 	
@@ -150,13 +158,15 @@ Interaction.init = function (container) {
 				bottomSurface.remove();
 			}
 			
-			bottomSurface = createSurface(
-				[-boxSize + boxCenterX, -boxSize + boxCenterY,  boxSize + boxCenterZ],
-				[ boxSize + boxCenterX, -boxSize + boxCenterY,  boxSize + boxCenterZ],
-				[ boxSize + boxCenterX, -boxSize-2*boxSize*Math.sin(animationHelper.bottomAngle) + boxCenterY, boxSize - 2*boxSize*Math.cos(animationHelper.bottomAngle) + boxCenterZ],
-				[-boxSize + boxCenterX, -boxSize-2*boxSize*Math.sin(animationHelper.bottomAngle) + boxCenterY, boxSize - 2*boxSize*Math.cos(animationHelper.bottomAngle) + boxCenterZ],
-				matrix
-			)
+			var p1 = [-boxSize + boxCenterX, -boxSize + boxCenterY,  boxSize + boxCenterZ];
+			var p2 = [ boxSize + boxCenterX, -boxSize + boxCenterY,  boxSize + boxCenterZ];
+			var p3 = [ boxSize + boxCenterX, -boxSize + boxCenterY, -boxSize + boxCenterZ];
+			var p4 = [-boxSize + boxCenterX, -boxSize + boxCenterY, -boxSize + boxCenterZ];
+			
+			p1 = Util.rotateX(animationHelper.bottomAngle, p1, p3);
+			p2 = Util.rotateX(animationHelper.bottomAngle, p2, p4);
+			
+			bottomSurface = createSurface(p1, p2, p3, p4, matrix);
 			
 			bottomSurface.fillColor = fillColor;
 			bottomSurface.strokeColor = strokeColor;
@@ -170,14 +180,11 @@ Interaction.init = function (container) {
 				backSurface.remove();
 			}
 
-			localX = boxSize+2*boxSize*Math.sin(animationHelper.rightAngle);
-			localZ = boxSize - 2*boxSize*Math.cos(animationHelper.rightAngle);
-
 			backSurface = createSurface(
-				[localX + boxCenterX, -boxSize + boxCenterY, localZ + boxCenterZ],
-				[localX + boxCenterX,  boxSize + boxCenterY, localZ + boxCenterZ],
-				[(-boxSize - localX) * Math.cos(animationHelper.rightAngle) + localX + boxCenterX + 2*boxSize*Math.sin(animationHelper.backAngle),  boxSize + boxCenterY, localZ - Math.sin(animationHelper.rightAngle) * boxSize + boxSize * Math.sin(animationHelper.backAngle) + boxCenterZ],
-				[(-boxSize - localX) * Math.cos(animationHelper.rightAngle) + localX + boxCenterX + 2*boxSize*Math.sin(animationHelper.backAngle), -boxSize + boxCenterY, localZ - Math.sin(animationHelper.rightAngle) * boxSize + boxSize * Math.sin(animationHelper.backAngle) + boxCenterZ],
+				[ boxSize + boxCenterX, -boxSize + boxCenterY, -boxSize + boxCenterZ],
+				[ boxSize + boxCenterX,  boxSize + boxCenterY, -boxSize + boxCenterZ],
+				[-boxSize + boxCenterX,  boxSize + boxCenterY, -boxSize + boxCenterZ],
+				[-boxSize + boxCenterX, -boxSize + boxCenterY, -boxSize + boxCenterZ],
 				matrix
 			)
 
@@ -193,42 +200,19 @@ Interaction.init = function (container) {
 				leftSurface.remove();
 			}
 
-			leftSurface = createSurface(
-				// [-boxSize + boxCenterX,  boxSize + boxCenterY,  boxSize + boxCenterZ],
-				// [-boxSize + boxCenterX, -boxSize + boxCenterY,  boxSize + boxCenterZ],
-				// [-boxSize - 2 * boxSize * Math.sin(animationHelper.leftAngle) + boxCenterX, -boxSize + boxCenterY, -boxSize + 2 * boxSize * Math.sin(animationHelper.leftAngle) + boxCenterZ],
-				// [-boxSize - 2 * boxSize * Math.sin(animationHelper.leftAngle) + boxCenterX,  boxSize + boxCenterY, -boxSize + 2 * boxSize * Math.sin(animationHelper.leftAngle) + boxCenterZ],
-				
-				[-boxSize + boxCenterX,  boxSize + boxCenterY, boxSize + boxCenterZ],
-				[-boxSize + boxCenterX, -boxSize + boxCenterY, boxSize + boxCenterZ],
-				[-boxSize-2*boxSize*Math.sin(animationHelper.leftAngle) + boxCenterX, -boxSize + boxCenterY, boxSize - 2*boxSize*Math.cos(animationHelper.leftAngle) + boxCenterZ],
-				[-boxSize-2*boxSize*Math.sin(animationHelper.leftAngle) + boxCenterX,  boxSize + boxCenterY, boxSize - 2*boxSize*Math.cos(animationHelper.leftAngle) + boxCenterZ],
-				matrix
-			)
+			var p1 = [-boxSize + boxCenterX,  boxSize + boxCenterY,  boxSize + boxCenterZ];
+			var p2 = [-boxSize + boxCenterX, -boxSize + boxCenterY,  boxSize + boxCenterZ];
+			var p3 = [-boxSize + boxCenterX, -boxSize + boxCenterY, -boxSize + boxCenterZ];
+			var p4 = [-boxSize + boxCenterX,  boxSize + boxCenterY, -boxSize + boxCenterZ];
+			
+			p1 = Util.rotateY(animationHelper.leftAngle, p1, p3);
+			p2 = Util.rotateY(animationHelper.leftAngle, p2, p4);
+			
+			leftSurface = createSurface(p1, p2, p3, p4, matrix);
 
 			leftSurface.fillColor = fillColor;
 			leftSurface.strokeColor = strokeColor;
 			leftSurface.strokeWidth = strokeWidth;
-		}
-		
-		// front surface
-		
-		if (frontSurface.changed) {
-			if (frontSurface.remove) {
-				frontSurface.remove();
-			}
-			
-			frontSurface = createSurface(
-				[ boxSize + boxCenterX,  boxSize + boxCenterY, boxSize + boxCenterZ],
-				[ boxSize + boxCenterX, -boxSize + boxCenterY, boxSize + boxCenterZ],
-				[-boxSize + boxCenterX, -boxSize + boxCenterY, boxSize + boxCenterZ],
-				[-boxSize + boxCenterX,  boxSize + boxCenterY, boxSize + boxCenterZ],
-				matrix
-			);
-
-			frontSurface.fillColor = fillColor;
-			frontSurface.strokeColor = strokeColor;
-			frontSurface.strokeWidth = strokeWidth;
 		}
 
 		// top surface
@@ -237,14 +221,16 @@ Interaction.init = function (container) {
 			if (topSurface.remove) {
 				topSurface.remove();
 			}
+
+			var p1 = [-boxSize + boxCenterX, boxSize + boxCenterY,  boxSize + boxCenterZ];
+			var p2 = [ boxSize + boxCenterX, boxSize + boxCenterY,  boxSize + boxCenterZ];
+			var p3 = [ boxSize + boxCenterX, boxSize + boxCenterY, -boxSize + boxCenterZ];
+			var p4 = [-boxSize + boxCenterX, boxSize + boxCenterY, -boxSize + boxCenterZ];
 			
-			topSurface = createSurface(
-				[-boxSize + boxCenterX, boxSize + boxCenterY,  boxSize + boxCenterZ],
-				[ boxSize + boxCenterX, boxSize + boxCenterY,  boxSize + boxCenterZ],
-				[ boxSize + boxCenterX, boxSize+2*boxSize*Math.sin(animationHelper.topAngle) + boxCenterY, boxSize - 2*boxSize*Math.cos(animationHelper.topAngle) + boxCenterZ],
-				[-boxSize + boxCenterX, boxSize+2*boxSize*Math.sin(animationHelper.topAngle) + boxCenterY, boxSize - 2*boxSize*Math.cos(animationHelper.topAngle) + boxCenterZ],
-				matrix
-			)
+			p1 = Util.rotateX(animationHelper.topAngle, p1, p3);
+			p2 = Util.rotateX(animationHelper.topAngle, p2, p4);
+			
+			topSurface = createSurface(p1, p2, p3, p4, matrix);
 
 			topSurface.fillColor = fillColor;
 			topSurface.strokeColor = strokeColor;
@@ -257,18 +243,64 @@ Interaction.init = function (container) {
 			if (rightSurface.remove) {
 				rightSurface.remove();
 			}
-		
-			rightSurface = createSurface(
-				[boxSize + boxCenterX,  boxSize + boxCenterY, boxSize + boxCenterZ],
-				[boxSize + boxCenterX, -boxSize + boxCenterY, boxSize + boxCenterZ],
-				[boxSize+2*boxSize*Math.sin(animationHelper.rightAngle) + boxCenterX, -boxSize + boxCenterY, boxSize - 2*boxSize*Math.cos(animationHelper.rightAngle) + boxCenterZ],
-				[boxSize+2*boxSize*Math.sin(animationHelper.rightAngle) + boxCenterX,  boxSize + boxCenterY, boxSize - 2*boxSize*Math.cos(animationHelper.rightAngle) + boxCenterZ],
-				matrix
-			)
+
+			var p1 = [boxSize + boxCenterX,  boxSize + boxCenterY,  boxSize + boxCenterZ];
+			var p2 = [boxSize + boxCenterX, -boxSize + boxCenterY,  boxSize + boxCenterZ];
+			var p3 = [boxSize + boxCenterX, -boxSize + boxCenterY, -boxSize + boxCenterZ];
+			var p4 = [boxSize + boxCenterX,  boxSize + boxCenterY, -boxSize + boxCenterZ];
+			
+			p1 = Util.rotateY(animationHelper.rightAngle, p1, p3);
+			p2 = Util.rotateY(animationHelper.rightAngle, p2, p4);
+			
+			rightSurface = createSurface(p1, p2, p3, p4, matrix);
 
 			rightSurface.fillColor = fillColor;
 			rightSurface.strokeColor = strokeColor;
 			rightSurface.strokeWidth = strokeWidth;
+		}
+		
+		// front surface
+		
+		if (frontSurface.changed) {
+			if (frontSurface.remove) {
+				frontSurface.remove();
+			}
+			
+			var rp3 = [boxSize + boxCenterX, -boxSize + boxCenterY, -boxSize + boxCenterZ];
+			var rp4 = [boxSize + boxCenterX,  boxSize + boxCenterY, -boxSize + boxCenterZ];
+			
+			var oldp1 = [ boxSize + boxCenterX,  boxSize + boxCenterY, boxSize + boxCenterZ];
+			var oldp2 = [ boxSize + boxCenterX, -boxSize + boxCenterY, boxSize + boxCenterZ];
+			var p3 = [-boxSize + boxCenterX, -boxSize + boxCenterY, boxSize + boxCenterZ];
+			var p4 = [-boxSize + boxCenterX,  boxSize + boxCenterY, boxSize + boxCenterZ];
+			
+			var p1 = Util.rotateY(animationHelper.rightAngle, oldp1, rp3);
+			var p2 = Util.rotateY(animationHelper.rightAngle, oldp2, rp4);
+			
+			p3 = Util.rotateY(animationHelper.rightAngle, p3, oldp1);
+			p4 = Util.rotateY(animationHelper.rightAngle, p4, oldp2);
+			
+			p3 = [
+					p3[0] - oldp1[0] + p1[0],
+					p3[1] - oldp1[1] + p1[1],
+					p3[2] - oldp1[2] + p1[2],
+				 ];
+				
+			p4 = [
+					p4[0] - oldp2[0] + p2[0],
+					p4[1] - oldp2[1] + p2[1],
+					p4[2] - oldp2[2] + p2[2],
+				 ];
+				
+			p3 = Util.rotateY(animationHelper.frontAngle, p3, p1);
+			p4 = Util.rotateY(animationHelper.frontAngle, p4, p2);	
+				
+			 
+			frontSurface = createSurface(p1, p2, p3, p4, matrix);
+
+			frontSurface.fillColor = fillColor;
+			frontSurface.strokeColor = strokeColor;
+			frontSurface.strokeWidth = strokeWidth;
 		}
 	}
 	

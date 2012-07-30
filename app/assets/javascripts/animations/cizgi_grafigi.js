@@ -316,17 +316,22 @@ interactionInit = function(container) {
 			correctCircle.fillColor = 'red';
 			
 			$('#status').html('<span class="status_true">Tebrikler!</span>');
-			$('#submitButton').val("Sonraki");
+			$('#submitButton').get(0).className = "next_button";
 			$('#submitButton').unbind("click");
 			$('#submitButton').click(restart);
 			submit = restart;
+			
+			$("#textInput").get(0).onkeydown = function(event){
+				if(event.keyCode != 13) {
+					return false;
+				}
+			}
 		} else {
 			if (noOfWrongAnswers == 0) {
 				$('#status').html('<span class="status_false">Tekrar Deneyiniz!</span>');
 				$('#textInput').val('');
 				noOfWrongAnswers = 1;
 			} else {
-				//console.log('2');
 				if (correctCircle) {
 					correctCircle.remove();
 				}
@@ -334,16 +339,22 @@ interactionInit = function(container) {
 				correctCircle.fillColor = 'red';
 				$('#status').html('<span class="status_false">Olmadı!</span>');
 				$('#textInput').val(correctAnswer);
-				$('#submitButton').val("Sonraki");
+				$('#submitButton').get(0).className = "next_button";
 				$('#submitButton').unbind("click");
 				$('#submitButton').click(restart);
 				submit = restart;
+				
+				$("#textInput").get(0).onkeydown = function(event){
+					if(event.keyCode != 13) {
+						return false;
+					}
+				}
 			}
 		}
 	};
 	
 	// Create the control button
-	$(container).append('<input id="submitButton" type="button" value="Kontrol" />');
+	$(container).append('<input id="submitButton" type="button" />');
 	$('#submitButton').css("position", "absolute")
 					  .css("top", "130px")
 					  .css("left", "406px");

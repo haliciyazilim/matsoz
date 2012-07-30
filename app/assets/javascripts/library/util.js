@@ -130,15 +130,68 @@ var Util = {
 			return new Point(x,y);
 		},
 		
-	createProjectionMatrix: function (nearPlaneWidth, nearPlaneHeight, nearPlaneZ, viewportLeft, viewportRight, viewportTop, viewportBottom) {
-			var viewportWidth = viewportLeft-viewportRight;
-			var viewportHeight = viewportBottom-viewportTop;
+	rotateX: function(angle, point, center) {
+			if (angle == 0) {
+				return [point[0], point[1], point[2]];
+			}
+			
+			var cos = Math.cos(angle);
+			var sin = Math.sin(angle);
+			
+			if (center == undefined) {
+				var y = point[1] * cos - point[2] * sin;
+				var z = point[1] * sin + point[2] * cos;
+
+				return new Point(point[0], y, z);
+			} else {
+				var p = [point[1] - center[1], point[2] - center[2]];
+				var y = p[0] * cos - p[1] * sin;
+				var z = p[0] * sin + p[1] * cos;
+
+				return [point[0], y + center[1], z + center[2]];
+			}
+		},
+		
+	rotateY: function(angle, point, center) {
+			if (angle == 0) {
+				return [point[0], point[1], point[2]];
+			}
+
+			var cos = Math.cos(angle);
+			var sin = Math.sin(angle);
+
+			if (center == undefined) {
+				var x =   point[0] * cos + point[2] * sin;
+				var z = - point[0] * sin + point[2] * cos;
+
+				return new Point(x, point[1], z);
+			} else {
+				var p = [point[0] - center[0], point[2] - center[2]];
+				var x =   p[0] * cos + p[1] * sin;
+				var z = - p[0] * sin + p[1] * cos;
+
+				return [x + center[0], point[1], z + center[2]];
+			}
+		},
+		
+	createProjectionMatrix: function (nearPlaneWidth, nearPlaneHeight, nearPlaneZ, viewportLeft, viewportTop, viewportWidth, viewportHeight) {
+			if (viewportLeft === undefined) {
+				viewportLeft = -0.5;
+				viewportRight = 0.5;
+				viewportWidth = 1;
+				viewportHeight = 1;
+			} else if (viewportWidth === undefined) {
+				viewportWidth = viewportLeft;
+				viewportHeight = viewportTop;
+				viewportLeft = 0;
+				viewportTop = 0;
+			}
 		
 			return [
-				viewportWidth/nearPlaneWidth,				   				0, 	-1/nearPlaneZ*viewportWidth/2, 		0,
-										   0,  -viewportHeight/nearPlaneHeight, -1/nearPlaneZ*viewportHeight/2, 		0,
-										   0,  								 0, 				   -1/nearPlaneZ, 		0,
-										   0,  								 0, 							   0, 		1
+				viewportWidth/nearPlaneWidth,				   				 0, 	-1/nearPlaneZ*(viewportLeft + viewportWidth/2), 	0,
+										   0,  -viewportHeight/nearPlaneHeight,	 	-1/nearPlaneZ*(viewportTop + viewportHeight/2), 	0,
+										   0,  								 0, 									 -1/nearPlaneZ, 	0,
+										   0,  								 0, 						   						 0, 	1
 			];
 		},
 	
@@ -147,9 +200,9 @@ var Util = {
 				point[3] = 1;
 			}
 		
-			x = matrix[0] * point[0] + matrix[1] * point[1] + matrix[2] * point[2] + matrix[3] * point[3];
-			y = matrix[4] * point[0] + matrix[5] * point[1] + matrix[6] * point[2] + matrix[7] * point[3];
-			z = matrix[8] * point[0] + matrix[9] * point[1] + matrix[10] * point[2] + matrix[11] * point[3];
+			var x = matrix[0] * point[0] + matrix[1] * point[1] + matrix[2] * point[2] + matrix[3] * point[3];
+			var y = matrix[4] * point[0] + matrix[5] * point[1] + matrix[6] * point[2] + matrix[7] * point[3];
+			var z = matrix[8] * point[0] + matrix[9] * point[1] + matrix[10] * point[2] + matrix[11] * point[3];
 
 			x = x/z;
 			y = y/z;
