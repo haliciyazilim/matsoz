@@ -742,7 +742,7 @@ Interaction.init = function(container){
 			toplanan1=sayi1;
 			toplanan2=sayi2;
 		}
-		toplam=toplanan1-toplanan2;
+		toplam=toplanan1+toplanan2;
 		console.log("toplam: "+toplam);
 		
 			

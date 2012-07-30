@@ -135,7 +135,7 @@ var Animation = {
 		$("#OkesirKisim .OyaziBolukler").html("Kesir Kısmı");	
 		
 		// basamaklar baslık
-	$("#OtamKisim",container).append("<div id='ObasamaklarBaslik' >");
+	/*$("#OtamKisim",container).append("<div id='ObasamaklarBaslik' >");
 	
 		$("#ObasamaklarBaslik").css("width","31px")
 			.css("height","89px")
@@ -161,7 +161,7 @@ var Animation = {
 			.css("width","150px")
 			.css("bottom","70px")
 			.css("left","-53px")
-			.css("font-size","small");
+			.css("font-size","small");*/
 		
 			// 
 	$("#OSoruCokluInput",container).append("<div id='Oyuzler' >");
@@ -812,7 +812,7 @@ var etkilesim=function(amac){
 		$("#kesirKisim .yaziBolukler").html("Kesir Kısmı");	
 		
 		// basamaklar baslık
-	$("#tamKisim",container).append("<div id='basamaklarBaslik' >");
+	/*$("#tamKisim",container).append("<div id='basamaklarBaslik' >");
 	
 		$("#basamaklarBaslik").css("width","31px")
 			.css("height","108px")
@@ -838,7 +838,7 @@ var etkilesim=function(amac){
 			.css("width","150px")
 			.css("bottom","70px")
 			.css("left","-53px")
-			.css("font-size","small");
+			.css("font-size","small");*/
 		
 			// 
 	$("#SoruCokluInput",container).append("<div id='yuzler' >");
@@ -997,7 +997,7 @@ var etkilesim=function(amac){
 			.css("font-size","medium")
 			.css("text-align","center")
 			.css("font-size","40px")
-			.css("line-height","245px")
+			.css("line-height","310px")
 			.html(",");
 
 		
