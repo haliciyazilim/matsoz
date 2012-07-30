@@ -246,7 +246,8 @@ p.exampleHeader {
 
 .status_alert {
 	color:red;
-	font-size: 14px;
+	font-size: 16px;
+	font-weight:bold;
 }
 
 .input[type="text"]{
