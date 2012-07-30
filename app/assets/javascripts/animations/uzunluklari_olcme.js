@@ -429,6 +429,7 @@ Interaction.init = function(container){
 		
 	});
 	
+	var deactivate = 0;
 	var trial = 0;				
 	submit = function() {
 		// if this is the 3rd trial or more do nothing
@@ -468,6 +469,14 @@ Interaction.init = function(container){
 						$('#statuss').html("Tebrikler!");
 						$('#checkBtn').hide();
 						$('#nextBtn').show();
+						deactivate = 1;
+						$('.inp').each(function(index, element) {
+							$(this).get(0).onkeydown = function(event){
+													if(event.keyCode != 13)
+														return false;
+													$("#nextBtn").click();
+												}   
+					  });
 					}
 					// second wrong answer state
 					else if(trial == 1)
@@ -484,6 +493,14 @@ Interaction.init = function(container){
 						$('#checkBtn').hide();
 						$('#nextBtn').show();
 						trial += 1;
+						deactivate = 1;
+						$('.inp').each(function(index, element) {
+							$(this).get(0).onkeydown = function(event){
+													if(event.keyCode != 13)
+														return false;
+													$("#nextBtn").click();
+												}   
+					  });
 					}
 					// first wrong answer state
 					else if(trial == 0)
@@ -529,6 +546,14 @@ Interaction.init = function(container){
 						$('#statuss').html("Tebrikler!");
 						$('#checkBtn').hide();
 						$('#nextBtn').show();
+						deactivate = 1;
+						$('.inp').each(function(index, element) {
+							$(this).get(0).onkeydown = function(event){
+													if(event.keyCode != 13)
+														return false;
+													$("#nextBtn").click();
+												}   
+					  });
 					}
 					// second wrong answer state
 					else if(trial == 1)
@@ -545,6 +570,14 @@ Interaction.init = function(container){
 						$('#checkBtn').hide();
 						$('#nextBtn').show();
 						trial += 1;
+						deactivate = 1;
+						$('.inp').each(function(index, element) {
+							$(this).get(0).onkeydown = function(event){
+													if(event.keyCode != 13)
+														return false;
+													$("#nextBtn").click();
+												}   
+					  });
 					}
 					// first wrong answer state
 					else if(trial == 0)
@@ -562,28 +595,14 @@ Interaction.init = function(container){
 	$('#checkBtn').click(submit);
 	
 	$('.inp').keydown(function() {
-		$('#statuss').html("");
+		if(deactivate == 0)
+			$('#statuss').html("");
 	});
 		
 	// enter keypress action
-	$("#textInput1").keyup(function(event) {
+	$(".inp").keyup(function(event) {
 		if(event.keyCode == 13) {
 			submit();
 		}
-	});
-	
-	$("#textInput2").keyup(function(event) {
-		if(event.keyCode == 13) {
-			submit();
-		}
-	});
-	
-	$("#textInput3").keyup(function(event) {
-		if(event.keyCode == 13) {
-			submit();
-		}
-	});
-	
-	
-	
+	});	
 }

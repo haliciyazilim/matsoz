@@ -59,7 +59,7 @@ var Animation = {
 				if(animationHelper.angle > 360)
 					var dot = new Path.Circle(
 						new Point(x,y),
-						2
+						3
 					);
 				else
 					var dot = new Path.Circle(
@@ -67,7 +67,9 @@ var Animation = {
 						3
 					);
 				dot.set_style({
-					fillColor:'#000'
+					fillColor:'#000',
+					strokeColor:'#fff',
+					strokeWidth:2
 				});
 				pointGroup.addChild(dot);
 				animationHelper.nextDot = animationHelper.dots.shift();
@@ -211,7 +213,7 @@ Interaction.images = [
 ];
 
 Interaction.init = function(container){
-	Main.setObjective('Yandaki cetvel ve pergeli kullanarak seçeceğiniz yarıçap uzunluğuna sahip çemberi aşağıdaki “Çiz” düğmesine tıklayarak çiziniz.');
+	Main.setObjective('Yandaki cetvel üzerinde fare ile pergelin kolunu açarak belirleyeceğiniz yarıçap uzunluğuna sahip çemberi kalem işaretiyle çiziniz.');
 
 	Interaction.container = container;
 	Interaction.paper = {width:$(container).width(),height:$(container).height()};
@@ -260,7 +262,10 @@ Interaction.pause = false;
 Interaction.setRadius = function(r){
 	$(Interaction.radius).hide();
 	Interaction.r = r;
-	Interaction.radius.innerHTML = Util.numberTurkishFloating(r/Interaction.br,1);
+	if(r/Interaction.br == Math.floor(r/Interaction.br))
+		Interaction.radius.innerHTML = r/Interaction.br;
+	else
+		Interaction.radius.innerHTML = Util.numberTurkishFloating(r/Interaction.br,1);
 	$(Interaction.radius).show();
 };
 

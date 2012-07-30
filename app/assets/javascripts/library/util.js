@@ -174,6 +174,21 @@ var Util = {
 			}
 		},
 		
+		
+	createProjectionMatrixForObjectAt: function(x, y, fov) {
+			
+			if (fov == undefined) {
+				fov = 256;
+			}
+			
+			return [
+				1,	0,	128/fov + x/fov, 	x,
+				0,  1, -128/fov + y/fov, 	y,
+				0,	0,			1/fov, 	1,
+				0,	0,				0, 	1
+			];
+		},
+		
 	createProjectionMatrix: function (nearPlaneWidth, nearPlaneHeight, nearPlaneZ, viewportLeft, viewportTop, viewportWidth, viewportHeight) {
 			if (viewportLeft === undefined) {
 				viewportLeft = -0.5;

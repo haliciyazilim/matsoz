@@ -81,7 +81,8 @@ var Animation = {
 								backgroundColor:'#fff',
 								marginLeft:'-55px',
 								lineHeight:'20px',
-								textAlign:'center'						
+								textAlign:'center',
+								fontWeight:'bold'					
 							});
 							
 						function flashLine(span,container,point,delay){
@@ -221,10 +222,14 @@ var Animation = {
 				new Point(p.x+a*17,p.y+a*1),
 				new Point(p.x+a*20,p.y+a*1),
 				new Point(p.x+a*19,p.y+a*3),
+				new Point(p.x+a*17,p.y+a*1),
+				new Point(p.x+a*19,p.y+a*3),
 				new Point(p.x+a*16,p.y+a*3),
 			],
 			[
 				new Point(p.x+a*17,p.y+a*1),
+				new Point(p.x+a*18,p.y+a*2),
+				new Point(p.x+a*19,p.y+a*3),
 				new Point(p.x+a*17,p.y+a*1),
 				new Point(p.x+a*19,p.y+a*3),
 				new Point(p.x+a*16,p.y+a*3),
@@ -232,9 +237,9 @@ var Animation = {
 			],
 			{strokeColor:"#000",strokeWidth:2,fillColor:new RgbColor(0.5,0.7,1,0.5)},
 			{fillColor:new RgbColor(1,1,0.7,0.5)},
-			1000,
+			1500,
 			12000,
-			'Üçgensel Bölge<br/> A =<span id="1" lineFrom="0,0" lineTo="0,2" >2br</span> x <span id="2" lineFrom="-1,2" lineTo="2,2" >3br</span> = 3br²<br/><div style="position:relative;height:20px;width:50px;border-top:1px solid #000;left:30px;text-align:center;">2</div>'
+			'Üçgensel Bölge<br/><span style="position:relative;top:10px;"> A =</span><span id="2" lineFrom="-1,2" lineTo="2,2" >3br</span> x <span id="1" lineFrom="0,0" lineTo="0,2" >2br</span><span style="position:relative;top:10px;"> = 3br²</span><br/><div style="position:relative;height:20px;width:50px;border-top:1px solid #000;left:30px;text-align:center;">2</div>'
 		);
 		triangle.startAnimation();
 		
@@ -315,7 +320,7 @@ TestGenerator.nextQuestion = function(){
 	var m = Math.floor(Math.random()*2);
 	TestGenerator.setMeasure(m);
 	TestGenerator.letters = (Math.random()>0.5 ? ["A","B","C","D","E"]:["K","L","M","N","P"]);
-	///*TEST*/TestGenerator.shape = 3;/*TEST*/
+	//*TEST*/TestGenerator.shape = 3;/*TEST*/
 	
 	switch(TestGenerator.shape){
 		case 0:
@@ -466,7 +471,7 @@ function rhomboid(a,b,H,measure,paper){
 	var line = new Path.Line(new Point(x+_w,y), new Point(x+_w,y+h));
 	line.style = edgeStyle;
 	
-	var t1 = new PointText(new Point(x+w*0.5-10,y+h+15));
+	var t1 = new PointText(new Point(x+w*0.5-10,y+h+45));
 	t1.content = ""+(a+b)+" "+measure;
 	var t2 = new PointText(new Point(x+_w+5,y+h*0.5));
 	t2.content = ""+H+" "+measure;
@@ -476,13 +481,18 @@ function rhomboid(a,b,H,measure,paper){
 	var circle = new Path.Circle(new Point(x+_w-5,y+h-5),1);
 	circle.style = edgeStyle;
 	
+	//curve for bottom edges
+	var curve = new Raster('curve');
+	curve.position= new Point(x+w*0.5,y+h+20)
+	curve.size = new Size(w,curve.height);
+	
 	TestGenerator.printVertexLetters(
 			[
 				new Point(x-10,y+h+10),
 				new Point(x+w+10,y+h+10),
 				new Point(x+_w+w+10,y-10),
 				new Point(x+_w-10,y-10),
-				new Point(x+_w-16,y+h-16)
+				new Point(x+_w,y+h+12)
 			]
 		);
 }

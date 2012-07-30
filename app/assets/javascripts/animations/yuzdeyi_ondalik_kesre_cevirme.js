@@ -269,8 +269,10 @@ Interaction.init = function(container){
 	$("#orta3",container).append("<div id='yuzde2'>");
 	$("#orta3",container).append("<div id='esit1'>");
 	$("#orta3 #yuzde2",container).append("0,");
+	$("#orta3 #esit1",container).append("= 0");
 	$(container).append("<style>#girdiCevap3{width:30px; height:30px; margin:auto;position:absolute;  left:0; right:0;}</style>");
 	$(container).append("<style>#yuzde2{position:absolute; top: 10px; left:20px;  width:20px; height:20px;}</style>");
+	$("#orta3 #esit1").css("opacity","0").css("width","30px");
 	
 	// Geri bildirim
 	$(container).append("<div class='status_field' id='geriBildirim'>");
@@ -441,6 +443,9 @@ Interaction.init = function(container){
 		
 	);
 	
+	
+
+	
 	function yeniSoru(){
 		$("#giris, #girdiCevap1, #girdiCevap2, #girdiCevap3").val("");
 		$("#geriBildirim, #Corta1, #Corta2, #Corta3, #sonraki").hide();
@@ -449,9 +454,17 @@ Interaction.init = function(container){
 		bosKare.yap();
 		$(container).append("<style>#Cevap1, #Cevap2, #Cevap3, #girdiCevap1, #girdiCevap2, #girdiCevap3{color:'black';}</style>");
 		cevap1=""; cevap2=""; cevap3="";
+		$("#orta3 #esit1").css("opacity","0");
 		
+		$("#girdiCevap3").removeAttr('onkeydown');
+		$("#girdiCevap2").removeAttr('onkeydown');
+		$("#girdiCevap1").removeAttr('onkeydown');
+		$("#giris").removeAttr('onkeydown');
+		$("input").css("color","black");
 	}
 	
+	
+	enter=0;
 	function kontrol(){
 			console.log("c1: "+cevap1+" c2: "+cevap2+" c3: "+cevap3);
 			
@@ -461,6 +474,11 @@ Interaction.init = function(container){
 			//if($("#girdiCevap1").val()=="" || $("#girdiCevap2").val()=="" || $("#girdiCevap3").val()==""){
 				$("#geriBildirimText").attr("class","status_alert").html("Bütün kutucukları doldurunuz.");
 				$("#geriBildirim").show();
+				
+				$("#girdiCevap3").removeAttr('onkeydown');
+				$("#girdiCevap2").removeAttr('onkeydown');
+				$("#girdiCevap1").removeAttr('onkeydown');
+				$("#giris").removeAttr('onkeydown');
 				
 				
 			}
@@ -473,13 +491,15 @@ Interaction.init = function(container){
 				ondalikliGirdi=girdi/10; 
 
 			if(girdi==100)
-				ondalikliGirdi=1;
+				ondalikliGirdi=0.1;
 			
 				
 			
 				
 			// Cevap Doğruysa
-			if(cevap1==girdi && cevap2==girdi && (cevap3==ondalikliGirdi || cevap3==ondalikliGirdi*10)){
+			
+			if(cevap1==girdi && cevap2==girdi && (cevap3==ondalikliGirdi*10)){
+				enter++;
 				$("#btnKontrol").hide();
 				$("#sonraki").show();
 				//$("#geriBildirim").hide();
@@ -487,8 +507,25 @@ Interaction.init = function(container){
 				$("#geriBildirimText").attr("class","status_true").html("Tebrikler");
 				$("#geriBildirim").show();
 				
+				if(cevap1==0)
+					$("#orta3 #esit1").css("opacity","1");
 				
-				}
+				console.log("enter"+enter);
+				if (enter==2)
+					yeniSoru();
+				else{
+				$("#girdiCevap3").get(0).setAttribute('onkeydown','return tusEngelle(event);');
+				$("#girdiCevap2").get(0).setAttribute('onkeydown','return tusEngelle(event);');
+				$("#girdiCevap1").get(0).setAttribute('onkeydown','return tusEngelle(event);');
+				$("#giris").get(0).setAttribute('onkeydown','return tusEngelle(event);');
+			}
+				
+				
+				
+				
+				
+			}
+				
 			// cevap Yanlışsa
 			else{
 				tiklamaSayisi++;
@@ -501,8 +538,18 @@ Interaction.init = function(container){
 			if(tiklamaSayisi>=2){
 				//$(".status_alert").html("Yanlış. Doğru cevap: ");
 				//console.log(tiklamaSayisi);
+				
 				$("#geriBildirimText").attr("class","status_false").html("Yanlış. Doğru cevap:");
 				var cevap=parseInt($("#giris").val());
+				
+				console.log("cevap: "+cevap);
+				
+				
+				$("#girdiCevap3").get(0).setAttribute('onkeydown','return tusEngelle(event);');
+				$("#girdiCevap2").get(0).setAttribute('onkeydown','return tusEngelle(event);');
+				$("#girdiCevap1").get(0).setAttribute('onkeydown','return tusEngelle(event);');
+				$("#giris").get(0).setAttribute('onkeydown','return tusEngelle(event);');
+				
 				
 				if(cevap=="100" || cevap==100){
 					
@@ -514,14 +561,25 @@ Interaction.init = function(container){
 					
 					var noktaliCevap=""+cevap/100;
 					var virgulluCevap="0,"+noktaliCevap.substr(2);
-					$("#Cevap3").html(virgulluCevap);
-					if(cevap<10){
+					
+					console.log("noktali Cevap: "+noktaliCevap);
+					console.log("virgüllü Cevap: "+virgulluCevap);
+					
+					
+					if(cevap==0){
+						$("#orta3 #esit1").css("opacity","1");
+						$("#girdiCevap3").val("0");
+						$("#Cevap3").html(cevap);
+					}
+					else if(cevap<10){
 						$("#girdiCevap3").val("0"+cevap);
 
 					}
 
-					else
+					else{
 						$("#girdiCevap3").val(ondalikliGirdi);
+						$("#Cevap3").html(virgulluCevap);
+					}
 				}
 				
 			
@@ -533,6 +591,13 @@ Interaction.init = function(container){
 				//$(container).append("<style>#Cevap1, #Cevap2, #Cevap3, #girdiCevap1,  #girdiCevap3{color:"+dogruCevapGosterimRengi+";}</style>");
 				
 					//$("#btnKontrol").hide();
+				if (cevap1!=girdi)
+					$("#girdiCevap1").css("color","red");
+				if (cevap2!=girdi)
+					$("#girdiCevap2").css("color","red");
+				if (cevap3!=ondalikliGirdi*10)
+					$("#girdiCevap3").css("color","red");
+				$("#Cevap1, #Cevap2, #Cevap3").css("color","green");
 				$("#geriBildirim, #Corta1, #Corta2, #Corta3, #sonraki").show();
 					
 				}
@@ -543,25 +608,33 @@ Interaction.init = function(container){
 			}		
 					
 		}
+
+
+
+		$("#girdiCevap1").keyup(function(event) {
+			if(event.keyCode == 13) {
+				//console.log("Key"+event.keyCode);
+				kontrol();
+			}
+		});
+		
+		$("#girdiCevap2").keyup(function(event) {
+			if(event.keyCode == 13) {
+				kontrol();
+			}
+		});
+		
+		$("#girdiCevap3").keyup(function(event) {
+				
+				if(event.keyCode == 13) {
+					kontrol();
+				}
+		});
+		
+
+
+
 	
-	$("#girdiCevap1").keyup(function(event) {
-		if(event.keyCode == 13) {
-			//console.log("Key"+event.keyCode);
-			kontrol();
-		}
-	});
-	
-	$("#girdiCevap2").keyup(function(event) {
-		if(event.keyCode == 13) {
-			kontrol();
-		}
-	});
-	
-	$("#girdiCevap3").keyup(function(event) {
-		if(event.keyCode == 13) {
-			kontrol();
-		}
-	});
 
 	
 	
@@ -682,3 +755,17 @@ var Kare= function(kareSayisi, dolguRengi, hatRengi, x,y){
 	function SadeceRakamBlur(e,clear){var nesne=e.target?e.target:e.srcElement;var val=nesne.value;val=val.replace(/^\s+|\s+$/g,"");if(clear)val=val.replace(/\s{2,}/g," ");nesne.value=val;}
 	
 
+
+
+	function tusEngelle(event) {
+	console.log("keyup ife girdim");
+	console.log("event.keyCode: "+event.keyCode);
+	if(event.keyCode == 13) {
+		//$("#girdiCevap3").attr("onkeypress","tusEngelle()");
+		console.log("!=");
+		//yeniSoru();
+		return true;
+	}
+	else
+		return false;
+}

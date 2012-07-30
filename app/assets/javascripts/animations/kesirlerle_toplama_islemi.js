@@ -905,6 +905,7 @@ var Interaction = {
 			}
 		},
 	isAnswerCorrect : function(values){
+		console.log($(Interaction.inputs[0]).val())
 			if(Interaction.randomize % 3 == 0){
 				Interaction.maxDenom = Math.max(Interaction.denom1, Interaction.denom2);
 				Interaction.answer1 = Interaction.nom1 * (Interaction.maxDenom/Interaction.denom1) + Interaction.nom2 * (Interaction.maxDenom/Interaction.denom2);

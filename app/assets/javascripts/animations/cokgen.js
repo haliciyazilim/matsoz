@@ -187,6 +187,7 @@ Interaction.init = function(container){
 		}
 		
 	};
+	Interaction.shuffledArray = null;
 	Interaction.createDropableShapesLeft(0,0,w*0.2,h*0.8);
 	Interaction.createDropableShapesRight(w*0.8,0,w*0.2,h*0.8);
 	//Interaction.dropableShapes.setImage('dropable_default');

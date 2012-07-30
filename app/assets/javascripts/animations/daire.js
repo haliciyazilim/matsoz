@@ -57,7 +57,7 @@ var Animation = {
 				if(animationHelper.angle > 360)
 					var dot = new Path.Circle(
 						new Point(x,y),
-						2
+						3
 					);
 				else
 					var dot = new Path.Circle(
@@ -65,7 +65,9 @@ var Animation = {
 						3
 					);
 				dot.set_style({
-					fillColor:'#000'
+					fillColor:'#000',
+					strokeColor:'#fff',
+					strokeWidth:2
 				});
 				pointGroup.addChild(dot);
 				animationHelper.nextDot = animationHelper.dots.shift();
@@ -96,15 +98,11 @@ var Animation = {
 						Animation.circle.remove();
 					var point1 = new Point(x + Math.cos(startAngle) * R,
 										   y + Math.sin(startAngle) * R);
-										   
 					var point2 = new Point(x + Math.cos((startAngle+endAngle)/2) * R,
 										   y + Math.sin((startAngle+endAngle)/2) * R);
-										   
 					var point3 = new Point(x + Math.cos(endAngle) * R,
 										   y + Math.sin(endAngle) * R);
-										   
 					Animation.circle = new Path.Arc(point1, point2, point3);
-					
 					Animation.circle.set_style({
 						strokeColor:'#000',
 						strokeWidth:1
@@ -119,7 +117,6 @@ var Animation = {
 				if(animationHelper.circleOpacity == 1){
 					animationHelper.angle = -2;
 				}
-				
 			}
 			else if(animationHelper.angle == -2){
 				var line = new Path.Line(
@@ -155,7 +152,8 @@ var Animation = {
 			},
 			duration:1,
 			delay:8000
-		});animationHelper.animate({
+		});
+		animationHelper.animate({
 			style:{
 				circleOpacity:1
 			},
@@ -221,8 +219,7 @@ Interaction.images = [
 ];
 
 Interaction.init = function(container){
-	Main.setObjective('Yandaki cetvel ve pergeli kullanarak seçeceğiniz yarıçap uzunluğuna sahip çemberi aşağıdaki “Çiz” düğmesine tıklayarak çiziniz. Daha sonra daire oluşturunuz.');
-
+	Main.setObjective('Yandaki cetvel ve pergeli kullanarak seçeceğiniz yarıçap uzunluğuna sahip çemberi aşağıdaki “Çiz” düğmesine tıklayarak çiziniz. Daha sonra Daha sonra makas resmine tıklayarak kesiniz ve daire elde ediniz.');
 	Interaction.container = container;
 	Interaction.paper = {width:$(container).width(),height:$(container).height()};
 	Interaction.button = document.createElement('input');
@@ -273,7 +270,6 @@ Interaction.init = function(container){
 };
 
 Interaction.nextQuestion = function(){
-	//Interaction.status.innerHTML = "";
 	$(Interaction.status).html("");
 	$(Interaction.radius).show();
 	Interaction.r = null;
@@ -293,8 +289,13 @@ Interaction.nextQuestion = function(){
 Interaction.pause = false;
 
 Interaction.setRadius = function(r){
+	$(Interaction.radius).hide();
 	Interaction.r = r;
-	Interaction.radius.innerHTML = Util.numberTurkishFloating(r/Interaction.br,1);
+	if(r/Interaction.br == Math.floor(r/Interaction.br))
+		Interaction.radius.innerHTML = r/Interaction.br;
+	else
+		Interaction.radius.innerHTML = Util.numberTurkishFloating(r/Interaction.br,1);
+	$(Interaction.radius).show();
 };
 
 Interaction.drawCircle = function(){
@@ -410,7 +411,6 @@ Interaction.drawCircle = function(){
 					}
 				}
 				Interaction.scissor.tool.activate();
-				
 			}
 				
 			var _x = Interaction.drawCircle.x + Interaction.r * Math.cos(Util.degreeToRadians(Interaction.drawCircle._o));
@@ -440,8 +440,6 @@ Interaction.drawCircle = function(){
 		},
 		1 
 	);
-	
-		
 };
 
 
@@ -478,13 +476,12 @@ Interaction.showCircularRegion = function(){
 					Interaction.r*2
 				)
 			)
-		)
+		);
 		if(angle > 90 && angle < 270)
 			Interaction.showCircularRegion.circle.set_style({strokeColor:'#000',fillColor:"#aaa"});
 		else
 			Interaction.showCircularRegion.circle.set_style(circleStyle);
 	};
-	
 	setTimeout(
 		function(){
 			Interaction.drawCircle.circle.remove();
@@ -529,7 +526,6 @@ Interaction.splitCircularRegion = function(){
 			
 			Interaction.scissor_half.rotate(+Interaction.splitCircularRegion._o_old-Interaction.splitCircularRegion._o, center);
 			Interaction.splitCircularRegion._o_old = Interaction.splitCircularRegion._o;
-			
 			var point1 = new Point(center.x + Math.cos(startAngle) * radius,
 							   center.y + Math.sin(startAngle) * radius);
 			var point2 = new Point(center.x + Math.cos((startAngle+endAngle)/2) * radius,
@@ -550,9 +546,6 @@ Interaction.splitCircularRegion = function(){
 	);
 	
 }
-
-
-
 Interaction.initCompass = function(){
 	Interaction.compass = new Compass(Interaction.ruler.bounds.x+2,Interaction.ruler.bounds.y);
 	Interaction.compass.right.class = "right_leg";

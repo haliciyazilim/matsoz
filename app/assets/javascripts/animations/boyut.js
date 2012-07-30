@@ -130,7 +130,7 @@ Animation.init = function(container){
 	Animation.line3.set_style(lineStyle);
 	Animation.line2.set_style(lineStyle);
 	Animation.line1.strokeColor = '#f00';
-	Animation.line3.strokeColor = '#0f0';
+	Animation.line3.strokeColor = '#0a0';
 	Animation.line2.strokeColor = '#00f';
 	animationHelper.animate = Item.prototype.animate;
 	Animation.onFrame = function(){
@@ -147,7 +147,7 @@ Animation.init = function(container){
 			var div = document.createElement('div');
 			$(Animation.container).append(div);
 			$(div)
-				.html('<span style="color:#f00">1.&emsp;Boy</span><br/><span style="color:#00f">2.&emsp;En</span><br/><span style="color:#0f0">3.&emsp;Derinlik</span>')
+				.html('<span style="color:#f00">1.&emsp;Boy</span><br/><span style="color:#00f">2.&emsp;En</span><br/><span style="color:#0a0">3.&emsp;Derinlik</span>')
 				.css({
 					position:'absolute',
 					left:'50%',

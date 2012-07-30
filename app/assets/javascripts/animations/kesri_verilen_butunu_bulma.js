@@ -245,7 +245,7 @@ var Interaction = {
 				height:$(container).height()
 			}
 
-			
+			Interaction.flushInputs();
 			Interaction.appendInput({
 				width: '30px',
 				height: '32px',
@@ -256,12 +256,13 @@ var Interaction = {
 				fontSize: '22px', 
 			});
 			
-			$(Interaction.input).attr('maxlength', '2')
+			$(Interaction.inputs[0]).attr('maxlength', '2')
+			Interaction.inputs[0].style.color = "black";
 			var questionDiv = document.createElement('questionDiv')
 			$(container).append(questionDiv);
 			$(questionDiv)
 				.html('<div id="ques1"><div id="nom"></div><div id="line"></div><div id="denom"></div></div><p id="a"></p><p id="ques2"></p><p id="b">olan kesrin tamamı</p><p id="c">olur</p>')
-				.append(Interaction.input)
+				.append(Interaction.inputs[0])
 				.css({
 					width: '400px',
 					height: '120px',
@@ -334,12 +335,14 @@ var Interaction = {
 		},
 	nextQuestion: function(){	
 			if(Interaction.solutionDiv)
-				$(Interaction.solutionDiv).remove();				
+				$(Interaction.solutionDiv).remove();
+			Interaction.inputs[0].style.color = "black";				
 			Interaction.denom = Math.floor(Math.random() * 4) + 2;
 			Interaction.num = Math.floor(Math.random() * 9) + 2;
 			do
 				Interaction.nom = Math.floor(Math.random() * 3) + 1;
 				while((Interaction.denom * Interaction.num) % Interaction.nom != 0 || Interaction.nom >= Interaction.denom)
+		//	Interaction.nom = 2;
 			if(Interaction.nom == 1)
 				$(Interaction.aDiv).html("'i")
 			else if(Interaction.nom == 2)
@@ -350,8 +353,8 @@ var Interaction = {
 			$(Interaction.denomD).html(Interaction.denom);
 			$(Interaction.ques2Div).html(Interaction.num);
 		},
-	isAnswerCorrect : function(value){
-			if(value == Interaction.denom*Interaction.num/Interaction.nom)
+	isAnswerCorrect : function(values){
+			if(values[0] == Interaction.denom*Interaction.num/Interaction.nom)
 				return true;
 			else 
 				return false;
@@ -366,21 +369,90 @@ var Interaction = {
 	onFail : function(){
 			Interaction.setStatus('Yanlış cevap, doğrusu yukarıda gösterilmiştir.', false);
 			Interaction.solutionDiv = $(Interaction.questionDiv).clone().insertAfter(Interaction.questionDiv);
-			var answerStr;
+			Interaction.inputs[0].style.color = "red";
+			var answerStr, answerStr1, answerStr2, answerStr3;
 			var anss = this.denom*this.num/this.nom
-			if(this.nom == 1)
+			if(this.nom == 1){
 				answerStr = "Cevap: "+this.denom+" x "+this.num+" = "+this.denom*this.num;
-			else
-				answerStr = "Cevap: ("+this.denom+" x "+this.num+") / "+this.nom+" = "+anss;
-			
-			$(Interaction.solutionDiv)
-				.html(answerStr)
-				.css({
-					position:"absolute",
-					left: "80px",
-					top: "140px",
-					color: "#069",
-					textAlign: "center"
+				$(Interaction.solutionDiv)
+					.html(answerStr)
+					.css({
+						position:"absolute",
+						left: "80px",
+						top: "140px",
+						color: "#069",
+						textAlign: "center"
 				});
+			}
+			else{
+				answerStr1 = "Cevap: ";
+				answerStr2 = this.denom+" x "+this.num;
+				answerStr3 = this.nom;
+				answerStr4 = " = "+anss;
+				$(Interaction.solutionDiv)
+				.css({
+						position:"absolute",
+						left: "180px",
+						top: "130px",
+						color: "#069",
+					//	textAlign: "center"
+				});
+				$(Interaction.solutionDiv).html('');
+				$(Interaction.solutionDiv).append('<div id="answerStr1">'+answerStr1+'</div>')
+				$(Interaction.solutionDiv).append('<div id="answerStr2">'+answerStr2+'</div>')
+				$(Interaction.solutionDiv).append('<div id=anssLinee></div>')
+				$(Interaction.solutionDiv).append('<div id="answerStr3">'+answerStr3+'</div>')
+				$(Interaction.solutionDiv).append('<div id="answerStr4">'+answerStr4+'</div>')
+				
+				
+				$('#answerStr1')
+				.css({
+					position:'absolute',
+					top:'10px',
+					left:'2px',
+				//	border:'solid'
+				});
+				
+				$('#answerStr2')
+				.css({
+					position:'absolute',
+					top:'2px',
+					left:'78px',
+					width:'80px',
+				//	border:'solid',
+					textAlign: 'center'
+				});
+				
+				$('#anssLinee')
+				.css({
+					position: 'absolute',
+					top: '24px',
+					left: '86px',
+					width: '64px',
+					height: '1px',
+					borderTop: '2px solid',
+					padding: 0
+				});
+				$('#answerStr3')
+				.css({
+					position:'absolute',
+					top: '28px',
+					left: '108px',
+			//		border: 'solid',
+					textAlign: 'center',
+					width: '20px'
+					
+				});
+				$('#answerStr4')
+				.css({
+					position: 'absolute',
+					top: '14px',
+					left: '160px'
+				});
+				
+				
+								
+			}
+
 		},
 }
