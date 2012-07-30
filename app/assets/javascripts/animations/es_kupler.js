@@ -1,8 +1,13 @@
 var cubeStyle = {
-	strokeColor:'#000',
+	strokeColor:'#255b63',
 	strokeWidth:1,
-	fillColor:'#ffd9d9'
+	fillColor:'#bfe8ef'
 };
+var animationCubeStyle = {
+	strokeColor:'#333',
+	strokeWidth:1,
+	fillColor:'#ddd'
+}
 var Animation = {
 	pathInit:function(){
 			Path.Cube3d = function(p,a,xAngle,yAngle,zAngle){
@@ -63,7 +68,7 @@ var Animation = {
 			Animation.pathInit();
 			Animation.container = container;
 			Animation.angle = 0;
-			var p = new Point(340,10);
+			var p = new Point(340,30);
 			Animation.a = 50;
 			var animHelp = new AnimationHelper({
 				yAngle:0,
@@ -78,7 +83,7 @@ var Animation = {
 					if(Animation.cube1)
 						Animation.cube1.remove();	
 					Animation.cube1 = new Path.Cube3d(p,Animation.a,this.xAngle,this.yAngle,this.zAngle);
-					Animation.cube1.set_style(cubeStyle);
+					Animation.cube1.set_style(animationCubeStyle);
 				}
 			});
 			animHelp = new AnimationHelper({
@@ -96,7 +101,7 @@ var Animation = {
 					if(Animation.cube2)
 						Animation.cube2.remove();
 					Animation.cube2 = new Path.Cube3d(this.position,Animation.a,this.xAngle,this.yAngle,this.zAngle);
-					Animation.cube2.set_style(cubeStyle);
+					Animation.cube2.set_style(animationCubeStyle);
 				}
 			});
 			animHelp = new AnimationHelper({
@@ -114,7 +119,26 @@ var Animation = {
 					if(Animation.cube3)
 						Animation.cube3.remove();
 					Animation.cube3 = new Path.Cube3d(this.position,Animation.a,this.xAngle,this.yAngle,this.zAngle);
-					Animation.cube3.set_style(cubeStyle);
+					Animation.cube3.set_style(animationCubeStyle);
+				}
+			});
+			
+			animHelp = new AnimationHelper({
+				yAngle:0,
+				zAngle:0,
+				xAngle:45,
+				position:p.add(0,+120)
+			});
+			animHelp.animate({
+				style:{yAngle:585,zAngle:0,xAngle:30,position:p.add(0,-Animation.a*Math.cos(Util.degreeToRadian(30)))},
+				duration:3000,
+				delay:9000,
+				animationType:'easeInEaseOut',
+				update:function(){
+					if(Animation.cube4)
+						Animation.cube4.remove();
+					Animation.cube4 = new Path.Cube3d(this.position,Animation.a,this.xAngle,this.yAngle,this.zAngle);
+					Animation.cube4.set_style(animationCubeStyle);
 				}
 			});
 		}
@@ -181,13 +205,13 @@ var Interaction = {
 			var cubes = [];
 			var zCubes, xCubes, yCubes;
 			do
-				xCubes = Math.floor(Math.random()*4)+2;
+				xCubes = Math.floor(Math.random()*3)+2;
 				while(Interaction.xCubes == xCubes)
 			do
 				yCubes = Math.floor(Math.random()*2)+1;
 				while(Interaction.yCubes == yCubes)
 			do
-				zCubes = Math.floor(Math.random()*4)+1;
+				zCubes = Math.floor(Math.random()*3)+1;
 			while(Interaction.zCubes == zCubes)
 			
 			Interaction.xCubes = xCubes;
@@ -287,7 +311,7 @@ UnitCube.drawCubes = function(cubes,zero,a,h){
 	
 	//draw the cubes
 	cubes.sort(UnitCube.compare);
-	var dY = a*Math.sqrt(2)*0.5;
+	var dY = a;
 	for(var i=0; i<cubes.length;i++){
 		var p = zero.add(
 			0.5,
@@ -308,7 +332,7 @@ UnitCube.drawCubes = function(cubes,zero,a,h){
 UnitCube.drawCubesOneByOne = function(cubes,zero,a,_s,delay){
 	
 	cubes.sort(UnitCube.compare);
-	var dY = a*Math.sqrt(2)*0.5;
+	var dY = a;
 	for(var i=0; i<cubes.length;i++){
 		var p = zero.add(
 			0.5,
@@ -341,7 +365,7 @@ UnitCube.explode = function(cubes,zero,a,distance,_s){
 	
 	//draw the cubes
 	cubes.sort(UnitCube.compare);
-	var dY = a*Math.sqrt(2)*0.5;
+	var dY = a;
 	for(var i=0; i<cubes.length;i++){
 		var p = zero.add(
 			0.5,

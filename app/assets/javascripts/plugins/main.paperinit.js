@@ -644,11 +644,16 @@ Main.paperInit = function() {
 			return true;
 	}
 	
-	Point.prototype.findPointTo = function(p,distance){
+	Point.prototype.findPointTo = function(p,distance,isPercent){
 		var x,y,a;
 		a = Util.findAngle(this.x,this.y,p.x,p.y);
-		x = this.x + Math.cos(a) * distance ;
-		y = this.y - Math.sin(a) * distance ;
+		if(isPercent){
+			x = this.x + Math.cos(a) * this.getDistance(p) * distance / 100 ;
+			y = this.y - Math.sin(a) * this.getDistance(p) * distance / 100 ;
+		}else{
+			x = this.x + Math.cos(a) * distance ;
+			y = this.y - Math.sin(a) * distance ;
+		}
 		return new Point(x,y);
 	}
 	Point.prototype.symmetricTo = function(p){

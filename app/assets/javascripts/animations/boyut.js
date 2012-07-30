@@ -1,29 +1,38 @@
 /*Styles*/
-var textStyle = {strokeColor : '#000', fillColor: '#000' };
-var edgeStyle = {strokeColor : "#000", fillColor : '#fff'};
-var twoDimensionalShapeStyle = {
-	strokeColor : "#000",
-	fillColor : "#ccc",
-	strokeWidth : 2
-};
-var oneDimensionalShapeStyle = {
-	strokeColor : "#000",
-	fillColor : '#fff',
-	strokeWidth : 2
-};
-var threeDimensionalShapeStyle = {
-	strokeColor : "#000",
-	fillColor : "#ccc",
-	strokeWidth : 2
-};
-var dashedLineStyle = {
-	strokeColor : "#000"
+function __Styles(){
+	textStyle = {strokeColor : '#000', fillColor: new RgbColor(0.75,0.91,0.94,1) };
+	edgeStyle = {
+		strokeColor:'#255b63',
+		fillColor:'#bfe8ef'
+	};
+	twoDimensionalShapeStyle = {
+		strokeColor:'#255b63',
+		fillColor:new RgbColor(0.75,0.91,0.94,1),
+		strokeWidth : 2
+	};
+	oneDimensionalShapeStyle = {
+		strokeColor:'#255b63',
+		fillColor : new RgbColor(1,1,1,0),
+		strokeWidth : 2
+	};
+	threeDimensionalShapeStyle = {
+		strokeColor:'#255b63',
+		fillColor:new RgbColor(0.75,0.91,0.94,0.8),
+		strokeWidth : 2
+	};
+	dashedLineStyle = {
+		strokeColor : "#000"
+	}
+	bowlHoverStyle = {strokeColor : '#000', fillColor :'#ff9' , strokeWidth : 2}
+	//var bowlDefaultStyle = {'stroke':'#000','fill':'#fff'};
+	bowlDroppedTrueStyle = {strokeColor : '#0f0', fillColor :'#afa' }//{'stroke':'#0f0','fill':'#afa'};
+	bowlDroppedFalseStyle = {strokeColor : '#f00', fillColor :'#faa' }//{'stroke':'#f00','fill':'#faa'};
+	bowlDefaultStyle = {fillColor: '#fff', strokeColor : '#000' , strokeWidth : 2}/*
+
+	oneDimensionalShapeStyle.fillColor = new RgbColor(1,1,1,0);
+	threeDimensionalShapeStyle.fillColor = new RgbColor(0.75,0.91,0.94,0.8)*/
+
 }
-var bowlHoverStyle = {strokeColor : '#000', fillColor :'#ff9' , strokeWidth : 2}
-//var bowlDefaultStyle = {'stroke':'#000','fill':'#fff'};
-var bowlDroppedTrueStyle = {strokeColor : '#0f0', fillColor :'#afa' }//{'stroke':'#0f0','fill':'#afa'};
-var bowlDroppedFalseStyle = {strokeColor : '#f00', fillColor :'#faa' }//{'stroke':'#f00','fill':'#faa'};
-var bowlDefaultStyle = {fillColor: '#fff', strokeColor : '#000' , strokeWidth : 2}
 	
 
 /*Styles*/
@@ -224,8 +233,7 @@ Interaction.init = function(container){
 	Interaction.paper = {width:$(container).width(), height: $(container).height()}
 	var w = Interaction.paper.width;
 	var h = Interaction.paper.height;
-	oneDimensionalShapeStyle.fillColor = new RgbColor(1,1,1,0);
-	threeDimensionalShapeStyle.fillColor = new RgbColor(0.8,0.8,0.8,0.8)
+	
 	Interaction.shapeCount = 1;
 	Interaction.generateBowls(w,h);
 	Interaction.nextQuestion();
@@ -367,8 +375,8 @@ Interaction.generateRandomShape = function(x,y,w,h){
 		case 0:
 			Interaction.shape = new Path.Circle(new Point(x+w*0.5,y+h*0.5),5);
 			Interaction.shape.style = {
-					fillColor : '#000',
-					strokeColor : '#000'
+					fillColor : twoDimensionalShapeStyle.strokeColor,
+					strokeColor : twoDimensionalShapeStyle.strokeColor
 				}
 			Interaction.shape.dimension = 0;
 			break;
@@ -534,7 +542,7 @@ Interaction.generateRandomShape = function(x,y,w,h){
 					Interaction.shape.children[i].set_style(dashedLineStyle)
 	}
 	if(Interaction.shape.arrow == true)
-		Interaction.shape.set_style({fillColor:'#000'})
+		Interaction.shape.set_style({fillColor:twoDimensionalShapeStyle.strokeColor})
 }
 
 Interaction.generateBowls = function(w,h){

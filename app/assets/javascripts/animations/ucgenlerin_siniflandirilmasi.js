@@ -5,18 +5,17 @@
 var triangleStyle = {
 	fillColor: '#fff' ,
 	strokeWidth: 2,
-	strokeColor: '#000'
+	strokeColor: '#255b63'
 };
 	
 var textStyle = {
-	fontSize : 16,
-	fillColor:"#55f",
-	strokeColor: "#55f" 
+	fontSize : 12,
+	fillColor:"#255b63"
 };
 
 var edgeStyle = {
 	strokeWidth : 2,
-	strokeColor : "#000"
+	strokeColor : "#255b63"
 };
 
 var angleStyle = {
@@ -541,7 +540,7 @@ TestGenerator.nextQuestion = function(){
 function Triangle(i,j,k,paper){
 	var _x=160,_y=20;
 	this.i=i,this.j=j,this.k=k;
-	this.p1={x:10,y:0},this.p2={x:0,y:0},this.p3={x:0,y:0};
+	this.p1=new Point(10,0),this.p2=new Point(0,0),this.p3=new Point(0,0);
 	this.a1=null,this.a2=null,this.a3=null;
 	var a = Math.min(paper.width,paper.height)*0.8;
 	var _c = (a-40)/Math.max(i,j,k);
@@ -564,7 +563,7 @@ function Triangle(i,j,k,paper){
 					this.p2,
 					this.p3);
 	triangle.style = edgeStyle;
-	
+	this.centerPoint = Util.centerOfPoints([this.p1,this.p2,this.p3]);
 	TestGenerator.printVertexLetters(
 			[
 				new Point(this.p1.x-10,this.p1.y+10),
@@ -636,13 +635,11 @@ function Triangle(i,j,k,paper){
 		var _x,_y;//for the text
 		_x = p1.x + Math.sqrt(2) * k* Math.cos(_t);
 		_y = p1.y - Math.sqrt(2) * k * Math.sin(_t);
-		if(_x < p1.x)
-			_x -= 15;
-		if(_y > p1.y)
-			_y += 10;
+		var tPoint = p1.findPointTo(this.centerPoint,30).add(0,+textStyle.fontSize*0.5);
 		//var circle = new Path.Circle([_x,_y],2);
 		//circle.set_style({fillColor:'#000'});
-		var text = new PointText(_x,_y);
+		var text = new PointText(tPoint);
+		text.paragraphStyle.justification = 'center';
 		text.content = ""+_A+"°";
 		text.set_style(textStyle);
 	}

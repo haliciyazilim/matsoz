@@ -16,14 +16,13 @@ Interaction.getFramework = function() {
 Animation.init = function(container){
 	Animation.container = container;
 	
-	$(container).append('<img id="butterfly" src="/assets/animations/simetri/butterfly_animated_01.gif"/>');
+	$(container).append('<img id="butterfly" src="/assets/animations/simetri/butterfly_animated.gif" />');
 	$('#butterfly').css("width", "128px")
 				.css("height", "113px")
 				.css("position", "absolute")
 				.css("left", "40px")
 				.css("top", "50px")
-				.css("opacity", 1);
-	//$('#butterfly').delay(1000).attr("src", "/assets/animations/simetri/butterfly_animated_02.gif");
+
 	
 	AnimateHelper = new AnimationHelper({
 		
@@ -365,7 +364,7 @@ Animation.init = function(container){
 		trapSymText.opacity = AnimateHelper.trapTextOpacity;
 	}
 	
-	var triangleStart = 4000;
+	var triangleStart = 6000;
 	var rectangleStart = triangleStart + 4500;
 //	var rectangleStart = 1000;
 	var hexagonStart = rectangleStart + 14500;

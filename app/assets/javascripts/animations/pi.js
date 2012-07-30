@@ -1,6 +1,6 @@
 /*Styles starts*/
 var circleStyle = {
-	strokeColor:'#000',
+	strokeColor:'#255b63',
 	strokeWidth:2
 };
 var rulerStyle = {
@@ -15,7 +15,7 @@ var circularAreaStyle = {
 
 var Animation = {
 	init:function(container){
-		function htmlPlaceAndAnimate(text,x,y,delay){
+		function htmlPlaceAndAnimate(text,x,y,delay,callback){
 			var div = document.createElement('div');
 			$(Animation.container).append(div);
 			$(div)
@@ -31,6 +31,9 @@ var Animation = {
 					{opacity:1},
 					1000
 				);
+			if(callback)
+				callback(div);
+			return div;
 		}
 		Animation.container = container;
 		var w=$(container).width(), h=$(container).height();
@@ -41,7 +44,29 @@ var Animation = {
 		var circleCenter = new Point(x-100,y);
 		var circle = new Path.Circle(circleCenter,R);
 		circle.set_style(circularAreaStyle);
-		
+		circle.fillColor = new RgbColor(1,1,0.8,0);
+		circle.opacity = 0;
+		var animHelper = new AnimationHelper({
+			angle:0,
+			circleCenter:circleCenter,
+			R:R
+		});
+		animHelper.animate({
+			style:{angle:359},
+			duration:1000,
+			update:function(){
+				if(Animation.arcByAngle)
+					Animation.arcByAngle.remove();
+				if(this.angle == 359)
+					return;
+				Animation.arcByAngle = new Path.ArcByAngle(this.circleCenter,this.R,this.angle,0);
+				Animation.arcByAngle.strokeColor = circularAreaStyle.strokeColor;
+				Animation.arcByAngle.strokeWidth = circularAreaStyle.strokeWidth;
+				
+				//console.log(Animation.arcByAngle);
+				console.log(this.circleCenter.toString());
+			}
+		})
 		var text = new PointText(
 			new Point(
 				circleCenter.x-10,
@@ -83,8 +108,14 @@ var Animation = {
 		});
 		circle.animate({
 			style:{opacity:1},
-			duration:1000
+			duration:1,
+			delay:900
 		});
+		circle.animate({
+			style:{fillColor:new RgbColor(1,1,0.8,1)},
+			duration:1000,
+			delay:1000
+		})
 		circlePoint.animate({
 			style:{opacity:1},
 			duration:1000
@@ -101,7 +132,14 @@ var Animation = {
 		rText.animate({
 			style:{opacity:1},
 			duration:1000,
-			delay:1100
+			delay:1100,
+			callback:function(){
+				this.animate({
+					style:{opacity:0},
+					duration:1000,
+					delay:1000
+				})
+			}
 		});
 		radius2.animate({
 			style:{opacity:1},
@@ -125,8 +163,12 @@ var Animation = {
 			'dairenin çevre uzunluğu',
 			x+85,
 			y-10,
-			5000
+			5500,
+			function(div){
+				$(div).animate({color:'#f00'},400).delay(500).animate({color:'#000'},400)
+			}
 		);
+		
 		circle.animate({
 			style:{strokeWidth:4,strokeColor: new RgbColor(1,0,0)},
 			duration:400,
@@ -142,7 +184,10 @@ var Animation = {
 			'çap',
 			x+145,
 			y+10,
-			8000
+			8000,
+			function(div){
+				$(div).animate({color:'#f00'},1000).animate({color:'#000'},1000)
+			}
 		);
 		radius.animate({
 			style:{strokeWidth:4,strokeColor: new RgbColor(1,0,0)},
@@ -316,12 +361,12 @@ var Interaction = {
 		}
 		tool.onMouseDrag = function(event){
 			var newPoint = this.firstPosition.add(this.totalDelta).add(event.delta);
-			if(Interaction.isLineDrawed && newPoint.x < 450){
-				Interaction.ruler.position = this.firstPosition.add(this.totalDelta);
+			if(Interaction.isLineDrawed && newPoint.x < 470 && newPoint.x > 430 && newPoint.y > 140 && newPoint.y < 180){
+				Interaction.ruler.position = new Point(448,164);
 			}else{
-				Interaction.ruler.position = this.firstPosition.add(newPoint);
-				this.totalDelta = this.totalDelta.add(event.delta);
+				Interaction.ruler.position = newPoint;
 			}
+				this.totalDelta = this.totalDelta.add(event.delta);
 		}
 		tool.onMouseUp = function(){
 			this.drag = false;

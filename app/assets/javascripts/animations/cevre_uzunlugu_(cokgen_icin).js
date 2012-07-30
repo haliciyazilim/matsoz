@@ -2,7 +2,7 @@
 
 /*Styles*/
 var textStyle = {'font-size':'16px'};
-var edgeStyle = {strokeColor:'#000',strokeWidth:2,fillColor:'#fff',cursor:'move'};
+var edgeStyle = {strokeColor:'#255b63',strokeWidth:2,fillColor:'#fff',cursor:'move'};
 var rectangularShapeStyle = {'shape-rendering':'crispEdges'}
 var angleStyle = {'fill':'#DDD'};
 var animationEdgeStyle = {strokeColor:'#000',strokeWidth:2}
@@ -360,10 +360,17 @@ Interaction.init = function(container){
 	Interaction.button.className = 'control_button';
 	$('div#B > div#R',Interaction.container).append(Interaction.button);
 	$('div#B > div#R',Interaction.container).append('<div id="status"></div>');
+	
 	Interaction.status = $('div#B > div#R > div#status',Interaction.R).get(0);
-	Interaction.status.style.fontSize = '16px';
-	Interaction.status.style.fontWeight = 'bold';
-	Interaction.status.style.paddingTop = '10px';
+	$(Interaction.status ).css({
+		position:'relative',
+		width:'220px',
+		left:'-94px',
+		fontSize:'16px',
+		fontWeight: 'bold',
+		paddingTop:'10px' ,
+		textAlign:'center'
+	});
 	Interaction.preventNextQuestion = false;
 	var NUMBER_OF_SHAPES  = 8;
 	Interaction.shuffledArray = Util.getShuffledArray(NUMBER_OF_SHAPES);

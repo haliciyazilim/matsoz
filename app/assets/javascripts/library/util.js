@@ -130,12 +130,15 @@ var Util = {
 			return new Point(x,y);
 		},
 		
-	createProjectionMatrix: function (viewportWidth, viewportHeight, nearPlaneWidth, nearPlaneHeight, nearPlaneZ) {
+	createProjectionMatrix: function (nearPlaneWidth, nearPlaneHeight, nearPlaneZ, viewportLeft, viewportRight, viewportTop, viewportBottom) {
+			var viewportWidth = viewportLeft-viewportRight;
+			var viewportHeight = viewportBottom-viewportTop;
+		
 			return [
 				viewportWidth/nearPlaneWidth,				   				0, 	-1/nearPlaneZ*viewportWidth/2, 		0,
-										   0, -viewportHeight/nearPlaneHeight, -1/nearPlaneZ*viewportHeight/2, 		0,
-										   0, 								0, 					-1/nearPlaneZ, 		0,
-										   0, 								0, 								0, 		1
+										   0,  -viewportHeight/nearPlaneHeight, -1/nearPlaneZ*viewportHeight/2, 		0,
+										   0,  								 0, 				   -1/nearPlaneZ, 		0,
+										   0,  								 0, 							   0, 		1
 			];
 		},
 	
@@ -152,6 +155,21 @@ var Util = {
 			y = y/z;
 		
 			return new Point(x, y);
+		},
+
+	centerOfPoint3s:function(points){
+			var total_x = 0;
+			var total_y = 0;
+			var total_z = 0;
+			for(var i=0;i<points.length;i++){
+				total_x += points[i].x;
+				total_y += points[i].y;
+				total_z += points[i].z;
+			}
+			var x = total_x / points.length;
+			var y = total_y / points.length;
+			var z = total_z / points.length;
+			return new Point3(x,y,z);
 		}
 		
 	
