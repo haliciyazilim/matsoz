@@ -1,146 +1,126 @@
 // JavaScript Document
 
-var Interaction = {};
 var Animation = {
 	images:[
 			{
-				id:'ornek0',
-				src:'/assets/animations/ataturk_ve_geometri/ornek0.png'
-			},
-			{
-				id:'ornek1',
-				src:'/assets/animations/ataturk_ve_geometri/ornek1.png'
-			},
-			{
-				id:'ornek2',
-				src:'/assets/animations/ataturk_ve_geometri/ornek2.png'
-			},
-			{
-				id:'ornek3',
-				src:'/assets/animations/ataturk_ve_geometri/ornek3.png'
+				id:'ataturk_geometri_bg',
+				src: '/assets/animations/ataturk_ve_geometri/ataturk_geometri_bg.jpg'
 			}
 		],
 	init:function(container){
 			Animation.container = container;
-			var x=110,y=30;
-			for(var i=0;i<4;i++){
-				var img = document.createElement('img');
-				img.src = Animation.images[i].src;
-				$(container).append(img);
-				$(img)
-					.css({
-						position:'absolute',
-						top:y,
-						left:x+150*i,
-						opacity:0
-					})
-					.delay(1100*i)
-					.animate(
-						{opacity:1},
-						1000
-					);
-			}
+			$(container).append($('#ataturk_geometri_bg').css({
+				position:'absolute',
+				left:'15px',
+				top:'20px'
+			}).fadeIn(1000,'linear'));
+			
 		}
 };
+var Interaction = {};
 Interaction.getFramework = function() {
 	return 'paper';
 }
 Interaction.images = [
 	{
 		id:'aciortay',
-		src: '/assets/animations/ataturk_ve_geometri/aciortay.png'
+		src: '/assets/animations/ataturk_ve_geometri/aciortay.jpg'
 	},
 	{
-		id:'dortgen',
-		src: '/assets/animations/ataturk_ve_geometri/dortgen.png'
+		id:'arti',
+		src: '/assets/animations/ataturk_ve_geometri/arti.jpg'
 	},
 	{
 		id:'aci',
-		src: '/assets/animations/ataturk_ve_geometri/aci.png'
+		src: '/assets/animations/ataturk_ve_geometri/aci.jpg'
 	},
 	{
 		id:'besgen',
-		src: '/assets/animations/ataturk_ve_geometri/besgen.png'
+		src: '/assets/animations/ataturk_ve_geometri/besgen.jpg'
 	},
 	{
 		id:'bolen',
-		src: '/assets/animations/ataturk_ve_geometri/bolen.png'
+		src: '/assets/animations/ataturk_ve_geometri/bolen.jpg'
 	},
 	{
 		id:'bolme',
-		src: '/assets/animations/ataturk_ve_geometri/bolme.png'
+		src: '/assets/animations/ataturk_ve_geometri/bolme.jpg'
 	},
 	{
 		id:'cap',
-		src: '/assets/animations/ataturk_ve_geometri/cap.png'
+		src: '/assets/animations/ataturk_ve_geometri/cap.jpg'
 	},
 	{
 		id:'carpan',
-		src: '/assets/animations/ataturk_ve_geometri/carpan.png'
+		src: '/assets/animations/ataturk_ve_geometri/carpan.jpg'
 	},
 	{
 		id:'carpi',
-		src: '/assets/animations/ataturk_ve_geometri/carpi.png'
+		src: '/assets/animations/ataturk_ve_geometri/carpi.jpg'
 	},
 	{
 		id:'cevre',
-		src: '/assets/animations/ataturk_ve_geometri/cevre.png'
+		src: '/assets/animations/ataturk_ve_geometri/cevre.jpg'
 	},
 	{
 		id:'cikarma',
-		src: '/assets/animations/ataturk_ve_geometri/cikarma.png'
+		src: '/assets/animations/ataturk_ve_geometri/cikarma.jpg'
 	},
 	{
 		id:'daire_cember',
-		src: '/assets/animations/ataturk_ve_geometri/daire_cember.png'
+		src: '/assets/animations/ataturk_ve_geometri/daire_cember.jpg'
 	},
 	{
 		id:'dik_ucgen',
-		src: '/assets/animations/ataturk_ve_geometri/dik_ucgen.png'
+		src: '/assets/animations/ataturk_ve_geometri/dik_ucgen.jpg'
 	},
 	{
 		id:'dikdortgen',
-		src: '/assets/animations/ataturk_ve_geometri/dikdortgen.png'
+		src: '/assets/animations/ataturk_ve_geometri/dikdortgen.jpg'
 	},
 	{
 		id:'dikey',
-		src: '/assets/animations/ataturk_ve_geometri/dikey.png'
+		src: '/assets/animations/ataturk_ve_geometri/dikey.jpg'
+	},
+	{
+		id:'dortgen',
+		src: '/assets/animations/ataturk_ve_geometri/dortgen.jpg'
 	},
 	{
 		id:'kare',
-		src: '/assets/animations/ataturk_ve_geometri/kare.png'
+		src: '/assets/animations/ataturk_ve_geometri/kare.jpg'
 	},
 	{
 		id:'ondalik',
-		src: '/assets/animations/ataturk_ve_geometri/ondalik.png'
+		src: '/assets/animations/ataturk_ve_geometri/ondalik.jpg'
 	},
 	{
 		id:'pay',
-		src: '/assets/animations/ataturk_ve_geometri/pay.png'
+		src: '/assets/animations/ataturk_ve_geometri/pay.jpg'
 	},
 	{
 		id:'payda',
-		src: '/assets/animations/ataturk_ve_geometri/payda.png'
+		src: '/assets/animations/ataturk_ve_geometri/payda.jpg'
 	},
 	{
 		id:'piramid',
-		src: '/assets/animations/ataturk_ve_geometri/piramid.png'
+		src: '/assets/animations/ataturk_ve_geometri/piramid.jpg'
 	},
 	{
 		id:'prizma',
-		src: '/assets/animations/ataturk_ve_geometri/prizma.png'
+		src: '/assets/animations/ataturk_ve_geometri/prizma.jpg'
 	},
 	{
 		id:'sadelestirme',
-		src: '/assets/animations/ataturk_ve_geometri/sadelestirme.png'
+		src: '/assets/animations/ataturk_ve_geometri/sadelestirme.jpg'
 	},
 	{
 		id:'ucgen',
-		src: '/assets/animations/ataturk_ve_geometri/ucgen.png'
+		src: '/assets/animations/ataturk_ve_geometri/ucgen.jpg'
 	},
 	{
 		id:'yuzey',
-		src: '/assets/animations/ataturk_ve_geometri/yuzey.png'
+		src: '/assets/animations/ataturk_ve_geometri/yuzey.jpg'
 	}
 ]
 
@@ -148,6 +128,7 @@ Interaction.init = function(container){
 	Main.setObjective('Atatürk’ün bulduğu ve bugün kullandığımız matematik sözcüklerinden bir kısmı:');
 	Interaction.old_word = document.createElement('div');
 	Interaction.new_word = document.createElement('div');
+	Interaction.image = document.createElement('div');
 	Interaction.paper = {width:$(container).width(),height:$(container).height()};
 	Interaction.shapeLimits = {
 		x:Interaction.paper.width*0.5-75,
@@ -157,6 +138,7 @@ Interaction.init = function(container){
 	};
 	$(container).append(Interaction.old_word);
 	$(container).append(Interaction.new_word);
+	$(container).append(Interaction.image);
 	$('div',container).css({
 		position:'absolute',
 		width:'150px',
@@ -171,6 +153,14 @@ Interaction.init = function(container){
 	});
 	$(Interaction.new_word).css({
 		left:Interaction.paper.width*0.5 + 150,
+		textAlign:'left'
+	});
+	$(Interaction.image).css({
+		position:'absolute',
+		height:'200px',
+		width:'200px',
+		top:Interaction.paper.height*0.5-100,
+		left:Interaction.paper.width*0.5-100,
 		textAlign:'left'
 	});
 	Interaction.next_button = document.createElement('input');
@@ -189,6 +179,9 @@ Interaction.init = function(container){
 	var NUMBER_OF_SHAPES  = Interaction.words.length;
 	Interaction.shuffledArray = Util.getShuffledArray(NUMBER_OF_SHAPES);
 	Interaction.count = 0;
+	$(Interaction.words).each(function(index, element) {
+        this.image = $('#'+this.shape).get(0);
+    });
 	Interaction.nextQuestion();
 }
 Interaction.nextQuestion = function(){
@@ -202,308 +195,135 @@ Interaction.nextQuestion = function(){
 	var word = Interaction.words[wordOrder];
 	$(Interaction.old_word).html(word.oldName);
 	$(Interaction.new_word).html(word.newName);
-	word.shape();
+	$(Interaction.image).html('').append(word.image);
+	
 }
 
 Interaction.words = [
 	{
 		oldName:'munassıf',
 		newName:'açıortay',
-		shape: function(){
-			var shape = new Raster('aciortay');	
-			shape.position = [
-				Math.floor(Interaction.shapeLimits.x+Interaction.shapeLimits.w*0.5)+0.5,
-				Math.floor(Interaction.shapeLimits.y+Interaction.shapeLimits.h*0.5)+0.5
-			];
-		}
+		shape: 'aciortay'
 	},
 	{
 		oldName:'zait',
 		newName:'artı',
-		shape: function(){
-			var hLine = new Path.Line(
-				new Point(
-					Interaction.shapeLimits.x+10,
-					Interaction.shapeLimits.y + Interaction.shapeLimits.h*0.5
-				),
-				new Point(
-					Interaction.shapeLimits.x + Interaction.shapeLimits.w - 10,
-					Interaction.shapeLimits.y + Interaction.shapeLimits.h*0.5
-				)
-			);
-			var vLine = new Path.Line(
-				new Point(
-					Interaction.shapeLimits.x + Interaction.shapeLimits.w*0.5,
-					Interaction.shapeLimits.y + 10
-				),
-				new Point(
-					Interaction.shapeLimits.x + Interaction.shapeLimits.w*0.5,
-					Interaction.shapeLimits.y + Interaction.shapeLimits.h-10
-				)
-			);
-			hLine.set_style({
-				strokeWidth:10,
-				strokeColor:'#000'
-			});
-			vLine.set_style({
-				strokeWidth:10,
-				strokeColor:'#000'
-			});
-		}
+		shape: 'arti'
 	},
 	{
 		oldName:'kutur',
 		newName:'çap',
-		shape: function(){
-			var shape = new Raster('cap');
-			shape.position = [
-				Math.floor(Interaction.shapeLimits.x+Interaction.shapeLimits.w*0.5),
-				Math.floor(Interaction.shapeLimits.y+Interaction.shapeLimits.h*0.5)
-			];
-		}
+		shape: 'cap'
 	},
 	{
 		oldName:'zu-erbaat-ül-adlâ\'',
 		newName:'dörtgen',
-		shape: function(){
-			var shape = new Raster('dortgen');
-			shape.position = [
-				Math.floor(Interaction.shapeLimits.x+Interaction.shapeLimits.w*0.5),
-				Math.floor(Interaction.shapeLimits.y+Interaction.shapeLimits.h*0.5)
-			];
-		}
+		shape: 'dortgen'
 	},
 	{
 		oldName:'müselles',
 		newName:'üçgen',
-		shape: function(){
-			var shape = new Raster('ucgen');
-			shape.position = [
-				Math.floor(Interaction.shapeLimits.x+Interaction.shapeLimits.w*0.5),
-				Math.floor(Interaction.shapeLimits.y+Interaction.shapeLimits.h*0.5)
-			];
-		}
+		shape: 'ucgen'
 	},
 	{
 		oldName:'kaim zaviyeli müselles',
 		newName:'dik üçgen',
-		shape: function(){
-			var shape = new Raster('dik_ucgen');
-			shape.position = [
-				Math.floor(Interaction.shapeLimits.x+Interaction.shapeLimits.w*0.5),
-				Math.floor(Interaction.shapeLimits.y+Interaction.shapeLimits.h*0.5)
-			];
-		}
+		shape: 'dik_ucgen'
 	},
 	{
 		oldName:'muhit',
 		newName:'çevre',
-		shape: function(){
-			var shape = new Raster('cevre');
-			shape.position = [
-				Math.floor(Interaction.shapeLimits.x+Interaction.shapeLimits.w*0.5),
-				Math.floor(Interaction.shapeLimits.y+Interaction.shapeLimits.h*0.5)
-			];
-		}
+		shape: 'cevre'
 	},
 	{
 		oldName:'zarp',
 		newName:'çarpı',
-		shape: function(){
-			var shape = new Raster('carpi');
-			shape.position = [
-				Math.floor(Interaction.shapeLimits.x+Interaction.shapeLimits.w*0.5),
-				Math.floor(Interaction.shapeLimits.y+Interaction.shapeLimits.h*0.5)
-			];
-		}
-		
+		shape: 'carpi'		
 	},
 	{
 		oldName:'mazrup',
 		newName:'çarpan',
-		shape: function(){
-			var shape = new Raster('carpan');
-			shape.position = [
-				Math.floor(Interaction.shapeLimits.x+Interaction.shapeLimits.w*0.5),
-				Math.floor(Interaction.shapeLimits.y+Interaction.shapeLimits.h*0.5)
-			];
-		}
+		shape: 'carpan'
 	},
 	{
 		oldName:'muhit-i daire',
 		newName:'çember',
-		shape: function(){
-			var shape = new Raster('daire_cember');
-			shape.position = [
-				Math.floor(Interaction.shapeLimits.x+Interaction.shapeLimits.w*0.5),
-				Math.floor(Interaction.shapeLimits.y+Interaction.shapeLimits.h*0.5)
-			];
-		}
+		shape: 'daire_cember'
 	},
 	{
 		oldName:'tarh',
 		newName:'çıkarma',
-		shape: function(){
-			var shape = new Raster('cikarma');
-			shape.position = [
-				Math.floor(Interaction.shapeLimits.x+Interaction.shapeLimits.w*0.5),
-				Math.floor(Interaction.shapeLimits.y+Interaction.shapeLimits.h*0.5)
-			];
-		}
+		shape: 'cikarma'
 	},
 	{
 		oldName:'aşa\'ri',
 		newName:'ondalık',
-		shape: function(){
-			var shape = new Raster('ondalik');
-			shape.position = [
-				Math.floor(Interaction.shapeLimits.x+Interaction.shapeLimits.w*0.5),
-				Math.floor(Interaction.shapeLimits.y+Interaction.shapeLimits.h*0.5)
-			];
-		}
+		shape: 'ondalik'
 	},
 	{
 		oldName:'murabba',
 		newName:'kare',
-		shape: function(){
-			var shape = new Raster('kare');
-			shape.position = [
-				Math.floor(Interaction.shapeLimits.x+Interaction.shapeLimits.w*0.5),
-				Math.floor(Interaction.shapeLimits.y+Interaction.shapeLimits.h*0.5)
-			];
-		}
+		shape: 'kare'
 	},
 	{
 		oldName:'satıh',
 		newName:'yüzey',
-		shape: function(){
-			var shape = new Raster('yuzey');
-			shape.position = [
-				Math.floor(Interaction.shapeLimits.x+Interaction.shapeLimits.w*0.5),
-				Math.floor(Interaction.shapeLimits.y+Interaction.shapeLimits.h*0.5)
-			];
-		}
+		shape: 'yuzey'
 	},
 	{
 		oldName:'zâviye',
 		newName:'açı',
-		shape: function(){
-			var shape = new Raster('aci');
-			shape.position = [
-				Math.floor(Interaction.shapeLimits.x+Interaction.shapeLimits.w*0.5),
-				Math.floor(Interaction.shapeLimits.y+Interaction.shapeLimits.h*0.5)
-			];
-		}
+		shape: 'aci'
 	},
 	{
 		oldName:'amûd',
 		newName:'dikey',
-		shape: function(){
-			var shape = new Raster('dikey');
-			shape.position = [
-				Math.floor(Interaction.shapeLimits.x+Interaction.shapeLimits.w*0.5),
-				Math.floor(Interaction.shapeLimits.y+Interaction.shapeLimits.h*0.5)
-			];
-		}
+		shape: 'dikey'
 	},
 	{
 		oldName:'mustatîl',
 		newName:'dikdörtgen',
-		shape: function(){
-			var shape = new Raster('dikdortgen');
-			shape.position = [
-				Math.floor(Interaction.shapeLimits.x+Interaction.shapeLimits.w*0.5),
-				Math.floor(Interaction.shapeLimits.y+Interaction.shapeLimits.h*0.5)
-			];
-		}
+		shape: 'dikdortgen'
 	},
 	{
 		oldName:'muhammes',
 		newName:'beşgen',
-		shape: function(){
-			var shape = new Raster('besgen');
-			shape.position = [
-				Math.floor(Interaction.shapeLimits.x+Interaction.shapeLimits.w*0.5),
-				Math.floor(Interaction.shapeLimits.y+Interaction.shapeLimits.h*0.5)
-			];
-		}
+		shape: 'besgen'
 	},
 	{
 		oldName:'maksumunaleyh',
 		newName:'bölen',
-		shape: function(){
-			var shape = new Raster('bolen');
-			shape.position = [
-				Math.floor(Interaction.shapeLimits.x+Interaction.shapeLimits.w*0.5),
-				Math.floor(Interaction.shapeLimits.y+Interaction.shapeLimits.h*0.5)
-			];
-		}
+		shape: 'bolen'
 	},
 	{
 		oldName:'taksim',
 		newName:'bölme',
-		shape: function(){
-			var shape = new Raster('bolme');
-			shape.position = [
-				Math.floor(Interaction.shapeLimits.x+Interaction.shapeLimits.w*0.5),
-				Math.floor(Interaction.shapeLimits.y+Interaction.shapeLimits.h*0.5)
-			];
-		}
+		shape: 'bolme'
 	},
 	{
 		oldName:'ehram',
 		newName:'piramid',
-		shape: function(){
-			var shape = new Raster('piramid');
-			shape.position = [
-				Math.floor(Interaction.shapeLimits.x+Interaction.shapeLimits.w*0.5),
-				Math.floor(Interaction.shapeLimits.y+Interaction.shapeLimits.h*0.5)
-			];
-		}
+		shape: 'piramid'
 	},
 	{
 		oldName:'menşur',
 		newName:'prizma',
-		shape: function(){
-			var shape = new Raster('prizma');
-			shape.position = [
-				Math.floor(Interaction.shapeLimits.x+Interaction.shapeLimits.w*0.5),
-				Math.floor(Interaction.shapeLimits.y+Interaction.shapeLimits.h*0.5)
-			];
-		}
+		shape: 'prizma'
 	},
 	{
 		oldName:'ihtisar',
 		newName:'sadeleştirme',
-		shape: function(){
-			var shape = new Raster('sadelestirme');
-			shape.position = [
-				Math.floor(Interaction.shapeLimits.x+Interaction.shapeLimits.w*0.5),
-				Math.floor(Interaction.shapeLimits.y+Interaction.shapeLimits.h*0.5)
-			];
-		}
+		shape: 'sadelestirme'
 	},
 	{
 		oldName:'suret',
 		newName:'pay',
-		shape: function(){
-			var shape = new Raster('pay');
-			shape.position = [
-				Math.floor(Interaction.shapeLimits.x+Interaction.shapeLimits.w*0.5),
-				Math.floor(Interaction.shapeLimits.y+Interaction.shapeLimits.h*0.5)
-			];
-		}
+		shape: 'pay'
 	},
 	{
 		oldName:'mahreç',
 		newName:'payda',
-		shape: function(){
-			var shape = new Raster('payda');
-			shape.position = [
-				Math.floor(Interaction.shapeLimits.x+Interaction.shapeLimits.w*0.5),
-				Math.floor(Interaction.shapeLimits.y+Interaction.shapeLimits.h*0.5)
-			];
-		}
+		shape: 'payda'
 	}
 	
 ];

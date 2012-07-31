@@ -8,12 +8,15 @@
 */
 
 sayilarStrokeRenk="#9bd1d9";
-	sayilarFillRenk="#f2fafc";
+	
 	tabloStrokeRenk="#255b63";
 	tabloBirlerFillRenk="#ecf8fa";
 	tabloBinlerFillRenk="#d9f1f5";
 	tabloMilyonlarFillRenk="#bfe8ef";
 	inputStrokeRenk="#9bd1d9";
+	
+	sayiRenk="#255b63";
+	yerTutucuRenk="#BFE8EF";
 
 function __Styles(){
 	
@@ -106,7 +109,7 @@ var Animation = {
 		$("#OkesirKisim .OyaziBolukler").html("Kesir Kısmı");	
 		
 		// basamaklar baslık
-	$("#OtamKisim",container).append("<div id='ObasamaklarBaslik' >");
+	/*$("#OtamKisim",container).append("<div id='ObasamaklarBaslik' >");
 	
 		$("#ObasamaklarBaslik").css("width","31px")
 			.css("height","81px")
@@ -132,7 +135,7 @@ var Animation = {
 			.css("width","150px")
 			.css("bottom","62px")
 			.css("left","-53px")
-			.css("font-size","small");
+			.css("font-size","small");*/
 		
 			// 
 	$("#OSoruCokluInput",container).append("<div id='Oyuzler' >");
@@ -652,6 +655,7 @@ var Animation = {
 		
 		
 		
+		
 		}
 }
 
@@ -700,10 +704,10 @@ var Interaction = {
 		soru=new liste(sayi1,sayi2,sayi3,"soru");
 		soru.doldur();
 		
-		var siraliListe=[sayi1,sayi2,sayi3];
+		/*var siraliListe=[sayi1,sayi2,sayi3];
 		siraliListe.sort();
 		cevap=new liste(siraliListe[0],siraliListe[1],siraliListe[2],"cevap");
-		cevap.doldur();
+		cevap.doldur();*/
 		
 		
 		
@@ -716,14 +720,26 @@ var Interaction = {
 		$("#cevap").animate({opacity:"0"},1000);
 		//$("#cevap").css("opacity","0");
 		$("#soru").delay(800).animate({top:"0px"},1000);
-		//$("#soru, #cevap").html("");
+		$(" #cevap").html("");
 		sayi1=sayiUretim();
 		sayi2=sayiUretim();
 		sayi3=sayiUretim();
+
 		
+		//$("#soru ul").empty()
 		$("#soru #siralanacakSayi1").html(sayi1.replace(".",","));
 		$("#soru #siralanacakSayi2").html(sayi2.replace(".",","));
 		$("#soru #siralanacakSayi3").html(sayi3.replace(".",","));
+
+
+		
+		
+		var siraliListe=[sayi1,sayi2,sayi3];
+		siraliListe.sort();
+		var cevap=new liste(siraliListe[0],siraliListe[1],siraliListe[2],"cevap");
+		cevap.doldur();
+		
+		
 		
 		
 	
@@ -815,7 +831,7 @@ liste=function(eleman1,eleman2, eleman3,div){
 				$("#soru #siralama" ).sortable({
 					//items: "li:not(.ui-state-disabled)",
 					
-					 placeholder : "yer_tutucu",
+					 placeholder : "yerTutucu",
 					//grid: [80, 30],
 					//helper: 'original',
 					//forceHelperSize: true,
@@ -847,25 +863,46 @@ liste=function(eleman1,eleman2, eleman3,div){
 		}
 		
 			
-			$(this.div, container).append("<ul id='siralama'>");
+			//$(container).append("<style>#siralama .yer_tutucu { width: 66px; background:#009966; height:20px}</style>");
+			//$(container).append("<style>#cerceve { left:0px; top:10px; position:absolute}</style>");
+			//$(container).append("<style>#kucuk { left:160px; top:10px; position:absolute}</style>");
+			
+			
+			
+			
+			
+			
+			
+			$(this.div, container).append("<ul id='siralama' class='ui-sortable'>");
+			
 			$(this.div+" #siralama", container).append("<li id='siralanacakSayi1' class='sayilar'>");
 				$(this.div+" #siralama #siralanacakSayi1")
 					.html(this.e1);
-			
-				//$(this.div+" #siralama", container).append("<li id='kucuk1' class='isaretler'>");
-					
+
+				$(this.div+" #siralama", container).append("<div id='kucuk1' class='isaretler'>");
+
 			$(this.div+" #siralama", container).append("<li id='siralanacakSayi2' class='sayilar'>");
 				$(this.div+" #siralama #siralanacakSayi2")
 					.html(this.e2);
-			
-				//$(this.div+" #siralama", container).append("<li id='kucuk2' class='isaretler'>");		
-					
-			
+
+				$(this.div+" #siralama", container).append("<div id='kucuk2' class='isaretler'>");		
+
+
 			$(this.div+" #siralama", container).append("<li id='siralanacakSayi3' class='sayilar'>");
 				$(this.div+" #siralama #siralanacakSayi3")
 					.html(this.e3);
+			
+			
+			$(this.div+" #siralama .sayilar")
+					//.addClass("ui-state-default")
+					.css("font-size","20px")
+					.css("cursor","pointer");
+					
 
-			$(this.div+" #siralama")
+			
+			if(this.div=="#ornekUst" ||this.div=="#ornekAlt"){
+				
+				$(this.div+" #siralama")
 				.css("list-style-type","none")
 				.css("width","414px")
 				.css("padding","0")
@@ -880,36 +917,40 @@ liste=function(eleman1,eleman2, eleman3,div){
 					.addClass("ui-state-default")
 					.css("font-size","20px")
 					.css("cursor","pointer");
-			if(this.div=="#ornekUst" ||this.div=="#ornekAlt"){
-				$(this.div+" #siralama li").css("margin","0 20px 0 10px");
+				
+				$(this.div+" #siralama li").css("margin","0 70px 0 10px");
 				$(this.div+" #siralama .sayilar").css("text-align","left").css("width","40px");
 			}
 			if(this.div=="#soru" ||this.div=="#cevap"){
-				$(this.div+" #siralama li").css("margin","0 40px 0 10px");
+				$(container).append("<style>"+this.div+" #siralama {width:414px; list-style-type:none;float:left; cursor:auto;}</style>");
+				$(container).append("<style>" +this.div+" #siralama li {float:left;width:80px; margin-left:50px; background:"+sayiRenk+"; font-size:12px; color:#FFF; }</style>");
+				$(container).append("<style>" +this.div+" #siralama .yerTutucu { width: 80px; background:"+yerTutucuRenk+"; height:20px}</style>");
 				$(this.div+" #siralama .sayilar").css("text-align","center").css("width","80px");
 			}
 			
-					/*
-					.click(
-					function (){
-						$(this).css("cursor","move");
-					});*/
+			
 					
 			if(this.div=="#soru" || this.div=="#cevap"){
-				$(this.div+" #kucuk1").css("left","100px");
-				$(this.div+" #kucuk2").css("left","232px");
+				$(this.div+" #kucuk1").css("left","140px");
+				$(this.div+" #kucuk2").css("left","272px");
 			
 				$(this.div+" #siralama .isaretler", container).append("<img id='kucuk' src='/assets/animations/yuzdeleri_karsilastirma/sol_ok.png' />");
 					$(this.div+" .isaretler")
 						.addClass("ui-state-disabled")
 						.css("position","absolute")
-						.css("top","0")
-						.css("bottom","0")
+						.css("bottom","20px")
 						.css("margin","auto");
 						//.css("border","1px solid orange");
 			}
 			else if(this.div=="#ornekAlt"){
-				$("#ornekAlt #kucuk1, #ornekAlt #kucuk2").html("<").css("width","20px").css("font-size","20px");
+				$(this.div+" #kucuk1").css("left","90px");
+				$(this.div+" #kucuk2").css("left","222px");
+				$(this.div+" .isaretler")
+						
+						.css("position","absolute")
+						.css("bottom","10px")
+						.css("margin","auto");
+				$("#ornekAlt #kucuk1, #ornekAlt #kucuk2").html("<").css("width","10px").css("font-size","20px");
 							
 				}
 			else if(this.div=="#ornekUst"){
@@ -919,12 +960,8 @@ liste=function(eleman1,eleman2, eleman3,div){
 			
 			
 			
-			$(container).append("<style>#siralama .yer_tutucu { background:#009966; width:100px;height:20px}</style>");
-			$(".yer_tutucu")
-				.css("width","80px")
-				//.css("line-height","30px")
-				.css("height","30px")
-				.css("background","#009966");
+			//$(container).append("<style>#siralama .yer_tutucu { background:#009966; width:100px;height:20px}</style>");
+			
 
 		}
 }
