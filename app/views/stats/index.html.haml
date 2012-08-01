@@ -1,0 +1,29 @@
+
+#stats
+  %table
+    %tr.header
+      %th State
+      %th Count
+      %th Description
+    %tr.accepted
+      %td Accepted
+      %td= @accepted
+      %td Accepted by the designer and the consultant
+    %tr.delivered
+      %td Delivered
+      %td= @delivered
+      %td Accepted by designer, awaiting consultant's approval
+    %tr.finished
+      %td Finished
+      %td= @finished
+      %td Coding done, awaiting design elements or designer's approval
+    %tr.active
+      %td Active
+      %td= @started + @rejected   
+      %td Currently being worked on by developers (includes rejected ones)
+    %tr.inactive
+      %td Not Yet Started
+      %td= @unscheduled
+      %td Isn't being worked on yet
+    
+      
