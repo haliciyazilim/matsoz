@@ -873,7 +873,7 @@ liste=function(eleman1,eleman2, eleman3,div){
 			
 			
 			
-			$(this.div, container).append("<ul id='siralama' class='ui-sortable'>");
+			$(this.div, container).append("<ul id='siralama'>");
 			
 			$(this.div+" #siralama", container).append("<li id='siralanacakSayi1' class='sayilar'>");
 				$(this.div+" #siralama #siralanacakSayi1")
@@ -894,7 +894,7 @@ liste=function(eleman1,eleman2, eleman3,div){
 			
 			
 			$(this.div+" #siralama .sayilar")
-					//.addClass("ui-state-default")
+					
 					.css("font-size","20px")
 					.css("cursor","pointer");
 					
@@ -914,7 +914,7 @@ liste=function(eleman1,eleman2, eleman3,div){
 				.css("line-height","30px");
 				//.css("border","solid 1px black");
 			$(this.div+" #siralama .sayilar")
-					.addClass("ui-state-default")
+					//.addClass("ui-state-default")
 					.css("font-size","20px")
 					.css("cursor","pointer");
 				
@@ -925,7 +925,7 @@ liste=function(eleman1,eleman2, eleman3,div){
 				$(container).append("<style>"+this.div+" #siralama {width:414px; list-style-type:none;float:left; cursor:auto;}</style>");
 				$(container).append("<style>" +this.div+" #siralama li {float:left;width:80px; margin-left:50px; background:"+sayiRenk+"; font-size:12px; color:#FFF; }</style>");
 				$(container).append("<style>" +this.div+" #siralama .yerTutucu { width: 80px; background:"+yerTutucuRenk+"; height:20px}</style>");
-				$(this.div+" #siralama .sayilar").css("text-align","center").css("width","80px");
+				$(this.div+" #siralama .sayilar").css("text-align","center");
 			}
 			
 			
@@ -936,7 +936,7 @@ liste=function(eleman1,eleman2, eleman3,div){
 			
 				$(this.div+" #siralama .isaretler", container).append("<img id='kucuk' src='/assets/animations/yuzdeleri_karsilastirma/sol_ok.png' />");
 					$(this.div+" .isaretler")
-						.addClass("ui-state-disabled")
+						//.addClass("ui-state-disabled")
 						.css("position","absolute")
 						.css("bottom","20px")
 						.css("margin","auto");

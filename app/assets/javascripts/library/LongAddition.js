@@ -1,9 +1,9 @@
 			
-function LongAddition(ilkDeger, ikinciDeger, islem, div){
+function LongAddition(ilkDeger, ikinciDeger, div){
 				
 	this.ilkDeger=parseInt(ilkDeger,10);
 	this.ikinciDeger=parseInt(ikinciDeger,10);
-	this.islem=islem;
+
 	this.div="#"+div;
 	this.sonuc=this.ilkDeger+this.ikinciDeger;
 	
@@ -49,7 +49,7 @@ function LongAddition(ilkDeger, ikinciDeger, islem, div){
 			.css("font-size","30px")
 			.css("border-bottom","solid 2px black")
 			.css("top","60px")
-			.html(this.islem);
+			.html("+");
 		$(this.div+" .toplanan").css("width","100%")
 			.css("text-align","right")
 			.css("height","30px")

@@ -979,6 +979,7 @@ Interaction.init = function(container){
 	
 	var tiklamaSayisi=0;
 	var enter=0;
+	girdiler=["#inputYuzMilyonlar","#inputOnMilyonlar", "#inputMilyonlar", "#inputYuzBinler","#inputOnBinler", "#inputBinler", "#inputYuzler", "#inputOnlar", "#inputBirler"];
 	function kontrol(){
 		
 		var yuzMilyon=$("#inputYuzMilyonlar").val();
@@ -1005,9 +1006,23 @@ Interaction.init = function(container){
 		
 		}
 		else{*/
+		var boslukDenetimi=0;
+		for(var i=0; i<girdiler.length; i++){
+			if($(girdiler[i]).val()==""){
+				boslukDenetimi++;
+			}
+		}
+		console.log("boşluk denemetimi: "+boslukDenetimi);
+		if(boslukDenetimi==girdiler.length){
+			$("#geriBildirimText").attr("class","status_alert").html("Bütün kutucukları doldurunuz.");
 			
-			girdiler=["#inputYuzMilyonlar","#inputOnMilyonlar", "#inputMilyonlar", "#inputYuzBinler","#inputOnBinler", "#inputBinler", "#inputYuzler", "#inputOnlar", "#inputBirler"];
-			
+			$("input").keydown(
+				function(){
+					$("#geriBildirimText").html("");
+				}
+			);
+		}
+		else{
 			if (yuzMilyon=="" || yuzMilyon=="0" || yuzMilyon==0)
 				yuzMilyon=" ";
 			if ((yuzMilyon=="" || yuzMilyon=="0" || yuzMilyon==0) &(onMilyon=="" || onMilyon=="0" | onMilyon==0))
@@ -1078,7 +1093,7 @@ Interaction.init = function(container){
 			}
 			
 			
-		//}
+		}
 	}
 	
 	
@@ -1101,7 +1116,7 @@ Interaction.init = function(container){
 		$("#inputOnlar").val("");
 		$("#inputBirler").val("");
 		$("#cevaplar").hide();
-		$(this).hide();	
+		$("#sonraki").hide();	
 		$("input").css("color","black");
 		$("#btnKontrol").show();
 		$("#geriBildirimText").html("");	
