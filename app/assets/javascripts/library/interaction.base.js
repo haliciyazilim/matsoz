@@ -124,6 +124,26 @@ function InteractionBase(){
 		return input;
 	}
 	
+	Interaction.appendQuestion = function(html,css){
+		Interaction.questionDiv = document.createElement('div');
+		$(Interaction.container).append(Interaction.questionDiv);
+		$(Interaction.questionDiv).html(html).css(css);
+		return Interaction.questionDiv;
+	}
+	//sets the question's parameters
+	Interaction.setQuestionParams = function(params){
+		Interaction.__questionParams = params;
+		$(params).each(function(index, element) {
+            if(this.html)
+				$('#'+this.id,Interaction.questionDiv).html(this.html);
+			if(this.value)
+				$('#'+this.id,Interaction.questionDiv).val(this.value);
+        });
+	}
+	//gets the questions's parameters
+	Interaction.getQuestionParams = function(){
+		return Interaction.__questionParams;
+	}
 	Interaction.createInput = function(isNumber,maxLength,css){
 		var input = document.createElement('input');
 		if(isNumber==true){
@@ -221,10 +241,16 @@ function InteractionBase(){
 			Interaction.button.onclick = Interaction.__checkAnswer;
 		}
 		Interaction.trial = 0;
+		
 		if(Interaction.__randomGenerator)
 			Interaction.nextQuestion(Interaction.__randomGenerator.nextNumber());	
 		else
 			Interaction.nextQuestion();
+		
+		try{
+			Interaction.inputs[0].focus();
+		}
+		catch(e){}
 	};
 	Interaction.__checkAnswer = function(){
 		if(Interaction.pause == true)
@@ -238,17 +264,14 @@ function InteractionBase(){
 				var value = Interaction.inputs[i].value;
 				if($(Interaction.inputs[i]).val() == ""){
 					Interaction.__status(Interaction.__status.EMPTY);
-					//Interaction.setStatus('Lütfen tüm kutucukları doldurunuz');
 					return;
 				}
 				if(value == "" ||isNaN(value) && value.indexOf(',') < 0) {
 					Interaction.__status(Interaction.__status.NUMBER);
-					//Interaction.setStatus('Lütfen bir sayı giriniz.',false);
 					return;
 				}
 				if(value.indexOf('.') > 0){
 					Interaction.__status(Interaction.__status.FLOATING);
-					//Interaction.setStatus('Lütfen ondalıklı sayıları virgülle yazınız.',false);
 					return;
 				}
 				
@@ -275,17 +298,14 @@ function InteractionBase(){
 					if(Interaction.inputs[i].getAttribute('isNumber') == 'true'){			
 						if(!Interaction.inputs[i].isEmpty && $(Interaction.inputs[i]).val() == ""){
 							Interaction.__status(Interaction.__status.EMPTY);
-							//Interaction.setStatus('Lütfen tüm kutucukları doldurunuz');
 							return;
 						}
 						if(isNaN(values[i]) && values[i].indexOf(',') < 0) {
 							Interaction.__status(Interaction.__status.NUMBER);
-							//Interaction.setStatus('Lütfen bir sayı giriniz.',false);
 							return;
 						}
 						if(values[i].indexOf('.') > 0){
 							Interaction.__status(Interaction.__status.FLOATING);
-							//Interaction.setStatus('Lütfen ondalıklı sayıları virgülle yazınız.',false);
 							return;
 						}
 					}
@@ -304,12 +324,11 @@ function InteractionBase(){
 		//call user-defined functions
 		if(isCorrect){
 			Interaction.__status(Interaction.__status.CORRECT);
-//			Interaction.setStatus('Tebrikler!',true);
 			$(Interaction.inputs).each(function(index, element) {
             	$(this).get(0).onkeydown = function(event){
-												if(event.keyCode != 13)
-													return false;
-											}   
+					if(event.keyCode != 13)
+						return false;
+				}   
             });
 			
 			if(Interaction.onCorrectAnswer)
@@ -317,16 +336,15 @@ function InteractionBase(){
 		}
 		else if(Interaction.trial == 0){
 			Interaction.__status(Interaction.__status.WRONG);
-//			Interaction.setStatus('Yanlış cevap, tekrar deneyiniz.',false);
 			if(Interaction.onWrongAnswer)
 				Interaction.onWrongAnswer();
 		}
 		else{
 			$(Interaction.inputs).each(function(index, element) {
             	$(this).get(0).onkeydown = function(event){
-												if(event.keyCode != 13)
-													return false;
-											}   
+					if(event.keyCode != 13)
+						return false;
+				}   
             });
 			if(Interaction.onFail)
 				Interaction.onFail();
@@ -338,7 +356,7 @@ function InteractionBase(){
 		Interaction.trial++;
 	};
 	
-	Interaction.__inputFilter__onlyNumbers = function allowOnlyNumber(e,allowedchars){
+	Interaction.__inputFilter__onlyNumbers = function (e,allowedchars){
 		var isPassKey =function (key,allowedchars){
 			if(allowedchars!=null){
 				for(var i=0;i<allowedchars.length;i++){

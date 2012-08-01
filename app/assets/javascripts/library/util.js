@@ -178,12 +178,14 @@ var Util = {
 	createProjectionMatrixForObjectAt: function(x, y, fov) {
 			
 			if (fov == undefined) {
-				fov = 256;
+				fov = 1024;
 			}
 			
+			var zFactor = 3;
+			
 			return [
-				1,	0,	128/fov + x/fov, 	x,
-				0,  1, -128/fov + y/fov, 	y,
+				1,	0,	128*zFactor/fov + x/fov, 	x,
+				0,  1,   -128*zFactor/fov + y/fov, 	y,
 				0,	0,			1/fov, 	1,
 				0,	0,				0, 	1
 			];
@@ -238,6 +240,20 @@ var Util = {
 			var y = total_y / points.length;
 			var z = total_z / points.length;
 			return new Point3(x,y,z);
+		},
+	
+	dom:function(opt){
+			var node = document.createElement(opt.tag);
+			$(opt.parent).append(node);
+			node.id = opt.id;
+			node.className = opt.class;
+			if(opt.css)
+				$(node).css(css);
+			if(opt.html)
+				$(node).html(html);
+			if(opt.value)
+				$(node).val(val);
+			return node;		
 		}
 		
 	

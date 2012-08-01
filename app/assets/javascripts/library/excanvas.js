@@ -169,23 +169,7 @@ Space.prototype.pop = function() {
 
 /* -------------------------------------------------------------------- */
 
-/**
- * A 3d coordinate
- */
-function Point3(x, y, z) {
-	this.x = x;
-	this.y = y;
-	this.z = z;
 
-	// Relative to camera coordinates
-	this.tx;
-	this.ty;
-	this.tz;
-
-	// Flattened coordinates
-	this.fx;
-	this.fy;
-}
 
 /**
  * A Shape is made up of polygons
