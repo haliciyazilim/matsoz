@@ -3,6 +3,7 @@ function InteractionBase(){
 		__Styles();
 	}
 	Interaction.inputs = [];
+	Interaction.__isPaused = false;
 	Interaction.__inputVersion = 0;
 	Interaction.__status = function(e){
 		switch(e){
@@ -221,7 +222,7 @@ function InteractionBase(){
 	}
 	
 	Interaction.prepareNextQuestion = function(){
-		if(Interaction.pause)
+		if(typeof Interaction.pause == 'function' && Interaction.isPaused() || Interaction.pause == true)
 			return;
 		if(Interaction.status)
 			Interaction.setStatus('');
@@ -253,7 +254,7 @@ function InteractionBase(){
 		catch(e){}
 	};
 	Interaction.__checkAnswer = function(){
-		if(Interaction.pause == true)
+		if(typeof Interaction.pause == 'function' && Interaction.isPaused() || Interaction.pause == true)
 			return;
 		if(Interaction.preCheck && Interaction.preCheck() === false)
 			return;
@@ -374,4 +375,26 @@ function InteractionBase(){
 			return false;
 		}
 	};
+	
+	
+	Interaction.pause = function(delay){
+		if(delay == undefined || isNan(delay))
+			delay = 0;
+		if(delay == 0)
+			Interaction.__isPaused = true;
+		else
+			setTimeout('Interaction.__isPaused = true',delay);
+	}
+	Interaction.resume = function(delay){
+		if(delay == undefined || isNaN(delay))
+			delay = 0;
+		if(delay == 0)
+			Interaction.__isPaused = false;
+		else
+			setTimeout('Interaction.__isPaused = false',delay)
+		
+	}
+	Interaction.isPaused = function(){
+		return Interaction.__isPaused;
+	}
 }

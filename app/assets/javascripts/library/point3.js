@@ -65,3 +65,48 @@ Point3.prototype.cross = function(other){
 Point3.prototype.dot = function(other) {
 	return this.x * other.x + this.y * other.y + this.z * other.z;
 }
+
+Point3.prototype.getRotatedPointByX = function(angle, center) {
+	if (angle == 0) {
+		return this;
+	}
+
+	var cos = Math.cos(angle);
+	var sin = Math.sin(angle);
+
+	if (center == undefined) {
+		var y = this.y * cos - this.z * sin;
+		var z = this.y * sin + this.z * cos;
+
+		return new Point3(this.x, y, z);
+	} else {
+		var p = new Point3(0, this.y - center.y, this.z - center.z);
+		var y = p.y * cos - p.z * sin;
+		var z = p.y * sin + p.z * cos;
+
+		return new Point3(this.x, y + center.y, z + center.z);
+	}
+};
+
+
+Point3.prototype.getRotatedPointByY = function(angle, center) {
+	if (angle == 0) {
+		return this;
+	}
+
+	var cos = Math.cos(angle);
+	var sin = Math.sin(angle);
+
+	if (center == undefined) {
+		var x =   this.x * cos + this.z * sin;
+		var z = - this.x * sin + this.z * cos;
+
+		return new Point3(x, this.y, z);
+	} else {
+		var p = new Point3(this.x - center.x,0, this.z - center.z);
+		var x =   p.x * cos + p.z * sin;
+		var z = - p.x * sin + p.z * cos;
+
+		return new Point3(x + center.x, this.y, z + center.z);
+	}
+};
