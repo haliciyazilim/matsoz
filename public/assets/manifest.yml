@@ -212,7 +212,7 @@ animations/ondalik_kesirleri_karsilastirma.js: animations/ondalik_kesirleri_kars
 animations/ondalik_kesirlerle_cikarma_islemi.js: animations/ondalik_kesirlerle_cikarma_islemi-5f51dc50e80a0fe85b37b713a86a2d79.js
 animations/ondalik_kesirlerle_toplama_islemi.js: animations/ondalik_kesirlerle_toplama_islemi-10776adb70f7ca921aa28cc18ef441d5.js
 animations/oran.js: animations/oran-a9b383d8665e82390ce5720adc0b9eef.js
-animations/oruntu.js: animations/oruntu-099d6913daa9c1f603957b9e50b79942.js
+animations/oruntu_(sayi).js: animations/oruntu_(sayi)-099d6913daa9c1f603957b9e50b79942.js
 animations/pi.js: animations/pi-75713090853d9bf0a8e4d45b635a345d.js
 animations/piramit.js: animations/piramit-70ec3238ee6f24e2ddff5af23b0ee8a5.js
 animations/sema.js: animations/sema-3f6dd87ffa0cdf4fe2286dabce3d00c5.js
