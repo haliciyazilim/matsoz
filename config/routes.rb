@@ -12,6 +12,7 @@ Matsoz::Application.routes.draw do
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   resources :entries
+  resources :stats
 
   # Sample resource route with options:
   #   resources :products do
