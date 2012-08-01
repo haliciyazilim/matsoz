@@ -978,6 +978,8 @@ Interaction.init = function(container){
 	);
 	
 	var tiklamaSayisi=0;
+	var enter=0;
+	girdiler=["#inputYuzMilyonlar","#inputOnMilyonlar", "#inputMilyonlar", "#inputYuzBinler","#inputOnBinler", "#inputBinler", "#inputYuzler", "#inputOnlar", "#inputBirler"];
 	function kontrol(){
 		
 		var yuzMilyon=$("#inputYuzMilyonlar").val();
@@ -993,7 +995,7 @@ Interaction.init = function(container){
 		
 		//console.log("inputlardaki sayı "+yuzMilyon+onMilyon+milyon+yuzBin+onBin+bin+yuz+on+bir);
 		
-		if (milyon=="" || yuzBin==""||onBin==""||bin==""|| yuz==""|| on==""|| bir==""){
+		/*if (milyon=="" || yuzBin==""||onBin==""||bin==""|| yuz==""|| on==""|| bir==""){
 			$("#geriBildirimText").attr("class","status_alert").html("Bütün kutucukları doldurunuz.");
 			
 			$("input").keydown(
@@ -1003,8 +1005,24 @@ Interaction.init = function(container){
 			);
 		
 		}
-		else{
+		else{*/
+		var boslukDenetimi=0;
+		for(var i=0; i<girdiler.length; i++){
+			if($(girdiler[i]).val()==""){
+				boslukDenetimi++;
+			}
+		}
+		console.log("boşluk denemetimi: "+boslukDenetimi);
+		if(boslukDenetimi==girdiler.length){
+			$("#geriBildirimText").attr("class","status_alert").html("Bütün kutucukları doldurunuz.");
 			
+			$("input").keydown(
+				function(){
+					$("#geriBildirimText").html("");
+				}
+			);
+		}
+		else{
 			if (yuzMilyon=="" || yuzMilyon=="0" || yuzMilyon==0)
 				yuzMilyon=" ";
 			if ((yuzMilyon=="" || yuzMilyon=="0" || yuzMilyon==0) &(onMilyon=="" || onMilyon=="0" | onMilyon==0))
@@ -1018,6 +1036,17 @@ Interaction.init = function(container){
 				$("#btnKontrol").hide();
 				$("#sonraki").show();
 				$("input").css("color",dogruCevapGosterimRengi);
+				
+				enter++;
+				console.log("enter"+enter);
+				if (enter==2){
+					enter=0;
+					yeniSoru();
+				}
+				else{
+					for(var i=0; i<girdiler.length; i++)
+						$(girdiler[i]).get(0).setAttribute('onkeydown','return tusEngelle(event);');
+			}
 			}
 			else{
 				tiklamaSayisi++;
@@ -1032,14 +1061,32 @@ Interaction.init = function(container){
 					$("#sonraki").show();
 					
 					
+					
+					
 					for(i=0;i<9;i++){
 						
 						var id="#c_"+i;
 						
 						//$("#cevaplar", id,container).append("<div class='cYazi'>");
-							$(id).html(rastgeleSayi.charAt(i));
+						
+						$(id).html(rastgeleSayi.charAt(i));
 							
+						if($(girdiler[i]).val()!=$(id).html()){
+							$(girdiler[i]).css("color","red");
+						}
+						else
+							$(girdiler[i]).css("color","green");
+						
+						$(girdiler[i]).get(0).setAttribute('onkeydown','return tusEngelle(event);');
+								
 					}
+					
+				if(tiklamaSayisi==3){
+				console.log("tikalam 3'e grdim");
+				yeniSoru();
+				}	
+					
+					
 					
 				}
 				
@@ -1052,8 +1099,13 @@ Interaction.init = function(container){
 	
 	$("#sonraki").click(
 		function(){
-			sayiUret();
-			tiklamaSayisi=0;
+			yeniSoru()
+		}
+	);
+	
+	function yeniSoru(){
+		sayiUret();
+		tiklamaSayisi=0;
 		$("#inputYuzMilyonlar").val("");
 		$("#inputOnMilyonlar").val("");
 		$("#inputMilyonlar").val("");
@@ -1064,13 +1116,16 @@ Interaction.init = function(container){
 		$("#inputOnlar").val("");
 		$("#inputBirler").val("");
 		$("#cevaplar").hide();
-		$(this).hide();	
+		$("#sonraki").hide();	
 		$("input").css("color","black");
 		$("#btnKontrol").show();
-		$("#geriBildirimText").html("");
-		}
-	);
-	
+		$("#geriBildirimText").html("");	
+		
+		for(var i=0; i<girdiler.length; i++)
+			$(girdiler[i]).removeAttr('onkeydown');
+		
+		
+	}
 	
 	
 	$("#inputYuzMilyonlar, #inputOnMilyonlar, #inputMilyonlar, #inputYuzBinler, #inputOnBinler, #inputBinler, #inputYuzler, #inputOnlar, #inputBirler").keyup(function(event) {
@@ -1103,3 +1158,15 @@ var format = function(num, options) {
 	return (num < 0 ? '-' : '') + options.prefix + result + options.suffix;
 };
 	
+function tusEngelle(event) {
+	console.log("keyup ife girdim");
+	console.log("event.keyCode: "+event.keyCode);
+	if(event.keyCode == 13) {
+		
+		console.log("!=");
+
+		return true;
+	}
+	else
+		return false;
+}

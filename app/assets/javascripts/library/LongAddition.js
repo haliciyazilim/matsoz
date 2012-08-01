@@ -1,20 +1,12 @@
 			
-function LongAddition(ilkDeger, ikinciDeger, islem, div){
+function LongAddition(ilkDeger, ikinciDeger, div){
 				
-	this.ilkDeger=ilkDeger;
-	this.ikinciDeger=ikinciDeger;
-	this.islem=islem;
+	this.ilkDeger=parseInt(ilkDeger,10);
+	this.ikinciDeger=parseInt(ikinciDeger,10);
+
 	this.div="#"+div;
-	this.sonuc;
+	this.sonuc=this.ilkDeger+this.ikinciDeger;
 	
-	switch(this.islem){
-		case "+":
-				this.sonuc=this.ilkDeger+this.ikinciDeger;
-				break;
-		case "-":
-				this.sonuc=this.ilkDeger-this.ikinciDeger;
-				break;	
-	}
 	
 	this.doldur=function(){
 	
@@ -57,7 +49,7 @@ function LongAddition(ilkDeger, ikinciDeger, islem, div){
 			.css("font-size","30px")
 			.css("border-bottom","solid 2px black")
 			.css("top","60px")
-			.html(this.islem);
+			.html("+");
 		$(this.div+" .toplanan").css("width","100%")
 			.css("text-align","right")
 			.css("height","30px")
@@ -133,6 +125,7 @@ function LongAddition(ilkDeger, ikinciDeger, islem, div){
 			var elde=0;
 			var uzunSayi=this.ilkDeger.toString().length>this.ikinciDeger.toString().length==true?this.ilkDeger.toString().length:this.ikinciDeger.toString().length;
 			console.log("uzunsayi: "+uzunSayi);
+			console.log("sonuc: "+this.sonuc);
 			for(var i=1; i<=uzunSayi;i++){
 				
 				
@@ -182,6 +175,7 @@ function LongAddition(ilkDeger, ikinciDeger, islem, div){
 					var id=this.sonuc.toString().length-i
 					console.log("elseye giriyor");
 					console.log("ilkbasamak: "+basamakToplamlar.toString().charAt(0));
+					console.log("sonuc basamak: "+this.sonuc.toString().charAt(id));
 					//$(this.div+" #elde #eldeBasamak"+(i+1)).html(basamakToplamlar.toString().charAt(0));
 					
 					$(this.div+" #toplam #toplamBasamak"+i).html(this.sonuc.toString().charAt(id));

@@ -11,5 +11,6 @@
  *= require reset.css
  *= require_self
  *= require entries.css
+ *= require stats.css
  *= require jquery-ui-1.8.22.custom.css
 */

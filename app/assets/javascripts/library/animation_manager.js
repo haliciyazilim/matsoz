@@ -49,6 +49,9 @@ AnimationManager.Animation = function (item, animationHash) {
 			return ratio * (-ratio+2);
 		} else if (this.animationType == 'easeInEaseOut') {
 			return (ratio*ratio) * (3-2*ratio);
+		} else if (this.animationType == 'easeInOutQuad') { // From jQuery
+			if (ratio < 0.5) return 2*ratio*ratio;
+			return ratio * (4 - 2*ratio) - 1;
 		} else if (this.animationType == 'custom') {
 			return this.mappingFunction(ratio);
 		} else {
