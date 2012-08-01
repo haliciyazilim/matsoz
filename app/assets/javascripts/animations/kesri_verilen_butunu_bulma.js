@@ -245,7 +245,7 @@ var Interaction = {
 				height:$(container).height()
 			}
 
-			Interaction.flushInputs();
+		//	Interaction.flushInputs();
 			Interaction.appendInput({
 				width: '30px',
 				height: '32px',
@@ -354,7 +354,12 @@ var Interaction = {
 			$(Interaction.ques2Div).html(Interaction.num);
 		},
 	isAnswerCorrect : function(values){
-			if(values[0] == Interaction.denom*Interaction.num/Interaction.nom)
+		console.log(Interaction.denom)
+		console.log(Interaction.nom)
+		console.log(Interaction.num)
+	//	console.log(values[0]);
+	//	console.log(values[1]);
+			if(values == Interaction.denom*Interaction.num/Interaction.nom)
 				return true;
 			else 
 				return false;
