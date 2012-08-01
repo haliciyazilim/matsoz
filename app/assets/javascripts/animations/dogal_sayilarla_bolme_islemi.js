@@ -261,8 +261,8 @@ var Interaction = {
 					this.bolen=bolen;
 					this.bolunen=bolunen;
 					
-					this.bolen=493;
-					this.bolunen=6141;
+					//this.bolen=493;
+					//this.bolunen=6141;
 					this.sonuc=Math.floor(this.bolunen/this.bolen);
 					this.div="#"+div
 					this.yap=function(){
