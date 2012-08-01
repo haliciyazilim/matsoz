@@ -377,7 +377,7 @@ Interaction.init = function(container){
 		function(){
 			bosKare.yap();
 			//girdi=parseInt($("#giris").val());
-			girdi=parseInt($("#giris").val());
+			girdi=parseInt($("#giris").val(),10);
 			
 			
 			boyaliKareSol=new Kare(girdi,etkilesimKareBoyaliFillColor, etkilesimKareBoyaliStrokeColor,100,30);
@@ -400,11 +400,11 @@ Interaction.init = function(container){
 	var cevap1="",cevap2="",cevap3="";
 
 	$("#girdiCevap1").change(function(){
-		cevap1=parseInt($("#girdiCevap1").val());
+		cevap1=parseInt($("#girdiCevap1").val(),10);
 		$("#geriBildirim").hide();
 	});	
 	$("#girdiCevap2").change(function(){
-		cevap2=$("#girdiCevap2").val();
+		cevap2=parseInt($("#girdiCevap2").val(),10);
 		$("#geriBildirim").hide();
 	});	
 	$("#girdiCevap3").change(function(){
@@ -466,39 +466,38 @@ Interaction.init = function(container){
 	
 	enter=0;
 	function kontrol(){
-			console.log("c1: "+cevap1+" c2: "+cevap2+" c3: "+cevap3);
+			
 			
 			// ondalikliGirdi inputa girilen değer kırpılmış olduğu için sorun çıkartıyordu. Alttaki satırla halledildi.
 			
-			if(cevap1===undefined ||cevap1==="" || cevap2===undefined || cevap2==="" || cevap3===undefined || cevap3===""){
+			if(girdi===undefined ||girdi==="" || cevap1===undefined ||cevap1==="" || cevap2===undefined || cevap2==="" || cevap3===undefined || cevap3===""){
 			//if($("#girdiCevap1").val()=="" || $("#girdiCevap2").val()=="" || $("#girdiCevap3").val()==""){
 				$("#geriBildirimText").attr("class","status_alert").html("Bütün kutucukları doldurunuz.");
 				$("#geriBildirim").show();
 				
-				$("#girdiCevap3").removeAttr('onkeydown');
+				/*$("#girdiCevap3").removeAttr('onkeydown');
 				$("#girdiCevap2").removeAttr('onkeydown');
 				$("#girdiCevap1").removeAttr('onkeydown');
-				$("#giris").removeAttr('onkeydown');
+				$("#giris").removeAttr('onkeydown');*/
 				
 				
 			}
 			else{
-			var ondalikliGirdi=girdi
+			var ondalikliGirdi=parseInt(girdi);
 			if(girdi<10)
 				ondalikliGirdi="0"+girdi;
-			if((girdi%10)==0)
-
-				ondalikliGirdi=girdi/10; 
-
-			if(girdi==100)
-				ondalikliGirdi=0.1;
+			else if(girdi==100)
+				ondalikliGirdi=1;
+			else
+				ondalikliGirdi=girdi; 
 			
 				
-			
-				
+				console.log("c1: "+cevap1+" c2: "+cevap2+" c3: "+cevap3);
+				console.log("Ondalıklı Girdi: "+ondalikliGirdi);
+				console.log("Girdi: "+girdi);
 			// Cevap Doğruysa
 			
-			if(cevap1==girdi && cevap2==girdi && (cevap3==ondalikliGirdi*10)){
+			if(parseInt(cevap1,10)==parseInt(girdi,10) && parseInt(cevap2,10)==parseInt(girdi,10) && cevap3==ondalikliGirdi){
 				enter++;
 				$("#btnKontrol").hide();
 				$("#sonraki").show();
@@ -511,8 +510,10 @@ Interaction.init = function(container){
 					$("#orta3 #esit1").css("opacity","1");
 				
 				console.log("enter"+enter);
-				if (enter==2)
+				if (enter==2){
+					enter=0;
 					yeniSoru();
+				}
 				else{
 				$("#girdiCevap3").get(0).setAttribute('onkeydown','return tusEngelle(event);');
 				$("#girdiCevap2").get(0).setAttribute('onkeydown','return tusEngelle(event);');
@@ -540,7 +541,7 @@ Interaction.init = function(container){
 				//console.log(tiklamaSayisi);
 				
 				$("#geriBildirimText").attr("class","status_false").html("Yanlış. Doğru cevap:");
-				var cevap=parseInt($("#giris").val());
+				var cevap=parseInt($("#giris").val(),10);
 				
 				console.log("cevap: "+cevap);
 				
@@ -559,8 +560,8 @@ Interaction.init = function(container){
 				}
 				else{
 					
-					var noktaliCevap=""+cevap/100;
-					var virgulluCevap="0,"+noktaliCevap.substr(2);
+					var noktaliCevap=cevap/100;
+					var virgulluCevap="0,"+noktaliCevap.toString().substr(2);
 					
 					console.log("noktali Cevap: "+noktaliCevap);
 					console.log("virgüllü Cevap: "+virgulluCevap);
@@ -568,23 +569,24 @@ Interaction.init = function(container){
 					
 					if(cevap==0){
 						$("#orta3 #esit1").css("opacity","1");
-						$("#girdiCevap3").val("0");
+						//$("#girdiCevap3").val("0");
 						$("#Cevap3").html(cevap);
 					}
 					else if(cevap<10){
-						$("#girdiCevap3").val("0"+cevap);
-
+						//$("#girdiCevap3").val("0"+cevap);
+						$("#Cevap3").html(virgulluCevap);
 					}
 
 					else{
-						$("#girdiCevap3").val(ondalikliGirdi);
+						console.log("girdi");
+						//$("#girdiCevap3").val(ondalikliGirdi);
 						$("#Cevap3").html(virgulluCevap);
 					}
 				}
 				
 			
 				$("#Cevap1, #Cevap2").html(cevap);
-				$("#girdiCevap1, #girdiCevap2").val(cevap);
+				//$("#girdiCevap1, #girdiCevap2").val(cevap);
 				//$("#Cevap3").html(cevap/100);
 				
 				
@@ -593,10 +595,16 @@ Interaction.init = function(container){
 					//$("#btnKontrol").hide();
 				if (cevap1!=girdi)
 					$("#girdiCevap1").css("color","red");
+				else
+					$("#girdiCevap1").css("color","green");
 				if (cevap2!=girdi)
 					$("#girdiCevap2").css("color","red");
-				if (cevap3!=ondalikliGirdi*10)
+				else
+					$("#girdiCevap2").css("color","green");
+				if (cevap3!=ondalikliGirdi)
 					$("#girdiCevap3").css("color","red");
+				else
+					$("#girdiCevap3").css("color","green");
 				$("#Cevap1, #Cevap2, #Cevap3").css("color","green");
 				$("#geriBildirim, #Corta1, #Corta2, #Corta3, #sonraki").show();
 					
@@ -652,7 +660,7 @@ var OrnekKare = function(kareSayisi, dolguRengi, hatRengi, x,y) {
 	
 	var group = new Group();	
 
-	var girdi=this.kareSayisi;
+	var girdi=parseInt(this.kareSayisi);
 			
 	var onluk=Math.floor(girdi/10)==0?1:Math.floor(girdi/10+1);
 	var birlik=Math.floor(girdi%10);
@@ -694,7 +702,7 @@ var OrnekKare = function(kareSayisi, dolguRengi, hatRengi, x,y) {
 
 var Kare= function(kareSayisi, dolguRengi, hatRengi, x,y){
 		this.animate = Item.prototype.animate;
-		this.kareSayisi=kareSayisi;
+		this.kareSayisi=parseInt(kareSayisi);
 		this.dolguRengi=dolguRengi;
 		this.hatRengi=hatRengi;
 		this.x=x;
@@ -707,7 +715,7 @@ var Kare= function(kareSayisi, dolguRengi, hatRengi, x,y){
 		
 		var group = new Group();	
 
-		var girdi=this.kareSayisi;
+		var girdi=parseInt(this.kareSayisi);
 				
 		var onluk=Math.floor(girdi/10)==0?1:Math.floor(girdi/10+1);
 		var birlik=Math.floor(girdi%10);
