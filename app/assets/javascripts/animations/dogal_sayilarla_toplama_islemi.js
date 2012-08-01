@@ -32,7 +32,7 @@ Animation.init=function(container){
 		.css("right","0")
 		.css("top","40px");
 		
-		toplamaIslemi=new LongAddition(93507,78235,"+","ornek");
+		toplamaIslemi=new LongAddition(93507,78235,"ornek");
 			toplamaIslemi.doldur();
 			toplamaIslemi.basla(1000,800);
 
@@ -889,7 +889,7 @@ Interaction.init = function(container){
 								//$("#cevap").html($("#soru").html());
 								//$("#cevap input").remove();
 								
-								var toplamaIslemi=new LongAddition(nihaiToplanan1,nihaiToplanan2,"+","cevap");
+								var toplamaIslemi=new LongAddition(nihaiToplanan1,nihaiToplanan2,"cevap");
 									toplamaIslemi.doldur();
 									toplamaIslemi.basla(1000,800);							
 								
@@ -953,7 +953,7 @@ Interaction.init = function(container){
 								//$("#cevap").html($("#soru").html());
 								//$("#cevap input").remove();
 								
-								var toplamaIslemi=new LongAddition(eldeliToplanan1,eldeliToplanan2,"+","cevap");
+								var toplamaIslemi=new LongAddition(eldeliToplanan1,eldeliToplanan2,"cevap");
 									toplamaIslemi.doldur();
 									toplamaIslemi.basla(1000,800);	
 								
@@ -1019,7 +1019,7 @@ Interaction.init = function(container){
 								//$("#cevap").html($("#soru").html());
 								//$("#cevap input").remove();
 								
-								var toplamaIslemi=new LongAddition(toplanan1,toplanan2,"+","cevap");
+								var toplamaIslemi=new LongAddition(toplanan1,toplanan2,"cevap");
 									toplamaIslemi.doldur();
 									toplamaIslemi.basla(1000,800);	
 								
@@ -1079,7 +1079,7 @@ Interaction.init = function(container){
 								//$("#cevap").html($("#soru").html());
 								//$("#cevap input").remove();
 								
-								var toplamaIslemi=new LongAddition(toplanan1,toplanan2,"+","cevap");
+								var toplamaIslemi=new LongAddition(toplanan1,toplanan2,"cevap");
 									toplamaIslemi.doldur();
 									toplamaIslemi.basla(1000,800);	
 								
@@ -1152,7 +1152,7 @@ Interaction.init = function(container){
 								//$("#cevap").html($("#soru").html());
 								//$("#cevap input").remove();
 								
-								var toplamaIslemi=new LongAddition(toplanan1,toplanan2,"+","cevap");
+								var toplamaIslemi=new LongAddition(toplanan1,toplanan2,"cevap");
 									toplamaIslemi.doldur();
 									toplamaIslemi.basla(1000,800);	
 									
@@ -1236,7 +1236,7 @@ Interaction.init = function(container){
 								//$("#cevap").html($("#soru").html());
 								//$("#cevap input").remove();
 								
-								var toplamaIslemi=new LongAddition(toplanan1,toplanan2,"+","cevap");
+								var toplamaIslemi=new LongAddition(toplanan1,toplanan2,"cevap");
 									toplamaIslemi.doldur();
 									toplamaIslemi.basla(1000,800);	
 								
@@ -1319,12 +1319,13 @@ Interaction.init = function(container){
 								//$("#cevap").html($("#soru").html());
 								//$("#cevap input").remove();
 								
-								var toplamaIslemi=new LongAddition(toplanan1,toplanan2,"+","cevap");
+								var toplamaIslemi=new LongAddition(toplanan1,toplanan2,"cevap");
 									toplamaIslemi.doldur();
 									toplamaIslemi.basla(1000,800);
 								
 								$("#soru").animate({right:"240px"},1000);
 								$("#cevap").delay(800).animate({opacity:"1"},1000);
+								
 								$("#cevap #cevap1").html(toplanan1Basamak);
 								$("#cevap #cevap2").html(toplanan2Basamak);
 								$("#cevap #cevap3").html(toplanan3Basamak);
