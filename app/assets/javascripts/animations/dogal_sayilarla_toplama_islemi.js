@@ -97,28 +97,31 @@ Interaction.init = function(container){
 		
 		for (var i=4; i>=0;i--){
 			var yeniBasamak1, yeniBasamak2;
-			if((parseInt(strToplanan1.charAt(i))<parseInt(strToplanan2.charAt(i)))){
+			if((parseInt(strToplanan1.charAt(i))+parseInt(strToplanan2.charAt(i)))>=10){
 
-				console.log("bozuluyor");
+				console.log("eldesiz değil");
 				console.log((strToplanan1.charAt(i)+", "+strToplanan2.charAt(i)));
-
-				
-				yeniBasamak1=parseInt(strToplanan2.charAt(i));
-				yeniBasamak2=parseInt(strToplanan1.charAt(i));
-
-				
+				console.log((parseInt(strToplanan1.charAt(i))+parseInt(strToplanan2.charAt(i))));
+				var cikarilacak=((parseInt(strToplanan1.charAt(i))+parseInt(strToplanan2.charAt(i))))-9;
+				console.log("cıakrilaca: "+cikarilacak);
+				if((parseInt(strToplanan1.charAt(i))<(parseInt(strToplanan2.charAt(i))))){
+					yeniBasamak1=((parseInt(strToplanan2.charAt(i))-cikarilacak));
+					yeniBasamak2=parseInt(strToplanan1.charAt(i));
+				}
+				else{
+					yeniBasamak1=((parseInt(strToplanan1.charAt(i))-cikarilacak));
+					yeniBasamak2=parseInt(strToplanan2.charAt(i));
+				}
 			}
 			else{
 				yeniBasamak1=parseInt(strToplanan1.charAt(i));
 				yeniBasamak2=parseInt(strToplanan2.charAt(i));	
 			}
-			
+
 			basamakDegeri1[i]=yeniBasamak1;
 			basamakDegeri2[i]=yeniBasamak2;
-			
+
 		}
-		console.log(basamakDegeri1);
-		console.log(basamakDegeri2);
 				
 		/*for(var i=4; i>=0;i--){
 			console.log((strToplanan1.charAt(i)+", "+strToplanan2.charAt(i)));
@@ -267,7 +270,7 @@ Interaction.init = function(container){
 		toplam=parseInt(eldeliToplanan1,10)+parseInt(eldeliToplanan2,10);
 			
 	$(" #soru",container).append("<div id='toplanan1' class='toplanan'>");
-		$("#toplanan1")
+		$("#soru #toplanan1")
 		.css("top","10px").html(format(eldeliToplanan1, {point:'.'}));
 		
 	$(" #soru",container).append("<div id='toplanan2' class='toplanan'>");
@@ -398,20 +401,22 @@ Interaction.init = function(container){
 		toplam=toplanan1+toplanan2;
 		console.log("toplam: "+toplam);
 		
-			
+	/*		
 	$("#soru",container).append("<div id='toplanan1' class='toplanan'>");
 		$("#soru #toplanan1")
 		.css("top","10px").html(format(toplanan1, {point:'.'}))
-		.css("z-index","4");
+		.css("z-index","4");*/
 		
 	console.log("soruSirasi: "+soruSirasi);
 	if(soruSirasi==5 || soruSirasi==7){
 		$("#soru",container).append("<div id='toplanan1' class='toplanan'>");
 		$("#soru #toplanan1")
+		.css("top","10px").html(format(toplanan1, {point:'.'}))
+		.css("z-index","4")
 		.css("top","10px").css("z-index","4");
 		
 		$("#soru",container).append("<input id='girdi' type='text' maxlength=7  onkeypress='return SadeceRakam(event)'/>");	
-		$("#girdi").css("top","10px").css("z-index","5");
+		$("#soru #girdi").css("top","10px").css("z-index","5");
 		$("input").addClass("input").addClass("number_input_field");
 			
 		$("#soru",container).append("<div id='toplanan2' class='toplanan'>");
@@ -792,7 +797,7 @@ Interaction.init = function(container){
 		$("#soru").delay(500).animate({right:"0px"},1000);
 		$("#cevap").animate({opacity:"0",},1000);
 	}
-	var soruSirasiTest=1;
+	//var soruSirasi=9;
 	function soruGetir(){
 		switch(soruSirasi){
 			
@@ -836,6 +841,7 @@ Interaction.init = function(container){
 	soruGetir();
 	kontrolSayaci=0;
 	function kontrol(){
+		$("#cevap").html("");
 		switch (soruSirasi){
 			case 10:
 			case 0:
@@ -880,8 +886,14 @@ Interaction.init = function(container){
 								$("#sonraki").show();
 								$("#girdi").css("color",yanlisRengi);
 								
-								$("#cevap").html($("#soru").html());
-								$("#cevap input").remove();
+								//$("#cevap").html($("#soru").html());
+								//$("#cevap input").remove();
+								
+								var toplamaIslemi=new LongAddition(nihaiToplanan1,nihaiToplanan2,"+","cevap");
+									toplamaIslemi.doldur();
+									toplamaIslemi.basla(1000,800);							
+								
+								
 								$("#soru").animate({right:"240px"},1000);
 								$("#cevap").delay(800).animate({opacity:"1"},1000);
 								
@@ -938,8 +950,13 @@ Interaction.init = function(container){
 								$("#sonraki").show();
 								$("#girdi").css("color",yanlisRengi);
 
-								$("#cevap").html($("#soru").html());
-								$("#cevap input").remove();
+								//$("#cevap").html($("#soru").html());
+								//$("#cevap input").remove();
+								
+								var toplamaIslemi=new LongAddition(eldeliToplanan1,eldeliToplanan2,"+","cevap");
+									toplamaIslemi.doldur();
+									toplamaIslemi.basla(1000,800);	
+								
 								$("#soru").animate({right:"240px"},1000);
 								$("#cevap").delay(800).animate({opacity:"1"},1000);
 								$("#cevap #toplam").css("color",dogruRengi);
@@ -999,8 +1016,13 @@ Interaction.init = function(container){
 								$("#sonraki").show();
 								$("#girdi").css("color",yanlisRengi);
 								
-								$("#cevap").html($("#soru").html());
-								$("#cevap input").remove();
+								//$("#cevap").html($("#soru").html());
+								//$("#cevap input").remove();
+								
+								var toplamaIslemi=new LongAddition(toplanan1,toplanan2,"+","cevap");
+									toplamaIslemi.doldur();
+									toplamaIslemi.basla(1000,800);	
+								
 								$("#soru").animate({right:"240px"},1000);
 								$("#cevap").delay(800).animate({opacity:"1"},1000);
 								$("#cevap #toplanan1").css("color",dogruRengi);
@@ -1054,8 +1076,13 @@ Interaction.init = function(container){
 								$("#sonraki").show();
 								$("#girdi").css("color",yanlisRengi);
 								
-								$("#cevap").html($("#soru").html());
-								$("#cevap input").remove();
+								//$("#cevap").html($("#soru").html());
+								//$("#cevap input").remove();
+								
+								var toplamaIslemi=new LongAddition(toplanan1,toplanan2,"+","cevap");
+									toplamaIslemi.doldur();
+									toplamaIslemi.basla(1000,800);	
+								
 								$("#soru").animate({right:"240px"},1000);
 								$("#cevap").delay(800).animate({opacity:"1"},1000);
 								$("#cevap #toplanan2").css("color",dogruRengi);
@@ -1122,14 +1149,20 @@ Interaction.init = function(container){
 								else
 									$("#girdi2").css("color",dogruRengi);
 									
-								$("#cevap").html($("#soru").html());
-								$("#cevap input").remove();
+								//$("#cevap").html($("#soru").html());
+								//$("#cevap input").remove();
+								
+								var toplamaIslemi=new LongAddition(toplanan1,toplanan2,"+","cevap");
+									toplamaIslemi.doldur();
+									toplamaIslemi.basla(1000,800);	
+									
+								
 								$("#soru").animate({right:"240px"},1000);
 								$("#cevap").delay(800).animate({opacity:"1"},1000);
 								$("#cevap #cevap1").html(toplanan1Basamak);
 								$("#cevap #cevap2").html(toplanan2Basamak);
 
-								$("#cevap #cevap1, #cevap #cevap2").css("color",dogruRengi);
+								$("#cevap #ilkBasamak2, #cevap #ikinciBasamak3").css("color",dogruRengi);
 								
 								
 								girdi1="";
@@ -1200,15 +1233,21 @@ Interaction.init = function(container){
 								else
 									$("#girdi3").css("color",dogruRengi);
 
-								$("#cevap").html($("#soru").html());
-								$("#cevap input").remove();
+								//$("#cevap").html($("#soru").html());
+								//$("#cevap input").remove();
+								
+								var toplamaIslemi=new LongAddition(toplanan1,toplanan2,"+","cevap");
+									toplamaIslemi.doldur();
+									toplamaIslemi.basla(1000,800);	
+								
+								
 								$("#soru").animate({right:"240px"},1000);
 								$("#cevap").delay(800).animate({opacity:"1"},1000);
 								$("#cevap #cevap1").html(toplanan1Basamak);
 								$("#cevap #cevap2").html(toplanan2Basamak);
 								$("#cevap #cevap3").html(toplamBasamak);
 
-								$("#cevap #cevap1, #cevap #cevap2, #cevap #cevap3").css("color",dogruRengi);
+								$("#cevap #ilkBasamak4, #cevap #ikinciBasamak1, #cevap #toplamBasamak3").css("color",dogruRengi);
 								girdi1="";
 								girdi2="";
 								girdi3="";
@@ -1277,15 +1316,20 @@ Interaction.init = function(container){
 								else
 									$("#girdi3").css("color",dogruRengi);
 								
-								$("#cevap").html($("#soru").html());
-								$("#cevap input").remove();
+								//$("#cevap").html($("#soru").html());
+								//$("#cevap input").remove();
+								
+								var toplamaIslemi=new LongAddition(toplanan1,toplanan2,"+","cevap");
+									toplamaIslemi.doldur();
+									toplamaIslemi.basla(1000,800);
+								
 								$("#soru").animate({right:"240px"},1000);
 								$("#cevap").delay(800).animate({opacity:"1"},1000);
 								$("#cevap #cevap1").html(toplanan1Basamak);
 								$("#cevap #cevap2").html(toplanan2Basamak);
 								$("#cevap #cevap3").html(toplanan3Basamak);
 
-								$("#cevap #cevap1, #cevap #cevap2, #cevap #cevap3").css("color",dogruRengi);
+								$("#cevap #ilkBasamak3, #cevap #ikinciBasmak1, #cevap #ikinciBasamak4").css("color",dogruRengi);
 								girdi1="";
 								girdi2="";
 								girdi3="";
