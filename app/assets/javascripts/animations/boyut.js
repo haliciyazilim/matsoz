@@ -1,6 +1,6 @@
 /*Styles*/
 function __Styles(){
-	textStyle = {strokeColor : '#000', fillColor: new RgbColor(0.75,0.91,0.94,1) };
+	textStyle = {fillColor:'#fff' };
 	edgeStyle = {
 		strokeColor:'#255b63',
 		fillColor:'#bfe8ef'
@@ -38,183 +38,71 @@ function __Styles(){
 /*Styles*/
 
 var Animation = {};
-
+Animation.images = [
+	{
+		id:'animation_0',
+		src:'/assets/animations/boyut/animation_0.jpg'
+	},
+	{
+		id:'animation_1',
+		src:'/assets/animations/boyut/animation_1.jpg'
+	},
+	{
+		id:'animation_2',
+		src:'/assets/animations/boyut/animation_2.jpg'
+	},
+	{
+		id:'animation_3',
+		src:'/assets/animations/boyut/animation_3.jpg'
+	},
+	{
+		id:'animation_4',
+		src:'/assets/animations/boyut/animation_4.jpg'
+	},
+	{
+		id:'animation_5',
+		src:'/assets/animations/boyut/animation_5.jpg'
+	},
+	{
+		id:'animation_6',
+		src:'/assets/animations/boyut/animation_6.jpg'
+	}
+]
 Animation.init = function(container){
 	Animation.container = container;
-	var w=$(container).width(), h=$(container).height();
-	var a = Math.min(w,h) * 0.3;
-	var i = a*0.4;
-	var j = a*0.6;
-	x = w *0.5-10;
-	y = h*0.5;
-	//console.log(x,y)
-	var p1 = new Point(x-a,y+a);
-	var p2 = new Point(x+a,y+a);
-	var p3 = new Point(x+a,y-a);
-	var p4 = new Point(x-a,y-a);
-	var p5 = new Point(x-a+j,y-a-i);
-	var p6 = new Point(p5.x+2*a,p5.y);
-	var p7 = new Point(p6.x,p6.y+2*a);
-	Animation.path = new Path();
-	Animation.path.set_style({
-		strokeColor:'#000',
-		strokeWidth:2
-	});
-	Animation.line1 = new Path.Line(
-		p1,
-		p4
-	);
-	Animation.line3 = new Path.Line(
-		p2,
-		p7
-	);
-	Animation.line2 = new Path.Line(
-		p1,
-		p2
-	);
-	Animation.text1 = new PointText(
-		new Point(
-			p1.x-20,
-			(p1.y+p4.y)*0.5
-		)
-	);
-	Animation.text2 = new PointText(
-		new Point(
-			(p1.x+p2.x)*0.5,
-			p1.y+20
-		)
-	);
-	Animation.text3 = new PointText(
-		new Point(
-			(p7.x+p2.x)*0.5+10,
-			(p7.y+p2.y)*0.5+10
-		)
-	);
-	Animation.text1.content = '1';
-	Animation.text2.content = '2';
-	Animation.text3.content = '3';
-	var animationHelper = {
-		count:0,
-		opacity:0,
-		line1Opacity:0,
-		line2Opacity:0,
-		line3Opacity:0,
-		text1Opacity:0,
-		text2Opacity:0,
-		text3Opacity:0
+	for(var i=0; i <7 ; i++){
+		var img = document.createElement('img');
+		img.src = Animation.images[i].src;
+		$(Animation.container).append(img);
+		$(img).css({
+			position:'absolute',
+			top:'20px',
+			left:'200px',
+			opacity:0
+		}).delay(1000*i).animate({opacity:1},1000)
+		
 	}
-	
-	var lineStyle = {
-		strokeWidth:3,
-		strokeColor:'#f00'
-	};
-	var textStyle = {
-		fillColor:'#f00',
-		strokeColor:'#f00'
-	}
-	Animation.text1.set_style(textStyle);
-	Animation.text2.set_style(textStyle);
-	Animation.text3.set_style(textStyle);
-	Animation.path.add(p4);
-	Animation.path.add(p1);
-	Animation.path.add(p2);
-	Animation.path.add(p3);
-	Animation.path.add(p4);
-	Animation.path.add(p5);
-	Animation.path.add(p6);
-	Animation.path.add(p7);
-	Animation.path.add(p2);
-	Animation.path.add(p3);
-	Animation.path.add(p6);
-	Animation.line1.set_style(lineStyle);
-	Animation.line3.set_style(lineStyle);
-	Animation.line2.set_style(lineStyle);
-	Animation.line1.strokeColor = '#f00';
-	Animation.line3.strokeColor = '#0a0';
-	Animation.line2.strokeColor = '#00f';
-	animationHelper.animate = Item.prototype.animate;
-	Animation.onFrame = function(){
-		Animation.path.opacity = animationHelper.opacity;
-		Animation.line1.opacity = animationHelper.line1Opacity;
-		Animation.line3.opacity = animationHelper.line3Opacity;
-		Animation.line2.opacity = animationHelper.line2Opacity;
-		Animation.text1.opacity = animationHelper.text1Opacity;
-		Animation.text3.opacity = animationHelper.text3Opacity;
-		Animation.text2.opacity = animationHelper.text2Opacity;
-		if( animationHelper.text3Opacity == 1 ){
-			Animation.onFrame = null;
-			//console.log("asdasd");
-			var div = document.createElement('div');
-			$(Animation.container).append(div);
-			$(div)
-				.html('<span style="color:#f00">1.&emsp;Boy</span><br/><span style="color:#00f">2.&emsp;En</span><br/><span style="color:#0a0">3.&emsp;Derinlik</span>')
-				.css({
-					position:'absolute',
-					left:'50%',
-					marginLeft:'100px',
-					opacity:0,
-					top:'50%',
-					marginTop:'-50px',
-					lineHeight:'33px'
-				})
-				.animate(
-					{opacity:1},
-					1000
-				);
-				
-		}
-	};
-	animationHelper.animate({
-		style:{
-			opacity:1
-		},
-		duration:2000
-	});
-	animationHelper.animate({
-		style:{
-			line1Opacity:1
-		},
-		duration:1000,
-		delay:2000
-	});
-	animationHelper.animate({
-		style:{
-			line2Opacity:1
-		},
-		duration:1000,
-		delay:3000
-	});
-	animationHelper.animate({
-		style:{
-			line3Opacity:1
-		},
-		duration:1000,
-		delay:4000
-	});
-	animationHelper.animate({
-		style:{
-			text1Opacity:1
-		},
-		duration:1000,
-		delay:5000
-	});
-	animationHelper.animate({
-		style:{
-			text2Opacity:1
-		},
-		duration:1000,
-		delay:6000
-	});
-	animationHelper.animate({
-		style:{
-			text3Opacity:1
-		},
-		duration:1000,
-		delay:7000
-	});	
 }
 
 var Interaction = {};
+Interaction.images = [
+	{
+		id:'bowl_default',
+		src:'/assets/animations/boyut/bowl_default.png'	
+	},
+	{
+		id:'bowl_hover',
+		src:'/assets/animations/boyut/bowl_hover.png'	
+	},
+	{
+		id:'bowl_true',
+		src:'/assets/animations/boyut/bowl_true.png'	
+	},
+	{
+		id:'bowl_false',
+		src:'/assets/animations/boyut/bowl_false.png'	
+	},
+]
 Interaction.getFramework = function() {
 	return 'paper';
 }
@@ -289,15 +177,19 @@ Interaction.nextQuestion = function(){
 		this.odx += dx;
 		this.ody += dy;
 		this.position = [this.position.x + dx,this.position.y + dy];
-		var hitResult = project.activeLayer.hitTest([x,y], { fill: true, stroke: true, segments: true, tolerance: 2 , class: 'bowl'});
+		//var hitResult = project.activeLayer.hitTest([x,y], { fill: true, stroke: true, segments: true, tolerance: 2 , class: 'bowl'});
 		for(var d in Interaction.dim){
-				Interaction.dim[d].style = bowlDefaultStyle;		
+				Interaction.dim[d].set = bowlDefaultStyle;		
 			}
+		var hitResult = null;
 		Interaction.droppedBowl = null;
-		if(hitResult){	
-			Interaction.droppedBowl = hitResult.item;
-			Interaction.droppedBowl.style = bowlHoverStyle;
-		}
+		$(Interaction.dim).each(function(index, element) {
+            this.setImage($('#bowl_default').get(0));
+			if(this.bounds.contains(new Point(x,y))){
+				this.setImage($('#bowl_hover').get(0));
+				Interaction.droppedBowl = this; 
+			}
+        });
     },
     up = function () {
 		if(Interaction.preventDrag)
@@ -321,22 +213,11 @@ Interaction.nextQuestion = function(){
 					this.scale(this.scaleRatio);	
 				}
 			});
-			Interaction.droppedBowl.animate({
-				style:bowlDroppedTrueStyle,
-				duration:5,
-				callback:function(){
-					Interaction.droppedBowl.animate({
-						style:bowlDefaultStyle,
-						duration:500,
-						delay:500,
-						callback:function(){
-							Interaction.droppedBowl.style = bowlDefaultStyle;
-							Interaction.nextQuestion();
-							}
-						}
-					)
-				}
-			});
+			Interaction.droppedBowl.setImage($('#bowl_true').get(0));
+			setTimeout(function(){
+					Interaction.droppedBowl.setImage($('#bowl_default').get(0));
+					Interaction.nextQuestion();
+				},400);
 		}  
 		else{
 			Interaction.preventDrag = true;
@@ -345,7 +226,7 @@ Interaction.nextQuestion = function(){
 			}
 			if(Interaction.droppedBowl!= null 
 			&& Interaction.droppedBowl!= undefined)
-				Interaction.droppedBowl.animate({style:bowlDroppedFalseStyle,duration:5});
+				Interaction.droppedBowl.setImage($('#bowl_false').get(0));
 			var distance = Math.sqrt(this.odx*this.odx + this.ody*this.ody);
 			var velocity = 1;// px/ms
 			var time  = distance / velocity;
@@ -549,20 +430,30 @@ Interaction.generateBowls = function(w,h){
 	var _w = 0.20*w, _h =0.22*h;
 	var dim = [];	
 	for(var i=0; i< 4 ; i++){
-		dim[i] = new Path.Bowl(new Point(i*0.25*w+0.025*w,0.6*h+0.04*h), new Size(_w,_h)) ;
-		dim[i].style = bowlDefaultStyle;
+		dim[i] = new Raster('bowl_default');
+		dim[i].position = new Point((i+0.5)*0.25*w,0.7*h);
 		dim[i].dimension = i;
 		dim[i].class = "bowl";
-		var t;
 		if(i == 0 ){
-			t = new PointText(new Point(dim[i].position.x-_w*0.3,dim[i].position.y));
+			var t_shadow = new PointText(new Point(dim[i].position.x-_w*0.3,dim[i].position.y).add(1,1));
+			t_shadow.content = "Boyutu\nyok";
+			t_shadow.set_style(textStyle);
+			t_shadow.set_style({fillColor:'#2f4f54'})
+
+			var t = new PointText(new Point(dim[i].position.x-_w*0.3,dim[i].position.y));
 			t.content = "Boyutu\nyok";
+			t.set_style(textStyle);
 		}
 		else{
-			t = new PointText(new Point(dim[i].position.x-_w*0.25,dim[i].position.y));
+			var t_shadow = new PointText(new Point(dim[i].position.x-_w*0.25,dim[i].position.y).add(1,1));
+			t_shadow.content = ""+i+" Boyutlu";
+			t_shadow.set_style(textStyle);
+			t_shadow.set_style({fillColor:'#2f4f54'})
+			
+			var t = new PointText(new Point(dim[i].position.x-_w*0.25,dim[i].position.y));
 			t.content = ""+i+" Boyutlu";
+			t.set_style(textStyle);
 		};
-		t.style = textStyle;
 	}
 	Interaction.dim = dim;
 }

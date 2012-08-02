@@ -18,6 +18,7 @@ function LongDivision(n,d,container){
 	this.nodes.dividend = $('#dividend',container).html(this.num).css({
 		width:'50%',
 		borderRight:'1px solid #000',
+		borderColor:$(container).css('color'),
 		float:'left',
 		textAlign:'left',
 		height:this.fontSize*2
@@ -25,13 +26,18 @@ function LongDivision(n,d,container){
 	this.nodes.divisor = $('#divisor',container).html(this.d).css({
 		width:'40%',
 		borderBottom:'1px solid #000',
+		borderColor:$(container).css('color'),
 		float:'left',
+		paddingLeft:this.fontSize*0.5,
+		boxSizing:'border-box',
 		textAlign:'left',
 		height:this.fontSize
 	}).get(0);
 	this.nodes.answer = $('#answer',container).css({
 		width:'40%',
 		float:'left',
+		paddingLeft:this.fontSize*0.5,
+		boxSizing:'border-box',
 		textAlign:'left',
 		height:this.fontSize
 	}).get(0);
@@ -68,7 +74,7 @@ LongDivision.prototype.nextStep = function(duration){
 		var div = document.createElement('div');
 		
 		$(div)
-			.html('<div class="up"></div><div class="line"><img src="/assets/animations/minus_sign.png" /></div><div class="down"></div>')
+			.html('<div class="up"></div><div class="line"><span style="position:relative;top:-20px">-</span></div><div class="down"></div>')
 			.css({
 				position:'relative',
 				top:-this.fontSize,
@@ -99,6 +105,7 @@ LongDivision.prototype.nextStep = function(duration){
 				position:'relative',
 				height:1,
 				borderTop:'1px solid #000',
+				borderColor:$(this.container).css('color'),
 				width:this.fontSize*0.5*(this.num.length+2),
 				left:-this.fontSize
 			});

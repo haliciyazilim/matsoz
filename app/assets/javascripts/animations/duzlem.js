@@ -120,11 +120,11 @@ var Interaction = {
 	nextQuestion: function(randomNumber){
 			Interaction.createTool();
 			Main.interactionProject.activeLayer.removeChildren()
-			
+			Interaction.notExistDiv.deselect();
 			Interaction.qType = Util.rand01()==0?Interaction._types.INTERSECTING:Interaction._types.PARALLEL;
 			$(Interaction.typeDiv).html(Interaction.qType);
 			/*<[[TestCode*/
-				randomNumber =5; 
+				//randomNumber = 7; 
 			/*TestCode]]>*/
 			Interaction.shapeType = randomNumber;
 			switch(randomNumber){
@@ -153,13 +153,18 @@ var Interaction = {
 					Interaction.shape = cylinder.draw();
 					break;
 				case 6://cone
+					var cone = new Cone(new Point(150,125),150,150,150);
+					Interaction.shape = cone.draw();
+					break;
 				case 7://sphere
+					var sphere = new Path.Sphere(new Point(150,125),100).set_style(planeStyle);
+					break;
 			}
 			
 		},
 	preCheck : function(){
-			if(!Interaction.notExistDiv.isSelected() && Interaction.getSelectedPlanes().length < 2){
-				Interaction.setStatus('Lütfen iki adet düzlem seçiniz','alert');
+			if(!Interaction.notExistDiv.isSelected() && (Interaction.getSelectedPlanes().length < 2 && Interaction.shapeType != 6 || Interaction.shapeType == 6/*cone*/ &&Interaction.getSelectedPlanes().length < 1 ) ){
+				Interaction.setStatus('Lütfen bir cevap belirtiniz.','alert');
 				return false;
 			}
 			else
@@ -191,9 +196,22 @@ var Interaction = {
 					return false;
 					break;
 				case 4://cylinder
+					if( Interaction.qType == Interaction._types.PARALLEL &&
+						!Interaction.notExistDiv.isSelected()
+					)
+						return true;
+					
+					if( Interaction.qType == Interaction._types.INTERSECTING &&
+						Interaction.notExistDiv.isSelected()
+					)
+						return true;
+					return false;
 				case 6://cone
 				case 7://sphere
-					//if(Interaction.qType == Interaction._types.INTERSECTING)
+					if(!Interaction.notExistDiv.isSelected())
+						return false;
+					return true;
+					break;
 						
 			}
 		},
@@ -220,21 +238,26 @@ var Interaction = {
 						Interaction.setStatus('Yanlış cevap. Paralel düzlemler var. <br/> Paralel düzlemleri şeklin üzerinde görebilirsiniz.',false);
 						pairs = Interaction.getParellelPlanePairs();
 					}
-				case 4://cylinder
+					break;
+				case 5://pyramid
 					if(Interaction.qType == Interaction._types.PARALLEL){
 						Interaction.setStatus('Yanlış cevap. Paralel düzlemler yok.',false);
 					}
 					if(Interaction.qType == Interaction._types.INTERSECTING){
-						Interaction.setStatus('Yanlış cevap. Kesişen düzlemler var. <br/> Kesişen düzlemlerin bazılarını şeklin üzerinde görebilirsiniz.',false);
+						Interaction.setStatus('Yanlış cevap. Kesişen düzlemler var. <br/> Kesişen düzlemleri şeklin üzerinde görebilirsiniz.',false);
 						pairs = Interaction.getIntersectingPlanePairs();
 					}
-				case 6://cone
-					if(Interaction.qType == Interaction._types.PARALLEL){
-						Interaction.setStatus('Yanlış cevap. Paralel düzlemler yok.',false);
-					}
+					break;
+				case 4://cylinder
 					if(Interaction.qType == Interaction._types.INTERSECTING){
 						Interaction.setStatus('Yanlış cevap. Kesişen düzlemler yok.',false);
 					}
+					if(Interaction.qType == Interaction._types.PARALLEL){
+						Interaction.setStatus('Yanlış cevap. Paralel düzlemler var. <br/> Paralel düzlemleri şeklin üzerinde görebilirsiniz.',false);
+						pairs = Interaction.getParellelPlanePairs();
+					}
+					break;
+				case 6://cone
 				case 7://sphere
 					if(Interaction.qType == Interaction._types.PARALLEL){
 						Interaction.setStatus('Yanlış cevap. Paralel düzlemler yok.',false);
@@ -242,7 +265,7 @@ var Interaction = {
 					if(Interaction.qType == Interaction._types.INTERSECTING){
 						Interaction.setStatus('Yanlış cevap. Kesişen düzlemler yok.',false);
 					}
-					//if(Interaction.qType == Interaction._types.INTERSECTING)
+					break;
 						
 			}
 			
@@ -267,6 +290,8 @@ var Interaction = {
             });
 			if(pairs.length > 0)
 				setTimeout('Interaction.pause = false',2000+pairs.length*2000);
+			else
+				Interaction.pause = false;
 			
 		},
 	getParellelPlanePairs:function(){
@@ -281,7 +306,7 @@ var Interaction = {
 			var planes = [];
 			function _recursive(node){
 				if(node.class == 'Plane'){
-					planes.push({plane:node.plane,hasParallel:false});
+					planes.push({plane:node.plane,hasPartner:false});
 				}
 				else{
 					$(node.children).each(function(index, element) {
@@ -294,13 +319,13 @@ var Interaction = {
 			var planePairs = [];
 			for(var i=0; i<planes.length;i++)
 				for(var j=0; j<planes.length;j++){
-					if(i==j || planes[i].hasParallel == true || planes[j].hasParallel == true)
+					if(i==j || planes[i].hasPartner == true || planes[j].hasPartner == true)
 						continue;
 					if( type == 'parallel' 	 && planes[i].plane.isParallelTo(planes[j].plane) ||
 						type == 'intersecting' && !planes[i].plane.isParallelTo(planes[j].plane)
 					){
-						planes[i].hasParallel = true;
-						planes[j].hasParallel = true;
+						planes[i].hasPartner = true;
+						planes[j].hasPartner = true;
 						planePairs.push([
 							planes[i].plane,
 							planes[j].plane
@@ -344,20 +369,21 @@ var Interaction = {
 			Interaction.tool = new Tool();
 			Interaction.tool.count = 0;
 			Interaction.tool.onMouseDown = function(event){
+				var item = null;
 				$(Main.interactionProject.activeLayer.getItemsByClass('ClickableArea')).each(function(index, element) {
                     if(this.bounds.contains(event.point))
-						event.item = this;
+						item = this;
                 });
-				if(event.item != null){
-					if(event.item.plane.plane.isSelected() == false){
+				if(item != null && item.plane != undefined){
+					if(item.plane.plane.isSelected() == false){
 						if(this.count < 2){
-							event.item.plane.plane.select();
+							item.plane.plane.select();
 							this.count++;
 							Interaction.notExistDiv.deselect();
 						}
 					}
 					else{
-						event.item.plane.plane.deselect()
+						item.plane.plane.deselect()
 						this.count--;
 					}
 				} 
@@ -366,33 +392,59 @@ var Interaction = {
 		}
 }
 
-
-
-
-function ClickableArea(plane){
-	this.plane = plane;
-	this.matrix = this.plane.matrix;
-	
-	this.setParent = function(parent){
-		this.parent = parent;
-		this.matrix = this.parent.matrix;
-		return this;
-	}
-	this.draw = function(){
-		var shape = new Path();
-		var c = projectPoint(this.plane.centerPoint,this.matrix);
-		for(var i=0;i<=this.plane.points.length;i++){
-			var p = projectPoint(this.plane.points[i%this.plane.points.length],this.matrix);
-			var _p = c.findPointTo(p,20,true) 
-			shape.add(Math.floor(_p.x)+0.5,Math.floor(_p.y)+0.5);
+var ClickableArea = Class.extend({
+	init:function(plane){
+			this.plane = plane;
+			this.matrix = this.plane.matrix;
+			console.log("I'm here");
+		},	
+	setParent : function(parent){
+			this.parent = parent;
+			this.matrix = this.parent.matrix;
+			return this;
+		},
+	draw : function(){
+			var shape = new Path();
+			var c = projectPoint(this.plane.centerPoint,this.matrix);
+			for(var i=0;i<=this.plane.points.length;i++){
+				var p = projectPoint(this.plane.points[i%this.plane.points.length],this.matrix);
+				var _p = c.findPointTo(p,20,true) 
+				shape.add(Math.floor(_p.x)+0.5,Math.floor(_p.y)+0.5);
+			}
+			shape.closed = true;
+			shape.class = "ClickableArea";
+			shape.set_style(clickableAreaStyle);
+			this.shape = shape;
+			return shape;
 		}
-		shape.closed = true;
-		shape.class = "ClickableArea";
-		shape.set_style(clickableAreaStyle);
-		this.shape = shape;
-		return shape;
-	}
-}
+});
+
+var CircularClickableArea = ClickableArea.extend({
+	init:function(plane){
+			this._super(plane);
+		},
+	draw : function(){
+			var shape = new Path();
+			var c = Util.centerOfPoints(this.plane.shape.points);
+			var points = [];
+			$(this.plane.shape.points).each(function(index, element) {
+                var p = c.findPointTo(this,20,true) 
+				points.push(p);
+            });
+			shape.add(points[0]);
+			shape.cubicCurveTo(points[1],points[2],points[3])
+			shape.add(points[3]);
+			shape.cubicCurveTo(points[4],points[5],points[0])
+			shape.points = points;
+			shape.extremePoints = [];
+			shape.closed = true;
+			shape.class = "ClickableArea";
+			shape.set_style(clickableAreaStyle);
+			shape.insertAbove(this.plane.shape);
+			this.shape = shape;
+			return shape;
+		}
+});
 
 function RectangularPrisim(p,a,b,c){
 	this.centerPoint = p;
@@ -446,9 +498,6 @@ function TrianglePrisim(p,a,b,c){
 	this.centerPoint = p;
 	var x = p.x, y = p.y, z = a*5;
 	p = [];
-	
-	
-	
 	p[0] = new Point3(-a*0.5,-b*0.5,+c*0);
 	p[3] = new Point3(+a*0.5,-b*0.5,+c*0.5);
 	p[4] = new Point3(+a*0.5,-b*0.5,-c*0.5);
@@ -457,9 +506,6 @@ function TrianglePrisim(p,a,b,c){
 	p[2] = new Point3(+a*0.5,+b*0.5,+c*0.5);
 	p[5] = new Point3(+a*0.5,+b*0.5,-c*0.5);
 	
-	/*
-	*	generate planes here
-	*/
 	this.matrix = Util.createProjectionMatrixForObjectAt(x,y);
 	//console.log(this.matrix);
 	this.planes = [];
@@ -506,9 +552,6 @@ function Pyramid(p,a,b,c){
 	p[5] = new Point3(+a*0.5,+b*0.5,-c*0.5)
 	p[6] = new Point3(-a*0.5,+b*0.5,-c*0.5);
 	
-	/*
-	*	generate planes here
-	*/
 	this.matrix = Util.createProjectionMatrixForObjectAt(x,y);
 	//console.log(this.matrix);
 	this.planes = [];
@@ -540,23 +583,10 @@ function Pyramid(p,a,b,c){
 	}
 }
 
-
 function Cylinder(p,a,b){
 	this.centerPoint = p;
 	var x = p.x, y = p.y, z = a*5;
 	p = [];
-	
-	
-	
-//	p[0] = new Point3(-a*0,-b*0.5,+c*0);
-//	p[1] = new Point3(-a*0.4,+b*0.5,+c*0.5);
-//	p[2] = new Point3(+a*0.6,+b*0.5,+c*0.5);
-//	p[5] = new Point3(+a*0.5,+b*0.5,-c*0.5)
-//	p[6] = new Point3(-a*0.5,+b*0.5,-c*0.5);
-	
-	/*
-	*	generate planes here
-	*/
 	this.matrix = Util.createProjectionMatrixForObjectAt(x,y);
 	/*this.matrix = [
 						1, 0, 0, 150,
@@ -564,53 +594,19 @@ function Cylinder(p,a,b){
 						0, 0, 0, 1,
 						0, 0, 0, 1,		
 					]*/
-	//console.log(this.matrix);
 	this.planes = [];
-	//front
-//	this.planes.push(new Plane([p[0],p[1],p[2]]).setParent(this));
-	//back
-//	this.planes.push(new Plane([p[0],p[2],p[5]]).setParent(this));
-	//left
-//	this.planes.push(new Plane([p[0],p[5],p[6]]).setParent(this));
-	//right
-//	this.planes.push(new Plane([p[0],p[6],p[1]]).setParent(this));
-	//bottom
 	this.planes.push(new CircularPlane([new Point3(0,b*0.5,0)],a*0.5).setParent(this));
 	this.planes.push(new CircularPlane([new Point3(0,-b*0.5,0)],a*0.5).setParent(this));
 
 	$(this.planes).each(function(index, element) {
         this.set_style(planeStyle)
     });
-	/*<[[TestCode*/
-	//	this.planes[2].set_style({fillColor:new RgbColor(0.5,1,1,0.5)});
-	/*TestCode]]>*/
 	this.draw = function(){
 		var shape = [];
 		this.planes.sort(Plane.compare);
 		for(var i=0;i<this.planes.length;i++){
 			shape.push(this.planes[i].draw())
 		}
-		var frontSide = new Path();
-		frontSide.add(shape[1].points[3]);
-		frontSide.cubicCurveTo(
-			shape[1].points[2],
-			shape[1].points[1],
-			shape[1].points[0]
-		);
-		frontSide.add(shape[1].extremePoints[1]);
-		frontSide.add(shape[0].extremePoints[1]);
-		frontSide.add(shape[0].points[0]);
-		frontSide.cubicCurveTo(
-			shape[0].points[1],
-			shape[0].points[2],
-			shape[0].points[3]
-		);
-		frontSide.add(shape[0].extremePoints[0]);
-		frontSide.add(shape[1].extremePoints[0]);
-		frontSide.closed = true;
-		//new Path.Rectangle(frontSide.bounds).set_style({strokeColor:'#000'})
-		shape[1].insertAbove(frontSide);
-		frontSide.set_style(planeStyle);
 		
 		var backSide = new Path();
 		backSide.add(shape[1].points[3]);
@@ -629,11 +625,66 @@ function Cylinder(p,a,b){
 		);
 		backSide.add(shape[0].extremePoints[0]);
 		backSide.add(shape[1].extremePoints[0]);
-		//new Path.Rectangle(backSide.bounds).set_style({strokeColor:'#000'})
 		backSide.closed = true;
-		shape[1].insertAbove(backSide);
 		backSide.set_style(planeStyle);
-		shape.class = "RectangularPrisim";
+		var frontSide = new Path();
+		frontSide.add(shape[1].points[3]);
+		frontSide.cubicCurveTo(
+			shape[1].points[2],
+			shape[1].points[1],
+			shape[1].points[0]
+		);
+		frontSide.add(shape[1].extremePoints[1]);
+		frontSide.add(shape[0].extremePoints[1]);
+		frontSide.add(shape[0].points[0]);
+		frontSide.cubicCurveTo(
+			shape[0].points[1],
+			shape[0].points[2],
+			shape[0].points[3]
+		);
+		frontSide.add(shape[0].extremePoints[0]);
+		frontSide.add(shape[1].extremePoints[0]);
+		frontSide.closed = true;
+		backSide.insertBelow(shape[0]);
+		shape[1].insertAbove(frontSide);
+		frontSide.set_style(planeStyle);
+		shape[1].remove();
+		shape[1] = this.planes[1].draw();
+		return shape;
+	}
+}
+
+function Cone(p,a,b){
+	this.centerPoint = p;
+	this.topPoint = new Point3(0,-b*0.5,0);
+	var x = p.x, y = p.y, z = a*5;
+	p = [];
+	this.matrix = Util.createProjectionMatrixForObjectAt(x,y);
+	this.planes = [];
+	this.planes.push(new CircularPlane([new Point3(0,b*0.5,0)],a*0.5).setParent(this));
+
+	$(this.planes).each(function(index, element) {
+        this.set_style(planeStyle)
+    });
+	this.draw = function(){
+		var shape = [];
+		var topPoint = projectPoint(this.topPoint,this.matrix)
+		this.planes.sort(Plane.compare);
+		for(var i=0;i<this.planes.length;i++){
+			shape.push(this.planes[i].draw())
+		}
+		var frontSide = new Path();
+		frontSide.add(topPoint);
+		frontSide.add(shape[0].extremePoints[1]);
+		frontSide.add(shape[0].points[0]);
+		frontSide.cubicCurveTo(
+			shape[0].points[1],
+			shape[0].points[2],
+			shape[0].points[3]
+		);
+		frontSide.add(shape[0].extremePoints[0]);
+		frontSide.closed = true;
+		frontSide.set_style(planeStyle);
 		return shape;
 	}
 }
@@ -731,32 +782,24 @@ var CircularPlane = Plane.extend({
 		this._super(points);
 		this.point = points[0];
 		this.radius = radius;
+		this.clickableArea = new CircularClickableArea(this);
 	},
 	draw : function(){
 		var shape = new Path();
-		var points = [];
+		var points = [];// 2d points
+		this.points = [];//3d points
 		var rotatingPoint = this.point.add(new Point3(this.radius,0,0));
 		for(var i=0;i<6;i++){
 			var p = rotatingPoint.getRotatedPointByY(Math.PI*2*i/6,this.point)
+			this.points.push(p);
 			points.push(p);
 		}
 		var x = 0;
 		var z = 2.4*75*0.55228;
-		
-		//points[0] = points[0].add(new Point3(100,0,0));
-		//points[3] = points[3].add(new Point3(100,0,0));
-		
 		points[2] = points[3].add(new Point3(x,0,-z));
 		points[4] = points[3].add(new Point3(x,0, z));
-		
 		points[1] = points[0].add(new Point3(-x,0,-z));
 		points[5] = points[0].add(new Point3(-x,0, z));
-		
-		for (i = 0; i < 6; i++) {
-			//points[i] = points[i].getRotatedPointByX(Math.PI/2);
-		}
-		
-		
 		var matrix = this.matrix;
 		var matrix = Util.createProjectionMatrixForObjectAt(150,150,1500);
 		$(points).each(function(index, element) {
@@ -773,7 +816,6 @@ var CircularPlane = Plane.extend({
 		for(var i=0; i < 1000;i++){
 			var p = new Point(shape.bounds.x,shape.bounds.y+i);
 			if(shape.hitTest(p,{stroke:true,tolerance:0})){
-				//p.showOnCanvas();
 				shape.extremePoints.push(p);
 				break;
 			}
@@ -781,7 +823,6 @@ var CircularPlane = Plane.extend({
 		for(var i=0; i < 1000;i++){
 			var p = new Point(shape.bounds.x+shape.bounds.width,shape.bounds.y+i);
 			if(shape.hitTest(p,{stroke:true,tolerance:0})){
-				//p.showOnCanvas();
 				shape.extremePoints.push(p);
 				break;
 			}
@@ -793,12 +834,14 @@ var CircularPlane = Plane.extend({
 		shape.class = "Plane";
 		shape.isPlaneSelected = false;
 		shape.plane = this;
-		//shape.clickableArea = this.clickableArea.draw();
-		//shape.clickableArea.plane = shape;
+		this.shape = shape;
+		shape.clickableArea = this.clickableArea.draw();
+		shape.clickableArea.plane = shape;
 		this.shape = shape;
 		return shape;
 	}
 });
+
 Plane.compare = function(p1,p2){
 	var a = p1.centerPoint;
 	var b = p2.centerPoint;
