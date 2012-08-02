@@ -193,7 +193,7 @@ var Animation = {
 				//console.log('Im here');
 				$(Animation.container).append('<span style="position:absolute;bottom:10px;left:40px">Eşkenar Üçgen</span>');
 				var raster = new Raster('triangle_pattern');
-				raster.position = Animation.triangle.shape.centerPoint;
+				raster.position = Animation.triangle.shape.centerPoint.floor();
 				raster.opacity = 0;
 				raster.animate({
 					style:{opacity:1},
@@ -216,7 +216,7 @@ var Animation = {
 				//console.log('Im here');
 				$(Animation.container).append('<span style="position:absolute;bottom:10px;left:26.5%">Kare (Düzgün Dörtgen)</span>');
 				var raster = new Raster('square_pattern');
-				raster.position = Animation.square.shape.centerPoint;
+				raster.position = Animation.square.shape.centerPoint.floor();
 				raster.opacity = 0;
 				raster.animate({
 					style:{opacity:1},
@@ -241,7 +241,7 @@ var Animation = {
 				//console.log('Im here');
 				$(Animation.container).append('<span style="position:absolute;bottom:10px;left:53.5%">Düzgün Beşgen</span>');
 				var raster = new Raster('pentagon_pattern');
-				raster.position = Animation.pentagon.shape.centerPoint;
+				raster.position = Animation.pentagon.shape.centerPoint.floor();
 				raster.opacity = 0;
 				raster.animate({
 					style:{opacity:1},
@@ -267,7 +267,7 @@ var Animation = {
 				//console.log('Im here');
 				$(Animation.container).append('<span style="position:absolute;bottom:10px;left:78%">Düzgün Altıgen</span>');
 				var raster = new Raster('hexagon_pattern');
-				raster.position = Animation.hexagon.shape.centerPoint;
+				raster.position = Animation.hexagon.shape.centerPoint.floor();
 				raster.opacity = 0;
 				raster.animate({
 					style:{opacity:1},
@@ -306,7 +306,7 @@ Interaction.images = [
 ]
 
 Interaction.init = function(container){
-	Main.setObjective('Yandaki çokgenlerden düzgün olanları fare yardımıile  "Düzgün Çokgen" bölümüne sürükleyiniz.');
+	Main.setObjective('Yandaki çokgenlerden düzgün olanları  "Düzgün Çokgen" bölümüne sürükleyiniz.');
 	Interaction.container = container;
 	Interaction.container.top = $(container).offset().top;
 	Interaction.container.left = $(container).offset().left;
@@ -583,7 +583,7 @@ Interaction.changeDropableShape = function(id){
 	Interaction.dropableShape.setImage($('#'+id).get(0));
 	Interaction.dropableShape.setVisible(false);
 	Interaction.dropableShape.setVisible(true);
-	console.log("I'm here")
+	//console.log("I'm here")
 	
 }
 

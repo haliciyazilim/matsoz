@@ -30,6 +30,7 @@ var Animation = {
 				p5 = p.add(a*Math.sqrt(2),a_2_*0.5);
 				p6 = p.add(a*Math.sqrt(2)*0.5,0);
 				p7 = p.add(a*Math.sqrt(2)*0.5,a_2_);
+				
 				poBottom = Util.centerOfPoints([p2,p4]);
 				poTop = Util.centerOfPoints([p1,p5]);
 				poCenter = Util.centerOfPoints([p1,p2,p3,p4,p5,p6]);
@@ -42,6 +43,14 @@ var Animation = {
 				p2 = calculateRotation(p2,poBottom,yAngle).getRotatedPoint(zAngle,poCenter);
 				p3 = calculateRotation(p3,poBottom,yAngle).getRotatedPoint(zAngle,poCenter);
 				p4 = calculateRotation(p4,poBottom,yAngle).getRotatedPoint(zAngle,poCenter);
+				
+				p1.showOnCanvas();
+				p2.showOnCanvas()
+				p3.showOnCanvas()
+				p4.showOnCanvas()
+				p5.showOnCanvas()
+				p6.showOnCanvas()
+				p7.showOnCanvas()
 				//rotate top points;
 				var vertexArray = [];
 				vertexArray.push(p1);
@@ -50,17 +59,17 @@ var Animation = {
 				vertexArray.push(p4);
 				vertexArray.push(p5);
 				vertexArray.push(p6);
-				var centerPoint = Util.centerOfPoints(vertexArray);
+				//var centerPoint = Util.centerOfPoints(vertexArray);
 				var cube = new Group();
-				var outline = new Path();
-				for(var i=0;i<vertexArray.length;i++){
-					outline.add(vertexArray[i]);
-				}
-				outline.closed = true;
-				cube.addChild(outline);
-				cube.addChild(new Path.Line(p1,p7));
-				cube.addChild(new Path.Line(p5,p7));
-				cube.addChild(new Path.Line(p3,p7));
+//				var outline = new Path();
+//				for(var i=0;i<vertexArray.length;i++){
+//					outline.add(vertexArray[i]);
+//				}
+//				outline.closed = true;
+//				cube.addChild(outline);
+//				cube.addChild(new Path.Line(p1,p7));
+//				cube.addChild(new Path.Line(p5,p7));
+//				cube.addChild(new Path.Line(p3,p7));
 				return cube;
 			}
 		},
@@ -189,7 +198,7 @@ var Interaction = {
 			Interaction.zCubes = 0;
 			Interaction.zeroPoint = new Point(160,130);
 			Interaction.a = 35;
-			Interaction.h = 30;
+			Interaction.h = 35;
 			Interaction.prepareNextQuestion();
 		},
 	nextQuestion:function(){
@@ -197,8 +206,8 @@ var Interaction = {
 				return;
 			Interaction.pause = false;
 			Main.interactionProject.activeLayer.removeChildren();
-			Interaction.isometricPaper = new Raster('isometric_paper');
-			Interaction.isometricPaper.position = Interaction.zeroPoint.add(17,25);
+			//Interaction.isometricPaper = new Raster('isometric_paper');
+			//Interaction.isometricPaper.position = Interaction.zeroPoint.add(17,25);
 			var zero = Interaction.zeroPoint;
 			var a = Interaction.a;
 			
@@ -217,11 +226,11 @@ var Interaction = {
 			Interaction.xCubes = xCubes;
 			Interaction.yCubes = yCubes;
 			Interaction.zCubes = zCubes;
-			for(var i=0; i< xCubes ; i++)
+			for(var i=0; i< 40 ; i++)
 				cubes.push(new UnitCube(i%5,0,Math.floor(i/5)));
-			for(var i=0; i< yCubes ; i++)
+			for(var i=0; i< 40 ; i++)
 				cubes.push(new UnitCube(Math.floor(i/5),i%5+1,0));
-			for(var i=0; i< zCubes ; i++)
+			for(var i=0; i< 40 ; i++)
 				cubes.push(new UnitCube(0,Math.floor(i/5),i%5+1));
 			
 			Interaction.cubes = cubes;
@@ -332,7 +341,7 @@ UnitCube.drawCubes = function(cubes,zero,a,h){
 UnitCube.drawCubesOneByOne = function(cubes,zero,a,_s,delay){
 	
 	cubes.sort(UnitCube.compare);
-	var dY = a*Math.sqrt(2)/2;
+	var dY = a*Math.sin(Util.degreeToRadian(Interaction.h))*Math.sqrt(2)/2;
 	for(var i=0; i<cubes.length;i++){
 		var p = zero.add(
 			0.5,
@@ -340,11 +349,11 @@ UnitCube.drawCubesOneByOne = function(cubes,zero,a,_s,delay){
 		);
 		p = p.add(
 			Math.floor(cubes[i].x*a*Math.sqrt(2)*0.5),
-			Math.floor(cubes[i].x*dY*0.5)
+			Math.floor(cubes[i].x*dY)
 		);
 		p = p.add(
 			Math.floor(-cubes[i].z*a*Math.sqrt(2)*0.5),
-			Math.floor(cubes[i].z*dY*0.5)
+			Math.floor(cubes[i].z*dY)
 		);
 		
 		cubes[i].draw(p,a,_s);
