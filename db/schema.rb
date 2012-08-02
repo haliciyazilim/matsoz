@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120726122659) do
+ActiveRecord::Schema.define(:version => 20120801233554) do
 
   create_table "entries", :force => true do |t|
     t.string   "word"
@@ -21,6 +21,16 @@ ActiveRecord::Schema.define(:version => 20120726122659) do
     t.string   "thumbnail_content_type"
     t.integer  "thumbnail_file_size"
     t.datetime "thumbnail_updated_at"
+  end
+
+  create_table "stats", :force => true do |t|
+    t.date    "date"
+    t.integer "accepted"
+    t.integer "delivered"
+    t.integer "finished"
+    t.integer "started"
+    t.integer "rejected"
+    t.integer "unscheduled"
   end
 
 end
