@@ -90,7 +90,7 @@ var Util = {
 					}
 				}
 				
-				excludingArray.sort();
+				excludingArray.sort(function(a,b){return a-b});
 				
 				end -= excludingArray.length;
 			}
@@ -108,6 +108,14 @@ var Util = {
 	randomDigit : function(){
 			return Util.randomInteger(0,10);
 		},
+	
+	reduceFractions: function(nom,denom){
+		var gcd = function gcd(a,b){
+			return b ? gcd(b, a%b) : a;
+		};
+		gcd = gcd(nom,denom);
+		return [nom/gcd, denom/gcd];
+	},
 	
 	loadImages: function(imageArray, callback) {
 			var totalNoOfImages = imageArray.length;
