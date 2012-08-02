@@ -189,7 +189,7 @@ var Interaction = {
 			Interaction.zCubes = 0;
 			Interaction.zeroPoint = new Point(160,130);
 			Interaction.a = 35;
-			Interaction.h = 45;
+			Interaction.h = 30;
 			Interaction.prepareNextQuestion();
 		},
 	nextQuestion:function(){
@@ -218,11 +218,11 @@ var Interaction = {
 			Interaction.yCubes = yCubes;
 			Interaction.zCubes = zCubes;
 			for(var i=0; i< xCubes ; i++)
-				cubes.push(new UnitCube(i,0,0));
+				cubes.push(new UnitCube(i%5,0,Math.floor(i/5)));
 			for(var i=0; i< yCubes ; i++)
-				cubes.push(new UnitCube(0,i+1,0));
+				cubes.push(new UnitCube(Math.floor(i/5),i%5+1,0));
 			for(var i=0; i< zCubes ; i++)
-				cubes.push(new UnitCube(0,0,i+1));
+				cubes.push(new UnitCube(0,Math.floor(i/5),i%5+1));
 			
 			Interaction.cubes = cubes;
 			UnitCube.drawCubesOneByOne(cubes,zero,a,Interaction,500);
@@ -332,7 +332,7 @@ UnitCube.drawCubes = function(cubes,zero,a,h){
 UnitCube.drawCubesOneByOne = function(cubes,zero,a,_s,delay){
 	
 	cubes.sort(UnitCube.compare);
-	var dY = a;
+	var dY = a*Math.sqrt(2)/2;
 	for(var i=0; i<cubes.length;i++){
 		var p = zero.add(
 			0.5,
