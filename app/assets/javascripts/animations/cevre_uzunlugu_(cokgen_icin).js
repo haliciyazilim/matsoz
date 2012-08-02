@@ -318,16 +318,22 @@ var Animation = {
 					});
 				
 				$(Animation.container)
-					.append('<img id="sekiller_cevre" src="/assets/animations/cevre_uzunlugu_(cokgen_icin)/shapes.png" />')
-				$("#sekiller_cevre",Animation.container).css({
+					.append('<img class="sekiller_cevre" src="/assets/animations/cevre_uzunlugu_(cokgen_icin)/cevre_ornek_01.png" />')
+					.append('<img class="sekiller_cevre" src="/assets/animations/cevre_uzunlugu_(cokgen_icin)/cevre_ornek_02.png" />')
+					.append('<img class="sekiller_cevre" src="/assets/animations/cevre_uzunlugu_(cokgen_icin)/cevre_ornek_03.png" />')
+					.append('<img class="sekiller_cevre" src="/assets/animations/cevre_uzunlugu_(cokgen_icin)/cevre_ornek_04.png" />')
+					.append('<img class="sekiller_cevre" src="/assets/animations/cevre_uzunlugu_(cokgen_icin)/cevre_ornek_05.png" />')
+					.append('<img class="sekiller_cevre" src="/assets/animations/cevre_uzunlugu_(cokgen_icin)/cevre_ornek_06.png" />')
+				$(".sekiller_cevre",Animation.container).each(function(index, element) {
+                   $(this).css({
 						position:'absolute',
-						top:'30px',
-						left:'50px',
+						top:'10px',
+						left:'10px',
 						opacity:0
 					})
-					.delay(1000)
+					.delay(1000*(index+1))
 					.animate({opacity:1},2000);
-				
+                });
 			}
 		});
 	}
@@ -420,7 +426,7 @@ TestGenerator.nextQuestion = function(){
 	TestGenerator.letters = (Math.random()>0.5 ? ["A","B","C","D","E"]:["K","L","M","N","P"]);
 	var count = (Interaction.count++)%Interaction.shuffledArray.length;
 	TestGenerator.shape = Interaction.shuffledArray[count];
-	/*TEST*/TestGenerator.shape = 6;/*TEST*/
+	///*TEST*/TestGenerator.shape = 6;/*TEST*/
 	switch(TestGenerator.shape){
 		case 0:
 			var a = Math.floor(Math.random()*10)+5;
@@ -550,7 +556,7 @@ TestGenerator.checkAnswer = function(){
 
 function rectangle(a,b,measure,paper){
 	var x,y,w,h,_t;
-	_t = Math.min(paper.width,paper.height) * (Math.max(a,b) / 20);
+	_t = Math.min(paper.width,paper.height) * (Math.max(a,b) / 17);
 	if(a > b){
 		w = _t;
 		h = _t * (b / a);
@@ -619,7 +625,7 @@ function rhomboid(a,b,H,measure,paper){
 function rhombus(a,W,measure,paper){
 	var x,y,w,h;
 	H = Math.sqrt(a*a-Math.pow(W*0.5,2));
-	var length = Math.min(paper.width,paper.height)* (Math.max(W,H) / 20) ;
+	var length = Math.min(paper.width,paper.height)* (Math.max(W,H) / 15) ;
 	if(W > H){
 		w = length;
 		h = length * H / W;
@@ -657,7 +663,7 @@ function trapezoid(a,_a,b,c,measure,paper){
 	var x,y,w,_w,h,H,_t;
 	H = Math.sqrt( b*b - Math.pow((a-_a)*0.5,2)  );
 	
-	_t = Math.min(paper.width,paper.height) * (Math.max(a,b) / 20);
+	_t = Math.min(paper.width,paper.height) * (Math.max(a,b) / 15);
 	if(a > H){
 		w = _t;
 		_w= _t * _a / a; 

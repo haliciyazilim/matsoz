@@ -197,7 +197,13 @@ Interaction.init = function(container){
 	if(Interaction.status == null || Interaction.status == 'undefined'){
 		Interaction.status = document.createElement('div');
 		Interaction.status.className = 'status_true';
-		$(Interaction.status).css({'position':'absolute','top':''+(h-40)+'px','left':'0px','padding-left':'20px','width':'100%'});
+		$(Interaction.status).css({
+			position:'absolute',
+			bottom:'10px',
+			left:'0px',
+			paddingLeft:'20px',
+			width:'100%'
+		});
 		Interaction.container.appendChild(Interaction.status);
 	}
 	else

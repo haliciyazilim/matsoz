@@ -9,7 +9,7 @@ Main.paperInit.Point = function(){
 	
 	Point.prototype.showOnCanvas = function(){
 		var p = new Path.Circle(this,3);
-		p.setStyle({fillColor:'#000'});
+		p.setStyle({fillColor:'#000',strokeWidth:2,strokeColor:'#fff'});
 		this.canvasPoint = p;
 		return p;
 	};

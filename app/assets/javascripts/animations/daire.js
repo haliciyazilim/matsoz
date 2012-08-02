@@ -219,19 +219,18 @@ Interaction.images = [
 ];
 
 Interaction.init = function(container){
-	Main.setObjective('Yandaki cetvel ve pergeli kullanarak seçeceğiniz yarıçap uzunluğuna sahip çemberi aşağıdaki “Çiz” düğmesine tıklayarak çiziniz. Daha sonra Daha sonra makas resmine tıklayarak kesiniz ve daire elde ediniz.');
+	Main.setObjective('Yandaki cetvel ve pergeli kullanarak seçeceğiniz yarıçap uzunluğuna sahip çemberi aşağıdaki “Çiz” butonuna basarak çizdiriniz. Daha sonra Daha sonra makas resmine tıklayarak kesiniz ve daire elde ediniz.');
 	Interaction.container = container;
 	Interaction.paper = {width:$(container).width(),height:$(container).height()};
 	Interaction.button = document.createElement('input');
 	Interaction.button.type = "button";
 	Interaction.button.onclick = Interaction.drawCircle;
 	Interaction.button.className = 'control_button'
-	
 	$(Interaction.button).css({
-			backgroundImage:'url(/assets/animations/btn_gray_draw.png)',
+			backgroundImage:'url(/assets/btn_gray_draw_text.png)',
 			position:'absolute',
 			top:'145px',
-			width:'32px',
+			width:'55px',
 			height:'31px',
 			left:'176px'
 		});

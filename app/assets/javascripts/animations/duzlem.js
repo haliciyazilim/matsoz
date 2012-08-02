@@ -120,11 +120,11 @@ var Interaction = {
 	nextQuestion: function(randomNumber){
 			Interaction.createTool();
 			Main.interactionProject.activeLayer.removeChildren()
-			
+			Interaction.notExistDiv.deselect();
 			Interaction.qType = Util.rand01()==0?Interaction._types.INTERSECTING:Interaction._types.PARALLEL;
 			$(Interaction.typeDiv).html(Interaction.qType);
 			/*<[[TestCode*/
-				randomNumber = 6; 
+				//randomNumber = 7; 
 			/*TestCode]]>*/
 			Interaction.shapeType = randomNumber;
 			switch(randomNumber){
@@ -157,12 +157,14 @@ var Interaction = {
 					Interaction.shape = cone.draw();
 					break;
 				case 7://sphere
+					var sphere = new Path.Sphere(new Point(150,125),100).set_style(planeStyle);
+					break;
 			}
 			
 		},
 	preCheck : function(){
-			if(!Interaction.notExistDiv.isSelected() && Interaction.getSelectedPlanes().length < 2){
-				Interaction.setStatus('Lütfen iki adet düzlem seçiniz','alert');
+			if(!Interaction.notExistDiv.isSelected() && (Interaction.getSelectedPlanes().length < 2 && Interaction.shapeType != 6 || Interaction.shapeType == 6/*cone*/ &&Interaction.getSelectedPlanes().length < 1 ) ){
+				Interaction.setStatus('Lütfen bir cevap belirtiniz.','alert');
 				return false;
 			}
 			else
@@ -206,7 +208,10 @@ var Interaction = {
 					return false;
 				case 6://cone
 				case 7://sphere
-					//if(Interaction.qType == Interaction._types.INTERSECTING)
+					if(!Interaction.notExistDiv.isSelected())
+						return false;
+					return true;
+					break;
 						
 			}
 		},
@@ -253,13 +258,6 @@ var Interaction = {
 					}
 					break;
 				case 6://cone
-					if(Interaction.qType == Interaction._types.PARALLEL){
-						Interaction.setStatus('Yanlış cevap. Paralel düzlemler yok.',false);
-					}
-					if(Interaction.qType == Interaction._types.INTERSECTING){
-						Interaction.setStatus('Yanlış cevap. Kesişen düzlemler yok.',false);
-					}
-					break;
 				case 7://sphere
 					if(Interaction.qType == Interaction._types.PARALLEL){
 						Interaction.setStatus('Yanlış cevap. Paralel düzlemler yok.',false);
@@ -267,7 +265,7 @@ var Interaction = {
 					if(Interaction.qType == Interaction._types.INTERSECTING){
 						Interaction.setStatus('Yanlış cevap. Kesişen düzlemler yok.',false);
 					}
-					//if(Interaction.qType == Interaction._types.INTERSECTING)
+					break;
 						
 			}
 			
@@ -394,9 +392,6 @@ var Interaction = {
 		}
 }
 
-
-
-
 var ClickableArea = Class.extend({
 	init:function(plane){
 			this.plane = plane;
@@ -449,7 +444,7 @@ var CircularClickableArea = ClickableArea.extend({
 			this.shape = shape;
 			return shape;
 		}
-})
+});
 
 function RectangularPrisim(p,a,b,c){
 	this.centerPoint = p;
@@ -503,9 +498,6 @@ function TrianglePrisim(p,a,b,c){
 	this.centerPoint = p;
 	var x = p.x, y = p.y, z = a*5;
 	p = [];
-	
-	
-	
 	p[0] = new Point3(-a*0.5,-b*0.5,+c*0);
 	p[3] = new Point3(+a*0.5,-b*0.5,+c*0.5);
 	p[4] = new Point3(+a*0.5,-b*0.5,-c*0.5);
@@ -514,9 +506,6 @@ function TrianglePrisim(p,a,b,c){
 	p[2] = new Point3(+a*0.5,+b*0.5,+c*0.5);
 	p[5] = new Point3(+a*0.5,+b*0.5,-c*0.5);
 	
-	/*
-	*	generate planes here
-	*/
 	this.matrix = Util.createProjectionMatrixForObjectAt(x,y);
 	//console.log(this.matrix);
 	this.planes = [];
@@ -563,9 +552,6 @@ function Pyramid(p,a,b,c){
 	p[5] = new Point3(+a*0.5,+b*0.5,-c*0.5)
 	p[6] = new Point3(-a*0.5,+b*0.5,-c*0.5);
 	
-	/*
-	*	generate planes here
-	*/
 	this.matrix = Util.createProjectionMatrixForObjectAt(x,y);
 	//console.log(this.matrix);
 	this.planes = [];
@@ -596,7 +582,6 @@ function Pyramid(p,a,b,c){
 		return shape;
 	}
 }
-
 
 function Cylinder(p,a,b){
 	this.centerPoint = p;
@@ -665,63 +650,31 @@ function Cylinder(p,a,b){
 		frontSide.set_style(planeStyle);
 		shape[1].remove();
 		shape[1] = this.planes[1].draw();
-		//shape.class = "RectangularPrisim";
 		return shape;
 	}
 }
 
 function Cone(p,a,b){
 	this.centerPoint = p;
+	this.topPoint = new Point3(0,-b*0.5,0);
 	var x = p.x, y = p.y, z = a*5;
 	p = [];
 	this.matrix = Util.createProjectionMatrixForObjectAt(x,y);
-	/*this.matrix = [
-						1, 0, 0, 150,
-						0, 0, 1, 150,			
-						0, 0, 0, 1,
-						0, 0, 0, 1,		
-					]*/
 	this.planes = [];
-	//this.planes.push(new CircularPlane([new Point3(0,b*0.5,0)],a*0.5).setParent(this));
-	this.planes.push(new CircularPlane([new Point3(0,-b*0.5,0)],a*0.5).setParent(this));
+	this.planes.push(new CircularPlane([new Point3(0,b*0.5,0)],a*0.5).setParent(this));
 
 	$(this.planes).each(function(index, element) {
         this.set_style(planeStyle)
     });
 	this.draw = function(){
 		var shape = [];
+		var topPoint = projectPoint(this.topPoint,this.matrix)
 		this.planes.sort(Plane.compare);
 		for(var i=0;i<this.planes.length;i++){
 			shape.push(this.planes[i].draw())
 		}
-		
-		var backSide = new Path();
-		backSide.add(shape[1].points[3]);
-		backSide.cubicCurveTo(
-			shape[1].points[4],
-			shape[1].points[5],
-			shape[1].points[0]
-		);
-		backSide.add(shape[1].extremePoints[1]);
-		backSide.add(shape[0].extremePoints[1]);
-		backSide.add(shape[0].points[0]);
-		backSide.cubicCurveTo(
-			shape[0].points[5],
-			shape[0].points[4],
-			shape[0].points[3]
-		);
-		backSide.add(shape[0].extremePoints[0]);
-		backSide.add(shape[1].extremePoints[0]);
-		backSide.closed = true;
-		backSide.set_style(planeStyle);
 		var frontSide = new Path();
-		frontSide.add(shape[1].points[3]);
-		frontSide.cubicCurveTo(
-			shape[1].points[2],
-			shape[1].points[1],
-			shape[1].points[0]
-		);
-		frontSide.add(shape[1].extremePoints[1]);
+		frontSide.add(topPoint);
 		frontSide.add(shape[0].extremePoints[1]);
 		frontSide.add(shape[0].points[0]);
 		frontSide.cubicCurveTo(
@@ -730,14 +683,8 @@ function Cone(p,a,b){
 			shape[0].points[3]
 		);
 		frontSide.add(shape[0].extremePoints[0]);
-		frontSide.add(shape[1].extremePoints[0]);
 		frontSide.closed = true;
-		backSide.insertBelow(shape[0]);
-		shape[1].insertAbove(frontSide);
 		frontSide.set_style(planeStyle);
-		shape[1].remove();
-		shape[1] = this.planes[1].draw();
-		//shape.class = "RectangularPrisim";
 		return shape;
 	}
 }
@@ -894,6 +841,7 @@ var CircularPlane = Plane.extend({
 		return shape;
 	}
 });
+
 Plane.compare = function(p1,p2){
 	var a = p1.centerPoint;
 	var b = p2.centerPoint;
