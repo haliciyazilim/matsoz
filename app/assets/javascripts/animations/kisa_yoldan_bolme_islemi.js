@@ -1,37 +1,55 @@
+function __Styles(){
+	animationDivisionStyle = {
+		width:'130px',
+		position:'absolute',
+		top:'55px',
+		left:'60px',
+		fontSize:'23px',
+		color:'#fff',
+		fontFamily:"'Homemade Apple', cursive",
+		opacity:0
+	}
+}
+
 var Animation = {
+	images:[
+		{
+			id:'board',
+			src:'/assets/animations/board_green.jpg'
+		}
+	],
 	init:function(container){
+			var w=Math.floor($(container).width()), h=Math.floor($(container).height());
+			var board = new Raster('board');
+			board.position = new Point(Math.floor(w*0.5),Math.floor(h*0.5)+2)
+			
+			$('head').append("<link href='http://fonts.googleapis.com/css?family=Homemade+Apple' rel='stylesheet' type='text/css'>");
 			
 			var div = document.createElement('div');
 			$(container).append(div);
-			$(div).css({
-				width:'160px',
-				position:'absolute',
-				top:'40px',
-				left:'60px',
-				fontSize:'24px'
-			})
+			$(div)
+				.css(animationDivisionStyle)
+				.css({left:'60px'})
+				.delay(500)
+				.animate({opacity:0.9},500);
 			Animation.division = new LongDivision(4581,9,div);
 			var span1 = document.createElement('span');
 			span1.innerHTML = 0;
-			$(span1).css({color:"#000",opacity:1})
-				.delay(500)
-				.animate({color:"#f00"},500)
-				.delay(500)
+			$(span1).css({color:"#fff",opacity:1})
+				.delay(1500)
 				.animate({opacity:0},500)
 				.delay(3500)
-				.animate({color:'#000'},100)
+				.animate({color:'#fff'},100)
 				.animate({opacity:1},500);
 			$(Animation.division.nodes.dividend).append(span1);
 			
 			var span2 = document.createElement('span');
 			span2.innerHTML = 0;
-			$(span2).css({color:"#000",opacity:1})
-				.delay(500)
-				.animate({color:"#f00"},500)
-				.delay(500)
+			$(span2).css({color:"#fff",opacity:1})
+				.delay(1500)
 				.animate({opacity:0},500)
 				.delay(3500)
-				.animate({color:'#000'},100)
+				.animate({color:'#fff'},100)
 				.animate({opacity:1},500);
 			$(Animation.division.nodes.divisor).append(span2);
 			
@@ -46,38 +64,31 @@ var Animation = {
 			
 			var div2 = document.createElement('div');
 			$(container).append(div2);
-			$(div2).css({
-				width:'180px',
-				position:'absolute',
-				top:'40px',
-				left:'280px',
-				fontSize:'24px',
-				opacity:0
-			}).delay(7000).animate({opacity:1},1000);
+			$(div2)
+				.css(animationDivisionStyle)
+				.css({ left:'260px', width:'160px'})
+				.delay(7000)
+				.animate({opacity:0.9},1000);
 			Animation.division2 = new LongDivision(4581,9,div2);
 			
 			var span3 = document.createElement('span');
 			span3.innerHTML = '00';
-			$(span3).css({color:"#000",opacity:1})
+			$(span3).css({color:"#fff",opacity:1})
 				.delay(8000)
-				.animate({color:"#f00"},500)
-				.delay(500)
 				.animate({opacity:0},500)
-				.delay(1500)
-				.animate({color:'#000'},100)
-				.animate({opacity:1},500);;
+				.delay(2500)
+				.animate({color:'#fff'},100)
+				.animate({opacity:1},500);
 			$(Animation.division2.nodes.dividend).append(span3);
 			
 			var span4 = document.createElement('span');
 			span4.innerHTML = '00';
-			$(span4).css({color:"#000",opacity:1})
+			$(span4).css({color:"#fff",opacity:1})
 				.delay(8000)
-				.animate({color:"#f00"},500)
-				.delay(500)
 				.animate({opacity:0},500)
-				.delay(1500)
-				.animate({color:'#000'},100)
-				.animate({opacity:1},500);;
+				.delay(2500)
+				.animate({color:'#fff'},100)
+				.animate({opacity:1},500);
 			$(Animation.division2.nodes.divisor).append(span4);
 
 			setTimeout(
@@ -93,38 +104,31 @@ var Animation = {
 			
 			var div3 = document.createElement('div');
 			$(container).append(div3);
-			$(div3).css({
-				width:'200px',
-				position:'absolute',
-				top:'40px',
-				left:'520px',
-				fontSize:'24px',
-				opacity:0
-			}).delay(11000).animate({opacity:1},1000);
+			$(div3)
+				.css(animationDivisionStyle)
+				.css({ left:'460px', width:'190px'})
+				.delay(11000)
+				.animate({opacity:0.9},1000);
 			Animation.division3 = new LongDivision(4581,9,div3);
 			
 			var span5 = document.createElement('span');
 			span5.innerHTML = '000';
-			$(span5).css({color:"#000",opacity:1})
+			$(span5).css({color:"#fff",opacity:1})
 				.delay(12000)
-				.animate({color:"#f00"},500)
-				.delay(500)
 				.animate({opacity:0},500)
-				.delay(1500)
-				.animate({color:'#000'},100)
-				.animate({opacity:1},500);;
+				.delay(3500)
+				.animate({color:'#fff'},100)
+				.animate({opacity:1},500);
 			$(Animation.division3.nodes.dividend).append(span5);
 			
 			var span6 = document.createElement('span');
 			span6.innerHTML = '000';
-			$(span6).css({color:"#000",opacity:1})
+			$(span6).css({color:"#fff",opacity:1})
 				.delay(12000)
-				.animate({color:"#f00"},500)
-				.delay(500)
 				.animate({opacity:0},500)
-				.delay(1500)
-				.animate({color:'#000'},100)
-				.animate({opacity:1},500);;
+				.delay(3500)
+				.animate({color:'#fff'},100)
+				.animate({opacity:1},500);
 			$(Animation.division3.nodes.divisor).append(span6);
 			setTimeout(
 				'Animation.division3.nextStep(2000);'
