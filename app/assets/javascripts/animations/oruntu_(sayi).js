@@ -518,22 +518,22 @@ var Interaction = {
 				}
 			}
 			
-			$("#patternContainer").html("");
-			
-			if (typeof Interaction.pattern[0] == "number" || typeof Interaction.pattern[0] == "string") {
-				$("#patternContainer").append(Interaction.pattern[0]);
-			} else {
-				$("#patternContainer").append("<span class='status_true' style='font-size: 32px'>" + Interaction.pattern[0].correctAnswer + "</span>");
-			}
-			
-			for (i = 1; i < Interaction.pattern.length; i++) {
-				$("#patternContainer").append(", ");
-				
-				if (typeof Interaction.pattern[i] == "number" || typeof Interaction.pattern[i] == "string") {
-					$("#patternContainer").append(Interaction.pattern[i]);
-				} else {
-					$("#patternContainer").append( "<span class='status_true' style='font-size: 32px'>" + Interaction.pattern[i].correctAnswer + "</span>");
-				}	
-			}
+			// $("#patternContainer").html("");
+			// 		
+			// 		if (typeof Interaction.pattern[0] == "number" || typeof Interaction.pattern[0] == "string") {
+			// 			$("#patternContainer").append(Interaction.pattern[0]);
+			// 		} else {
+			// 			$("#patternContainer").append("<span class='status_true' style='font-size: 32px'>" + Interaction.pattern[0].correctAnswer + "</span>");
+			// 		}
+			// 		
+			// 		for (i = 1; i < Interaction.pattern.length; i++) {
+			// 			$("#patternContainer").append(", ");
+			// 			
+			// 			if (typeof Interaction.pattern[i] == "number" || typeof Interaction.pattern[i] == "string") {
+			// 				$("#patternContainer").append(Interaction.pattern[i]);
+			// 			} else {
+			// 				$("#patternContainer").append( "<span class='status_true' style='font-size: 32px'>" + Interaction.pattern[i].correctAnswer + "</span>");
+			// 			}	
+			// 		}
 		},
 }
