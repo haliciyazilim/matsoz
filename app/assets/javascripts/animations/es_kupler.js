@@ -43,14 +43,14 @@ var Animation = {
 				p2 = calculateRotation(p2,poBottom,yAngle).getRotatedPoint(zAngle,poCenter);
 				p3 = calculateRotation(p3,poBottom,yAngle).getRotatedPoint(zAngle,poCenter);
 				p4 = calculateRotation(p4,poBottom,yAngle).getRotatedPoint(zAngle,poCenter);
-				
-				p1.showOnCanvas();
-				p2.showOnCanvas()
-				p3.showOnCanvas()
-				p4.showOnCanvas()
-				p5.showOnCanvas()
-				p6.showOnCanvas()
-				p7.showOnCanvas()
+//				
+//				p1.showOnCanvas();
+//				p2.showOnCanvas()
+//				p3.showOnCanvas()
+//				p4.showOnCanvas()
+//				p5.showOnCanvas()
+//				p6.showOnCanvas()
+//				p7.showOnCanvas()
 				//rotate top points;
 				var vertexArray = [];
 				vertexArray.push(p1);
@@ -61,15 +61,15 @@ var Animation = {
 				vertexArray.push(p6);
 				//var centerPoint = Util.centerOfPoints(vertexArray);
 				var cube = new Group();
-//				var outline = new Path();
-//				for(var i=0;i<vertexArray.length;i++){
-//					outline.add(vertexArray[i]);
-//				}
-//				outline.closed = true;
-//				cube.addChild(outline);
-//				cube.addChild(new Path.Line(p1,p7));
-//				cube.addChild(new Path.Line(p5,p7));
-//				cube.addChild(new Path.Line(p3,p7));
+				var outline = new Path();
+				for(var i=0;i<vertexArray.length;i++){
+					outline.add(vertexArray[i]);
+				}
+				outline.closed = true;
+				cube.addChild(outline);
+				cube.addChild(new Path.Line(p1,p7));
+				cube.addChild(new Path.Line(p5,p7));
+				cube.addChild(new Path.Line(p3,p7));
 				return cube;
 			}
 		},
@@ -156,7 +156,7 @@ var Interaction = {
 	images:[
 			{
 				id:'isometric_paper',
-				src:'/assets/animations/es_kupler/isometric_paper.png'
+				src:'/assets/animations/es_kupler/isometric_paper.jpg'
 			}
 		],
 	getFramework:function(){
@@ -175,12 +175,14 @@ var Interaction = {
 				position:'static'
 			});
 			Interaction.appendButton({
-				top:'100px',
+				top:'110px',
 				right:'95px'
 			});
 			Interaction.appendStatus({
-				top:'150px',
-				right:'20px'
+				top:'170px',
+				right:'20px',
+				width:'252px',
+				textAlign:'center'
 			});
 			var div = document.createElement('div');
 			$(container).append(div);
@@ -196,7 +198,7 @@ var Interaction = {
 			Interaction.xCubes = 0;
 			Interaction.yCubes = 0;
 			Interaction.zCubes = 0;
-			Interaction.zeroPoint = new Point(160,130);
+			Interaction.zeroPoint = new Point(109,130);
 			Interaction.a = 35;
 			Interaction.h = 35;
 			Interaction.prepareNextQuestion();
@@ -206,8 +208,8 @@ var Interaction = {
 				return;
 			Interaction.pause = false;
 			Main.interactionProject.activeLayer.removeChildren();
-			//Interaction.isometricPaper = new Raster('isometric_paper');
-			//Interaction.isometricPaper.position = Interaction.zeroPoint.add(17,25);
+			Interaction.isometricPaper = new Raster('isometric_paper');
+			Interaction.isometricPaper.position = Interaction.zeroPoint.add(69,24);
 			var zero = Interaction.zeroPoint;
 			var a = Interaction.a;
 			
@@ -226,15 +228,15 @@ var Interaction = {
 			Interaction.xCubes = xCubes;
 			Interaction.yCubes = yCubes;
 			Interaction.zCubes = zCubes;
-			for(var i=0; i< 40 ; i++)
+			for(var i=0; i< xCubes ; i++)
 				cubes.push(new UnitCube(i%5,0,Math.floor(i/5)));
-			for(var i=0; i< 40 ; i++)
+			for(var i=0; i< yCubes ; i++)
 				cubes.push(new UnitCube(Math.floor(i/5),i%5+1,0));
-			for(var i=0; i< 40 ; i++)
+			for(var i=0; i< zCubes ; i++)
 				cubes.push(new UnitCube(0,Math.floor(i/5),i%5+1));
 			
 			Interaction.cubes = cubes;
-			UnitCube.drawCubesOneByOne(cubes,zero,a,Interaction,500);
+			UnitCube.drawCubesOneByOne(cubes,zero,a,Interaction,1000);
 		},
 	showCubes : function(distance){
 			if(Interaction.pause == true)
@@ -258,7 +260,7 @@ var Interaction = {
 				update:animHelp.update,
 				callback:function(){
 					Interaction.pause = false;
-					/*this.animate({
+					this.animate({
 						style:{distance:0},
 						duration:1000,
 						delay:500,
@@ -266,7 +268,7 @@ var Interaction = {
 						callback:function(){
 							
 						}
-					});*/
+					});
 				}
 			});	
 		},

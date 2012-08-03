@@ -375,8 +375,6 @@ function InteractionBase(){
 			return false;
 		}
 	};
-	
-	
 	Interaction.pause = function(delay){
 		if(delay == undefined || isNan(delay))
 			delay = 0;
