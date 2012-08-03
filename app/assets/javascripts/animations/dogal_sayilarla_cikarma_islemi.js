@@ -33,9 +33,12 @@ Animation.init=function(container){
 		.css("top","60px");
 	
 
-	var islem=new LongSubtraction(93502,78235,"ornek");
+	//var islem=new LongSubtraction(20000,19999,"ornek");
+	//var islem=new LongSubtraction(98000,78239,"ornek");
+	var islem=new LongSubtraction(98348,78239,"ornek");
+	//var islem=new LongSubtraction(7390,5504,"ornek");
 		islem.doldur();
-		islem.basla(1000,2000);
+		islem.basla(1000,1000);
 };
 
 
