@@ -50,6 +50,7 @@ Matsoz::Application.configure do
   config.assets.precompile += %w( animations/*.js )
   config.assets.precompile += %w( theme/*.css )
   config.assets.precompile += %w( theme/blue/*.css )
+  config.assets.precompile += %w( stats/*.js )
   
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false

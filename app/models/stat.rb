@@ -6,6 +6,11 @@ class Stat < ActiveRecord::Base
   attr_readonly :date
   attr_accessible :date, :accepted, :delivered, :finished, :started, :rejected, :unscheduled
   
+  def date_str
+    # return self.date.strftime("%a, %d %b %Y")
+    return self.date.strftime("%b %d")
+  end
+  
   def Stat.fetch_daily_stats
     https = Net::HTTP.new('www.pivotaltracker.com', 443)
     https.use_ssl = true
