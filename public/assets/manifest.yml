@@ -254,6 +254,7 @@ animations/zihinden_carpma_islemi.js: animations/zihinden_carpma_islemi-1c67fd50
 animations/zihinden_cikarma_islemi.js: animations/zihinden_cikarma_islemi-1de7bacfb9207461980c0c6a853d5d9c.js
 animations/zihinden_toplama_islemi.js: animations/zihinden_toplama_islemi-058850ae239ef1ddf19daed557d3377a.js
 application.js: application-30939899585cf2854059a1905b2feb91.js
+main.js: main-76d9a8d46b73dddae76db5c37e5b738d.js
 processFiles.sh: processFiles-f1889166c959ad19b610c3b6894bb792.sh
 stats/highcharts.js: stats/highcharts-4b26148a5a280ffedb7386e3d0c73c77.js
 stats/stats.js: stats/stats-f6662a297f4c25525d7a29ceaa954eb4.js
