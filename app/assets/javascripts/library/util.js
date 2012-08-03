@@ -81,7 +81,7 @@ var Util = {
 			var excludingArray = [];
 			if (excluding != undefined && excluding != null) {
 				
-				for (i = 0; i < excluding.length; i++) {
+				for (var i = 0; i < excluding.length; i++) {
 					var num = excluding[i];
 					if (Util.isInteger(num) && num < end && num >= start) {
 						if (excludingArray.indexOf(num) === -1) {
@@ -97,7 +97,7 @@ var Util = {
 			
 			var randNum = Math.floor(Math.random()*(end-start)+start)
 			
-			for (i = 0; i < excludingArray.length; i++) {
+			for (var i = 0; i < excludingArray.length; i++) {
 				if (excludingArray[i] <= randNum) {
 					randNum++;
 				}
