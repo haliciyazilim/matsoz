@@ -1277,6 +1277,13 @@ Interaction.init = function(container){
 					.css("width", "240px")
 					.css("text-align", "center")
 					.css("height", "30px");
+	
+	$(container).append('<button id="nextBtn" class="next_button"></button>');
+	$('#nextBtn').css("position", "absolute")
+					.css("bottom", "20px")
+					.css("right", "66px")
+				//	.css("opacity", 0)
+		$('#nextBtn').hide();
 					
 	$(container).append('<button id="checkBtn" class="control_button"></button>');
 	$('#checkBtn').css("position", "absolute")
@@ -1285,13 +1292,18 @@ Interaction.init = function(container){
 					
 	$('#checkBtn').show();
 	
-	$(container).append('<button id="nextBtn" class="next_button"></button>');
-	$('#nextBtn').css("position", "absolute")
-					.css("bottom", "20px")
-					.css("right", "66px");
-	$('#nextBtn').hide();
 	
+
 	
+	setTimeout(
+		'$("#textInput1").focus()',
+		300);
+	
+//	$("#textInput1").focus();
+	//$('.inp').each(function(index, element) {
+//            			$(this).get(0).onkeydown = null;
+//          		  	});
+
 						
 	for(i = 0; i < datas.length; i++) {
 		if(datas[i-1] >= 10) {
@@ -1383,12 +1395,14 @@ Interaction.init = function(container){
 					$('#statuss').html("Tebrikler!");
 					$('#checkBtn').hide();
 					$('#nextBtn').show();
+				//	$('#nextBtn').css("opacity", 1)
 					deactivate = 1;
 					$('.inp').each(function(index, element) {
-            			$(this).get(0).onkeydown = function(event){
+            			$(this).get(0).onkeyup = function(event){
 												if(event.keyCode != 13)
 													return false;
-												$("#nextBtn").click();
+												else
+													$('#nextBtn').click();
 											}   
           		  	});
 				}
@@ -1416,12 +1430,14 @@ Interaction.init = function(container){
 					$('#textInput9').val(answer9);
 					$('#checkBtn').hide();
 					$('#nextBtn').show();
+				//	$('#nextBtn').css("opacity", 1)
 					trial += 1;
 					$('.inp').each(function(index, element) {
-            			$(this).get(0).onkeydown = function(event){
+            			$(this).get(0).onkeyup = function(event){
 												if(event.keyCode != 13)
 													return false;
-												$("#nextBtn").click();
+												else
+													$('#nextBtn').click();
 											}   
           		  	});
 					deactivate = 1;
@@ -1470,12 +1486,14 @@ Interaction.init = function(container){
 					$('#statuss').html("Tebrikler!");
 					$('#checkBtn').hide();
 					$('#nextBtn').show();
+				//	$('#nextBtn').css("opacity", 1)
 					deactivate = 1;
 					$('.inp').each(function(index, element) {
-            			$(this).get(0).onkeydown = function(event){
+            			$(this).get(0).onkeyup = function(event){
 												if(event.keyCode != 13)
 													return false;
-												$("#nextBtn").click();
+												else
+													$('#nextBtn').click();
 											}   
           		  	});
 				}
@@ -1499,13 +1517,15 @@ Interaction.init = function(container){
 					$('#textInput9').val(answer9);
 					$('#checkBtn').hide();
 					$('#nextBtn').show();
+				//	$('#nextBtn').css("opacity", 1)
 					trial += 1;
 					deactivate = 1;
 					$('.inp').each(function(index, element) {
-            			$(this).get(0).onkeydown = function(event){
+            			$(this).get(0).onkeyup = function(event){
 												if(event.keyCode != 13)
 													return false;
-												$("#nextBtn").click();
+												else
+													$('#nextBtn').click();
 											}   
           		  	});
 				}
@@ -1556,12 +1576,14 @@ Interaction.init = function(container){
 					$('#statuss').html("Tebrikler!");
 					$('#checkBtn').hide();
 					$('#nextBtn').show();
+				//	$('#nextBtn').css("opacity", 1)
 					deactivate = 1;
 					$('.inp').each(function(index, element) {
-            			$(this).get(0).onkeydown = function(event){
+            			$(this).get(0).onkeyup = function(event){
 												if(event.keyCode != 13)
 													return false;
-												$("#nextBtn").click();
+												else
+													$('#nextBtn').click();
 											}   
           		  	});
 				}
@@ -1587,13 +1609,15 @@ Interaction.init = function(container){
 					$('#textInput9').val(answer9);
 					$('#checkBtn').hide();
 					$('#nextBtn').show();
+				//	$('#nextBtn').css("opacity", 1)
 					trial += 1;
 					deactivate = 1;
 					$('.inp').each(function(index, element) {
-            			$(this).get(0).onkeydown = function(event){
+            			$(this).get(0).onkeyup = function(event){
 												if(event.keyCode != 13)
 													return false;
-												$("#nextBtn").click();
+												else
+													$('#nextBtn').click();
 											}   
           		  	});
 				}
@@ -1620,6 +1644,7 @@ Interaction.init = function(container){
 			$('#line1').remove();
 			$('#line2').remove();
 			Interaction.init(container);
+		//	$('#textInput1').focus();
 		});
 	
 	$('.inp').keydown(function() {
@@ -1628,60 +1653,7 @@ Interaction.init = function(container){
 	});
 		
 	// enter keypress action
-	$("#textInput1").keyup(function(event) {
-		if(event.keyCode == 13) {
-			submit();
-		}
-	});
-	
-	$("#textInput2").keyup(function(event) {
-		if(event.keyCode == 13) {
-			submit();
-		}
-	});
-	
-	$("#textInput3").keyup(function(event) {
-		if(event.keyCode == 13) {
-			submit();
-		}
-	});
-	
-	if($("#textInput4")){
-		$("#textInput4").keyup(function(event) {
-			if(event.keyCode == 13) {
-				submit();
-			}
-		});
-	}
-	
-	if($("#textInput5")){
-		$("#textInput5").keyup(function(event) {
-			if(event.keyCode == 13) {
-				submit();
-			}
-		});
-	}
-	
-	
-	$("#textInput6").keyup(function(event) {
-		if(event.keyCode == 13) {
-			submit();
-		}
-	});
-	
-	$("#textInput7").keyup(function(event) {
-		if(event.keyCode == 13) {
-			submit();
-		}
-	});
-	
-	$("#textInput8").keyup(function(event) {
-		if(event.keyCode == 13) {
-			submit();
-		}
-	});
-	
-	$("#textInput9").keyup(function(event) {
+	$(".inp").keyup(function(event) {
 		if(event.keyCode == 13) {
 			submit();
 		}
