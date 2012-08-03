@@ -172,7 +172,7 @@ Interaction.init = function(container){
 		position:'absolute',
 		bottom:'10%',
 		right:'10%',
-		width:100,
+		width:103,
 		textAlign:'center'
 	});
 	Interaction.preventNextQuestion = false;
