@@ -467,9 +467,9 @@ Main.paperInit.Path = function() {
 		var paint = 0;
 		
 		if (fillOrder) {
-			for(i = 0; i < horizontalSegments; i++)
+			for(var i = 0; i < horizontalSegments; i++)
 			{
-				for(j = 0; j < verticalSegments; j++)
+				for(var j = 0; j < verticalSegments; j++)
 				{
 					Rec = Path.Rectangle(new Point(x + i * width/horizontalSegments, y + j * height/verticalSegments), new Size(width/horizontalSegments, height/verticalSegments));
 					Rec.strokeColor = '#000';
@@ -483,9 +483,9 @@ Main.paperInit.Path = function() {
 				}
 			}
 		} else {		
-			for(j = 0; j < verticalSegments; j++)
+			for(var j = 0; j < verticalSegments; j++)
 			{
-				for(i = 0; i < horizontalSegments; i++)
+				for(var i = 0; i < horizontalSegments; i++)
 				{
 					Rec = Path.Rectangle(new Point(x + i * width/horizontalSegments, y + j * height/verticalSegments), new Size(width/horizontalSegments, height/verticalSegments));
 					Rec.strokeColor = '#000';
@@ -521,7 +521,7 @@ Main.paperInit.Path = function() {
 			paint = 0;
 		}
 
-		for(i=0; i < totalPieces; i++)
+		for(var i=0; i < totalPieces; i++)
 		{
 			var Circ = new Path();
 			var point1 = new Point(center.x + Math.cos(startAngle) * radius,
