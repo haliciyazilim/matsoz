@@ -974,7 +974,8 @@ sayiUretim=function(){
 	
 	var ondalik=Math.floor(Math.random()*3+1);
 	console.log("deger: "+ondalik);
-	
+	//deger=3;
+	//rastgeleSayi=999.999;
 	switch(deger){
 		case 1:
 			var rastgeleSayi=Math.random()*9+1; 

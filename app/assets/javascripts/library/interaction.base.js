@@ -259,7 +259,7 @@ function InteractionBase(){
 		if(Interaction.preCheck && Interaction.preCheck() === false)
 			return;
 		var isCorrect;
-		if(Interaction.__inputVersion == 2){
+		if(Interaction.__inputVersion == 2){	// addInput()
 			isCorrect = true;
 			for(var i=0; i<Interaction.inputs.length;i++){
 				var value = Interaction.inputs[i].value;
@@ -281,6 +281,12 @@ function InteractionBase(){
 					isInputCorrect = (value == Interaction.inputs[i].correctAnswer(value));
 				else
 					isInputCorrect = (value == Interaction.inputs[i].correctAnswer);
+				
+				$(Interaction.inputs[i]).get(0).onfocus = function () {
+					$(this).removeClass('input_user_answer_correct');
+					$(this).removeClass('input_user_answer_wrong');
+					$(this).removeClass('input_correct_answer');
+				}
 				
 				if(isInputCorrect === true){
 					$(Interaction.inputs[i]).addClass('input_user_answer_correct');
@@ -342,11 +348,13 @@ function InteractionBase(){
 		}
 		else{
 			$(Interaction.inputs).each(function(index, element) {
+				$(this).get(0).onfocus = null;
             	$(this).get(0).onkeydown = function(event){
 					if(event.keyCode != 13)
 						return false;
 				}   
             });
+
 			if(Interaction.onFail)
 				Interaction.onFail();
 		}
@@ -375,8 +383,6 @@ function InteractionBase(){
 			return false;
 		}
 	};
-	
-	
 	Interaction.pause = function(delay){
 		if(delay == undefined || isNan(delay))
 			delay = 0;

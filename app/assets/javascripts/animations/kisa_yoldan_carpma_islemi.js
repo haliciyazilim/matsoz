@@ -259,24 +259,35 @@ var Interaction = {
 			var zeros = $(Interaction.factor2Span).html();
 			zeros = '<span class="zero">'+zeros.substring(1,zeros.length)+'</span>';
 			var html = "" + $(Interaction.solutionDiv).html();
-			html = html.substring(0,html.indexOf('<input')) + (Interaction.factor1*Interaction.factor2Span.innerHTML.substring(0,1)) + zeros;
+			html = html.substring(0,html.indexOf('<input')) +
+					'<span id="result">' +
+				   (Interaction.factor1*parseInt(Interaction.factor2Span.innerHTML.substring(0,1),10)) + zeros + 
+				   '</span>';
+			
 			$(Interaction.solutionDiv)
 				.html(html)
-				.append('<span id="result"></span>')
 				.css({
 					top:$(Interaction.solutionDiv).position().top+60
 				});
+			$('#result',Interaction.solutionDiv)
+				.css({opacity:0})
+				.delay(2000)
+				.animate({opacity:1},1000)
 			$('#factor2',Interaction.solutionDiv)
 				.html(Interaction.factor2Span.innerHTML.substring(0,1)+zeros )
+				.css({opacity:0}) 
+				.delay(1000)
+				.animate({opacity:1},1000)
 			$('#factor2 .zero',Interaction.solutionDiv)
 				.css({color:'#000'})
+				.delay(3000)
 				.animate(
 					{color:'#f00'},
 					1000
 				);
 			$('.zero',Interaction.solutionDiv)
 				.css({color:'#000'})
-				.delay(500)
+				.delay(3500)
 				.animate(
 					{color:'#f00'},
 					1000,

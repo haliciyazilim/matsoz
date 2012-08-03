@@ -971,9 +971,10 @@ Interaction.init = function(container){
 	Interaction.container = container;
 	// set interaction title
 	Main.setObjective('Yanda gelecek olan bileşik kesri tam sayılı kesre, tam sayılı kesri bileşik kesre çeviriniz ve kontrol ediniz.');
-	
+	$('#statuss').html("");
 	// neccessary variables
 	var randomize = Math.floor(Math.random() * 10);
+	Interaction.randomize = randomize;
 	var frac, frac2;
 
 	var nominator;
@@ -1193,6 +1194,7 @@ Interaction.init = function(container){
 					.css("width", "200px")
 					.css("height", "20px")
 					.css("text-align", "center")
+	$('#statuss').html("");
 
 										
 	$(container).append('<div id="answer"></div>');
@@ -1203,6 +1205,7 @@ Interaction.init = function(container){
 					.css("height", "96px")
 					.css("font-size", 20)
 					.css("color", answerColor)
+					.css("padding", 0)
 				//	.css("border", "solid")
 	
 	$('#answer').append('<div id="divison123"></div>')
@@ -1217,6 +1220,14 @@ Interaction.init = function(container){
 	$('#checkBtn').css("position", "absolute")
 					.css("left", "460px")
 					.css("top", "240px");
+	if(randomize % 2 == 0)
+		$('#textInput1').focus();
+	else
+		$('#textInput2').focus();
+	
+	//$('.inp').each(function(index, element) {
+//							$(this).get(0).onkeyup = null;  
+//					  		});
 	// submit func. -> check whether input field is filled and give neccessary feedbacks
 	var deactivate = 0;
 	var trial = 0;				
@@ -1256,7 +1267,7 @@ Interaction.init = function(container){
 							$('#checkBtn').get(0).className = "next_button";
 							deactivate = 1;
 							$('.inp').each(function(index, element) {
-							$(this).get(0).onkeydown = function(event){
+							$(this).get(0).onkeyup = function(event){
 													if(event.keyCode != 13)
 														return false;
 													$("#checkBtn").click();
@@ -1290,7 +1301,7 @@ Interaction.init = function(container){
 							trial += 1;
 							deactivate = 1;
 							$('.inp').each(function(index, element) {
-							$(this).get(0).onkeydown = function(event){
+							$(this).get(0).onkeyup = function(event){
 													if(event.keyCode != 13)
 														return false;
 													$("#checkBtn").click();
@@ -1333,7 +1344,7 @@ Interaction.init = function(container){
 							$('#checkBtn').get(0).className = "next_button";
 							deactivate = 1;
 							$('.inp').each(function(index, element) {
-							$(this).get(0).onkeydown = function(event){
+							$(this).get(0).onkeyup = function(event){
 													if(event.keyCode != 13)
 														return false;
 													$("#checkBtn").click();
@@ -1382,7 +1393,7 @@ Interaction.init = function(container){
 							trial += 1;
 							deactivate = 1;
 							$('.inp').each(function(index, element) {
-							$(this).get(0).onkeydown = function(event){
+							$(this).get(0).onkeyup = function(event){
 													if(event.keyCode != 13)
 														return false;
 													$("#checkBtn").click();
@@ -1408,6 +1419,7 @@ Interaction.init = function(container){
 					$(Interaction.container).html("");
 					$(Interaction.container).html(a);
 					Interaction.init(container);
+						
 				}
 			}
 		}
@@ -1423,9 +1435,9 @@ Interaction.init = function(container){
 	});
 		
 	// enter keypress action
-	$(".inp").keypress(function(event) {
+	$(".inp").keyup(function(event) {
 		if(event.keyCode == 13) {
-			submit();
+			$('#checkBtn').click();
 		}
 	});
 }
