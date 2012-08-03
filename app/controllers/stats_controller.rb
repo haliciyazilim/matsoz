@@ -3,9 +3,9 @@
 
 class StatsController < ApplicationController
   def index
-    stats = Stat.find(:all, :order => "date")
+    @stats = Stat.find(:all, :order => "date")
     
-    @last = stats.last
+    @last = @stats.last
     @accepted = @last[:accepted]
     @delivered = @last[:delivered]
     @finished  = @last[:finished]
