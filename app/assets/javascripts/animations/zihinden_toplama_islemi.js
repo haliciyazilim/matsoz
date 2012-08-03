@@ -25,6 +25,7 @@ var Animation = {
 					fontSize:'32px',
 					color:'#fff',
 					textAlign:'right',
+					fontWeight:'700',
 					lineHeight:'30px',
 					fontFamily:"'Homemade Apple', cursive",
 					opacity:0.9

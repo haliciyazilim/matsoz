@@ -94,7 +94,7 @@ Main.init = function(){
 				}
 			}
 		}
-	
+		InteractionBase();	
 		if(Animation.images == null || Animation.images == undefined) {
 			Main.animationProject.activate();
 			if (Animation.init) {
@@ -117,7 +117,7 @@ Main.init = function(){
 			);
 		}
 		
-		InteractionBase();	
+		
 		if(Interaction.images == null || Interaction.images == undefined) {
 			Main.interactionProject.activate();
 			Interaction.init(Main.interaction);

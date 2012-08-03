@@ -498,6 +498,7 @@ var Interaction = {
 							.css("width", "40px")
 							.css("float", "left")
 							.css("line-height", "32px")
+							.css("cursor","pointer");
 			
 			$('#lessThan').css("position", "absolute")
 							.css("top", "0px")
@@ -515,6 +516,7 @@ var Interaction = {
 							.css("width", "40px")
 							.css("float", "left")
 							.css("line-height", "32px")
+							.css("cursor","pointer");
 			
 			$('#equalTo').css("position", "absolute")
 							.css("top", "0px")
@@ -532,6 +534,7 @@ var Interaction = {
 							.css("width", "40px")
 							.css("float", "left")
 							.css("line-height", "32px")
+							.css("cursor","pointer");
 			
 			$('#greaterThan').css("position", "absolute")
 							.css("top", "0px")
@@ -545,6 +548,7 @@ var Interaction = {
 			$('#sortingDiv .drg').draggable({
 				revert: "invalid",
 				helper: "clone",
+				cursor: "pointer",
 				stack: "#sortingDiv .drg",
 				disabled: "false",
 				start: function(event, ui){

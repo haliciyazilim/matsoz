@@ -2,13 +2,13 @@
 var Util = {
 	
 	isInteger: function (value) {
-			// var intRegex = /^\d+$/;
-			// return intRegex.test(value);
-			return value === Math.floor(value)
+			 var intRegex = /^\d+$/;
+			 return intRegex.test(value);
+		//	return value == Math.floor(value)
 		},
 		
 	isNumber: function (n) {
-			return !isNaN(parseFloat(n)) && isFinite(n);
+			return !isNaN(parseFloat(n,10)) && isFinite(n);
 		},
 
 	findDistance:function (x1,y1,x2,y2){
@@ -109,11 +109,20 @@ var Util = {
 			return Util.randomInteger(0,10);
 		},
 	
+	gcd: function(a,b){
+		return b ? Util.gcd(b, a%b) : a;
+	},
+	lcm: function(num1, num2, num3, num4){
+		if(num3 == null || num3 == undefined)
+			return (num1*num2)/Util.gcd(num1,num2);
+		else if(num4 == null || num4 == undefined)
+			return Util.lcm(num1, Util.lcm(num2,num3));
+		else
+			return Util.lcm(Util.lcm(num1,num2), Util.lcm(num3,num4));
+	},
+	
 	reduceFractions: function(nom,denom){
-		var gcd = function gcd(a,b){
-			return b ? gcd(b, a%b) : a;
-		};
-		gcd = gcd(nom,denom);
+		var gcd = Util.gcd(nom,denom);
 		return [nom/gcd, denom/gcd];
 	},
 	
