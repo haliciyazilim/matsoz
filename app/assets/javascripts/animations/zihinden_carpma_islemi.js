@@ -107,40 +107,9 @@ var Interaction = {
 			Interaction.setStatus('Yanlış cevap, doğrusu ' +  Interaction.factor1 * Interaction.factor2 + ' olacaktı',false);
 			Interaction.solutionDiv = $(Interaction.questionDiv).clone().insertAfter(Interaction.questionDiv);
 			var zeros = $('#factor2',Interaction.questionDiv).html();
-<<<<<<< HEAD
-			zeros = '<span class="zero">'+zeros.substring(1,zeros.length)+'</span>';
-			var html = "" + $(Interaction.solutionDiv).html();
-			html = html.substring(0,html.indexOf('<input')) + Interaction.factor1 + zeros;
-
-			$(Interaction.solutionDiv)
-				.html(html)
-				.append('<span id="result"></span>')
-				.css({
-					top:$(Interaction.solutionDiv).position().top+60
-				});
-			$('#factor2',Interaction.solutionDiv)
-				.html(1+zeros )
-			$('#factor2 .zero',Interaction.solutionDiv)
-				.css({color:'#000'})
-				.animate(
-					{color:'#f00'},
-					1000
-				);
-			$('.zero',Interaction.solutionDiv)
-				.css({color:'#000'})
-				.delay(500)
-				.animate(
-					{color:'#f00'},
-					1000,
-					function(){
-						Interaction.pause = false;
-					}
-				);
-=======
 			zeros = zeros.substring(1,zeros.length); 
 			console.log(zeros)
 			multiply(new Point(160,200),10,zeros,Interaction.factor1,(""+Interaction.factor2).substring(0,1),interactionTextStyle);
->>>>>>> development
 		},
 }
 function textAnimate(point,content,style,animateStyle,delay,textStyle,callback){
