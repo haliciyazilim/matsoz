@@ -253,9 +253,11 @@ animations/zaman.js: animations/zaman-49ced8ee565fd8cc0393d51f00ab34da.js
 animations/zihinden_carpma_islemi.js: animations/zihinden_carpma_islemi-1c67fd5066e76efe9e5d00df65b76350.js
 animations/zihinden_cikarma_islemi.js: animations/zihinden_cikarma_islemi-1de7bacfb9207461980c0c6a853d5d9c.js
 animations/zihinden_toplama_islemi.js: animations/zihinden_toplama_islemi-058850ae239ef1ddf19daed557d3377a.js
-application.js: application-52c8ab14e8647eca8e42515af8068887.js
+application.js: application-30939899585cf2854059a1905b2feb91.js
 processFiles.sh: processFiles-f1889166c959ad19b610c3b6894bb792.sh
-application.css: application-4295debb943cbffe819eef8f34eeb532.css
+stats/highcharts.js: stats/highcharts-4b26148a5a280ffedb7386e3d0c73c77.js
+stats/stats.js: stats/stats-f6662a297f4c25525d7a29ceaa954eb4.js
+application.css: application-2475cfccd23b0cbf7ea0a6a5dcfe15f3.css
 images/ui-bg_diagonals-thick_90_eeeeee_40x40.png: images/ui-bg_diagonals-thick_90_eeeeee_40x40-530b731d5b81d8460898b8550857acbc.png
 images/ui-bg_flat_15_cd0a0a_40x100.png: images/ui-bg_flat_15_cd0a0a_40x100-48c5d20958f1a9d2c3b3f4432a8b6326.png
 images/ui-bg_glass_100_e4f1fb_1x400.png: images/ui-bg_glass_100_e4f1fb_1x400-d063ba7bcdfbafa0f52ad2c57ebc5c2f.png
