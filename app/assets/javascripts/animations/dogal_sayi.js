@@ -1014,7 +1014,7 @@ Interaction.init = function(container){
 		}
 		console.log("boşluk denemetimi: "+boslukDenetimi);
 		if(boslukDenetimi==girdiler.length){
-			$("#geriBildirimText").attr("class","status_alert").html("Bütün kutucukları doldurunuz.");
+			$("#geriBildirimText").attr("class","status_alert").html("Lütfen ilgili kutuları doldurunuz.");
 			
 			$("input").keydown(
 				function(){
@@ -1120,6 +1120,7 @@ Interaction.init = function(container){
 		$("input").css("color","black");
 		$("#btnKontrol").show();
 		$("#geriBildirimText").html("");	
+		$("#inputYuzMilyonlar").focus();
 		
 		for(var i=0; i<girdiler.length; i++)
 			$(girdiler[i]).removeAttr('onkeydown');
