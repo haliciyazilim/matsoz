@@ -213,7 +213,7 @@ Interaction.images = [
 ];
 
 Interaction.init = function(container){
-	Main.setObjective('Yandaki cetvel üzerinde fare ile pergelin kolunu açarak belirleyeceğiniz yarıçap uzunluğuna sahip çemberi kalem işaretiyle çiziniz.');
+	Main.setObjective('Yandaki cetvel ve pergeli kullanarak seçeceğiniz yarıçap uzunluğuna sahip çemberi aşağıdaki “Çiz” butonuna basarak çizdiriniz.');
 
 	Interaction.container = container;
 	Interaction.paper = {width:$(container).width(),height:$(container).height()};
@@ -222,10 +222,10 @@ Interaction.init = function(container){
 	Interaction.button.onclick = Interaction.drawCircle;
 	Interaction.button.className = 'draw_button'
 	$(Interaction.button).css({
-			backgroundImage:'url(/assets/animations/btn_gray_draw.png)',
+			backgroundImage:'url(/assets/btn_gray_draw_text.png)',
 			position:'absolute',
 			top:'145px',
-			width:'32px',
+			width:'55px',
 			height:'31px',
 			left:'176px'
 		});
@@ -251,7 +251,7 @@ Interaction.init = function(container){
 		width:'40%'
 	});
 	Interaction.container.appendChild(Interaction.status);
-				
+	Interaction.pause = false;
 	Interaction.r = null;
 	Interaction.drawRuler();
 	Interaction.initCompass();
@@ -302,9 +302,15 @@ Interaction.drawCircle = function(){
 				clearTimeout(Interaction.drawCircle.t);
 				Interaction.drawCircle._o = 359.9;
 				Interaction.pause = false;
-				Interaction.drawCircle.textO = new PointText(new Point(Interaction.drawCircle.x-15,Interaction.drawCircle.y+15));
+				Interaction.drawCircle.textO = new PointText(new Point(Interaction.drawCircle.x-10,Interaction.drawCircle.y+10));
 				Interaction.drawCircle.textO.content = "O";
-				Interaction.drawCircle.textR = new PointText(new Point(Interaction.drawCircle.x+Interaction.r*0.2,Interaction.drawCircle.y+15));
+				var textRPoint = new Point(Interaction.drawCircle.x+Interaction.r*0.2,Interaction.drawCircle.y+15);
+				if(Interaction.r/Interaction.br > 4)
+					textRPoint = textRPoint.add(+Interaction.r*0.2,+15);
+				else
+					textRPoint = textRPoint.add(Interaction.r,10);
+				Interaction.drawCircle.textR = new PointText(textRPoint);
+					
 				Interaction.drawCircle.textR.content = "r = "+(Interaction.radius.innerHTML);
 				Interaction.drawCircle.lineR = new Path.Line(new Point(Interaction.drawCircle.x,Interaction.drawCircle.y),new Point(Interaction.drawCircle.x+Interaction.r,Interaction.drawCircle.y));
 				Interaction.drawCircle.lineR.set_style(lineStyle);

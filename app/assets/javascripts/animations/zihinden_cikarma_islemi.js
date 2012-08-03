@@ -1,38 +1,51 @@
 var Animation = {
+	images:[
+		{
+			id:'board',
+			src:'/assets/animations/board_green.jpg'
+		}
+	],
 	init:function(container){
+			
+			var w=Math.floor($(container).width()), h=Math.floor($(container).height());
+			var board = new Raster('board');
+			board.position = new Point(Math.floor(w*0.5),Math.floor(h*0.5)+2)
+			
 			
 			$('head').append("<link href='http://fonts.googleapis.com/css?family=Homemade+Apple' rel='stylesheet' type='text/css'>");
 			
 			var div = document.createElement('div');
-				$(container).append(div);
-				$(div)
-					.html('<div id="addend1">5673</div><div id="addend2">4<span id="zeros">000</span></div><div id="line"><img src="/assets/animations/minus_sign.png" /></div><br/>')
-					.append('<div id="result">1<span id=lastDigits>673</span></div>')
-					.css({
-						width:120,
-						position:'absolute',
-						top:'70px',
-						left:'300px',
-						fontSize:'32px',
-						textAlign:'right',
-						lineHeight:'30px',
-						fontWeight:'700',
-						backgroundColor:'#363',
-						color:'#fff',
-						fontFamily:"'Homemade Apple', cursive"
-					});
-				$('#line',div).css({
-					height:'2px',
-					borderBottom:'2px solid #000',
-					position:'relative',
-					top:'5px',
-					left:'15px'
+			
+			$(container).append(div);
+			$(div)
+				.html('<div id="addend1">5673</div><div id="addend2">4<span id="zeros">000</span></div><div id="line"><span>-</span></div><br/>')
+				.append('<div id="result">1<span id=lastDigits>673</span></div>')
+				.css({
+					width:120,
+					position:'absolute',
+					top:'50px',
+					left:'300px',
+					fontSize:'32px',
+					textAlign:'right',
+					lineHeight:'30px',
+					fontWeight:'700',
+					color:'#fff',
+					fontFamily:"'Homemade Apple', cursive",
+					opacity:0.9
 				});
-				$('#line img',div).css({
-					position:'relative',
-					top:'-15px',	
-					left:'10px'
-				});
+			$('#line',div).css({
+				height:'2px',
+				borderBottom:'2px solid #fff',
+				position:'relative',
+				top:'5px',
+				left:'15px'
+			});
+			$('#line span',div).css({
+				position:'absolute',
+				top:'-15px',	
+				left:'10px',
+				color:'#fff'
+			});
 			
 			$('#result',div).css({
 					position:'relative',
@@ -45,24 +58,17 @@ var Animation = {
 				.css({opacity:0,position:'relative',top:'-82px'})
 				.delay(2500)
 				.animate({opacity:1,top:'0px'},1000)
-			
-			
-			$('#addend2 #zeros',div)
-				.css({color:'#000'})
-				.delay(1500)
-				.animate(
-					{color:'#ddd'},
-					1000
-				);
+
 			$('#zeros',div)
-				.css({color:'#000'})
+				.css({color:'#fff'})
 				.delay(1500)
 				.animate(
-					{color:'#ddd'},
+					{opacity:0},
 					1000,
 					function(){
 						$('#zeros',div)
-							.animate({color:'#000'},500);
+							.delay(1000)
+							.animate({opacity:1},1000);
 					}
 				);
 		}
@@ -74,7 +80,7 @@ var Interaction = {
 		},
 	init:function(container){
 			Interaction.container = container;
-			Main.setObjective('Yandaki çıkarma işlemini yapınız ve kontrol ediniz.');
+			Main.setObjective('Dört basamaklı doğal sayılarla 10’un, 100’ün ve 1000’in en çok dokuz katı olan doğal sayıların çıkarma işlemi.');
 			Interaction.paper = {
 				width:$(container).width(),
 				height:$(container).height()

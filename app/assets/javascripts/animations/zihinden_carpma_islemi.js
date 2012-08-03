@@ -1,11 +1,21 @@
-// JavaScript Document
-var animationTextStyle = {
-	fontSize:16,
-	font:'cursive'
+function __Styles(){
+	animationTextStyle = {
+		fontSize:24,
+		fillColor:new RgbColor(1,1,1,0.9),
+		font:"'Homemade Apple', cursive"
+	}
 }
-var Animation = {
 
+
+var Animation = {
+	images:[
+		{
+			id:'board',
+			src:'/assets/animations/board_green.jpg'
+		}
+	],
 	init:function(container){
+			$('head').append("<link href='http://fonts.googleapis.com/css?family=Homemade+Apple' rel='stylesheet' type='text/css'>");
 			function textAnimate(point,content,style,animateStyle,delay,callback){
 				var pT1 = new PointText(point);
 				pT1.content = content;
@@ -20,164 +30,56 @@ var Animation = {
 				});
 				return pT1;
 			};
-			Animation.container = container;
-			var p1 = new Point(250.5,50.5);
-			var p2 = new Point(250.5,100.5);
-			var p3 = new Point(250.5,150.5);
-			
-			textAnimate(
-				p1,
-				'4569',
-				{opacity:0},
-				{opacity:1},
-				100
-			);
-			textAnimate(
-				p1.add(50,0),
-				' x 1',
-				{opacity:0},
-				{opacity:1},
-				600
-			);
-			textAnimate(
-				p1.add(102,0),
-				'=',
-				{opacity:0},
-				{opacity:1},
-				600
-			);
-			textAnimate(
-				p1.add(82,0),
-				'0',
-				{opacity:0},
-				{opacity:1},
-				600,
-				function(){
-					this.animate({
-					style:{fillColor:new RgbColor(1,0,0)},
-					duration:500,
-					delay:900,
-					});
-				}
-			)
-			textAnimate(
-				p1.add(122,0),
-				'4569',
-				{opacity:0},
-				{opacity:1},
-				1200
-			);
-			textAnimate(
-				p1.add(82,0),
-				'0',
-				{opacity:0},
-				{opacity:1,position:p1.add(170,0),fillColor:new RgbColor(1,0,0)},
-				3000
-			);
-			
-			var delay = 3000;
-			textAnimate(
-				p2,
-				'4569',
-				{opacity:0},
-				{opacity:1},
-				100+delay
-			);
-			textAnimate(
-				p2.add(50,0),
-				' x 1',
-				{opacity:0},
-				{opacity:1},
-				600+delay
-			);
-			textAnimate(
-				p2.add(112,0),
-				'=',
-				{opacity:0},
-				{opacity:1},
-				600+delay
-			);
-			textAnimate(
-				p2.add(82,0),
-				'00',
-				{opacity:0},
-				{opacity:1},
-				600+delay,
-				function(){
-					this.animate({
-					style:{fillColor:new RgbColor(1,0,0)},
-					duration:500,
-					delay:900,
-					});
-				}
-			)
-			textAnimate(
-				p2.add(132,0),
-				'4569',
-				{opacity:0},
-				{opacity:1},
-				1200+delay
-			);
-			textAnimate(
-				p2.add(82,0),
-				'00',
-				{opacity:0},
-				{opacity:1,position:p2.add(180,0),fillColor:new RgbColor(1,0,0)},
-				3000+delay
-			);
-			
-			
-			var delay = 6000;
-			textAnimate(
-				p3,
-				'4569',
-				{opacity:0},
-				{opacity:1},
-				100+delay
-			);
-			textAnimate(
-				p3.add(50,0),
-				' x 1',
-				{opacity:0},
-				{opacity:1},
-				600+delay
-			);
-			textAnimate(
-				p3.add(122,0),
-				'=',
-				{opacity:0},
-				{opacity:1},
-				600+delay
-			);
-			textAnimate(
-				p3.add(82,0),
-				'000',
-				{opacity:0},
-				{opacity:1},
-				600+delay,
-				function(){
-					this.animate({
-					style:{fillColor:new RgbColor(1,0,0)},
-					duration:500,
-					delay:900,
-					});
-				}
-			)
-			textAnimate(
-				p3.add(142,0),
-				'4569',
-				{opacity:0},
-				{opacity:1},
-				1200+delay
-			);
-			textAnimate(
-				p3.add(82,0),
-				'000',
-				{opacity:0},
-				{opacity:1,position:p3.add(190,0),fillColor:new RgbColor(1,0,0)},
-				3000+delay
-			);
+			function multiply(point,delay,zero){
+				var z = zero.length * animationTextStyle.fontSize * 0.5;
+				textAnimate(point,				'4569',	{opacity:0},{opacity:1},100+delay);
+				textAnimate(point.add(70,0)	 ,' × 1',	{opacity:0},{opacity:1},600+delay);
+				textAnimate(point.add(132+z,0)  ,	  '=',	{opacity:0},{opacity:1},600+delay);
+				textAnimate(point.add(112,0)	,   zero,	{opacity:0},{opacity:1},600+delay,
+					function(){
+						this.animate({
+						style:{opacity:0},
+						duration:500,
+						callback:function(){
+								this.animate({
+									style:{opacity:1,fillColor:new RgbColor(1,0,0,0.9)},
+									duration:500,
+									delay:500,
+									callback:function(){
+										this.animate({
+											style:{fillColor:animationTextStyle.fillColor},
+											duration:500,
+											delay:500
+										})
+									}								
+								})
+							}
+						});
+					}
+				)
+				textAnimate(point.add(150+z,0),'4569',{opacity:0},{opacity:1},2000+delay);
+				textAnimate(point.add(102+z,0),zero,{opacity:0},{opacity:1,position:point.add(220+z,0),fillColor:new RgbColor(1,0,0)},3000+delay,
+					function(){
+						this.animate({
+							style:{fillColor:animationTextStyle.fillColor},
+							duration:500,
+						});
+					}
+				);
 
+			};
+			Animation.container = container;
+			var w=$(container).width(), h=$(container).height();
+			var board = new Raster('board');
+			board.position = new Point(w*0.5,h*0.5+2)
+			var p1 = new Point(200.5,50.5);
+			var p2 = new Point(200.5,100.5);
+			var p3 = new Point(200.5,150.5);
+			multiply(p1,100,'0');
+			multiply(p2,4000,'00');
+			multiply(p3,8000,'000');
+			
+			
 		}
 }
 

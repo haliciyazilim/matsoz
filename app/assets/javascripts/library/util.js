@@ -2,8 +2,9 @@
 var Util = {
 	
 	isInteger: function (value) {
-			var intRegex = /^\d+$/;
-			return intRegex.test(value);
+			// var intRegex = /^\d+$/;
+			// return intRegex.test(value);
+			return value === Math.floor(value)
 		},
 		
 	isNumber: function (n) {
@@ -76,12 +77,45 @@ var Util = {
 			return Math.floor(Math.random()*2);
 		},
 		
-	randomInteger: function(start, end) {
-			return Math.floor(Math.random()*(end-start)+start)
+	randomInteger: function(start, end, excluding) {
+			var excludingArray = [];
+			if (excluding != undefined && excluding != null) {
+				
+				for (var i = 0; i < excluding.length; i++) {
+					var num = excluding[i];
+					if (Util.isInteger(num) && num < end && num >= start) {
+						if (excludingArray.indexOf(num) === -1) {
+							excludingArray.push(num);	
+						}
+					}
+				}
+				
+				excludingArray.sort(function(a,b){return a-b});
+				
+				end -= excludingArray.length;
+			}
+			
+			var randNum = Math.floor(Math.random()*(end-start)+start)
+			
+			for (var i = 0; i < excludingArray.length; i++) {
+				if (excludingArray[i] <= randNum) {
+					randNum++;
+				}
+			}
+			
+			return randNum;
 		},
 	randomDigit : function(){
 			return Util.randomInteger(0,10);
 		},
+	
+	reduceFractions: function(nom,denom){
+		var gcd = function gcd(a,b){
+			return b ? gcd(b, a%b) : a;
+		};
+		gcd = gcd(nom,denom);
+		return [nom/gcd, denom/gcd];
+	},
 	
 	loadImages: function(imageArray, callback) {
 			var totalNoOfImages = imageArray.length;
