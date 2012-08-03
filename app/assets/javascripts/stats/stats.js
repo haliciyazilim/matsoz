@@ -3,6 +3,8 @@ var chart1; // globally available
 var chart2;
 
 $(document).ready(function() {
+	//var colors = ['#33aa33', '#55aa55', '#ffaa33', '#ff3333', '#777777'];
+	var colors = ['#33aa33', '#cccc33', '#ff7733', '#ff3333', '#666677'];
 	chart1 = new Highcharts.Chart({
 		chart: {
 			renderTo: 'pie_chart',
@@ -11,6 +13,8 @@ $(document).ready(function() {
 			plotBorderWidth: null,
 			plotShadow: false
 		},
+		//colors: ['#058DC7', '#50B432', '#ED561B', '#DDDF00', '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#6AF9C4'],
+		colors: colors,
 		title: {
 			text: 'Current State'
 		},
@@ -71,6 +75,7 @@ $(document).ready(function() {
 	        renderTo: 'stacked_area',
 	        type: 'area'
 	    },
+		colors: colors,
 	    title: {
 	        text: 'Stats History'
 	    },
@@ -128,67 +133,6 @@ $(document).ready(function() {
 	        name: 'Not Yet Started',
 	        data: unscheduled
 	    }]
-	});
-
-	
-	
+	});	
 });
 
-
-
-
-// 
-// 
-// $(function () {
-//     var chart;
-//     $(document).ready(function() {
-//         chart = new Highcharts.Chart({
-//             chart: {
-//                 renderTo: 'container',
-//                 plotBackgroundColor: null,
-//                 plotBorderWidth: null,
-//                 plotShadow: false
-//             },
-//             title: {
-//                 text: 'Browser market shares at a specific website, 2010'
-//             },
-//             tooltip: {
-//                 formatter: function() {
-//                     return '<b>'+ this.point.name +'</b>: '+ this.percentage +' %';
-//                 }
-//             },
-//             plotOptions: {
-//                 pie: {
-//                     allowPointSelect: true,
-//                     cursor: 'pointer',
-//                     dataLabels: {
-//                         enabled: true,
-//                         color: '#000000',
-//                         connectorColor: '#000000',
-//                         formatter: function() {
-//                             return '<b>'+ this.point.name +'</b>: '+ this.percentage +' %';
-//                         }
-//                     }
-//                 }
-//             },
-//             series: [{
-//                 type: 'pie',
-//                 name: 'Browser share',
-//                 data: [
-//                     ['Firefox',   45.0],
-//                     ['IE',       26.8],
-//                     {
-//                         name: 'Chrome',
-//                         y: 12.8,
-//                         sliced: true,
-//                         selected: true
-//                     },
-//                     ['Safari',    8.5],
-//                     ['Opera',     6.2],
-//                     ['Others',   0.7]
-//                 ]
-//             }]
-//         });
-//     });
-// 
-// });
