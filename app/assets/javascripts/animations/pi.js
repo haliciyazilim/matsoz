@@ -357,7 +357,6 @@ var Interaction = {
 				this.totalDelta = new Point(0,0);
 				this.firstPosition = Interaction.ruler.position;
 			}
-			
 		}
 		tool.onMouseDrag = function(event){
 			var newPoint = this.firstPosition.add(this.totalDelta).add(event.delta);
