@@ -208,5 +208,5 @@ var Interaction = {
 						
 					}
 				);
-		},
+		}
 }
