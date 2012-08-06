@@ -36,8 +36,8 @@ function LongAddition(ilkDeger, ikinciDeger, div){
 			
 		}
 		
-		$(this.div+" #toplanan1 #ikinciBasamak4").css("margin-right","15px");
-		$(this.div+" #toplanan2 #ikinciBasamak4").css("margin-right","15px");
+		//$(this.div+" #toplanan1 #ikinciBasamak4").css("margin-right","15px");
+		//$(this.div+" #toplanan2 #ikinciBasamak4").css("margin-right","15px");
 			
 		$(this.div,container).append("<div id='toplamaIsareti'>");
 		$(this.div+" #toplamaIsareti").css("width","100%")
