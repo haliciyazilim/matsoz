@@ -553,13 +553,13 @@ var Interaction = {
 				disabled: "false",
 				start: function(event, ui){
 					Interaction.setStatus('');
-					$($(ui.helper.get(0)).siblings(this).get(1)).css("opacity", 0)
+					$($(ui.helper.get(0)).siblings(this)[1]).css("opacity", 0)
 					$(ui.helper.get(0)).css("opacity", 1)
 				},
 				stop: function(event, ui){
 					$(ui.helper.get(0)).css("opacity", 0)
 					if(this.id != Interaction.oldStr+"Hover"){
-						$($(ui.helper.get(0)).siblings(this).get(1)).css("opacity", 1)
+						$($(ui.helper.get(0)).siblings(this)[1]).css("opacity", 1)
 					}
 				}
 			});
@@ -624,6 +624,7 @@ var Interaction = {
 						.css("left", "0px")
 			$(Interaction.dropDiv).droppable({
 						accept: '.drg',
+						tolerance: 'pointer',
 						drop: function(event, ui){
 							if(Interaction.oldActiveStr){
 								$("#"+Interaction.oldActiveStr).css("opacity", 0)
@@ -1287,7 +1288,7 @@ var Interaction = {
 		// bigDots
 		var bigDots = new Group();
 		for(i = 0; i < iter + 1; i++){
-			var dot = new Path.Circle(new Point(80+(pieceLength*i), 180), 4);
+			var dot = new Path.Circle(new Point(80+(pieceLength*i), 180), 5);
 			dot.fillColor = "black";
 			bigDots.addChild(dot);
 		}
@@ -1295,7 +1296,7 @@ var Interaction = {
 		var smallDots = new Group();
 		for(i = 0; i < iter; i++){
 			for(j = 1; j < piece; j++){
-				var dot2 = new Path.Circle(new Point(80+(pieceLength*i)+Math.floor(j*(pieceLength/piece)), 180), 2);
+				var dot2 = new Path.Circle(new Point(80+(pieceLength*i)+Math.floor(j*(pieceLength/piece)), 180), 3);
 				dot2.fillColor = "black";
 				smallDots.addChild(dot2);
 			}

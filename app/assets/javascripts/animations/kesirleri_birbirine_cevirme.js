@@ -1212,218 +1212,238 @@ Interaction.init = function(container){
 	$('#divison123').css("position", "absolute")
 					.css("top", "-60px")
 					.css("left", "240px")
-					.css("width", "60px")
+					.css("width", "62px")
 					.css("height", "76px")
-					.css("font-size", 20)
+					.css("font-size", 22)
+					.css("padding", 0)
 					
 	$(container).append('<button id="checkBtn" class="control_button"></button>');
 	$('#checkBtn').css("position", "absolute")
 					.css("left", "460px")
 					.css("top", "240px");
-	if(randomize % 2 == 0)
-		$('#textInput1').focus();
-	else
-		$('#textInput2').focus();
 	
-	//$('.inp').each(function(index, element) {
-//							$(this).get(0).onkeyup = null;  
-//					  		});
+	$(container).append('<button id="nextBtn" class="next_button"></button>');
+	$('#nextBtn').css("position", "absolute")
+					.css("left", "460px")
+					.css("top", "240px");
+	$('#nextBtn').hide();
+	
+	if(randomize % 2 == 0){
+		setTimeout(
+			'$("#textInput1").focus()',
+			300);
+	//	$("#textInput1").focus();
+	}
+	else{
+		setTimeout(
+			'$("#textInput2").focus()',
+			300);
+		//$("#textInput2").focus();
+	}
+	
 	// submit func. -> check whether input field is filled and give neccessary feedbacks
 	var deactivate = 0;
 	var trial = 0;				
 	submit = function()
 		{
-			if($('#checkBtn').get(0).className == "control_button"){
-				// if this is the 3rd trial or more do nothing
-				if(trial == 2)
-					return;
+		
+			// if this is the 3rd trial or more do nothing
+			if(trial == 2)
+				return;
+			
+			var ans1, ans2, ans3;
+			// (bileşik kesir -> tam sayılı kesir) convertion  submission
+			if(randomize % 2 == 0)
+			{
+				ans1 = $('#textInput1').val();
+				ans2 = $('#textInput2').val();
+				ans3 = $('#textInput3').val();
 				
-				var ans1, ans2, ans3;
-				// (bileşik kesir -> tam sayılı kesir) convertion  submission
-				if(randomize % 2 == 0)
+				// check whether input field is empty or not (also given input is integer or not)
+				if(ans1 == "" || ans2 == "" || ans3 == "" || !Util.isInteger(ans1) || !Util.isInteger(ans2) || !Util.isInteger(ans3))		
 				{
-					ans1 = $('#textInput1').val();
-					ans2 = $('#textInput2').val();
-					ans3 = $('#textInput3').val();
-					
-					// check whether input field is empty or not (also given input is integer or not)
-					if(ans1 == "" || ans2 == "" || ans3 == "" || !Util.isInteger(ans1) || !Util.isInteger(ans2) || !Util.isInteger(ans3))		
-					{
-						$('#statuss').get(0).className = "status_alert";
-						$('#statuss').html("Lütfen kutucuklara sayı giriniz.");
-					}
-					else
-					{
-						// generate answers wrt. given numbers
-						ans11 = Math.floor(nominator/denominator);
-						ans22 = nominator % denominator;
-						ans33 = denominator;
-						
-						// correct answer state
-						if(ans1 == ans11 && (ans2 * ans33 == ans3 * ans22))
-						{
-							$('#statuss').get(0).className = "status_true";
-							$('#statuss').html("Tebrikler!");
-							$('#checkBtn').get(0).className = "next_button";
-							deactivate = 1;
-							$('.inp').each(function(index, element) {
-							$(this).get(0).onkeyup = function(event){
-													if(event.keyCode != 13)
-														return false;
-													$("#checkBtn").click();
-												}   
-						  });
-						}
-						
-						// second wrong answer state
-						else if(trial == 1)
-						{
-							$('#statuss').get(0).className = "status_false";
-							$('#statuss').html("Olmadı! Doğru cevap yukarıda gösterilmiştir.");
-							$('#textInput1').val(ans11);
-							$('#textInput2').val(ans22);
-							$('#textInput3').val(ans33);
-							$('#textInput1').css("color", inputBoxAnswerColor);
-							$('#textInput2').css("color", inputBoxAnswerColor);
-							$('#textInput3').css("color", inputBoxAnswerColor);
-							Interaction.pause = 1;
-							Animation.division = new LongDivision(nominator,denominator,$('#divison123'));
-							setTimeout(
-								'Animation.division.nextStep(1000);'
-								,1000);
-							setTimeout(
-								'Animation.division.nextStep(1000);'
-								,2000);
-							setTimeout(
-								'Interaction.pause = 0;'
-								,3000);
-							$('#checkBtn').get(0).className = "next_button";
-							trial += 1;
-							deactivate = 1;
-							$('.inp').each(function(index, element) {
-							$(this).get(0).onkeyup = function(event){
-													if(event.keyCode != 13)
-														return false;
-													$("#checkBtn").click();
-												}   
-						});
-						}
-						
-						// first wrong answer state
-						else if(trial == 0)
-						{		
-							trial += 1;
-							$('#statuss').get(0).className = "status_false";
-							$('#statuss').html("Tekrar deneyiniz.");
-						}
-					}
+					$('#statuss').get(0).className = "status_alert";
+					$('#statuss').html("Lütfen kutucuklara sayı giriniz.");
 				}
-				// (tam sayılı kesir -> bileşik kesir convertion)
 				else
 				{
-					ans2 = $('#textInput2').val();
-					ans3 = $('#textInput3').val();
+					// generate answers wrt. given numbers
+					ans11 = Math.floor(nominator/denominator);
+					ans22 = nominator % denominator;
+					ans33 = denominator;
 					
-					// check whether input field is empty or not (also given input is integer or not)
-					if(ans2 == "" || ans3 == "" || !Util.isInteger(ans2) || !Util.isInteger(ans3))		
+					// correct answer state
+					if(ans1 == ans11 && (ans2 * ans33 == ans3 * ans22))
 					{
-						$('#statuss').get(0).className = "status_alert";
-						$('#statuss').html("Lütfen kutucuklara sayı giriniz.");
+						$('#statuss').get(0).className = "status_true";
+						$('#statuss').html("Tebrikler!");
+						$('#checkBtn').hide();
+						$('#nextBtn').show();
+						deactivate = 1;
+						$('.inp').each(function(index, element) {
+						$(this).get(0).onkeyup = function(event){
+												if(event.keyCode != 13)
+													return false;
+												$("#nextBtn").click();
+											}   
+					  });
 					}
-					else
+					
+					// second wrong answer state
+					else if(trial == 1)
 					{
-						// generate answers wrt. given numbers
-						ans22 = nominator;
-						ans33 = denominator;
-						
-						// correct answer state
-						if(ans2 * ans33 == ans3 * ans22)
-						{
-							$('#statuss').get(0).className = "status_true";
-							$('#statuss').html("Tebrikler!");
-							$('#checkBtn').get(0).className = "next_button";
-							deactivate = 1;
-							$('.inp').each(function(index, element) {
-							$(this).get(0).onkeyup = function(event){
-													if(event.keyCode != 13)
-														return false;
-													$("#checkBtn").click();
-												}   
-					  		});
-						}
-						
-						// second wrong answer state
-						else if(trial == 1)
-						{
-							$('#statuss').get(0).className = "status_false";
-							$('#statuss').html("Olmadı! Doğru cevap yukarıda gösterilmiştir.");
-							$('#textInput2').val(ans22);
-							$('#textInput3').val(ans33);
-							$('#textInput2').css("color", inputBoxAnswerColor);
-							$('#textInput3').css("color", inputBoxAnswerColor);
-							var answerStr = "Cevap: ("+wh+" x "+denom+") + "+nom+" = ";
-							$('#answer').html('<p id="ans">'+answerStr+'</p>');
-							$('#ans').css("position", "absolute")
-										.css("top", "2px")
-										.css("right", "70px")							
-										.css("text-align", "right")
-							$('#answer').append('<div id="ansLine"></div>')
-							$('#ansLine').css("position", "absolute")
-										.css("top", "20px")
-										.css("right", "38px")
-										.css("width", "24px")
-										.css("height", "1px")
-										.css("padding", 0)
-										.css("border-top", "2px solid");
-							$('#answer').append('<p id="ansNom"></div>')
-							$('#ansNom').css("position", "absolute")
-											.css("top", "0px")
-											.css("left", "219px")
-											.css("text-align", "center")
-											.css("width", "20px")
-							$('#ansNom').html(ans22);
-							$('#answer').append('<p id="ansDenom"></div>')
-							$('#ansDenom').css("position", "absolute")
-											.css("top", "24px")
-											.css("left", "219px")
-											.css("text-align", "center")
-											.css("width", "20px")
-							$('#ansDenom').html(denom);
-							$('#checkBtn').get(0).className = "next_button";
-							trial += 1;
-							deactivate = 1;
-							$('.inp').each(function(index, element) {
-							$(this).get(0).onkeyup = function(event){
-													if(event.keyCode != 13)
-														return false;
-													$("#checkBtn").click();
-												}   
-					  		});
-						}
-						
-						// first wrong answer state
-						else if(trial == 0)
-						{		
-							trial += 1;
-							$('#statuss').get(0).className = "status_false";
-							$('#statuss').html("Tekrar deneyiniz.");
-						}
+						$('#statuss').get(0).className = "status_false";
+						$('#statuss').html("Olmadı! Doğru cevap yukarıda gösterilmiştir.");
+						$('#textInput1').val(ans11);
+						$('#textInput2').val(ans22);
+						$('#textInput3').val(ans33);
+						$('#textInput1').css("color", inputBoxAnswerColor);
+						$('#textInput2').css("color", inputBoxAnswerColor);
+						$('#textInput3').css("color", inputBoxAnswerColor);
+						Interaction.pause = 1;
+						Animation.division = new LongDivision(nominator,denominator,$('#divison123'));
+						setTimeout(
+							'Animation.division.nextStep(1000);'
+							,1000);
+						setTimeout(
+							'Animation.division.nextStep(1000);'
+							,2000);
+						setTimeout(
+							'Interaction.pause = 0;'
+							,3000);
+						$(Animation.division.nodes.divisor).css("padding-left","3px")
+						$(Animation.division.nodes.answer).css("padding-left","6px")
+						//Animation.division.nodes.disivor
+						//$('#division123 #divisor').css("padding-left", 5)
+						$('#checkBtn').hide();
+						$('#nextBtn').show();
+						trial += 1;
+						deactivate = 1;
+						$('.inp').each(function(index, element) {
+						$(this).get(0).onkeyup = function(event){
+												if(event.keyCode != 13)
+													return false;
+												$("#nextBtn").click();
+											}   
+					});
+					}
+					
+					// first wrong answer state
+					else if(trial == 0)
+					{		
+						trial += 1;
+						$('#statuss').get(0).className = "status_false";
+						$('#statuss').html("Tekrar deneyiniz.");
 					}
 				}
 			}
-			else{
-				if(Interaction.pause == 1)
-					return;
-				else{
-					var a = $('#interaction_canvas')
-					$(Interaction.container).html("");
-					$(Interaction.container).html(a);
-					Interaction.init(container);
-						
+			// (tam sayılı kesir -> bileşik kesir convertion)
+			else
+			{
+				ans2 = $('#textInput2').val();
+				ans3 = $('#textInput3').val();
+				
+				// check whether input field is empty or not (also given input is integer or not)
+				if(ans2 == "" || ans3 == "" || !Util.isInteger(ans2) || !Util.isInteger(ans3))		
+				{
+					$('#statuss').get(0).className = "status_alert";
+					$('#statuss').html("Lütfen kutucuklara sayı giriniz.");
+				}
+				else
+				{
+					// generate answers wrt. given numbers
+					ans22 = nominator;
+					ans33 = denominator;
+					
+					// correct answer state
+					if(ans2 * ans33 == ans3 * ans22)
+					{
+						$('#statuss').get(0).className = "status_true";
+						$('#statuss').html("Tebrikler!");
+						$('#checkBtn').hide();
+						$('#nextBtn').show();
+						deactivate = 1;
+						$('.inp').each(function(index, element) {
+						$(this).get(0).onkeyup = function(event){
+												if(event.keyCode != 13)
+													return false;
+												$("#nextBtn").click();
+											}   
+						});
+					}
+					
+					// second wrong answer state
+					else if(trial == 1)
+					{
+						$('#statuss').get(0).className = "status_false";
+						$('#statuss').html("Olmadı! Doğru cevap yukarıda gösterilmiştir.");
+						$('#textInput2').val(ans22);
+						$('#textInput3').val(ans33);
+						$('#textInput2').css("color", inputBoxAnswerColor);
+						$('#textInput3').css("color", inputBoxAnswerColor);
+						var answerStr = "Cevap: ("+wh+" x "+denom+") + "+nom+" = ";
+						$('#answer').html('<p id="ans">'+answerStr+'</p>');
+						$('#ans').css("position", "absolute")
+									.css("top", "2px")
+									.css("right", "70px")							
+									.css("text-align", "right")
+						$('#answer').append('<div id="ansLine"></div>')
+						$('#ansLine').css("position", "absolute")
+									.css("top", "20px")
+									.css("right", "38px")
+									.css("width", "24px")
+									.css("height", "1px")
+									.css("padding", 0)
+									.css("border-top", "2px solid");
+						$('#answer').append('<p id="ansNom"></div>')
+						$('#ansNom').css("position", "absolute")
+										.css("top", "0px")
+										.css("left", "219px")
+										.css("text-align", "center")
+										.css("width", "20px")
+						$('#ansNom').html(ans22);
+						$('#answer').append('<p id="ansDenom"></div>')
+						$('#ansDenom').css("position", "absolute")
+										.css("top", "24px")
+										.css("left", "219px")
+										.css("text-align", "center")
+										.css("width", "20px")
+						$('#ansDenom').html(denom);
+						$('#checkBtn').hide();
+						$('#nextBtn').show();
+						trial += 1;
+						deactivate = 1;
+						$('.inp').each(function(index, element) {
+						$(this).get(0).onkeyup = function(event){
+												if(event.keyCode != 13)
+													return false;
+												$("#nextBtn").click();
+											}   
+						});
+					}
+					
+					// first wrong answer state
+					else if(trial == 0)
+					{		
+						trial += 1;
+						$('#statuss').get(0).className = "status_false";
+						$('#statuss').html("Tekrar deneyiniz.");
+					}
 				}
 			}
 		}
-		
+	
+	$('#nextBtn').click(function() {
+			if(Interaction.pause == 1)
+					return;
+			else{
+				var a = $('#interaction_canvas')
+				$(Interaction.container).html("");
+				$(Interaction.container).html(a);
+				Interaction.init(container);
+			}
+		});
+	
 	// checkBtn click func. -> call submit	
 	$('#checkBtn').click(function(){
 		submit();
@@ -1437,7 +1457,7 @@ Interaction.init = function(container){
 	// enter keypress action
 	$(".inp").keyup(function(event) {
 		if(event.keyCode == 13) {
-			$('#checkBtn').click();
+			submit();
 		}
 	});
 }
