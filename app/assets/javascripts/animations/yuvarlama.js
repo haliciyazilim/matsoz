@@ -104,7 +104,7 @@ Animation.init=function(container){
 		.css("font-size","16px")
 		//.css("font-weight","bold");
 		
-		.html("<strong class='sayi' id='ornekSayi1'>1246</strong> <span class='ornekYazi' id='ornekYazi1_1'>en yakın onluğa yuvarlanırsa </span><strong class='sayi' id='ornekSayi2'>1250</strong><span class='ornekYazi' id='ornekYazi1_2'> olur.</span>");
+		.html("<strong class='sayi' id='ornekSayi1'>1246</strong> <span class='ornekYazi' id='ornekYazi1_1'>en yakın onluğa yuvarlanırsa </span><strong class='sayi' id='ornekSayi2'>12<span id='onluk1'>4</span><span id='birlik1'>6</span></strong><span class='ornekYazi' id='ornekYazi1_2'> olur.</span>");
 	
 	$(container).append("<div id='ornekCumleYuzluk'>");
 		$("#ornekCumleYuzluk").css("width","400px")
@@ -119,7 +119,7 @@ Animation.init=function(container){
 		.css("font-size","16px")
 		//.css("font-weight","bold");
 		
-		.html("<strong class='sayi' id='ornekSayi3'>1246</strong> <span class='ornekYazi' id='ornekYazi2_1'>en yakın yüzlüğe yuvarlanırsa </span><strong class='sayi' id='ornekSayi4'>1200</strong> <span class='ornekYazi' id='ornekYazi2_2'>olur.</span>");
+		.html("<strong class='sayi' id='ornekSayi3'>1246</strong> <span class='ornekYazi' id='ornekYazi2_1'>en yakın yüzlüğe yuvarlanırsa </span><strong class='sayi' id='ornekSayi4'>1<span id='yuzluk2'>2</span><span id='onluk2'>4</span><span id='birlik2'>6</span></strong> <span class='ornekYazi' id='ornekYazi2_2'>olur.</span>");
 	
 	
 	$(".sayi").css("color","#0070c0","!important").css("font-size","20px").hide();
@@ -142,12 +142,60 @@ Animation.init=function(container){
 	$("#ornekSayi1").delay(7000).fadeIn(500);
 	$("#ornekYazi1_1").delay(8000).fadeIn(500);
 	$("#ornekSayi2").delay(9000).fadeIn(500);
-	$("#ornekYazi1_2").delay(10000).fadeIn(500);
 	
-	$("#ornekSayi3").delay(11000).fadeIn(500);
-	$("#ornekYazi2_1").delay(12000).fadeIn(500);
-	$("#ornekSayi4").delay(13000).fadeIn(500);
-	$("#ornekYazi2_2").delay(14000).fadeIn(500);
+        $("#birlik1").delay(10000).animate({color:"#FF0000"},500);
+        for(var i=0; i<8;i++){
+            $("#birlik1").fadeOut(500).fadeIn(500);
+            if(i==6)
+                 $("#birlik1").animate({color:"#0070c0"},5);
+            
+        }
+        
+         $("#onluk1").delay(13020).animate({color:"#FF0000"},500);
+        for(var i=0; i<5;i++){
+            $("#onluk1").fadeOut(500).fadeIn(500);
+            if(i==3)
+                $("#onluk1").animate({color:"#0070c0"},5);
+            
+        }
+       
+        setTimeout("$('#birlik1').html('0')",18020);
+        setTimeout("$('#onluk1').html('5')",18020);
+        $("#ornekYazi1_2").delay(10000).fadeIn(500);
+	
+	$("#ornekSayi3").delay(19000).fadeIn(500);
+	$("#ornekYazi2_1").delay(20000).fadeIn(500);
+	$("#ornekSayi4").delay(21000).fadeIn(500);
+        
+         $("#birlik2").delay(22000).animate({color:"#FF0000"},500);
+        for(var i=0; i<8;i++){
+            $("#birlik2").fadeOut(500).fadeIn(500);
+            if(i==6)
+                 $("#birlik2").animate({color:"#0070c0"},5);
+            
+        }
+        
+         $("#onluk2").delay(24020).animate({color:"#FF0000"},500);
+        for(var i=0; i<6;i++){
+            $("#onluk2").fadeOut(500).fadeIn(500);
+            if(i==4)
+                $("#onluk2").animate({color:"#0070c0"},5);
+            
+        }
+        
+        $("#yuzluk2").delay(26040).animate({color:"#FF0000"},500);
+        for(var i=0; i<4;i++){
+            $("#yuzluk2").fadeOut(500).fadeIn(500);
+            if(i==2)
+                $("#yuzluk2").animate({color:"#0070c0"},5);
+            
+        }
+        
+        setTimeout("$('#birlik2').html('0')",30000);
+        setTimeout("$('#onluk2').html('0')",30000);
+        //setTimeout("$('#onluk2').html('0')",30000);
+        
+	$("#ornekYazi2_2").delay(21000).fadeIn(500);
 	
 };
 
