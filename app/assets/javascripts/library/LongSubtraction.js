@@ -26,6 +26,8 @@ function LongSubtraction(cikan1, cikan2, div){
 			$(this.div+" #cikan2")
 			.css("top","50px").html();
 
+	
+			
 		// ustteki divi dolduruyoruz.			
 		for(var i=0;i<this.cikan2.toString().length;i++){
 			var id=this.cikan2.toString().length-i
@@ -141,7 +143,7 @@ function LongSubtraction(cikan1, cikan2, div){
 		this.basla=function(hizB,hizA){
 			this.hizB=hizB;
 			this.hizA=hizA;
-			
+
 			var sayac=0;
 			console.log("ilk Sayaç: "+sayac);
 			var uzunSayi=this.cikan1.toString().length>this.cikan2.toString().length==true?this.cikan1.toString().length:this.cikan2.toString().length;
@@ -156,7 +158,7 @@ function LongSubtraction(cikan1, cikan2, div){
 				var basamakToplamlar=oduncBasamak-ikinciBasamak;
 				
 				if(oduncBasamak==ilkBasamak){ //Ödünç basamağı ile ilk basamak aynı mı? 
-					console.log("*****************************************Eşit değil");
+					console.log("*****************************************Eşit");
 					console.log("Sayaç: "+sayac)
 					if(oduncBasamak>=ikinciBasamak){
 						console.log("*************************Eşit Odünc Büyük");
@@ -205,7 +207,7 @@ function LongSubtraction(cikan1, cikan2, div){
 									var alinacakBasamak=$(this.div+" #ilkBasamak"+(i+j)).html(); // bir önceki basamağa alıyoruz. 
 									
 									//$(this.div+" #ilkBasamak"+(i+j)).css("color",oduncKontrolSayiRengi);
-									$(this.div+" #ilkBasamak"+(i+j)).delay(sayac).animate({color:oduncKontrolSayiRengi},hizA).delay(hizB*2).animate({color:sayilarFadeOutRenk},hizA); // grileşme
+									$(this.div+" #ilkBasamak"+(i+j)).delay(sayac).animate({color:oduncKontrolSayiRengi},this.hizA).delay(this.hizB*2).animate({color:sayilarFadeOutRenk},this.hizA); // grileşme
 									
 									console.log("Alinacak Basamak: "+alinacakBasamak);
 									
@@ -217,8 +219,8 @@ function LongSubtraction(cikan1, cikan2, div){
 								}
 								
 							}
-							sayac=sayac+hizA+hizB; //Grileşmeden ötürü yapılan değişim.
-							console.log("Sayaç hesap 2: "+sayac)
+							sayac=sayac+this.hizA+this.hizB; //Grileşmeden ötürü yapılan değişim.
+							console.log("Sayaç Grileştirme: "+sayac)
 							var oduncAlinanSayi=araBasamak.toString().substring(0,araBasamak.toString().length-1);
 							console.log("Ödünç Alinan Sayi"+oduncAlinanSayi);
 							oduncAldiktanSonrakiSayi=(parseInt(oduncAlinanSayi,10)-1).toString(); // Ödünç alımı gerçekleştikten sonra sayının son hali.
@@ -227,7 +229,9 @@ function LongSubtraction(cikan1, cikan2, div){
 							
 							
 							// Ödünç alımı gerçekleştikten sayı rakamlarının basamakların yerleştirilmesi.
+							
 							for(var m=1; m<=oduncAldiktanSonrakiSayi.length;m++){
+
 								var ilgiliBasamak=oduncAldiktanSonrakiSayi.charAt(oduncAldiktanSonrakiSayi.length-m);
 								$(this.div+" #odunc #oduncBasamak"+(i+m)).html(ilgiliBasamak);
 								
@@ -235,20 +239,24 @@ function LongSubtraction(cikan1, cikan2, div){
 								
 								//$(this.div+" #ilkBasamak"+(i+m)).delay(hizB*i*3).animate({color:"#FF6600"},hizA).delay(hizB).animate({color:"#000000"},hizA);
 								//$(this.div+" #odunc #oduncBasamak"+(i)).delay(sayac).animate({ bottom:"30px"},hizA).delay(hizB).animate({opacity:"0"},hizA);;;
-								$(this.div+" #odunc #oduncBasamak"+(i+m)).delay(sayac).animate({opacity:"1", bottom:"30px"},hizA).delay(hizB).animate({color: sayilarFadeInRenk},hizA).delay(hizB).animate({opacity:"0"},hizA);
+								$(this.div+" #odunc #oduncBasamak"+(i+m)).delay(sayac).animate({opacity:"1", bottom:"30px"},this.hizA);
 								
-								$(this.div+" #odunctenSonra #odunctenSonraBasamak"+(i)).html("1"+$(this.div+" #odunc #oduncBasamak"+i).html());
-								$(this.div+" #odunctenSonra #odunctenSonraBasamak"+(i)).delay(sayac).animate({opacity:"1", bottom:"60px", color:sayilarFadeInRenk},hizA).delay(hizB).animate({opacity:"0"},hizA);
+								
+								
+								
+								
+							}
+							$(this.div+" #odunctenSonra #odunctenSonraBasamak"+(i)).html("1"+$(this.div+" #odunc #oduncBasamak"+(i)).html());
+							$(this.div+" #odunctenSonra #odunctenSonraBasamak"+(i)).delay(sayac).animate({opacity:"1", bottom:"60px", color:sayilarFadeInRenk},this.hizA).delay(this.hizB).animate({opacity:"0"},this.hizA);
 					
-								$(this.div+" #ikinciBasamak"+i).delay(sayac).animate({color:sayilarFadeInRenk},(this.hizA)).delay((this.hizB)).animate({color:sayilarFadeOutRenk},(this.hizA));
-								
+							$(this.div+" #ikinciBasamak"+(i)).delay(sayac).animate({color:sayilarFadeInRenk},(this.hizA)).delay((this.hizB)).animate({color:sayilarFadeOutRenk},(this.hizA));
+							
+							$(this.div+" #odunc #oduncBasamak"+(i)).delay(sayac).animate({opacity:"0"},hizA);
 								//$(this.div+" #sonuc #sonucBasamak"+i).delay((sayac+this.hizB)).animate({opacity:"1"},hizA);	
 								
 								$(this.div+" #sonuc #sonucBasamak"+i).delay((sayac+this.hizB)).animate({opacity:"1"},hizA);	
-								
-								sayac=sayac+this.hizA*2+this.hizB;
-								console.log("Sayaç hesap 3: "+sayac)
-							}
+							sayac=sayac+this.hizA*2+this.hizB;
+							console.log("Sayaç hesap 3: "+sayac)
 						}
 				
 					}
@@ -257,17 +265,21 @@ function LongSubtraction(cikan1, cikan2, div){
 				if(oduncBasamak!=ilkBasamak){ //Ödünç basamağı ile ilk basamak aynı mı? 
 					console.log("*****************************************Eşit değil");
 					console.log("Sayaç: "+sayac)
+					
 					if(oduncBasamak>=ikinciBasamak){
 						console.log("*****************eşit değil Odünc Büyük");
 						console.log("ÖdünçBasamak: "+oduncBasamak);
 						console.log("İkinci Basamak: "+ikinciBasamak);
 						
+						console.log("yanan ödünç basamaği: "+i+"iceriği"+$(this.div+" #oduncBasamak"+i).html())
 
-						$(this.div+" #oduncBasamak"+i).delay((hizA+hizB)).animate({color:sayilarFadeInRenk},(this.hizA)).delay((this.hizB)).animate({color:sayilarFadeOutRenk},(this.hizA)).delay(hizB).animate({opacity:"0"},hizA);
-
-						$(this.div+" #ikinciBasamak"+i).delay(sayac).animate({color:sayilarFadeInRenk},(this.hizA)).delay((this.hizB)).animate({color:sayilarFadeOutRenk},(this.hizA));
+						if (oduncAlinanSayi.lenght>2)
+						$(this.div+" #oduncBasamak"+i).delay((sayac-(this.hizB*4))).animate({color:sayilarFadeInRenk},(this.hizA)).delay((this.hizB)).animate({color:sayilarFadeOutRenk},(this.hizA)).delay(this.hizB).animate({opacity:"0"},this.hizA);
+						else
+							$(this.div+" #oduncBasamak"+i).delay((this.hizB)).animate({color:sayilarFadeInRenk},(this.hizA)).delay((this.hizB)).animate({color:sayilarFadeOutRenk},(this.hizA)).delay(this.hizB).animate({opacity:"0"},this.hizA);
+						$(this.div+" #ikinciBasamak"+i).delay(sayac-this.hizB).animate({color:sayilarFadeInRenk},(this.hizA)).delay((this.hizB)).animate({color:sayilarFadeOutRenk},(this.hizA));
 									
-						$(this.div+" #sonuc #sonucBasamak"+i).delay((sayac+this.hizB)).animate({opacity:"1"},hizA);	
+						$(this.div+" #sonuc #sonucBasamak"+i).delay((sayac+this.hizB)).animate({opacity:"1"},this.hizA);	
 						
 						sayac=sayac+this.hizA*2+this.hizB;
 						console.log("Sayaç hesap 4: "+sayac)
@@ -299,7 +311,7 @@ function LongSubtraction(cikan1, cikan2, div){
 									var alinacakBasamak=$(this.div+" #ilkBasamak"+(i+j)).html(); // bir önceki basamağa alıyoruz. 
 									
 									//$(this.div+" #ilkBasamak"+(i+j)).css("color",oduncKontrolSayiRengi);
-									$(this.div+" #ilkBasamak"+(i+j)).delay(sayac).animate({color:oduncKontrolSayiRengi},hizA);
+									$(this.div+" #ilkBasamak"+(i+j)).delay(sayac).animate({color:oduncKontrolSayiRengi},this.hizA);
 									
 									console.log("Alinacak Basamak: "+alinacakBasamak);
 									
@@ -311,7 +323,7 @@ function LongSubtraction(cikan1, cikan2, div){
 								}
 								
 							}
-							sayac=sayac+hizA+hizB; //Grileşmeden ötürü yapılan değişim.
+							sayac=sayac+this.hizA+this.hizB; //Grileşmeden ötürü yapılan değişim.
 							console.log("Sayaç hesap 5: "+sayac)
 							var oduncAlinanSayi=araBasamak.toString().substring(0,araBasamak.toString().length-1);
 							console.log("Ödünç Alinan Sayi"+oduncAlinanSayi);
@@ -321,7 +333,9 @@ function LongSubtraction(cikan1, cikan2, div){
 							
 							
 							// Ödünç alımı gerçekleştikten sayı rakamlarının basamakların yerleştirilmesi.
+
 							for(var m=1; m<=oduncAldiktanSonrakiSayi.length;m++){
+
 								var ilgiliBasamak=oduncAldiktanSonrakiSayi.charAt(oduncAldiktanSonrakiSayi.length-m);
 								$(this.div+" #odunc #oduncBasamak"+(i+m)).html(ilgiliBasamak);
 								
@@ -329,20 +343,27 @@ function LongSubtraction(cikan1, cikan2, div){
 								
 								//$(this.div+" #ilkBasamak"+(i+m)).delay(hizB*i*3).animate({color:"#FF6600"},hizA).delay(hizB).animate({color:"#000000"},hizA);
 								//$(this.div+" #odunc #oduncBasamak"+(i)).delay(sayac).animate({ bottom:"30px"},hizA).delay(hizB).animate({opacity:"0"},hizA);;;
-								$(this.div+" #odunc #oduncBasamak"+(i+m)).delay(sayac).animate({opacity:"1", bottom:"30px"},hizA).delay(hizB).animate({color: sayilarFadeInRenk},hizA).delay(hizB).animate({opacity:"0"},hizA);
+								$(this.div+" #odunc #oduncBasamak"+(i+m)).delay(sayac).animate({opacity:"1", bottom:"30px"},this.hizA);
 								
-								$(this.div+" #odunctenSonra #odunctenSonraBasamak"+(i)).html("1"+$(this.div+" #odunc #oduncBasamak"+i).html());
-								$(this.div+" #odunctenSonra #odunctenSonraBasamak"+(i)).delay(sayac).animate({opacity:"1", bottom:"60px", color:sayilarFadeInRenk},hizA).delay(hizB).animate({opacity:"0"},hizA);
+								
+								
+								
+							}
+							$(this.div+" #odunctenSonra #odunctenSonraBasamak"+(i)).html("1"+$(this.div+" #odunc #oduncBasamak"+(i)).html());
+							$(this.div+" #odunctenSonra #odunctenSonraBasamak"+(i)).delay(sayac).animate({opacity:"1", bottom:"60px", color:sayilarFadeInRenk},this.hizA).delay(this.hizB).animate({opacity:"0"},this.hizA);
 					
-								$(this.div+" #ikinciBasamak"+i).delay(sayac).animate({color:sayilarFadeInRenk},(this.hizA)).delay((this.hizB)).animate({color:sayilarFadeOutRenk},(this.hizA));
 								
+							$(this.div+" #ikinciBasamak"+(i)).delay(sayac).animate({color:sayilarFadeInRenk},(this.hizA)).delay((this.hizB)).animate({color:sayilarFadeOutRenk},(this.hizA));
+							
+							$(this.div+" #odunc #oduncBasamak"+(i)).delay(sayac-(this.hizA*2+this.hizB)).animate({opacity:"0"},hizA);
 								//$(this.div+" #sonuc #sonucBasamak"+i).delay((sayac+this.hizB)).animate({opacity:"1"},hizA);	
 								
-								$(this.div+" #sonuc #sonucBasamak"+i).delay((sayac+this.hizB)).animate({opacity:"1"},hizA);	
-								
-								sayac=sayac+this.hizA*2+this.hizB;
-								console.log("Sayaç hesap 6: "+sayac)
-							}
+							$(this.div+" #sonuc #sonucBasamak"+i).delay((sayac+this.hizB)).animate({opacity:"1"},hizA);	
+							sayac=sayac+this.hizA*2+this.hizB;
+							console.log("Sayaç hesap 6: "+sayac)
+
+							
+							
 						}
 				
 					}
@@ -352,7 +373,7 @@ function LongSubtraction(cikan1, cikan2, div){
 			for(var i=5; i>0;i--){
 				if($(this.div+" #sonuc #sonucBasamak"+i).html()=="0" ){
 					console.log("sonn basamak ife  girdi");
-					$(this.div+" #sonuc #sonucBasamak"+i).delay(hizB).animate({opacity:"0"},hizA);
+					$(this.div+" #sonuc #sonucBasamak"+i).delay(this.hizB).animate({opacity:"0"},this.hizA);
 				}
 				else
 					break;
