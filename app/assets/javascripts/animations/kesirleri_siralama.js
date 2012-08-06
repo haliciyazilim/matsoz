@@ -7,7 +7,24 @@ var Animation = {
 	init:function(container){
 			Animation.container = container;
 			
+			// animation delays
+			var fractionStart = 1000;
+			var rectStart = 2500;
+			var rectFlyStart = 4500;
+			var arrowStart = 7500;
+			var rectSecondFlyStart = 9000;
+			var eqStart = 11000;
+			var secondEqStart = 12500;
+			var lastEqStart = 14000;
+			
+			// animation durations
+			var basicFadeInDuration = 1000;
+			var flyDuration = 2000;
+			var secondFlyDuration = 1500;
+			var imagesFadeInDuration = 1000;
+			
 			var fillColor = "#FFDEAD"
+			var rectGroup = new Group();
 			var rect1 = new Path.SegmentedRectangle(182.5, 10.5, 20, 80, 1, 8, 5, fillColor);
 			rect1.rotate(180);
 		//	rect1.opacity = 0;
@@ -20,19 +37,33 @@ var Animation = {
 			rect4.rotate(180);
 			var rect5 = new Path.SegmentedRectangle(582.5, 10.5, 20, 80, 1, 2, 1, fillColor)
 			rect5.rotate(180);
+			rectGroup.addChild(rect1);
+			rectGroup.addChild(rect2);
+			rectGroup.addChild(rect3);
+			rectGroup.addChild(rect4);
+			rectGroup.addChild(rect5);
+			rectGroup.opacity = 0;
+			Math.round()
+			// initial positions
+			var pos1 = rect1.position;
+			var pos2 = rect2.position;
+			var pos3 = rect3.position;
+			var pos4 = rect4.position;
+			var pos5 = rect5.position;
 			
 			Animation.numericalAxis = new Group();
 			var arr = new Group();
-			var arrow = new Path.OneSidedArrow(new Point(110, 136), new Point(670, 136), 10, 30)
-			var arrow2 = new Path.OneSidedArrow(new Point(670, 136), new Point(671, 136), 10, 30);
+			var arrow = new Path.OneSidedArrow(new Point(111, 134), new Point(671, 134), 10, 30)
+			var arrow2 = new Path.OneSidedArrow(new Point(671, 134), new Point(672, 134), 10, 30);
 			arrow.rotate(180);
 			arr.addChild(arrow);
 			arr.addChild(arrow2);
+		//	arr.opacity = 0;
 			
 			var bigDots = new Group();
-			var bigDot1 = new Path.Circle(new Point(150, 136), 6);
+			var bigDot1 = new Path.Circle(new Point(151, 134), 6);
 			bigDot1.fillColor = "black";
-			var bigDot2 = new Path.Circle(new Point(630, 136), 6);
+			var bigDot2 = new Path.Circle(new Point(631, 134), 6);
 			bigDot2.fillColor = "black";
 			bigDots.addChild(bigDot1);
 			bigDots.addChild(bigDot2);
@@ -41,14 +72,63 @@ var Animation = {
 			
 			Interaction.smallDots = new Group();
 			for(var i = 0; i < 7; i++){
-				var smallDot = new Path.Circle(new Point(150+pieceLength*(i+1), 136), 3)
+				var smallDot = new Path.Circle(new Point(151+pieceLength*(i+1), 134), 3)
 				smallDot.fillColor = "black";
 				Interaction.smallDots.addChild(smallDot);
 			}
 			
+			var dashedLinesGroup1 = new Group();
+			for(var i = 0; i < 4; i++){
+				var dashLine = new Path.Line(new Point(263.5, 24.5+(i * 20)), new Point(283.5, 24.5+(i * 20)));
+				dashLine.strokeColor = "black";
+				dashLine.dashArray = [3,2];
+				dashedLinesGroup1.addChild(dashLine);
+			}
+			dashedLinesGroup1.opacity = 0;
+			
+			var dashedLinesGroup2 = new Group();
+			for(var i = 0; i < 7; i++){
+				if(i == 3)
+					continue;
+				else{
+					var dashedLine = new Path.Line(new Point(383.5, 24.5+(i * 10)), new Point(403.5, 24.5+(i * 10)));
+					dashedLine.strokeColor = "black";
+					dashedLine.dashArray = [3,2];
+					dashedLinesGroup2.addChild(dashedLine);
+				}
+			}
+			dashedLinesGroup2.opacity = 0;
+			
 			Animation.numericalAxis.addChild(arr);
 			Animation.numericalAxis.addChild(bigDots);
 			Animation.numericalAxis.addChild(Interaction.smallDots);
+			Animation.numericalAxis.opacity = 0;
+			
+			Animation.pointDiv = document.createElement('div');
+			Animation.pointDiv.id = 'AnimPointDiv'
+			$(Animation.container).append(Animation.pointDiv)
+			$(Animation.pointDiv).html('<div id="fpp"></div> <div id="spp"></div>')
+			$(Animation.pointDiv).css("position", "absolute")
+						.css("top", "120px")
+						.css("left", "146px")
+						.css("width", "480px")
+						.css("height", "20px")
+						.css("font-size", 22)
+						.css("opacity", 0)
+			
+			$('#fpp').css("position", "absolute")
+					.css("top", "0px")
+					.css("left", "14px")
+					.css("width", "20px")
+					.css("height", "20px")
+					.html(0);
+			$('#spp').css("position", "absolute")
+					.css("top", "0px")
+					.css("left", "492px")
+					.css("width", "20px")
+					.css("height", "20px")
+					.html(1);
+			$('#AnimPointDiv').delay(arrowStart).animate({opacity: 1}, basicFadeInDuration, 'easeInOutQuad')
 			
 			$(container).append('<div id="frac22"><div id="nom22">5</div><div id="line22"></div><div id="denom22">8</div></div>')
 		
@@ -60,6 +140,7 @@ var Animation = {
 						.css("padding", 0)
 						.css("margin", 0)
 						.css("line-height","16px")
+						.css("opacity", 0)
 			
 			$('#line22').css("height", "1px")
 						.css("border-top", "1px solid")
@@ -71,6 +152,10 @@ var Animation = {
 			$('#denom22').css("text-align", "center")
 						.css("height", "16px")
 			
+			$('#frac22').delay(fractionStart).animate({opacity: 1}, basicFadeInDuration, 'easeInOutQuad')
+						.delay(2600).animate({left:"498px"}, flyDuration, 'easeInOutQuad')
+						.delay(2400).animate({left:"458px", top:"111px"}, secondFlyDuration, 'easeInOutQuad')
+			
 			$(container).append('<div id="frac33"><div id="nom33">1</div><div id="line33"></div><div id="denom33">4</div></div>')
 		
 			$('#frac33').css("position", "absolute")
@@ -81,6 +166,7 @@ var Animation = {
 						.css("padding", 0)
 						.css("margin", 0)
 						.css("line-height","16px")
+						.css("opacity", 0)
 			
 			$('#line33').css("height", "1px")
 						.css("border-top", "1px solid")
@@ -92,6 +178,10 @@ var Animation = {
 			$('#denom33').css("text-align", "center")
 						.css("height", "16px")
 			
+			$('#frac33').delay(fractionStart).animate({opacity: 1}, basicFadeInDuration, 'easeInOutQuad')
+						.delay(2500).animate({left:"198px"}, flyDuration, 'easeInOutQuad')
+						.delay(2500).animate({left:"278px", top:"111px"}, secondFlyDuration, 'easeInOutQuad')
+			
 			$(container).append('<div id="frac44"><div id="nom44">6</div><div id="line44"></div><div id="denom44">8</div></div>')
 		
 			$('#frac44').css("position", "absolute")
@@ -102,6 +192,7 @@ var Animation = {
 						.css("padding", 0)
 						.css("margin", 0)
 						.css("line-height","16px")
+						.css("opacity", 0)
 			
 			$('#line44').css("height", "1px")
 						.css("border-top", "1px solid")
@@ -113,6 +204,10 @@ var Animation = {
 			$('#denom44').css("text-align", "center")
 						.css("height", "16px")
 			
+			$('#frac44').delay(fractionStart).animate({opacity: 1}, basicFadeInDuration, 'easeInOutQuad')
+						.delay(2900).animate({left:"598px"}, flyDuration, 'easeInOutQuad')
+						.delay(2100).animate({left:"518px", top:"111px"}, secondFlyDuration, 'easeInOutQuad')
+			
 			$(container).append('<div id="frac55"><div id="nom55">3</div><div id="line55"></div><div id="denom55">8</div></div>')
 		
 			$('#frac55').css("position", "absolute")
@@ -123,6 +218,7 @@ var Animation = {
 						.css("padding", 0)
 						.css("margin", 0)
 						.css("line-height","16px")
+						.css("opacity", 0)
 			
 			$('#line55').css("height", "1px")
 						.css("border-top", "1px solid")
@@ -134,6 +230,10 @@ var Animation = {
 			$('#denom55').css("text-align", "center")
 						.css("height", "16px")
 			
+			$('#frac55').delay(fractionStart).animate({opacity: 1}, basicFadeInDuration, 'easeInOutQuad')
+						.delay(2700).animate({left:"298px"}, flyDuration, 'easeInOutQuad')
+						.delay(2300).animate({left:"338px", top:"111px"}, secondFlyDuration, 'easeInOutQuad')
+			
 			$(container).append('<div id="frac66"><div id="nom66">1</div><div id="line66"></div><div id="denom66">2</div></div>')
 		
 			$('#frac66').css("position", "absolute")
@@ -144,6 +244,7 @@ var Animation = {
 						.css("padding", 0)
 						.css("margin", 0)
 						.css("line-height","16px")
+						.css("opacity", 0)
 			
 			$('#line66').css("height", "1px")
 						.css("border-top", "1px solid")
@@ -155,47 +256,316 @@ var Animation = {
 			$('#denom66').css("text-align", "center")
 						.css("height", "16px")
 			
+			$('#frac66').delay(fractionStart).animate({opacity: 1}, basicFadeInDuration, 'easeInOutQuad')
+						.delay(2800).animate({left:"398px"}, flyDuration, 'easeInOutQuad')
+						.delay(2200).animate({left:"398px", top:"111px"}, secondFlyDuration, 'easeInOutQuad')
+			
 			$(container).append('<div id="frac77"><div id="nom77">1</div><div id="line77"></div><div id="denom77">2</div></div>')
 		
 			$('#frac77').css("position", "absolute")
-						.css("top", "108px")
-						.css("left", "598px")
+						.css("top", "154px")
+						.css("left", "397px")
 						.css("width", "16px")
 						.css("height", "33px")
 						.css("padding", 0)
 						.css("margin", 0)
 						.css("line-height","16px")
+						.css("opacity", 0)
 			
 			$('#line77').css("height", "1px")
 						.css("border-top", "1px solid")
 						.css("padding", 0)
 					
-			$('#nom66').css("text-align", "center")
+			$('#nom77').css("text-align", "center")
 						.css("height", "16px")
 					
-			$('#denom66').css("text-align", "center")
+			$('#denom77').css("text-align", "center")
 						.css("height", "16px")
 			
-			$(container).append('<div id="frac66"><div id="nom66">1</div><div id="line66"></div><div id="denom66">2</div></div>')
+			$('#frac77').delay(eqStart).animate({opacity: 1}, basicFadeInDuration, 'easeInOutQuad')
+						.delay(500).animate({opacity: 0}, basicFadeInDuration, 'easeInOutQuad')
+			
+			$(container).append('<div id="frac777"><div id="nom777">1 x 4</div><div id="line777"></div><div id="denom777">2 x 4</div></div>')
 		
-			$('#frac66').css("position", "absolute")
-						.css("top", "108px")
-						.css("left", "598px")
+			$('#frac777').css("position", "absolute")
+						.css("top", "154px")
+						.css("left", "387px")
+						.css("width", "36px")
+						.css("height", "33px")
+						.css("padding", 0)
+						.css("margin", 0)
+						.css("color", "red")
+						.css("line-height","16px")
+						.css("opacity", 0)
+			
+			$('#line777').css("height", "1px")
+					.css("border-top", "1px solid")
+					.css("padding", 0)
+					
+			$('#nom777').css("text-align", "center")
+					.css("height", "16px")
+					
+			$('#denom777').css("text-align", "center")
+					.css("height", "16px")
+			
+			$('#frac777').delay(secondEqStart).animate({opacity: 1}, basicFadeInDuration, 'easeInOutQuad')
+						 .delay(500).animate({opacity: 0}, basicFadeInDuration, 'easeInOutQuad')
+			
+			
+			$(container).append('<div id="frac7777"><div id="nom7777">4</div><div id="line7777"></div><div id="denom7777">8</div></div>')
+		
+			$('#frac7777').css("position", "absolute")
+						.css("top", "154px")
+						.css("left", "397px")
 						.css("width", "16px")
 						.css("height", "33px")
 						.css("padding", 0)
 						.css("margin", 0)
 						.css("line-height","16px")
+						.css("opacity", 0)
 			
-			$('#line66').css("height", "1px")
+			$('#line7777').css("height", "1px")
 						.css("border-top", "1px solid")
 						.css("padding", 0)
 					
-			$('#nom66').css("text-align", "center")
+			$('#nom7777').css("text-align", "center")
 						.css("height", "16px")
 					
-			$('#denom66').css("text-align", "center")
+			$('#denom7777').css("text-align", "center")
 						.css("height", "16px")
+			
+			$('#frac7777').delay(lastEqStart).animate({opacity: 1}, basicFadeInDuration, 'easeInOutQuad')
+				//		 .delay(500).animate({opacity: 0}, basicFadeInDuration, 'easeInOutQuad')
+			
+			$(container).append('<div id="frac88"><div id="nom88">1</div><div id="line88"></div><div id="denom88">4</div></div>')
+		
+			$('#frac88').css("position", "absolute")
+						.css("top", "154px")
+						.css("left", "277px")
+						.css("width", "16px")
+						.css("height", "33px")
+						.css("padding", 0)
+						.css("margin", 0)
+						.css("line-height","16px")
+						.css("opacity", 0)
+			
+			$('#line88').css("height", "1px")
+						.css("border-top", "1px solid")
+						.css("padding", 0)
+					
+			$('#nom88').css("text-align", "center")
+						.css("height", "16px")
+					
+			$('#denom88').css("text-align", "center")
+						.css("height", "16px")
+			
+			$('#frac88').delay(eqStart).animate({opacity: 1}, basicFadeInDuration, 'easeInOutQuad')
+						.delay(500).animate({opacity: 0}, basicFadeInDuration, 'easeInOutQuad')
+			
+			$(container).append('<div id="frac888"><div id="nom888">1 x 2</div><div id="line888"></div><div id="denom888">4 x 2</div></div>')
+		
+			$('#frac888').css("position", "absolute")
+						.css("top", "154px")
+						.css("left", "267px")
+						.css("width", "36px")
+						.css("height", "33px")
+						.css("padding", 0)
+						.css("margin", 0)
+						.css("color", "red")
+						.css("line-height","16px")
+						.css("opacity", 0)
+			
+			$('#line888').css("height", "1px")
+					.css("border-top", "1px solid")
+					.css("padding", 0)
+					
+			$('#nom888').css("text-align", "center")
+					.css("height", "16px")
+					
+			$('#denom888').css("text-align", "center")
+					.css("height", "16px")
+			
+			$('#frac888').delay(secondEqStart).animate({opacity: 1}, basicFadeInDuration, 'easeInOutQuad')
+						 .delay(500).animate({opacity: 0}, basicFadeInDuration, 'easeInOutQuad')
+			
+			$(container).append('<div id="frac8888"><div id="nom8888">2</div><div id="line8888"></div><div id="denom8888">8</div></div>')
+		
+			$('#frac8888').css("position", "absolute")
+						.css("top", "154px")
+						.css("left", "277px")
+						.css("width", "16px")
+						.css("height", "33px")
+						.css("padding", 0)
+						.css("margin", 0)
+						.css("line-height","16px")
+						.css("opacity", 0)
+			
+			$('#line8888').css("height", "1px")
+						.css("border-top", "1px solid")
+						.css("padding", 0)
+					
+			$('#nom8888').css("text-align", "center")
+						.css("height", "16px")
+					
+			$('#denom8888').css("text-align", "center")
+						.css("height", "16px")
+			
+			$('#frac8888').delay(lastEqStart).animate({opacity: 1}, basicFadeInDuration, 'easeInOutQuad')
+					//	 .delay(500).animate({opacity: 0}, basicFadeInDuration, 'easeInOutQuad')
+			
+			$(container).append('<img id="lessThan11" src="/assets/animations/kesirleri_karsilastirma/oran_kucuk_active.png"/>');
+			$('#lessThan11').css("position", "absolute")
+							.css("top", "112px")
+							.css("left", "300px")
+							.css("opacity", 0)
+			$('#lessThan11').delay(rectSecondFlyStart+500).animate({opacity: 1}, imagesFadeInDuration, 'easeInOutQuad')
+			
+			$(container).append('<img id="lessThan22" src="/assets/animations/kesirleri_karsilastirma/oran_kucuk_active.png"/>');
+			$('#lessThan22').css("position", "absolute")
+							.css("top", "112px")
+							.css("left", "360px")
+							.css("opacity", 0)
+			$('#lessThan22').delay(rectSecondFlyStart+500).animate({opacity: 1}, imagesFadeInDuration, 'easeInOutQuad')
+			
+			$(container).append('<img id="lessThan33" src="/assets/animations/kesirleri_karsilastirma/oran_kucuk_active.png"/>');
+			$('#lessThan33').css("position", "absolute")
+							.css("top", "112px")
+							.css("left", "420px")
+							.css("opacity", 0)
+			$('#lessThan33').delay(rectSecondFlyStart+500).animate({opacity: 1}, imagesFadeInDuration, 'easeInOutQuad')
+			
+			$(container).append('<img id="lessThan44" src="/assets/animations/kesirleri_karsilastirma/oran_kucuk_active.png"/>');
+			$('#lessThan44').css("position", "absolute")
+							.css("top", "112px")
+							.css("left", "480px")
+							.css("opacity", 0)
+			$('#lessThan44').delay(rectSecondFlyStart+500).animate({opacity: 1}, imagesFadeInDuration, 'easeInOutQuad')
+			
+			rectGroup.animate({
+				style:{
+					opacity: 1
+				},
+				duration: basicFadeInDuration,
+				delay: rectStart,
+				animationType: 'easeInOutQuad'
+			});
+			
+			rect2.animate({
+				style:{
+					position: new Point(pos1.x, pos1.y)
+				},
+				duration: flyDuration,
+				delay: rectFlyStart,
+				animationType: 'easeInOutQuad'
+			});
+			
+			rect1.animate({
+				style:{
+					position: new Point(pos4.x, pos4.y)
+				},
+				duration: flyDuration,
+				delay: rectFlyStart+100,
+				animationType: 'easeInOutQuad'
+			});
+			
+			rect4.animate({
+				style:{
+					position: new Point(pos2.x, pos2.y)
+				},
+				duration: flyDuration,
+				delay: rectFlyStart+200,
+				animationType: 'easeInOutQuad'
+			});
+			
+			rect5.animate({
+				style:{
+					position: new Point(pos3.x, pos3.y)
+				},
+				duration: flyDuration,
+				delay: rectFlyStart+300,
+				animationType: 'easeInOutQuad'
+			});
+			
+			rect3.animate({
+				style:{
+					position: new Point(pos5.x, pos5.y)
+				},
+				duration: flyDuration,
+				delay: rectFlyStart+400,
+				animationType: 'easeInOutQuad'
+			});
+			
+			Animation.numericalAxis.animate({
+				style:{
+					opacity: 1
+				},
+				duration: basicFadeInDuration,
+				delay: arrowStart,
+				animationType: 'easeInOutQuad'
+			});
+			
+			rect1.animate({
+				style:{
+					position: new Point(pos3.x+60, pos3.y+3)
+				},
+				duration: secondFlyDuration,
+				delay: rectSecondFlyStart,
+				animationType: 'easeInOutQuad'
+			});
+			
+			rect2.animate({
+				style:{
+					position: new Point(pos3.x-120, pos3.y+3)
+				},
+				duration: secondFlyDuration,
+				delay: rectSecondFlyStart,
+				animationType: 'easeInOutQuad'
+			});
+			
+			rect3.animate({
+				style:{
+					position: new Point(pos3.x+120, pos3.y+3)
+				},
+				duration: secondFlyDuration,
+				delay: rectSecondFlyStart,
+				animationType: 'easeInOutQuad'
+			});
+			
+			rect4.animate({
+				style:{
+					position: new Point(pos3.x-60, pos3.y+3)
+				},
+				duration: secondFlyDuration,
+				delay: rectSecondFlyStart,
+				animationType: 'easeInOutQuad'
+			});
+			
+			rect5.animate({
+				style:{
+					position: new Point(pos3.x, pos3.y+3)
+				},
+				duration: secondFlyDuration,
+				delay: rectSecondFlyStart,
+				animationType: 'easeInOutQuad'
+			});
+			
+			dashedLinesGroup1.animate({
+				style:{
+					opacity: 1,
+				},
+				duration: basicFadeInDuration,
+				delay: lastEqStart,
+				animationType: 'easeInOutQuad'
+			});
+			
+			dashedLinesGroup2.animate({
+				style:{
+					opacity: 1,
+				},
+				duration: basicFadeInDuration,
+				delay: lastEqStart,
+				animationType: 'easeInOutQuad'
+			});
 		
 		}
 }
@@ -756,6 +1126,7 @@ var Interaction = {
 			if(Interaction.qType == 1){
 				Interaction.frac = [];
 				Interaction.sortedFrac = [];
+                                
 				
 				Interaction.answerIdsArray = [];
 				for(var i = 0; i < Interaction.numOfFracs; i++){
