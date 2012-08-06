@@ -118,7 +118,7 @@ var Interaction = {
 					top:'130px',
 					right:'20px'
 				});
-
+            Interaction.setRandomGenerator(5);
 			Interaction.xCubes = 0;
 			Interaction.yCubes = 0;
 			Interaction.zCubes = 0;
@@ -126,7 +126,7 @@ var Interaction = {
 			Interaction.a = 30;
 			Interaction.prepareNextQuestion();
 		},
-	nextQuestion:function(){
+	nextQuestion:function(randomNumber){
 			if(Interaction.pause == true)
 				return;
 			Interaction.pause = false;
@@ -134,7 +134,6 @@ var Interaction = {
 			var zero = Interaction.zeroPoint;
 			var a = Interaction.a;
 			
-			var cubes = [];
 			var zCubes, xCubes, yCubes;
 			do
 				xCubes = Math.floor(Math.random()*4)+3;
@@ -143,25 +142,63 @@ var Interaction = {
 				yCubes = Math.floor(Math.random()*3)+1;
 				while(Interaction.yCubes == yCubes)
 			do
-				zCubes = Math.floor(Math.random()*7)+1;
+				zCubes = Math.floor(Math.random()*3)+1;
 			while(zCubes/4 > xCubes-2 || Interaction.zCubes == zCubes)
 			
 			Interaction.xCubes = xCubes;
 			Interaction.yCubes = yCubes;
 			Interaction.zCubes = zCubes;
-			
-			//console.log(xCubes,yCubes,zCubes);
-
-			for(var i=0; i< xCubes ; i++)
-				cubes.push(new UnitCube(i-1,0,0));
-			for(var i=0; i< yCubes ; i++)
-				cubes.push(new UnitCube(0,i+1,0));
-			for(var i=0; i< zCubes ; i++)
-				cubes.push(new UnitCube(Math.floor(i/3),0,i%3+1));
-			
-			Interaction.cubes = cubes;
-			UnitCube.drawCubes(cubes,zero,a,Interaction);
+            
+			Interaction.cubes = Interaction.generateShape(randomNumber);
+//			Interaction.cubes = Interaction.generateShape(4);
+            UnitCube.drawCubes(Interaction.cubes,zero,a,Interaction);
 		},
+    generateShape : function(randomNumber){
+            var cubes = [];
+            switch(randomNumber){
+                case 0:
+                    for(var i=0; i< Interaction.xCubes ; i++)
+                        cubes.push(new UnitCube(i-1,2,0));
+                    for(var i=0; i< Interaction.yCubes ; i++)
+                        cubes.push(new UnitCube(0,2-(i+1),0));
+                    for(var i=0; i< Interaction.zCubes ; i++)
+                        cubes.push(new UnitCube(-Math.floor(i/3),2,i%3+1));
+                    break;
+                case 1:
+                    for(var i=0; i< Interaction.xCubes ; i++)
+                        cubes.push(new UnitCube(i-1,2,2));
+                    for(var i=0; i< Interaction.yCubes ; i++)
+                        cubes.push(new UnitCube(0,2-(i+1),2));
+                    for(var i=0; i< Interaction.zCubes ; i++)
+                        cubes.push(new UnitCube(-Math.floor(i/3),2, - i%3+1));
+                    break;
+                case 2:
+                    for(var i=0; i< Interaction.xCubes ; i++)
+                        cubes.push(new UnitCube(i-1,0,0));
+                    for(var i=0; i< Interaction.yCubes ; i++)
+                        cubes.push(new UnitCube(0,(i+1),0));
+                    for(var i=0; i< Interaction.zCubes ; i++)
+                        cubes.push(new UnitCube(i-1,0,1));
+                    break;
+                case 3:
+                    for(var i=0; i< Interaction.xCubes ; i++)
+                        cubes.push(new UnitCube(-1,(i-1),0));
+                    cubes.push(new UnitCube(0,0,0));
+                    for(var i=0; i< Interaction.zCubes ; i++)
+                        cubes.push(new UnitCube(1,(i-1),0));
+                    break;
+                case 4:
+                    for(var i=0; i< Interaction.yCubes ; i++)
+                        cubes.push(new UnitCube(-i,0,1));
+                    for(var i=0; i< Interaction.yCubes ; i++)
+                        cubes.push(new UnitCube(0,(i),0));
+                    for(var i=0; i< Interaction.zCubes ; i++)
+                        cubes.push(new UnitCube(i,0,3));
+                     cubes.push(new UnitCube(0,0,2));
+                    break;
+            }
+            return cubes;
+        },
 	showCubes : function(distance){
 			if(Interaction.pause == true)
 				return;
@@ -210,8 +247,8 @@ var Interaction = {
 		},
 	onFail : function(){
 			Interaction.setStatus('Yanlış cevap, doğrusu '+Interaction.cubes.length + ' olacaktı.',false);
-			Interaction.showCubes(20);
-		},
+			Interaction.showCubes(10);
+		}
 };
 
 function UnitCube(x,y,z){
