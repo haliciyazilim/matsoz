@@ -65,7 +65,6 @@ Main.animationFinished = function(delay){
     if(Main.animationFinished.called == true)
         return;
     if(delay == undefined || isNaN(delay) || delay == 0){
-        //console.log("interaction wil be started");
         Main.animationFinished.called = true;
         Main.startInteraction();
     }
