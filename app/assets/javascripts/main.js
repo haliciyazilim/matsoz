@@ -30,7 +30,7 @@ Main.config = {
 };
 
 Main.startAnimation = function(){
-    console.log("I'm here");
+    //console.log("I'm here");
     animationView.onFrame = function(event) {
         Main.animationProject.activate();
         AnimationManager.update(event);
@@ -62,10 +62,15 @@ Main.startAnimation = function(){
 }
 
 Main.animationFinished = function(delay){
-    if(isNaN(delay))
+    if(Main.animationFinished.called == true)
+        return;
+    if(delay == undefined || isNaN(delay) || delay == 0){
+        //console.log("interaction wil be started");
+        Main.animationFinished.called = true;
         Main.startInteraction();
+    }
     else
-        setTimeout(Main.startInteraction,delay);
+        setTimeout(Main.animationFinished,delay);
 
 }
 
@@ -144,7 +149,7 @@ Main.init = function(){
 		interactionReady = false;
 		
 		initializeRunLoop = function () {
-            console.log("I'm here");
+            //console.log("I'm here");
 			if (animationReady === true && interactionReady === true) {
 				interactionView.onFrame = function(event) {
 					Main.interactionProject.activate();
