@@ -11,17 +11,17 @@ var Animation = {
 			var fractionStart = 1000;
 			var rectStart = 2500;
 			var rectFlyStart = 4500;
-			var arrowStart = 7500;
-			var rectSecondFlyStart = 9000;
-			var eqStart = 11000;
-			var secondEqStart = 12500;
-			var lastEqStart = 14000;
+			var arrowStart = 8500;
+			var rectSecondFlyStart = 9500;
+			var eqStart = 12000;
+			var secondEqStart = 14000;
+			var lastEqStart = 16000;
 			
 			// animation durations
 			var basicFadeInDuration = 1000;
 			var flyDuration = 2000;
 			var secondFlyDuration = 1500;
-			var imagesFadeInDuration = 1000;
+			var imagesFadeInDuration = 100;
 			
 			var fillColor = "#FFDEAD"
 			var rectGroup = new Group();
@@ -80,7 +80,7 @@ var Animation = {
 			var dashedLinesGroup1 = new Group();
 			for(var i = 0; i < 4; i++){
 				var dashLine = new Path.Line(new Point(263.5, 24.5+(i * 20)), new Point(283.5, 24.5+(i * 20)));
-				dashLine.strokeColor = "black";
+				dashLine.strokeColor = "red";
 				dashLine.dashArray = [3,2];
 				dashedLinesGroup1.addChild(dashLine);
 			}
@@ -92,7 +92,7 @@ var Animation = {
 					continue;
 				else{
 					var dashedLine = new Path.Line(new Point(383.5, 24.5+(i * 10)), new Point(403.5, 24.5+(i * 10)));
-					dashedLine.strokeColor = "black";
+					dashedLine.strokeColor = "red";
 					dashedLine.dashArray = [3,2];
 					dashedLinesGroup2.addChild(dashedLine);
 				}
@@ -154,7 +154,7 @@ var Animation = {
 			
 			$('#frac22').delay(fractionStart).animate({opacity: 1}, basicFadeInDuration, 'easeInOutQuad')
 						.delay(2600).animate({left:"498px"}, flyDuration, 'easeInOutQuad')
-						.delay(2400).animate({left:"458px", top:"111px"}, secondFlyDuration, 'easeInOutQuad')
+						.delay(2900).animate({left:"458px", top:"111px"}, secondFlyDuration, 'easeInOutQuad')
 			
 			$(container).append('<div id="frac33"><div id="nom33">1</div><div id="line33"></div><div id="denom33">4</div></div>')
 		
@@ -180,7 +180,7 @@ var Animation = {
 			
 			$('#frac33').delay(fractionStart).animate({opacity: 1}, basicFadeInDuration, 'easeInOutQuad')
 						.delay(2500).animate({left:"198px"}, flyDuration, 'easeInOutQuad')
-						.delay(2500).animate({left:"278px", top:"111px"}, secondFlyDuration, 'easeInOutQuad')
+						.delay(3000).animate({left:"278px", top:"111px"}, secondFlyDuration, 'easeInOutQuad')
 			
 			$(container).append('<div id="frac44"><div id="nom44">6</div><div id="line44"></div><div id="denom44">8</div></div>')
 		
@@ -206,7 +206,7 @@ var Animation = {
 			
 			$('#frac44').delay(fractionStart).animate({opacity: 1}, basicFadeInDuration, 'easeInOutQuad')
 						.delay(2900).animate({left:"598px"}, flyDuration, 'easeInOutQuad')
-						.delay(2100).animate({left:"518px", top:"111px"}, secondFlyDuration, 'easeInOutQuad')
+						.delay(2600).animate({left:"518px", top:"111px"}, secondFlyDuration, 'easeInOutQuad')
 			
 			$(container).append('<div id="frac55"><div id="nom55">3</div><div id="line55"></div><div id="denom55">8</div></div>')
 		
@@ -232,7 +232,7 @@ var Animation = {
 			
 			$('#frac55').delay(fractionStart).animate({opacity: 1}, basicFadeInDuration, 'easeInOutQuad')
 						.delay(2700).animate({left:"298px"}, flyDuration, 'easeInOutQuad')
-						.delay(2300).animate({left:"338px", top:"111px"}, secondFlyDuration, 'easeInOutQuad')
+						.delay(2800).animate({left:"338px", top:"111px"}, secondFlyDuration, 'easeInOutQuad')
 			
 			$(container).append('<div id="frac66"><div id="nom66">1</div><div id="line66"></div><div id="denom66">2</div></div>')
 		
@@ -258,7 +258,7 @@ var Animation = {
 			
 			$('#frac66').delay(fractionStart).animate({opacity: 1}, basicFadeInDuration, 'easeInOutQuad')
 						.delay(2800).animate({left:"398px"}, flyDuration, 'easeInOutQuad')
-						.delay(2200).animate({left:"398px", top:"111px"}, secondFlyDuration, 'easeInOutQuad')
+						.delay(2700).animate({left:"398px", top:"111px"}, secondFlyDuration, 'easeInOutQuad')
 			
 			$(container).append('<div id="frac77"><div id="nom77">1</div><div id="line77"></div><div id="denom77">2</div></div>')
 		
@@ -309,7 +309,7 @@ var Animation = {
 					.css("height", "16px")
 			
 			$('#frac777').delay(secondEqStart).animate({opacity: 1}, basicFadeInDuration, 'easeInOutQuad')
-						 .delay(500).animate({opacity: 0}, basicFadeInDuration, 'easeInOutQuad')
+						 .delay(1000).animate({opacity: 0}, basicFadeInDuration, 'easeInOutQuad')
 			
 			
 			$(container).append('<div id="frac7777"><div id="nom7777">4</div><div id="line7777"></div><div id="denom7777">8</div></div>')
@@ -360,7 +360,7 @@ var Animation = {
 						.css("height", "16px")
 			
 			$('#frac88').delay(eqStart).animate({opacity: 1}, basicFadeInDuration, 'easeInOutQuad')
-						.delay(500).animate({opacity: 0}, basicFadeInDuration, 'easeInOutQuad')
+						.delay(1000).animate({opacity: 0}, basicFadeInDuration, 'easeInOutQuad')
 			
 			$(container).append('<div id="frac888"><div id="nom888">1 x 2</div><div id="line888"></div><div id="denom888">4 x 2</div></div>')
 		
@@ -386,7 +386,7 @@ var Animation = {
 					.css("height", "16px")
 			
 			$('#frac888').delay(secondEqStart).animate({opacity: 1}, basicFadeInDuration, 'easeInOutQuad')
-						 .delay(500).animate({opacity: 0}, basicFadeInDuration, 'easeInOutQuad')
+						 .delay(1000).animate({opacity: 0}, basicFadeInDuration, 'easeInOutQuad')
 			
 			$(container).append('<div id="frac8888"><div id="nom8888">2</div><div id="line8888"></div><div id="denom8888">8</div></div>')
 		
@@ -410,37 +410,44 @@ var Animation = {
 			$('#denom8888').css("text-align", "center")
 						.css("height", "16px")
 			
-			$('#frac8888').delay(lastEqStart).animate({opacity: 1}, basicFadeInDuration, 'easeInOutQuad')
+			$('#frac8888').delay(lastEqStart).animate({opacity: 1}, basicFadeInDuration, 'easeInOutQuad', function(){
+                dashedLinesGroup1.strokeColor = "black";
+                dashedLinesGroup2.strokeColor = "black";
+        })
 					//	 .delay(500).animate({opacity: 0}, basicFadeInDuration, 'easeInOutQuad')
 			
 			$(container).append('<img id="lessThan11" src="/assets/animations/kesirleri_karsilastirma/oran_kucuk_active.png"/>');
 			$('#lessThan11').css("position", "absolute")
-							.css("top", "112px")
-							.css("left", "300px")
+							.css("top", "54px")
+							.css("left", "244px")
 							.css("opacity", 0)
-			$('#lessThan11').delay(rectSecondFlyStart+500).animate({opacity: 1}, imagesFadeInDuration, 'easeInOutQuad')
+			$('#lessThan11').delay(rectFlyStart+2500).animate({opacity: 1}, imagesFadeInDuration, 'easeInOutQuad')
+                            .delay(2400).animate({top: '112px', left: '300px'}, secondFlyDuration, 'easeInOutQuad')
 			
 			$(container).append('<img id="lessThan22" src="/assets/animations/kesirleri_karsilastirma/oran_kucuk_active.png"/>');
 			$('#lessThan22').css("position", "absolute")
-							.css("top", "112px")
-							.css("left", "360px")
+							.css("top", "54px")
+							.css("left", "344px")
 							.css("opacity", 0)
-			$('#lessThan22').delay(rectSecondFlyStart+500).animate({opacity: 1}, imagesFadeInDuration, 'easeInOutQuad')
-			
+			$('#lessThan22').delay(rectFlyStart+2500).animate({opacity: 1}, imagesFadeInDuration, 'easeInOutQuad')
+                            .delay(2400).animate({top: '112px', left: '360px'}, secondFlyDuration, 'easeInOutQuad')
+
 			$(container).append('<img id="lessThan33" src="/assets/animations/kesirleri_karsilastirma/oran_kucuk_active.png"/>');
 			$('#lessThan33').css("position", "absolute")
-							.css("top", "112px")
-							.css("left", "420px")
+							.css("top", "54px")
+							.css("left", "444px")
 							.css("opacity", 0)
-			$('#lessThan33').delay(rectSecondFlyStart+500).animate({opacity: 1}, imagesFadeInDuration, 'easeInOutQuad')
-			
+			$('#lessThan33').delay(rectFlyStart+2500).animate({opacity: 1}, imagesFadeInDuration, 'easeInOutQuad')
+                            .delay(2400).animate({top: '112px', left: '420px'}, secondFlyDuration, 'easeInOutQuad')
+
 			$(container).append('<img id="lessThan44" src="/assets/animations/kesirleri_karsilastirma/oran_kucuk_active.png"/>');
 			$('#lessThan44').css("position", "absolute")
-							.css("top", "112px")
-							.css("left", "480px")
+							.css("top", "54px")
+							.css("left", "544px")
 							.css("opacity", 0)
-			$('#lessThan44').delay(rectSecondFlyStart+500).animate({opacity: 1}, imagesFadeInDuration, 'easeInOutQuad')
-			
+			$('#lessThan44').delay(rectFlyStart+2500).animate({opacity: 1}, imagesFadeInDuration, 'easeInOutQuad')
+                            .delay(2400).animate({top: '112px', left: '480px'}, secondFlyDuration, 'easeInOutQuad')
+
 			rectGroup.animate({
 				style:{
 					opacity: 1
@@ -554,7 +561,7 @@ var Animation = {
 					opacity: 1,
 				},
 				duration: basicFadeInDuration,
-				delay: lastEqStart,
+				delay: secondEqStart,
 				animationType: 'easeInOutQuad'
 			});
 			
@@ -563,9 +570,11 @@ var Animation = {
 					opacity: 1,
 				},
 				duration: basicFadeInDuration,
-				delay: lastEqStart,
+				delay: secondEqStart,
 				animationType: 'easeInOutQuad'
 			});
+			
+			Main.animationFinished(17000);
 		
 		}
 }
@@ -621,7 +630,7 @@ var Interaction = {
 			
 			Interaction.rand = randomNumber;
 			Interaction.qType = Math.floor(Math.random() * 2);
-			
+
 			if(Interaction.rand == 0){ // sorting with 3 fractions
 				Interaction.numOfFracs = 3;
 				// creating question divs and fractions to be sorted in it
@@ -644,7 +653,7 @@ var Interaction = {
 						width: '400px',
 						height: '100px',
 					});
-						
+
 				$(Interaction.sortingUl).sortable({
 						items: 'li:not(.images)',
 						placeholder: 'placeHolder',
@@ -733,7 +742,7 @@ var Interaction = {
 							.css("width", "30px")
 							.css("height", "25px")
 						
-				
+
 				
 				if(Interaction.qType == 0){ // sorting in descending order
 					Main.setObjective('Yanda verilen kesirleri büyükten küçüğe sıralayınız.')

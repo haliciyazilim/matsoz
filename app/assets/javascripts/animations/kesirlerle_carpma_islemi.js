@@ -169,6 +169,7 @@ var Animation = {
 					animationType: 'easeInEaseOut'
 				});
 			}
+			Main.animationFinished(6000);
 			
 		}
 }

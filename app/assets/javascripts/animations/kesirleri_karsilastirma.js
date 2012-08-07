@@ -444,6 +444,7 @@ var Animation = {
 					delay: dotGroup2Start+(smallDotFadeInDuration*i),
 					animationType: 'easeInEaseOut'
 				});
+			}
 			
 			redDot.animate({
 				style: {
@@ -461,7 +462,7 @@ var Animation = {
 				delay: redDotStart,
 				animationType: 'easeInEaseOut'
 			});
-	}
+			Main.animationFinished(20000);
 			
 				
 		}
