@@ -221,6 +221,7 @@ p.exampleHeader {
 	width:93px;
 	border:none;
 }
+
 .tryagain_button{
 	background-image:url(/assets/btn_tryagain.png);
 	background-color: #fff;
@@ -229,6 +230,17 @@ p.exampleHeader {
 	border:none;
     
 }
+
+
+.delete_button{
+    background-image:url(/assets/btn_gray_delete_text.png);
+    background-color: #fff;
+    height:32px;
+    width:57px;
+    border:none;
+}
+
+
 .status_field {
 	text-align: center;
 	width: 200px;

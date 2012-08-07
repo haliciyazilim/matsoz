@@ -229,6 +229,8 @@ var Animation = {
 				delay: 9000,
 				animationType: 'easeInEaseOut'
 			});
+			
+			Main.animationFinished(11000);
 
 		}
 }

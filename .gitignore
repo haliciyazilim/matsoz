@@ -25,5 +25,7 @@
 
 
 /nbproject/
+/.idea/
+
 
 /app/assets/javascripts/development.js
