@@ -587,7 +587,8 @@ var Animation = {
 			console.log("ondalik For");
 			$("#"+basamaklar[i]).css("opacity","0").delay(sayac+hiz*i).animate({opacity:"1"},500);
 		}
-			
+		Main.animationFinished(17000);	
+                //Main.animationFinished(1000);	
 		
 	}
 }
@@ -702,7 +703,7 @@ var Interaction = {
 		
 		else{
 			var sayac=0;
-			for(var i=1; i<Interaction.length;i++){
+			for(var i=1; i<Interaction.inputs.length;i++){
 				console.log("xxxxxxxxxxxxxxxxxxxxxxxxx");
 				if(Interaction.inputs[i].value!=""){
 					break;
@@ -710,58 +711,67 @@ var Interaction = {
 				else
 					sayac++;
 			}
-			if(sayac==6){
+                        console.log("sayac"+sayac);
+			if(Interaction.inputs[0].value!="" && sayac==6){
 				Interaction.setStatus('Lüften kesir kısmını doldurun.',false);
 				return false;
 			}
 			else
-				return true
+				return true;
 		}
 			
 		},
 	isAnswerCorrect : function(values){
 		Interaction.sonuc=pay/payda;
+		Interaction.yanlis="";
+                console.log("else");
+		var girdilerdenGelen="";
+		for(var i=1; i<values.length;i++){
+		girdilerdenGelen+=values[i];
+		if(i==3)
+                    girdilerdenGelen+=",";
+                }
 		
-		
-		
-		
-		/*if(values[0]!=""){
-			
-			console.log("sonuc "+sonuc);
-			console.log("format "+format(Interaction.sonuc, {group:"", places:3}));
-			console.log("girdi "+values[0]);
-			
-			if(parseInt(format(Interaction.sonuc, {group:"", places:3}))==parseInt(values))
-				return true
-		}
-		else
-			console.log("else");
-			var girdilerdenGelen="";
-			for(var i=1; i<values.length;i++){
-				girdilerdenGelen+=values[i];
-				if(i==3)
-					girdilerdenGelen+=",";
-			}*/
-			console.log(girdilerdenGelen);
-			
-			if(girdilerdenGelen==String(format(Interaction.sonuc, {group:"", places:3})))
-				return true
-			
-		
+                
+                if(parseInt(format(Interaction.sonuc, {group:"", places:3}))==parseInt(values) && girdilerdenGelen==format(Interaction.sonuc, {group:"", places:3}))
+                    return true
+                else if(parseInt(format(Interaction.sonuc, {group:"", places:3}))!=parseInt(values) && girdilerdenGelen!=format(Interaction.sonuc, {group:"", places:3}))
+                    return false
+                else{
+                    if(parseInt(format(Interaction.sonuc, {group:"", places:3}))!=parseInt(values))
+                        Interaction.yanlis="ondalik";
+                    else if(girdilerdenGelen!=format(Interaction.sonuc, {group:"", places:3}))
+                        Interaction.yanlis="tablo";
+                }   
 		},
 	onCorrectAnswer : function(){
 		
 		},
 	onWrongAnswer : function(){
-		
+		 
+                     
+                     
 		
 		},
 	onFail : function(){
-		var sonucStr=Interaction.sonuc.toString().replace(".",",");
-		Interaction.setStatus('Yanlış cevap, doğrusu <strong id="dCevap">'+sonucStr+' </strong>şeklinde olacaktı.',false);
-		$("#dCevap").css("color","green");
+            var sonucStr=Interaction.sonuc.toString().replace(".",",");
+            
+            if(Interaction.yanlis=="ondalik"){
+                Interaction.setStatus('Ondalık kısımdaki cevap yanlış, doğrusu <strong id="dCevap">'+sonucStr+' </strong>şeklinde olacaktı.',false);
+                $("input").css("color","green");
+                $(Interaction.inputs[0]).css("color","red");
+            }
+            else if(Interaction.yanlis=="tablo"){
+                Interaction.setStatus('Tablodaki cevap yanlış, doğrusu <strong id="dCevap">'+sonucStr+' </strong>şeklinde olacaktı.',false);
+                 $("input").css("color","red");
+                $(Interaction.inputs[0]).css("color","green");
+            }
+            else{
+                Interaction.setStatus('Yanlış cevap, doğrusu <strong id="dCevap">'+sonucStr+' </strong>şeklinde olacaktı.',false);
 		$("input").css("color","red");
-		
+            }
+ 
+            $("#dCevap").css("color","green");
 		},
 }
 
@@ -960,7 +970,7 @@ var etkilesim=function(amac){
 			//.css("font-size","medium").html("ok");
 		
 		if (this.amac=="soru"){	
-		var yuzler=Interaction.appendInput({},true);
+		var yuzler=Interaction.appendInput({},true,true);
 			$(Interaction.inputs[1]).attr('maxlength', '1').attr("id","inputYuzler");
 			$("#girdiYuzler",container).append(yuzler);
 		}
@@ -1011,7 +1021,7 @@ var etkilesim=function(amac){
 			.css("border-left","none");
 			//.css("font-size","medium").html("ok");
 	if (this.amac=="soru"){		
-		var onlar=Interaction.appendInput({},true);
+		var onlar=Interaction.appendInput({},true,true);
 		$(Interaction.inputs[2]).attr('maxlength', '1').attr("id","inputOnlar");
 		$("#girdiOnlar",container).append(onlar);
 	}
@@ -1057,7 +1067,7 @@ var etkilesim=function(amac){
 			.css("border-left","none");
 			//.css("font-size","medium").html("ok");
 	if (this.amac=="soru"){	
-		var birler=Interaction.appendInput({},true);
+		var birler=Interaction.appendInput({},true,true);
 		$(Interaction.inputs[3]).attr('maxlength', '1').attr("id","inputBirler");
 		$("#girdiBirler",container).append(birler);
 	}
@@ -1121,7 +1131,7 @@ var etkilesim=function(amac){
 			.css("border-left","none");
 			//.css("font-size","medium").html("ok");
 	if (this.amac=="soru"){		
-		var ondaBirler=Interaction.appendInput({},true);
+		var ondaBirler=Interaction.appendInput({},true,true);
 		$(Interaction.inputs[4]).attr('maxlength', '1').attr("id","inputOndaBirler");
 		$("#girdiOndaBirler",container).append(ondaBirler);
 	}
@@ -1165,7 +1175,7 @@ var etkilesim=function(amac){
 			.css("border-left","none");
 			//.css("font-size","medium").html("ok");
 	if (this.amac=="soru"){		
-		var yuzdeBirler=Interaction.appendInput({},true);
+		var yuzdeBirler=Interaction.appendInput({},true,true);
 		$(Interaction.inputs[5]).attr('maxlength', '1').attr("id","inputYuzdeBirler");
 		$("#girdiYuzdeBirler",container).append(yuzdeBirler);
 	}
@@ -1210,7 +1220,7 @@ var etkilesim=function(amac){
 			.css("border-left","none");
 			//.css("font-size","medium").html("ok");
 	if (this.amac=="soru"){		
-		var bindeBirler=Interaction.appendInput({},true);
+		var bindeBirler=Interaction.appendInput({},true,true);
 		$(Interaction.inputs[6]).attr('maxlength', '1').attr("id","inputBindeBirler");
 		$("#girdiBindeBirler",container).append(bindeBirler);
 	}
