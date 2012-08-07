@@ -242,7 +242,7 @@ var Animation = {
 			'Üçgensel Bölge<br/><span style="position:relative;top:10px;"> A =</span><span id="2" lineFrom="-1,2" lineTo="2,2" >3br</span> x <span id="1" lineFrom="0,0" lineTo="0,2" >2br</span><span style="position:relative;top:10px;"> = 3br²</span><br/><div style="position:relative;height:20px;width:50px;border-top:1px solid #000;left:30px;text-align:center;">2</div>'
 		);
 		triangle.startAnimation();
-		
+		Main.animationFinished(15000)
 	}
 };
 var Interaction =function(){};Interaction();
@@ -297,7 +297,7 @@ Interaction.setStatus = function(str,cls){
 		$(Interaction.status ).get(0).className = 'status';
 }
 
-var TestGenerator = function(){}; TestGenerator();
+var TestGenerator = {};
 
 TestGenerator.nextQuestion = function(){
 	Interaction.input.onkeyup = function(e){
