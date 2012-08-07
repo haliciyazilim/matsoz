@@ -1,5 +1,12 @@
 
 - content_for(:head) do
+  %style{:type => 'text/css', :rel => 'stylesheet'} 
+    @font-face { 
+    font-family: 'Homemade Apple'; 
+    font-style: normal; 
+    font-weight: 400; 
+    src: local('Homemade Apple'), local('HomemadeApple'), url("/assets/theme/hommade_apple.woff") format('woff');
+    }
   %meta{'name' => 'viewport', 'content' => 'width=device-width, initial-scale=1, user-scalable=yes'}
   %meta{'http-equiv'=>'Content-Type', 'content' => 'text/html; charset=UTF-8'}
   = javascript_include_tag 'main.js'
@@ -63,16 +70,18 @@
     %div.tanim
       %strong.name
         = @entry.word + ": "
-      - @chunks.each do |chunk|
-        - chunk.each do |key, value|
-          - if value == nil
-            - if key != nil
-              %span>=key.gsub(' ', "\n")
-          - else
-            %span>= link_to key, entry_path(value)
-      - if @entry.additionalInfo
-        %em
-          = @entry.additionalInfo
+      %span.definition
+        - @chunks.each do |chunk|
+          - chunk.each do |key, value|
+            - if value == nil
+              - if key != nil
+                %span>=key.gsub(' ', "\n")
+            - else
+              %span>= link_to key, entry_path(value)
+      %div.additional_info
+        - if @entry.additionalInfo
+          %em
+            = @entry.additionalInfo
           
     %div{:class=>'ornek ornek_border'}
       #div{:class =>'ornekbaslik ornekbaslik_bg'}
