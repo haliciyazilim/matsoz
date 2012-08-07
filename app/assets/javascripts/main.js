@@ -16,7 +16,6 @@
 
 
 var Main = function(){
-	
 	if(navigator.appName == "Microsoft Internet Explorer"){
 		console ={
 			log: function(){}
@@ -30,7 +29,6 @@ Main.config = {
 };
 
 Main.startAnimation = function(){
-    //console.log("I'm here");
     animationView.onFrame = function(event) {
         Main.animationProject.activate();
         AnimationManager.update(event);
@@ -38,7 +36,6 @@ Main.startAnimation = function(){
             Animation.onFrame(event);
         }
     }
-    
     if (animationReady == false) {
         animationReady = true;
         return;
@@ -46,25 +43,19 @@ Main.startAnimation = function(){
        Main.animationProject.activate();
        Animation.init(Main.animation);
     }
-    
-    
-
     try{
         if(__START_INTERACTION_IMMEDIATELY === true)
             Main.animationFinished();
     }
     catch(e){
-        
-    }
-        
+    }    
 }
 
 Main.animationFinished = function(delay){
 	if (delay == undefined) {
 		delay = 100;
 	}
-	
-    if(Main.animationFinished.called == true)
+	if(Main.animationFinished.called == true)
         return;
     if(isNaN(delay) || delay == 0){
         Main.animationFinished.called = true;
@@ -72,13 +63,16 @@ Main.animationFinished = function(delay){
     }
     else {
         setTimeout(function () {
+            if(Main.animationFinished.called == true)
+                return;
 			Main.animationFinished.called = true;
-	        Main.startInteraction();
+            Main.startInteraction();
 		}, delay);
 	}
 }
 
 Main.startInteraction = function(){
+    console.log("Main.startInteraction");
     if (interactionReady == false) {
         interactionReady = true;
     } else {
@@ -136,13 +130,11 @@ Main.init = function(){
 		paper.setup(canvas);
 		Main.animationProject = paper.project;
 		animationView = paper.view;
-		
 		AnimationManager();
 		
 		animationReady = false;
 		interactionReady = false;
 		
-        
         if(Animation.images == null || Animation.images == undefined) {
              Main.startAnimation();
         }
@@ -154,7 +146,6 @@ Main.init = function(){
                 }
             );
         }
-
         if(Interaction.images == null || Interaction.images == undefined) {
             Main.startInteraction();
         }
@@ -166,8 +157,6 @@ Main.init = function(){
                 }
             );
         }
-        
-
 		initializeRunLoop = function () {
             //console.log("I'm here");
 			if (animationReady === true && interactionReady === true) {
@@ -178,7 +167,6 @@ Main.init = function(){
 						Interaction.onFrame(event);
 					}
 				}
-				
 			}
 		}
 		InteractionBase();	
@@ -192,9 +180,7 @@ Main.init = function(){
         catch(e){
             setTimeout(Main.startAnimation,3000);
         }
-            
-            
-	}
+    }
 };
 
 Main.initializeNavigation = function() {
@@ -210,8 +196,7 @@ Main.initializeNavigation = function() {
 	}
 	$('.navlink').click(function() {
 		createWordList($(this).data('letter'));
-	})
-	
+	});
 	createWordList(currentLetter);
 }
 
