@@ -78,6 +78,7 @@ var Animation = {
 				});
 				
 			}
+            Main.animationFinished(5000);
 		}
 }
 
