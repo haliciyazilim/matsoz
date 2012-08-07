@@ -50,7 +50,6 @@ Main.startAnimation = function(){
     catch(e){
     }    
 }
-
 Main.animationFinished = function(delay){
 	if (delay == undefined) {
 		delay = 100;
@@ -62,17 +61,16 @@ Main.animationFinished = function(delay){
         Main.startInteraction();
     }
     else {
-        setTimeout(function () {
+        setTimeout(function(){
             if(Main.animationFinished.called == true)
                 return;
-			Main.animationFinished.called = true;
-            Main.startInteraction();
+            Main.animationFinished.called = true;
+	        Main.startInteraction();
 		}, delay);
 	}
 }
 
 Main.startInteraction = function(){
-    console.log("Main.startInteraction");
     if (interactionReady == false) {
         interactionReady = true;
     } else {
