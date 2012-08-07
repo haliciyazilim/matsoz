@@ -38,27 +38,16 @@ Main.startAnimation = function(){
             Animation.onFrame(event);
         }
     }
-    if(Animation.images == null || Animation.images == undefined) {
-        Main.animationProject.activate();
-        if (Animation.init) {
-            Animation.init(Main.animation);
-        }
+    
+    if (animationReady == false) {
         animationReady = true;
-        initializeRunLoop();
+        return;
+    } else {
+       Main.animationProject.activate();
+       Animation.init(Main.animation);
     }
-    else {
-        Util.loadImages(
-            Animation.images, 
-            function(){
-                Main.animationProject.activate();
-                if (Animation.init) {
-                    Animation.init(Main.animation);
-                }
-                animationReady = true;
-                initializeRunLoop();
-            }
-        );
-    }
+    
+    
 
     try{
         if(__START_INTERACTION_IMMEDIATELY === true)
@@ -87,6 +76,7 @@ Main.startInteraction = function(){
         interactionReady = true;
     } else {
         Main.interactionProject.activate();
+        initializeRunLoop();
         Interaction.init(Main.interaction);
     }
 }
@@ -145,6 +135,18 @@ Main.init = function(){
 		animationReady = false;
 		interactionReady = false;
 		
+        
+        if(Animation.images == null || Animation.images == undefined) {
+             Main.startAnimation();
+        }
+        else {
+            Util.loadImages(
+                Animation.images, 
+                function(){
+                    Main.startAnimation();
+                }
+            );
+        }
 
         if(Interaction.images == null || Interaction.images == undefined) {
             Main.startInteraction();
@@ -157,6 +159,7 @@ Main.init = function(){
                 }
             );
         }
+        
 
 		initializeRunLoop = function () {
             //console.log("I'm here");
