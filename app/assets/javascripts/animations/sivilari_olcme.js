@@ -393,6 +393,10 @@ Interaction.init = function(container){
 					.css("height", "20px")
 					.css("text-align", "center")
 	
+	setTimeout(
+		'$("#textInput1").focus()',
+		300);
+	
 	$('#nextBtn').click(function() {
 		var a = $('#interaction_canvas')
 		$(Interaction.container).html("");
@@ -441,7 +445,7 @@ Interaction.init = function(container){
 					$('#nextBtn').show();
 					deactivate = 1;
 					$('.inp').each(function(index, element) {
-            			$(this).get(0).onkeydown = function(event){
+            			$(this).get(0).onkeyup = function(event){
 												if(event.keyCode != 13)
 													return false;
 												$("#nextBtn").click();
@@ -466,7 +470,7 @@ Interaction.init = function(container){
 					trial += 1;
 					deactivate = 1;
 					$('.inp').each(function(index, element) {
-            			$(this).get(0).onkeydown = function(event){
+            			$(this).get(0).onkeyup = function(event){
 												if(event.keyCode != 13)
 													return false;
 												$("#nextBtn").click();
@@ -516,7 +520,7 @@ Interaction.init = function(container){
 					$('#nextBtn').show();
 					deactivate = 1;
 					$('.inp').each(function(index, element) {
-            			$(this).get(0).onkeydown = function(event){
+            			$(this).get(0).onkeyup = function(event){
 												if(event.keyCode != 13)
 													return false;
 												$("#nextBtn").click();
@@ -541,7 +545,7 @@ Interaction.init = function(container){
 					trial += 1;
 					deactivate = 1;
 					$('.inp').each(function(index, element) {
-            			$(this).get(0).onkeydown = function(event){
+            			$(this).get(0).onkeyup = function(event){
 												if(event.keyCode != 13)
 													return false;
 												$("#nextBtn").click();

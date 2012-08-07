@@ -263,15 +263,15 @@ p.exampleHeader {
 	box-shadow: 0px 0px 10px #f55;
 }
 .input_user_answer_correct[type="text"]{
-
+	color: green;
 }
 
 .input_user_answer_wrong[type="text"]{
-
+	color: red;
 }
 
 .input_correct_answer[type="text"]{
-
+	color :green;
 }
 
 /*Egemen's classes*/

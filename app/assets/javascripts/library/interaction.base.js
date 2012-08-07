@@ -8,7 +8,7 @@ function InteractionBase(){
 	Interaction.__status = function(e){
 		switch(e){
 			case Interaction.__status.WRONG:
-					Interaction.setStatus('Yanlış cevap, tekrar deneyiniz.',false);
+				Interaction.setStatus('Yanl\u0131ş cevap, tekrar deneyiniz.',false);
 				break;
 				
 			case Interaction.__status.FAIL:
@@ -19,21 +19,21 @@ function InteractionBase(){
 				break;
 				
 			case Interaction.__status.FLOATING:
-				Interaction.setStatus('Lütfen ondalıklı sayıları virgülle yazınız.',false);
+				Interaction.setStatus('Lütfen ondal\u0131klı sayıları virgülle yazınız.',false);
 				break;
 				
 			case Interaction.__status.EMPTY:
 				if(Interaction.inputs.length > 1)
-					Interaction.setStatus('Lütfen tüm kutucukları doldurunuz', "alert");
+					Interaction.setStatus('Lütfen tüm kutucuklar\u0131 doldurunuz', "alert");
 				else
-					Interaction.setStatus('Lütfen kutucuğu doldurunuz', "alert");
+					Interaction.setStatus('Lütfen kutucu\u011fu doldurunuz', "alert");
 				break;
 				
 			case Interaction.__status.NUMBER:
 				if(Interaction.inputs.length > 1)
-					Interaction.setStatus('Lütfen kutucuklara sayı giriniz',false);
+					Interaction.setStatus('Lütfen kutucuklara say\u0131 giriniz',false);
 				else
-					Interaction.setStatus('Lütfen bir sayı giriniz.',false);
+					Interaction.setStatus('Lütfen bir say\u0131 giriniz.',false);
 				break;
 		}
 	}
@@ -65,7 +65,7 @@ function InteractionBase(){
 				class:'status'
 			})
 			.css({
-				position:'absolute',
+				position:'absolute'
 			});
 		$(Interaction.status).css(css);
 	};
@@ -192,10 +192,10 @@ function InteractionBase(){
 		$(Interaction.container).append(Interaction.button);
 		$(Interaction.button)
 			.attr({
-				'class':'control_button',					
+				'class':'control_button'				
 			})
 			.css({
-				position:'absolute',
+				position:'absolute'
 				
 			});
 		$(Interaction.button).css(css);
@@ -259,7 +259,7 @@ function InteractionBase(){
 		if(Interaction.preCheck && Interaction.preCheck() === false)
 			return;
 		var isCorrect;
-		if(Interaction.__inputVersion == 2){
+		if(Interaction.__inputVersion == 2){	// addInput()
 			isCorrect = true;
 			for(var i=0; i<Interaction.inputs.length;i++){
 				var value = Interaction.inputs[i].value;
@@ -281,6 +281,12 @@ function InteractionBase(){
 					isInputCorrect = (value == Interaction.inputs[i].correctAnswer(value));
 				else
 					isInputCorrect = (value == Interaction.inputs[i].correctAnswer);
+				
+				$(Interaction.inputs[i]).get(0).onfocus = function () {
+					$(this).removeClass('input_user_answer_correct');
+					$(this).removeClass('input_user_answer_wrong');
+					$(this).removeClass('input_correct_answer');
+				}
 				
 				if(isInputCorrect === true){
 					$(Interaction.inputs[i]).addClass('input_user_answer_correct');
@@ -342,11 +348,13 @@ function InteractionBase(){
 		}
 		else{
 			$(Interaction.inputs).each(function(index, element) {
+				$(this).get(0).onfocus = null;
             	$(this).get(0).onkeydown = function(event){
 					if(event.keyCode != 13)
 						return false;
 				}   
             });
+
 			if(Interaction.onFail)
 				Interaction.onFail();
 		}
@@ -375,8 +383,6 @@ function InteractionBase(){
 			return false;
 		}
 	};
-	
-	
 	Interaction.pause = function(delay){
 		if(delay == undefined || isNan(delay))
 			delay = 0;

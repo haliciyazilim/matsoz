@@ -29,6 +29,73 @@ Main.config = {
 	defaultLibrary: "raphael"
 };
 
+Main.startAnimation = function(){
+    console.log("I'm here");
+    animationView.onFrame = function(event) {
+        Main.animationProject.activate();
+        AnimationManager.update(event);
+        if (typeof(Animation.onFrame) == 'function') {
+            Animation.onFrame(event);
+        }
+    }
+    if(Animation.images == null || Animation.images == undefined) {
+        Main.animationProject.activate();
+        if (Animation.init) {
+            Animation.init(Main.animation);
+        }
+        animationReady = true;
+        initializeRunLoop();
+    }
+    else {
+        Util.loadImages(
+            Animation.images, 
+            function(){
+                Main.animationProject.activate();
+                if (Animation.init) {
+                    Animation.init(Main.animation);
+                }
+                animationReady = true;
+                initializeRunLoop();
+            }
+        );
+    }
+}
+
+Main.animationFinished = function(delay){
+    if(isNaN(delay))
+        Main.startInteraction();
+    else
+        setTimeout(Main.startInteraction,delay);
+
+}
+
+Main.startInteraction = function(){
+    if(Interaction.images == null || Interaction.images == undefined) {
+        Main.interactionProject.activate();
+        Interaction.init(Main.interaction);
+        interactionReady = true;
+        initializeRunLoop();
+    }
+    else {
+        Util.loadImages(
+            Interaction.images,
+            function(){
+                Main.interactionProject.activate();
+                Interaction.init(Main.interaction);
+                interactionReady = true;
+                initializeRunLoop();
+            }
+        );
+    }
+}
+
+Main.animateDefinition = function(){
+    $(".tanim .definition").css({opacity:0});
+    $(".tanim .additional_info").css({opacity:0});
+    $(".tanim .definition").delay(500).animate({opacity:1},1000);
+    $(".tanim .additional_info").delay(1600).animate({opacity:1},1000);
+}
+
 Main.init = function(){
 	Main.initializeNavigation();
 	
@@ -77,6 +144,7 @@ Main.init = function(){
 		interactionReady = false;
 		
 		initializeRunLoop = function () {
+            console.log("I'm here");
 			if (animationReady === true && interactionReady === true) {
 				interactionView.onFrame = function(event) {
 					Main.interactionProject.activate();
@@ -85,56 +153,12 @@ Main.init = function(){
 						Interaction.onFrame(event);
 					}
 				}
-				animationView.onFrame = function(event) {
-					Main.animationProject.activate();
-					AnimationManager.update(event);
-					if (typeof(Animation.onFrame) == 'function') {
-						Animation.onFrame(event);
-					}
-				}
+				
 			}
 		}
-	
-		if(Animation.images == null || Animation.images == undefined) {
-			Main.animationProject.activate();
-			if (Animation.init) {
-				Animation.init(Main.animation);
-			}
-			animationReady = true;
-			initializeRunLoop();
-		}
-		else {
-			Util.loadImages(
-				Animation.images, 
-				function(){
-					Main.animationProject.activate();
-					if (Animation.init) {
-						Animation.init(Main.animation);
-					}
-					animationReady = true;
-					initializeRunLoop();
-				}
-			);
-		}
-		
 		InteractionBase();	
-		if(Interaction.images == null || Interaction.images == undefined) {
-			Main.interactionProject.activate();
-			Interaction.init(Main.interaction);
-			interactionReady = true;
-			initializeRunLoop();
-		}
-		else {
-			Util.loadImages(
-				Interaction.images,
-				function(){
-					Main.interactionProject.activate();
-					Interaction.init(Main.interaction);
-					interactionReady = true;
-					initializeRunLoop();
-				}
-			);
-		}
+		Main.animateDefinition();
+        setTimeout(Main.startAnimation,3000);
 	}
 };
 
@@ -149,7 +173,6 @@ Main.initializeNavigation = function() {
 		
 		$('#liste').html(htmlString);
 	}
-	
 	$('.navlink').click(function() {
 		createWordList($(this).data('letter'));
 	})
@@ -162,7 +185,3 @@ Main.setObjective = function(str){
 };
 
 Main();
-
-
-//console.log = function(){};
-

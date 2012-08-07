@@ -1,12 +1,14 @@
 function __Styles(){
 	animationTextStyle = {
-		fontSize:24,
+		fontSize:16,
 		fillColor:new RgbColor(1,1,1,0.9),
-		font:"'Homemade Apple', cursive"
+        font:"'Homemade Apple', cursive"
+	}
+	interactionTextStyle = {
+		fontSize:16,
+		fillColor:new RgbColor(0,0,0)
 	}
 }
-
-
 var Animation = {
 	images:[
 		{
@@ -15,74 +17,21 @@ var Animation = {
 		}
 	],
 	init:function(container){
-			$('head').append("<link href='http://fonts.googleapis.com/css?family=Homemade+Apple' rel='stylesheet' type='text/css'>");
-			function textAnimate(point,content,style,animateStyle,delay,callback){
-				var pT1 = new PointText(point);
-				pT1.content = content;
-				pT1.set_style(animationTextStyle);
-				pT1.set_style(style);
-				pT1.animate({
-					style:animateStyle,
-					duration:1000,
-					delay:delay,
-					callback:callback,
-					animationType:'easeInEaseOut'
-				});
-				return pT1;
-			};
-			function multiply(point,delay,zero){
-				var z = zero.length * animationTextStyle.fontSize * 0.5;
-				textAnimate(point,				'4569',	{opacity:0},{opacity:1},100+delay);
-				textAnimate(point.add(70,0)	 ,' × 1',	{opacity:0},{opacity:1},600+delay);
-				textAnimate(point.add(132+z,0)  ,	  '=',	{opacity:0},{opacity:1},600+delay);
-				textAnimate(point.add(112,0)	,   zero,	{opacity:0},{opacity:1},600+delay,
-					function(){
-						this.animate({
-						style:{opacity:0},
-						duration:500,
-						callback:function(){
-								this.animate({
-									style:{opacity:1,fillColor:new RgbColor(1,0,0,0.9)},
-									duration:500,
-									delay:500,
-									callback:function(){
-										this.animate({
-											style:{fillColor:animationTextStyle.fillColor},
-											duration:500,
-											delay:500
-										})
-									}								
-								})
-							}
-						});
-					}
-				)
-				textAnimate(point.add(150+z,0),'4569',{opacity:0},{opacity:1},2000+delay);
-				textAnimate(point.add(102+z,0),zero,{opacity:0},{opacity:1,position:point.add(220+z,0),fillColor:new RgbColor(1,0,0)},3000+delay,
-					function(){
-						this.animate({
-							style:{fillColor:animationTextStyle.fillColor},
-							duration:500,
-						});
-					}
-				);
-
-			};
+			//$('head').append("<link href='http://fonts.googleapis.com/css?family=Homemade+Apple' rel='stylesheet' type='text/css'>");
 			Animation.container = container;
 			var w=$(container).width(), h=$(container).height();
 			var board = new Raster('board');
 			board.position = new Point(w*0.5,h*0.5+2)
-			var p1 = new Point(200.5,50.5);
-			var p2 = new Point(200.5,100.5);
-			var p3 = new Point(200.5,150.5);
-			multiply(p1,100,'0');
-			multiply(p2,4000,'00');
-			multiply(p3,8000,'000');
-			
-			
+			var referencePoint = new Point(250,40);
+            var p1 = referencePoint.add(0,0);
+			var p2 = referencePoint.add(0,50);
+			var p3 = referencePoint.add(0,100);
+			SingleLineMultiply(p1,100,'0',4519,1,animationTextStyle);
+			SingleLineMultiply(p2,4000,'00',4519,1,animationTextStyle);
+			SingleLineMultiply(p3,8000,'000',4569,1,animationTextStyle);
+            setTimeout(Main.animationFinished,15000);
 		}
 }
-
 var Interaction = {
 	getFramework:function(){
 			return 'paper';
@@ -117,7 +66,7 @@ var Interaction = {
 					letterSpacing:'1px',
 					textAlign:'right'
 				})
-				.html('<span id="factor1"></span>&nbsp;x&nbsp;<span id="factor2"></span>&nbsp;=&nbsp;')
+				.html('<span id="factor1"></span>&nbsp;×&nbsp;<span id="factor2"></span>&nbsp;=&nbsp;')
 				.append(Interaction.input);
 			Interaction.questionDiv = div;
 			Interaction.factor1Span = $('span#factor1',div).get(0);
@@ -160,32 +109,8 @@ var Interaction = {
 			Interaction.setStatus('Yanlış cevap, doğrusu ' +  Interaction.factor1 * Interaction.factor2 + ' olacaktı',false);
 			Interaction.solutionDiv = $(Interaction.questionDiv).clone().insertAfter(Interaction.questionDiv);
 			var zeros = $('#factor2',Interaction.questionDiv).html();
-			zeros = '<span class="zero">'+zeros.substring(1,zeros.length)+'</span>';
-			var html = "" + $(Interaction.solutionDiv).html();
-			html = html.substring(0,html.indexOf('<input')) + Interaction.factor1 + zeros;
-			$(Interaction.solutionDiv)
-				.html(html)
-				.append('<span id="result"></span>')
-				.css({
-					top:$(Interaction.solutionDiv).position().top+60
-				});
-			$('#factor2',Interaction.solutionDiv)
-				.html(1+zeros )
-			$('#factor2 .zero',Interaction.solutionDiv)
-				.css({color:'#000'})
-				.animate(
-					{color:'#f00'},
-					1000
-				);
-			$('.zero',Interaction.solutionDiv)
-				.css({color:'#000'})
-				.delay(500)
-				.animate(
-					{color:'#f00'},
-					1000,
-					function(){
-						Interaction.pause = false;
-					}
-				);
-		},
+			zeros = zeros.substring(1,zeros.length); 
+			console.log(zeros)
+			SingleLineMultiply(new Point(160,200),10,zeros,Interaction.factor1,(""+Interaction.factor2).substring(0,1),interactionTextStyle);
+		}
 }

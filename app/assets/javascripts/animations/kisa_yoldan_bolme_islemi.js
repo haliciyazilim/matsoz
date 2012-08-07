@@ -1,10 +1,12 @@
+
 function __Styles(){
 	animationDivisionStyle = {
-		width:'130px',
+		width:'160px',
 		position:'absolute',
-		top:'55px',
+		top:'30px',
 		left:'60px',
-		fontSize:'23px',
+		fontSize:'28px',
+		fontWeight:700,
 		color:'#fff',
 		fontFamily:"'Homemade Apple', cursive",
 		opacity:0
@@ -66,7 +68,7 @@ var Animation = {
 			$(container).append(div2);
 			$(div2)
 				.css(animationDivisionStyle)
-				.css({ left:'260px', width:'160px'})
+				.css({ left:'260px', width:'190px'})
 				.delay(7000)
 				.animate({opacity:0.9},1000);
 			Animation.division2 = new LongDivision(4581,9,div2);
@@ -106,7 +108,7 @@ var Animation = {
 			$(container).append(div3);
 			$(div3)
 				.css(animationDivisionStyle)
-				.css({ left:'460px', width:'190px'})
+				.css({ left:'460px', width:'220px'})
 				.delay(11000)
 				.animate({opacity:0.9},1000);
 			Animation.division3 = new LongDivision(4581,9,div3);
@@ -169,7 +171,7 @@ var Interaction = {
 					position:'absolute',
 					top:'50px',
 					left:'100px',
-					width:'250px',
+					width:'260px',
 					height:'80px',
 					fontSize:'28px'
 				});

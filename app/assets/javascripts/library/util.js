@@ -2,13 +2,13 @@
 var Util = {
 	
 	isInteger: function (value) {
-			// var intRegex = /^\d+$/;
-			// return intRegex.test(value);
-			return value === Math.floor(value)
+			 var intRegex = /^\d+$/;
+			 return intRegex.test(value);
+		//	return value == Math.floor(value)
 		},
 		
 	isNumber: function (n) {
-			return !isNaN(parseFloat(n)) && isFinite(n);
+			return !isNaN(parseFloat(n,10)) && isFinite(n);
 		},
 
 	findDistance:function (x1,y1,x2,y2){
@@ -65,10 +65,10 @@ var Util = {
 				return ""+Math.floor(number+0.5);
 			}
 			
-			var float = number - Math.floor(number);
+			var _float = number - Math.floor(number);
 			var result = ""+Math.floor(number)+",";
 			for(var i=0;i<decimal;i++) {
-				result += Math.floor(float*Math.pow(10,i+1) + (i==decimal-1?0.5000000001:0)) % 10; 
+				result += Math.floor(_float*Math.pow(10,i+1) + (i==decimal-1?0.5000000001:0)) % 10; 
 			}
 			
 			return result;
@@ -109,11 +109,20 @@ var Util = {
 			return Util.randomInteger(0,10);
 		},
 	
+	gcd: function(a,b){
+		return b ? Util.gcd(b, a%b) : a;
+	},
+	lcm: function(num1, num2, num3, num4){
+		if(num3 == null || num3 == undefined)
+			return (num1*num2)/Util.gcd(num1,num2);
+		else if(num4 == null || num4 == undefined)
+			return Util.lcm(num1, Util.lcm(num2,num3));
+		else
+			return Util.lcm(Util.lcm(num1,num2), Util.lcm(num3,num4));
+	},
+	
 	reduceFractions: function(nom,denom){
-		var gcd = function gcd(a,b){
-			return b ? gcd(b, a%b) : a;
-		};
-		gcd = gcd(nom,denom);
+		var gcd = Util.gcd(nom,denom);
 		return [nom/gcd, denom/gcd];
 	},
 	
@@ -288,7 +297,23 @@ var Util = {
 			if(opt.value)
 				$(node).val(val);
 			return node;		
-		}
-		
+		},
+        
+    format : function(num, options) {
+            if(!options)
+                options = {};
+            options.point=options.point ||',';
+            options.group=options.group ||' ';
+            options.places=options.places||0;
+            options.suffix=options.suffix||'';
+            options.prefix=options.prefix||'';
+
+            regex = /(\d+)(\d{3})/;
+            result = ((isNaN(num) ? 0 : Math.abs(num)).toFixed(options.places)) + '';
+
+            for (result = result.replace('.', options.point); regex.test(result) && options.group; result=result.replace(regex, '$1'+options.group+'$2')) {};
+            return (num < 0 ? '-' : '') + options.prefix + result + options.suffix;
+        }
+        
 	
 };

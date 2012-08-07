@@ -22,19 +22,20 @@ Interaction.getFramework = function() {
 
 
 Animation.init=function(container){
-	$(container).append("<div id='ornek'>");
-		$("#ornek").css("width","120px")
-		.css("height","130px")
-		.css("margin","auto")
-		.css("position","absolute")
-		//.css("bottom","20px")
-		.css("left","0")
-		.css("right","0")
-		.css("top","40px");
+    $(container).append("<div id='ornek'>");
+        $("#ornek").css("width","120px")
+            .css("height","130px")
+            .css("margin","auto")
+            .css("position","absolute")
+            //.css("bottom","20px")
+            .css("left","0")
+            .css("right","0")
+            .css("top","40px");
 		
-		toplamaIslemi=new LongAddition(93507,78235,"ornek");
-			toplamaIslemi.doldur();
-			toplamaIslemi.basla(1000,800);
+    var toplamaIslemi=new LongAddition(93507,78235,"ornek");
+        toplamaIslemi.doldur();
+	toplamaIslemi.basla(1000,800);
+     Main.animationFinished(12000);
 
 
 };

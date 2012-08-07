@@ -202,7 +202,7 @@ Animation.init=function(container){
 	
 	
 	
-	
+	 Main.animationFinished(26000);
 	
 };
 

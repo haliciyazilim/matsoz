@@ -5741,7 +5741,19 @@ var PointText = this.PointText = TextItem.extend({
 		this._matrix.preConcatenate(matrix);
 		matrix._transformPoint(this._point, this._point);
 	},
-
+	
+	/*User defined function*/
+	getWidth : function(){
+		if (!this._content)
+			return 0;
+		var canvas = document.createElement('canvas');
+		ctx = canvas.getContext('2d');
+		ctx.save();
+		ctx.font = this.getFontSize() + 'pt ' + this.getFont();
+		textDimensions = ctx.measureText(this.content);
+		ctx.restore();
+		return textDimensions.width;
+	},
 	draw: function(ctx) {
 		if (!this._content)
 			return;
@@ -5749,7 +5761,6 @@ var PointText = this.PointText = TextItem.extend({
 		ctx.font = this.getFontSize() + 'pt ' + this.getFont();
 		ctx.textAlign = this.getJustification();
 		this._matrix.applyToContext(ctx);
-
 		var fillColor = this.getFillColor();
 		var strokeColor = this.getStrokeColor();
 		if (!fillColor || !strokeColor)

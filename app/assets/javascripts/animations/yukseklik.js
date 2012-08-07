@@ -1,24 +1,27 @@
 // JavaScript Document
+function __Styles(){
+	shapeStyle = {
+		strokeColor:'#255b63',
+		strokeWidth:2
+	};
+	dashedLineStyle = {
+		strokeColor:'#333',
+		strokeWidth:1,
+		dashArray:[3,2]
+	};
+	heightLineStyle = {
+		strokeColor:'#f00',
+		strokeWidth:2
+	};
+	textStyle = {
+		fontSize:13
+	};
+	hCircleStyle = {
+		fillColor:'#FFFFFF',
+		strokeColor:'#FF0000'
+	}
 
-var shapeStyle = {
-	strokeColor:'#255b63',
-	strokeWidth:2
-};
-var dashedLineStyle = {
-	strokeColor:'#333',
-	strokeWidth:1,
-	dashArray:[3,2]
-};
-var heightLineStyle = {
-	strokeColor:'#f00',
-	strokeWidth:2
-};
-var textStyle = {
-	fontSize:16
-};
-hCircleStyle = {
-	fillColor:'#bfe8ef',
-	strokeColor:'#255b63'
+
 }
 var Animation = {
 	images:[
@@ -235,7 +238,7 @@ var Interaction = {
 			Interaction.drawHeightLine.vertexLetter = Interaction.printVertexLetters(t_p);
 		var circ = new Path.Circle(Util.centerOfPoints([p,h]),12).set_style(hCircleStyle);
 		var hText = new PointText(
-			Util.centerOfPoints([p,h]).add(-5,7)
+			Util.centerOfPoints([p,h]).add(-4,5)
 		); 
 		hText.set_style(textStyle);
 		hText.content = 'h';
