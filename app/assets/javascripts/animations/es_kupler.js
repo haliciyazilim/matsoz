@@ -148,7 +148,8 @@ var Animation = {
 						Animation.cube4.remove();
 					Animation.cube4 = new Path.Cube3d(this.position,Animation.a,this.xAngle,this.yAngle,this.zAngle);
 					Animation.cube4.set_style(animationCubeStyle);
-				}
+				},
+                callback:Main.animationFinished
 			});
 		}
 }

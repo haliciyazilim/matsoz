@@ -221,7 +221,14 @@ p.exampleHeader {
 	width:93px;
 	border:none;
 }
-
+.tryagain_button{
+	background-image:url(/assets/btn_tryagain.png);
+	background-color: #fff;
+	height:40px;
+	width:166px;
+	border:none;
+    
+}
 .status_field {
 	text-align: center;
 	width: 200px;

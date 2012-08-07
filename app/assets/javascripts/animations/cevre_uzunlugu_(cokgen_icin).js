@@ -334,6 +334,7 @@ var Animation = {
 					.delay(1000*(index+1))
 					.animate({opacity:1},2000);
                 });
+                Main.animationFinished(7000)
 			}
 		});
 	}
@@ -402,7 +403,7 @@ Interaction.setStatus = function(msg,isCorrect){
 		
 }
 
-var TestGenerator = function(){}; TestGenerator();
+var TestGenerator = {};
 
 TestGenerator.nextQuestion = function(){
 	Main.interactionProject.activeLayer.removeChildren();
@@ -759,9 +760,9 @@ function Triangle(i,j,k,measure,paper){
 		k = 20;
 		var _p1,_p2;
 		_p1 = findAPointOn(p1,p2,k);
-		x1=_p1.x; y1=_p1.y;
+		x1=_p1.x;y1=_p1.y;
 		_p2 = findAPointOn(p1,p3,k);
-		x2=_p2.x; y2=_p2.y;
+		x2=_p2.x;y2=_p2.y;
 		var fa = A > Math.PI ?1 : 0;
 		var fs = A > 0 ? 0: 1;
 		var _a = Util.findAngle(p1.x,p1.y,p2.x,p2.y);
@@ -770,9 +771,9 @@ function Triangle(i,j,k,measure,paper){
 		if(_A==90){
 			var x,y;
 			_p1 = findAPointOn(p1,p2,k/2);
-			x1=_p1.x; y1=_p1.y;
+			x1=_p1.x;y1=_p1.y;
 			_p2 = findAPointOn(p1,p3,k/2);
-			x2=_p2.x; y2=_p2.y;
+			x2=_p2.x;y2=_p2.y;
 			x = p1.x + Math.sqrt(2) * k/2 * Math.cos(_t);
 			y = p1.y - Math.sqrt(2) * k/2 * Math.sin(_t);
 			var line1 = new Path.Line(new Point(x1,y1), new Point(x,y));

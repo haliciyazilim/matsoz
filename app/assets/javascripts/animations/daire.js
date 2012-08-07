@@ -142,7 +142,7 @@ var Animation = {
 					'</div>'
 				);
 				$('div#result',Animation.container).css({opacity:0});
-				$('div#result',Animation.container).animate({opacity:1},1000)
+				$('div#result',Animation.container).animate({opacity:1},1000,Main.animationFinished)
 				Animation.onFrame = null;
 			}
 		}

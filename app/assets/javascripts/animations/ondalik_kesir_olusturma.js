@@ -144,6 +144,7 @@ var Animation = {
 				],
 				2000
 			);
+                Main.animationFinished(10500);
 		} 
 }
 
@@ -167,7 +168,7 @@ var Interaction = {
 	},
 	init:function(container){
 			Interaction.container = container;
-			Main.setObjective('Yandaki rakamları ve virgül işaretini fare ile sürükleyerek istenen ondalık kesri oluşturunuz.');
+			Main.setObjective('Yandaki rakamları ve virgül işaretini sürükleyerek istenen ondalık kesri oluşturunuz.');
 			Interaction.paper = {
 				width:$(container).width(),
 				height:$(container).height()
@@ -242,7 +243,7 @@ var Interaction = {
 				this.totalDelta = this.totalDelta.add(event.delta);
 			}
 			tool.onMouseUp = function(){
-				if(this.item.snapped == false){
+				if(this.item && this.item.snapped == false){
                                         var distance = this.item.position.getDistance(this.item.firstPosition);
                                         var time = distance / 2 ;
 					this.item.animate({
@@ -304,12 +305,12 @@ var Interaction = {
 				}
 			}
 			/*<[[TEST*/
-			//	randomNumber = Interaction.__type.SMALLEST_IN_BETWEEN;
+				randomNumber = Interaction.__type.LARGER_THAN;
 			/*TEST]]>*/
 			Interaction.qType = randomNumber;
 			switch(randomNumber){
 				
-				case Interaction.__type.LARGEST_OF_THE_SMALLERS : 
+				case Interaction.__type.LARGEST_OF_THE_SMALLERS :
 					do{
 						Interaction.digit = Util.randomInteger(0,1000);
 					}while(!Interaction.hasSmaller(Interaction.digit))
@@ -323,7 +324,7 @@ var Interaction = {
 					Interaction.setQuestionText(Interaction.digit + ' sayısından büyük en küçük ondalık kesri oluşturunuz.');
 					break;
 				
-				case Interaction.__type.SMALLEST_IN_BETWEEN : 
+				case Interaction.__type.SMALLEST_IN_BETWEEN :
 					do{
 						Interaction.digit_larger = Util.randomInteger(0,1000);
 					}while(!Interaction.hasSmaller(Interaction.digit_larger))
@@ -475,7 +476,7 @@ var Interaction = {
 	isAnswerCorrect : function(){
 			var value = Interaction.shapeToNumber();
 			switch(Interaction.qType){
-			case Interaction.__type.LARGEST_OF_THE_SMALLERS : 
+			case Interaction.__type.LARGEST_OF_THE_SMALLERS :
 				Interaction.correctAnswer = Interaction.findAnswer(Interaction.answerCondition.LARGEST_OF_THE_SMALLERS);
 				if(Interaction.answerCondition.LARGEST_OF_THE_SMALLERS(value))
 					return true;
@@ -530,9 +531,10 @@ var Interaction = {
 	orderNumbers : function(){
 			Interaction.shapes.sort(function(s1,s2){
 				var i1,i2;
-				
-				i1 = (""+Interaction.correctAnswer).replace('.',',').indexOf(s1.text.content);
-				i2 = (""+Interaction.correctAnswer).replace('.',',').indexOf(s2.text.content);
+				var answer = (""+Interaction.correctAnswer).length == 3 ? (""+Interaction.correctAnswer+",0") : (""+Interaction.correctAnswer);
+                answer = answer.replace('.',',');
+				i1 = answer.indexOf(s1.text.content);
+				i2 = answer.indexOf(s2.text.content);
 				
 				if(i1 < i2)
 					return -1;
