@@ -137,7 +137,8 @@ var Animation = {
 					r5.animate({
 						style:{opacity:1},
 						delay:2400,
-						duration:1000
+						duration:1000,
+                        callback:Main.animationFinished
 					})
 				}	
 			})
