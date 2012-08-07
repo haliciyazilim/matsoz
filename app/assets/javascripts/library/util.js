@@ -65,10 +65,10 @@ var Util = {
 				return ""+Math.floor(number+0.5);
 			}
 			
-			var _float = number - Math.floor(number);
+			var float = number - Math.floor(number);
 			var result = ""+Math.floor(number)+",";
 			for(var i=0;i<decimal;i++) {
-				result += Math.floor(_float*Math.pow(10,i+1) + (i==decimal-1?0.5000000001:0)) % 10; 
+				result += Math.floor(float*Math.pow(10,i+1) + (i==decimal-1?0.5000000001:0)) % 10; 
 			}
 			
 			return result;
@@ -174,6 +174,16 @@ var Util = {
 		},
 		
 	rotateX: function(angle, point, center) {
+                        if (point instanceof Point3) {
+                            point = [point.x, point.y, point.z];
+                            
+                            var returnPoint3 = true;
+                        }
+                        
+                        if (center instanceof Point3) {
+                            center = [center.x, center.y, center.z];
+                        }
+                        
 			if (angle == 0) {
 				return [point[0], point[1], point[2]];
 			}
@@ -185,17 +195,31 @@ var Util = {
 				var y = point[1] * cos - point[2] * sin;
 				var z = point[1] * sin + point[2] * cos;
 
-				return new Point(point[0], y, z);
+				return new Point3(point[0], y, z);
 			} else {
 				var p = [point[1] - center[1], point[2] - center[2]];
 				var y = p[0] * cos - p[1] * sin;
 				var z = p[0] * sin + p[1] * cos;
 
-				return [point[0], y + center[1], z + center[2]];
+                                if (returnPoint3) {
+                                    return new Point3(point[0], y + center[1], z + center[2]);
+                                } else {
+                                    return [point[0], y + center[1], z + center[2]];
+                                }
 			}
 		},
 		
 	rotateY: function(angle, point, center) {
+                        if (point instanceof Point3) {
+                            point = [point.x, point.y, point.z];
+                            
+                            var returnPoint3 = true;
+                        }
+                        
+                        if (center instanceof Point3) {
+                            center = [center.x, center.y, center.z];
+                        }
+            
 			if (angle == 0) {
 				return [point[0], point[1], point[2]];
 			}
@@ -207,13 +231,17 @@ var Util = {
 				var x =   point[0] * cos + point[2] * sin;
 				var z = - point[0] * sin + point[2] * cos;
 
-				return new Point(x, point[1], z);
+				return new Point3(x, point[1], z);
 			} else {
 				var p = [point[0] - center[0], point[2] - center[2]];
 				var x =   p[0] * cos + p[1] * sin;
 				var z = - p[0] * sin + p[1] * cos;
 
-				return [x + center[0], point[1], z + center[2]];
+                                if (returnPoint3) {
+                                    return new Point3(x + center[0], point[1], z + center[2]);
+                                } else {
+                                    return [x + center[0], point[1], z + center[2]];
+                                }
 			}
 		},
 		
@@ -256,6 +284,10 @@ var Util = {
 		},
 	
 	project: function(point, matrix) {
+                        if (point instanceof Point3) {
+                            point = [point.x, point.y, point.z];
+                        }
+            
 			if (!point[3]) {
 				point[3] = 1;
 			}
@@ -298,7 +330,8 @@ var Util = {
 				$(node).val(val);
 			return node;		
 		},
-        
+		
+		
     format : function(num, options) {
             if(!options)
                 options = {};
@@ -314,6 +347,4 @@ var Util = {
             for (result = result.replace('.', options.point); regex.test(result) && options.group; result=result.replace(regex, '$1'+options.group+'$2')) {};
             return (num < 0 ? '-' : '') + options.prefix + result + options.suffix;
         }
-        
-	
 };

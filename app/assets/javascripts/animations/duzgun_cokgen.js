@@ -272,7 +272,8 @@ var Animation = {
 				raster.animate({
 					style:{opacity:1},
 					duration:1000,
-					delay:500
+					delay:500,
+                    callback:Main.animationFinished
 
 				});
 			}

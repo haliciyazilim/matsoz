@@ -202,7 +202,7 @@ Animation.init=function(container){
 	
 	
 	
-	
+	 Main.animationFinished(26000);
 	
 };
 
@@ -1006,22 +1006,37 @@ Interaction.init = function(container){
 		
 		}
 		else{*/
-		var boslukDenetimi=0;
-		for(var i=0; i<girdiler.length; i++){
-			if($(girdiler[i]).val()==""){
-				boslukDenetimi++;
-			}
-		}
-		console.log("boşluk denemetimi: "+boslukDenetimi);
-		if(boslukDenetimi==girdiler.length){
+		
+		function doldur(){
 			$("#geriBildirimText").attr("class","status_alert").html("Lütfen ilgili kutuları doldurunuz.");
 			
 			$("input").keydown(
 				function(){
 					$("#geriBildirimText").html("");
 				}
-			);
+			);	
 		}
+		
+		var boslukDenetimi=0;
+		for(var i=0; i<girdiler.length; i++){
+			if($(girdiler[i]).val()==""){
+				boslukDenetimi++;
+			}
+		}
+		
+		araBoslukDenetimi=0;
+		for(var i=boslukDenetimi; i<girdiler.length; i++){
+				var bilgi=girdiler[boslukDenetimi];
+				console.log(bilgi);
+				if($(bilgi).val()=="")
+					araBoslukDenetimi++;
+		}
+		console.log("boşluk denemetimi: "+boslukDenetimi);
+		if(boslukDenetimi==girdiler.length){
+			doldur();
+		}
+		else if(araBoslukDenetimi>0)
+			doldur();
 		else{
 			if (yuzMilyon=="" || yuzMilyon=="0" || yuzMilyon==0)
 				yuzMilyon=" ";
@@ -1129,11 +1144,12 @@ Interaction.init = function(container){
 	}
 	
 	
-	$("#inputYuzMilyonlar, #inputOnMilyonlar, #inputMilyonlar, #inputYuzBinler, #inputOnBinler, #inputBinler, #inputYuzler, #inputOnlar, #inputBirler").keyup(function(event) {
+	$("input").keyup(function(event) {
 		if(event.keyCode == 13) {
 			//console.log("Key"+event.keyCode);
 			kontrol();
 		}
+		
 	});
 	
 	

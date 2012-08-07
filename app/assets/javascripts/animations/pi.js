@@ -220,8 +220,9 @@ var Animation = {
 			'3,14',
 			x+270,
 			y,
-			12000
+			12000            
 		);
+        Main.animationFinished(15000);
 	}
 };
 var Interaction = {

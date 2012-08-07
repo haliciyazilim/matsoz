@@ -69,7 +69,8 @@ var Animation = {
 		r3.animate({
 			style:{opacity:1},
 			duration:1000,
-			delay:2300
+			delay:2300,
+            callback:Main.animationFinished
 		});
 		 
 	}
@@ -113,15 +114,25 @@ var Interaction = {
 		var W = 200;
 		var H = 200;
 		var NUMBER_OF_SHAPES  = 9 ;
-		var phase = Math.floor(Math.random()*60)-30;
-
+		try{
+            if(phase == undefined)
+                phase = 0;
+        }catch(e){
+            phase = 0;
+        }
+        if(phase == 0 )
+            phase = Math.floor(Math.random()*60)-30;
+        else
+            phase = 0;
+        
+        
 		Interaction.shapeCount = Interaction.shapeCount%NUMBER_OF_SHAPES;
 		if(Interaction.shuffledArray == null || Interaction.shuffledArray == undefined)
 			Interaction.shuffledArray = Util.getShuffledArray(NUMBER_OF_SHAPES);
 		Interaction.shapeType = Interaction.shuffledArray[Interaction.shapeCount];	
 		/*TEST*/ 
-		//	Interaction.shapeType = 8 ;
-		/*TEST*/
+		//	Interaction.shapeType = 8 ;  
+        /*TEST*/
 
 		switch(Interaction.shapeType){
 			case 0://square
@@ -172,9 +183,9 @@ var Interaction = {
 		
 		var tool = new Tool();
 		tool.onMouseDown = function(event){
-			if(Interaction.shape == null || Interaction.shape == undefined)
+			if( Interaction.shape == null || Interaction.shape == undefined )
 				return;
-			for(var i=0;i<Interaction.shape.vertexArray.length;i++)
+			for( var i=0 ; i < Interaction.shape.vertexArray.length ; i++ )
 				if(POINT_HIT_TOLERANCE > Interaction.shape.vertexArray[i].getDistance(event.point) ){
 					Interaction.drawHeightLine(i);
 				}
@@ -182,17 +193,24 @@ var Interaction = {
 		tool.activate();	
 	},
 	drawHeightLine : function(index){
-		if(Interaction.heightLine)
+        if(Interaction.drawHeightLine.increment == undefined)
+            Interaction.drawHeightLine.increment = 0;
+        else if(Interaction.drawHeightLine.increment == 0)
+            Interaction.drawHeightLine.increment = 1;
+        else
+            Interaction.drawHeightLine.increment = 0;
+        if(Interaction.heightLine)
 			Interaction.heightLine.remove();
 		var p1,p2,p,h;
-				p = Interaction.shape.vertexArray[index];
-		switch(Interaction.shape.vertexArray.length){
+		p = Interaction.shape.vertexArray[index];
+		
+        var i = Interaction.drawHeightLine.increment;
+        switch(Interaction.shape.vertexArray.length){
 			case 4:
-				p1 = Interaction.shape.vertexArray[(index+1)%4];
-				p2 = Interaction.shape.vertexArray[(index+2)%4];
+				p1 = Interaction.shape.vertexArray[(index+i+1)%4];
+				p2 = Interaction.shape.vertexArray[(index+i+2)%4];
 				h = p.projectToLine(p1,p2); 
 				break;
-				
 			case 3:
 				p1 = Interaction.shape.vertexArray[(index+1)%3];
 				p2 = Interaction.shape.vertexArray[(index+2)%3];
@@ -215,6 +233,7 @@ var Interaction = {
 			c = p1;
 			d = p2;
 		}
+        
 		var d_ph = h.findPointTo(d,10);
 		var p_ph = h.findPointTo(p,10);;
 		var m_ph = Util.centerOfPoints([d_ph,p_ph]);
@@ -225,7 +244,8 @@ var Interaction = {
 		Interaction.heightLine.addChild(l1);
 		Interaction.heightLine.addChild(l2);
 		Interaction.heightLine.addChild(m);
-		//decide to draw a dahsed line
+		
+        //decide to draw a dahsed line
 		if(!h.isBetweenTwoLinePoints(p1,p2))
 			Interaction.heightLine.addChild(
 				new Path.Line(h,c)

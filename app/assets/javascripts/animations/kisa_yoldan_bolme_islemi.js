@@ -25,7 +25,6 @@ var Animation = {
 			var board = new Raster('board');
 			board.position = new Point(Math.floor(w*0.5),Math.floor(h*0.5)+2)
 			
-			$('head').append("<link href='http://fonts.googleapis.com/css?family=Homemade+Apple' rel='stylesheet' type='text/css'>");
 			
 			var div = document.createElement('div');
 			$(container).append(div);
@@ -68,7 +67,7 @@ var Animation = {
 			$(container).append(div2);
 			$(div2)
 				.css(animationDivisionStyle)
-				.css({ left:'260px', width:'190px'})
+				.css({left:'260px', width:'190px'})
 				.delay(7000)
 				.animate({opacity:0.9},1000);
 			Animation.division2 = new LongDivision(4581,9,div2);
@@ -108,7 +107,7 @@ var Animation = {
 			$(container).append(div3);
 			$(div3)
 				.css(animationDivisionStyle)
-				.css({ left:'460px', width:'220px'})
+				.css({left:'460px', width:'220px'})
 				.delay(11000)
 				.animate({opacity:0.9},1000);
 			Animation.division3 = new LongDivision(4581,9,div3);
@@ -138,6 +137,7 @@ var Animation = {
 			setTimeout(
 				'Animation.division3.nextStep(2000);'
 				,11000);
+            Main.animationFinished(15000)
 		}
 }
 
@@ -283,6 +283,6 @@ var Interaction = {
 				}
 			}
 			setTimeout(callNextStep,500);
-		},
+		}
 }
 
