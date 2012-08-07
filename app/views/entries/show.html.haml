@@ -8,6 +8,10 @@
   - begin
     = javascript_include_tag @entry.javascript_file
   - rescue
+
+  - if Rails.env.development?
+    = javascript_include_tag 'development.js'
+
   :javascript
     var wordList = #{@word_list.to_json};
     var currentLetter = '#{@current_letter}';

@@ -16,7 +16,6 @@
 
 
 var Main = function(){
-	
 	if(navigator.appName == "Microsoft Internet Explorer"){
 		console ={
 			log: function(){}
@@ -30,7 +29,6 @@ Main.config = {
 };
 
 Main.startAnimation = function(){
-    console.log("I'm here");
     animationView.onFrame = function(event) {
         Main.animationProject.activate();
         AnimationManager.update(event);
@@ -38,54 +36,47 @@ Main.startAnimation = function(){
             Animation.onFrame(event);
         }
     }
-    if(Animation.images == null || Animation.images == undefined) {
-        Main.animationProject.activate();
-        if (Animation.init) {
-            Animation.init(Main.animation);
-        }
+    if (animationReady == false) {
         animationReady = true;
-        initializeRunLoop();
+        return;
+    } else {
+       Main.animationProject.activate();
+       Animation.init(Main.animation);
+    }
+    try{
+        if(__START_INTERACTION_IMMEDIATELY === true)
+            Main.animationFinished();
+    }
+    catch(e){
+    }    
+}
+Main.animationFinished = function(delay){
+	if (delay == undefined) {
+		delay = 100;
+	}
+	if(Main.animationFinished.called == true)
+        return;
+    if(isNaN(delay) || delay == 0){
+        Main.animationFinished.called = true;
+        Main.startInteraction();
     }
     else {
-        Util.loadImages(
-            Animation.images, 
-            function(){
-                Main.animationProject.activate();
-                if (Animation.init) {
-                    Animation.init(Main.animation);
-                }
-                animationReady = true;
-                initializeRunLoop();
-            }
-        );
-    }
-}
-
-Main.animationFinished = function(delay){
-    if(isNaN(delay))
-        Main.startInteraction();
-    else
-        setTimeout(Main.startInteraction,delay);
-
+        setTimeout(function(){
+            if(Main.animationFinished.called == true)
+                return;
+            Main.animationFinished.called = true;
+	        Main.startInteraction();
+		}, delay);
+	}
 }
 
 Main.startInteraction = function(){
-    if(Interaction.images == null || Interaction.images == undefined) {
-        Main.interactionProject.activate();
-        Interaction.init(Main.interaction);
+    if (interactionReady == false) {
         interactionReady = true;
+    } else {
+        Main.interactionProject.activate();
         initializeRunLoop();
-    }
-    else {
-        Util.loadImages(
-            Interaction.images,
-            function(){
-                Main.interactionProject.activate();
-                Interaction.init(Main.interaction);
-                interactionReady = true;
-                initializeRunLoop();
-            }
-        );
+        Interaction.init(Main.interaction);
     }
 }
 
@@ -137,14 +128,35 @@ Main.init = function(){
 		paper.setup(canvas);
 		Main.animationProject = paper.project;
 		animationView = paper.view;
-		
 		AnimationManager();
 		
 		animationReady = false;
 		interactionReady = false;
 		
+        if(Animation.images == null || Animation.images == undefined) {
+             Main.startAnimation();
+        }
+        else {
+            Util.loadImages(
+                Animation.images, 
+                function(){
+                    Main.startAnimation();
+                }
+            );
+        }
+        if(Interaction.images == null || Interaction.images == undefined) {
+            Main.startInteraction();
+        }
+        else {
+            Util.loadImages(
+                Interaction.images,
+                function(){
+                    Main.startInteraction();
+                }
+            );
+        }
 		initializeRunLoop = function () {
-            console.log("I'm here");
+            //console.log("I'm here");
 			if (animationReady === true && interactionReady === true) {
 				interactionView.onFrame = function(event) {
 					Main.interactionProject.activate();
@@ -153,13 +165,20 @@ Main.init = function(){
 						Interaction.onFrame(event);
 					}
 				}
-				
 			}
 		}
 		InteractionBase();	
 		Main.animateDefinition();
-        setTimeout(Main.startAnimation,3000);
-	}
+        try{
+            if(__START_INTERACTION_IMMEDIATELY === true)
+                Main.startAnimation();
+            else
+                throw '';
+        }
+        catch(e){
+            setTimeout(Main.startAnimation,3000);
+        }
+    }
 };
 
 Main.initializeNavigation = function() {
@@ -175,8 +194,7 @@ Main.initializeNavigation = function() {
 	}
 	$('.navlink').click(function() {
 		createWordList($(this).data('letter'));
-	})
-	
+	});
 	createWordList(currentLetter);
 }
 

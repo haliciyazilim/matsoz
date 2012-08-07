@@ -187,11 +187,12 @@ var Animation = {
 			style:{
 				angle:6000,
 				thirdStart:100,
-				thirdStop:1,
+				thirdStop:1
 			},
 			duration:4500,
 			delay:4000,
-			animationType: 'easeInEaseOut'
+			animationType: 'easeInEaseOut',
+            callback:Main.animationFinished
 		});
 		animationHelper.animate({
 			style:{

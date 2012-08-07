@@ -5,7 +5,7 @@ function __Styles(){
 		strokeWidth:1
 	}
 	planeSelectedStyle = {
-		fillColor:new RgbColor(0.15,0.36,0.39,0.7),
+		fillColor:new RgbColor(0.15,0.36,0.39,0.7)
 	}
 	clickableAreaStyle = {
 		fillColor:new RgbColor(1,1,0.6,1),
@@ -52,6 +52,7 @@ function __Styles(){
 var Animation = {
 	init:function(container){
 			Animation.container = container;
+            Main.animationFinished();
 		}
 }
 

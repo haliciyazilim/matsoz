@@ -53,16 +53,17 @@ var Animation = {
 		};
 		Animation.onFrame = function(event){
 			var x=p1.x,y=p1.y;
+            var dot;
 			if(animationHelper.angle > animationHelper.nextDot){
 				x += R*Math.cos(Util.degreeToRadians(animationHelper.nextDot));
 				y += R*Math.sin(Util.degreeToRadians(animationHelper.nextDot));
 				if(animationHelper.angle > 360)
-					var dot = new Path.Circle(
+					dot = new Path.Circle(
 						new Point(x,y),
 						3
 					);
 				else
-					var dot = new Path.Circle(
+					dot = new Path.Circle(
 						new Point(x,y),
 						3
 					);
@@ -147,8 +148,9 @@ var Animation = {
 					'</div>'
 				);
 				$('div#result',Animation.container).css({opacity:0});
-				$('div#result',Animation.container).animate({opacity:1},1000)
+				$('div#result',Animation.container).animate({opacity:1},1000,Main.animationFinished)
 				Animation.onFrame = null;
+                
 			}
 		}
 		animationHelper.animate({
@@ -189,7 +191,7 @@ var Animation = {
 		});
 	}
 };
-var Interaction = function(){}; Interaction();
+var Interaction = {};
 Interaction.getFramework = function() {
 	return 'paper';
 }

@@ -550,7 +550,8 @@ Animation.init = function(container) {
 		},
 		duration: duration,
 		delay: totalDelay += duration + delay,
-		animationType: 'easeInEaseOut'
+		animationType: 'easeInEaseOut',
+		callback: Main.animationFinished
 	});
 }
 

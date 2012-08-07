@@ -216,7 +216,8 @@ var Animation = {
 				t2.animate({
 					style:{opacity:1},
 					delay:500,
-					duration:500
+					duration:500,
+                    callback:Main.animationFinished
 				});
 			}
 		}

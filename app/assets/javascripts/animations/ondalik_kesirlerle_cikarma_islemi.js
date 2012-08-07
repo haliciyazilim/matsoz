@@ -102,7 +102,8 @@ var Animation = {
 					r3.opacity =0;
 					r3.animate({
 						style:{opacity:1},
-						duration:1000
+						duration:1000,
+                        callback:Main.animationFinished
 					});
 				}	
 			})
