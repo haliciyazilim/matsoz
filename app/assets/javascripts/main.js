@@ -59,8 +59,13 @@ Main.startAnimation = function(){
             }
         );
     }
-    if(__START_INTERACTION_IMMEDIATELY === true){
-        Main.animationFinished();
+    
+    try{
+        if(__START_INTERACTION_IMMEDIATELY === true)
+            Main.animationFinished();
+    }
+    catch(e){
+        
     }
         
 }
@@ -166,11 +171,14 @@ Main.init = function(){
 		}
 		InteractionBase();	
 		Main.animateDefinition();
-        if(__START_INTERACTION_IMMEDIATELY === true){
-            Main.startAnimation();
+        try{
+            if(__START_INTERACTION_IMMEDIATELY === true)
+                Main.startAnimation();
         }
-        else
+        catch(e){
             setTimeout(Main.startAnimation,3000);
+        }
+            
             
 	}
 };
