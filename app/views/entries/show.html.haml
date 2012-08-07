@@ -1,12 +1,5 @@
 
 - content_for(:head) do
-  %style{:type => 'text/css', :rel => 'stylesheet'} 
-    @font-face { 
-    font-family: 'Homemade Apple'; 
-    font-style: normal; 
-    font-weight: 400; 
-    src: local('Homemade Apple'), local('HomemadeApple'), url("/assets/theme/hommade_apple.woff") format('woff');
-    }
   %meta{'name' => 'viewport', 'content' => 'width=device-width, initial-scale=1, user-scalable=yes'}
   %meta{'http-equiv'=>'Content-Type', 'content' => 'text/html; charset=UTF-8'}
   = javascript_include_tag 'main.js'

@@ -8,7 +8,7 @@ function InteractionBase(){
 	Interaction.__status = function(e){
 		switch(e){
 			case Interaction.__status.WRONG:
-					Interaction.setStatus('Yanlış cevap, tekrar deneyiniz.',false);
+				Interaction.setStatus('Yanl\u0131ş cevap, tekrar deneyiniz.',false);
 				break;
 				
 			case Interaction.__status.FAIL:
@@ -19,21 +19,21 @@ function InteractionBase(){
 				break;
 				
 			case Interaction.__status.FLOATING:
-				Interaction.setStatus('Lütfen ondalıklı sayıları virgülle yazınız.',false);
+				Interaction.setStatus('Lütfen ondal\u0131klı sayıları virgülle yazınız.',false);
 				break;
 				
 			case Interaction.__status.EMPTY:
 				if(Interaction.inputs.length > 1)
-					Interaction.setStatus('Lütfen tüm kutucukları doldurunuz', "alert");
+					Interaction.setStatus('Lütfen tüm kutucuklar\u0131 doldurunuz', "alert");
 				else
-					Interaction.setStatus('Lütfen kutucuğu doldurunuz', "alert");
+					Interaction.setStatus('Lütfen kutucu\u011fu doldurunuz', "alert");
 				break;
 				
 			case Interaction.__status.NUMBER:
 				if(Interaction.inputs.length > 1)
-					Interaction.setStatus('Lütfen kutucuklara sayı giriniz',false);
+					Interaction.setStatus('Lütfen kutucuklara say\u0131 giriniz',false);
 				else
-					Interaction.setStatus('Lütfen bir sayı giriniz.',false);
+					Interaction.setStatus('Lütfen bir say\u0131 giriniz.',false);
 				break;
 		}
 	}
@@ -65,7 +65,7 @@ function InteractionBase(){
 				class:'status'
 			})
 			.css({
-				position:'absolute',
+				position:'absolute'
 			});
 		$(Interaction.status).css(css);
 	};
@@ -192,10 +192,10 @@ function InteractionBase(){
 		$(Interaction.container).append(Interaction.button);
 		$(Interaction.button)
 			.attr({
-				'class':'control_button',					
+				'class':'control_button'				
 			})
 			.css({
-				position:'absolute',
+				position:'absolute'
 				
 			});
 		$(Interaction.button).css(css);
