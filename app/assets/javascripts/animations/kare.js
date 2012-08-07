@@ -30,7 +30,7 @@ Interaction.images = [{
 Interaction.init = function(container) {
 	paperAddOns();
 	
-	Main.setObjective('Karenin iç açıları toplamı 360° dir. Bunu görmek için "Göster" düğmesine basınız.')
+	Main.setObjective('Karenin iç açıları toplamı 360° dir. Bunu görmek için "Oynat" düğmesine basınız.')
 	
 	// Images
 	var fullImage = new Raster('fullImage');
@@ -185,11 +185,10 @@ Interaction.init = function(container) {
 //	runAnimation();
 		
 	// Create the control button
-	$(container).append('<input id="replayButton" type="button" value="Göster" />');
+	$(container).append('<input id="replayButton" type="button" class="play_button" />');
 	$('#replayButton').css("position", "absolute")
-					  .css("bottom", "20px")
-					  .css("right", "20px");
-	$('#replayButton').addClass('control_button');
+					  .css("bottom", "10px")
+					  .css("right", "10px");
 	$('#replayButton').click(function () {
 		initializeAnimation();
 		runAnimation();
@@ -536,6 +535,7 @@ Animation.init = function (container) {
 		duration: 1000,
 		delay: 13000,
 		animationType: 'easeInEaseOut',
+		callback: Main.animationFinished
 	});
 	
 	kare09.animate({
