@@ -55,21 +55,21 @@ var Animation = {
 				top:'-35px'
 			});
             var p1,p2,y1,r1,r2;
-			var size = new Size(40,40)
+			var size = new Size(40,40);
 			var segmRectSize = new Size(40,40)
 			p1 = new Point(450,0).add(0.5,0.5);
 			r1 = new Path.Rectangle(p1, size);
 			r1.set_style(rectStyle);
 			r2 = new Path.Rectangle(p1.add(-10,10),size);
 			r2.set_style(rectStyle);
-			p2 = p1.add(60,0)
+			p2 = p1.add(60,0);
 			y1 = Path.SegmentedRectangle(p2.x,p2.y,segmRectSize.width,segmRectSize.height,10,10,38,fillColor);
 			y1.strokeColor = rectStyle.fillColor;
 			
 			p1 = new Point(450,55).add(0.5,0.5);
 			r1 = new Path.Rectangle(p1, size);
 			r1.set_style(rectStyle);
-			p2 = p1.add(60,0)
+			p2 = p1.add(60,0);
 			y1 = Path.SegmentedRectangle(p2.x,p2.y,segmRectSize.width,segmRectSize.height,10,10,26,fillColor);
 			y1.strokeColor = rectStyle.fillColor;
 			
@@ -122,9 +122,9 @@ var Animation = {
 					r4.set_style(rectStyle);
 					var r5 = new Path.Rectangle(p3.add(-20,20),size);
 					r5.set_style(rectStyle);
-					r3.opacity =0;
-					r4.opacity =0
-					r5.opacity =0
+					r3.opacity = 0;
+					r4.opacity = 0;
+					r5.opacity = 0;
 					r3.animate({
 						style:{opacity:1},
 						duration:1000
@@ -156,8 +156,7 @@ var Interaction = {
 			Interaction.paper = {
 				width:$(container).width(),
 				height:$(container).height()
-			}
-			
+			};
 			Interaction.appendInput({
 				width:'100px',
 				position:'relative',
@@ -167,7 +166,6 @@ var Interaction = {
 				fontSize:'24px',
 				top:'-10px'
 			});
-			
 			$(Interaction.input)
 				.attr('maxlength','7')
 				.keydown(function(event){
@@ -187,7 +185,7 @@ var Interaction = {
 						this.setSelectionRange(pos,pos);
 						return true;
 					}
-				})
+				});
 			var div = document.createElement('div');
 			$(container).append(div);
 			$(div)
