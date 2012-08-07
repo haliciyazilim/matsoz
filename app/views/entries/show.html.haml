@@ -8,6 +8,10 @@
   - begin
     = javascript_include_tag @entry.javascript_file
   - rescue
+
+  - if Rails.env.development?
+    = javascript_include_tag 'development.js'
+
   :javascript
     var wordList = #{@word_list.to_json};
     var currentLetter = '#{@current_letter}';
@@ -63,16 +67,18 @@
     %div.tanim
       %strong.name
         = @entry.word + ": "
-      - @chunks.each do |chunk|
-        - chunk.each do |key, value|
-          - if value == nil
-            - if key != nil
-              %span>=key.gsub(' ', "\n")
-          - else
-            %span>= link_to key, entry_path(value)
-      - if @entry.additionalInfo
-        %em
-          = @entry.additionalInfo
+      %span.definition
+        - @chunks.each do |chunk|
+          - chunk.each do |key, value|
+            - if value == nil
+              - if key != nil
+                %span>=key.gsub(' ', "\n")
+            - else
+              %span>= link_to key, entry_path(value)
+      %div.additional_info
+        - if @entry.additionalInfo
+          %em
+            = @entry.additionalInfo
           
     %div{:class=>'ornek ornek_border'}
       #div{:class =>'ornekbaslik ornekbaslik_bg'}

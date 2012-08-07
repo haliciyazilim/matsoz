@@ -1,4 +1,5 @@
 
+
 /*Styles*/
 var triangleStyle = {
 	'fill': '#f55',
@@ -12,11 +13,11 @@ var textStyle = {
 var edgeStyle = {
 	strokeWidth : 2,
 	strokeColor:'#255b63',
-	fillColor:'#fff',
+	fillColor:'#fff'
 };
 var angleStyle = {
 	'stroke-width': '2px'
-};
+}; 
 var rulerStyle = {
 	strokeColor:'#000',
 	strokeWidth: 2,

@@ -242,7 +242,16 @@ var Interaction = {
 				this.totalDelta = this.totalDelta.add(event.delta);
 			}
 			tool.onMouseUp = function(){
+				if(this.item.snapped == false){
+                                        var distance = this.item.position.getDistance(this.item.firstPosition);
+                                        var time = distance / 2 ;
+					this.item.animate({
+						style:{position:this.firstPosition},
+						duration:distance	
+					})
+				}
 				this.item = false;
+				
 			}
 			function intersectWithOthers (shape,arr,event){
 				for(var i=0;i<arr.length;i++){
@@ -426,7 +435,7 @@ var Interaction = {
 					return false;
 				}
 			var value = Interaction.shapeToNumber();
-			if((""+value).length != 5){
+			if((""+value).length != 5 && (""+value).length != 3 ){
 				Interaction.setStatus('Lütfen virgülü sayıların arasına yerleştiriniz.','alert');
 				return false;
 			}

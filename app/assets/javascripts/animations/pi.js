@@ -24,7 +24,7 @@ var Animation = {
 					position:'absolute',
 					top:y,
 					left:x,
-					opacity:0,
+					opacity:0
 				})
 				.delay(delay)
 				.animate(
@@ -255,7 +255,7 @@ var Interaction = {
 				top:'200px',
 				left:'30px',
 				width:'32px',
-				height:'31px',
+				height:'31px'
 			});
 		
 		Interaction.input = document.createElement('input');
@@ -316,11 +316,21 @@ var Interaction = {
 		;
 		Interaction.pause = false;
 		Interaction.drawRuler(10,10);
-		Interaction.circleRadius = 60;
-		Interaction.circlePosition = new Point(75,75);
 		Interaction.nextQuestion();
 	},
 	nextQuestion:function(){
+        if(Interaction.circleRadius == undefined)
+            Interaction.circleRadius = 60;
+		else{
+            var circle;
+            do 
+                circle = Math.floor(Math.random()*5+5)*6;
+                while(circle == Interaction.circleRadius)
+            Interaction.circleRadius = circle;
+        }
+            
+        Interaction.circlePosition = new Point(75,75);
+        Interaction.lineStartPoint = new Point(150,75+Interaction.circleRadius);
 		if(Interaction.circle)
 			Interaction.circle.remove();
 		if(Interaction.drawLine.arc)
@@ -328,6 +338,7 @@ var Interaction = {
 		if(Interaction.drawLine.line)
 			Interaction.drawLine.line.remove();
 		Interaction.trial = 0;
+        Interaction.isLineDrawed = false;
 		Interaction.drawCircle();
 		Interaction.setStatus('');
 		Interaction.button.className = 'control_button';
@@ -343,12 +354,12 @@ var Interaction = {
 		Interaction.ruler = new Raster('ruler');
 		Interaction.ruler.set_style(rulerStyle)
 		var firstPosition = new Point(
-			x+Interaction.ruler.bounds.width,
+			x+Interaction.ruler.bounds.width+0.5,
 			y+Interaction.ruler.bounds.height*0.5
 		);
 		Interaction.ruler.position = firstPosition;
 		Interaction.ruler.firstPosition = firstPosition;
-		
+		Interaction.ruler.guide = true;
 		Interaction.ruler.class = 'ruler';
 		var tool = new Tool();
 		tool.onMouseDown = function(event){
@@ -360,8 +371,16 @@ var Interaction = {
 		}
 		tool.onMouseDrag = function(event){
 			var newPoint = this.firstPosition.add(this.totalDelta).add(event.delta);
-			if(Interaction.isLineDrawed && newPoint.x < 470 && newPoint.x > 430 && newPoint.y > 140 && newPoint.y < 180){
-				Interaction.ruler.position = new Point(448,164);
+            //change byu the circles radius;
+			if(Interaction.isLineDrawed && newPoint.x < 400 && 
+                newPoint.x > 350 && 
+                newPoint.y > Interaction.lineStartPoint.y+Interaction.ruler.bounds.height*0.5-20 && 
+                newPoint.y < Interaction.lineStartPoint.y+Interaction.ruler.bounds.height*0.5+20){
+				Interaction.ruler.position = Interaction.lineStartPoint
+                    .add(
+                    Interaction.ruler.bounds.width*0.5-10,
+                    Interaction.ruler.bounds.height*0.5+1
+                    );
 			}else{
 				Interaction.ruler.position = newPoint;
 			}
@@ -427,28 +446,20 @@ var Interaction = {
 				
 				if(drawLineHelper.angle < 360){
 					Interaction.drawLine.arc = new Path.ArcByAngle(
-						new Point(
-							drawLineHelper.position.x + x,
-							drawLineHelper.position.y
-						),
+						Interaction.lineStartPoint.add(x,-Interaction.circleRadius),
 						Interaction.circleRadius,
 						-270+drawLineHelper.angle+360,
 						-270
 					);
 					Interaction.drawLine.arc.set_style(circleStyle);
 					Interaction.drawLine.arc.opacity = 0.5;
+                    //Interaction.ruler.insertAbove(Interaction.drawLine.arc);
 				}
 				if(Interaction.drawLine.line)
 					Interaction.drawLine.line.remove();
 				Interaction.drawLine.line = new Path.Line(
-					new Point(
-						drawLineHelper.position.x,
-						drawLineHelper.position.y+Interaction.circleRadius
-					),
-					new Point(
-						drawLineHelper.position.x + x,
-						drawLineHelper.position.y+Interaction.circleRadius
-					)
+					 Interaction.lineStartPoint,
+                     Interaction.lineStartPoint.add(x,0)
 				);
 				Interaction.drawLine.line.set_style(circleStyle);
 				Interaction.ruler.insertAbove(Interaction.drawLine.line);
