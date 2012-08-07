@@ -1,6 +1,6 @@
 /*Styles*/
 function __Styles(){
-	textStyle = {fillColor:'#fff' };
+	textStyle = {fillColor:'#fff'};
 	edgeStyle = {
 		strokeColor:'#255b63',
 		fillColor:'#bfe8ef'
@@ -25,8 +25,8 @@ function __Styles(){
 	}
 	bowlHoverStyle = {strokeColor : '#000', fillColor :'#ff9' , strokeWidth : 2}
 	//var bowlDefaultStyle = {'stroke':'#000','fill':'#fff'};
-	bowlDroppedTrueStyle = {strokeColor : '#0f0', fillColor :'#afa' }//{'stroke':'#0f0','fill':'#afa'};
-	bowlDroppedFalseStyle = {strokeColor : '#f00', fillColor :'#faa' }//{'stroke':'#f00','fill':'#faa'};
+	bowlDroppedTrueStyle = {strokeColor : '#0f0', fillColor :'#afa'}//{'stroke':'#0f0','fill':'#afa'};
+	bowlDroppedFalseStyle = {strokeColor : '#f00', fillColor :'#faa'}//{'stroke':'#f00','fill':'#faa'};
 	bowlDefaultStyle = {fillColor: '#fff', strokeColor : '#000' , strokeWidth : 2}/*
 
 	oneDimensionalShapeStyle.fillColor = new RgbColor(1,1,1,0);
@@ -79,8 +79,12 @@ Animation.init = function(container){
 			top:'20px',
 			left:'200px',
 			opacity:0
-		}).delay(1000*i).animate({opacity:1},1000)
-		
+		}).delay(1000*i)
+        
+        if(i==6)
+            $(img).animate({opacity:1},1000,Main.animationFinished);
+		else
+            $(img).animate({opacity:1},1000)
 	}
 }
 
@@ -126,7 +130,7 @@ Interaction.init = function(container){
 	Interaction.generateBowls(w,h);
 	Interaction.nextQuestion();
 	var drag = new Tool();
-	drag.setHitTestOptions({ fill: true, stroke: true, segments: true, tolerance: 25 });
+	drag.setHitTestOptions({fill: true, stroke: true, segments: true, tolerance: 25});
 	drag.onMouseDown = function(event){
 		if(event.item){
 			drag.shape = event.item;
