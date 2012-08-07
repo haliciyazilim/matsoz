@@ -14,8 +14,9 @@ var Animation = {
 				left:'15px',
 				top:'20px'
 			}).fadeIn(1000,'linear'));
+            Main.animationFinished(1000);
 			
-		}
+    }
 };
 var Interaction = {};
 Interaction.getFramework = function() {
