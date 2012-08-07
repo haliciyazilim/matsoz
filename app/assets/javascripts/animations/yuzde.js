@@ -599,6 +599,10 @@ Interaction.init = function(container){
 					.css("top", "142px")
 					.css("text-align", "center");
 	
+	setTimeout(
+		'$("#textInput1").focus()',
+		300);
+	
 	// convertPercentage func. -> 25 = "yüzde yirmi beş"
 	function ConvertPercentage(firstNum, secondNum)
 	{
@@ -749,7 +753,7 @@ Interaction.init = function(container){
 					$('#percentage').html("yüzde "+percent);
 					deactivate = 1;
 					$('.inp').each(function(index, element) {
-            			$(this).get(0).onkeydown = function(event){
+            			$(this).get(0).onkeyup = function(event){
 												if(event.keyCode != 13)
 													return false;
 												$("#nextBtn").click();
@@ -786,7 +790,7 @@ Interaction.init = function(container){
 					$('#nextBtn').show();
 					trial += 1;
 					$('.inp').each(function(index, element) {
-            			$(this).get(0).onkeydown = function(event){
+            			$(this).get(0).onkeyup = function(event){
 												if(event.keyCode != 13)
 													return false;
 												$("#nextBtn").click();

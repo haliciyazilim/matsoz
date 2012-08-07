@@ -23,3 +23,6 @@
 # Ignore local initializations
 /config/initializers/local/*
 
+
+/nbproject/
+
