@@ -59,7 +59,7 @@ Main.startAnimation = function(){
             }
         );
     }
-    
+
     try{
         if(__START_INTERACTION_IMMEDIATELY === true)
             Main.animationFinished();
@@ -83,22 +83,11 @@ Main.animationFinished = function(delay){
 }
 
 Main.startInteraction = function(){
-    if(Interaction.images == null || Interaction.images == undefined) {
+    if (interactionReady == false) {
+        interactionReady = true;
+    } else {
         Main.interactionProject.activate();
         Interaction.init(Main.interaction);
-        interactionReady = true;
-        initializeRunLoop();
-    }
-    else {
-        Util.loadImages(
-            Interaction.images,
-            function(){
-                Main.interactionProject.activate();
-                Interaction.init(Main.interaction);
-                interactionReady = true;
-                initializeRunLoop();
-            }
-        );
     }
 }
 
@@ -156,6 +145,19 @@ Main.init = function(){
 		animationReady = false;
 		interactionReady = false;
 		
+
+        if(Interaction.images == null || Interaction.images == undefined) {
+            Main.startInteraction();
+        }
+        else {
+            Util.loadImages(
+                Interaction.images,
+                function(){
+                    Main.startInteraction();
+                }
+            );
+        }
+
 		initializeRunLoop = function () {
             //console.log("I'm here");
 			if (animationReady === true && interactionReady === true) {
@@ -174,6 +176,8 @@ Main.init = function(){
         try{
             if(__START_INTERACTION_IMMEDIATELY === true)
                 Main.startAnimation();
+            else
+                throw '';
         }
         catch(e){
             setTimeout(Main.startAnimation,3000);
