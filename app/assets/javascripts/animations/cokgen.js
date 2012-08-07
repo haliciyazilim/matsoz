@@ -129,7 +129,8 @@ var Animation = {
 			900,
 			function(){
 				$(Animation.container).append('<span style="position:absolute;bottom:20px;left:80%">Altıgen</span>');
-			}
+                Main.animationFinished();
+            }
 		);	
 	}
 };
