@@ -60,15 +60,22 @@ Main.startAnimation = function(){
 }
 
 Main.animationFinished = function(delay){
+	if (delay == undefined) {
+		delay = 100;
+	}
+	
     if(Main.animationFinished.called == true)
         return;
-    if(delay == undefined || isNaN(delay) || delay == 0){
+    if(isNaN(delay) || delay == 0){
         Main.animationFinished.called = true;
         Main.startInteraction();
     }
-    else
-        setTimeout(Main.animationFinished,delay);
-
+    else {
+        setTimeout(function () {
+			Main.animationFinished.called = true;
+	        Main.startInteraction();
+		}, delay);
+	}
 }
 
 Main.startInteraction = function(){
