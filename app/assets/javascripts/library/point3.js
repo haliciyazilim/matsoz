@@ -32,6 +32,14 @@ Point3.prototype.add = function(other) {
 	);
 }
 
+Point3.prototype.swapXZ = function() {
+	return new Point3(
+		this.z,
+		this.y,
+		this.x
+	);
+}
+
 Point3.prototype.normalize = function(){
 	return this.setLength(1);
 }
