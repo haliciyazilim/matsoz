@@ -296,6 +296,7 @@ var Animation = {
 				opacity: 1
 			}, duration);
 			
+			Main.animationFinished(totalDelay+1000);
 		}
 }
 

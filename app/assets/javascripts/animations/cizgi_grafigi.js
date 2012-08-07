@@ -208,7 +208,8 @@ Animation.init = function(container) {
 			matrix.concatenate(yelkovan.lastTransformation);
 			
 			yelkovan.setMatrix(matrix);
-		}
+		},
+		callback: Main.animationFinished
 	})
 }
 
