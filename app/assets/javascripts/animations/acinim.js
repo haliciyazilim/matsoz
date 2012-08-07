@@ -97,6 +97,7 @@ var Prism = function (width, height, length, matrix) {
             ])
     }
     
+	this.animate = Item.prototype.animate;
     
     this.project = function () {
         this.surfaces.backSurface.project(this.matrix);
@@ -106,22 +107,84 @@ var Prism = function (width, height, length, matrix) {
         this.surfaces.topSurface.project(this.matrix);
         this.surfaces.frontSurface.project(this.matrix);
     }
-}
 
-var Animation = {
+	this.delay = 2000;
+
+	this.rotateSurfaceX = function(surface, angle, center, asynch) {
+		var self = this;
+		
+		var animationHelper = new AnimationHelper ({
+			angle: 0
+		});
+		
+		animationHelper.animate({
+			style: {
+				angle: angle
+			},
+			duration: 1000,
+			delay: this.delay,
+			animationType: 'easeInEaseOut',
+			init: function() {
+				if (center == undefined && center == nil) {
+					surface.pivotsX.push(new Point3(0,0,0));
+				} else {
+					surface.pivotsX.push(center);
+				}
+			},
+			update: function() {
+				surface.rotationsX[surface.pivotsX.length-1] = this.angle;
+				self.project();
+			}
+		})
+		
+		if (!asynch) {
+			this.delay += 1000;
+		}
+	}
 	
-    init: function(container) {
-        var matrix = Util.createProjectionMatrixForObjectAt(100, 100);
-	
-        var prism = new Prism(60, 60, 60, matrix);
-        prism.project();
-        
-        
-        prism.surfaces.topSurface.pivotsX.push(prism.surfaces.topSurface.points[2]);
-        prism.surfaces.rightSurface.pivotsY.push(prism.surfaces.rightSurface.points[2]);
-        prism.surfaces.frontSurface.pivotsY.push(prism.surfaces.rightSurface.points[2]);
-        prism.surfaces.frontSurface.pivotsY.push(prism.surfaces.rightSurface.points[2]);
-        
+	this.rotateSurfaceY = function(surface, angle, center, asynch) {
+		var self = this;
+		
+		var animationHelper = new AnimationHelper ({
+			angle: 0
+		});
+		
+		animationHelper.animate({
+			style: {
+				angle: angle
+			},
+			duration: 1000,
+			delay: this.delay,
+			animationType: 'easeInEaseOut',
+			init: function() {
+				if (center == undefined && center == nil) {
+					surface.pivotsY.push(new Point3(0,0,0));
+				} else {
+					surface.pivotsY.push(center);
+				}
+			},
+			update: function() {
+				surface.rotationsY[surface.pivotsY.length-1] = this.angle;
+				self.project();
+			}
+		})
+		
+		if (!asynch) {
+			this.delay += 1000;
+		}
+	}
+
+	this.expand = function() {
+		this.rotateSurfaceX(this.surfaces.topSurface, -Math.PI/2, this.surfaces.topSurface.points[2]);
+		this.rotateSurfaceY(this.surfaces.rightSurface, -Math.PI/2, this.surfaces.rightSurface.points[2], true);
+		this.rotateSurfaceY(this.surfaces.frontSurface, -Math.PI/2, this.surfaces.rightSurface.points[2]);
+
+//        this.surfaces.frontSurface.pivotsY.push(this.surfaces.rightSurface.points[1].add(this.surfaces.rightSurface.points[1].swapXZ()).subtract(this.surfaces.rightSurface.points[3].swapXZ()));
+		this.surfaces.leftSurface.pivotsY.push(this.surfaces.leftSurface.points[1]);
+        this.surfaces.bottomSurface.pivotsX.push(this.surfaces.bottomSurface.points[0]);
+
+		var self = this;
+
         var animationHelper = new AnimationHelper({
             topAngle: 0,
             leftAngle: 0,
@@ -129,70 +192,53 @@ var Animation = {
             frontAngle: 0,
             bottomAngle: 0
         })
-        
-        animationHelper.animate({
-            style: {
-                topAngle: -Math.PI/2
-            },
-            duration: 1000,
-            delay: 2000,
-            animationType: 'easeInEaseOut',
-            update: function() {
-                prism.surfaces.topSurface.rotationsX[0] = this.topAngle;
-                prism.project();
-            }
-        })
+
+       animationHelper.animate({
+           style: {
+               leftAngle: Math.PI/2
+           },
+           duration: 1000,
+           delay: 5000,
+           animationType: 'easeInEaseOut',
+           update: function() {
+               self.surfaces.leftSurface.rotationsY[0] = this.leftAngle;
+               self.project();
+           }
+       })
 
         animationHelper.animate({
             style: {
-                rightAngle: -Math.PI/2
+                bottomAngle: Math.PI/2
             },
             duration: 1000,
-            delay: 3000,
+            delay: 6000,
             animationType: 'easeInEaseOut',
             update: function() {
-                prism.surfaces.rightSurface.rotationsY[0] = this.rightAngle;
-                prism.surfaces.frontSurface.rotationsY[0] = this.rightAngle;
-                prism.project();
+               self.surfaces.bottomSurface.rotationsX[0] = this.bottomAngle;
+               self.project();
             }
         })
+	}
+}
 
-        animationHelper.animate({
-            style: {
-                frontAngle: Math.PI/2
-            },
-            duration: 1000,
-            delay: 4000,
-            animationType: 'easeInEaseOut',
-            update: function() {
-                prism.surfaces.frontSurface.rotationsY[1] = this.frontAngle;
-                prism.project();
-            }
-        })
-//
-//        animationHelper.animate({
-//            style: {
-//                leftAngle: -Math.PI/2
-//            },
-//            duration: 1000,
-//            delay: 5000,
-//            animationType: 'easeInEaseOut',
-//            update: function() {
-//                leftSurface.changed = true;
-//            }
-//        })
-//
-//        animationHelper.animate({
-//            style: {
-//                bottomAngle: Math.PI/2
-//            },
-//            duration: 1000,
-//            delay: 6000,
-//            animationType: 'easeInEaseOut',
-//            update: function() {
-//                bottomSurface.changed = true;
-//            }
-//        })
+var Animation = {
+    init: function(container) {
+        var cubeMatrix = Util.createProjectionMatrixForObjectAt(140, 100);
+        var cube = new Prism(50, 50, 50, cubeMatrix);
+        cube.project();
+		cube.expand();
+		
+		
+		var prismMatrix = Util.createProjectionMatrixForObjectAt(500, 90);
+        var prism = new Prism(50, 90, 30, prismMatrix);
+        prism.project();
+		prism.animate({
+			style: {},
+			duration: 6000,
+			callback: function (){
+				this.expand();
+			}
+		})
     }
 }
 
