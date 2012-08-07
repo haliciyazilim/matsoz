@@ -59,6 +59,10 @@ Main.startAnimation = function(){
             }
         );
     }
+    if(__START_INTERACTION_IMMEDIATELY === true){
+        Main.animationFinished();
+    }
+        
 }
 
 Main.animationFinished = function(delay){
@@ -162,7 +166,12 @@ Main.init = function(){
 		}
 		InteractionBase();	
 		Main.animateDefinition();
-        setTimeout(Main.startAnimation,3000);
+        if(__START_INTERACTION_IMMEDIATELY === true){
+            Main.startAnimation();
+        }
+        else
+            setTimeout(Main.startAnimation,3000);
+            
 	}
 };
 
