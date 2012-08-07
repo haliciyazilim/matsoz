@@ -1,182 +1,31 @@
-// JavaScript Document
-var animationTextStyle = {
-	fontSize:16
+function __Styles(){
+    animationTextStyle = {
+        fontSize:24,
+        fillColor:new RgbColor(1,1,1,0.9),
+        font:"cursive"
+    }
 }
+
 var Animation = {
+	images:[
+		{
+			id:'board',
+			src:'/assets/animations/board_black.jpg'
+		}
+	],
 
 	init:function(container){
-			function textAnimate(point,content,style,animateStyle,delay,callback){
-				var pT1 = new PointText(point);
-				pT1.content = content;
-				pT1.set_style(animationTextStyle);
-				pT1.set_style(style);
-				pT1.animate({
-					style:animateStyle,
-					duration:1000,
-					delay:delay,
-					callback:callback,
-					animationType:'easeInEaseOut'
-				});
-				return pT1;
-			};
-			Animation.container = container;
-			var p1 = new Point(250.5,50.5);
-			var p2 = new Point(250.5,100.5);
-			var p3 = new Point(250.5,150.5);
-			
-			textAnimate(
-				p1,
-				'5273',
-				{opacity:0},
-				{opacity:1},
-				100
-			);
-			textAnimate(
-				p1.add(50,0),
-				' x 7',
-				{opacity:0},
-				{opacity:1},
-				600
-			);
-			textAnimate(
-				p1.add(102,0),
-				'=',
-				{opacity:0},
-				{opacity:1},
-				600
-			);
-			textAnimate(
-				p1.add(82,0),
-				'0',
-				{opacity:0},
-				{opacity:1},
-				600,
-				function(){
-					this.animate({
-					style:{fillColor:new RgbColor(1,0,0)},
-					duration:500,
-					delay:900,
-					});
-				}
-			)
-			textAnimate(
-				p1.add(122,0),
-				'36911',
-				{opacity:0},
-				{opacity:1},
-				1200
-			);
-			textAnimate(
-				p1.add(82,0),
-				'0',
-				{opacity:0},
-				{opacity:1,position:p1.add(180,0),fillColor:new RgbColor(1,0,0)},
-				3000
-			);
-			
-			var delay = 3000;
-			textAnimate(
-				p2,
-				'8324',
-				{opacity:0},
-				{opacity:1},
-				100+delay
-			);
-			textAnimate(
-				p2.add(50,0),
-				' x 2',
-				{opacity:0},
-				{opacity:1},
-				600+delay
-			);
-			textAnimate(
-				p2.add(112,0),
-				'=',
-				{opacity:0},
-				{opacity:1},
-				600+delay
-			);
-			textAnimate(
-				p2.add(84,0),
-				'00',
-				{opacity:0},
-				{opacity:1},
-				600+delay,
-				function(){
-					this.animate({
-					style:{fillColor:new RgbColor(1,0,0)},
-					duration:500,
-					delay:900,
-					});
-				}
-			)
-			textAnimate(
-				p2.add(132,0),
-				'16648',
-				{opacity:0},
-				{opacity:1},
-				1200+delay
-			);
-			textAnimate(
-				p2.add(84,0),
-				'00',
-				{opacity:0},
-				{opacity:1,position:p2.add(192,0),fillColor:new RgbColor(1,0,0)},
-				3000+delay
-			);
-			
-			
-			var delay = 6000;
-			textAnimate(
-				p3,
-				'4921',
-				{opacity:0},
-				{opacity:1},
-				100+delay
-			);
-			textAnimate(
-				p3.add(50,0),
-				' x 5',
-				{opacity:0},
-				{opacity:1},
-				600+delay
-			);
-			textAnimate(
-				p3.add(122,0),
-				'=',
-				{opacity:0},
-				{opacity:1},
-				600+delay
-			);
-			textAnimate(
-				p3.add(84,0),
-				'000',
-				{opacity:0},
-				{opacity:1},
-				600+delay,
-				function(){
-					this.animate({
-					style:{fillColor:new RgbColor(1,0,0)},
-					duration:500,
-					delay:900,
-					});
-				}
-			)
-			textAnimate(
-				p3.add(142,0),
-				'24605',
-				{opacity:0},
-				{opacity:1},
-				1200+delay
-			);
-			textAnimate(
-				p3.add(84,0),
-				'000',
-				{opacity:0},
-				{opacity:1,position:p3.add(202,0),fillColor:new RgbColor(1,0,0)},
-				3000+delay
-			);
-
+            Animation.container = container;
+			var p1 = new Point(150.5,50.5);
+			var p2 = new Point(150.5,100.5);
+			var p3 = new Point(150.5,150.5);
+			var w=$(container).width(), h=$(container).height();
+			var board = new Raster('board');
+			board.position = new Point(w*0.5,h*0.5+2)
+			SingleLineMultiply(p1, 100,   "0", 5273, 7, animationTextStyle);
+			SingleLineMultiply(p2,4100,  "00", 8324, 2, animationTextStyle);
+			SingleLineMultiply(p3,8100, "000", 4921, 5, animationTextStyle);
+            Main.animationFinished(13000); 
 		}
 }
 
@@ -233,12 +82,10 @@ var Interaction = {
 	nextQuestion: function(){
 			if(Interaction.solutionDiv)
 				$(Interaction.solutionDiv).remove();
-				
 			Interaction.factor1 = Math.floor(Math.random()*10000);
 			Interaction.factor2 = Math.pow(10,Math.floor(Math.random()*3+1))*Math.floor(Math.random()*9+1); 
-			$(Interaction.factor1Span).html(Interaction.factor1);
-			$(Interaction.factor2Span).html(Interaction.factor2);
-			
+			$(Interaction.factor1Span).html(Util.format(Interaction.factor1));
+			$(Interaction.factor2Span).html(Util.format(Interaction.factor2));
 		},
 	isAnswerCorrect : function(value){
 			if(value == Interaction.factor1 * Interaction.factor2)
@@ -272,12 +119,12 @@ var Interaction = {
 			$('#result',Interaction.solutionDiv)
 				.css({opacity:0})
 				.delay(2000)
-				.animate({opacity:1},1000)
+				.animate({opacity:1},1000);
 			$('#factor2',Interaction.solutionDiv)
 				.html(Interaction.factor2Span.innerHTML.substring(0,1)+zeros )
-				.css({opacity:0}) 
+				.css({opacity:0})
 				.delay(1000)
-				.animate({opacity:1},1000)
+				.animate({opacity:1},1000);
 			$('#factor2 .zero',Interaction.solutionDiv)
 				.css({color:'#000'})
 				.delay(3000)
@@ -295,5 +142,6 @@ var Interaction = {
 						Interaction.pause = false;
 					}
 				);
-		},
+		}
 }
+

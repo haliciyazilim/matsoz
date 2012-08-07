@@ -1,12 +1,12 @@
 function __Styles(){
 	animationTextStyle = {
-		fontSize:24,
+		fontSize:16,
 		fillColor:new RgbColor(1,1,1,0.9),
-		font:"'Homemade Apple', cursive"
+        font:"'Homemade Apple', cursive"
 	}
 	interactionTextStyle = {
 		fontSize:16,
-		fillColor:new RgbColor(0,0,0),
+		fillColor:new RgbColor(0,0,0)
 	}
 }
 var Animation = {
@@ -17,17 +17,19 @@ var Animation = {
 		}
 	],
 	init:function(container){
-			$('head').append("<link href='http://fonts.googleapis.com/css?family=Homemade+Apple' rel='stylesheet' type='text/css'>");
+			//$('head').append("<link href='http://fonts.googleapis.com/css?family=Homemade+Apple' rel='stylesheet' type='text/css'>");
 			Animation.container = container;
 			var w=$(container).width(), h=$(container).height();
 			var board = new Raster('board');
 			board.position = new Point(w*0.5,h*0.5+2)
-			var p1 = new Point(200.5,50.5);
-			var p2 = new Point(200.5,100.5);
-			var p3 = new Point(200.5,150.5);
-			multiply(p1,100,'0',4519,1,animationTextStyle);
-			multiply(p2,4000,'00',4519,1,animationTextStyle);
-			multiply(p3,8000,'000',4569,1,animationTextStyle);
+			var referencePoint = new Point(250,40);
+            var p1 = referencePoint.add(0,0);
+			var p2 = referencePoint.add(0,50);
+			var p3 = referencePoint.add(0,100);
+			SingleLineMultiply(p1,100,'0',4519,1,animationTextStyle);
+			SingleLineMultiply(p2,4000,'00',4519,1,animationTextStyle);
+			SingleLineMultiply(p3,8000,'000',4569,1,animationTextStyle);
+            setTimeout(Main.animationFinished,15000);
 		}
 }
 var Interaction = {
@@ -109,70 +111,6 @@ var Interaction = {
 			var zeros = $('#factor2',Interaction.questionDiv).html();
 			zeros = zeros.substring(1,zeros.length); 
 			console.log(zeros)
-			multiply(new Point(160,200),10,zeros,Interaction.factor1,(""+Interaction.factor2).substring(0,1),interactionTextStyle);
-		},
+			SingleLineMultiply(new Point(160,200),10,zeros,Interaction.factor1,(""+Interaction.factor2).substring(0,1),interactionTextStyle);
+		}
 }
-function textAnimate(point,content,style,animateStyle,delay,textStyle,callback){
-	var pT1 = new PointText(point);
-	pT1.content = content;
-	pT1.set_style(textStyle);
-	pT1.set_style(style);
-	pT1.animate({
-		style:animateStyle,
-		duration:1000,
-		delay:delay,
-		callback:callback,
-		animationType:'easeInEaseOut'
-	});
-	return pT1;
-};
-function multiply(point,delay,zero,factor1,factor2,textStyle){ 
-	var f = textStyle.fontSize*16/22; //fontSize
-	var z = zero.length * f;
-	var L = 0;//length
-	var C = 0;//character count
-	var t1 = textAnimate(point,						factor1,	{opacity:0},{opacity:1},100+delay,textStyle);
-	var rect = new Path.Rectangle(t1.bounds);
-	rect.set_style({strokeColor:'#fff',strokeWidth:2});
-	L += t1.getWidth();
-	var t2 = textAnimate(point.add(L,0)	 ,	 ' × '+factor2,	{opacity:0},{opacity:1},600+delay,textStyle);
-	L += t2.getWidth();
-	var t3 = textAnimate(point.add(L,0)	 ,   		  zero,	{opacity:0},{opacity:1},600+delay,textStyle,
-		function(){
-			this.animate({
-			style:{opacity:0},
-			duration:500,
-			callback:function(){
-					this.animate({
-						style:{opacity:1,fillColor:new RgbColor(1,0,0,0.9)},
-						duration:500,
-						delay:1500,
-						callback:function(){
-							this.animate({
-								style:{fillColor:textStyle.fillColor},
-								duration:500,
-								delay:500
-							});
-						}								
-					});
-				}
-			});
-		}
-	);
-	L += t3.getWidth();
-	var t4 = textAnimate(point.add(L,0),		 	   ' = ',	{opacity:0},{opacity:1},600+delay,textStyle);
-	L += t4.getWidth();
-	var t5 = textAnimate(point.add(L,0),factor1*factor2,{opacity:0},{opacity:1},2000+delay,textStyle);
-	L += t5.getWidth();
-	var t6 = textAnimate(t4.position,zero,{opacity:0},{opacity:1,position:point.add(L,0),fillColor:new RgbColor(1,0,0)},4000+delay,textStyle,
-		function(){
-			this.animate({
-				style:{fillColor:textStyle.fillColor},
-				duration:500,
-			});
-		}
-	);
-};
-
-
-

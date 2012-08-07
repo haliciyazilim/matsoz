@@ -65,10 +65,10 @@ var Util = {
 				return ""+Math.floor(number+0.5);
 			}
 			
-			var float = number - Math.floor(number);
+			var _float = number - Math.floor(number);
 			var result = ""+Math.floor(number)+",";
 			for(var i=0;i<decimal;i++) {
-				result += Math.floor(float*Math.pow(10,i+1) + (i==decimal-1?0.5000000001:0)) % 10; 
+				result += Math.floor(_float*Math.pow(10,i+1) + (i==decimal-1?0.5000000001:0)) % 10; 
 			}
 			
 			return result;
@@ -297,7 +297,23 @@ var Util = {
 			if(opt.value)
 				$(node).val(val);
 			return node;		
-		}
-		
+		},
+        
+    format : function(num, options) {
+            if(!options)
+                options = {};
+            options.point=options.point ||',';
+            options.group=options.group ||' ';
+            options.places=options.places||0;
+            options.suffix=options.suffix||'';
+            options.prefix=options.prefix||'';
+
+            regex = /(\d+)(\d{3})/;
+            result = ((isNaN(num) ? 0 : Math.abs(num)).toFixed(options.places)) + '';
+
+            for (result = result.replace('.', options.point); regex.test(result) && options.group; result=result.replace(regex, '$1'+options.group+'$2')) {};
+            return (num < 0 ? '-' : '') + options.prefix + result + options.suffix;
+        }
+        
 	
 };
