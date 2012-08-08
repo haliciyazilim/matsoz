@@ -198,6 +198,9 @@ var Interaction = {
 				bottom:'20px',
 				right:'40px'
 			});
+            $(Interaction.button).mousedown(function(){
+                Interaction.resume();
+            })
 			Interaction.appendStatus({
 				bottom:'30px',
 				right:'160px'
@@ -219,7 +222,7 @@ var Interaction = {
 	createTool : function (){
 			var tool = new Tool();
 			tool.onMouseDown = function(event){
-				if(event.item && event.item.class == 'draggable'){
+				if(event.item && event.item.class == 'draggable' && !Interaction.isPaused() ){
 					var parent = event.item.parent;
 					parent.removeChildren(event.item);
 					parent.addChild(event.item);
@@ -266,6 +269,7 @@ var Interaction = {
 		},
 		
 	nextQuestion: function(randomNumber){
+            Interaction.resume();
 			if(Interaction.shapes){
 				$(Interaction.shapes).each(function(index, element) {
                     this.remove();
@@ -409,7 +413,9 @@ var Interaction = {
 			}
 			return false;
 		},
-	shapeToNumber : function(){
+	shapeToNumber : function(isString){
+            if(isString==undefined)
+                isString = false;
 			var str = "";
 			Interaction.shapes.sort(
 				function(s1,s2){
@@ -423,8 +429,11 @@ var Interaction = {
 			);
 			for(var i=0; i< Interaction.shapes.length;i++)
 				str += Interaction.shapes[i].text.content;
-			str = str.replace(',','.');
-			return parseFloat(str,10);
+			if(!isString){
+                str = str.replace(',','.');
+                str =  parseFloat(str,10);
+            }
+            return str;
 		},
 	setQuestionText : function(text){
 			Interaction.questionText.content = text;
@@ -435,8 +444,8 @@ var Interaction = {
 					Interaction.setStatus('Lütfen bütün sayıları rafın üzerine bırakınız.','alert');
 					return false;
 				}
-			var value = Interaction.shapeToNumber();
-			if((""+value).length != 5 && (""+value).length != 3 ){
+			var value = Interaction.shapeToNumber(true);
+			if(value.indexOf(",") == 0 || value.indexOf(",") == 4 ){
 				Interaction.setStatus('Lütfen virgülü sayıların arasına yerleştiriniz.','alert');
 				return false;
 			}
@@ -517,13 +526,15 @@ var Interaction = {
 			return false;
 		},
 	onCorrectAnswer : function(){
+            Interaction.pause();
 			Interaction.correctAnswer = Interaction.shapeToNumber();
 			Interaction.orderNumbers();
 		},
 	onWrongAnswer : function(){
-		
+            
 		},
 	onFail : function(){
+            Interaction.pause();
 			Interaction.orderNumbers();
 			
 			Interaction.setStatus('Yanlış cevap. Doğrusu '+Interaction.correctAnswer.replace('.',',')+' olacaktı',false);
