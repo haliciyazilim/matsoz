@@ -20,7 +20,7 @@ var Animation = {
 						.multiply(1,Math.sin(Util.degreeToRadian(xAngle)))
 						.add(o);
 				}
-				var p1,p2,p3,p4,p5,p6;
+				var p1,p2,p3,p4,p5,p6,p7;
 				var poBottom,poTop,poCenter;
 				var a_2_ = a*Math.sqrt(2);
 				p1 = p.add(0,a_2_*0.5);
@@ -196,6 +196,8 @@ var Interaction = {
 					top:'60px',
 					right:'20px'
 				});
+                
+            Interaction.setRandomGenerator(5);
 			Interaction.xCubes = 0;
 			Interaction.yCubes = 0;
 			Interaction.zCubes = 0;
@@ -204,7 +206,7 @@ var Interaction = {
 			Interaction.h = 35;
 			Interaction.prepareNextQuestion();
 		},
-	nextQuestion:function(){
+	nextQuestion:function(randomNumber){
 			if(Interaction.pause == true)
 				return;
 			Interaction.pause = false;
@@ -214,7 +216,6 @@ var Interaction = {
 			var zero = Interaction.zeroPoint;
 			var a = Interaction.a;
 			
-			var cubes = [];
 			var zCubes, xCubes, yCubes;
 			do
 				xCubes = Math.floor(Math.random()*3)+2;
@@ -229,16 +230,63 @@ var Interaction = {
 			Interaction.xCubes = xCubes;
 			Interaction.yCubes = yCubes;
 			Interaction.zCubes = zCubes;
-			for(var i=0; i< xCubes ; i++)
-				cubes.push(new UnitCube(i%5,0,Math.floor(i/5)));
-			for(var i=0; i< yCubes ; i++)
-				cubes.push(new UnitCube(Math.floor(i/5),i%5+1,0));
-			for(var i=0; i< zCubes ; i++)
-				cubes.push(new UnitCube(0,Math.floor(i/5),i%5+1));
-			
-			Interaction.cubes = cubes;
-			UnitCube.drawCubesOneByOne(cubes,zero,a,Interaction,1000);
-		},
+			Interaction.xCubes = xCubes;
+			Interaction.yCubes = yCubes;
+			Interaction.zCubes = zCubes;
+            
+			Interaction.cubes = Interaction.generateShape(randomNumber);
+            Interaction.pause = true;
+            var delay = 500;
+			UnitCube.drawCubesOneByOne(Interaction.cubes,zero,a,Interaction,delay);
+            setTimeout("Interaction.pause = false",delay*Interaction.cubes.length);
+        }, 
+    generateShape : function(randomNumber){
+            var cubes = [];
+            var i;
+            switch(randomNumber){
+                case 0:
+                    for(i=0; i< Interaction.xCubes ; i++)
+                        cubes.push(new UnitCube(i-1,2,0));
+                    for(i=0; i< Interaction.yCubes ; i++)
+                        cubes.push(new UnitCube(0,2-(i+1),0));
+                    for(i=0; i< Interaction.zCubes ; i++)
+                        cubes.push(new UnitCube(-Math.floor(i/3),2,i%3+1));
+                    break;
+                case 1:
+                    for(i=0; i< Interaction.xCubes ; i++)
+                        cubes.push(new UnitCube(i-1,2,2));
+                    for(i=0; i< Interaction.yCubes ; i++)
+                        cubes.push(new UnitCube(0,2-(i+1),2));
+                    for(i=0; i< Interaction.zCubes ; i++)
+                        cubes.push(new UnitCube(-Math.floor(i/3),2, - i%3+1));
+                    break;
+                case 2:
+                    for(i=0; i< Interaction.xCubes ; i++)
+                        cubes.push(new UnitCube(i-1,0,0));
+                    for(i=0; i< Interaction.yCubes ; i++)
+                        cubes.push(new UnitCube(0,(i+1),0));
+                    for(i=0; i< Interaction.zCubes ; i++)
+                        cubes.push(new UnitCube(i-1,0,1));
+                    break;
+                case 3:
+                    for(i=0; i< Interaction.xCubes ; i++)
+                        cubes.push(new UnitCube(-1,(i-1),0));
+                    cubes.push(new UnitCube(0,0,0));
+                    for(i=0; i< Interaction.zCubes ; i++)
+                        cubes.push(new UnitCube(1,(i-1),0));
+                    break;
+                case 4:
+                    for(i=0; i< Interaction.yCubes ; i++)
+                        cubes.push(new UnitCube(-i,0,1));
+                    for(i=0; i< Interaction.yCubes ; i++)
+                        cubes.push(new UnitCube(0,(i),0));
+                    for(i=0; i< Interaction.zCubes ; i++)
+                        cubes.push(new UnitCube(i,0,3));
+                     cubes.push(new UnitCube(0,0,2));
+                    break;
+            }
+            return cubes;
+        },
 	showCubes : function(distance){
 			if(Interaction.pause == true)
 				return;
@@ -260,14 +308,14 @@ var Interaction = {
 				duration:1000,
 				update:animHelp.update,
 				callback:function(){
-					Interaction.pause = false;
+					
 					this.animate({
 						style:{distance:0},
 						duration:1000,
 						delay:500,
 						update:this.update,
 						callback:function(){
-							
+							Interaction.pause = false;
 						}
 					});
 				}
@@ -288,7 +336,7 @@ var Interaction = {
 	onFail : function(){
 			Interaction.setStatus('Yanlış cevap, doğrusu '+Interaction.cubes.length + ' olacaktı.',false);
 			Interaction.showCubes(20);
-		},
+		}
 };
 function UnitCube(x,y,z){
 	this.x = x;
@@ -365,7 +413,6 @@ UnitCube.drawCubesOneByOne = function(cubes,zero,a,_s,delay){
 			style:{opacity:1},
 			delay:delay*i,
 			duration:100
-			
 		});
 		
 	}
@@ -377,21 +424,22 @@ UnitCube.explode = function(cubes,zero,a,distance,_s){
 	
 	//draw the cubes
 	cubes.sort(UnitCube.compare);
-	var dY = a;
+    var a = a + distance;
+	var dY = a*Math.sin(Util.degreeToRadian(Interaction.h))*Math.sqrt(2)/2;
 	for(var i=0; i<cubes.length;i++){
 		var p = zero.add(
 			0.5,
-			Math.floor(-cubes[i].y*(distance + a)*Math.cos(Util.degreeToRadian(Interaction.h)))+0.5
+			Math.floor(-cubes[i].y*a*Math.cos(Util.degreeToRadian(Interaction.h)))+0.5
 		);
 		p = p.add(
-			Math.floor(cubes[i].x*(distance + a)*Math.sqrt(2)*0.5),
-			Math.floor(cubes[i].x*(distance + dY)*0.5)
+			Math.floor(cubes[i].x*a*Math.sqrt(2)*0.5),
+			Math.floor(cubes[i].x*dY)
 		);
 		p = p.add(
-			Math.floor(-cubes[i].z*(distance + a )*Math.sqrt(2)*0.5),
-			Math.floor(cubes[i].z*(distance + dY)*0.5)
+			Math.floor(-cubes[i].z*a*Math.sqrt(2)*0.5),
+			Math.floor(cubes[i].z*dY)
 		);
-		
-		cubes[i].draw(p,a,_s);
+		//a = a - distance;
+		cubes[i].draw(p,a - distance,_s);
 	}
 }

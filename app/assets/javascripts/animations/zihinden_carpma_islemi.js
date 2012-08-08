@@ -2,11 +2,14 @@ function __Styles(){
 	animationTextStyle = {
 		fontSize:16,
 		fillColor:new RgbColor(1,1,1,0.9),
-        font:"'Homemade Apple', cursive"
+        font:"cursive"
 	}
 	interactionTextStyle = {
 		fontSize:16,
 		fillColor:new RgbColor(0,0,0)
+	}
+    if(navigator.appName == "Microsoft Internet Explorer"){
+		animationTextStyle.font = "arial";
 	}
 }
 var Animation = {
@@ -17,7 +20,6 @@ var Animation = {
 		}
 	],
 	init:function(container){
-			//$('head').append("<link href='http://fonts.googleapis.com/css?family=Homemade+Apple' rel='stylesheet' type='text/css'>");
 			Animation.container = container;
 			var w=$(container).width(), h=$(container).height();
 			var board = new Raster('board');
@@ -110,7 +112,6 @@ var Interaction = {
 			Interaction.solutionDiv = $(Interaction.questionDiv).clone().insertAfter(Interaction.questionDiv);
 			var zeros = $('#factor2',Interaction.questionDiv).html();
 			zeros = zeros.substring(1,zeros.length); 
-			console.log(zeros)
 			SingleLineMultiply(new Point(160,200),10,zeros,Interaction.factor1,(""+Interaction.factor2).substring(0,1),interactionTextStyle);
 		}
 }
