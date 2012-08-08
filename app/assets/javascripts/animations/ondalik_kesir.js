@@ -658,6 +658,7 @@ var Interaction = {
 		$("#kesirPay").html(format(pay, {point:","}));
 		$("#kesirPayda").html(payda);
 		$("input").css("color","black");
+                $("input").html("");
 		
 		
 	
@@ -693,7 +694,9 @@ var Interaction = {
 		
 		
 		if(bosSayisi==7){
-			return true;	
+			console.log("if denetim"+bosSayisi);
+			Interaction.setStatus('Lüften bütün kutucukları doldurun.',false);
+			return false	
 		}
 		if(Interaction.inputs[0].value==""){
 				console.log("girdsm");
@@ -729,18 +732,21 @@ var Interaction = {
 		for(var i=1; i<values.length;i++){
 		girdilerdenGelen+=values[i];
 		if(i==3)
-                    girdilerdenGelen+=",";
+                    girdilerdenGelen+=".";
                 }
 		
-                
-                if(parseInt(format(Interaction.sonuc, {group:"", places:3}))==parseInt(values) && girdilerdenGelen==format(Interaction.sonuc, {group:"", places:3}))
+                console.log("Girdi Gelen: "+girdilerdenGelen);
+                 console.log("Girdi Gelen: "+parseFloat(girdilerdenGelen,10));
+                console.log("Girdi Gelen: "+format(parseFloat(girdilerdenGelen,10), {group:"", places:3}));
+                console.log("sonuc: "+format(Interaction.sonuc, {group:"", places:3}));
+                if(parseInt(format(Interaction.sonuc, {group:"", places:3}))==parseInt(values) && format((girdilerdenGelen), {group:"", places:3})==format(Interaction.sonuc, {group:"", places:3}))
                     return true
-                else if(parseInt(format(Interaction.sonuc, {group:"", places:3}))!=parseInt(values) && girdilerdenGelen!=format(Interaction.sonuc, {group:"", places:3}))
+                else if(parseInt(format(Interaction.sonuc, {group:"", places:3}))!=parseInt(values) && format(girdilerdenGelen, {group:"", places:3})!=format(Interaction.sonuc, {group:"", places:3}))
                     return false
                 else{
                     if(parseInt(format(Interaction.sonuc, {group:"", places:3}))!=parseInt(values))
                         Interaction.yanlis="ondalik";
-                    else if(girdilerdenGelen!=format(Interaction.sonuc, {group:"", places:3}))
+                    else if(format(girdilerdenGelen, {group:"", places:3})!=format(Interaction.sonuc, {group:"", places:3}))
                         Interaction.yanlis="tablo";
                 }   
 		},
