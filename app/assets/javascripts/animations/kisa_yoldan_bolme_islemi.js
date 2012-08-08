@@ -5,11 +5,14 @@ function __Styles(){
 		position:'absolute',
 		top:'30px',
 		left:'60px',
-		fontSize:'28px',
+		fontSize:'22px',
 		fontWeight:700,
 		color:'#fff',
-		fontFamily:"'Homemade Apple', cursive",
+		fontFamily:"cursive",
 		opacity:0
+	}
+    if(navigator.appName == "Microsoft Internet Explorer"){
+		animationDivisionStyle.fontFamily = "arial";
 	}
 }
 
