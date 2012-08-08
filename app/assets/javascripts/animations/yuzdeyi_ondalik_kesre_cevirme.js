@@ -186,7 +186,7 @@ Animation.init=function(container){
 		delay:3000
 	});
 	
-	
+	Main.animationFinished(8000);
 };
 
 Interaction.init = function(container){

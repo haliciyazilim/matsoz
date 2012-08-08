@@ -196,6 +196,8 @@ Animation.init=function(container){
         //setTimeout("$('#onluk2').html('0')",30000);
         
 	$("#ornekYazi2_2").delay(20000).fadeIn(500);
+        
+        Main.animationFinished(28000);
 	
 };
 

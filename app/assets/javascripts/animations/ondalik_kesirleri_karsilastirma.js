@@ -651,9 +651,9 @@ var Animation = {
 		$("#_52").delay(19000).animate({opacity:"1"},1000);
 		$("#_53").delay(20000).animate({opacity:"1"},1000);
 		
-		$("#ornekAlt").delay(21000).animate({opacity:1},1000);
+		$("#ornekAlt").delay(21000).animate({opacity:"1"},1000);
 		
-		
+		Main.animationFinished(22000);
 		
 		
 		}
