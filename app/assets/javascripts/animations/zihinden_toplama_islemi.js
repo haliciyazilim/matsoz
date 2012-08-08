@@ -68,7 +68,7 @@ var Animation = {
 					function(){
 						$('#zeros',div)
 							.delay(1000)
-							.animate({opacity:1},1000);
+							.animate({opacity:1},1000,Main.animationFinished);
 					}
 				);
 		}
@@ -209,7 +209,7 @@ var Interaction = {
 					function(){
 						$('.zero',Interaction.solutionDiv)
 							.animate({color:'#000'},500,function(){
-								Interaction.pause = false;	
+								Interaction.pause = false;
 							})
 						
 					}

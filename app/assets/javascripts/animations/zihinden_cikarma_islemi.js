@@ -73,9 +73,10 @@ var Animation = {
 					function(){
 						$('#zeros',div)
 							.delay(1000)
-							.animate({opacity:1},1000);
+							.animate({opacity:1},1000,Main.animationFinished);
 					}
 				);
+                   
 		}
 }
 
