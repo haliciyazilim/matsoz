@@ -350,12 +350,19 @@ Interaction.drawCircle = function(){
 				Interaction.pause = false;
 				Interaction.drawCircle.textO = new PointText(
 					new Point(
-						Interaction.drawCircle.x-15,
-						Interaction.drawCircle.y+15
+						Interaction.drawCircle.x-10,
+						Interaction.drawCircle.y+10
 					)
 				);
 				Interaction.drawCircle.textO.content = "O";
-				Interaction.drawCircle.textR = new PointText(new Point(Interaction.drawCircle.x+Interaction.r*0.2,Interaction.drawCircle.y+15));
+				Interaction.drawCircle.textR = new PointText(new Point(Interaction.drawCircle.x,Interaction.drawCircle.y));
+				if(Interaction.r/Interaction.br > 4.3){
+					Interaction.drawCircle.textR.position = Interaction.drawCircle.textR.position.add(+Interaction.r*0.5,+15);
+                    Interaction.drawCircle.textR.paragraphStyle.justification = 'center';
+                }
+				else
+					Interaction.drawCircle.textR.position = Interaction.drawCircle.textR.position.add(Interaction.r,20);
+					
 				Interaction.drawCircle.textR.content = "r = "+(Interaction.radius.innerHTML);
 				Interaction.drawCircle.lineR = new Path.Line(new Point(Interaction.drawCircle.x,Interaction.drawCircle.y),new Point(Interaction.drawCircle.x+Interaction.r,Interaction.drawCircle.y));
 				Interaction.drawCircle.lineR.set_style(lineStyle);
@@ -417,7 +424,6 @@ Interaction.drawCircle = function(){
 			if(Interaction.drawCircle.circle)
 				Interaction.drawCircle.circle.remove();
 			var center = new Point(Interaction.drawCircle.x,Interaction.drawCircle.y);
-			
 			var radius = Interaction.r;
 			var startAngle = Util.degreeToRadians(0);
 			var endAngle = Util.degreeToRadians(Interaction.drawCircle._o);
@@ -451,7 +457,7 @@ Interaction.showCircularRegion = function(){
 	$(Interaction.status).show();				
 	if(Interaction.splitCircularRegion.circle)
 		Interaction.splitCircularRegion.circle.remove();
-	function flipCircularRegion(){
+	flipCircularRegion = function(){
 		var angle = new Date().getTime() - Interaction.showCircularRegion.startTime;
 		angle *= 0.20;
 		if(angle > 360){
@@ -546,7 +552,7 @@ Interaction.splitCircularRegion = function(){
 	
 }
 Interaction.initCompass = function(){
-	Interaction.compass = new Compass(Interaction.ruler.bounds.x+2,Interaction.ruler.bounds.y);
+	Interaction.compass = new Compass(Interaction.ruler.bounds.x+9,Interaction.ruler.bounds.y);
 	Interaction.compass.right.class = "right_leg";
 
 	Interaction.drawCompass(Interaction.br*3.5);
@@ -583,11 +589,11 @@ Interaction.drawRuler = function(){
 	x = Interaction.paper.width*0.02;
 	y = Interaction.paper.height*0.4;
 	Interaction.ruler = new Raster('ruler');
-	Interaction.ruler.position = [
-		Math.floor(x+Interaction.ruler.size.width*0.5),
+	Interaction.ruler.position = new Point(
+		Math.floor(x+Interaction.ruler.size.width*0.5)-9,
 		Math.floor(y+Interaction.ruler.size.height*0.5)+0.5
-	];
-	Interaction.br = Math.floor(Interaction.ruler.size.width*0.1);
+	);
+	Interaction.br = 12;
 
 	var _y1 = y+h*0.6;
 	var _yt = y+h*0.4;
