@@ -1,24 +1,19 @@
-// JavaScript Document
-
-/*Styles*/
-
-var textStyle = {
-	'font-size':'16px',
-	'text-color': '#55f'
-};
-var lineStyle = {
-	strokeColor:"#000",
-	strokeWidth:1
+function __Styles(){
+    textStyle = {
+        'font-size':'16px',
+        'text-color': '#55f'
+    };
+    lineStyle = {
+        strokeColor:"#000",
+        strokeWidth:1
+    }
+    circleStyle = {
+        strokeColor:"#000"
+    };
+    angleStyle = {
+        'stroke-width': '2px'
+    };
 }
-var circleStyle = {
-	strokeColor:"#000"
-};
-var angleStyle = {
-	'stroke-width': '2px'
-};
-
-
-/*Styles*/
 var Animation = {
 	init:function(container){
 		Animation.container = container;
@@ -264,8 +259,8 @@ Interaction.pause = false;
 Interaction.setRadius = function(r){
 	$(Interaction.radius).hide();
 	Interaction.r = r;
-	if(r/Interaction.br == Math.floor(r/Interaction.br))
-		Interaction.radius.innerHTML = r/Interaction.br;
+	if(r/Interaction.br - Math.floor(r/Interaction.br)< 0.1)
+		Interaction.radius.innerHTML = Math.floor(r/Interaction.br);
 	else
 		Interaction.radius.innerHTML = Util.numberTurkishFloating(r/Interaction.br,1);
 	$(Interaction.radius).show();
@@ -304,14 +299,16 @@ Interaction.drawCircle = function(){
 				clearTimeout(Interaction.drawCircle.t);
 				Interaction.drawCircle._o = 359.9;
 				Interaction.pause = false;
-				Interaction.drawCircle.textO = new PointText(new Point(Interaction.drawCircle.x-10,Interaction.drawCircle.y+10));
+				Interaction.drawCircle.textO = new PointText(new Point(Interaction.drawCircle.x-11,Interaction.drawCircle.y+10));
 				Interaction.drawCircle.textO.content = "O";
-				var textRPoint = new Point(Interaction.drawCircle.x+Interaction.r*0.2,Interaction.drawCircle.y+15);
-				if(Interaction.r/Interaction.br > 4)
-					textRPoint = textRPoint.add(+Interaction.r*0.2,+15);
+				
+				Interaction.drawCircle.textR = new PointText(new Point(Interaction.drawCircle.x,Interaction.drawCircle.y));
+				if(Interaction.r/Interaction.br > 4.3){
+					Interaction.drawCircle.textR.position = Interaction.drawCircle.textR.position.add(+Interaction.r*0.5,+15);
+                    Interaction.drawCircle.textR.paragraphStyle.justification = 'center';
+                }
 				else
-					textRPoint = textRPoint.add(Interaction.r,10);
-				Interaction.drawCircle.textR = new PointText(textRPoint);
+					Interaction.drawCircle.textR.position = Interaction.drawCircle.textR.position.add(Interaction.r,20);
 					
 				Interaction.drawCircle.textR.content = "r = "+(Interaction.radius.innerHTML);
 				Interaction.drawCircle.lineR = new Path.Line(new Point(Interaction.drawCircle.x,Interaction.drawCircle.y),new Point(Interaction.drawCircle.x+Interaction.r,Interaction.drawCircle.y));
@@ -401,7 +398,7 @@ Interaction.drawCircle = function(){
 
 
 Interaction.initCompass = function(){
-	Interaction.compass = new Compass(Interaction.ruler.bounds.x+2,Interaction.ruler.bounds.y);
+	Interaction.compass = new Compass(Interaction.ruler.bounds.x+9,Interaction.ruler.bounds.y);
 	Interaction.compass.right.class = "right_leg";
 
 	Interaction.drawCompass(Interaction.br*3.5);
@@ -437,11 +434,11 @@ Interaction.drawRuler = function(){
 	x = Interaction.paper.width*0.02;
 	y = Interaction.paper.height*0.4;
 	Interaction.ruler = new Raster('ruler');
-	Interaction.ruler.position = [
-		Math.floor(x+Interaction.ruler.size.width*0.5),
+	Interaction.ruler.position = new Point(
+		Math.floor(x+Interaction.ruler.size.width*0.5)-9,
 		Math.floor(y+Interaction.ruler.size.height*0.5)+0.5
-	];
-	Interaction.br = Math.floor(Interaction.ruler.size.width*0.1);
+	);
+	Interaction.br = 12;
 
 	var _y1 = y+h*0.6;
 	var _yt = y+h*0.4;

@@ -180,7 +180,7 @@ Animation.init=function(container){
 	
 
 		
-
+Main.animationFinished(6000);
 
 };
 

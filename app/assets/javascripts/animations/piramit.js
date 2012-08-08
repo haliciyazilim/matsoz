@@ -1,7 +1,11 @@
 // JavaScript Document
 var kucultButtonStyle = {fillColor: "#456"}
 
-var Animation = function(){};Animation();
+var Animation = {
+    init:function(){
+        
+    }
+};
 var Interaction =function(){};Interaction();
 Interaction.getFramework = function() {
 	return 'paper';

@@ -161,7 +161,7 @@ Animation.init=function(container){
        
         setTimeout("$('#birlik1').html('0')",16020);
         setTimeout("$('#onluk1').html('5')",16020);
-        $("#ornekYazi1_2").delay(10000).fadeIn(500);
+        $("#ornekYazi1_2").delay(16020).fadeIn(500);
 	
 	$("#ornekSayi3").delay(17000).fadeIn(500);
 	$("#ornekYazi2_1").delay(18000).fadeIn(500);
@@ -195,7 +195,9 @@ Animation.init=function(container){
         setTimeout("$('#onluk2').html('0')",28000);
         //setTimeout("$('#onluk2').html('0')",30000);
         
-	$("#ornekYazi2_2").delay(20000).fadeIn(500);
+	$("#ornekYazi2_2").delay(28000).fadeIn(500);
+        
+        Main.animationFinished(28000);
 	
 };
 

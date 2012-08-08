@@ -276,4 +276,3 @@ this.basla=function(hizB,hizA){
     
 }
 
-

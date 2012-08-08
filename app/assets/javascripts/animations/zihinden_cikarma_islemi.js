@@ -1,3 +1,21 @@
+function __Styles(){
+    animationDivCss = {
+					width:120,
+					position:'absolute',
+					top:'50px',
+					left:'300px',
+					fontSize:'24px',
+					textAlign:'right',
+					lineHeight:'30px',
+					fontWeight:'700',
+					color:'#fff',
+					fontFamily:"cursive",
+					opacity:0.9
+				}
+    if(navigator.appName == "Microsoft Internet Explorer"){
+		animationDivCss.fontFamily = "arial";
+	}
+}
 var Animation = {
 	images:[
 		{
@@ -12,7 +30,6 @@ var Animation = {
 			board.position = new Point(Math.floor(w*0.5),Math.floor(h*0.5)+2)
 			
 			
-			$('head').append("<link href='http://fonts.googleapis.com/css?family=Homemade+Apple' rel='stylesheet' type='text/css'>");
 			
 			var div = document.createElement('div');
 			
@@ -20,19 +37,7 @@ var Animation = {
 			$(div)
 				.html('<div id="addend1">5673</div><div id="addend2">4<span id="zeros">000</span></div><div id="line"><span>-</span></div><br/>')
 				.append('<div id="result">1<span id=lastDigits>673</span></div>')
-				.css({
-					width:120,
-					position:'absolute',
-					top:'50px',
-					left:'300px',
-					fontSize:'32px',
-					textAlign:'right',
-					lineHeight:'30px',
-					fontWeight:'700',
-					color:'#fff',
-					fontFamily:"'Homemade Apple', cursive",
-					opacity:0.9
-				});
+				.css(animationDivCss);
 			$('#line',div).css({
 				height:'2px',
 				borderBottom:'2px solid #fff',
@@ -42,7 +47,7 @@ var Animation = {
 			});
 			$('#line span',div).css({
 				position:'absolute',
-				top:'-15px',	
+				top:'-25px',	
 				left:'10px',
 				color:'#fff'
 			});
@@ -68,9 +73,10 @@ var Animation = {
 					function(){
 						$('#zeros',div)
 							.delay(1000)
-							.animate({opacity:1},1000);
+							.animate({opacity:1},1000,Main.animationFinished);
 					}
 				);
+                   
 		}
 }
 
@@ -199,6 +205,9 @@ var Interaction = {
 			var startOfLastDigits = resultHTML.length-Interaction.addend2Div.innerHTML.length+1;
 			resultHTML = resultHTML.substring(0,startOfLastDigits)+'<span id="lastDigits">'+resultHTML.substr(startOfLastDigits)+'</span>';
 			$('#result',Interaction.solutionDiv).html(resultHTML);
+            $('#result',Interaction.solutionDiv)
+                .css({opacity:0})
+                .animate({opacity:1},500)
 			$('#result #lastDigits',Interaction.solutionDiv)
 				.css({opacity:0,position:'relative',top:'-82px'})
 				.delay(1500)
@@ -227,5 +236,5 @@ var Interaction = {
 						
 					}
 				);
-		},
+		}
 }
