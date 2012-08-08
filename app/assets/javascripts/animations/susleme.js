@@ -154,6 +154,38 @@ var Interaction = {
             height:$(container).height()
         };
 
+        function Triangle (pointsArr, fillColor) {
+            this.pointsArr = pointsArr;
+
+            this.DrawShape = function(){
+                a = new Path();
+                a.moveTo(this.pointsArr[0]);
+                a.lineTo(this.pointsArr[1]);
+                a.lineTo(this.pointsArr[2]);
+                a.lineTo(this.pointsArr[0]);
+                a.closed = true;
+                a.strokeColor = "black";
+                a.fillColor = fillColor;
+                return a;
+            };
+            this.shape = new Path();
+            this.shape = this.DrawShape();
+            this.GetLines = function(){
+                var linesArr = [];
+
+                return linesArr;
+            };
+        };
+
+        var firstTrianglePointsArr = [];
+        firstTrianglePointsArr[0] = new Point(50.5, 50.5);
+        firstTrianglePointsArr[1] = new Point(90.5, 50.5);
+        firstTrianglePointsArr[2] = new Point(70.5, 50.5-(Math.sqrt(3)*20));
+        Interaction.triangle = new Triangle(firstTrianglePointsArr, interactionTriangleColor);
+        Interaction.triangle.shape.class = "draggable";
+        Interaction.triangle.shape.position = new Point(60.5, 60.5);
+
+
         // dropable area
         Interaction.dropArea = new Path();
         Interaction.dropArea.moveTo(220.5, 260.5);
@@ -221,15 +253,15 @@ var Interaction = {
         Interaction.square2.position = new Point(160.5, 120.5);
 
         // Triangles
-        Interaction.triangle = new Path();
-        Interaction.triangle.moveTo(50.5, 50.5);
-        Interaction.triangle.lineTo(90.5, 50.5);
-        Interaction.triangle.lineTo(70.5, 50.5-(Math.sqrt(3)*20));
-        Interaction.triangle.lineTo(50.5, 50.5);
-        Interaction.triangle.closed = true;
-        Interaction.triangle.strokeColor = "black";
-        Interaction.triangle.fillColor = interactionTriangleColor;
-        Interaction.triangle.class = "draggable";
+//        Interaction.triangle = new Path();
+//        Interaction.triangle.moveTo(50.5, 50.5);
+//        Interaction.triangle.lineTo(90.5, 50.5);
+//        Interaction.triangle.lineTo(70.5, 50.5-(Math.sqrt(3)*20));
+//        Interaction.triangle.lineTo(50.5, 50.5);
+//        Interaction.triangle.closed = true;
+//        Interaction.triangle.strokeColor = "black";
+//        Interaction.triangle.fillColor = interactionTriangleColor;
+//        Interaction.triangle.class = "draggable";
 
         Interaction.triangle2 = new Path();
         Interaction.triangle2.moveTo(50.5, 50.5);
@@ -241,7 +273,7 @@ var Interaction = {
         Interaction.triangle2.fillColor = interactionTriangleColor2;
         Interaction.triangle2.class = "draggable";
 
-        Interaction.triangle.position = new Point(60.5, 60.5);
+      //  Interaction.triangle.position = new Point(60.5, 60.5);
         Interaction.triangle2.position = new Point(160.5, 60.5);
    //     Interaction.triangle.rotate(180);
    //     Interaction.triangle2.rotate(180);
@@ -275,12 +307,8 @@ var Interaction = {
             if(this.drag === true){
                 var newPosition = this.firstPosition.add(this.totalDelta).add(event.delta);
 
-                if(1){
 
-                }
-                else{
                     this.item.position = newPosition;
-                }
 
 
                 this.totalDelta = this.totalDelta.add(event.delta);
@@ -328,5 +356,5 @@ var Interaction = {
     },
     onFail : function(){
 
-    }
+    },
 }
