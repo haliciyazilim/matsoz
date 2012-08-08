@@ -32,7 +32,8 @@ Animation.init=function(container){
 	.css("left","290px")
 	.css("top","10px");
 
-        var islem=new LongMultiplication(502,235,"ornek");
+        var islem=new LongMultiplication(512,235,"ornek");
+        //var islem=new LongMultiplication(129,93,"ornek");
         islem.doldur()
         islem.basla(1000,1000);
 
@@ -153,6 +154,7 @@ Interaction.init = function(container){
 		carpan1=Math.floor(Math.random()*100+100);
 		console.log(carpan1);
 		carpan2=Math.floor(Math.random()*100+sayiSiniri);
+                carpan2=Math.floor(Math.random()*100+100);
 		console.log(carpan2);
 		
 		
@@ -337,6 +339,7 @@ Interaction.init = function(container){
 		carpan1=Math.floor(Math.random()*100+100);
 		console.log(carpan1);
 		carpan2=Math.floor(Math.random()*100+sayiSiniri);
+                carpan2=Math.floor(Math.random()*100+100);
 		console.log(carpan2);
 		var toplam=carpan1*carpan2;
 		
@@ -492,6 +495,7 @@ Interaction.init = function(container){
 		carpan1=Math.floor(Math.random()*100+100);
 		console.log(carpan1);
 		carpan2=Math.floor(Math.random()*100+sayiSiniri);
+                carpan2=Math.floor(Math.random()*100+100);
 		console.log(carpan2);
 		var toplam=carpan1*carpan2;
 		
@@ -948,9 +952,15 @@ kontrolSayaci=0;
 									$("#girdiToplam").css("color",yanlisRengi);
 								else
 									$("#girdiToplam").css("color",dogruRengi);
+//								
+//								$("#cevap").html($("#soru").html());
+//								
 								
-								$("#cevap").html($("#soru").html());
-								$("#cevap input").remove();
+                                                                $("#cevap").html("");
+                                                                var islemKontrol=new LongMultiplication(carpan1,carpan2, "cevap");
+                                                                islemKontrol.doldur();
+                                                                islemKontrol.basla(1000,1000);
+                                                                
 								$("#soru").animate({right:"240px"},1000);
 								$("#cevap").delay(800).animate({opacity:"1"},1000);
 								$("#cevap #sonuc1, #cevap #sonuc2, #cevap #sonuc3").css("color",dogruRengi);
@@ -1004,8 +1014,13 @@ kontrolSayaci=0;
 								$("#btnKontrol").hide();
 								$("#sonraki").show();
 								$("#girdi").css("color",yanlisRengi);
-								$("#cevap").html($("#soru").html());
-								$("#cevap #girdi").remove();
+								
+                                                                
+                                                                $("#cevap").html("");
+                                                                var islemKontrol=new LongMultiplication(carpan1,carpan2, "cevap");
+                                                                islemKontrol.doldur();
+                                                                islemKontrol.basla(1000,1000);
+                                                                
 								$("#soru").animate({right:"240px"},1000);
 								$("#cevap").delay(800).animate({opacity:"1"},1000);
 								$("#cevap #carpan1").css("color",dogruRengi);
@@ -1069,8 +1084,12 @@ kontrolSayaci=0;
 								else
 									$("#girdi2").css("color",dogruRengi);
 								
-								$("#cevap").html($("#soru").html());
-								$("#cevap input").remove();
+								
+                                                                $("#cevap").html("");
+                                                                var islemKontrol=new LongMultiplication(carpan1,carpan2, "cevap");
+                                                                islemKontrol.doldur();
+                                                                islemKontrol.basla(1000,1000);
+								
 								$("#soru").animate({right:"240px"},1000);
 								$("#cevap").delay(800).animate({opacity:"1"},1000);
 								
@@ -1150,8 +1169,12 @@ kontrolSayaci=0;
 								else
 									$("#girdi3").css("color",dogruRengi);
 								
-								$("#cevap").html($("#soru").html());
-								$("#cevap input").remove();
+								
+                                                                $("#cevap").html("");
+                                                                var islemKontrol=new LongMultiplication(carpan1,carpan2, "cevap");
+                                                                islemKontrol.doldur();
+                                                                islemKontrol.basla(1000,1000);
+                                                                
 								$("#soru").animate({right:"240px"},1000);
 								$("#cevap").delay(800).animate({opacity:"1"},1000);
 								
