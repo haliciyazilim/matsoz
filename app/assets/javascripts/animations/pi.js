@@ -251,12 +251,12 @@ var Interaction = {
 				onClick:'Interaction.drawLine()'
 			})
 			.css({
-				backgroundImage:'url(/assets/animations/btn_gray_expand.png)',
+				backgroundImage:'url(/assets/btn_gray_expand_text.png)',
 				position:'absolute',
 				top:'200px',
 				left:'30px',
-				width:'32px',
-				height:'31px'
+				width:'57px',
+				height:'32px'
 			});
 		
 		Interaction.input = document.createElement('input');
