@@ -391,7 +391,7 @@ var Animation = {
 		// tetr.project();
 		// tetr.expand();
 		
-		Main.animationFinished(1450);
+		Main.animationFinished(14000);
     }
 }
 
