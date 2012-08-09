@@ -1,3 +1,7 @@
+var Line = function(point3_1,point3_2) {
+    
+    }
+
 var Surface = function (points) {
     this.points = points;
     
@@ -9,13 +13,37 @@ var Surface = function (points) {
     
 	this.rotationsZ = [];
 	this.pivotsZ = [];
-
+    
     this.project = function(matrix) {
         if (this.projectedSurface) {
             this.projectedSurface.remove();
         }
         
         var path = new Path();
+        
+        
+        var points = this.get2DPoints(matrix);
+        
+        for (var i = 0; i < points.length; i++) {
+            path.add(points[i]);
+        }
+            
+        path.closed = true;
+	
+        path.strokeColor = strokeColor;
+        path.fillColor = fillColor;
+        path.strokeWidth = strokeWidth;
+        
+        this.projectedSurface = path;
+        
+		path.surface = this;
+
+        return path;
+    }
+    
+    this.get2DPoints = function(matrix) {
+        var points = [];
+        
         
         for (var i = 0; i < this.points.length; i++) {
             var p = this.points[i];
@@ -38,20 +66,11 @@ var Surface = function (points) {
             pp.x = Math.floor(pp.x) + 0.5;
             pp.y = Math.floor(pp.y) + 0.5;
             
-            path.add(pp);
+            
+            points.push(pp);
         }
              
-        path.closed = true;
-	
-        path.strokeColor = strokeColor;
-        path.fillColor = fillColor;
-        path.strokeWidth = strokeWidth;
-        
-        this.projectedSurface = path;
-        
-		path.surface = this;
-
-        return path;
+        return points;
     }
 };
 
