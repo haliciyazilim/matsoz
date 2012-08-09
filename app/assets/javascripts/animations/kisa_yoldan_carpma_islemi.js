@@ -1,6 +1,6 @@
 function __Styles(){
     animationTextStyle = {
-        fontSize:18,
+        fontSize:16,
         fillColor:new RgbColor(1,1,1,0.9),
         font:"cursive"
     }
@@ -23,15 +23,37 @@ var Animation = {
 
 	init:function(container){
             Animation.container = container;
-			var p1 = new Point(250.5,50.5);
-			var p2 = new Point(250.5,100.5);
-			var p3 = new Point(250.5,150.5);
+			var referencePoint = new Point(250,40);
+            var p1 = referencePoint.add(0,0);
+			var p2 = referencePoint.add(0,50);
+			var p3 = referencePoint.add(0,100);
 			var w=$(container).width(), h=$(container).height();
 			var board = new Raster('board');
-			board.position = new Point(w*0.5,h*0.5+2)
-			SingleLineMultiply(p1, 100,   "0", 5273, 7, animationTextStyle);
-			SingleLineMultiply(p2,4100,  "00", 8324, 2, animationTextStyle);
-			SingleLineMultiply(p3,8100, "000", 4921, 5, animationTextStyle);
+			board.position = new Point(w*0.5,h*0.5+2);
+            SingleLineMultiply({
+                position:p1,
+                delay:100,
+                factor1:5273,
+                factor2:7,
+                zero:"0",
+                textStyle:animationTextStyle
+            });
+            SingleLineMultiply({
+                position:p2,
+                delay:5100,
+                factor1:8324,
+                factor2:2,
+                zero:"00",
+                textStyle:animationTextStyle
+            });
+            SingleLineMultiply({
+                position:p3,
+                delay:10100,
+                factor1:4921,
+                factor2:5,
+                zero:"000",
+                textStyle:animationTextStyle
+            });
             Main.animationFinished(13000); 
 		}
 }
@@ -87,12 +109,17 @@ var Interaction = {
 			Interaction.prepareNextQuestion();
 		},
 	nextQuestion: function(){
+            Main.interactionProject.activeLayer.removeChildren();
 			if(Interaction.solutionDiv)
 				$(Interaction.solutionDiv).remove();
 			Interaction.factor1 = Math.floor(Math.random()*10000);
 			Interaction.factor2 = Math.pow(10,Math.floor(Math.random()*3+1))*Math.floor(Math.random()*9+1); 
-			$(Interaction.factor1Span).html(Interaction.factor1);
-			$(Interaction.factor2Span).html(Interaction.factor2);
+			/*<[[TEST*/
+                Interaction.factor1 = 3923;
+                Interaction.factor2 = 7000; 
+			/*TEST]]>*/
+            $(Interaction.factor1Span).html(Util.format(Interaction.factor1));
+			$(Interaction.factor2Span).html(Util.format(Interaction.factor2));
 		},
 	isAnswerCorrect : function(value){
 			if(value == Interaction.factor1 * Interaction.factor2)
@@ -108,12 +135,25 @@ var Interaction = {
 		},
 	onFail : function(){
 			Interaction.pause = true;
-			Interaction.setStatus('Yanlış cevap, doğrusu ' +  Interaction.factor1 * Interaction.factor2 + ' olacaktı',false);
+			Interaction.setStatus('Yanlış cevap, doğrusu  ' + Util.format(Interaction.factor1 * Interaction.factor2) + '  olacaktı',false);
 			Interaction.solutionDiv = $(Interaction.questionDiv).clone().insertAfter(Interaction.questionDiv);
             var zeros = $('#factor2',Interaction.questionDiv).html();
 			zeros = zeros.substring(1,zeros.length); 
 			//zeros = zeros.substring(1,zeros.length); 
-			SingleLineMultiply(new Point(160,200),10,zeros,Interaction.factor1,(""+Interaction.factor2).substring(0,1),interactionTextStyle);
+            console.log((""+Interaction.factor2).substring(0,1),zeros);
+            
+            SingleLineMultiply({
+                position:new Point(160,200),
+                delay:10,
+                factor1:Interaction.factor1,
+                factor2:(""+Interaction.factor2).substring(0,1),
+                zero:zeros,
+                textStyle:interactionTextStyle,
+                callback:function(){
+                    Interaction.pause = false;
+                }
+            });
+//			SingleLineMultiply(new Point(160,200),10,zeros,Interaction.factor1,(""+Interaction.factor2).substring(0,1),interactionTextStyle);
 //			var zeros = $(Interaction.factor2Span).html();
 //			zeros = '<span class="zero">'+zeros.substring(1,zeros.length)+'</span>';
 //			var html = "" + $(Interaction.solutionDiv).html();
