@@ -1,3 +1,4 @@
+
 var Surface = function (points) {
     this.points = points;
     
@@ -53,6 +54,15 @@ var Surface = function (points) {
 
         return path;
     }
+
+	this.clearRotations = function() {
+		this.pivotsX = [];
+		this.rotationsX = [];
+		this.pivotsY = [];
+		this.rotationsY = [];
+		this.pivotsZ = [];
+		this.rotationsZ = [];
+	}
 };
 
 var ExpandableShape = Class.extend({
@@ -70,6 +80,16 @@ var ExpandableShape = Class.extend({
 			if (this.surfaces.hasOwnProperty(key)) {
 				if (this.surfaces[key] instanceof Surface) {
 					this.surfaces[key].shape = this;
+				}	
+			}
+		}
+	},
+	
+	clearRotations: function() {
+		for (var key in this.surfaces) {
+			if (this.surfaces.hasOwnProperty(key)) {
+				if (this.surfaces[key] instanceof Surface) {
+					this.surfaces[key].clearRotations();
 				}	
 			}
 		}
