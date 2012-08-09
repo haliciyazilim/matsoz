@@ -61,10 +61,49 @@ var Prism = ExpandableShape.extend({
 		} else {			
 			this.clearRotations();
 			switch (style) {
+				case 3:
+					this.rotateSurfaceX(this.surfaces.topSurface, -Math.PI/2, this.surfaces.topSurface.points[2]);
+					this.rotateSurfaceY(this.surfaces.leftSurface, Math.PI/2, this.surfaces.leftSurface.points[1]);
+										
+					this.rotateSurfaceY(this.surfaces.rightSurface, -Math.PI/2, this.surfaces.rightSurface.points[2], true);
+					this.rotateSurfaceY(this.surfaces.frontSurface, -Math.PI/2, this.surfaces.rightSurface.points[2], true);
+					this.rotateSurfaceY(this.surfaces.bottomSurface, -Math.PI/2, this.surfaces.rightSurface.points[2], false);					
+					
+					this.rotateSurfaceY(this.surfaces.frontSurface, -Math.PI/2, this.surfaces.rightSurface.points[1].add(this.surfaces.rightSurface.points[1].swapXZ()).subtract(this.surfaces.rightSurface.points[3].swapXZ()));
+
+					this.rotateSurfaceX(this.surfaces.bottomSurface, Math.PI/2, this.surfaces.bottomSurface.points[1]);
+				
+					break;
+				case 2:
+					this.rotateSurfaceY(this.surfaces.rightSurface, -Math.PI/2, this.surfaces.rightSurface.points[2], true);
+					this.rotateSurfaceY(this.surfaces.frontSurface, -Math.PI/2, this.surfaces.rightSurface.points[2], true);
+					this.rotateSurfaceY(this.surfaces.topSurface, -Math.PI/2, this.surfaces.rightSurface.points[2]);
+					
+					this.rotateSurfaceX(this.surfaces.topSurface, -Math.PI/2, this.surfaces.rightSurface.points[2]);
+					
+					this.rotateSurfaceY(this.surfaces.frontSurface, -Math.PI/2, this.surfaces.rightSurface.points[1].add(this.surfaces.rightSurface.points[1].swapXZ()).subtract(this.surfaces.rightSurface.points[3].swapXZ()));
+
+					this.rotateSurfaceY(this.surfaces.leftSurface, Math.PI/2, this.surfaces.leftSurface.points[1], true);
+					this.rotateSurfaceY(this.surfaces.bottomSurface, Math.PI/2, this.surfaces.leftSurface.points[1]);
+					
+					this.rotateSurfaceX(this.surfaces.bottomSurface, Math.PI/2, this.surfaces.bottomSurface.points[0]);
+				
+					break;
 				case 1:
 					this.rotateSurfaceY(this.surfaces.topSurface, Math.PI/2, this.surfaces.topSurface.points[3], true);
 					this.rotateSurfaceY(this.surfaces.leftSurface, Math.PI/2, this.surfaces.leftSurface.points[1]);
+					
 					this.rotateSurfaceX(this.surfaces.topSurface, -Math.PI/2, this.surfaces.topSurface.points[2]);
+					
+					this.rotateSurfaceY(this.surfaces.bottomSurface, -Math.PI/2, this.surfaces.topSurface.points[2], true);
+					this.rotateSurfaceY(this.surfaces.rightSurface, -Math.PI/2, this.surfaces.topSurface.points[2], true);
+					this.rotateSurfaceY(this.surfaces.frontSurface, -Math.PI/2, this.surfaces.topSurface.points[2], false);
+					
+					this.rotateSurfaceY(this.surfaces.bottomSurface, -Math.PI/2, this.surfaces.rightSurface.points[1].add(this.surfaces.rightSurface.points[1].swapXZ()).subtract(this.surfaces.rightSurface.points[3].swapXZ()), true);
+					this.rotateSurfaceY(this.surfaces.frontSurface, -Math.PI/2, this.surfaces.rightSurface.points[1].add(this.surfaces.rightSurface.points[1].swapXZ()).subtract(this.surfaces.rightSurface.points[3].swapXZ()), false);
+					
+					this.rotateSurfaceX(this.surfaces.bottomSurface, Math.PI/2, this.surfaces.rightSurface.points[1].add(this.surfaces.rightSurface.points[2].swapXZ()).subtract(this.surfaces.rightSurface.points[3].swapXZ()), true);
+					
 					break;
 				case 0:
 				default:
@@ -88,6 +127,52 @@ var Prism = ExpandableShape.extend({
 		}
 		
 		switch(this.lastExpand) {
+			case 3:
+				this.rotateSurfaceX(this.surfaces.bottomSurface, -Math.PI/2, this.surfaces.bottomSurface.points[1]);
+				
+				this.rotateSurfaceY(this.surfaces.frontSurface, Math.PI/2, this.surfaces.rightSurface.points[1].add(this.surfaces.rightSurface.points[1].swapXZ()).subtract(this.surfaces.rightSurface.points[3].swapXZ()));
+			
+				this.rotateSurfaceY(this.surfaces.rightSurface, Math.PI/2, this.surfaces.rightSurface.points[2], true);
+				this.rotateSurfaceY(this.surfaces.frontSurface, Math.PI/2, this.surfaces.rightSurface.points[2], true);
+				this.rotateSurfaceY(this.surfaces.bottomSurface, Math.PI/2, this.surfaces.rightSurface.points[2], false);					
+			
+				this.rotateSurfaceY(this.surfaces.leftSurface, -Math.PI/2, this.surfaces.leftSurface.points[1]);
+						
+				this.rotateSurfaceX(this.surfaces.topSurface, Math.PI/2, this.surfaces.topSurface.points[2]);
+
+				break;
+				
+			case 2:
+				this.rotateSurfaceX(this.surfaces.bottomSurface, -Math.PI/2, this.surfaces.bottomSurface.points[0]);
+			
+				this.rotateSurfaceY(this.surfaces.leftSurface, -Math.PI/2, this.surfaces.leftSurface.points[1], true);
+				this.rotateSurfaceY(this.surfaces.bottomSurface, -Math.PI/2, this.surfaces.leftSurface.points[1]);
+			
+				this.rotateSurfaceY(this.surfaces.frontSurface, Math.PI/2, this.surfaces.rightSurface.points[1].add(this.surfaces.rightSurface.points[1].swapXZ()).subtract(this.surfaces.rightSurface.points[3].swapXZ()));
+			
+				this.rotateSurfaceX(this.surfaces.topSurface, Math.PI/2, this.surfaces.rightSurface.points[2]);
+							
+				this.rotateSurfaceY(this.surfaces.rightSurface, Math.PI/2, this.surfaces.rightSurface.points[2], true);
+				this.rotateSurfaceY(this.surfaces.frontSurface, Math.PI/2, this.surfaces.rightSurface.points[2], true);
+				this.rotateSurfaceY(this.surfaces.topSurface, Math.PI/2, this.surfaces.rightSurface.points[2]);
+				
+				break;
+			case 1:
+				this.rotateSurfaceX(this.surfaces.bottomSurface, -Math.PI/2, this.surfaces.rightSurface.points[1].add(this.surfaces.rightSurface.points[2].swapXZ()).subtract(this.surfaces.rightSurface.points[3].swapXZ()));
+			
+				this.rotateSurfaceY(this.surfaces.bottomSurface, Math.PI/2, this.surfaces.rightSurface.points[1].add(this.surfaces.rightSurface.points[1].swapXZ()).subtract(this.surfaces.rightSurface.points[3].swapXZ()), true);
+				this.rotateSurfaceY(this.surfaces.frontSurface, Math.PI/2, this.surfaces.rightSurface.points[1].add(this.surfaces.rightSurface.points[1].swapXZ()).subtract(this.surfaces.rightSurface.points[3].swapXZ()), false);
+			
+				this.rotateSurfaceY(this.surfaces.bottomSurface, Math.PI/2, this.surfaces.topSurface.points[2], true);
+				this.rotateSurfaceY(this.surfaces.rightSurface, Math.PI/2, this.surfaces.topSurface.points[2], true);
+				this.rotateSurfaceY(this.surfaces.frontSurface, Math.PI/2, this.surfaces.topSurface.points[2], false);
+			
+				this.rotateSurfaceX(this.surfaces.topSurface, Math.PI/2, this.surfaces.topSurface.points[2]);
+			
+				this.rotateSurfaceY(this.surfaces.topSurface, -Math.PI/2, this.surfaces.topSurface.points[3], true);
+				this.rotateSurfaceY(this.surfaces.leftSurface, -Math.PI/2, this.surfaces.leftSurface.points[1]);
+				break;
+
 			case 0:
 			default:
 				this.rotateSurfaceX(this.surfaces.bottomSurface, -Math.PI/2, this.surfaces.bottomSurface.points[0]);
@@ -337,7 +422,7 @@ var Interaction = {
 		tool.onMouseDown = function (event) {
 			if (event.item) {
 				var shape = event.item.surface.shape;
-					shape.expand(1);
+					shape.expand(2);
 			}
 		}
 	}
