@@ -28,9 +28,33 @@ var Animation = {
             var p1 = referencePoint.add(0,0);
 			var p2 = referencePoint.add(0,50);
 			var p3 = referencePoint.add(0,100);
-			SingleLineMultiply(p1,100,'0',4519,1,animationTextStyle);
-			SingleLineMultiply(p2,4000,'00',4519,1,animationTextStyle);
-			SingleLineMultiply(p3,8000,'000',4569,1,animationTextStyle);
+			//SingleLineMultiply(p1,100,'0',4519,1,animationTextStyle);
+			SingleLineMultiply({
+                position:p1,
+                delay:100,
+                factor1:4519,
+                factor2:1,
+                zero:'0',
+                textStyle:animationTextStyle
+            });
+            SingleLineMultiply({
+                position:p2,
+                delay:5000,
+                factor1:4519,
+                factor2:1,
+                zero:'00',
+                textStyle:animationTextStyle
+            });
+            SingleLineMultiply({
+                position:p3,
+                delay:10000,
+                factor1:4519,
+                factor2:1,
+                zero:'000',
+                textStyle:animationTextStyle
+            });
+//            SingleLineMultiply(p2,4000,'00',4519,1,animationTextStyle);
+//			SingleLineMultiply(p3,8000,'000',4569,1,animationTextStyle);
             setTimeout(Main.animationFinished,15000);
 		}
 }
@@ -85,13 +109,14 @@ var Interaction = {
 			Interaction.prepareNextQuestion();
 		},
 	nextQuestion: function(){
+            Main.interactionProject.activeLayer.removeChildren();
 			if(Interaction.solutionDiv)
 				$(Interaction.solutionDiv).remove();
 				
 			Interaction.factor1 = Math.floor(Math.random()*10000);
 			Interaction.factor2 = Math.pow(10,Math.floor(Math.random()*3+1)); 
-			$(Interaction.factor1Span).html(Interaction.factor1);
-			$(Interaction.factor2Span).html(Interaction.factor2);
+			$(Interaction.factor1Span).html(Util.groupNumber(Interaction.factor1));
+			$(Interaction.factor2Span).html(Util.groupNumber(Interaction.factor2));
 			
 		},
 	isAnswerCorrect : function(value){
@@ -108,10 +133,21 @@ var Interaction = {
 		},
 	onFail : function(){
 			Interaction.pause = true;
-			Interaction.setStatus('Yanlış cevap, doğrusu ' +  Interaction.factor1 * Interaction.factor2 + ' olacaktı',false);
+			Interaction.setStatus('Yanlış cevap, doğrusu ' +  Util.groupNumber(Interaction.factor1 * Interaction.factor2) + ' olacaktı',false);
 			Interaction.solutionDiv = $(Interaction.questionDiv).clone().insertAfter(Interaction.questionDiv);
 			var zeros = $('#factor2',Interaction.questionDiv).html();
 			zeros = zeros.substring(1,zeros.length); 
-			SingleLineMultiply(new Point(160,200),10,zeros,Interaction.factor1,(""+Interaction.factor2).substring(0,1),interactionTextStyle);
+            SingleLineMultiply({
+                position:new Point(160,200),
+                delay:10,
+                factor1:Interaction.factor1,
+                factor2:(""+Interaction.factor2).substring(0,1),
+                zero:zeros,
+                textStyle:interactionTextStyle,
+                callback:function(){
+                    Interaction.pause = false;
+                }
+            });
+//			SingleLineMultiply(new Point(160,200),10,zeros,Interaction.factor1,(""+Interaction.factor2).substring(0,1),interactionTextStyle);
 		}
 }
