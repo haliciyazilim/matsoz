@@ -6,7 +6,7 @@ function __Styles() {
 }
 
 
-var Prism = expandableShape.extend({
+var Prism = ExpandableShape.extend({
 	init: function(width, height, length, matrix) {
 		this._super(matrix);
 		
@@ -54,23 +54,57 @@ var Prism = expandableShape.extend({
 	    });
 	},
 	
+	lastExpand: -1,
 	expand: function(style) {
-		switch (style) {
-			case 0:
-			default:
-				this.rotateSurfaceX(this.surfaces.topSurface, -Math.PI/2, this.surfaces.topSurface.points[2]);
-				this.rotateSurfaceY(this.surfaces.rightSurface, -Math.PI/2, this.surfaces.rightSurface.points[2], true);
-				this.rotateSurfaceY(this.surfaces.frontSurface, -Math.PI/2, this.surfaces.rightSurface.points[2]);
-				this.rotateSurfaceY(this.surfaces.frontSurface, -Math.PI/2, this.surfaces.rightSurface.points[1].add(this.surfaces.rightSurface.points[1].swapXZ()).subtract(this.surfaces.rightSurface.points[3].swapXZ()));
-				this.rotateSurfaceY(this.surfaces.leftSurface, Math.PI/2, this.surfaces.leftSurface.points[1]);
-				this.rotateSurfaceX(this.surfaces.bottomSurface, Math.PI/2, this.surfaces.bottomSurface.points[0]);
+		if (this.lastExpand != -1) {
+			this.contract();
+		} else {			
+			this.clearRotations();
+			switch (style) {
+				case 1:
+					this.rotateSurfaceY(this.surfaces.topSurface, Math.PI/2, this.surfaces.topSurface.points[3], true);
+					this.rotateSurfaceY(this.surfaces.leftSurface, Math.PI/2, this.surfaces.leftSurface.points[1]);
+					this.rotateSurfaceX(this.surfaces.topSurface, -Math.PI/2, this.surfaces.topSurface.points[2]);
+					break;
+				case 0:
+				default:
+					this.rotateSurfaceX(this.surfaces.topSurface, -Math.PI/2, this.surfaces.topSurface.points[2]);
+					this.rotateSurfaceY(this.surfaces.rightSurface, -Math.PI/2, this.surfaces.rightSurface.points[2], true);
+					this.rotateSurfaceY(this.surfaces.frontSurface, -Math.PI/2, this.surfaces.rightSurface.points[2]);
+					this.rotateSurfaceY(this.surfaces.frontSurface, -Math.PI/2, this.surfaces.rightSurface.points[1].add(this.surfaces.rightSurface.points[1].swapXZ()).subtract(this.surfaces.rightSurface.points[3].swapXZ()));
+					this.rotateSurfaceY(this.surfaces.leftSurface, Math.PI/2, this.surfaces.leftSurface.points[1]);
+					this.rotateSurfaceX(this.surfaces.bottomSurface, Math.PI/2, this.surfaces.bottomSurface.points[0]);
+			}
+		
+			this.delay = 0;
+			
+			this.lastExpand = style;
+		}
+	},
+	
+	contract: function() {
+		if(this.lastExpand == -1) {
+			return;
 		}
 		
+		switch(this.lastExpand) {
+			case 0:
+			default:
+				this.rotateSurfaceX(this.surfaces.bottomSurface, -Math.PI/2, this.surfaces.bottomSurface.points[0]);
+				this.rotateSurfaceY(this.surfaces.leftSurface, -Math.PI/2, this.surfaces.leftSurface.points[1]);
+				this.rotateSurfaceY(this.surfaces.frontSurface, Math.PI/2, this.surfaces.rightSurface.points[1].add(this.surfaces.rightSurface.points[1].swapXZ()).subtract(this.surfaces.rightSurface.points[3].swapXZ()));
+				this.rotateSurfaceY(this.surfaces.rightSurface, Math.PI/2, this.surfaces.rightSurface.points[2], true);
+				this.rotateSurfaceY(this.surfaces.frontSurface, Math.PI/2, this.surfaces.rightSurface.points[2]);
+				this.rotateSurfaceX(this.surfaces.topSurface, Math.PI/2, this.surfaces.topSurface.points[2]);
+		}
+		
+		this.lastExpand = -1;
 		this.delay = 0;
 	}
+	
 });
 
-var Pyramid = expandableShape.extend({
+var Pyramid = ExpandableShape.extend({
 	init: function(width, height, length, matrix) {
 		this._super(matrix);
 	
@@ -112,11 +146,44 @@ var Pyramid = expandableShape.extend({
 	    });
 	},
 	
+	lastExpand: -1,
 	expand: function(style) {
-		switch (style) {
+		if (this.lastExpand != -1) {
+			this.contract();
+		} else {
+			switch (style) {
+				case 0:
+				default:
+
+					var angle1 = Math.atan(this.width/this.height/2) + Math.PI/2;
+					var angle2 = Math.atan(this.length/this.height/2) + Math.PI/2;
+
+					var center = new Point3(0,0,0);
+					this.rotateSurfaceZ(this.surfaces.rightSurface, angle1, this.surfaces.rightSurface.points[0], false);
+					this.rotateSurfaceX(this.surfaces.backSurface, -angle2, this.surfaces.backSurface.points[0], false);
+					this.rotateSurfaceZ(this.surfaces.leftSurface, -angle1, this.surfaces.leftSurface.points[1], false);
+					this.rotateSurfaceX(this.surfaces.frontSurface, angle2, this.surfaces.frontSurface.points[1], false);
+				
+					this.rotateSurfaceX(this.surfaces.rightSurface, Math.PI/2, center, true);
+					this.rotateSurfaceX(this.surfaces.leftSurface, Math.PI/2, center, true);
+					this.rotateSurfaceX(this.surfaces.frontSurface, Math.PI/2, center, true);
+					this.rotateSurfaceX(this.surfaces.backSurface, Math.PI/2, center, true);				
+					this.rotateSurfaceX(this.surfaces.bottomSurface, Math.PI/2, center);
+			}
+		
+			this.lastExpand = style;
+		}
+	},
+	
+	contract: function() {
+		if(this.lastExpand == -1) {
+			return;
+		}
+		
+		switch(this.lastExpand) {
 			case 0:
 			default:
-
+			
 				var angle1 = Math.atan(this.width/this.height/2) + Math.PI/2;
 				var angle2 = Math.atan(this.length/this.height/2) + Math.PI/2;
 
@@ -126,19 +193,17 @@ var Pyramid = expandableShape.extend({
 				this.rotateSurfaceZ(this.surfaces.leftSurface, -angle1, this.surfaces.leftSurface.points[1], false);
 				this.rotateSurfaceX(this.surfaces.frontSurface, angle2, this.surfaces.frontSurface.points[1], false);
 				//this.delay -= 500;
-				
+			
 				this.rotateSurfaceX(this.surfaces.rightSurface, Math.PI/2, center, true);
 				this.rotateSurfaceX(this.surfaces.leftSurface, Math.PI/2, center, true);
 				this.rotateSurfaceX(this.surfaces.frontSurface, Math.PI/2, center, true);
 				this.rotateSurfaceX(this.surfaces.backSurface, Math.PI/2, center, true);				
 				this.rotateSurfaceX(this.surfaces.bottomSurface, Math.PI/2, center);
-				
-				console.log(angle1*180/Math.PI)
 		}
 	}
 });
 
-var Tetrahedron = expandableShape.extend({
+var Tetrahedron = ExpandableShape.extend({
 	init: function(size, matrix) {
 		this._super(matrix);
 		
@@ -263,8 +328,6 @@ var Interaction = {
 //		prism.delay = 8000;
 //		prism.expand(0);
 		
-		console.log(cube);
-		
 		Interaction.createTool();
 		
 		Main.setObjective('Yandaki geometrik cisimlerden aç\u0131n\u0131mını elde etmek istediğinize basınız.');
@@ -274,7 +337,7 @@ var Interaction = {
 		tool.onMouseDown = function (event) {
 			if (event.item) {
 				var shape = event.item.surface.shape;
-					shape.expand(0);
+					shape.expand(1);
 			}
 		}
 	}
