@@ -946,7 +946,7 @@ liste=function(eleman1,eleman2, eleman3,div){
 			if(this.div=="#soru"){
 			$(function() {
 				$("#soru #siralama" ).sortable({
-					//items: "li:not(.kapali)",
+					items: "li:not(.raf .isaretler)",
 					
 					 placeholder : "yerTutucu",
 					//grid: [80, 30],
