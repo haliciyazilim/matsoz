@@ -907,19 +907,20 @@ liste=function(eleman1,eleman2, eleman3,div){
 			if(this.div=="#soru" || this.div=="#cevap"){
 				$(this.div+" #kucuk1").css("left","210px");
 				$(this.div+" #kucuk2").css("left","350px");
-                                $(this.div+" #raf1").css("left","108px");
-                                $(this.div+" #raf2").css("left","249px");
-                                $(this.div+" #raf3").css("left","391px");
+                                $(this.div+" #raf1").css("left","103px");
+                                $(this.div+" #raf2").css("left","246px");
+                                $(this.div+" #raf3").css("left","388px");
 			
 				$(this.div+" #siralama .isaretler").append("<img id='kucuk' src='/assets/animations/ondalik_kesirleri_karsilastirma/oran_kucuk_active.png' />");
 					$(this.div+" .isaretler")
 						.css("position","absolute")
 						.css("bottom","10px");
-				$(this.div+" #siralama .raf").append("<img src='/assets/animations/ondalik_kesirleri_karsilastirma/okk_etkilesim_raf.png' />");
+				$(this.div+" #siralama .raf").append("<img class='rafResim' src='/assets/animations/ondalik_kesirleri_karsilastirma/okk_etkilesim_raf.png' />");
 					$(this.div+" .raf")
 						.css("position","absolute")
                                                 .css("top","38px")
 						.css("margin","auto");
+                                        $(this.div+" .rafResim").css("width","95px");        
                                 console.log("div: "+this.div+" #siralama li")
 			}
 			else if(this.div=="#ornekAlt"){
