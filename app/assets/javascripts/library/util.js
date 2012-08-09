@@ -331,7 +331,16 @@ var Util = {
 			return node;		
 		},
 		
-		
+	groupNumber: function(number,groupCharacter) {
+            if(groupCharacter == undefined)
+                groupCharacter = ' ';
+            var strNumber = (""+number);
+            regex =  /(\d+)(\d{3})/;
+            do 
+                strNumber = strNumber.replace(regex, '$1'+groupCharacter+'$2');
+                while(regex.test(strNumber))
+            return strNumber;
+        },
     format : function(num, options) {
             if(!options)
                 options = {};
