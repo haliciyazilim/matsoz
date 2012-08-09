@@ -337,5 +337,5 @@ var Interaction = {
 			Interaction.inputs[1].value = Interaction.denom1 * Interaction.denom2;
 			Interaction.inputs[0].style.color = "green";
 			Interaction.inputs[1].style.color = "green";	
-		},
+		}
 }

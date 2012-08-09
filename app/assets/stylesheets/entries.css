@@ -240,6 +240,22 @@ p.exampleHeader {
     border:none;
 }
 
+.newpage_button{
+    background-image:url(/assets/btn_gray_newpage_text.png);
+    background-color: #fff;
+    height:32px;
+    width:97px;
+    border:none;
+}
+
+.rotate_button{
+    background-image:url(/assets/btn_gray_turn_text.png);
+    background-color: #fff;
+    height:32px;
+    width:82px;
+    border:none;
+}
+
 
 .status_field {
 	text-align: center;
