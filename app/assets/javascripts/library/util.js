@@ -174,15 +174,15 @@ var Util = {
 		},
 		
 	rotateX: function(angle, point, center) {
-                        if (point instanceof Point3) {
-                            point = [point.x, point.y, point.z];
-                            
-                            var returnPoint3 = true;
-                        }
-                        
-                        if (center instanceof Point3) {
-                            center = [center.x, center.y, center.z];
-                        }
+			if (point instanceof Point3) {
+			    point = [point.x, point.y, point.z];
+    
+			    var returnPoint3 = true;
+			}
+
+			if (center instanceof Point3) {
+			    center = [center.x, center.y, center.z];
+			}
                         
 			if (angle == 0) {
 				return [point[0], point[1], point[2]];
@@ -201,25 +201,25 @@ var Util = {
 				var y = p[0] * cos - p[1] * sin;
 				var z = p[0] * sin + p[1] * cos;
 
-                                if (returnPoint3) {
-                                    return new Point3(point[0], y + center[1], z + center[2]);
-                                } else {
-                                    return [point[0], y + center[1], z + center[2]];
-                                }
+				if (returnPoint3) {
+				    return new Point3(point[0], y + center[1], z + center[2]);
+				} else {
+				    return [point[0], y + center[1], z + center[2]];
+				}
 			}
 		},
 		
 	rotateY: function(angle, point, center) {
-                        if (point instanceof Point3) {
-                            point = [point.x, point.y, point.z];
-                            
-                            var returnPoint3 = true;
-                        }
-                        
-                        if (center instanceof Point3) {
-                            center = [center.x, center.y, center.z];
-                        }
-            
+			if (point instanceof Point3) {
+			    point = [point.x, point.y, point.z];
+    
+			    var returnPoint3 = true;
+			}
+
+			if (center instanceof Point3) {
+			    center = [center.x, center.y, center.z];
+			}
+
 			if (angle == 0) {
 				return [point[0], point[1], point[2]];
 			}
@@ -237,11 +237,48 @@ var Util = {
 				var x =   p[0] * cos + p[1] * sin;
 				var z = - p[0] * sin + p[1] * cos;
 
-                                if (returnPoint3) {
-                                    return new Point3(x + center[0], point[1], z + center[2]);
-                                } else {
-                                    return [x + center[0], point[1], z + center[2]];
-                                }
+				if (returnPoint3) {
+				    return new Point3(x + center[0], point[1], z + center[2]);
+				} else {
+				    return [x + center[0], point[1], z + center[2]];
+				}
+			}
+		},
+		
+		
+	rotateZ: function(angle, point, center) {
+			if (point instanceof Point3) {
+			    point = [point.x, point.y, point.z];
+
+			    var returnPoint3 = true;
+			}
+
+			if (center instanceof Point3) {
+			    center = [center.x, center.y, center.z];
+			}
+
+			if (angle == 0) {
+				return [point[0], point[1], point[2]];
+			}
+
+			var cos = Math.cos(angle);
+			var sin = Math.sin(angle);
+
+			if (center == undefined) {
+				var x = point[0] * cos - point[1] * sin;
+				var y = point[0] * sin + point[1] * cos;
+
+				return new Point3(x, y, point[2]);
+			} else {
+				var p = [point[0] - center[0], point[1] - center[1]];
+				var x = p[0] * cos - p[1] * sin;
+				var y = p[0] * sin + p[1] * cos;
+
+				if (returnPoint3) {
+				    return new Point3(x + center[0], y + center[1], point[2]);
+				} else {
+				    return [x + center[0], y + center[1], point[2]];
+				}
 			}
 		},
 		
@@ -330,7 +367,7 @@ var Util = {
 				$(node).val(val);
 			return node;		
 		},
-		
+	
 	groupNumber: function(number,groupCharacter) {
             if(groupCharacter == undefined)
                 groupCharacter = ' ';
@@ -340,7 +377,8 @@ var Util = {
                 strNumber = strNumber.replace(regex, '$1'+groupCharacter+'$2');
                 while(regex.test(strNumber))
             return strNumber;
-        },
+        },	
+	
     format : function(num, options) {
             if(!options)
                 options = {};
