@@ -61,20 +61,16 @@ var Interaction = {
 				}	
 		},
 		{
-			id: "car",
-			src: '/assets/animations/cizgi_grafigi/car.jpg'
-		},
-		{
 			id: "kadran",
-			src: '/assets/animations/cizgi_grafigi/kadran.png'
+			src: '/assets/animations/zaman/kadran.jpg'
 		},
 		{
 			id: "akrep",
-			src: '/assets/animations/cizgi_grafigi/akrep.png'
+			src: '/assets/animations/zaman/akrep.png'
 		},
 		{
 			id: "yelkovan",
-			src: '/assets/animations/cizgi_grafigi/yelkovan.png'
+			src: '/assets/animations/zaman/yelkovan.png'
 		}
 	],
 	
