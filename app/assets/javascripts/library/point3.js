@@ -54,10 +54,14 @@ Point3.prototype.length = function(){
 
 Point3.prototype.setLength = function(length){
 	var factor = length/this.norm();
-	
-	this.x = this.x*factor;
-	this.y = this.y*factor;
-	this.z = this.z*factor;		
+		
+	return this.scale(factor);
+}
+
+Point3.prototype.scale = function(scale) {
+	this.x = this.x*scale;
+	this.y = this.y*scale;
+	this.z = this.z*scale;
 	
 	return this;
 }

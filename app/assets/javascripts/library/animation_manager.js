@@ -52,6 +52,34 @@ AnimationManager.Animation = function (item, animationHash) {
 		} else if (this.animationType == 'easeInOutQuad') { // From jQuery
 			if (ratio < 0.5) return 2*ratio*ratio;
 			return ratio * (4 - 2*ratio) - 1;
+		} else if (this.animationType == 'easeOutBounce') { // From jQuery
+			// t: current time, b: begInnIng value, c: change In value, d: duration
+			
+			// easeOutBounce: function (x, t, b, c, d) {
+			// 		if ((t/=d) < (1/2.75)) {
+			// 			return c*(7.5625*t*t) + b;
+			// 		} else if (t < (2/2.75)) {
+			// 			return c*(7.5625*(t-=(1.5/2.75))*t + .75) + b;
+			// 		} else if (t < (2.5/2.75)) {
+			// 			return c*(7.5625*(t-=(2.25/2.75))*t + .9375) + b;
+			// 		} else {
+			// 			return c*(7.5625*(t-=(2.625/2.75))*t + .984375) + b;
+			// 		}
+			// 	}
+			
+			if (ratio < (1/2.75)) {
+				return (7.5625*ratio*ratio);
+			} else if (ratio < (2/2.75)) {
+				return (7.5625*(ratio-=(1.5/2.75))*ratio + .75);
+			} else if (ratio < (2.5/2.75)) {
+				return (7.5625*(ratio-=(2.25/2.75))*ratio + .9375);
+			} else {
+				return (7.5625*(ratio-=(2.625/2.75))*ratio + .984375);
+			}
+			
+			
+			
+			
 		} else if (this.animationType == 'custom') {
 			return this.mappingFunction(ratio);
 		} else {

@@ -219,7 +219,7 @@ Interaction.images = [
 ];
 
 Interaction.init = function(container){
-	Main.setObjective('Yandaki cetvel ve pergeli kullanarak seçeceğiniz yarıçap uzunluğuna sahip çemberi aşağıdaki “Çiz” butonuna basarak çizdiriniz. Daha sonra Daha sonra makas resmine tıklayarak kesiniz ve daire elde ediniz.');
+	Main.setObjective('Yandaki cetvel ve pergeli kullanarak seçeceğiniz yarıçap uzunluğuna sahip çemberi aşağıdaki “Çiz” butonuna basarak çizdiriniz. Daha sonra makas resmine tıklayarak kesiniz ve daire elde ediniz.');
 	Interaction.container = container;
 	Interaction.paper = {width:$(container).width(),height:$(container).height()};
 	Interaction.button = document.createElement('input');
