@@ -651,7 +651,7 @@ var Interaction = {
 				$(Interaction.sortingUl).html('<li id="firstFrac"><div id="firstFracDiv">5</div></li><img id="lessThan1"  /><li id="secondFrac"><div id="secondFracDiv">4</div></li><img id="lessThan2"/><li id="thirdFrac"><div id="thirdFracDiv">6</div></li>');
 				$(Interaction.sortingUl).css({
 						width: '400px',
-						height: '100px',
+						height: '100px'
 					});
 
 				$(Interaction.sortingUl).sortable({
