@@ -611,7 +611,7 @@ var Interaction = {
 							position: 'absolute',
 							left: '211px',
 							top: '68px',
-							paddin: 0,
+							padding: 0,
 							margin: 0,
 						});
 			$(Interaction.dropDiv).append('<div id="targetContainer"><img src="/assets/animations/kesirleri_karsilastirma/oran_hedef.png" id="target" /></div>')
