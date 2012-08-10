@@ -93,7 +93,7 @@ var Interaction = {
     },
     init:function(container){
         Interaction.container = container;
-	Main.setObjective("Yandaki sözcükleri şemada uygun yerlere fare ile sürükleyerek yerleştirip kontrol ediniz.");
+	Main.setObjective("Yandaki sözcükleri şemada uygun yerlere sürükleyerek yerleştirip kontrol ediniz.");
 	Interaction.paper = {
             width:$(container).width(),
             height:$(container).height()
@@ -198,13 +198,14 @@ var Interaction = {
 		);
          
         for(var i=0; i<kitaplar.children[0].children.length;i++)
-		console.log("EdebiyatÄ±n bebeleri: "+kitaplar.children[0].children[i].name);
+		console.log("Edebiyatın bebeleri: "+kitaplar.children[0].children[i].name);
 	
 	dropableShapes = new Array();
 	
         dizi=Array();
         dizi= Util.getShuffledArray(4);
         
+    
     $(container).append("<button id='kontrolBtn' class='next_button'>");
 	$("#kontrolBtn")
 		.css("position","absolute")
@@ -225,6 +226,11 @@ var Interaction = {
 			//window.location.reload()
 			$("#kontrolBtn").hide();
 			}).hide();
+                        
+    Interaction.appendStatus({
+				bottom:'30px',
+				right:'160px'
+			});
                         
     Interaction.prepareNextQuestion();
 		},
@@ -256,6 +262,8 @@ var Interaction = {
 
 
 function soruGetir(){
+    
+    Interaction.setStatus("");
             console.log("139"+dizi);
             switch (dizi[soruSirasi]){
                 case 0:
@@ -417,6 +425,12 @@ function semaOlustur(renk,border,sozcuk){
     up = function(event){
         var konulan;
 	var tetkik=false;
+        
+        for (i = 0; i < dropableShapes.length; i++) {
+            dropableShapes[i].set_style(dropableShapeDefaultStyle);
+            console.log("I'm here")
+        }
+        
 	if(this.inDropableShape==true){
             var tutulan=this.children[1].content;
             var alttakiEbeveyn=this.hitShape.ebeveyn.name;
@@ -452,6 +466,8 @@ function semaOlustur(renk,border,sozcuk){
 		
                 tetkik=false;
 		if(sayi==tane){
+                    
+                    Interaction.setStatus('Tebrikler', true);
                     $("#kontrolBtn").show();
                     sayi=0;
                 }
@@ -522,31 +538,55 @@ function semaOlustur(renk,border,sozcuk){
 	konumSirasi++;
     }
     
-    var tool  = new Tool();
-    tool.onMouseMove = function(event){
-    //console.log("event.item"+event.item);
-    if(this.item)
-        this.item.move(event);
-    else{
+    toolum  = new Tool();
+//    toolum.onMouseMove = function(event){
+//        //console.log("event.item"+event.item);
+//        if(this.item)
+//            this.item.move(event);
+//        else{
+//            for (i = 0; i < dropableShapes.length; i++) {
+//            dropableShapes[i].set_style(dropableShapeDefaultStyle);
+//            }
+//        }
+//    };
+    
+    toolum.onMouseDrag=function (event){
+        if(this.item)
+            this.item.move(event);
+        else{
             for (i = 0; i < dropableShapes.length; i++) {
             dropableShapes[i].set_style(dropableShapeDefaultStyle);
             }
         }
-    };
-    tool.onMouseUp = function(event){
+         
+    }
+    
+    toolum.onMouseUp = function(event){
         if(this.item){
             this.item.up(event);
             this.item = null;
         }
+        else{
+            for (i = 0; i < dropableShapes.length; i++) {
+            dropableShapes[i].set_style(dropableShapeDefaultStyle);
+            }
+        }
+        
         
     };
-    tool.onMouseDown = function(event){
+    
+    toolum.onMouseDown = function(event){
         if(event.item && event.item.class && event.item.class == "sema"){
             this.item = event.item;
             this.item.start(event);
         }
+        else{
+            for (i = 0; i < dropableShapes.length; i++) {
+            dropableShapes[i].set_style(dropableShapeDefaultStyle);
+            }
+        }
    };
     
-   // tool.activate();
+  //toolum.activate();
     
 }
