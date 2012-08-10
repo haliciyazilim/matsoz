@@ -52,9 +52,10 @@ var Animation = {
                 factor1:4921,
                 factor2:5,
                 zero:"000",
-                textStyle:animationTextStyle
+                textStyle:animationTextStyle,
+                callback:Main.animationFinished
             });
-            Main.animationFinished(13000); 
+//            Main.animationFinished(13000); 
 		}
 }
 

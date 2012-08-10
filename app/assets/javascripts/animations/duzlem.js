@@ -14,16 +14,13 @@ function __Styles(){
 	}
 	typeDivCss = {
 		position:'absolute',
-		color:'#c90',
-		border:'2px solid #c90',
-		backgroundColor:'#900',
-		width:'140px',
+		width:'340px',
 		height:'50px',
 		top:'40px',
-		right:'100px',
+		right:'40px',
+        textAlign:'right',
 		fontWeight:'bold',
 		lineHeight:'46px',
-		textAlign:'center',
 		boxSizing:'border-box'
 	}
 	notExistDivCss = {
@@ -32,10 +29,10 @@ function __Styles(){
 		border:'2px outset #afa',
 		backgroundColor:'#363',
 		width:'70px',
-		height:'50px',
-		top:'40px',
-		right:'10px',
-		lineHeight:'46px',
+		height:'40px',
+		bottom:'40px',
+		right:'160px',
+		lineHeight:'36px',
 		textAlign:'center',
 		borderRadius:'25px',
 		boxSizing:'border-box'
@@ -53,6 +50,151 @@ var Animation = {
 	init:function(container){
 			Animation.container = container;
             Main.animationFinished();
+            function ShapeShifter(staticPoints,relativePoints,style1,style2,duration,delay,textHTML){
+                this.staticPoints = staticPoints;
+                this.relativePoints = relativePoints;
+                this.style1 = style1;
+                this.style2 = style2;
+                this.duration = duration;
+                this.delay = delay;
+                this.textHTML = textHTML
+                this.shape = null;
+                this.draw = function(){
+                    this.shape = new Path();
+                    for(var i=0; i < this.staticPoints.length; i++){
+                        this.shape.add(this.staticPoints[i]);
+                    }
+                    this.shape.add(this.staticPoints[0]);
+                    this.shape.set_style(style1);			
+                }
+                if(delay == null || delay == undefined)
+                    this.delay = 0;
+                this.startAnimation = function(){
+                    var anim = new AnimationHelper({
+                        style1:this.style1,
+                        style2:this.style2,
+                        self:this,
+                        shape:this.shape,
+                        pointsLength:this.staticPoints.length
+                    });
+                    for(var i=0; i<this.staticPoints.length; i++)
+                        anim["point"+i] = this.staticPoints[i];
+                    for(var key in this.style1)
+                        anim[key] = this.style1[key];
+                    var style = {};
+                    for(var i=0; i<this.relativePoints.length; i++)
+                        style["point"+i] = this.relativePoints[i];	
+                    for(var key in this.style2)
+                        style[key] = this.style2[key];
+                    anim.animate({
+                        style:style,
+                        duration:this.duration,
+                        delay:this.delay,
+                        animationType:'easeInEaseOut',
+                        init:function(){
+                            console.log("animation is started");
+                        },
+                        update:function(){
+                            console.log("animation is uptading")
+                            if(this.shape)
+                                this.shape.remove();
+                            this.self.shape = this.shape = new Path();
+                            for(var i=0; i < this.pointsLength; i++){
+                                this.shape.add(this["point"+i]);
+                            }
+                            this.shape.closed = true;
+                            this.shape.set_style(this.style1);
+                            this.shape.fillColor = this.fillColor;
+
+                        },
+                        callback:function(){
+                            this.self.staticPoints = [];
+                            for(var i=0;i < this.self.relativePoints.length ; i++)
+                                this.self.staticPoints[i] = new Point(this.self.relativePoints[i]);
+                            console.log("animation is finished");
+                        }
+                    });	
+                };
+                
+                this.shiftTo = function(relativePoints,style,duration,delay){
+                    
+                   
+                    var self = this;
+                    var anim = new AnimationHelper({});
+                    anim.animate({
+                        style:{},
+                        duration:0,
+                        delay:delay,
+                        init:function(){
+                            console.log(self)
+                            self.relativePoints = [];
+                            for(var i=0;i < relativePoints.length ; i++)
+                                        self.relativePoints[i] = new Point(relativePoints[i]);
+
+                            self.style2 = style;
+                            self.duration = duration;
+                            self.delay = 0;
+                            self.startAnimation();
+                        }
+                    })
+                }
+            }//ShapeShifter
+            
+            var referencePoint = new Point(200,50);
+            
+            var rectangle1 = new ShapeShifter(
+                [
+                    referencePoint.add(0,0),
+                    referencePoint.add(140,0),
+                    referencePoint.add(100,40),
+                    referencePoint.add(-40,40)
+                ],
+                [
+                    referencePoint.add(-20,-10),
+                    referencePoint.add(200,-10),
+                    referencePoint.add(120,50),
+                    referencePoint.add(-100,50)
+
+                ],
+                {strokeColor:"#000",strokeWidth:2,fillColor:new RgbColor(1,1,0,0.5)},
+                {},
+                2000,
+                0
+            );
+            rectangle1.startAnimation();
+            rectangle1.shiftTo([
+                    referencePoint.add(-20,-0),
+                    referencePoint.add(200,-0),
+                    referencePoint.add(120,0),
+                    referencePoint.add(-100,0)
+
+                ], {}, 1000, 2000
+            );
+            rectangle1.shiftTo([
+                    referencePoint.add(-20,50),
+                    referencePoint.add(200,50),
+                    referencePoint.add(120,-10),
+                    referencePoint.add(-100,-10)
+
+                ], {}, 1000, 3500
+            );
+            rectangle1.shiftTo([
+                    referencePoint.add(-20,-0),
+                    referencePoint.add(200,-0),
+                    referencePoint.add(120,0),
+                    referencePoint.add(-100,0)
+
+                ], {}, 1000, 5000
+            );
+            rectangle1.shiftTo([
+                    referencePoint.add(-20,-10),
+                    referencePoint.add(200,-10),
+                    referencePoint.add(120,50),
+                    referencePoint.add(-100,50)
+
+                ], {}, 1000, 6500
+            );
+            
 		}
 }
 
@@ -66,7 +208,7 @@ var Interaction = {
 		},
 	init:function(container){
 			Interaction.container = container;
-			Main.setObjective('Yandaki geometrik cisimlerin istenen paralel ya da kesişen düzlem ikilisine fare ile tıklayarak gösteriniz. Olmayanlar için “Yok” düğmesine tıklayınız.');
+			Main.setObjective('Yandaki geometrik cisimlerin istenen paralel ya da kesişen düzlem ikilisine basarak gösteriniz. Olmayanlar için “Yok” düğmesine tıklayınız.');
 			Interaction.paper = {
 				width:$(container).width(),
 				height:$(container).height()
@@ -76,9 +218,9 @@ var Interaction = {
 				right:'40px',
 				textAlign:'right',
 				lineHeight:'20px'
-			});
+			}); 
 			Interaction.appendButton({
-				bottom:'70px',
+				bottom:'40px',
 				right:'40px'
 			});
 			Interaction.typeDiv = document.createElement('div');
@@ -123,7 +265,7 @@ var Interaction = {
 			Main.interactionProject.activeLayer.removeChildren()
 			Interaction.notExistDiv.deselect();
 			Interaction.qType = Util.rand01()==0?Interaction._types.INTERSECTING:Interaction._types.PARALLEL;
-			$(Interaction.typeDiv).html(Interaction.qType);
+			$(Interaction.typeDiv).html(Interaction.qType + " varsa seçiniz");
 			/*<[[TestCode*/
 				//randomNumber = 7; 
 			/*TestCode]]>*/
@@ -397,7 +539,6 @@ var ClickableArea = Class.extend({
 	init:function(plane){
 			this.plane = plane;
 			this.matrix = this.plane.matrix;
-			console.log("I'm here");
 		},	
 	setParent : function(parent){
 			this.parent = parent;

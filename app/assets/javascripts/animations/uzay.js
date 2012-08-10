@@ -5,10 +5,78 @@ function __Styles(){
 }
 
 var Animation = {
+    images:[
+        {
+            id:'rect_back',
+            src:'/assets/animations/uzay/rect_back.png'
+        },
+        {
+            id:'rect_front',
+            src:'/assets/animations/uzay/rect_front.png'
+        },
+        {
+            id:'ball',
+            src:'/assets/animations/uzay/ball.png'
+        },
+        {
+            id:'earth',
+            src:'/assets/animations/uzay/earth.png'
+        },
+        {
+            id:'solar_system',
+            src:'/assets/animations/uzay/solar_system.png'
+        },
+        
+    ],
 	init:function(container){
 			Animation.container = container;
-            Main.animationFinished();
-		}
+            var center = new Point($(container).width()*0.5,$(container).height()*0.5);
+            Animation.rect_back = new Raster('rect_back');
+            Animation.rect_back.position = center;
+            Animation.ball = new Raster('ball');
+            Animation.ball.position = center;
+            Animation.rect_front = new Raster('rect_front');
+            Animation.rect_front.position = center;
+            Animation.traverseBall();
+//            Animation.earth = new Raster('earth');
+//            Animation.solar_system = new Raster('solar_system');
+		},
+   traverseBall : function(){
+            Animation.ball.scale(0.4);
+            Animation.ball.position = Animation.ball.position.add(120,30)
+            Animation.ball.animate({
+                style:{position:Animation.ball.position.add(-240,10)},
+                duration:1000,
+                callback:function(){
+                Animation.ball.animate({
+                    style:{position:Animation.ball.position.add(120,10)},
+                    duration:1000,
+                    callback:function(){
+                    Animation.ball.animate({
+                        style:{position:Animation.ball.position.add(120,-20)},
+                        duration:1000,
+                        callback:function(){
+                        Animation.ball.animate({
+                            style:{position:Animation.ball.position.add(20,20)},
+                            duration:500,
+                            callback:function(){
+                            Animation.ball.animate({
+                                style:{position:Animation.ball.position.add(-120,-20)},
+                                duration:1000,
+                                animationStyle:'easeOut',
+                                callback:function(){
+
+                                }
+                            });
+                            }
+                        });
+                        }
+                    });
+                    }
+                });
+                }
+            });
+        }
 }
 
 var Interaction = {
