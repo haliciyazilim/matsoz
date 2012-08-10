@@ -272,7 +272,7 @@ Interaction.getFramework = function() {
 	return 'paper';
 }
 Interaction.init = function(container){
-	Main.setObjective('Yandaki madeni parayı yandaki el resmine  fare ile tıklayarak istediğiniz kadar atarak tura geliş olasılığını izleyiniz.');
+	Main.setObjective('Yandaki madeni parayı yandaki el resmine basarak istediğiniz kadar atarak tura geliş olasılığını izleyiniz.');
 	Interaction.container = container;
 	var w = $(container).width();
 	var h = $(container).height();

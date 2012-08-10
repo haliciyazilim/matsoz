@@ -111,7 +111,7 @@ Interaction.getFramework = function() {
 	return 'paper';
 }
 Interaction.init = function(container){
-	Main.setObjective('Yandaki nesneleri kaç boyutlu olduğuna göre sınıflandırmak için fare ile sürükleyerek ilgili sepete atınız.');
+	Main.setObjective('Yandaki nesneleri kaç boyutlu olduğuna göre sınıflandırmak için sürükleyerek ilgili sepete atınız.');
 	
 	bowlHoverStyle.fillColor = new RgbColor(1,1,0.6); //:'#ff9' , strokeWidth : 2}
 	//var bowlDefaultStyle = {'stroke':'#000','fill':'#fff'};
