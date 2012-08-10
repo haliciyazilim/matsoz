@@ -40,10 +40,13 @@ var Surface = function (points) {
             
         path.closed = true;
 	
-        path.strokeColor = strokeColor;
-        path.fillColor = fillColor;
-        path.strokeWidth = strokeWidth;
-        
+		if (this.shape) {
+			path.strokeColor = this.shape.strokeColor;
+	        path.fillColor = this.shape.fillColor;
+	        path.strokeWidth = this.shape.strokeWidth;
+			path.opacity = this.shape.opacity;
+		}
+				
         this.projectedSurface = path;
         
 		path.surface = this;
@@ -84,10 +87,15 @@ var Surface = function (points) {
 
 var ExpandableShape = Class.extend({
 	delay: 0,
+	opacity: 1,
 	
 	init: function(matrix) {
 		this.matrix = matrix;
 		this.animate = Item.prototype.animate;
+		
+		this.fillColor = new RgbColor(0.75, 0.91, 0.94, 0.7);
+	    this.strokeColor = "#255b63";
+	    this.strokeWidth = 1;
 	},
 	
 	setSurfaces: function (surfaces) {
@@ -133,7 +141,7 @@ var ExpandableShape = Class.extend({
 			style: {
 				angle: angle
 			},
-			duration: 900,
+			duration: 800,
 			delay: this.delay,
 			animationType: 'easeInEaseOut',
 			init: function() {
@@ -165,7 +173,7 @@ var ExpandableShape = Class.extend({
 			style: {
 				angle: angle
 			},
-			duration: 900,
+			duration: 800,
 			delay: this.delay,
 			animationType: 'easeInEaseOut',
 			init: function() {
@@ -197,7 +205,7 @@ var ExpandableShape = Class.extend({
 			style: {
 				angle: angle
 			},
-			duration: 900,
+			duration: 800,
 			delay: this.delay,
 			animationType: 'easeInEaseOut',
 			init: function() {
