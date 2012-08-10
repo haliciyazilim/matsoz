@@ -658,13 +658,13 @@ var Interaction = {
             Interaction.sortingDiv.id = 'sortingDiv';
             $(Interaction.container).append(Interaction.sortingDiv);
             $(Interaction.sortingDiv).css({
-                width: '100px',
-                height: '50px',
+                width: '80px',
+                height: '40px',
                 position: 'absolute',
                 left: '240px',
                 top: '10px',
                 padding: 0,
-                margin:0
+                margin:0,
             });
             $(Interaction.sortingDiv).append('<div id="lessThanDiv"><img src="/assets/animations/kesirleri_karsilastirma/oran_kucuk_base.png"/><img id="lessThan" src="/assets/animations/kesirleri_karsilastirma/oran_kucuk_fg.png" /><img id="lessThanHover" class="drg" src="/assets/animations/kesirleri_karsilastirma/oran_kucuk_hover.png" /></div>');
 
@@ -1362,57 +1362,50 @@ var Interaction = {
 		},
 	onFail : function(){
 			Interaction.setStatus('Yanlış cevap, doğrusu yukarıda gösterilmiştir.', false);
+            if(Interaction.dropped != Interaction.answerIdStr){
+                Interaction.clone2 = [];
+                $("."+Interaction.oldActiveStr).css("opacity", 0);
+                Interaction.answerId = Interaction.answerIdStr.replace("Active", "Hover");
+                $("#"+Interaction.oldActiveStr.replace("Active", "")).css("opacity", 1)
+                $("#"+Interaction.answerId.replace("Hover", "")).css("opacity", 0)
 
-            Interaction.clone2 = [];
-            $("."+Interaction.oldActiveStr).css("opacity", 0);
-            Interaction.answerId = Interaction.answerIdStr.replace("Active", "Hover");
-            $("#"+Interaction.oldActiveStr.replace("Active", "")).css("opacity", 1)
-            $("#"+Interaction.answerId.replace("Hover", "")).css("opacity", 0)
+                for(var i = 0; i < Interaction.numOfFracs - 1; i++){
+                    Interaction.clone2[i] = $("#"+Interaction.answerId).clone();
+                    Interaction.clone2[i].attr('class', 'flying');
+                    Interaction.clone2[i].attr('id', i)
 
-            for(var i = 0; i < Interaction.numOfFracs - 1; i++){
-                Interaction.clone2[i] = $("#"+Interaction.answerId).clone();
-                Interaction.clone2[i].attr('class', 'flying');
+                    var ansTop = $(Interaction.sortingDiv).position().top;
+                    var ansLeft = $(Interaction.sortingDiv).position().left;
+                    if(Interaction.qType == 0)
+                        ansLeft += 40;
 
 
+                    var c = $(Interaction.questionDiv).position().top;
+                    var d = $(Interaction.questionDiv).position().left;
+                    var flyTop = parseInt($('.dropDivs')[i].style.top) + 11 + c;
+                    var flyLeft = parseInt($('.dropDivs')[i].style.left) + 11 + d;
 
-                var ansTop = $(Interaction.sortingDiv).position().top - 65;
-                var ansLeft = $(Interaction.sortingDiv).position().left - 50;
-               // var ansTop = 10;
-              //  var ansLeft = 240;
-                if(Interaction.answerId == "greaterThan"){
-                    ansLeft += 40;
+                    $(Interaction.clone2[i]).css("position", "absolute")
+                        .css("top", ansTop)
+                        .css("left", ansLeft)
+                        .css("opacity", 0)
+
+                    $(Interaction.container).append(Interaction.clone2[i]);
+                    $(Interaction.clone2[i]).delay(0).animate(
+                        {opacity:200, top:flyTop, left:flyLeft},
+                        1000,
+                        'easeInOutQuad',
+                        function(){
+                            $(this).remove();
+                            $("."+Interaction.answerIdStr).css("opacity", 1)
+                        }
+                    );
                 }
-                var flyTop = parseInt($('.dropDivs')[i].style.top) + 11;
-                var flyLeft = parseInt($('.dropDivs')[i].style.left) + 11;
 
-                $(Interaction.clone2[i]).css("position", "absolute")
-                    .css("top",ansTop)
-                    .css("left", ansLeft)
-                    .css("opacity", 0)
-
-                $(Interaction.container).append(Interaction.clone2[i]);
-                $(Interaction.clone2[i]).insertAfter($('.dropDivs')[i]);
-
-                console.log("ansTop: "+ansTop)
-                console.log("ansLeft: "+ansLeft)
-                console.log("flyTop: "+flyTop)
-                console.log("flyLeft: "+flyLeft)
-//                $(Interaction.clone2[i]).css("position", "absolute")
-//                    .css("top",ansTop)
-//                    .css("left", ansLeft)
-//                    .css("opacity", 0)
-
-                $(Interaction.clone2[i]).delay(0).animate(
-                    {opacity:2, top:flyTop, left:flyLeft},
-                    1000,
-                    'easeInOutQuad',
-                    function(){
-                        $(Interaction.clone2[0]).css("opacity", 0)
-                        $("."+Interaction.answerIdStr).css("opacity", 1)
-                    }
-                );
                 $('#sortingDiv img').draggable("disable");
+
                 Interaction.oldActiveStr = Interaction.answerIdStr;
+
             }
 
 			for(var i = 0; i < Interaction.numOfFracs; i++){
