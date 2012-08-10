@@ -89,22 +89,36 @@ var ExpandablePrism = ExpandableShape.extend({
                     duration:0,
                     delay:startingDelay,
                     init: function() {
-                        var path = new Path.Circle(p1,4);
-                        path.set_style(animationVertexesHighlightStyle);
-                        path.set_style({
+                        var a = new AnimationHelper({
+                            shape:null,
                             opacity:0
                         });
-                        path.animate({
+                        a.animate({
                             style:{opacity:1},
                             duration:0,//delay,
-                            delay:delay*i
-                        });
-
-                        path.animate({
+                            delay:delay*i,
+                            update:function(){
+                                if(this.shape)
+                                    this.shape.remove();
+                                this.shape = new Path.Circle(p1,4);
+                                this.shape.set_style(animationVertexesHighlightStyle);
+                                this.shape.set_style(this.opacity);
+                            }
+                        })
+                        a.animate({
                             style:{opacity:0},
                             delay:delay*8,
                             duration:delay,
-                            callback:path.remove
+                            callback:function(){
+                                this.shape.remove();
+                            },
+                            update:function(){
+                                if(this.shape)
+                                    this.shape.remove();
+                                this.shape = new Path.Circle(p1,4);
+                                this.shape.set_style(animationVertexesHighlightStyle);
+                                this.shape.set_style(this.opacity);
+                            }
                         })
                     }
                 })
