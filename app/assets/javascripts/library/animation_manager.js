@@ -5,6 +5,16 @@ var AnimationManager = function(){
 	AnimationManager.interactionAnimations = [];	
 }
 
+AnimationManager.delay = function (func, delay) {
+	var animationHelper = new AnimationHelper({});
+	animationHelper.animate({
+		style: {},
+		duration: 0,
+		delay: delay,
+		init: func
+	});
+}
+
 AnimationManager.Animation = function (item, animationHash) {
 	this.item = item;
 	

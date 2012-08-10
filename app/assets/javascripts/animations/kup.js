@@ -1,8 +1,236 @@
-// JavaScript Document
-var kucultButtonStyle = {fillColor: "#456"}
 
-var Animation = function(){};Animation();
-var Interaction =function(){};Interaction();
+function __Styles() {
+    fillColor = new RgbColor(0.75, 0.91, 0.94, 0.7);
+    strokeColor = "#255b63";
+    strokeWidth = 1;
+    kucultButtonStyle = {fillColor: "#456"};
+    
+    animationTextStyle = {
+        fontSize:16
+    }
+    animationSurfacesTextStyle = {
+        fillColor: '#5ba559'
+    }
+    animationEdgesTextStyle = {
+        fillColor: '#c14444'
+    }
+    animationVertexesTextStyle = {
+        fillColor: '#4451d0'
+    }
+    
+    animationSurfaceHighlightStyle = {
+        
+    }
+    
+    animationEdgesHighlightStyle = {
+        strokeColor:'#c14444',
+        strokeWidth:2
+    }
+    
+    animationVertexesHighlightStyle = {
+        fillColor:'#4451d0'
+    }
+    
+}
+
+
+var Animation = {
+        init:function(container){
+            var Prism = ExpandableShape.extend({
+                init: function(width, height, length, matrix) {
+                        this._super(matrix);
+
+                        width /= 2;
+                        height /= 2;
+                        length /= 2;
+                        this.setSurfaces({
+                            backSurface: new Surface([
+                                new Point3(-width,  height, length),
+                                new Point3( width,  height, length),
+                                new Point3( width, -height, length),
+                                new Point3(-width, -height, length)
+                                ]),
+                            bottomSurface: new Surface([
+                                new Point3(-width, height,  length),
+                                new Point3( width, height,  length),
+                                new Point3( width, height, -length),
+                                new Point3(-width, height, -length)
+                                ]),
+                            leftSurface: new Surface([
+                                new Point3(-width, -height, -length),
+                                new Point3(-width, -height,  length),
+                                new Point3(-width,  height,  length),
+                                new Point3(-width,  height, -length)
+                                ]),
+                            rightSurface: new Surface([
+                                new Point3(width,  height, -length),
+                                new Point3(width,  height,  length),
+                                new Point3(width, -height,  length),
+                                new Point3(width, -height, -length)
+                                ]),
+                            topSurface: new Surface([
+                                new Point3(-width, -height, -length),
+                                new Point3( width, -height, -length),
+                                new Point3( width, -height,  length),
+                                new Point3(-width, -height,  length)
+                                ]),
+                            frontSurface: new Surface([
+                                new Point3(-width, -height, -length),
+                                new Point3( width, -height, -length),
+                                new Point3( width,  height, -length),
+                                new Point3(-width,  height, -length)
+                                ])
+                        });
+                    },
+                showVertexes : function(delay,startingDelay) {
+                        if(startingDelay == undefined)
+                                startingDelay = 0;
+                        var circle = function(p1,i){
+                            var anim = new AnimationHelper({});
+                            anim.animate({
+                                style:{},
+                                duration:0,
+                                delay:startingDelay,
+                                init: function() {
+                                    var path = new Path.Circle(p1,4);
+                                    path.set_style(animationVertexesHighlightStyle);
+                                    path.set_style({
+                                        opacity:0
+                                    });
+                                    path.animate({
+                                        style:{opacity:1},
+                                        duration:delay,
+                                        delay:delay*i
+                                    });
+
+                                    path.animate({
+                                        style:{opacity:0},
+                                        delay:delay*8,
+                                        duration:delay,
+                                        callback:path.remove
+                                    })
+                                }
+                            })
+                        }
+                        var frontPoints = this.surfaces.frontSurface.get2DPoints(this.matrix);
+                        var backPoints = this.surfaces.backSurface.get2DPoints(this.matrix);
+                        var i = 0,j = 0,k = 0;
+                        for (; i < frontPoints.length; i++) {
+                            new circle(frontPoints[i],i);
+                        }
+                        for (;j < backPoints.length ; j++,i++){
+                            new circle(backPoints[j],i);
+                        }
+
+                    },
+                showEdges: function(delay,startingDelay){
+                        if(startingDelay == undefined)
+                            startingDelay = 0;
+                        var line = function(p1,p2,i) {
+                            var anim = new AnimationHelper({});
+                            anim.animate({
+                                style:{},
+                                duration:0,
+                                delay:startingDelay,
+                                init: function() {
+//                                    console.log("I'm here");
+                                    var path = new Path.Line(p1,p2);
+                                    path.set_style(animationEdgesHighlightStyle);
+                                    path.set_style({
+                                        opacity:0
+                                    });
+                                    path.animate({
+                                        style:{opacity:1},
+                                        duration:delay,
+                                        delay:delay*i
+                                    });
+                                    path.animate({
+                                        style:{opacity:0},
+                                        duration:delay,
+                                        delay:delay*14,
+                                        callback:path.remove
+                                    });
+                                }
+                            })
+                        }
+                        var frontPoints = this.surfaces.frontSurface.get2DPoints(this.matrix);
+                        var backPoints = this.surfaces.backSurface.get2DPoints(this.matrix);
+                        var i = 0,j = 0,k = 0;
+                        for (; i < frontPoints.length; i++) {
+                            new line(frontPoints[i],frontPoints[(i+1)%frontPoints.length],i);
+                        }
+                        for (;j < backPoints.length ; j++,i++){
+                            new line(backPoints[j],backPoints[(j+1)%backPoints.length],i);
+                        }
+                        for (;k < backPoints.length ; k++,i++){
+                            new line(frontPoints[k],backPoints[3-k],i);
+                        }
+                    },
+                expand: function(style) {
+                        this.rotateSurfaceX(this.surfaces.topSurface, -Math.PI/2, this.surfaces.topSurface.points[2]);
+                        this.rotateSurfaceY(this.surfaces.rightSurface, -Math.PI/2, this.surfaces.rightSurface.points[2], true);
+                        this.rotateSurfaceY(this.surfaces.frontSurface, -Math.PI/2, this.surfaces.rightSurface.points[2]);
+                        this.rotateSurfaceY(this.surfaces.frontSurface, -Math.PI/2, this.surfaces.rightSurface.points[1].add(this.surfaces.rightSurface.points[1].swapXZ()).subtract(this.surfaces.rightSurface.points[3].swapXZ()));
+                        this.rotateSurfaceY(this.surfaces.leftSurface, Math.PI/2, this.surfaces.leftSurface.points[1]);
+                        this.rotateSurfaceX(this.surfaces.bottomSurface, Math.PI/2, this.surfaces.bottomSurface.points[0]);
+                    },
+                contract: function (style){
+                        this.rotateSurfaceX(this.surfaces.bottomSurface, -Math.PI/2, this.surfaces.bottomSurface.points[0]);
+                        this.rotateSurfaceY(this.surfaces.leftSurface, -Math.PI/2, this.surfaces.leftSurface.points[1]);
+                        this.rotateSurfaceY(this.surfaces.frontSurface, Math.PI/2, this.surfaces.rightSurface.points[1].add(this.surfaces.rightSurface.points[1].swapXZ()).subtract(this.surfaces.rightSurface.points[3].swapXZ()));
+                        this.rotateSurfaceY(this.surfaces.rightSurface, Math.PI/2, this.surfaces.rightSurface.points[2], true);
+                        this.rotateSurfaceY(this.surfaces.frontSurface, Math.PI/2, this.surfaces.rightSurface.points[2]);
+                        this.rotateSurfaceX(this.surfaces.topSurface, Math.PI/2, this.surfaces.topSurface.points[2]);
+                    }
+            });// var Prisim
+            var cubeMatrix = Util.createProjectionMatrixForObjectAt(200, 100);
+            var cube = new Prism(50, 50, 50, cubeMatrix);
+            cube.project();
+            cube.expand();
+            cube.contract();
+            cube.showEdges(500,10000);
+            cube.showVertexes(500,18000);
+
+            var textReferencePoint = new Point(370,60);
+            var surfacesText    = new PointText(textReferencePoint.add(0, 0))
+                .set_style(animationTextStyle)
+                .set_style(animationSurfacesTextStyle);
+            var edgesText       = new PointText(textReferencePoint.add(0,40))
+                .set_style(animationTextStyle)
+                .set_style(animationEdgesTextStyle);
+            var vertexesText    = new PointText(textReferencePoint.add(0,80))
+                .set_style(animationTextStyle)
+                .set_style(animationVertexesTextStyle);
+            surfacesText.count = 1;
+            surfacesText.animate({
+                style:{count:6},
+                duration:5000,
+                update:function(){
+                    this.content = Math.floor(this.count) + " karesel bölge şeklinde yüz"
+                }
+            });
+            edgesText.count = 1;
+            edgesText.animate({
+                style:{count:12},
+                duration:6000,
+                delay:10000,
+                update:function(){
+                    this.content = Math.floor(this.count) + " ayrıt"
+                }
+            });
+            vertexesText.count = 1;
+            vertexesText.animate({
+                style:{count:8},
+                duration:4000,
+                delay:18000,
+                update:function(){
+                    this.content = Math.floor(this.count) + " köşe"
+                }
+            });
+        }
+};
+var Interaction = {};
+
 Interaction.getFramework = function() {
 	return 'paper';
 }
@@ -16,23 +244,7 @@ Interaction.init = function(container){
 	Interaction.DOWN = false;
 	Interaction.LEFT = false;
 	Interaction.RIGHT = false;
-	//$(container).append(
-//		'<div style="position:absolute;top:60%;left:0px;text-align:center;">'+
-//			'<input type="button" value="UP" onmousedown="Interaction.UP=true;" onmouseup="Interaction.UP=false;" /><br />'+
-//			'<input type="button" value="LEFT" onmousedown="Interaction.LEFT=true;" onmouseup="Interaction.LEFT=false;"  />'+
-//			'<input type="button" value="RIGHT"  onmousedown="Interaction.RIGHT=true;" onmouseup="Interaction.RIGHT=false;" /><br />'+
-//			'<input type="button" value="DOWN"  onmousedown="Interaction.DOWN=true;" onmouseup="Interaction.DOWN=false;" />'+
-//		'</div>'
-//	);
 	inc = 15;
-	//$(container).append(
-//		'<div style="position:absolute;top:40%;right:10px;text-align:center;">'+
-//			'<input type="button" value="UP" onclick="Interaction._3d.zAngle-=inc;return false;" /><br />'+
-//			'<input type="button" value="LEFT"  onclick="Interaction._3d.xAngle-=inc;return false;" />'+
-//			'<input type="button" value="RIGHT"   onclick="Interaction._3d.xAngle+=inc;return false;" /><br />'+
-//			'<input type="button" value="DOWN"   onclick="Interaction._3d.zAngle+=inc;return false;" />'+
-//		'</div>'
-//	);
 	$(container).append(
 		'<div class="ezd_btn_rotate" style="position:absolute;top:40%;right:10px;text-align:center;">'+
 			'<div class="ezd_btn_rotate_top" onclick="Interaction._3d.zAngle+=inc;return false;" >'+
@@ -49,7 +261,7 @@ Interaction.init = function(container){
 			'</div>'+
 		'</div>'
 	);
-	
+
 	$(container).append(
 		'<div style="position:absolute;top:50%;left:10px;text-align:center;font-size:12px;line-height:20px;">'+
 			'<div style="position:relative;padding-top:5px;float:left;" onclick="$(\'#distance\').val($(\'#distance\').val()-1);return false;"><img src="/assets/animations/3d_navigation/btn_gray_small.png" /></div>'+
@@ -71,7 +283,7 @@ Interaction.init = function(container){
 	function changeXAngle(){
 		Interaction._3d.x = Interaction._3d.R * Math.cos(Util.degreeToRadians(Interaction._3d.xAngle)) * Math.sin(Util.degreeToRadians(Interaction._3d.zAngle)) ;
 		Interaction._3d.z = Interaction._3d.R * Math.sin(Util.degreeToRadians(Interaction._3d.xAngle)) * Math.sin(Util.degreeToRadians(Interaction._3d.zAngle)) ;
-		
+
 	}
 	function changeZAngle(){
 		Interaction._3d.y = Interaction._3d.R * Math.cos(Util.degreeToRadians(Interaction._3d.zAngle));
@@ -89,7 +301,6 @@ Interaction.init = function(container){
 	}
 	setInterval(
 		function(){
-			
 			//if( Interaction.UP == true)
 //				Interaction._3d.zAngle-=inc;
 //			else if(Interaction.DOWN == true)
@@ -151,7 +362,7 @@ function load() {
 	p[5] = new Point3(10, -10, 10);   // right bottom back
 	p[6] = new Point3(10, 10, 10);    // right top    back
 	p[7] = new Point3(-10, 10, 10);   // left  top    back
-	
+
 //	p[5] = p[4];
 //	p[6] = p[7];
 	// Back

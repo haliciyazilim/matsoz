@@ -1,5 +1,5 @@
 
-Animation = {}
+Animation = {init:function(){}}
 Interaction = {}
 
 Interaction.getFramework = function () {

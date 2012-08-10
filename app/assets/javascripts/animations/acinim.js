@@ -54,12 +54,20 @@ var Prism = ExpandableShape.extend({
 	    });
 	},
 	
+	locked: false,
 	lastExpand: -1,
 	expand: function(style) {
+		if (this.locked) {
+			return;
+		}
+		
 		if (this.lastExpand != -1) {
 			this.contract();
 		} else {			
 			this.clearRotations();
+			
+			this.locked = true;
+			
 			switch (style) {
 				case 3:
 					this.rotateSurfaceX(this.surfaces.topSurface, -Math.PI/2, this.surfaces.topSurface.points[2]);
@@ -115,6 +123,12 @@ var Prism = ExpandableShape.extend({
 					this.rotateSurfaceX(this.surfaces.bottomSurface, Math.PI/2, this.surfaces.bottomSurface.points[0]);
 			}
 		
+			var self = this;
+			
+			AnimationManager.delay(function () {
+				self.locked = false;
+			}, this.delay);
+			
 			this.delay = 0;
 			
 			this.lastExpand = style;
@@ -122,9 +136,15 @@ var Prism = ExpandableShape.extend({
 	},
 	
 	contract: function() {
+		if (this.locked) {
+			return;
+		}
+	
 		if(this.lastExpand == -1) {
 			return;
 		}
+		
+		this.locked = true;
 		
 		switch(this.lastExpand) {
 			case 3:
@@ -182,6 +202,12 @@ var Prism = ExpandableShape.extend({
 				this.rotateSurfaceY(this.surfaces.frontSurface, Math.PI/2, this.surfaces.rightSurface.points[2]);
 				this.rotateSurfaceX(this.surfaces.topSurface, Math.PI/2, this.surfaces.topSurface.points[2]);
 		}
+		
+		var self = this;
+		
+		AnimationManager.delay(function () {
+			self.locked = false;
+		}, this.delay);
 		
 		this.lastExpand = -1;
 		this.delay = 0;
