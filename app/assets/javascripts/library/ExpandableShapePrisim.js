@@ -102,7 +102,7 @@ var ExpandablePrism = ExpandableShape.extend({
                                     this.shape.remove();
                                 this.shape = new Path.Circle(p1,4);
                                 this.shape.set_style(animationVertexesHighlightStyle);
-                                this.shape.set_style(this.opacity);
+                                this.shape.set_style({opacity:this.opacity});
                             }
                         })
                         a.animate({
@@ -117,7 +117,7 @@ var ExpandablePrism = ExpandableShape.extend({
                                     this.shape.remove();
                                 this.shape = new Path.Circle(p1,4);
                                 this.shape.set_style(animationVertexesHighlightStyle);
-                                this.shape.set_style(this.opacity);
+                                this.shape.set_style({opacity:this.opacity});
                             }
                         })
                     }
