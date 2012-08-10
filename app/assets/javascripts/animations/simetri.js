@@ -1764,7 +1764,7 @@ var Interaction = {
     },
     init:function(container){
         Interaction.container = container;
-        Main.setObjective('Yandaki şekillerin simetrilerini oluşturmak için, çizeceğiniz doğru parçasının başlangıç ve bitiş noktalarını fare ile belirleyiniz. Daha sonra kontrol ediniz.');
+        Main.setObjective('Yandaki şekillerin simetrilerini oluşturmak için, çizeceğiniz doğru parçasının başlangıç ve bitiş noktalarını belirleyiniz. Daha sonra kontrol ediniz.');
         Interaction.paper = {
             width:$(container).width(),
             height:$(container).height()
