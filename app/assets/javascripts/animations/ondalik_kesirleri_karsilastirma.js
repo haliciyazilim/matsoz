@@ -666,7 +666,7 @@ var Interaction = {
 		},
 	init:function(container){
 			Interaction.container = container;
-			Main.setObjective('Yandaki ondalık kesirleri fare ile sürükleyerek küçükten büyüğe doğru sıralayınız.');
+			Main.setObjective('Yandaki ondalık kesirleri sürükleyerek küçükten büyüğe doğru sıralayınız.');
 			Interaction.paper = {
 				width:$(container).width(),
 				height:$(container).height()
