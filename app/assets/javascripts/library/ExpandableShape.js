@@ -1,8 +1,3 @@
-
-var Line = function(point3_1,point3_2) {
-    
-    }
-
 var Surface = function (points) {
     this.points = points;
     
