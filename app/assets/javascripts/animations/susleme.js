@@ -155,7 +155,7 @@ var Interaction = {
 
 
         var pp = new Raster('page');
-        pp.position = new Point(400, 150);
+        pp.position = new Point(396, 140);
         Interaction.container = container;
         Main.setObjective('Bir yüzeyi düzgün çokgensel bölgeleri kullanarak ve boşluk kalmayacak şekilde döşemek.');
         Interaction.paper = {
@@ -166,12 +166,12 @@ var Interaction = {
         $(Interaction.container).append('<button id ="rotateBtn" class="rotate_button" onclick="Interaction.rotateSelectedItem()"></button>')
         $('#rotateBtn').css("position", "absolute")
             .css("top", "260px")
-            .css("left", "300px")
+            .css("left", "10px")
 
         $(Interaction.container).append('<button id ="newPageBtn" class="newpage_button" onclick="Interaction.getNewPage()"></button>')
         $('#newPageBtn').css("position", "absolute")
             .css("top", "260px")
-            .css("left", "410px")
+            .css("left", "100px")
 
 
 
@@ -182,6 +182,7 @@ var Interaction = {
                 this.pointsArr[i] = pointsArr[i];
 
             this.fillColor = fillColor;
+            this.centerPoint = Util.centerOfPoints(this.pointsArr);
 
             this.drawShape = function(){
                 var a = new Path();
@@ -253,12 +254,17 @@ var Interaction = {
                             Math.abs(line1.angle - line2.angle) > Math.PI - 0.01) {
                             if (line1.p1.getDistance(line2.p1, true) < 100) {
                                 if (line1.p2.getDistance(line2.p2, true) < 100) {
-                                    this.setPos(this.shape.position.add(line2.p1.subtract(line1.p1)));
+                                    if(!otherObject.shape.hitTest(this.centerPoint.add(line2.p1.subtract(line1.p1))) && !this.shape.hitTest(otherObject.centerPoint.add(line2.p1.subtract(line1.p1)))){
+                                        this.setPos(this.shape.position.add(line2.p1.subtract(line1.p1)));
+                                    }
+
                                 }
                             }
                             else if (line1.p1.getDistance(line2.p2, true) < 100) {
                                 if (line1.p2.getDistance(line2.p1, true) < 100) {
-                                    this.setPos(this.shape.position.add(line2.p2.subtract(line1.p1)));
+                                    if(!otherObject.shape.hitTest(this.centerPoint.add(line2.p2.subtract(line1.p1))) && !this.shape.hitTest(otherObject.centerPoint.add(line2.p2.subtract(line1.p1)))){
+                                        this.setPos(this.shape.position.add(line2.p2.subtract(line1.p1)));
+                                    }
                                 }
                             }
                         }
@@ -273,7 +279,7 @@ var Interaction = {
         firstTrianglePointsArr[2] = new Point(70.5, 50.5-Math.floor(Math.sqrt(3)*20+0.5));
         Interaction.triangle = new MyShapes(firstTrianglePointsArr, interactionTriangleColor);
         Interaction.triangle.shape.class = "draggable";
-        Interaction.triangle.setPos(new Point(50, 60));
+        Interaction.triangle.setPos(new Point(54, 50));
 
         var secondTrianglePointsArr = [];
         secondTrianglePointsArr[0] = new Point(50.5, 50.5);
@@ -281,7 +287,7 @@ var Interaction = {
         secondTrianglePointsArr[2] = new Point(70.5, 50.5-Math.floor(Math.sqrt(3)*20+0.5));
         Interaction.triangle2 = new MyShapes(secondTrianglePointsArr, interactionTriangleColor2);
         Interaction.triangle2.shape.class = "draggable";
-        Interaction.triangle2.setPos(new Point(140, 60));
+        Interaction.triangle2.setPos(new Point(144, 50));
 
         var firstHexagonPointsArr = [];
         firstHexagonPointsArr[0] = new Point(50, 60);
@@ -292,7 +298,7 @@ var Interaction = {
         firstHexagonPointsArr[5] = new Point(70, 60+Math.floor(Math.sqrt(3)*20 + 0.5));
         Interaction.hexagon = new MyShapes(firstHexagonPointsArr, interactionHexagonColor);
         Interaction.hexagon.shape.class = "draggable";
-        Interaction.hexagon.setPos(new Point(50, 200.5));
+        Interaction.hexagon.setPos(new Point(54, 190.5));
 
         var secondHexagonPointsArr = [];
         secondHexagonPointsArr[0] = new Point(50, 60);
@@ -303,7 +309,7 @@ var Interaction = {
         secondHexagonPointsArr[5] = new Point(70, 60+Math.floor(Math.sqrt(3)*20+0.5));
         Interaction.hexagon2 = new MyShapes(secondHexagonPointsArr, interactionHexagonColor2);
         Interaction.hexagon2.shape.class = "draggable";
-        Interaction.hexagon2.setPos(new Point(140, 200.5))
+        Interaction.hexagon2.setPos(new Point(144, 190.5))
 
         var firstSquarePointsArr = [];
         firstSquarePointsArr[0] = new Point(50.5, 50.5);
@@ -312,7 +318,7 @@ var Interaction = {
         firstSquarePointsArr[3] = new Point(90.5, 50.5);
         Interaction.square = new MyShapes(firstSquarePointsArr, interactionSquareColor);
         Interaction.square.shape.class = "draggable";
-        Interaction.square.setPos(new Point(50.5, 120.5));
+        Interaction.square.setPos(new Point(54.5, 110.5));
 
         var secondSquarePointsArr = [];
         secondSquarePointsArr[0] = new Point(50.5, 50.5);
@@ -321,18 +327,21 @@ var Interaction = {
         secondSquarePointsArr[3] = new Point(90.5, 50.5);
         Interaction.square2 = new MyShapes(secondSquarePointsArr, interactionSquareColor2);
         Interaction.square2.shape.class = "draggable";
-        Interaction.square2.setPos(new Point(140.5, 120.5))
+        Interaction.square2.setPos(new Point(144.5, 110.5))
 
 
         // dropable area
         Interaction.dropArea = new Path();
-        Interaction.dropArea.moveTo(255.5, 220.5);
-        Interaction.dropArea.lineTo(535.5, 220.5);
-        Interaction.dropArea.lineTo(535.5, 50.5);
-        Interaction.dropArea.lineTo(255.5, 50.5);
-        Interaction.dropArea.lineTo(255.5, 220.5);
-      //  Interaction.dropArea.strokeColor = "grey";
+        Interaction.dropArea.moveTo(214.5, 256.5);
+        Interaction.dropArea.lineTo(570.5, 256.5);
+        Interaction.dropArea.lineTo(570.5, 4.5);
+        Interaction.dropArea.lineTo(214.5, 4.5);
+        Interaction.dropArea.lineTo(214.5, 256.5);
+        Interaction.dropArea.closed = true;
+        Interaction.dropArea.strokeColor = "grey";
+        Interaction.dropArea.fillColor = "white";
         Interaction.dropArea.class = "dropArea";
+        Interaction.dropArea.opacity = 0;
 
         Interaction.droppedArr = [];
         var tool = new Tool();
@@ -358,6 +367,12 @@ var Interaction = {
                     Interaction.clonesObjectArr.splice(Interaction.clonesObjectArr.indexOf(event.item), 1);
                     event.item.remove();
                 }
+                else{
+                    if(Interaction.selectedItem){
+                        Interaction.selectedItem.fullySelected = false;
+                        Interaction.selectedItem = null;
+                    }
+                }
             }
             else{
                 if(Interaction.selectedItem){
@@ -373,9 +388,7 @@ var Interaction = {
                 this.item.parentObject.setPos(newPosition);
                 this.totalDelta = this.totalDelta.add(event.delta);
                 for(var i = 0; i < Interaction.clonesObjectArr.length; i++){
-                   // if(!Interaction.clonesObjectArr[i].bounds.contains(event.point)){
-                        this.item.parentObject.trySnapTo(Interaction.clonesObjectArr[i].parentObject)
-                  //  }
+                        this.item.parentObject.trySnapTo(Interaction.clonesObjectArr[i].parentObject);
                 }
 
             }
@@ -383,7 +396,14 @@ var Interaction = {
 
         tool.onMouseUp = function(event){
             if(event.item){
-                if(Interaction.dropArea.bounds.contains(event.item.position)){
+                var noOfPoints = 0;
+                for(var i = 0; i < event.item.parentObject.pointsArr.length; i++){
+                    console.log(event.item.parentObject.pointsArr[i]);
+                   if(Interaction.dropArea.hitTest(event.item.parentObject.pointsArr[i])){
+                       noOfPoints += 1;
+                   }
+                }
+                if(noOfPoints == event.item.parentObject.pointsArr.length){
                     if(Interaction.selectedItem){
                         Interaction.selectedItem.fullySelected = false;
                         Interaction.selectedItem = null;
@@ -405,13 +425,14 @@ var Interaction = {
         Interaction.selectedItem = null;
 
         Interaction.appendStatus({
-            left:'10px',
-            top:'250px',
-            width: '170px',
-            height: '30px',
+            left:'240px',
+            top:'275px',
+            width: '300px',
+            height: '20px',
             fontWeight: 'normal',
             color: 'red',
-            textAlign: 'center'
+            textAlign: 'center',
+        //    border: 'solid'
         });
 
         Interaction.prepareNextQuestion();
