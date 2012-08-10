@@ -180,6 +180,8 @@ function aciklamalariGetir(){
 	gosteri("gul",1000);
 	gosteri("lale",3500);
 	gosteri("cerceve",5500);
+        
+        Main.animationFinished(8000);
 
 };
 

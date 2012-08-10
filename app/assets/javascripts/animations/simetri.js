@@ -8,12 +8,18 @@ var Animation = {
     init:function(container){
         Animation.container = container;
 
-        $(container).append('<img id="butterfly" src="/assets/animations/simetri/butterfly_animated.gif" />');
+        $(container).append('<img id="butterfly" src="/assets/animations/simetri/01.jpg" />');
         $('#butterfly').css("width", "128px")
             .css("height", "113px")
             .css("position", "absolute")
             .css("left", "40px")
             .css("top", "50px")
+            .css("opacity", 0)
+            .delay(1000).animate({opacity:1}, 1000)
+
+        setTimeout('$("#butterfly").attr("src", "/assets/animations/simetri/butterfly_animated_01.gif")', 3000)
+
+        setTimeout('$("#butterfly").attr("src", "/assets/animations/simetri/01.jpg")', 7000)
 
 
         AnimateHelper = new AnimationHelper({
@@ -355,7 +361,7 @@ var Animation = {
             trapSymText.opacity = AnimateHelper.trapTextOpacity;
         }
 
-        var triangleStart = 4000;
+        var triangleStart = 7000;
         var rectangleStart = triangleStart + 4500;
         var hexagonStart = rectangleStart + 14500;
         var trapezoidStart = hexagonStart+21000;
@@ -1742,9 +1748,12 @@ var Animation = {
             duration: 1000,
             delay: trapezoidStart+1000,
             animationType: 'easeInEaseOut',
+            callback: function(){
+                Main.animationFinished(500);
+            }
         });
 
-        Main.animationFinished(trapezoidStart + 3000);
+
 
     }
 }
@@ -1755,7 +1764,7 @@ var Interaction = {
     },
     init:function(container){
         Interaction.container = container;
-        Main.setObjective('Yandaki şekillerin simetrilerini oluşturmak için, çizeceğiniz doğru parçasının başlangıç ve bitiş noktalarını fare ile belirleyiniz. Daha sonra kontrol ediniz.');
+        Main.setObjective('Yandaki şekillerin simetrilerini oluşturmak için, çizeceğiniz doğru parçasının başlangıç ve bitiş noktalarını belirleyiniz. Daha sonra kontrol ediniz.');
         Interaction.paper = {
             width:$(container).width(),
             height:$(container).height()

@@ -190,7 +190,7 @@ Animation.init=function(container){
 };
 
 Interaction.init = function(container){
-	Main.setObjective("Yandaki yüzlük tablonun altındaki kutuya istediğiniz sayıyı yazınız. Oluşan yüzdeyi ondalık kesir olarak kutuya yazınız ve “Kontrol” düğmesine fare ile tıklayınız.");
+	Main.setObjective("Yandaki yüzlük tablonun altındaki kutuya istediğiniz sayıyı yazınız. Oluşan yüzdeyi ondalık kesir olarak kutuya yazınız ve “Kontrol” düğmesine basınız.");
 	//Interaction.container = container;
 	
 	/*

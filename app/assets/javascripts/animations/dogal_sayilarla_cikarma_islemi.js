@@ -30,7 +30,8 @@ Animation.init=function(container){
 		//.css("bottom","20px")
 		.css("left","0")
 		.css("right","0")
-		.css("top","60px");
+		.css("top","60px")
+                .css("font-size","30px");
 	
 
 	//var islem=new LongSubtraction(20000,19999,"ornek");

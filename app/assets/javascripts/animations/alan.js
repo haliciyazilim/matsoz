@@ -257,7 +257,7 @@ Interaction.getFramework = function() {
 	return 'paper';
 }
 Interaction.init = function(container){
-	Main.setObjective('Yandaki geometrik şekillerin alanlarını bulunuz ve “Kontrol” düğmesine fare ile tıklayarak  ya da “Enter” tuşuna basarak kontrol ediniz.');
+	Main.setObjective('Yandaki geometrik şekillerin alanlarını bulunuz ve “Kontrol” düğmesine basarak  ya da “Enter” tuşuna basarak kontrol ediniz.');
 	Interaction.container = container;
 	
 	$(Interaction.container).append('<div id="L"></div><div id="R"></div>');
