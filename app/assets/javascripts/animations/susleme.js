@@ -1,13 +1,13 @@
 function __Styles(){
-    animationTriangleColor = "#FABF8F"
+    animationTriangleColor = "#FABF8F";
     animationTriangleColor2 = "#92D050";
 
-    interactionTriangleColor = "#00B0F0";
-    interactionTriangleColor2 = "#92D050";
-    interactionSquareColor = "#FFFF00";
-    interactionSquareColor2 = "#FF0000";
-    interactionHexagonColor = "#E5B8B7";
-    interactionHexagonColor2 = "#FFC000";
+    interactionTriangleColor = "#ffbfc0";
+    interactionTriangleColor2 = "#ffd495";
+    interactionSquareColor = "#aeefaf";
+    interactionSquareColor2 = "#b9e7fe";
+    interactionHexagonColor = "#e6bcfe";
+    interactionHexagonColor2 = "#a2c4ff";
 }
 
 var Animation = {
@@ -155,7 +155,7 @@ var Interaction = {
 
 
         var pp = new Raster('page');
-       // pp.position(new Point(200, 5));
+        pp.position = new Point(400, 150);
         Interaction.container = container;
         Main.setObjective('Bir yüzeyi düzgün çokgensel bölgeleri kullanarak ve boşluk kalmayacak şekilde döşemek.');
         Interaction.paper = {
@@ -166,12 +166,12 @@ var Interaction = {
         $(Interaction.container).append('<button id ="rotateBtn" class="rotate_button" onclick="Interaction.rotateSelectedItem()"></button>')
         $('#rotateBtn').css("position", "absolute")
             .css("top", "260px")
-            .css("left", "30px")
+            .css("left", "300px")
 
         $(Interaction.container).append('<button id ="newPageBtn" class="newpage_button" onclick="Interaction.getNewPage()"></button>')
         $('#newPageBtn').css("position", "absolute")
             .css("top", "260px")
-            .css("left", "-110px")
+            .css("left", "410px")
 
 
 
@@ -326,12 +326,12 @@ var Interaction = {
 
         // dropable area
         Interaction.dropArea = new Path();
-        Interaction.dropArea.moveTo(220.5, 260.5);
-        Interaction.dropArea.lineTo(580.5, 260.5);
-        Interaction.dropArea.lineTo(580.5, 20.5);
-        Interaction.dropArea.lineTo(220.5, 20.5);
-        Interaction.dropArea.lineTo(220.5, 260.5);
-        Interaction.dropArea.strokeColor = "grey";
+        Interaction.dropArea.moveTo(255.5, 220.5);
+        Interaction.dropArea.lineTo(535.5, 220.5);
+        Interaction.dropArea.lineTo(535.5, 50.5);
+        Interaction.dropArea.lineTo(255.5, 50.5);
+        Interaction.dropArea.lineTo(255.5, 220.5);
+      //  Interaction.dropArea.strokeColor = "grey";
         Interaction.dropArea.class = "dropArea";
 
         Interaction.droppedArr = [];
@@ -373,7 +373,9 @@ var Interaction = {
                 this.item.parentObject.setPos(newPosition);
                 this.totalDelta = this.totalDelta.add(event.delta);
                 for(var i = 0; i < Interaction.clonesObjectArr.length; i++){
-                    this.item.parentObject.trySnapTo(Interaction.clonesObjectArr[i].parentObject)
+                   // if(!Interaction.clonesObjectArr[i].bounds.contains(event.point)){
+                        this.item.parentObject.trySnapTo(Interaction.clonesObjectArr[i].parentObject)
+                  //  }
                 }
 
             }
@@ -403,8 +405,13 @@ var Interaction = {
         Interaction.selectedItem = null;
 
         Interaction.appendStatus({
-            bottom:'10px',
-            right:'30px'
+            left:'10px',
+            top:'250px',
+            width: '170px',
+            height: '30px',
+            fontWeight: 'normal',
+            color: 'red',
+            textAlign: 'center'
         });
 
         Interaction.prepareNextQuestion();
@@ -435,7 +442,7 @@ var Interaction = {
     rotateSelectedItem : function(){
 
         if(Interaction.selectedItem === null){
-            Interaction.setStatus('Lütfen döndürmek için bir şekil seçiniz.', false);
+            Interaction.setStatus('Lütfen döndürmek için bir şekil seçiniz.');
         }
         else{
             Interaction.selectedItem.parentObject.rot(30);

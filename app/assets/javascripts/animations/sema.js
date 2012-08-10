@@ -63,8 +63,10 @@ var Animation = {
 	
 	$("#ornekBos4").delay(5000).animate({
 			"opacity":"0"},"slow");
-		
-		}
+	
+        Main.animationFinished(6000);
+    }
+    
 }
 
 var Interaction = {
