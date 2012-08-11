@@ -457,7 +457,7 @@ var Interaction = {
 		Interaction.expanded = false;
 		Interaction.createTool();
 		
-		Main.setObjective('Yandaki geometrik cisimlerden aç\u0131n\u0131mını elde etmek istediğinize basınız.');
+		Main.setObjective('Yandaki geometrik cisimlerden açınımını elde etmek istediğinizin üzerine basınız. Her seferinde farklı açınımını elde edeceksiniz.');
     },
 	createTool: function() {
 		var tool = new Tool();
@@ -476,7 +476,6 @@ var Interaction = {
 				if (Interaction.expanded) {
 					if (shape.contract()) {
 						Interaction.expanded = false;
-						Main.setObjective('Yandaki geometrik cisimlerden aç\u0131n\u0131mını elde etmek istediğinize basınız.');
 						
 						shape.animate({
 							style: {
@@ -486,6 +485,9 @@ var Interaction = {
 							duration: 1000,
 							delay: 5000,
 							animationType: 'easeInEaseOut',
+							init: function() {
+								Main.setObjective('Yandaki geometrik cisimlerden açınımını elde etmek istediğinizin üzerine basınız. Her seferinde farklı açınımını elde edeceksiniz.');
+							},
 							update: function () {
 								shape.matrix = Util.createProjectionMatrixForObjectAt(shape.x, shape.y);
 								shape.project();
@@ -509,7 +511,8 @@ var Interaction = {
 					if (shape.expand(Interaction.array[Interaction.index])) {
 						Interaction.index = (Interaction.index + 1) % 4
 						Interaction.expanded = true;
-						Main.setObjective('Aşağıdaki aç\u0131n\u0131mın hangi geometrik cisim olduğunu görmek için aç\u0131n\u0131ma basınız.');
+						// setTimeout(function() {}, 4000);
+						
 
 						shape.animate({
 							style: {
@@ -521,6 +524,9 @@ var Interaction = {
 							update: function () {
 								shape.matrix = Util.createProjectionMatrixForObjectAt(shape.x, shape.y);
 								shape.project();
+							},
+							callback: function () {
+								Main.setObjective('Yandaki açınımın hangi geometrik cisim olduğunu görmek için açınımın üzerine basınız.');
 							}
 						})
 
