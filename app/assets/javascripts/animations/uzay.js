@@ -26,7 +26,7 @@ var Animation = {
             id:'solar_system',
             src:'/assets/animations/uzay/solar_system.jpg'
         },
-        
+
     ],
 	init:function(container){
 			Animation.container = container;
@@ -88,12 +88,12 @@ var Animation = {
                     matrix.setToScale(this.scale*0.5,this.scale*0.5);
                     Animation.ball.setMatrix(matrix);
                     Animation.ball.position = Animation.centerPoint;
-                    
+
                     matrix = Animation.rect_front.matrix.clone();
                     matrix.setToScale(this.scale,this.scale);
                     Animation.rect_front.setMatrix(matrix);
                     Animation.rect_front.position = Animation.centerPoint;
-                    
+
                     matrix = Animation.rect_back.matrix.clone();
                     matrix.setToScale(this.scale,this.scale);
                     Animation.rect_back.setMatrix(matrix);
@@ -106,7 +106,7 @@ var Animation = {
             Animation.earth = new Raster('earth');
             Animation.earth.position = Animation.centerPoint;
             Animation.earth.set_style({opacity:0});
-            
+
             Animation.ball.animate({
                 style:{opacity:0},
                 duration:1000,
@@ -150,11 +150,11 @@ var Animation = {
                     })
                 }
             });
-            
+
         },
     zoomOutSolarSystem : function(){
-        
-            Animation.solar_system._p = this.position;  
+
+            Animation.solar_system._p = this.position;
             Animation.solar_system.scale = 1;
             Animation.solar_system.animate({
                 style:{_p:Animation.centerPoint.add(0,0),scale:0.5},
@@ -167,7 +167,7 @@ var Animation = {
                     this.position = this._p;
                 }
             })
-                
+
         }
 }
 
@@ -178,7 +178,67 @@ var Interaction = {
                 src:'/assets/animations/uzay/class.png',
                 name:'Sınıf',
                 isSpace:true
-            }
+            },
+            {
+                id:'room',
+                src:'/assets/animations/uzay/room.png',
+                name:'Evin bir odası',
+                isSpace:true
+            },
+            {
+                id:'pencil',
+                src:'/assets/animations/uzay/pencil.png',
+                name:'kalem',
+                isSpace:false
+            },
+            {
+                id:'school',
+                src:'/assets/animations/uzay/school.png',
+                name:'Okul',
+                isSpace:true
+            },
+            {
+                id:'matchbox',
+                src:'/assets/animations/uzay/matchbox.png',
+                name:'Ağzı açık kibrit kutusu',
+                isSpace:true
+            },
+            {
+                id:'stadium',
+                src:'/assets/animations/uzay/stadium.png',
+                name:'Futbol Stadı',
+                isSpace:true
+            },
+            {
+                id:'apple',
+                src:'/assets/animations/uzay/apple.png',
+                name:'Elma',
+                isSpace:false
+            },
+            {
+                id:'bus',
+                src:'/assets/animations/uzay/bus.png',
+                name:'Otobüsün içi',
+                isSpace:true
+            },
+            {
+                id:'pencilbox',
+                src:'/assets/animations/uzay/pencilbox.png',
+                name:'Ağzı açık kalem kutusu',
+                isSpace:true
+            },
+            {
+                id:'staple',
+                src:'/assets/animations/uzay/staple.png',
+                name:'Raptiye',
+                isSpace:false
+            },
+            {
+                id:'refrigerator',
+                src:'/assets/animations/uzay/refrigerator.png',
+                name:'Kapısı açık buzdolabı',
+                isSpace:true
+            },
         ],
 	getFramework:function(){
 			return 'paper';
@@ -243,7 +303,7 @@ var Interaction = {
                     left:'420px',
                     marginTop:'-15px'
                 });
-            
+
             Interaction.noButton = document.createElement("input");
             Interaction.noButton.setAttribute('type','button');
             $(Interaction.container).append(Interaction.noButton);
@@ -271,10 +331,9 @@ var Interaction = {
             /*<[[TEST*/
                 shape = 0;
             /*TEST]]>*/
-            
+
             Interaction.shape = shape;
             var image = Interaction.images[shape];
-            console.log(image);
             $(Interaction.imageContainer).append($("#"+image.id).get(0));
             $('img',Interaction.imageContianer)
                 .css({
@@ -285,13 +344,13 @@ var Interaction = {
                 });
             $(Interaction.questionDiv).html(image.name + " bir uzay mıdır?");
 		},
-		
+
 	/*
 	*	this function is called inside Interaction.__checkAnswer() function
 	*	if this function returns false, check answer operation is cancelled
 	*/
 	preCheck : function(){
-		
+
 		},
 	isAnswerCorrect : function(){
             var image = Interaction.images[Interaction.shape];
@@ -300,10 +359,10 @@ var Interaction = {
             return false;
 		},
 	onCorrectAnswer : function(){
-		
+
 		},
 	onWrongAnswer : function(){
-		
+
 		},
 	onFail : function(){
             Interaction.setStatus("You have failed ! ", false);
