@@ -2,6 +2,7 @@ function __Styles(){
 	
 	placeHolderColor = "#bfe8ef";
     fractionsColor="#e6c181";
+    sortableCursorType="move";
 }
 
 var Animation = {
@@ -742,7 +743,7 @@ var Interaction = {
 				Interaction.sortingUl = document.createElement('ul');
 				Interaction.sortingUl.id = 'sortingUl';
 				$(Interaction.questionDiv).append(Interaction.sortingUl);
-				$(Interaction.sortingUl).html('<li id="firstFrac"><div id="firstFracDiv">5</div></li><div id="dropDiv1"  class="dropDivs"/><li id="secondFrac"><div id="secondFracDiv">4</div></li><div id="dropDiv2" class="dropDivs"/><li id="thirdFrac"><div id="thirdFracDiv">6</div></li>');
+				$(Interaction.sortingUl).html('<li id="firstFrac"><div id="firstFracDiv"></div></li><div id="dropDiv1"  class="dropDivs"/><li id="secondFrac"><div id="secondFracDiv"></div></li><div id="dropDiv2" class="dropDivs"/><li id="thirdFrac"><div id="thirdFracDiv"></div></li>');
 				$(Interaction.sortingUl).css({
 						width: '400px',
 						height: '100px'
@@ -752,7 +753,7 @@ var Interaction = {
 						items: 'li:not(div)',
 						placeholder: 'placeHolder',
 						tolerance: 'pointer',
-						cursor:'pointer',
+						cursor: sortableCursorType,
                         axis: 'x',
 					});
 						
@@ -786,8 +787,7 @@ var Interaction = {
 							.css("height", "51px")
 							.css("padding", 0)
 							.css("margin", 0)
-							.css("line-height","25px")
-							.css("cursor","pointer");
+							.css("line-height","25px");
 						
 				$('#line1').css("height", "1px")
 							.css("width", "32px")
@@ -807,8 +807,7 @@ var Interaction = {
 							.css("height", "51px")
 							.css("padding", 0)
 							.css("margin", 0)
-							.css("line-height","25px")
-							.css("cursor","pointer");
+							.css("line-height","25px");
 				
 				$('#line2').css("height", "1px")
 							.css("width", "32px")
@@ -828,8 +827,7 @@ var Interaction = {
 							.css("height", "51px")
 							.css("padding", 0)
 							.css("margin", 0)
-							.css("line-height","25px")
-							.css("cursor","pointer");
+							.css("line-height","25px");
 				
 				$('#line3').css("height", "1px")
 							.css("width", "32px")
@@ -873,7 +871,7 @@ var Interaction = {
 						items: 'li:not(div)',
 						placeholder: 'placeHolder',
 						tolerance: 'pointer',
-						cursor:'pointer',
+						cursor: sortableCursorType,
                         axis: 'x',
 					});
 				
@@ -914,9 +912,7 @@ var Interaction = {
 							.css("height", "51px")
 							.css("padding", 0)
 							.css("margin", 0)
-							.css("line-height","25px")
-							.css("cursor","pointer");
-				
+							.css("line-height","25px");
 				$('#line1').css("height", "1px")
 							.css("width", "32px")
 							.css("border-top", "2px solid")
@@ -935,8 +931,7 @@ var Interaction = {
 							.css("height", "51px")
 							.css("padding", 0)
 							.css("margin", 0)
-							.css("line-height","25px")
-							.css("cursor","pointer");
+							.css("line-height","25px");
 				
 				$('#line2').css("height", "1px")
 							.css("width", "32px")
@@ -956,9 +951,7 @@ var Interaction = {
 							.css("height", "51px")
 							.css("padding", 0)
 							.css("margin", 0)
-							.css("line-height","25px")
-							.css("cursor","pointer");
-				
+							.css("line-height","25px");
 				$('#line3').css("height", "1px")
 							.css("width", "32px")
 							.css("border-top", "2px solid")
@@ -977,8 +970,7 @@ var Interaction = {
 							.css("height", "51px")
 							.css("padding", 0)
 							.css("margin", 0)
-							.css("line-height","25px")
-							.css("cursor","pointer");
+							.css("line-height","25px");
 				
 				$('#line4').css("height", "1px")
 							.css("width", "32px")
@@ -1032,7 +1024,7 @@ var Interaction = {
 						items: 'li:not(div)',
 						placeholder: 'placeHolder',
 						tolerance: 'pointer',
-						cursor:'pointer',
+						cursor: sortableCursorType,
                         axis: 'x',
 					});
 				
@@ -1083,8 +1075,7 @@ var Interaction = {
 							.css("height", "51px")
 							.css("padding", 0)
 							.css("margin", 0)
-							.css("line-height","25px")
-							.css("cursor","pointer");
+							.css("line-height","25px");
 				
 				$('#line1').css("height", "1px")
 							.css("width", "32px")
@@ -1104,8 +1095,7 @@ var Interaction = {
 							.css("height", "51px")
 							.css("padding", 0)
 							.css("margin", 0)
-							.css("line-height","25px")
-							.css("cursor","pointer");
+							.css("line-height","25px");
 				
 				$('#line2').css("height", "1px")
 							.css("width", "32px")
@@ -1125,9 +1115,7 @@ var Interaction = {
 							.css("height", "51px")
 							.css("padding", 0)
 							.css("margin", 0)
-							.css("line-height","25px")
-							.css("cursor","pointer");
-				
+							.css("line-height","25px");
 				$('#line3').css("height", "1px")
 							.css("width", "32px")
 							.css("border-top", "2px solid")
@@ -1146,8 +1134,7 @@ var Interaction = {
 							.css("height", "51px")
 							.css("padding", 0)
 							.css("margin", 0)
-							.css("line-height","25px")
-							.css("cursor","pointer");
+							.css("line-height","25px");
 				
 				$('#line4').css("height", "1px")
 							.css("width", "32px")
@@ -1167,8 +1154,7 @@ var Interaction = {
 							.css("height", "51px")
 							.css("padding", 0)
 							.css("margin", 0)
-							.css("line-height","25px")
-							.css("cursor","pointer");
+							.css("line-height","25px");
 				
 				$('#line5').css("height", "1px")
 							.css("width", "32px")
