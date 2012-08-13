@@ -63,7 +63,7 @@ var Animation = {
                 duration:2500,
                 delay:5000,
                 update:function(){
-                    this.content = Math.floor(this.count) + " karesel bölge şeklinde yüz"
+                    this.content = Math.floor(this.count) + " dikdörtgensel bölge şeklinde yüz"
                 }
             });
             edgesText.count = 1;
@@ -93,7 +93,7 @@ Interaction.getFramework = function() {
 }
 
 Interaction.init = function(container){
-	Main.setObjective("Aşağıdaki dikdörtgenler prizmasını küçültüp büyütünüz veya istediğiniz yönde döndürünüz.");
+	Main.setObjective("Yandaki dikdörtgenler prizmasını küçültüp büyütünüz veya istediğiniz yönde döndürünüz.");
 	load();
 	var w = $(Interaction.container).width();
 	var h = $(Interaction.container).height();

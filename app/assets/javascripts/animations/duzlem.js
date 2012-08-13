@@ -52,7 +52,192 @@ function __Styles(){
 var Animation = {
 	init:function(container){
 			Animation.container = container;
-            Main.animationFinished();
+			
+			
+			var animationHelper = new AnimationHelper({
+				x: -75,
+				y: 90,
+				width: 50,
+				length: 25,
+				height: 20,
+				x2: -100,
+				y2: 90,
+				rotation: 0,
+				offsetY: 0
+			})
+			
+			var matrix;
+			var surface1 = new Surface([
+				new Point3(-animationHelper.width, -animationHelper.height, -animationHelper.length),
+				new Point3( animationHelper.width, -animationHelper.height, -animationHelper.length),
+				new Point3( animationHelper.width, -animationHelper.height,  animationHelper.length),
+				new Point3(-animationHelper.width, -animationHelper.height,  animationHelper.length)
+			]);
+			
+			var surface2;
+			
+			
+			animationHelper.animate({
+				style: {
+					x: 372,
+					y: 90
+				},
+				duration: 2000,
+				delay: 1000,
+				animationType: 'easeInEaseOut',
+				update: function () {
+					matrix = Util.createProjectionMatrixForObjectAt(this.x, this.y);
+					
+					var path = surface1.project(matrix);
+					path.set_style(planeStyle);
+				}
+			})
+		
+			
+			animationHelper.animate({
+				style: {
+					width: 100,
+					length: 50
+				},
+				duration: 1000,
+				delay: 3000,
+				animationType: 'easeInEaseOut',
+				update: function () {
+					surface1.points = [
+						new Point3(-animationHelper.width, -animationHelper.height, -animationHelper.length),
+						new Point3( animationHelper.width, -animationHelper.height, -animationHelper.length),
+						new Point3( animationHelper.width, -animationHelper.height,  animationHelper.length),
+						new Point3(-animationHelper.width, -animationHelper.height,  animationHelper.length)
+					];
+					
+					var path = surface1.project(matrix);
+					path.set_style(planeStyle);
+				}
+			})
+			
+			animationHelper.animate({
+				style: {
+					rotation: Math.PI*2
+				},
+				duration: 3000,
+				delay: 5000,
+				animationType: 'easeInEaseOut',
+				init: function() {
+					surface1.pivotsX[0] = new Point3(0, -animationHelper.height, 0);
+				},
+				update: function() {
+					surface1.rotationsX[0] = this.rotation;
+					
+					var path = surface1.project(matrix);
+					path.set_style(planeStyle);
+				}
+			})
+			
+			animationHelper.animate({
+				style: {
+					x2: 372,
+					y2: 90
+				},
+				duration: 2000,
+				delay: 9000,
+				animationType: 'easeInEaseOut',
+				init: function() {
+					surface2 = new Surface([
+						new Point3(-animationHelper.width, animationHelper.height, -animationHelper.length),
+						new Point3( animationHelper.width, animationHelper.height, -animationHelper.length),
+						new Point3( animationHelper.width, animationHelper.height,  animationHelper.length),
+						new Point3(-animationHelper.width, animationHelper.height,  animationHelper.length)
+					]);
+				},
+				update: function() {
+					var matrix2 = Util.createProjectionMatrixForObjectAt(this.x2, this.y2);
+					
+					var path = surface2.project(matrix2);
+					path.set_style(planeStyle);
+				}
+			})
+			
+			animationHelper.animate({
+				style: {
+					rotation: Math.PI*3.5
+				},
+				duration: 3000,
+				delay: 11000,
+				animationType: 'easeInEaseOut',
+				init: function() {
+					surface1.pivotsX[0] = new Point3(0, 0, 0);
+					surface2.pivotsX[0] = new Point3(0, 0, 0);
+				},
+				update: function() {
+					surface1.rotationsX[0] = this.rotation;
+					surface2.rotationsX[0] = this.rotation;
+					
+					var path1 = surface1.project(matrix);
+					path1.set_style(planeStyle);
+					
+					var path2 = surface2.project(matrix);
+					path2.set_style(planeStyle);
+				}
+			})
+			
+			animationHelper.animate({
+				style: {
+					rotation: Math.PI*4
+				},
+				duration: 1000,
+				delay: 15000,
+				animationType: 'easeInEaseOut',
+				init: function() {
+					surface1.pivotsX[0] = new Point3(0, 0, 0);
+					surface2.pivotsX[0] = new Point3(0, 0, 0);
+				},
+				update: function() {
+					surface1.rotationsX[0] = this.rotation;
+					surface2.rotationsX[0] = this.rotation;
+					
+					var path1 = surface1.project(matrix);
+					path1.set_style(planeStyle);
+					
+					var path2 = surface2.project(matrix);
+					path2.set_style(planeStyle);
+				}
+			})
+			
+			animationHelper.animate({
+				style: {
+					rotation: Math.PI*3.5,
+					offsetY: 30
+				},
+				duration: 1000,
+				delay: 17000,
+				animationType: 'easeInEaseOut',
+				update: function() {
+					surface1.pivotsX[0] = new Point3(0, this.offsetY, animationHelper.length - animationHelper.height);
+					
+					surface1.rotationsX[0] = this.rotation;
+					
+					surface1.points = [
+						new Point3(-animationHelper.width, -animationHelper.height + this.offsetY, -animationHelper.length),
+						new Point3( animationHelper.width, -animationHelper.height + this.offsetY, -animationHelper.length),
+						new Point3( animationHelper.width, -animationHelper.height + this.offsetY,  animationHelper.length),
+						new Point3(-animationHelper.width, -animationHelper.height + this.offsetY,  animationHelper.length)
+					];
+					
+					surface2.points = [
+						new Point3(-animationHelper.width, animationHelper.height + this.offsetY, -animationHelper.length),
+						new Point3( animationHelper.width, animationHelper.height + this.offsetY, -animationHelper.length),
+						new Point3( animationHelper.width, animationHelper.height + this.offsetY,  animationHelper.length),
+						new Point3(-animationHelper.width, animationHelper.height + this.offsetY,  animationHelper.length)
+					];										
+					
+					var path1 = surface1.project(matrix);
+					path1.set_style(planeStyle);
+					
+					var path2 = surface2.project(matrix);
+					path2.set_style(planeStyle);
+				},
+				callback: Main.animationFinished
+			})
 		}
 }
 

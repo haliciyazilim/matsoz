@@ -563,7 +563,7 @@ var Interaction = {
 			
 			
 			Interaction.appendInput({
-				width: '30px',
+				width: '36px',
 				height: '32px',
 				textAlign: 'center',
 				position: 'absolute',
@@ -580,7 +580,7 @@ var Interaction = {
 				bottom:'30px',
 				right:'40px'
 			})
-			
+        $(Interaction.input).attr('maxlength', '3')
 			Interaction.setRandomGenerator(19);
 			Interaction.prepareNextQuestion();
 		},
