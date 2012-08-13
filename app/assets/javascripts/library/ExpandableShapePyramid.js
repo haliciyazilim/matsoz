@@ -1,51 +1,46 @@
-var ExpandablePrism = ExpandableShape.extend({
-    init: function(width, height, length, matrix) {
-            this._super(matrix);
-
-            width /= 2;
-            height /= 2;
-            length /= 2;
-            this.setSurfaces({
-                backSurface: new Surface([
-                    new Point3(-width,  height, length),
-                    new Point3( width,  height, length),
-                    new Point3( width, -height, length),
-                    new Point3(-width, -height, length)
-                    ]),
-                bottomSurface: new Surface([
-                    new Point3(-width, height,  length),
-                    new Point3( width, height,  length),
-                    new Point3( width, height, -length),
-                    new Point3(-width, height, -length)
-                    ]),
-                leftSurface: new Surface([
-                    new Point3(-width, -height, -length),
-                    new Point3(-width, -height,  length),
-                    new Point3(-width,  height,  length),
-                    new Point3(-width,  height, -length)
-                    ]),
-                rightSurface: new Surface([
-                    new Point3(width,  height, -length),
-                    new Point3(width,  height,  length),
-                    new Point3(width, -height,  length),
-                    new Point3(width, -height, -length)
-                    ]),
-                topSurface: new Surface([
-                    new Point3(-width, -height, -length),
-                    new Point3( width, -height, -length),
-                    new Point3( width, -height,  length),
-                    new Point3(-width, -height,  length)
-                    ]),
-                frontSurface: new Surface([
-                    new Point3(-width, -height, -length),
-                    new Point3( width, -height, -length),
-                    new Point3( width,  height, -length),
-                    new Point3(-width,  height, -length)
-                    ])
-            });
-        },
+var ExpandablePrisimPyramid = ExpandableShape.extend({
+	init: function(width, height, length, matrix) {
+		this._super(matrix);
+	
+		this.width = width;
+		this.height = height;
+		this.length = length;
+		
+		width /= 2;
+	    height /= 2;
+	    length /= 2;
+		
+		this.setSurfaces({
+		    backSurface: new Surface([
+		        new Point3(-width,  height, length),
+		        new Point3( width,  height, length),
+		        new Point3( 0, -height, 0)
+		        ]),
+	        bottomSurface: new Surface([
+	            new Point3(-width, height,  length),
+	            new Point3( width, height,  length),
+	            new Point3( width, height, -length),           
+	            new Point3(-width, height, -length)
+	            ]),
+	        leftSurface: new Surface([
+	            new Point3(0, -height, 0),
+	            new Point3(-width,  height,  length),
+	            new Point3(-width,  height, -length)
+	            ]),
+	        rightSurface: new Surface([
+	            new Point3(width,  height, -length),
+	            new Point3(width,  height,  length),
+	            new Point3(0, -height,  0)
+	            ]),
+	        frontSurface: new Surface([
+	            new Point3(0, -height, 0),
+	            new Point3( width,  height, -length),
+	            new Point3(-width,  height, -length)
+	            ])
+	    });
+	},
     showSurfaces : function(delay,startingDelay) {
-            var surface = function(s,m,index){
+        var surface = function(s,m,index){
                 AnimationManager.delay(function(){
                     var path = new Path();
                     var p = s.get2DPoints(m);
@@ -73,12 +68,10 @@ var ExpandablePrism = ExpandableShape.extend({
             var i=0;
             surface(this.surfaces["bottomSurface"],this.matrix,i++);
             surface(this.surfaces["leftSurface"],this.matrix,i++);
-            surface(this.surfaces["topSurface"],this.matrix,i++);
             surface(this.surfaces["backSurface"],this.matrix,i++);
             surface(this.surfaces["rightSurface"],this.matrix,i++);
             surface(this.surfaces["frontSurface"],this.matrix,i++);
-
-        },
+    },
     showVertexes : function(delay,startingDelay) {
             if(startingDelay == undefined)
                     startingDelay = 0;
@@ -174,24 +167,47 @@ var ExpandablePrism = ExpandableShape.extend({
                 new line(backPoints[j],backPoints[(j+1)%backPoints.length],i);
             }
             for (;k < backPoints.length ; k++,i++){
-                new line(frontPoints[3-k],backPoints[k],i);
+                new line(frontPoints[2-k],backPoints[k],i);
             }
         },
-    expand: function(style) {
-            this.rotateSurfaceX(this.surfaces.topSurface, -Math.PI/2, this.surfaces.topSurface.points[2]);
-            this.rotateSurfaceY(this.surfaces.rightSurface, -Math.PI/2, this.surfaces.rightSurface.points[2], true);
-            this.rotateSurfaceY(this.surfaces.frontSurface, -Math.PI/2, this.surfaces.rightSurface.points[2]);
-            this.rotateSurfaceY(this.surfaces.frontSurface, -Math.PI/2, this.surfaces.rightSurface.points[1].add(this.surfaces.rightSurface.points[1].swapXZ()).subtract(this.surfaces.rightSurface.points[3].swapXZ()));
-            this.rotateSurfaceY(this.surfaces.leftSurface, Math.PI/2, this.surfaces.leftSurface.points[1]);
-            this.rotateSurfaceX(this.surfaces.bottomSurface, Math.PI/2, this.surfaces.bottomSurface.points[0]);
+	expand: function(style) {
+		
+					var angle1 = Math.atan(this.width/this.height/2) + Math.PI/2;
+					var angle2 = Math.atan(this.length/this.height/2) + Math.PI/2;
 
-        },
-    contract: function (style){
-            this.rotateSurfaceX(this.surfaces.bottomSurface, -Math.PI/2, this.surfaces.bottomSurface.points[0]);
-            this.rotateSurfaceY(this.surfaces.leftSurface, -Math.PI/2, this.surfaces.leftSurface.points[1]);
-            this.rotateSurfaceY(this.surfaces.frontSurface, Math.PI/2, this.surfaces.rightSurface.points[1].add(this.surfaces.rightSurface.points[1].swapXZ()).subtract(this.surfaces.rightSurface.points[3].swapXZ()));
-            this.rotateSurfaceY(this.surfaces.rightSurface, Math.PI/2, this.surfaces.rightSurface.points[2], true);
-            this.rotateSurfaceY(this.surfaces.frontSurface, Math.PI/2, this.surfaces.rightSurface.points[2]);
-            this.rotateSurfaceX(this.surfaces.topSurface, Math.PI/2, this.surfaces.topSurface.points[2]);
-        }
-});// var Prisim
+					var center = new Point3(0,0,0);
+					this.rotateSurfaceZ(this.surfaces.rightSurface, angle1, this.surfaces.rightSurface.points[0], false);
+					this.rotateSurfaceX(this.surfaces.backSurface, -angle2, this.surfaces.backSurface.points[0], false);
+					this.rotateSurfaceZ(this.surfaces.leftSurface, -angle1, this.surfaces.leftSurface.points[1], false);
+					this.rotateSurfaceX(this.surfaces.frontSurface, angle2, this.surfaces.frontSurface.points[1], false);
+				
+					this.rotateSurfaceX(this.surfaces.rightSurface, Math.PI/2, center, true);
+					this.rotateSurfaceX(this.surfaces.leftSurface, Math.PI/2, center, true);
+					this.rotateSurfaceX(this.surfaces.frontSurface, Math.PI/2, center, true);
+					this.rotateSurfaceX(this.surfaces.backSurface, Math.PI/2, center, true);				
+					this.rotateSurfaceX(this.surfaces.bottomSurface, Math.PI/2, center);
+			
+	},
+	
+	contract: function() {
+		
+					var angle1 = Math.atan(this.width/this.height/2) + Math.PI/2;
+					var angle2 = Math.atan(this.length/this.height/2) + Math.PI/2;
+
+					var center = new Point3(0,0,0);
+                    
+                    this.rotateSurfaceX(this.surfaces.rightSurface, -Math.PI/2, center, true);
+					this.rotateSurfaceX(this.surfaces.leftSurface, -Math.PI/2, center, true);
+					this.rotateSurfaceX(this.surfaces.frontSurface, -Math.PI/2, center, true);
+					this.rotateSurfaceX(this.surfaces.backSurface, -Math.PI/2, center, true);				
+					this.rotateSurfaceX(this.surfaces.bottomSurface, -Math.PI/2, center);
+                    
+					this.rotateSurfaceX(this.surfaces.frontSurface, -angle2, this.surfaces.frontSurface.points[1], false);
+					this.rotateSurfaceZ(this.surfaces.leftSurface, angle1, this.surfaces.leftSurface.points[1], false);
+					this.rotateSurfaceX(this.surfaces.backSurface, angle2, this.surfaces.backSurface.points[0], false);
+					this.rotateSurfaceZ(this.surfaces.rightSurface, -angle1, this.surfaces.rightSurface.points[0], false);
+				
+
+		
+	}
+});

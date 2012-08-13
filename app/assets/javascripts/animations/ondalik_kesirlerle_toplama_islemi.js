@@ -155,7 +155,7 @@ var Interaction = {
 		},
 	init:function(container){
 			Interaction.container = container;
-			Main.setObjective('Yandaki ondalık kesirleri toplama işlemini yapınız. Birler basamağından itibaren toplama işlemini yapınız ve sonra uygun yere virgül koyarak kontrol ediniz.');
+			Main.setObjective('Yüzde birler basamağından itibaren toplama işlemini yapınız ve sonra uygun yere virgül koyarak kontrol ediniz.');
 			Interaction.paper = {
 				width:$(container).width(),
 				height:$(container).height()
@@ -164,7 +164,7 @@ var Interaction = {
 				width:'100px',
 				position:'relative',
 				left:'10px',
-				paddingRight:'10px',
+				paddingRight:'10px', 
 				textAlign:'right',
 				fontSize:'24px',
 				top:'-10px'

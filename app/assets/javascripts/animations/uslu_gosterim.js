@@ -195,6 +195,8 @@ var Animation = {
             animationType: 'easeInEaseOut'
         });
 
+        Main.animationFinished(15000);
+
     }
 }
 

@@ -166,7 +166,7 @@ var Animation = {
 					},
 					duration:1000,
 					delay:4500,
-					animationType: 'easeInEaseOut'
+					animationType: 'easeInEaseOut',
 				});
 			}
 			Main.animationFinished(6000);
@@ -186,7 +186,7 @@ var Interaction = {
 			}
 			
 			Interaction.appendInput({
-				width: '30px',
+				width: '36px',
 				height: '32px',
 				textAlign: 'center',
 				position: 'absolute',
@@ -196,7 +196,7 @@ var Interaction = {
 			});
 			
 			Interaction.appendInput({
-				width: '30px',
+				width: '36px',
 				height: '32px',
 				textAlign: 'center',
 				position: 'absolute',
@@ -206,7 +206,7 @@ var Interaction = {
 			});
 			
 			$(Interaction.inputs[0]).attr('maxlength', '2')
-			$(Interaction.inputs[1]).attr('maxlength', '2')
+			$(Interaction.inputs[1]).attr('maxlength', '3')
 			
 			var questionDiv = document.createElement('div')
 			questionDiv.id = 'questionDiv';
@@ -279,7 +279,7 @@ var Interaction = {
 				.css({
 					padding: 0,
 					borderTop: "2px solid",
-					width: "36px",
+					width: "42px",
 					height: "1px",
 					position: "absolute",
 					left: "148px",

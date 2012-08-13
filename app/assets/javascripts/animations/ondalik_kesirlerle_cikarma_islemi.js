@@ -135,7 +135,7 @@ var Interaction = {
 		},
 	init:function(container){
 			Interaction.container = container;
-			Main.setObjective('Yandaki ondalık kesirleri çıkarma işlemini yapınız. Birler basamağından itibaren çıkarma işlemini yapınız ve sonra uygun yere virgül koyarak kontrol ediniz.');
+			Main.setObjective('Yüzde birler basamağından itibaren çıkarma işlemini yapınız ve sonra uygun yere virgül koyarak kontrol ediniz.');
 			Interaction.paper = {
 				width:$(container).width(),
 				height:$(container).height()
@@ -258,5 +258,5 @@ var Interaction = {
 	onFail : function(){
 			Interaction.setStatus('Yanlış cevap, doğrusu ' +  Util.numberTurkishFloating(Interaction.addend1 + Interaction.addend2,2) + ' olacaktı',false);
 			
-		},
+		}
 }
