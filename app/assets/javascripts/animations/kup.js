@@ -99,7 +99,7 @@ Interaction.getFramework = function() {
 }
 
 Interaction.init = function(container){
-	Main.setObjective("Aşağıdaki küpü küçültüp büyütünüz veya istediğiniz yönde döndürünüz.");
+	Main.setObjective("Yandaki küpü küçültüp büyütünüz veya istediğiniz yönde döndürünüz.");
 	load();
 	var w = $(Interaction.container).width();
 	var h = $(Interaction.container).height();
@@ -175,8 +175,17 @@ Interaction.init = function(container){
 //			else return;
 			Interaction._3d.R = Interaction._3d.R_constant - $('#distance').val()*6;
 			Interaction._3d.zAngle = Interaction._3d.zAngle > 160 ? 160 : (Interaction._3d.zAngle < 20 ? 20: Interaction._3d.zAngle);
-			changeXAngle();
+//			if(Interaction._3d.zAngle > 180){
+////                Interaction.xAngle *= -1;
+//                Interaction._3d.zAngle = 0;
+//            }else if(Interaction._3d.zAngle < 0){
+////                Interaction.xAngle *= -1;
+//                Interaction._3d.zAngle = 180;
+//            }
+            changeXAngle();
 			changeZAngle();
+            
+//            Main.setObjective('xAngle: '+Interaction._3d.xAngle + '  zAngle: '+Interaction._3d.zAngle)
 			loop(Interaction._3d.x ,Interaction._3d.y ,Interaction._3d.z );
 			//Interaction._3d.R++;
 		},

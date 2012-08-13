@@ -8,6 +8,7 @@ function __Styles() {
         fontSize:16
     }
     animationSurfacesTextStyle = {
+        fontSize : 14,
         fillColor: '#5ba559'
     }
     animationEdgesTextStyle = {
@@ -59,12 +60,28 @@ var Animation = {
                 .set_style(animationTextStyle)
                 .set_style(animationVertexesTextStyle);
             surfacesText.count = 1;
+            surfacesText.rectCount = 0;
+            surfacesText.squareCount = 0;
             surfacesText.animate({
                 style:{count:6},
                 duration:2500,
                 delay:5000,
                 update:function(){
-                    this.content = Math.floor(this.count) + " karesel bölge şeklinde yüz"
+                    switch(Math.floor(this.count)){
+                        case 1:
+                            surfacesText.squareCount = 1;
+                            break;
+                        case 2:
+                            surfacesText.rectCount = 1;
+                            break;
+                        case 3:
+                            surfacesText.squareCount = 2;
+                            break;
+                        default:
+                            surfacesText.rectCount = Math.floor(this.count)-2;
+                    }
+                    this.content = surfacesText.squareCount + " karesel "+surfacesText.rectCount +" dikdörtgensel bölge şeklinde yüz"
+                    
                 }
             });
             edgesText.count = 1;
@@ -94,7 +111,7 @@ Interaction.getFramework = function() {
 }
 
 Interaction.init = function(container){
-	Main.setObjective("Aşağıdaki kare prizmayı küçültüp büyütünüz veya istediğiniz yönde döndürünüz.");
+	Main.setObjective("Yandaki kare prizmayı küçültüp büyütünüz veya istediğiniz yönde döndürünüz.");
 	load();
 	var w = $(Interaction.container).width();
 	var h = $(Interaction.container).height();
