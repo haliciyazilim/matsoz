@@ -1959,7 +1959,7 @@ var Interaction = {
 
     },
     onFail : function(){
-        Interaction.setStatus('Yanlış cevap, doğrusu yukarıda gösterilmiştir.', false);
+        Interaction.setStatus('Yanlış cevap, doğrusu yanda gösterilmiştir.', false);
 
         if(Interaction.ansArr.length < Interaction.answerArr.length){
             for(i = Interaction.ansArr.length; i < Interaction.answerArr.length; i++){
