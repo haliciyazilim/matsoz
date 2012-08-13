@@ -33,11 +33,11 @@ var Animation = {
             var center = new Point($(container).width()*0.5,$(container).height()*0.5);
             Animation.centerPoint = center;
             Animation.rect_back = new Raster('rect_back');
-            Animation.rect_back.position = center;
+            Animation.rect_back.position = center.add(0,2);
             Animation.ball = new Raster('ball');
             Animation.ball.position = center;
             Animation.rect_front = new Raster('rect_front');
-            Animation.rect_front.position = center;
+            Animation.rect_front.position = center.add(0,2);
             Animation.traverseBall();
 		},
    traverseBall : function(){
@@ -96,18 +96,17 @@ var Animation = {
     zoomToBall : function(){
             
             var animHelper = new AnimationHelper({
-                scale:1,
-                opacity:-4
+                scale:0.4
             });
             
             animHelper.animate({
-                style:{scale:2},
+                style:{scale:1},
                 duration:1000,
                 animationStyle:'easeOut',
                 update:function(){
                     var matrix;
                     matrix = Animation.ball.matrix.clone();
-                    matrix.setToScale(this.scale*0.5,this.scale*0.5);
+                    matrix.setToScale(this.scale,this.scale);
                     Animation.ball.setMatrix(matrix);
                     Animation.ball.position = Animation.centerPoint;
                 },
