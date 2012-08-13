@@ -65,12 +65,28 @@ var Animation = {
 	init:function(container){
 			Animation.container = container;
 			
-			// var parallelDiv = $(container).append("<div>Paralel Düzlemler</div>");
-			// var intersectingDiv = $(container).append("<div>Kesişen Düzlemler</div>");
-			// 
-			// parallelDiv.css({
-			// 	textSize: 16
-			// })
+			$(container).append("<div id='parallel'>Paralel Düzlemler</div>");
+			$(container).append("<div id='intersecting'>Kesişen Düzlemler</div>");
+			
+			$('#parallel').css({
+				fontSize: 22,
+				position: 'absolute',
+				textAlign: 'center',
+				width: 200,
+				top: 90,
+				left: 500,
+				opacity: 0
+			})
+			
+			$('#intersecting').css({
+				fontSize: 22,
+				position: 'absolute',
+				textAlign: 'center',
+				width: 200,				
+				top: 90,
+				left: 500,
+				opacity: 0
+			})
 			
 			
 			var animationHelper = new AnimationHelper({
@@ -161,6 +177,10 @@ var Animation = {
 				delay: 9000,
 				animationType: 'easeInEaseOut',
 				init: function() {
+					$("#parallel").animate({
+						opacity: 1
+					}, 1000)
+					
 					surface2 = new Surface([
 						new Point3(-animationHelper.width, animationHelper.height, -animationHelper.length),
 						new Point3( animationHelper.width, animationHelper.height, -animationHelper.length),
@@ -207,6 +227,12 @@ var Animation = {
 				delay: 15000,
 				animationType: 'easeInEaseOut',
 				init: function() {
+				
+					$("#parallel").animate({
+						opacity: 0
+					}, 1000);
+
+
 					surface1.pivotsX[0] = new Point3(0, 0, 0);
 					surface2.pivotsX[0] = new Point3(0, 0, 0);
 				},
@@ -230,6 +256,11 @@ var Animation = {
 				duration: 1000,
 				delay: 17000,
 				animationType: 'easeInEaseOut',
+				init: function() {
+					$("#intersecting").animate({
+						opacity: 1
+					}, 1000);
+				},
 				update: function() {
 					surface1.pivotsX[0] = new Point3(0, this.offsetY, animationHelper.length - animationHelper.height);
 					
