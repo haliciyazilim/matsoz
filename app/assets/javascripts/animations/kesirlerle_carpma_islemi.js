@@ -166,7 +166,7 @@ var Animation = {
 					},
 					duration:1000,
 					delay:4500,
-					animationType: 'easeInEaseOut'
+					animationType: 'easeInEaseOut',
 				});
 			}
 			Main.animationFinished(6000);

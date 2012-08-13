@@ -1749,7 +1749,7 @@ var Animation = {
             delay: trapezoidStart+1000,
             animationType: 'easeInEaseOut',
             callback: function(){
-                Main.animationFinished(500);
+                Main.animationFinished();
             }
         });
 

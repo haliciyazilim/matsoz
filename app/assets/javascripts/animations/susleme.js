@@ -135,7 +135,7 @@ var Animation = {
             delay: 23000,
             animationType: 'easeOutBounce',
             callback: function(){
-                Main.animationFinished(1000);
+                Main.animationFinished();
 
             }
         });

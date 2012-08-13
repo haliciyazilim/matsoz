@@ -948,9 +948,10 @@ var Animation = {
 				duration: 500,
 				delay: 26500,
 				animationType: 'easeInEaseOut'
+                callback: function(){
+                    Main.animationFinished();
+                }
 			});
-			
-			Main.animationFinished(28000);
 		}
 }
 
