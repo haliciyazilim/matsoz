@@ -58,7 +58,7 @@ var Prism = ExpandableShape.extend({
 	lastExpand: -1,
 	expand: function(style) {
 		if (this.locked) {
-			return;
+			return false;
 		}
 		
 		if (this.lastExpand != -1) {
@@ -132,16 +132,18 @@ var Prism = ExpandableShape.extend({
 			this.delay = 0;
 			
 			this.lastExpand = style;
+			
+			return true;
 		}
 	},
 	
 	contract: function() {
 		if (this.locked) {
-			return;
+			return false;
 		}
 	
 		if(this.lastExpand == -1) {
-			return;
+			return false;
 		}
 		
 		this.locked = true;
@@ -211,6 +213,8 @@ var Prism = ExpandableShape.extend({
 		
 		this.lastExpand = -1;
 		this.delay = 0;
+		
+		return true;
 	}
 	
 });
@@ -393,6 +397,8 @@ var Animation = {
     init: function(container) {
         var cubeMatrix = Util.createProjectionMatrixForObjectAt(140, 100);
         var cube = new Prism(50, 50, 50, cubeMatrix);
+		cube.strokeColor = '#9b763d';
+		cube.fillColor = new RgbColor(0.95, 0.78, 0.52, 0.7);
         cube.project();
 		cube.delay = 2000;		
 		cube.expand(0);
@@ -400,6 +406,8 @@ var Animation = {
 		
 		var prismMatrix = Util.createProjectionMatrixForObjectAt(500, 90);
 		var prism = new Prism(50, 90, 30, prismMatrix);
+		prism.strokeColor = '#9c4f4f';
+		prism.fillColor = new RgbColor(0.91, 0.62, 0.62, 0.7);
         prism.project();
 		prism.delay = 8000;
 		prism.expand(0);
@@ -427,18 +435,26 @@ var Interaction = {
         return 'paper';
     },
     init: function(container){
-		var cubeMatrix = Util.createProjectionMatrixForObjectAt(140, 160);
-        var cube = new Prism(80, 80, 80, cubeMatrix);
-        cube.project();
-//		cube.delay = 2000;		
-//		cube.expand(0);
+		Interaction.array = Util.getShuffledArray(4);
 		
-		var prismMatrix = Util.createProjectionMatrixForObjectAt(400, 150);
-		var prism = new Prism(50, 90, 30, prismMatrix);
-        prism.project();
-//		prism.delay = 8000;
-//		prism.expand(0);
+        Interaction.cube = new Prism(80, 80, 80);
+		Interaction.cube.x = 140;
+		Interaction.cube.y = 160;
+		Interaction.cube.xorg = Interaction.cube.x;
+		Interaction.cube.yorg = Interaction.cube.y;
+		Interaction.cube.matrix = Util.createProjectionMatrixForObjectAt(Interaction.cube.x, Interaction.cube.y);
+        Interaction.cube.project();
 		
+		Interaction.prism = new Prism(100, 40, 70);
+		Interaction.prism.x = 400;
+		Interaction.prism.y = 160;
+		Interaction.prism.xorg = Interaction.prism.x;
+		Interaction.prism.yorg = Interaction.prism.y;		
+		Interaction.prism.matrix = Util.createProjectionMatrixForObjectAt(Interaction.prism.x, Interaction.prism.y);
+        Interaction.prism.project();
+		
+		Interaction.index = 0;
+		Interaction.expanded = false;
 		Interaction.createTool();
 		
 		Main.setObjective('Yandaki geometrik cisimlerden aç\u0131n\u0131mını elde etmek istediğinize basınız.');
@@ -448,7 +464,79 @@ var Interaction = {
 		tool.onMouseDown = function (event) {
 			if (event.item) {
 				var shape = event.item.surface.shape;
-					shape.expand(2);
+				
+				var otherShape;
+				
+				if (shape == Interaction.cube) {
+					otherShape = Interaction.prism;
+				} else {
+					otherShape = Interaction.cube;
+				}
+				
+				if (Interaction.expanded) {
+					if (shape.contract()) {
+						Interaction.expanded = false;
+						Main.setObjective('Yandaki geometrik cisimlerden aç\u0131n\u0131mını elde etmek istediğinize basınız.');
+						
+						shape.animate({
+							style: {
+								x: shape.xorg,
+								y: shape.yorg								
+							},
+							duration: 1000,
+							delay: 5000,
+							animationType: 'easeInEaseOut',
+							update: function () {
+								shape.matrix = Util.createProjectionMatrixForObjectAt(shape.x, shape.y);
+								shape.project();
+							}
+						})
+						
+						otherShape.animate({
+							style: {
+								opacity: 1
+							},
+							duration: 500,
+							delay: 5250,
+							animationType: 'easeInEaseOut',
+							update: function () {
+								otherShape.project();
+							}
+						})
+					}
+				} else {
+					shape.delay = 1000;
+					if (shape.expand(Interaction.array[Interaction.index])) {
+						Interaction.index = (Interaction.index + 1) % 4
+						Interaction.expanded = true;
+						Main.setObjective('Aşağıdaki aç\u0131n\u0131mın hangi geometrik cisim olduğunu görmek için aç\u0131n\u0131ma basınız.');
+
+						shape.animate({
+							style: {
+								x: 240,
+								y: 160								
+							},
+							duration: 1000,
+							animationType: 'easeInEaseOut',
+							update: function () {
+								shape.matrix = Util.createProjectionMatrixForObjectAt(shape.x, shape.y);
+								shape.project();
+							}
+						})
+
+						otherShape.animate({
+							style: {
+								opacity: 0
+							},
+							duration: 500,
+							delay: 250,
+							animationType: 'easeInEaseOut',
+							update: function () {
+								otherShape.project();
+							}
+						})
+					}
+				}
 			}
 		}
 	}

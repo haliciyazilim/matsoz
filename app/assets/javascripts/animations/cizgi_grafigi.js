@@ -173,13 +173,13 @@ Animation.init = function(container) {
 	
 	// Clock
 	kadran = new Raster("kadran");
-	kadran.position = new Point(48,48);
+	kadran.position = new Point(192,48);
 	
 	yelkovan = new Raster("yelkovan");
-	yelkovan.position = new Point(48,48);
+	yelkovan.position = new Point(192,48);
 	
 	akrep = new Raster("akrep");
-	akrep.position = new Point(48,48);
+	akrep.position = new Point(192,48);
 	
 	clockHelper = new AnimationHelper({
 		yelkovanAngle: 0,
@@ -198,13 +198,13 @@ Animation.init = function(container) {
 		duration: 8000,
 		update: function() {
 			var matrix = new Matrix();
-			matrix.rotate(this.akrepAngle, 48, 48);
+			matrix.rotate(this.akrepAngle, 192, 48);
 			matrix.concatenate(akrep.lastTransformation);
 			
 			akrep.setMatrix(matrix);
 			
 			matrix = new Matrix();
-			matrix.rotate(this.yelkovanAngle, 48, 48);
+			matrix.rotate(this.yelkovanAngle, 192, 48);
 			matrix.concatenate(yelkovan.lastTransformation);
 			
 			yelkovan.setMatrix(matrix);
