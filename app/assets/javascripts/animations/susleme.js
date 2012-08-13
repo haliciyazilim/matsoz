@@ -157,7 +157,7 @@ var Interaction = {
         var pp = new Raster('page');
         pp.position = new Point(396, 140);
         Interaction.container = container;
-        Main.setObjective('Bir yüzeyi düzgün çokgensel bölgeleri kullanarak ve boşluk kalmayacak şekilde döşemek.');
+        Main.setObjective('Yandaki yüzeyi verilen düzgün çokgensel bölgeleri kullanarak ve gerektiğinde şekli 30° döndürerek  döşeyiniz.');
         Interaction.paper = {
             width:$(container).width(),
             height:$(container).height()
