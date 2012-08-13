@@ -134,8 +134,6 @@ Interaction.init = function(container){
 			'<div style="user-select:none;position:relative;left:1px;float:left;padding-top:5px;" onclick="$(\'#distance\').val(parseInt($(\'#distance\').val())+1);return false;"><img src="/assets/animations/3d_navigation/btn_gray_large.png" /></div>'+
 		'</div>'
 	);
-	//$('#slider').slider();
-	//var count =0;
 	Interaction._3d = {};
 	Interaction._3d.x=100;
 	Interaction._3d.y=100;
@@ -164,30 +162,11 @@ Interaction.init = function(container){
 	}
 	setInterval(
 		function(){
-			//if( Interaction.UP == true)
-//				Interaction._3d.zAngle-=inc;
-//			else if(Interaction.DOWN == true)
-//				Interaction._3d.zAngle+=inc;
-//			else if(Interaction.LEFT == true)
-//				Interaction._3d.xAngle-=inc;
-//			else if(Interaction.RIGHT == true)
-//				Interaction._3d.xAngle+=inc;
-//			else return;
 			Interaction._3d.R = Interaction._3d.R_constant - $('#distance').val()*6;
 			Interaction._3d.zAngle = Interaction._3d.zAngle > 160 ? 160 : (Interaction._3d.zAngle < 20 ? 20: Interaction._3d.zAngle);
-//			if(Interaction._3d.zAngle > 180){
-////                Interaction.xAngle *= -1;
-//                Interaction._3d.zAngle = 0;
-//            }else if(Interaction._3d.zAngle < 0){
-////                Interaction.xAngle *= -1;
-//                Interaction._3d.zAngle = 180;
-//            }
             changeXAngle();
 			changeZAngle();
-            
-//            Main.setObjective('xAngle: '+Interaction._3d.xAngle + '  zAngle: '+Interaction._3d.zAngle)
-			loop(Interaction._3d.x ,Interaction._3d.y ,Interaction._3d.z );
-			//Interaction._3d.R++;
+            loop(Interaction._3d.x ,Interaction._3d.y ,Interaction._3d.z );
 		},
 		25
 	);
