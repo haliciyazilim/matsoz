@@ -753,9 +753,7 @@ var Interaction = {
 						placeholder: 'placeHolder',
 						tolerance: 'pointer',
 						cursor:'pointer',
-						start: function(event, ui){
-							Interaction.setStatus('');
-						},
+                        axis: 'x',
 					});
 						
 				$('#dropDiv1').css({
@@ -780,8 +778,8 @@ var Interaction = {
                         margin: 0,
 					});
 							
-				$(Interaction.container).append("<style> #sortingUl li {float:left; width:40px; height:51px; margin-left:70px; font-size:22px;}</style>");
-				$(Interaction.container).append("<style> #questionDiv #sortingUl .placeHolder { width: 40px; height:51px}</style>");
+				$(Interaction.container).append("<style> #sortingUl li {float:left; width:36px; height:51px; margin-left:70px; font-size:22px;}</style>");
+				$(Interaction.container).append("<style> #questionDiv #sortingUl .placeHolder { width: 36px; height:51px}</style>");
 						
 				$('#firstFracDiv').html('<div id="nom1">5</div><div id="line1"></div><div id="denom1">10</div>');
 				$('#firstFracDiv').css("width", "36px")
@@ -875,7 +873,8 @@ var Interaction = {
 						items: 'li:not(.images)',
 						placeholder: 'placeHolder',
 						tolerance: 'pointer',
-						cursor:'pointer'
+						cursor:'pointer',
+                        axis: 'x',
 					});
 				
 				$('#dropDiv1').css({
@@ -1033,7 +1032,8 @@ var Interaction = {
 						items: 'li:not(.images)',
 						placeholder: 'placeHolder',
 						tolerance: 'pointer',
-						cursor:'pointer'
+						cursor:'pointer',
+                        axis: 'x',
 					});
 				
 				$('#dropDiv1').css({
