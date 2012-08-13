@@ -1,4 +1,16 @@
 function __Styles(){
+	planeStyle1 = {
+		fillColor: new RgbColor(0.95, 0.78, 0.52, 0.7),
+		strokeColor:'#9b763d',
+		strokeWidth:1		
+	}
+	
+	planeStyle2 = {
+		fillColor: new RgbColor(0.91, 0.62, 0.62, 0.7),
+		strokeColor:'#9c4f4f',
+		strokeWidth:1		
+	}
+	
 	planeStyle = {
 		fillColor:new RgbColor(0.75,0.91,0.94,0.5),
 		strokeColor:'#255b63',
@@ -53,6 +65,13 @@ var Animation = {
 	init:function(container){
 			Animation.container = container;
 			
+			// var parallelDiv = $(container).append("<div>Paralel Düzlemler</div>");
+			// var intersectingDiv = $(container).append("<div>Kesişen Düzlemler</div>");
+			// 
+			// parallelDiv.css({
+			// 	textSize: 16
+			// })
+			
 			
 			var animationHelper = new AnimationHelper({
 				x: -75,
@@ -79,7 +98,7 @@ var Animation = {
 			
 			animationHelper.animate({
 				style: {
-					x: 372,
+					x: 312,
 					y: 90
 				},
 				duration: 2000,
@@ -89,7 +108,7 @@ var Animation = {
 					matrix = Util.createProjectionMatrixForObjectAt(this.x, this.y);
 					
 					var path = surface1.project(matrix);
-					path.set_style(planeStyle);
+					path.set_style(planeStyle1);
 				}
 			})
 		
@@ -111,7 +130,7 @@ var Animation = {
 					];
 					
 					var path = surface1.project(matrix);
-					path.set_style(planeStyle);
+					path.set_style(planeStyle1);
 				}
 			})
 			
@@ -129,13 +148,13 @@ var Animation = {
 					surface1.rotationsX[0] = this.rotation;
 					
 					var path = surface1.project(matrix);
-					path.set_style(planeStyle);
+					path.set_style(planeStyle1);
 				}
 			})
 			
 			animationHelper.animate({
 				style: {
-					x2: 372,
+					x2: 312,
 					y2: 90
 				},
 				duration: 2000,
@@ -153,7 +172,7 @@ var Animation = {
 					var matrix2 = Util.createProjectionMatrixForObjectAt(this.x2, this.y2);
 					
 					var path = surface2.project(matrix2);
-					path.set_style(planeStyle);
+					path.set_style(planeStyle2);
 				}
 			})
 			
@@ -173,10 +192,10 @@ var Animation = {
 					surface2.rotationsX[0] = this.rotation;
 					
 					var path1 = surface1.project(matrix);
-					path1.set_style(planeStyle);
+					path1.set_style(planeStyle1);
 					
 					var path2 = surface2.project(matrix);
-					path2.set_style(planeStyle);
+					path2.set_style(planeStyle2);
 				}
 			})
 			
@@ -196,10 +215,10 @@ var Animation = {
 					surface2.rotationsX[0] = this.rotation;
 					
 					var path1 = surface1.project(matrix);
-					path1.set_style(planeStyle);
+					path1.set_style(planeStyle1);
 					
 					var path2 = surface2.project(matrix);
-					path2.set_style(planeStyle);
+					path2.set_style(planeStyle2);
 				}
 			})
 			
@@ -231,10 +250,10 @@ var Animation = {
 					];										
 					
 					var path1 = surface1.project(matrix);
-					path1.set_style(planeStyle);
+					path1.set_style(planeStyle1);
 					
 					var path2 = surface2.project(matrix);
-					path2.set_style(planeStyle);
+					path2.set_style(planeStyle2);
 				},
 				callback: Main.animationFinished
 			})
