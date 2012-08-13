@@ -55,8 +55,8 @@ var Animation = {
             surfacesText.rectCount = 0;
             surfacesText.squareCount = 0;
             surfacesText.animate({
-                style:{count:6},
-                duration:2500,
+                style:{count:5},
+                duration:2000,
                 delay:5000,
                 update:function(){
                     switch(Math.floor(this.count)){
