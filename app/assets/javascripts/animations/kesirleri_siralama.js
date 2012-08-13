@@ -1,6 +1,7 @@
 function __Styles(){
 	
 	placeHolderColor = "#bfe8ef";
+    fractionsColor="#e6c181";
 }
 
 var Animation = {
@@ -589,70 +590,7 @@ var Interaction = {
 			Interaction.paper = {
 				width:$(container).width(),
 				height:$(container).height()
-			}
-			Interaction.appendStatus({
-				bottom:'26px',
-				right:'160px',
-				height:'40px',
-				width:'300px',
-				textAlign:'center',
-			});
-			
-			Interaction.appendButton({
-				bottom:'30px',
-				right:'40px'
-			});
-			
-			Interaction.setRandomGenerator(3);
-			Interaction.prepareNextQuestion();
-		},
-	nextQuestion: function(randomNumber){
-
-            if($(Interaction.dropped)){
-                $(Interaction.dropped).remove();
-                Interaction.dropped = null;
-            }
-
-            if($(Interaction.clone2)){
-                $(Interaction.clone2).remove();
-                Interaction.clone2 = null;
-
-            $('#sortingDiv img').draggable("enable");
-            if(Interaction.oldActiveStr){
-                $("."+Interaction.oldActiveStr).css("opacity" , 0)
-            }
-
-            if(Interaction.oldStr)
-                $("#"+Interaction.oldStr).css("opacity", 1)
-
-            if(Interaction.answerId)
-                $("#"+Interaction.answerId.replace("Hover", "")).css("opacity", 1)
-
-            if(Interaction.sortingUl)
-                $(Interaction.sortingUl).sortable({disabled: false});
-
-            if(Interaction.pointDiv)
-                $(Interaction.pointDiv).remove();
-            if(Interaction.sortingDiv)
-                $(Interaction.sortingDiv).remove();
-            if(Interaction.ansF){
-                for(i = 0; i < Interaction.ansF.length; i++){
-                    $(Interaction.ansF[i]).remove();
-                }
-            }
-
-            if(Interaction.lline){
-                Interaction.lline.remove();
-            }
-
-            if(Interaction.numericalAxis)
-                Interaction.numericalAxis.remove();
-
-            if(Interaction.questionDiv)
-                $(Interaction.questionDiv).remove();
-
-            Interaction.rand = randomNumber;
-            Interaction.qType = Math.floor(Math.random() * 2);
+			};
 
             Interaction.sortingDiv = document.createElement('div');
             Interaction.sortingDiv.id = 'sortingDiv';
@@ -720,6 +658,72 @@ var Interaction = {
                 }
             });
 
+			Interaction.appendStatus({
+				bottom:'26px',
+				right:'160px',
+				height:'40px',
+				width:'300px',
+				textAlign:'center',
+			});
+			
+			Interaction.appendButton({
+				bottom:'30px',
+				right:'40px'
+			});
+			
+			Interaction.setRandomGenerator(3);
+			Interaction.prepareNextQuestion();
+		},
+	nextQuestion: function(randomNumber){
+
+            if(Interaction.dropped)
+                $(Interaction.dropped).remove();
+
+            if(Interaction.activeStr)
+                Interaction.activeStr = null;
+
+            if($(Interaction.clone2)){
+                $(Interaction.clone2).remove();
+                Interaction.clone2 = null;
+
+            $('#sortingDiv img').draggable("enable");
+            if(Interaction.oldActiveStr){
+                $("."+Interaction.oldActiveStr).css("opacity" , 0)
+            }
+
+            if(Interaction.oldStr)
+                $("#"+Interaction.oldStr).css("opacity", 1)
+
+            if(Interaction.answerId)
+                $("#"+Interaction.answerId.replace("Hover", "")).css("opacity", 1)
+
+            if(Interaction.sortingUl)
+                $(Interaction.sortingUl).sortable({disabled: false});
+
+            if(Interaction.pointDiv)
+                $(Interaction.pointDiv).remove();
+
+            if(Interaction.ansF){
+                for(i = 0; i < Interaction.ansF.length; i++){
+                    $(Interaction.ansF[i]).remove();
+                }
+            }
+
+            if(Interaction.lline){
+                Interaction.lline.remove();
+            }
+
+            if(Interaction.numericalAxis)
+                Interaction.numericalAxis.remove();
+
+            if(Interaction.questionDiv)
+                $(Interaction.questionDiv).remove();
+
+            Interaction.rand = randomNumber;
+            Interaction.qType = Math.floor(Math.random() * 2);
+
+
+
 			if(Interaction.rand == 0){ // sorting with 3 fractions
 				Interaction.numOfFracs = 3;
 				// creating question divs and fractions to be sorted in it
@@ -732,6 +736,7 @@ var Interaction = {
 						left: '84px',
 						width: '400px',
 						height: '100px',
+                        listStyleType: 'none',
 					});
 						
 				Interaction.sortingUl = document.createElement('ul');
@@ -775,8 +780,8 @@ var Interaction = {
                         margin: 0,
 					});
 							
-				$(container).append("<style> #sortingUl li {float:left; width:36px; height:51px; margin-left:70px; font-size:22px;}</style>");
-				$(container).append("<style> #questionDiv #sortingUl .placeHolder { width: 36px; height:51px}</style>");
+				$(Interaction.container).append("<style> #sortingUl li {float:left; width:40px; height:51px; margin-left:70px; font-size:22px;}</style>");
+				$(Interaction.container).append("<style> #questionDiv #sortingUl .placeHolder { width: 40px; height:51px}</style>");
 						
 				$('#firstFracDiv').html('<div id="nom1">5</div><div id="line1"></div><div id="denom1">10</div>');
 				$('#firstFracDiv').css("width", "36px")
@@ -854,6 +859,7 @@ var Interaction = {
 						left: '50px',
 						width: '500px',
 						height: '100px',
+                        listStyleType: 'none',
 					});
 				
 				Interaction.sortingUl = document.createElement('ul');
@@ -901,8 +907,8 @@ var Interaction = {
                         margin: 0,
 					});
 					
-				$(container).append("<style> #sortingUl li {float:left; width:36px; height:51px; margin-left:70px; font-size:22px;}</style>");
-				$(container).append("<style> #questionDiv #sortingUl .placeHolder { width: 36px; height:51px}</style>");
+				$(Interaction.container).append("<style> #sortingUl li {float:left; width:36px; height:51px; margin-left:70px; font-size:22px;}</style>");
+				$(Interaction.container).append("<style> #questionDiv #sortingUl .placeHolder { width: 36px; height:51px}</style>");
 				
 				$('#firstFracDiv').html('<div id="nom1">5</div><div id="line1"></div><div id="denom1">10</div>');
 				$('#firstFracDiv').css("width", "36px")
@@ -1011,6 +1017,7 @@ var Interaction = {
 						left: '5px',
 						width: '600px',
 						height: '100px',
+                        listStyleType: 'none',
 					});
 				
 				Interaction.sortingUl = document.createElement('ul');
@@ -1067,9 +1074,10 @@ var Interaction = {
                         margin: 0,
 					});
 					
-				$(container).append("<style> #sortingUl li {float:left; width:36px; height:51px; margin-left:70px; font-size:22px;}</style>");
-				$(container).append("<style> #questionDiv #sortingUl .placeHolder { width: 36px; height:51px}</style>");
-				
+				$(Interaction.container).append("<style> #sortingUl li {float:left; width:36px; height:51px; margin-left:70px; font-size:22px;}</style>");
+				$(Interaction.container).append("<style> #questionDiv #sortingUl .placeHolder { width: 36px; height:51px}</style>");
+       //         $(Interaction.container).append("<style> #sortingUl div {background:"+fractionsColor+"}</style>");
+
 				$('#firstFracDiv').html('<div id="nom1">5</div><div id="line1"></div><div id="denom1">10</div>');
 				$('#firstFracDiv').css("width", "36px")
 							.css("height", "51px")
@@ -1362,7 +1370,9 @@ var Interaction = {
 		},
 	onFail : function(){
 			Interaction.setStatus('Yanlış cevap, doğrusu yukarıda gösterilmiştir.', false);
+
             if(Interaction.dropped != Interaction.answerIdStr){
+                Interaction.pause();
                 Interaction.clone2 = [];
                 $("."+Interaction.oldActiveStr).css("opacity", 0);
                 Interaction.answerId = Interaction.answerIdStr.replace("Active", "Hover");
@@ -1393,11 +1403,12 @@ var Interaction = {
                     $(Interaction.container).append(Interaction.clone2[i]);
                     $(Interaction.clone2[i]).delay(0).animate(
                         {opacity:200, top:flyTop, left:flyLeft},
-                        1000,
+                        1500,
                         'easeInOutQuad',
                         function(){
                             $(this).remove();
-                            $("."+Interaction.answerIdStr).css("opacity", 1)
+                            $("."+Interaction.answerIdStr).css("opacity", 1);
+                            Interaction.resume(500);
                         }
                     );
                 }
