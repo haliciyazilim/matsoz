@@ -1,3 +1,4 @@
+
 function __Styles() {
     fillColor = new RgbColor(0.75, 0.91, 0.94, 0.7);
     strokeColor = "#255b63";
@@ -17,8 +18,8 @@ function __Styles() {
         fillColor: '#4451d0'
     }
     
-    animationSurfaceHighlightStyle = {
-        
+    animationSurfacesHighlightStyle = {
+        fillColor: '#5ba559'
     }
     
     animationEdgesHighlightStyle = {
@@ -31,9 +32,65 @@ function __Styles() {
     }
     
 }
+
 var Animation = {
     init: function(container){
-        
+        var cubeMatrix = Util.createProjectionMatrixForObjectAt(200, 100);
+            var pyramid = new ExpandablePrisimPyramid(50, 50, 50, cubeMatrix);
+            pyramid.project();
+            pyramid.expand();
+            pyramid.showSurfaces(500,5000);
+            pyramid.delay = 9000;
+            pyramid.contract();
+            pyramid.showEdges(500,14000);
+            pyramid.showVertexes(500,22000);
+            var textReferencePoint = new Point(370,60);
+            var surfacesText    = new PointText(textReferencePoint.add(0, 0))
+                .set_style(animationTextStyle)
+                .set_style(animationSurfacesTextStyle);
+            var edgesText       = new PointText(textReferencePoint.add(0,40))
+                .set_style(animationTextStyle)
+                .set_style(animationEdgesTextStyle);
+            var vertexesText    = new PointText(textReferencePoint.add(0,80))
+                .set_style(animationTextStyle)
+                .set_style(animationVertexesTextStyle);
+            surfacesText.count = 1;
+            surfacesText.rectCount = 0;
+            surfacesText.squareCount = 0;
+            surfacesText.animate({
+                style:{count:6},
+                duration:2500,
+                delay:5000,
+                update:function(){
+                    switch(Math.floor(this.count)){
+                        case 1:
+                            surfacesText.squareCount = 1;
+                            break;
+                        default:
+                            surfacesText.rectCount = Math.floor(this.count)-1;
+                    }
+                    this.content = surfacesText.squareCount + " karesel "+surfacesText.rectCount +" üçgensel bölge şeklinde yüz"  
+                }
+            });
+            edgesText.count = 1;
+            edgesText.animate({
+                style:{count:8},
+                duration:3500,
+                delay:14000,
+                update:function(){
+                    this.content = Math.floor(this.count) + " ayrıt"
+                }
+            });
+            vertexesText.count = 1;
+            vertexesText.animate({
+                style:{count:5},
+                duration:2000,
+                delay:22000,
+                update:function(){
+                    this.content = Math.floor(this.count) + " köşe"
+                },
+                callback:Main.animationFinished
+            });
     }
 };
 var Interaction =function(){};Interaction();
@@ -43,7 +100,7 @@ Interaction.getFramework = function() {
 
 Interaction.init = function(container){
 	Interaction.container = container;
-	Main.setObjective("Aşağıdaki küpü küçültüp büyütünüz veya istediğiniz yönde döndürünüz.");
+	Main.setObjective("Yandaki kare pirtamiti küçültüp büyütünüz veya istediğiniz yönde döndürünüz.");
 	
 	var w = $(Interaction.container).width();
 	var h = $(Interaction.container).height();
@@ -53,7 +110,6 @@ Interaction.init = function(container){
 	Interaction.RIGHT = false;
 	space = new Space();
 	scene = new Scene();
-	
 	inc = 15;
 	$(container).append(
 		'<div class="ezd_btn_rotate" style="position:absolute;top:40%;right:10px;text-align:center;">'+
@@ -81,9 +137,6 @@ Interaction.init = function(container){
 		'</div>'
 	);
 	load_square_pyramid();
-	
-	//$('#slider').slider();
-	//var count =0;
 	Interaction._3d = {};
 	Interaction._3d.x=100;
 	Interaction._3d.y=100;
@@ -124,7 +177,6 @@ Interaction.init = function(container){
 }
 
 /* -------------------------------------------------------------------- */
-
 
 function loop(x,y,z) {
 	ctx.clearRect(0, 0, canvasWidth, canvasHeight);
