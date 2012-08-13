@@ -1271,7 +1271,7 @@ var Interaction = {
 		
 		setTimeout(
 				'Interaction.pause = 0;'
-				,2000);
+				,1500);
 		
 		Interaction.numericalAxis = new Group();
 		
