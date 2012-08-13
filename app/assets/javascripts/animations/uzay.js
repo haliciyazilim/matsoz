@@ -136,7 +136,6 @@ var Animation = {
                     matrix.setToScale(this.scale,this.scale);
                     this.setMatrix(matrix);
                     this.position = Animation.centerPoint;
-//                    console.log(Animation.centerPoint);
                 },
                 callback:function(){
                     Animation.solar_system.animate({
@@ -165,7 +164,8 @@ var Animation = {
                     matrix.setToScale(this.scale,this.scale);
                     this.setMatrix(matrix);
                     this.position = this._p;
-                }
+                },
+                callback:Main.animationFinished
             })
 
         }
