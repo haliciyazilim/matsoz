@@ -749,7 +749,7 @@ var Interaction = {
 					});
 
 				$(Interaction.sortingUl).sortable({
-						items: 'li:not(.images)',
+						items: 'li:not(div)',
 						placeholder: 'placeHolder',
 						tolerance: 'pointer',
 						cursor:'pointer',
@@ -870,7 +870,7 @@ var Interaction = {
 					});
 				
 				$(Interaction.sortingUl).sortable({
-						items: 'li:not(.images)',
+						items: 'li:not(div)',
 						placeholder: 'placeHolder',
 						tolerance: 'pointer',
 						cursor:'pointer',
@@ -1029,7 +1029,7 @@ var Interaction = {
 					});
 				
 				$(Interaction.sortingUl).sortable({
-						items: 'li:not(.images)',
+						items: 'li:not(div)',
 						placeholder: 'placeHolder',
 						tolerance: 'pointer',
 						cursor:'pointer',
