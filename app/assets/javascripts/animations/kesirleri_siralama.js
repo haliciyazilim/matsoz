@@ -2,7 +2,7 @@ function __Styles(){
 	
 	placeHolderColor = "#bfe8ef";
     fractionsColor="#e6c181";
-    sortableCursorType="move";
+    sortableCursorType="pointer";
 }
 
 var Animation = {
