@@ -276,7 +276,7 @@ Interaction.generateCircle = function(){
 	Interaction.circleSet = new Group();
 	var point = new Path.Circle(new Point(x,y),1);
 	point.style = edgeStyle;
-	var circle = new Path.Circle(new Point(x,y),r+1);
+	var circle = new Path.Circle(new Point(x,y),r-1);
 	circle.style = edgeStyle;
 	var line = new Path.Line(new Point(x,y), new Point(x+r,y));
 	line.style = edgeStyle;
@@ -369,12 +369,11 @@ Interaction.drawRuler = function(){
 	h = Interaction.paper.height*0.2;
 	w = Interaction.paper.width*0.2;
 	Interaction.rulerSet = new Raster('ruler');
-	Interaction.br = Math.floor(Interaction.rulerSet.bounds.width*0.1-1);
 	Interaction.rulerSet.name = 'rulerSet';
 	Interaction.rulerSet.position = new Point(Math.floor(x),Math.floor(y)+0.5);
 	//console.log([x,y])
 	//return;
-	Interaction.br = (Interaction.rulerSet.bounds.width-8) * 0.1
+	Interaction.br = 12
 	Interaction.rulerX=-1;Interaction.rulerY=-1;
 	var move = function (dx,dy) {
 		if(Interaction.preventDrag === true)
