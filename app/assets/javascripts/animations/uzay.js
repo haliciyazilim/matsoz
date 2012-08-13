@@ -24,13 +24,14 @@ var Animation = {
         },
         {
             id:'solar_system',
-            src:'/assets/animations/uzay/solar_system.png'
+            src:'/assets/animations/uzay/solar_system.jpg'
         },
         
     ],
 	init:function(container){
 			Animation.container = container;
             var center = new Point($(container).width()*0.5,$(container).height()*0.5);
+            Animation.centerPoint = center;
             Animation.rect_back = new Raster('rect_back');
             Animation.rect_back.position = center;
             Animation.ball = new Raster('ball');
@@ -38,8 +39,6 @@ var Animation = {
             Animation.rect_front = new Raster('rect_front');
             Animation.rect_front.position = center;
             Animation.traverseBall();
-//            Animation.earth = new Raster('earth');
-//            Animation.solar_system = new Raster('solar_system');
 		},
    traverseBall : function(){
             Animation.ball.scale(0.4);
@@ -61,12 +60,10 @@ var Animation = {
                             duration:500,
                             callback:function(){
                             Animation.ball.animate({
-                                style:{position:Animation.ball.position.add(-120,-20)},
+                                style:{position:Animation.centerPoint},
                                 duration:1000,
                                 animationStyle:'easeOut',
-                                callback:function(){
-
-                                }
+                                callback:Animation.zoomToBall
                             });
                             }
                         });
@@ -76,6 +73,101 @@ var Animation = {
                 });
                 }
             });
+        },
+    zoomToBall : function(){
+            var animHelper = new AnimationHelper({
+                scale:1
+            });
+            animHelper.animate({
+                style:{scale:2},
+                duration:1000,
+                animationStyle:'easeOut',
+                update:function(){
+                    var matrix;
+                    matrix = Animation.ball.matrix.clone();
+                    matrix.setToScale(this.scale*0.5,this.scale*0.5);
+                    Animation.ball.setMatrix(matrix);
+                    Animation.ball.position = Animation.centerPoint;
+                    
+                    matrix = Animation.rect_front.matrix.clone();
+                    matrix.setToScale(this.scale,this.scale);
+                    Animation.rect_front.setMatrix(matrix);
+                    Animation.rect_front.position = Animation.centerPoint;
+                    
+                    matrix = Animation.rect_back.matrix.clone();
+                    matrix.setToScale(this.scale,this.scale);
+                    Animation.rect_back.setMatrix(matrix);
+                    Animation.rect_back.position = Animation.centerPoint;
+                },
+                callback:Animation.transformBallToEarth
+            })
+        },
+    transformBallToEarth:function(){
+            Animation.earth = new Raster('earth');
+            Animation.earth.position = Animation.centerPoint;
+            Animation.earth.set_style({opacity:0});
+            
+            Animation.ball.animate({
+                style:{opacity:0},
+                duration:1000,
+                delay:500,
+                update:function(){
+                    Animation.rect_front.opacity = this.opacity;
+                    Animation.rect_back.opacity = this.opacity;
+                }
+            });
+            Animation.earth.animate({
+                style:{opacity:1},
+                duration:1000,
+                delay:500,
+                callback:Animation.placeEarthInTheSolarSystem
+            });
+        },
+    placeEarthInTheSolarSystem : function() {
+            Animation.solar_system = new Raster('solar_system');
+            Animation.solar_system.position = Animation.centerPoint.add(325,-112);
+            Animation.solar_system.set_style({opacity:0});
+            Animation.earth.scale = 1;
+            Animation.earth.animate({
+                style:{scale:0.4450},
+                duration:1000,
+                update:function(){
+                    var matrix = this.matrix.clone();
+                    matrix.setToScale(this.scale,this.scale);
+                    this.setMatrix(matrix);
+                    this.position = Animation.centerPoint;
+//                    console.log(Animation.centerPoint);
+                },
+                callback:function(){
+                    Animation.solar_system.animate({
+                        style:{opacity:1},
+                        duration:1000,
+                        callback:Animation.zoomOutSolarSystem
+                    });
+                    this.animate({
+                        style:{opacity:0},
+                        duration:1000
+                    })
+                }
+            });
+            
+        },
+    zoomOutSolarSystem : function(){
+        
+            Animation.solar_system._p = this.position;  
+            Animation.solar_system.scale = 1;
+            Animation.solar_system.animate({
+                style:{_p:Animation.centerPoint.add(0,0),scale:0.5},
+                duration:1000,
+                animationStyle:'easeOut',
+                update:function(){
+                    var matrix = this.matrix.clone();
+                    matrix.setToScale(this.scale,this.scale);
+                    this.setMatrix(matrix);
+                    this.position = this._p;
+                }
+            })
+                
         }
 }
 
