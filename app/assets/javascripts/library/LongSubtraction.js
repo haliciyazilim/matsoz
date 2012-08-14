@@ -1,8 +1,44 @@
-function LongSubtraction(cikan1, cikan2, div){
+function LongSubtraction(cikan1, cikan2, div, fontSize){
 	
-		this.cikan1=parseInt(cikan1,10);
-		this.cikan2=parseInt(cikan2,10);
-		this.sonuc=this.cikan1-cikan2;
+        this.fontSize=fontSize || 30;
+        
+        console.log(this.fontSize);
+        
+        this.ilk=cikan1.toString();
+        this.ikinci=cikan2.toString();
+        
+        this.floatKontrolu=this.ilk.indexOf(".");
+        if (this.floatKontrolu==-1){
+
+            this.cikan1=parseInt(cikan1,10);
+            this.cikan2=parseInt(cikan2,10);
+        }
+        else{
+            
+            var kesikIlk=this.ilk.split(".");
+            var kesikIkinci=this.ikinci.split(".");
+            console.log(kesikIlk);
+            console.log(kesikIkinci);
+            
+            if(kesikIlk[1].length<kesikIkinci[1].length)
+                kesikIlk[1]=kesikIlk[1]+"0";
+            else if(kesikIlk[1].length>kesikIkinci[1].length)
+                kesikIkinci[1]=kesikIkinci[1]+"0";
+            
+            
+            
+            console.log(kesikIlk);
+            console.log(kesikIkinci);
+           
+            this.cikan1=parseInt((kesikIlk[0]+kesikIlk[1]),10);
+            this.cikan2=parseInt((kesikIkinci[0]+kesikIkinci[1]),10);
+            
+            console.log(this.cikan1+", "+this.cikan2);
+            
+        }
+		
+		this.sonuc=this.cikan1-this.cikan2;
+                console.log(this.sonuc)
 
 		this.div="#"+div;
 		
@@ -13,7 +49,7 @@ function LongSubtraction(cikan1, cikan2, div){
 	
 		$(this.div,container).append("<div id='cikan1' class='sonuc'>");
 			$(this.div+" #cikan1")
-			.css("top","10px").html();
+			.css("top",this.fontSize*10/30).html();
 		// ustteki divi dolduruyoruz.			
 		for(var i=0;i<this.cikan1.toString().length;i++){
 			var id=this.cikan1.toString().length-i
@@ -24,7 +60,7 @@ function LongSubtraction(cikan1, cikan2, div){
 				
 		$(this.div,container).append("<div id='cikan2' class='sonuc'>");
 			$(this.div+" #cikan2")
-			.css("top","50px").html();
+			.css("top",this.fontSize*50/30).html();
 
 	
 			
@@ -41,43 +77,43 @@ function LongSubtraction(cikan1, cikan2, div){
 		
 		
 		$(this.div,container).append("<div id='cikarmaIslemi'>");
-		$(this.div+" #cikarmaIslemi").css("width","120px")
+		$(this.div+" #cikarmaIslemi").css("width",this.fontSize*120/30)
 			.css("text-align","left")
-			.css("height","30px")
+			.css("height",this.fontSize*30/30)
 			.css("margin","auto")
 			.css("position","absolute")
 			//.css("bottom","20px")
 			//.css("left","0")
 			.css("right","0px")
-			.css("font-size","30px")
+			.css("font-size",this.fontSize*30/30)
 			.css("border-bottom","solid 2px black")
-			.css("top","60px")
+			.css("top",this.fontSize*60/30)
 			.html("-");
-		$(this.div+" .sonuc").css("width","100px")
+		$(this.div+" .sonuc").css("width",this.fontSize*100/30)
 			.css("text-align","right")
-			.css("height","30px")
+			.css("height",this.fontSize*30/30)
 			.css("margin","auto")
 			.css("position","absolute")
 			//.css("bottom","20px")
 			//.css("left","0")
 			.css("right","0px")
-			.css("font-size","30px");
+			.css("font-size",this.fontSize*30/30);
 			//.css("border","solid 1px black");
 			
 		$(this.div,container).append("<div id='sonuc' class='sonuc'>");
 			$(this.div+" #sonuc")
-			.css("top","100px").html();
+			.css("top",this.fontSize*100/30).html();
 		
 		//odunc basamakları
 		$(this.div,container).append("<div id='odunc' class='sonuc'>");
 		$(this.div+" #odunc")
-			.css("top","10px").html();
+			.css("top",this.fontSize*10/30).html();
 		
 		//OduncAldiktanSonra basamakları
 		//odunc basamakları
 		$(this.div,container).append("<div id='odunctenSonra' class='sonuc'>");
 		$(this.div+" #odunctenSonra")
-			.css("top","10px").html();
+			.css("top",this.fontSize*10/30).html();
 		
 		// sonuc divini dolduruyoruz.
 		
@@ -108,32 +144,51 @@ function LongSubtraction(cikan1, cikan2, div){
 			$(this.div+" #odunc",container).append("<span id='oduncBasamak"+id+"'>");
 			//$(this.div+" #sonuc #sonucBasamak"+id).html(this.sonuc.toString().charAt(i));
 			$(this.div+" #odunc #oduncBasamak"+id).addClass("oduncBasamakTek");
-			var right=(9*id*2-20+i)+"px";
+			var right=this.fontSize*(9*id*2-20+i)/30;
 			$(this.div+" #odunc #oduncBasamak"+id).html(this.cikan1.toString().charAt(i)).css("right",right); //icerik cikan1 ile aynı yapılıyor. daha sonra buna göre kontrol edilecek.
 			
 			$(this.div+" #odunctenSonra",container).append("<span id='odunctenSonraBasamak"+id+"'>");
 			//$(this.div+" #sonuc #sonucBasamak"+id).html(this.sonuc.toString().charAt(i));
 			$(this.div+" #odunctenSonra #odunctenSonraBasamak"+id).addClass("oduncBasamakTek");
-			var right=(9*id*2-20+i)+"px";
-			$(this.div+" #odunctenSonra #odunctenSonraBasamak"+id).html(this.cikan1.toString().charAt(i)).css("right",right); //icerik cikan1 ile aynı yapılıyor. daha sonra buna göre kontrol edilecek.
+			
+                        
+                            $(this.div+" #odunctenSonra #odunctenSonraBasamak"+id).html(this.cikan1.toString().charAt(i)).css("right",right); //icerik cikan1 ile aynı yapılıyor. daha sonra buna göre kontrol edilecek.
+                        
 		}
 		
-		$(this.div+" #cikan1 #ilkBasamak4"+","+this.div+" #cikan2 #ikinciBasamak4"+","+this.div+" #odunctenSonra #odunctenSonraBasamak4"+","+this.div+" #sonuc #sonucBasamak4").css("margin-right","15px");
-		$(this.div+" #odunc #oduncBasamak4").css("right","67px");
-		$(this.div+" #odunc #oduncBasamak5").css("right","83px");
+                if(this.floatKontrolu==-1){
+                    $(this.div+" #cikan1 #ilkBasamak4"+","+this.div+" #cikan2 #ikinciBasamak4"+","+this.div+" #odunctenSonra #odunctenSonraBasamak4"+","+this.div+" #sonuc #sonucBasamak4").css("margin-right",this.fontSize*15/30);
+                   
+                }
+		else{
+                    $(this.div+" #cikan1 #ilkBasamak3"+","+this.div+" #cikan2 #ikinciBasamak3"+","+this.div+" #odunctenSonra #odunctenSonraBasamak3"+","+this.div+" #sonuc #sonucBasamak3").css("margin-right",this.fontSize*15/30);
+                    
+                    
+                    $(this.div+" #cikan1",container).append("<div id='virgul1' class='virgul'>");
+                    $(this.div+" #cikan2",container).append("<div id='virgul2' class='virgul'>");
+                    $(this.div+" #sonuc",container).append("<div id='virgul3' class='virgul'>");
+                        
+                    $(this.div+ " .virgul").css("position","absolute").css("height",this.fontSize*30/30).css("right",this.fontSize*35/30).html(",");
+                    $(this.div+" #virgul1").css("top","1px");
+                    $(this.div+" #virgul2").css("top","1px");
+                    $(this.div+" #virgul3").css("top","1px").css("opacity","0");
+                    
+                }
+                 $(this.div+" #odunc #oduncBasamak4").css("right",this.fontSize*67/30);
+                    $(this.div+" #odunc #oduncBasamak5").css("right",this.fontSize*83/30);
 		
 		$(this.div+" .sonucBasamakTek").css("opacity","0");
 		$(this.div+" .oduncBasamakTek").css("opacity","0").css("position","absolute");
 		
-		$(this.div+" .sonuc").css("width","100px")
+		$(this.div+" .sonuc").css("width",this.fontSize*100/30)
 			.css("text-align","right")
-			.css("height","30px")
+			.css("height",this.fontSize*30/30)
 			.css("margin","auto")
 			.css("position","absolute")
 			//.css("bottom","20px")
 			//.css("left","0")
 			.css("right","0px")
-			.css("font-size","30px")
+			.css("font-size",this.fontSize*30/30)
 			.css("z-index","4");;
 			//.css("border","solid 1px black");
 		}
@@ -239,7 +294,7 @@ function LongSubtraction(cikan1, cikan2, div){
 								
 								//$(this.div+" #ilkBasamak"+(i+m)).delay(hizB*i*3).animate({color:"#FF6600"},hizA).delay(hizB).animate({color:"#000000"},hizA);
 								//$(this.div+" #odunc #oduncBasamak"+(i)).delay(sayac).animate({ bottom:"30px"},hizA).delay(hizB).animate({opacity:"0"},hizA);;;
-								$(this.div+" #odunc #oduncBasamak"+(i+m)).delay(sayac).animate({opacity:"1", bottom:"30px"},this.hizA);
+								$(this.div+" #odunc #oduncBasamak"+(i+m)).delay(sayac).animate({opacity:"1", bottom:this.fontSize*30/30},this.hizA);
 								
 								
 								
@@ -247,7 +302,7 @@ function LongSubtraction(cikan1, cikan2, div){
 								
 							}
 							$(this.div+" #odunctenSonra #odunctenSonraBasamak"+(i)).html("1"+$(this.div+" #odunc #oduncBasamak"+(i)).html());
-							$(this.div+" #odunctenSonra #odunctenSonraBasamak"+(i)).delay(sayac).animate({opacity:"1", bottom:"60px", color:sayilarFadeInRenk},this.hizA).delay(this.hizB).animate({opacity:"0"},this.hizA);
+							$(this.div+" #odunctenSonra #odunctenSonraBasamak"+(i)).delay(sayac).animate({opacity:"1", bottom:this.fontSize*60/30, color:sayilarFadeInRenk},this.hizA).delay(this.hizB).animate({opacity:"0"},this.hizA);
 					
 							$(this.div+" #ikinciBasamak"+(i)).delay(sayac).animate({color:sayilarFadeInRenk},(this.hizA)).delay((this.hizB)).animate({color:sayilarFadeOutRenk},(this.hizA));
 							
@@ -343,14 +398,14 @@ function LongSubtraction(cikan1, cikan2, div){
 								
 								//$(this.div+" #ilkBasamak"+(i+m)).delay(hizB*i*3).animate({color:"#FF6600"},hizA).delay(hizB).animate({color:"#000000"},hizA);
 								//$(this.div+" #odunc #oduncBasamak"+(i)).delay(sayac).animate({ bottom:"30px"},hizA).delay(hizB).animate({opacity:"0"},hizA);;;
-								$(this.div+" #odunc #oduncBasamak"+(i+m)).delay(sayac).animate({opacity:"1", bottom:"30px"},this.hizA);
+								$(this.div+" #odunc #oduncBasamak"+(i+m)).delay(sayac).animate({opacity:"1", bottom:this.fontSize*30/30},this.hizA);
 								
 								
 								
 								
 							}
 							$(this.div+" #odunctenSonra #odunctenSonraBasamak"+(i)).html("1"+$(this.div+" #odunc #oduncBasamak"+(i)).html());
-							$(this.div+" #odunctenSonra #odunctenSonraBasamak"+(i)).delay(sayac).animate({opacity:"1", bottom:"60px", color:sayilarFadeInRenk},this.hizA).delay(this.hizB).animate({opacity:"0"},this.hizA);
+							$(this.div+" #odunctenSonra #odunctenSonraBasamak"+(i)).delay(sayac).animate({opacity:"1", bottom:this.fontSize*30/30, color:sayilarFadeInRenk},this.hizA).delay(this.hizB).animate({opacity:"0"},this.hizA);
 					
 								
 							$(this.div+" #ikinciBasamak"+(i)).delay(sayac).animate({color:sayilarFadeInRenk},(this.hizA)).delay((this.hizB)).animate({color:sayilarFadeOutRenk},(this.hizA));
@@ -368,6 +423,9 @@ function LongSubtraction(cikan1, cikan2, div){
 				
 					}
 				}
+                                
+                                if(i==uzunSayi)
+                                    $(this.div +" #virgul3").delay(sayac+this.hizB).animate({opacity:"1"},1000)
 			}
 			console.log("selma");
 			for(var i=5; i>0;i--){
@@ -375,8 +433,10 @@ function LongSubtraction(cikan1, cikan2, div){
 					console.log("sonn basamak ife  girdi");
 					$(this.div+" #sonuc #sonucBasamak"+i).delay(this.hizB).animate({opacity:"0"},this.hizA);
 				}
-				else
+				else{
+                                     
 					break;
+                                }
 			}
 			
 		}

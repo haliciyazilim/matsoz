@@ -231,7 +231,7 @@ var Interaction = {
 					function(){
 						if(Interaction.addend1 < Interaction.addend2)
 							return true;
-						var t = Interaction.addend1+Interaction.addend2;
+						var t = Interaction.addend1 - Interaction.addend2;
 						var float = t - Math.floor(t);
 						if(Math.floor(t * 100)%10 == 0)
 							return true;
@@ -256,7 +256,6 @@ var Interaction = {
 		
 		},
 	onFail : function(){
-			Interaction.setStatus('Yanlış cevap, doğrusu ' +  Util.numberTurkishFloating(Interaction.addend1 + Interaction.addend2,2) + ' olacaktı',false);
-			
+			Interaction.setStatus('Yanlış cevap, doğrusu ' +  Util.numberTurkishFloating(Interaction.addend1 - Interaction.addend2,2) + ' olacaktı',false);
 		}
 }
