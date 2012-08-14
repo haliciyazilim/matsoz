@@ -2,15 +2,99 @@ function __Styles(){
 	/*
 	* write your styles here without using 'var' definer
 	*/
+   hourDivCss = {
+        position:'absolute',
+        bottom:'40px',
+        right:'30px',
+        border:'1px solid #ccc',
+        background:'#fff',
+        width:'50px',
+        fontSize:'20px'
+
+    }
 }
 var Animation = {
+    images:[
+        {
+            id:'moon_sun',
+            src:'/assets/animations/zaman/moon_sun.png'
+        },
+        {
+            id:'floor_day',
+            src:'/assets/animations/zaman/floor_day.png'
+        },
+        {
+            id:'floor_night',
+            src:'/assets/animations/zaman/floor_night.png'
+        },
+        {
+            id:'sky_day',
+            src:'/assets/animations/zaman/sky_day.png'
+        },
+        {
+            id:'sky_night',
+            src:'/assets/animations/zaman/sky_night.png'
+        }
+    ],
 	init:function(container){
 			Animation.container = container;
-			var div = Util.dom({
-					tag:'div',
-					parent:container
-				})
-		}
+            Animation.centerPoint = new Point($(container).width()*0.5,$(container).height()*0.5).floor();
+            Animation.sky_day = new Raster('sky_day');
+            Animation.sky_day.position = Animation.centerPoint;
+            Animation.sky_night = new Raster('sky_night');
+            Animation.sky_night.position = Animation.centerPoint;
+            Animation.moon_sun = new Raster('moon_sun');
+            Animation.moon_sun.firstPosition = new Point(379,462);
+            Animation.moon_sun.position = Animation.moon_sun.firstPosition
+            Animation.floor_day = new Raster('floor_day');
+            Animation.floor_day.position = Animation.centerPoint;
+            Animation.floor_night = new Raster('floor_night');
+            Animation.floor_night.position = Animation.centerPoint;
+            var div = document.createElement('div');
+            $(container).append(div);
+            $(div).css(hourDivCss);
+            Animation.hour = div;
+            Animation.play();
+		},
+    play:function(){
+            Animation.isPaused = false;
+            Animation.h = 0;
+            Animation.m = 0;
+            Animation.t = setInterval(function(){
+                if(Animation.isPaused == true)
+                     return;
+                if(Animation.m==60){
+                    Animation.h++;
+                    Animation.m=0;
+                }
+                if(Animation.h == 24){
+                    Animation.h = 0;
+                }
+                Animation.setImagesByTime(Animation.h, Animation.m++);
+            },1)
+        },
+    pause:function(){
+            Animation.isPaused = true;
+        },
+    resume:function(){
+            Animation.isPaused = false;
+        },
+    stop:function(){
+            clearInterval(Animation.t);
+        },
+    setImagesByTime:function(h,m){
+            var angle = ( 2 * Math.PI ) * (h*60+m) / 1440; 
+            var opacity = 0.5 * Math.cos(angle) + 0.5;
+//            console.log(opacity);
+            Animation.floor_night.opacity = opacity;
+            Animation.sky_night.opacity = opacity;
+            var matrix = new Matrix();
+            matrix.setToRotation(Util.radianToDegree(angle/2 + Math.PI/2),Animation.moon_sun.firstPosition.x,Animation.moon_sun.firstPosition.y);
+            Animation.moon_sun.setMatrix(matrix);
+            Animation.moon_sun.position = Animation.moon_sun.firstPosition;
+            m = Math.floor(m/10)*10;
+            Animation.hour.innerHTML = ( (""+h).length<2?'0':'' ) + h + ':' +( (""+m).length<2?'0':'') + m;
+        }
 }
 var Interaction = {
 	images:[
@@ -279,8 +363,8 @@ var Interaction = {
 			var hour = Math.floor(Math.random()*12);
 			var minute = Math.floor(Math.random()*11+1)*5;
 			Interaction.setQuestionParams([
-				{ id:'hour', html:hour },
-				{ id:'minute', html:minute }
+				{id:'hour', html:hour},
+				{id:'minute', html:minute}
 			]);
 		},
 		
