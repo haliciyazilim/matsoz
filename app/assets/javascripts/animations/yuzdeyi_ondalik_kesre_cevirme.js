@@ -336,7 +336,7 @@ Interaction.init = function(container){
 	
 	// cevap div 3 
 	$("#Corta3",container).append("<div id='Cevap3'>");
-	$(container).append("<style> #Cevap3{width: 40px; height: 30px; position:absolute; top:10px; left:10px; } </style>");
+	$(container).append("<style> #Cevap3{width: 60px; height: 30px; position:absolute; top:10px; left:10px; } </style>");
 	
 	// 3 cevap divin yazı ayarı
 	$(container).append("<style> #Cevap1, #Cevap2, #Cevap3{text-align:center} </style>");
@@ -451,6 +451,7 @@ Interaction.init = function(container){
 		$("#geriBildirim, #Corta1, #Corta2, #Corta3, #sonraki").hide();
 		$("#btnKontrol").show();
 		tiklamaSayisi=0;
+                enter=0;
 		bosKare.yap();
 		$(container).append("<style>#Cevap1, #Cevap2, #Cevap3, #girdiCevap1, #girdiCevap2, #girdiCevap3{color:'black';}</style>");
 		cevap1=""; cevap2=""; cevap3="";
@@ -485,7 +486,7 @@ Interaction.init = function(container){
 			else{
 			var ondalikliGirdi=parseInt(girdi);
 			if(girdi<10)
-				if(girdi<0)
+				if(girdi>0)
                                     ondalikliGirdi="0"+girdi;
                                 else
                                     ondalikliGirdi=girdi;
@@ -574,7 +575,7 @@ Interaction.init = function(container){
 					if(cevap==0){
 						$("#orta3 #esit1").css("opacity","1");
 						//$("#girdiCevap3").val("0");
-						$("#Cevap3").html(cevap);
+						$("#Cevap3").html("0,0  = 0");
 					}
 					else if(cevap<10){
 						//$("#girdiCevap3").val("0"+cevap);
