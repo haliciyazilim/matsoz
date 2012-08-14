@@ -1,5 +1,5 @@
 			
-function LongAddition(ilkDeger, ikinciDeger, div){
+function LongAddition(ilkDeger, ikinciDeger, div,fontSize){
 				
 	this.ilkDeger=parseInt(ilkDeger,10);
 	this.ikinciDeger=parseInt(ikinciDeger,10);
@@ -7,12 +7,16 @@ function LongAddition(ilkDeger, ikinciDeger, div){
 	this.div="#"+div;
 	this.sonuc=this.ilkDeger+this.ikinciDeger;
 	
+        this.fontSize=fontSize;
+    
+        if(this.fontSize==undefined)
+            this.fontSize=30;
 	
 	this.doldur=function(){
 	
 		$(this.div,container).append("<div id='toplanan1' class='toplanan'>");
 			$(this.div+" #toplanan1")
-			.css("top","10px").html();
+			.css("top",this.fontSize*10/30).html();
 		// ustteki divi dolduruyoruz.			
 		for(var i=0;i<this.ilkDeger.toString().length;i++){
 			var id=this.ilkDeger.toString().length-i
@@ -25,7 +29,7 @@ function LongAddition(ilkDeger, ikinciDeger, div){
 				
 		$(this.div,container).append("<div id='toplanan2' class='toplanan'>");
 			$(this.div+" #toplanan2")
-			.css("top","50px").html();
+			.css("top",this.fontSize*50/30).html();
 
 		// ustteki divi dolduruyoruz.			
 		for(var i=0;i<this.ikinciDeger.toString().length;i++){
@@ -42,35 +46,35 @@ function LongAddition(ilkDeger, ikinciDeger, div){
 		$(this.div,container).append("<div id='toplamaIsareti'>");
 		$(this.div+" #toplamaIsareti").css("width","100%")
 			.css("text-align","left")
-			.css("height","30px")
+			.css("height",this.fontSize*30/30)
 			.css("margin","auto")
 			.css("position","absolute")
 			//.css("bottom","20px")
 			//.css("left","0")
 			.css("right","0px")
-			.css("font-size","30px")
+			.css("font-size",this.fontSize*30/30)
 			.css("border-bottom","solid 2px black")
-			.css("top","60px")
+			.css("top",this.fontSize*60/30)
 			.html("+");
 		$(this.div+" .toplanan").css("width","100%")
 			.css("text-align","right")
-			.css("height","30px")
+			.css("height",this.fontSize*30/30)
 			.css("margin","auto")
 			.css("position","absolute")
 			//.css("bottom","20px")
 			//.css("left","0")
 			.css("right","0px")
-			.css("font-size","30px");
+			.css("font-size",this.fontSize*30/30);
 			//.css("border","solid 1px black");
 			
 		$(this.div,container).append("<div id='toplam' class='toplanan'>");
 			$(this.div+" #toplam")
-			.css("top","100px").html();
+			.css("top",this.fontSize*100/30).html();
 		
 		//elde basamakları
 		$(this.div,container).append("<div id='elde' class='toplanan'>");
 		$(this.div+" #elde")
-			.css("top","100px").html();
+			.css("top",this.fontSize*100/30).html();
 		
 		// toplam divini dolduruyoruz.			
 		for(var i=0;i<this.sonuc.toString().length;i++){
@@ -86,11 +90,11 @@ function LongAddition(ilkDeger, ikinciDeger, div){
 			
 			
 			if(id>3){
-				var right=(9*id*2-20+i)+12+"px";
+				var right=this.fontSize*((9*id*2-20+i)+12)/30+"px";
 				$(this.div+" #elde #eldeBasamak"+id).html(0).css("right",right);//.css("width","30px").css("display","inline-block");;
 			}
 			else{
-				var right=(9*id*2-20+i)+"px";
+				var right=this.fontSize*(9*id*2-20+i)/30+"px";
 				$(this.div+" #elde #eldeBasamak"+id).html(0).css("right",right);
 				}
 			
@@ -107,17 +111,17 @@ function LongAddition(ilkDeger, ikinciDeger, div){
 		
 		$(this.div+" .toplanan").css("width","100%")
 			.css("text-align","right")
-			.css("height","30px")
+			.css("height",this.fontSize*30/30)
 			.css("margin","auto")
 			.css("position","absolute")
 			//.css("bottom","20px")
 			//.css("left","0")
 			.css("right","0px")
-			.css("font-size","30px")
-			.css("z-index","4");;
+			.css("font-size",this.fontSize*30/30)
+			.css("z-index","4");
 			//.css("border","solid 1px black");
 		
-			$("#ilkBasamak3, #ikinciBasamak3, #toplamBasamak3, #eldeBasamak3").css("width","30px").css("display","inline-block");
+			$("#ilkBasamak3, #ikinciBasamak3, #toplamBasamak3, #eldeBasamak3").css("width",this.fontSize*30/30).css("display","inline-block");
 		
 		}
 			
@@ -147,7 +151,7 @@ function LongAddition(ilkDeger, ikinciDeger, div){
 					$(this.div+" #toplam #toplamBasamak"+i).html(basamakToplamlar.toString().charAt(1));
 					
 					$(this.div+" #toplam #toplamBasamak"+i).delay(hizB*i*2).animate({opacity:"1"},hizA);
-					$(this.div+" #elde #eldeBasamak"+(i+1)).delay(hizB*i*2).animate({opacity:"1"},hizA).animate({bottom:"120px", color:"#8C1717"},hizA).delay(hizB).animate({opacity:"0"},hizA);
+					$(this.div+" #elde #eldeBasamak"+(i+1)).delay(hizB*i*2).animate({opacity:"1"},hizA).animate({bottom:this.fontSize*120/30, color:"#8C1717"},hizA).delay(hizB).animate({opacity:"0"},hizA);
 					var elde=parseInt(basamakToplamlar.toString().charAt(0));
 					console.log("sonuc_"+i+": "+this.sonuc.toString().charAt(i));
 					
