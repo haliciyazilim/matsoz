@@ -11,28 +11,30 @@ var Animation = {
         $(container).append('<img id="shrub" src="/assets/animations/sivilari_olcme/sivilari_olcme_01.jpg" />');
         $('#shrub')
             .css("position", "absolute")
-            .css("left", "30px")
+            .css("left", "70px")
             .css("bottom", "10px");
 
         $(container).append('<img id="milk" src="/assets/animations/sivilari_olcme/sivilari_olcme_02.jpg" />');
         $('#milk')
             .css("position", "absolute")
-            .css("left", "240px")
+            .css("left", "280px")
             .css("bottom", "10px");
 
         $(container).append('<img id="water" src="/assets/animations/sivilari_olcme/sivilari_olcme_03.jpg" />');
         $('#water')
             .css("position", "absolute")
-            .css("left", "390px")
+            .css("left", "430px")
             .css("bottom", "10px");
 
-        $(container).append('<img id="pitcher" src="/assets/animations/sivilari_olcme/pitcher.gif" />');
+        $(container).append('<img id="pitcher" src="/assets/animations/sivilari_olcme/pitcher_bos.jpg" />');
         $('#pitcher')
             .css("position", "absolute")
-            .css("left", "570px")
+            .css("left", "610px")
             .css("bottom", "10px")
 
         setTimeout('$("#pitcher").attr("src", "/assets/animations/sivilari_olcme/pitcher_animation.gif")', 8500);
+
+     //   setTimeout('$("#pitcher").attr("src", "/assets/animations/sivilari_olcme/pitcher_dolu.jpg")', 13000)
 
         AnimateHelper = new AnimationHelper({
             shrubOpacity: 0,

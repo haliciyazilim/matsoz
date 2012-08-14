@@ -165,12 +165,9 @@ function LongAddition(ilkDeger, ikinciDeger, div,fontSize){
                         $(this.div+" #virgul1").css("top","1px");
                         $(this.div+" #virgul2").css("top","1px");
                         $(this.div+" #virgul3").css("top","1px").css("opacity","0");
-                        
                 }
-                
 	}
-			
-		this.basla=function(hizB,hizA){
+		this.basla=function(hizB,hizA,callback){
 			this.hizB=hizB;
 			this.hizA=hizA;
 			var elde=0;
@@ -178,26 +175,17 @@ function LongAddition(ilkDeger, ikinciDeger, div,fontSize){
 			console.log("uzunsayi: "+uzunSayi);
 			console.log("sonuc: "+this.sonuc);
 			for(var i=1; i<=uzunSayi;i++){
-				
-				
-				
 				$(this.div+" #ilkBasamak"+i).delay(hizB*i*2).animate({color:"#FF6600"},hizA).delay(hizB).animate({color:"#000000"},hizA);
 				$(this.div+" #ikinciBasamak"+i).delay(hizB*i*2).animate({color:"#FF6600"},hizA).delay(hizB).animate({color:"#000000"},hizA);
-				
 				var ustBasamak=parseInt($(this.div+" #ilkBasamak"+i).html())||0;
 				var altBasamak=parseInt($(this.div+" #ikinciBasamak"+i).html())||0;
 				var basamakToplamlar=parseInt(ustBasamak)+parseInt(altBasamak)+elde;
 				console.log("i: "+i);
-				
 				if(basamakToplamlar>9 &&i!=uzunSayi){
-					
 					console.log("if");
 					$(this.div+" #elde #eldeBasamak"+(i+1)).html(basamakToplamlar.toString().charAt(0));
 					$(this.div+" #toplam #toplamBasamak"+i).html(basamakToplamlar.toString().charAt(1));
-					
 					$(this.div+" #toplam #toplamBasamak"+i).delay(hizB*i*2).animate({opacity:"1"},hizA);
-					
-					
                                         if(this.floatKontrolu!=-1 && i==2){
                                             $(this.div+" #elde #eldeBasamak"+(i+1)).delay(hizB*i*2).animate({opacity:"1"},hizA).animate({bottom:this.fontSize*120/30, right:this.fontSize*48/30,color:"#8C1717"},hizA).delay(hizB).animate({opacity:"0"},hizA);
                                         }
@@ -207,28 +195,17 @@ function LongAddition(ilkDeger, ikinciDeger, div,fontSize){
                                         }
 					var elde=parseInt(basamakToplamlar.toString().charAt(0));
 					console.log("sonuc_"+i+": "+this.sonuc.toString().charAt(i));
-                                        
-				
 				}
-				
 				else if(i==uzunSayi){
-					
 					console.log("else if");
-					
 					$(this.div+" #toplam #toplamBasamak"+i).html(basamakToplamlar.toString());
-					
 					$(this.div+" #toplam #toplamBasamak"+i).delay(hizB*i*2).animate({opacity:"1"},hizA);
 					//$(this.div+" #elde #eldeBasamak"+(i+1)).delay(hizB*i*2).animate({opacity:"1"},hizA)
 					//var elde=parseInt(basamakToplamlar.toString().charAt(0));
 					console.log("sonuc_"+i+": "+this.sonuc.toString().charAt(i));
-                                        $(this.div +" #virgul3").delay(hizB*i*2+1000).animate({opacity:"1"},1000)
+                                        $(this.div +" #virgul3").delay(hizB*i*2+1000).animate({opacity:"1"},1000,callback)
 					
-
-					
-				
 				}
-				
-				
 				else{
 					var id=this.sonuc.toString().length-i
 					console.log("elseye giriyor");

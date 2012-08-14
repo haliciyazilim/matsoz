@@ -86,7 +86,7 @@ var Animation = {
         //Animation.islem.doldur()
         //islem.basla(1000,1000);
 	
-        Animation.toplamaIslemi=new LongAddition(93507,78235,"saglama2",20);
+        Animation.toplamaIslemi=new LongAddition(8352,5,"saglama2",20);
         //Animation.toplamaIslemi.doldur();
 	//Animation.toplamaIslemi.basla(1000,800);
         

@@ -33,13 +33,16 @@ function __Styles() {
 }
 var Animation = {
     init: function(container){
-        var matrix = Util.createProjectionMatrixForObjectAt(140, 100);
+        var matrix = Util.createProjectionMatrixForObjectAt(140, 110);
         var tetrahedron = new ExpandableShapeTetrahedron(100, matrix);
 		tetrahedron.strokeColor = strokeColor;
 		tetrahedron.fillColor = fillColor;
         tetrahedron.project();
 		tetrahedron.delay = 1000;		
 		tetrahedron.expand(0);
+		
+		tetrahedron.delay = 5000;
+		tetrahedron.contract();
     }
 };
 var Interaction =function(){};Interaction();
