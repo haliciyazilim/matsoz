@@ -660,12 +660,11 @@ var Animation = {
                                 },
                                 duration: 1000,
                                 delay: 23500,
-                                animationType: 'easeInEaseOut'
+                                animationType: 'easeInEaseOut',
+                                callback: function(){
+                                    Main.animationFinished();
+                                }
                         });
-						
-						Main.animationFinished(25000);
-
-		
 		}
 }
 

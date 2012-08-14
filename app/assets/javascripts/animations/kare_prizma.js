@@ -8,6 +8,7 @@ function __Styles() {
         fontSize:16
     }
     animationSurfacesTextStyle = {
+        fontSize : 14,
         fillColor: '#5ba559'
     }
     animationEdgesTextStyle = {
@@ -17,7 +18,8 @@ function __Styles() {
         fillColor: '#4451d0'
     }
     
-    animationSurfaceHighlightStyle = {
+    animationSurfacesHighlightStyle = {
+        fillColor: '#5ba559'
         
     }
     
@@ -33,160 +35,19 @@ function __Styles() {
 }
 var Animation = {
     init: function(container) {
-            var Prism = ExpandableShape.extend({
-                init: function(width, height, length, matrix) {
-                        this._super(matrix);
-
-                        width /= 2;
-                        height /= 2;
-                        length /= 2;
-                        this.setSurfaces({
-                            backSurface: new Surface([
-                                new Point3(-width,  height, length),
-                                new Point3( width,  height, length),
-                                new Point3( width, -height, length),
-                                new Point3(-width, -height, length)
-                                ]),
-                            bottomSurface: new Surface([
-                                new Point3(-width, height,  length),
-                                new Point3( width, height,  length),
-                                new Point3( width, height, -length),
-                                new Point3(-width, height, -length)
-                                ]),
-                            leftSurface: new Surface([
-                                new Point3(-width, -height, -length),
-                                new Point3(-width, -height,  length),
-                                new Point3(-width,  height,  length),
-                                new Point3(-width,  height, -length)
-                                ]),
-                            rightSurface: new Surface([
-                                new Point3(width,  height, -length),
-                                new Point3(width,  height,  length),
-                                new Point3(width, -height,  length),
-                                new Point3(width, -height, -length)
-                                ]),
-                            topSurface: new Surface([
-                                new Point3(-width, -height, -length),
-                                new Point3( width, -height, -length),
-                                new Point3( width, -height,  length),
-                                new Point3(-width, -height,  length)
-                                ]),
-                            frontSurface: new Surface([
-                                new Point3(-width, -height, -length),
-                                new Point3( width, -height, -length),
-                                new Point3( width,  height, -length),
-                                new Point3(-width,  height, -length)
-                                ])
-                        });
-                    },
-                showVertexes : function(delay,startingDelay) {
-                        if(startingDelay == undefined)
-                                startingDelay = 0;
-                        var circle = function(p1,i){
-                            var anim = new AnimationHelper({});
-                            anim.animate({
-                                style:{},
-                                duration:0,
-                                delay:startingDelay,
-                                init: function() {
-                                    var path = new Path.Circle(p1,4);
-                                    path.set_style(animationVertexesHighlightStyle);
-                                    path.set_style({
-                                        opacity:0
-                                    });
-                                    path.animate({
-                                        style:{opacity:1},
-                                        duration:delay,
-                                        delay:delay*i
-                                    });
-
-                                    path.animate({
-                                        style:{opacity:0},
-                                        delay:delay*8,
-                                        duration:delay,
-                                        callback:path.remove
-                                    })
-                                }
-                            })
-                        }
-                        var frontPoints = this.surfaces.frontSurface.get2DPoints(this.matrix);
-                        var backPoints = this.surfaces.backSurface.get2DPoints(this.matrix);
-                        var i = 0,j = 0,k = 0;
-                        for (; i < frontPoints.length; i++) {
-                            new circle(frontPoints[i],i);
-                        }
-                        for (;j < backPoints.length ; j++,i++){
-                            new circle(backPoints[j],i);
-                        }
-
-                    },
-                showEdges: function(delay,startingDelay){
-                        if(startingDelay == undefined)
-                            startingDelay = 0;
-                        var line = function(p1,p2,i) {
-                            var anim = new AnimationHelper({});
-                            anim.animate({
-                                style:{},
-                                duration:0,
-                                delay:startingDelay,
-                                init: function() {
-//                                    console.log("I'm here");
-                                    var path = new Path.Line(p1,p2);
-                                    path.set_style(animationEdgesHighlightStyle);
-                                    path.set_style({
-                                        opacity:0
-                                    });
-                                    path.animate({
-                                        style:{opacity:1},
-                                        duration:delay,
-                                        delay:delay*i
-                                    });
-                                    path.animate({
-                                        style:{opacity:0},
-                                        duration:delay,
-                                        delay:delay*14,
-                                        callback:path.remove
-                                    });
-                                }
-                            })
-                        }
-                        var frontPoints = this.surfaces.frontSurface.get2DPoints(this.matrix);
-                        var backPoints = this.surfaces.backSurface.get2DPoints(this.matrix);
-                        var i = 0,j = 0,k = 0;
-                        for (; i < frontPoints.length; i++) {
-                            new line(frontPoints[i],frontPoints[(i+1)%frontPoints.length],i);
-                        }
-                        for (;j < backPoints.length ; j++,i++){
-                            new line(backPoints[j],backPoints[(j+1)%backPoints.length],i);
-                        }
-                        for (;k < backPoints.length ; k++,i++){
-                            new line(frontPoints[k],backPoints[3-k],i);
-                        }
-                    },
-                expand: function(style) {
-                        this.rotateSurfaceX(this.surfaces.topSurface, -Math.PI/2, this.surfaces.topSurface.points[2]);
-                        this.rotateSurfaceY(this.surfaces.rightSurface, -Math.PI/2, this.surfaces.rightSurface.points[2], true);
-                        this.rotateSurfaceY(this.surfaces.frontSurface, -Math.PI/2, this.surfaces.rightSurface.points[2]);
-                        this.rotateSurfaceY(this.surfaces.frontSurface, -Math.PI/2, this.surfaces.rightSurface.points[1].add(this.surfaces.rightSurface.points[1].swapXZ()).subtract(this.surfaces.rightSurface.points[3].swapXZ()));
-                        this.rotateSurfaceY(this.surfaces.leftSurface, Math.PI/2, this.surfaces.leftSurface.points[1]);
-                        this.rotateSurfaceX(this.surfaces.bottomSurface, Math.PI/2, this.surfaces.bottomSurface.points[0]);
-                    },
-                contract: function (style){
-                        this.rotateSurfaceX(this.surfaces.bottomSurface, -Math.PI/2, this.surfaces.bottomSurface.points[0]);
-                        this.rotateSurfaceY(this.surfaces.leftSurface, -Math.PI/2, this.surfaces.leftSurface.points[1]);
-                        this.rotateSurfaceY(this.surfaces.frontSurface, Math.PI/2, this.surfaces.rightSurface.points[1].add(this.surfaces.rightSurface.points[1].swapXZ()).subtract(this.surfaces.rightSurface.points[3].swapXZ()));
-                        this.rotateSurfaceY(this.surfaces.rightSurface, Math.PI/2, this.surfaces.rightSurface.points[2], true);
-                        this.rotateSurfaceY(this.surfaces.frontSurface, Math.PI/2, this.surfaces.rightSurface.points[2]);
-                        this.rotateSurfaceX(this.surfaces.topSurface, Math.PI/2, this.surfaces.topSurface.points[2]);
-                    }
-            });// var Prisim
+            
             var cubeMatrix = Util.createProjectionMatrixForObjectAt(200, 85);
-            var cube = new Prism(40, 70, 40, cubeMatrix);
+            var cube = new ExpandablePrism(40, 70, 40, cubeMatrix);
             cube.project();
+            
             cube.expand();
+            cube.showSurfaces(500,5000);
+            cube.delay = 9000;
+            
             cube.contract();
-            cube.showEdges(500,10000);
-            cube.showVertexes(500,18000);
+            
+            cube.showEdges(500,14000);
+            cube.showVertexes(500,22000);
 
             var textReferencePoint = new Point(370,60);
             var surfacesText    = new PointText(textReferencePoint.add(0, 0))
@@ -199,18 +60,35 @@ var Animation = {
                 .set_style(animationTextStyle)
                 .set_style(animationVertexesTextStyle);
             surfacesText.count = 1;
+            surfacesText.rectCount = 0;
+            surfacesText.squareCount = 0;
             surfacesText.animate({
                 style:{count:6},
-                duration:5000,
+                duration:2500,
+                delay:5000,
                 update:function(){
-                    this.content = Math.floor(this.count) + " karesel bölge şeklinde yüz"
+                    switch(Math.floor(this.count)){
+                        case 1:
+                            surfacesText.squareCount = 1;
+                            break;
+                        case 2:
+                            surfacesText.rectCount = 1;
+                            break;
+                        case 3:
+                            surfacesText.squareCount = 2;
+                            break;
+                        default:
+                            surfacesText.rectCount = Math.floor(this.count)-2;
+                    }
+                    this.content = surfacesText.squareCount + " karesel "+surfacesText.rectCount +" dikdörtgensel bölge şeklinde yüz"
+                    
                 }
             });
             edgesText.count = 1;
             edgesText.animate({
                 style:{count:12},
-                duration:6000,
-                delay:10000,
+                duration:5500,
+                delay:14000,
                 update:function(){
                     this.content = Math.floor(this.count) + " ayrıt"
                 }
@@ -218,11 +96,12 @@ var Animation = {
             vertexesText.count = 1;
             vertexesText.animate({
                 style:{count:8},
-                duration:4000,
-                delay:18000,
+                duration:3500,
+                delay:22000,
                 update:function(){
                     this.content = Math.floor(this.count) + " köşe"
-                }
+                },
+                callback:Main.animationFinished
             });
         }
 };
@@ -232,7 +111,7 @@ Interaction.getFramework = function() {
 }
 
 Interaction.init = function(container){
-	Main.setObjective("Aşağıdaki kare prizmayı küçültüp büyütünüz veya istediğiniz yönde döndürünüz.");
+	Main.setObjective("Yandaki kare prizmayı küçültüp büyütünüz veya istediğiniz yönde döndürünüz.");
 	load();
 	var w = $(Interaction.container).width();
 	var h = $(Interaction.container).height();

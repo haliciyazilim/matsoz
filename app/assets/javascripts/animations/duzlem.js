@@ -1,4 +1,16 @@
 function __Styles(){
+	planeStyle1 = {
+		fillColor: new RgbColor(0.95, 0.78, 0.52, 0.7),
+		strokeColor:'#9b763d',
+		strokeWidth:1		
+	}
+	
+	planeStyle2 = {
+		fillColor: new RgbColor(0.91, 0.62, 0.62, 0.7),
+		strokeColor:'#9c4f4f',
+		strokeWidth:1		
+	}
+	
 	planeStyle = {
 		fillColor:new RgbColor(0.75,0.91,0.94,0.5),
 		strokeColor:'#255b63',
@@ -52,7 +64,230 @@ function __Styles(){
 var Animation = {
 	init:function(container){
 			Animation.container = container;
-            Main.animationFinished();
+			
+			$(container).append("<div id='parallel'>Paralel Düzlemler</div>");
+			$(container).append("<div id='intersecting'>Kesişen Düzlemler</div>");
+			
+			$('#parallel').css({
+				fontSize: 22,
+				position: 'absolute',
+				textAlign: 'center',
+				width: 200,
+				top: 90,
+				left: 500,
+				opacity: 0
+			})
+			
+			$('#intersecting').css({
+				fontSize: 22,
+				position: 'absolute',
+				textAlign: 'center',
+				width: 200,				
+				top: 90,
+				left: 500,
+				opacity: 0
+			})
+			
+			
+			var animationHelper = new AnimationHelper({
+				x: -75,
+				y: 90,
+				width: 50,
+				length: 25,
+				height: 20,
+				x2: -100,
+				y2: 90,
+				rotation: 0,
+				offsetY: 0
+			})
+			
+			var matrix;
+			var surface1 = new Surface([
+				new Point3(-animationHelper.width, -animationHelper.height, -animationHelper.length),
+				new Point3( animationHelper.width, -animationHelper.height, -animationHelper.length),
+				new Point3( animationHelper.width, -animationHelper.height,  animationHelper.length),
+				new Point3(-animationHelper.width, -animationHelper.height,  animationHelper.length)
+			]);
+			
+			var surface2;
+			
+			
+			animationHelper.animate({
+				style: {
+					x: 312,
+					y: 90
+				},
+				duration: 2000,
+				delay: 1000,
+				animationType: 'easeInEaseOut',
+				update: function () {
+					matrix = Util.createProjectionMatrixForObjectAt(this.x, this.y);
+					
+					var path = surface1.project(matrix);
+					path.set_style(planeStyle1);
+				}
+			})
+		
+			
+			animationHelper.animate({
+				style: {
+					width: 100,
+					length: 50
+				},
+				duration: 1000,
+				delay: 3000,
+				animationType: 'easeInEaseOut',
+				update: function () {
+					surface1.points = [
+						new Point3(-animationHelper.width, -animationHelper.height, -animationHelper.length),
+						new Point3( animationHelper.width, -animationHelper.height, -animationHelper.length),
+						new Point3( animationHelper.width, -animationHelper.height,  animationHelper.length),
+						new Point3(-animationHelper.width, -animationHelper.height,  animationHelper.length)
+					];
+					
+					var path = surface1.project(matrix);
+					path.set_style(planeStyle1);
+				}
+			})
+			
+			animationHelper.animate({
+				style: {
+					rotation: Math.PI*2
+				},
+				duration: 3000,
+				delay: 5000,
+				animationType: 'easeInEaseOut',
+				init: function() {
+					surface1.pivotsX[0] = new Point3(0, -animationHelper.height, 0);
+				},
+				update: function() {
+					surface1.rotationsX[0] = this.rotation;
+					
+					var path = surface1.project(matrix);
+					path.set_style(planeStyle1);
+				}
+			})
+			
+			animationHelper.animate({
+				style: {
+					x2: 312,
+					y2: 90
+				},
+				duration: 2000,
+				delay: 9000,
+				animationType: 'easeInEaseOut',
+				init: function() {
+					$("#parallel").animate({
+						opacity: 1
+					}, 1000)
+					
+					surface2 = new Surface([
+						new Point3(-animationHelper.width, animationHelper.height, -animationHelper.length),
+						new Point3( animationHelper.width, animationHelper.height, -animationHelper.length),
+						new Point3( animationHelper.width, animationHelper.height,  animationHelper.length),
+						new Point3(-animationHelper.width, animationHelper.height,  animationHelper.length)
+					]);
+				},
+				update: function() {
+					var matrix2 = Util.createProjectionMatrixForObjectAt(this.x2, this.y2);
+					
+					var path = surface2.project(matrix2);
+					path.set_style(planeStyle2);
+				}
+			})
+			
+			animationHelper.animate({
+				style: {
+					rotation: Math.PI*3.5
+				},
+				duration: 3000,
+				delay: 11000,
+				animationType: 'easeInEaseOut',
+				init: function() {
+					surface1.pivotsX[0] = new Point3(0, 0, 0);
+					surface2.pivotsX[0] = new Point3(0, 0, 0);
+				},
+				update: function() {
+					surface1.rotationsX[0] = this.rotation;
+					surface2.rotationsX[0] = this.rotation;
+					
+					var path1 = surface1.project(matrix);
+					path1.set_style(planeStyle1);
+					
+					var path2 = surface2.project(matrix);
+					path2.set_style(planeStyle2);
+				}
+			})
+			
+			animationHelper.animate({
+				style: {
+					rotation: Math.PI*4
+				},
+				duration: 1000,
+				delay: 15000,
+				animationType: 'easeInEaseOut',
+				init: function() {
+				
+					$("#parallel").animate({
+						opacity: 0
+					}, 1000);
+
+
+					surface1.pivotsX[0] = new Point3(0, 0, 0);
+					surface2.pivotsX[0] = new Point3(0, 0, 0);
+				},
+				update: function() {
+					surface1.rotationsX[0] = this.rotation;
+					surface2.rotationsX[0] = this.rotation;
+					
+					var path1 = surface1.project(matrix);
+					path1.set_style(planeStyle1);
+					
+					var path2 = surface2.project(matrix);
+					path2.set_style(planeStyle2);
+				}
+			})
+			
+			animationHelper.animate({
+				style: {
+					rotation: Math.PI*3.5,
+					offsetY: 30
+				},
+				duration: 1000,
+				delay: 17000,
+				animationType: 'easeInEaseOut',
+				init: function() {
+					$("#intersecting").animate({
+						opacity: 1
+					}, 1000);
+				},
+				update: function() {
+					surface1.pivotsX[0] = new Point3(0, this.offsetY, animationHelper.length - animationHelper.height);
+					
+					surface1.rotationsX[0] = this.rotation;
+					
+					surface1.points = [
+						new Point3(-animationHelper.width, -animationHelper.height + this.offsetY, -animationHelper.length),
+						new Point3( animationHelper.width, -animationHelper.height + this.offsetY, -animationHelper.length),
+						new Point3( animationHelper.width, -animationHelper.height + this.offsetY,  animationHelper.length),
+						new Point3(-animationHelper.width, -animationHelper.height + this.offsetY,  animationHelper.length)
+					];
+					
+					surface2.points = [
+						new Point3(-animationHelper.width, animationHelper.height + this.offsetY, -animationHelper.length),
+						new Point3( animationHelper.width, animationHelper.height + this.offsetY, -animationHelper.length),
+						new Point3( animationHelper.width, animationHelper.height + this.offsetY,  animationHelper.length),
+						new Point3(-animationHelper.width, animationHelper.height + this.offsetY,  animationHelper.length)
+					];										
+					
+					var path1 = surface1.project(matrix);
+					path1.set_style(planeStyle1);
+					
+					var path2 = surface2.project(matrix);
+					path2.set_style(planeStyle2);
+				},
+				callback: Main.animationFinished
+			})
 		}
 }
 

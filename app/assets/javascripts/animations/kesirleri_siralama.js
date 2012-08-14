@@ -1,6 +1,8 @@
 function __Styles(){
 	
 	placeHolderColor = "#bfe8ef";
+    fractionsColor="#e6c181";
+    sortableCursorType="pointer";
 }
 
 var Animation = {
@@ -589,82 +591,19 @@ var Interaction = {
 			Interaction.paper = {
 				width:$(container).width(),
 				height:$(container).height()
-			}
-			Interaction.appendStatus({
-				bottom:'26px',
-				right:'160px',
-				height:'40px',
-				width:'300px',
-				textAlign:'center',
-			});
-			
-			Interaction.appendButton({
-				bottom:'30px',
-				right:'40px'
-			});
-			
-			Interaction.setRandomGenerator(3);
-			Interaction.prepareNextQuestion();
-		},
-	nextQuestion: function(randomNumber){
-
-            if($(Interaction.dropped)){
-                $(Interaction.dropped).remove();
-                Interaction.dropped = null;
-            }
-
-            if($(Interaction.clone2)){
-                $(Interaction.clone2).remove();
-                Interaction.clone2 = null;
-
-            $('#sortingDiv img').draggable("enable");
-            if(Interaction.oldActiveStr){
-                $("."+Interaction.oldActiveStr).css("opacity" , 0)
-            }
-
-            if(Interaction.oldStr)
-                $("#"+Interaction.oldStr).css("opacity", 1)
-
-            if(Interaction.answerId)
-                $("#"+Interaction.answerId.replace("Hover", "")).css("opacity", 1)
-
-            if(Interaction.sortingUl)
-                $(Interaction.sortingUl).sortable({disabled: false});
-
-            if(Interaction.pointDiv)
-                $(Interaction.pointDiv).remove();
-            if(Interaction.sortingDiv)
-                $(Interaction.sortingDiv).remove();
-            if(Interaction.ansF){
-                for(i = 0; i < Interaction.ansF.length; i++){
-                    $(Interaction.ansF[i]).remove();
-                }
-            }
-
-            if(Interaction.lline){
-                Interaction.lline.remove();
-            }
-
-            if(Interaction.numericalAxis)
-                Interaction.numericalAxis.remove();
-
-            if(Interaction.questionDiv)
-                $(Interaction.questionDiv).remove();
-
-            Interaction.rand = randomNumber;
-            Interaction.qType = Math.floor(Math.random() * 2);
+			};
 
             Interaction.sortingDiv = document.createElement('div');
             Interaction.sortingDiv.id = 'sortingDiv';
             $(Interaction.container).append(Interaction.sortingDiv);
             $(Interaction.sortingDiv).css({
-                width: '100px',
-                height: '50px',
+                width: '80px',
+                height: '40px',
                 position: 'absolute',
                 left: '240px',
                 top: '10px',
                 padding: 0,
-                margin:0
+                margin:0,
             });
             $(Interaction.sortingDiv).append('<div id="lessThanDiv"><img src="/assets/animations/kesirleri_karsilastirma/oran_kucuk_base.png"/><img id="lessThan" src="/assets/animations/kesirleri_karsilastirma/oran_kucuk_fg.png" /><img id="lessThanHover" class="drg" src="/assets/animations/kesirleri_karsilastirma/oran_kucuk_hover.png" /></div>');
 
@@ -720,6 +659,72 @@ var Interaction = {
                 }
             });
 
+			Interaction.appendStatus({
+				bottom:'26px',
+				right:'160px',
+				height:'40px',
+				width:'300px',
+				textAlign:'center',
+			});
+			
+			Interaction.appendButton({
+				bottom:'30px',
+				right:'40px'
+			});
+			
+			Interaction.setRandomGenerator(3);
+			Interaction.prepareNextQuestion();
+		},
+	nextQuestion: function(randomNumber){
+
+            if(Interaction.dropped)
+                $(Interaction.dropped).remove();
+
+            if(Interaction.activeStr)
+                Interaction.activeStr = null;
+
+            if($(Interaction.clone2)){
+                $(Interaction.clone2).remove();
+                Interaction.clone2 = null;
+
+            $('#sortingDiv img').draggable("enable");
+            if(Interaction.oldActiveStr){
+                $("."+Interaction.oldActiveStr).css("opacity" , 0)
+            }
+
+            if(Interaction.oldStr)
+                $("#"+Interaction.oldStr).css("opacity", 1)
+
+            if(Interaction.answerId)
+                $("#"+Interaction.answerId.replace("Hover", "")).css("opacity", 1)
+
+            if(Interaction.sortingUl)
+                $(Interaction.sortingUl).sortable({disabled: false});
+
+            if(Interaction.pointDiv)
+                $(Interaction.pointDiv).remove();
+
+            if(Interaction.ansF){
+                for(i = 0; i < Interaction.ansF.length; i++){
+                    $(Interaction.ansF[i]).remove();
+                }
+            }
+
+            if(Interaction.lline){
+                Interaction.lline.remove();
+            }
+
+            if(Interaction.numericalAxis)
+                Interaction.numericalAxis.remove();
+
+            if(Interaction.questionDiv)
+                $(Interaction.questionDiv).remove();
+
+            Interaction.rand = randomNumber;
+            Interaction.qType = Math.floor(Math.random() * 2);
+
+
+
 			if(Interaction.rand == 0){ // sorting with 3 fractions
 				Interaction.numOfFracs = 3;
 				// creating question divs and fractions to be sorted in it
@@ -732,25 +737,24 @@ var Interaction = {
 						left: '84px',
 						width: '400px',
 						height: '100px',
+                        listStyleType: 'none',
 					});
 						
 				Interaction.sortingUl = document.createElement('ul');
 				Interaction.sortingUl.id = 'sortingUl';
 				$(Interaction.questionDiv).append(Interaction.sortingUl);
-				$(Interaction.sortingUl).html('<li id="firstFrac"><div id="firstFracDiv">5</div></li><div id="dropDiv1"  class="dropDivs"/><li id="secondFrac"><div id="secondFracDiv">4</div></li><div id="dropDiv2" class="dropDivs"/><li id="thirdFrac"><div id="thirdFracDiv">6</div></li>');
+				$(Interaction.sortingUl).html('<li id="firstFrac"><div id="firstFracDiv"></div></li><div id="dropDiv1"  class="dropDivs"/><li id="secondFrac"><div id="secondFracDiv"></div></li><div id="dropDiv2" class="dropDivs"/><li id="thirdFrac"><div id="thirdFracDiv"></div></li>');
 				$(Interaction.sortingUl).css({
 						width: '400px',
 						height: '100px'
 					});
 
 				$(Interaction.sortingUl).sortable({
-						items: 'li:not(.images)',
+						items: 'li:not(div)',
 						placeholder: 'placeHolder',
 						tolerance: 'pointer',
-						cursor:'pointer',
-						start: function(event, ui){
-							Interaction.setStatus('');
-						},
+						cursor: sortableCursorType,
+                        axis: 'x',
 					});
 						
 				$('#dropDiv1').css({
@@ -775,16 +779,15 @@ var Interaction = {
                         margin: 0,
 					});
 							
-				$(container).append("<style> #sortingUl li {float:left; width:36px; height:51px; margin-left:70px; font-size:22px;}</style>");
-				$(container).append("<style> #questionDiv #sortingUl .placeHolder { width: 36px; height:51px}</style>");
+				$(Interaction.container).append("<style> #sortingUl li {float:left; width:36px; height:51px; margin-left:70px; font-size:22px;}</style>");
+				$(Interaction.container).append("<style> #questionDiv #sortingUl .placeHolder { width: 36px; height:51px}</style>");
 						
 				$('#firstFracDiv').html('<div id="nom1">5</div><div id="line1"></div><div id="denom1">10</div>');
 				$('#firstFracDiv').css("width", "36px")
 							.css("height", "51px")
 							.css("padding", 0)
 							.css("margin", 0)
-							.css("line-height","25px")
-							.css("cursor","pointer");
+							.css("line-height","25px");
 						
 				$('#line1').css("height", "1px")
 							.css("width", "32px")
@@ -804,8 +807,7 @@ var Interaction = {
 							.css("height", "51px")
 							.css("padding", 0)
 							.css("margin", 0)
-							.css("line-height","25px")
-							.css("cursor","pointer");
+							.css("line-height","25px");
 				
 				$('#line2').css("height", "1px")
 							.css("width", "32px")
@@ -825,8 +827,7 @@ var Interaction = {
 							.css("height", "51px")
 							.css("padding", 0)
 							.css("margin", 0)
-							.css("line-height","25px")
-							.css("cursor","pointer");
+							.css("line-height","25px");
 				
 				$('#line3').css("height", "1px")
 							.css("width", "32px")
@@ -854,6 +855,7 @@ var Interaction = {
 						left: '50px',
 						width: '500px',
 						height: '100px',
+                        listStyleType: 'none',
 					});
 				
 				Interaction.sortingUl = document.createElement('ul');
@@ -866,10 +868,11 @@ var Interaction = {
 					});
 				
 				$(Interaction.sortingUl).sortable({
-						items: 'li:not(.images)',
+						items: 'li:not(div)',
 						placeholder: 'placeHolder',
 						tolerance: 'pointer',
-						cursor:'pointer'
+						cursor: sortableCursorType,
+                        axis: 'x',
 					});
 				
 				$('#dropDiv1').css({
@@ -901,17 +904,15 @@ var Interaction = {
                         margin: 0,
 					});
 					
-				$(container).append("<style> #sortingUl li {float:left; width:36px; height:51px; margin-left:70px; font-size:22px;}</style>");
-				$(container).append("<style> #questionDiv #sortingUl .placeHolder { width: 36px; height:51px}</style>");
+				$(Interaction.container).append("<style> #sortingUl li {float:left; width:36px; height:51px; margin-left:70px; font-size:22px;}</style>");
+				$(Interaction.container).append("<style> #questionDiv #sortingUl .placeHolder { width: 36px; height:51px}</style>");
 				
 				$('#firstFracDiv').html('<div id="nom1">5</div><div id="line1"></div><div id="denom1">10</div>');
 				$('#firstFracDiv').css("width", "36px")
 							.css("height", "51px")
 							.css("padding", 0)
 							.css("margin", 0)
-							.css("line-height","25px")
-							.css("cursor","pointer");
-				
+							.css("line-height","25px");
 				$('#line1').css("height", "1px")
 							.css("width", "32px")
 							.css("border-top", "2px solid")
@@ -930,8 +931,7 @@ var Interaction = {
 							.css("height", "51px")
 							.css("padding", 0)
 							.css("margin", 0)
-							.css("line-height","25px")
-							.css("cursor","pointer");
+							.css("line-height","25px");
 				
 				$('#line2').css("height", "1px")
 							.css("width", "32px")
@@ -951,9 +951,7 @@ var Interaction = {
 							.css("height", "51px")
 							.css("padding", 0)
 							.css("margin", 0)
-							.css("line-height","25px")
-							.css("cursor","pointer");
-				
+							.css("line-height","25px");
 				$('#line3').css("height", "1px")
 							.css("width", "32px")
 							.css("border-top", "2px solid")
@@ -972,8 +970,7 @@ var Interaction = {
 							.css("height", "51px")
 							.css("padding", 0)
 							.css("margin", 0)
-							.css("line-height","25px")
-							.css("cursor","pointer");
+							.css("line-height","25px");
 				
 				$('#line4').css("height", "1px")
 							.css("width", "32px")
@@ -1011,6 +1008,7 @@ var Interaction = {
 						left: '5px',
 						width: '600px',
 						height: '100px',
+                        listStyleType: 'none',
 					});
 				
 				Interaction.sortingUl = document.createElement('ul');
@@ -1023,10 +1021,11 @@ var Interaction = {
 					});
 				
 				$(Interaction.sortingUl).sortable({
-						items: 'li:not(.images)',
+						items: 'li:not(div)',
 						placeholder: 'placeHolder',
 						tolerance: 'pointer',
-						cursor:'pointer'
+						cursor: sortableCursorType,
+                        axis: 'x',
 					});
 				
 				$('#dropDiv1').css({
@@ -1067,16 +1066,16 @@ var Interaction = {
                         margin: 0,
 					});
 					
-				$(container).append("<style> #sortingUl li {float:left; width:36px; height:51px; margin-left:70px; font-size:22px;}</style>");
-				$(container).append("<style> #questionDiv #sortingUl .placeHolder { width: 36px; height:51px}</style>");
-				
+				$(Interaction.container).append("<style> #sortingUl li {float:left; width:36px; height:51px; margin-left:70px; font-size:22px;}</style>");
+				$(Interaction.container).append("<style> #questionDiv #sortingUl .placeHolder { width: 36px; height:51px}</style>");
+       //         $(Interaction.container).append("<style> #sortingUl div {background:"+fractionsColor+"}</style>");
+
 				$('#firstFracDiv').html('<div id="nom1">5</div><div id="line1"></div><div id="denom1">10</div>');
 				$('#firstFracDiv').css("width", "36px")
 							.css("height", "51px")
 							.css("padding", 0)
 							.css("margin", 0)
-							.css("line-height","25px")
-							.css("cursor","pointer");
+							.css("line-height","25px");
 				
 				$('#line1').css("height", "1px")
 							.css("width", "32px")
@@ -1096,8 +1095,7 @@ var Interaction = {
 							.css("height", "51px")
 							.css("padding", 0)
 							.css("margin", 0)
-							.css("line-height","25px")
-							.css("cursor","pointer");
+							.css("line-height","25px");
 				
 				$('#line2').css("height", "1px")
 							.css("width", "32px")
@@ -1117,9 +1115,7 @@ var Interaction = {
 							.css("height", "51px")
 							.css("padding", 0)
 							.css("margin", 0)
-							.css("line-height","25px")
-							.css("cursor","pointer");
-				
+							.css("line-height","25px");
 				$('#line3').css("height", "1px")
 							.css("width", "32px")
 							.css("border-top", "2px solid")
@@ -1138,8 +1134,7 @@ var Interaction = {
 							.css("height", "51px")
 							.css("padding", 0)
 							.css("margin", 0)
-							.css("line-height","25px")
-							.css("cursor","pointer");
+							.css("line-height","25px");
 				
 				$('#line4').css("height", "1px")
 							.css("width", "32px")
@@ -1159,8 +1154,7 @@ var Interaction = {
 							.css("height", "51px")
 							.css("padding", 0)
 							.css("margin", 0)
-							.css("line-height","25px")
-							.css("cursor","pointer");
+							.css("line-height","25px");
 				
 				$('#line5').css("height", "1px")
 							.css("width", "32px")
@@ -1175,15 +1169,13 @@ var Interaction = {
 							.css("width", "30px")
 							.css("height", "25px")
 				if(Interaction.qType == 0){ // sorting in descending order
-					Main.setObjective('Yanda verilen kesirleri büyükten küçüğe sıralayınız.');
-					$('#lessThan1').attr('src', '/assets/animations/kesirleri_karsilastirma/oran_buyuk_active.png');
+                    $('#lessThan1').attr('src', '/assets/animations/kesirleri_karsilastirma/oran_buyuk_active.png');
 					$('#lessThan2').attr('src', '/assets/animations/kesirleri_karsilastirma/oran_buyuk_active.png');
 					$('#lessThan3').attr('src', '/assets/animations/kesirleri_karsilastirma/oran_buyuk_active.png');
 					$('#lessThan4').attr('src', '/assets/animations/kesirleri_karsilastirma/oran_buyuk_active.png');
 					
 				}
 				else{ // sorting in ascending order
-					Main.setObjective('Yanda verilen kesirleri küçükten büyüğe sıralayınız.')
 					$('#lessThan1').attr('src', '/assets/animations/kesirleri_karsilastirma/oran_kucuk_active.png');
 					$('#lessThan2').attr('src', '/assets/animations/kesirleri_karsilastirma/oran_kucuk_active.png');
 					$('#lessThan3').attr('src', '/assets/animations/kesirleri_karsilastirma/oran_kucuk_active.png');
@@ -1278,10 +1270,10 @@ var Interaction = {
                 .css("opacity", 0)
 
             if(Interaction.qType == 0){
-                Main.setObjective('Yandaki kesirleri büyükten küçüğe sıralayınız.');
+                Main.setObjective('Yandaki kesirleri büyükten küçüğe sıralayınız. Bunun için kesirleri sağa ya da sola kaydırıp diğer kesirlerle yerlerini değiştirebilirsiniz. Daha sonra aralarına küçük (<) ya da büyük (>) işaretlerinden birini sürükleyerek sıralamayı tamamlayabilirsiniz.');
             }
             else{
-                Main.setObjective('Yandaki kesirleri küçükten büyüğe sıralayınız.');
+                Main.setObjective('Yandaki kesirleri küçükten büyüğe sıralayınız. Bunun için kesirleri sağa ya da sola kaydırıp diğer kesirlerle yerlerini değiştirebilirsiniz. Daha sonra aralarına küçük (<) ya da büyük (>) işaretlerinden birini sürükleyerek sıralamayı tamamlayabilirsiniz.');
             }
             }
 
@@ -1363,56 +1355,52 @@ var Interaction = {
 	onFail : function(){
 			Interaction.setStatus('Yanlış cevap, doğrusu yukarıda gösterilmiştir.', false);
 
-            Interaction.clone2 = [];
-            $("."+Interaction.oldActiveStr).css("opacity", 0);
-            Interaction.answerId = Interaction.answerIdStr.replace("Active", "Hover");
-            $("#"+Interaction.oldActiveStr.replace("Active", "")).css("opacity", 1)
-            $("#"+Interaction.answerId.replace("Hover", "")).css("opacity", 0)
+            if(Interaction.dropped != Interaction.answerIdStr){
+                Interaction.pause();
+                Interaction.clone2 = [];
+                $("."+Interaction.oldActiveStr).css("opacity", 0);
+                Interaction.answerId = Interaction.answerIdStr.replace("Active", "Hover");
+                $("#"+Interaction.oldActiveStr.replace("Active", "")).css("opacity", 1)
+                $("#"+Interaction.answerId.replace("Hover", "")).css("opacity", 0)
 
-            for(var i = 0; i < Interaction.numOfFracs - 1; i++){
-                Interaction.clone2[i] = $("#"+Interaction.answerId).clone();
-                Interaction.clone2[i].attr('class', 'flying');
+                for(var i = 0; i < Interaction.numOfFracs - 1; i++){
+                    Interaction.clone2[i] = $("#"+Interaction.answerId).clone();
+                    Interaction.clone2[i].attr('class', 'flying');
+                    Interaction.clone2[i].attr('id', i)
+
+                    var ansTop = $(Interaction.sortingDiv).position().top;
+                    var ansLeft = $(Interaction.sortingDiv).position().left;
+                    if(Interaction.qType == 0)
+                        ansLeft += 40;
 
 
+                    var c = $(Interaction.questionDiv).position().top;
+                    var d = $(Interaction.questionDiv).position().left;
+                    var flyTop = parseInt($('.dropDivs')[i].style.top) + 11 + c;
+                    var flyLeft = parseInt($('.dropDivs')[i].style.left) + 11 + d;
 
-                var ansTop = $(Interaction.sortingDiv).position().top - 65;
-                var ansLeft = $(Interaction.sortingDiv).position().left - 50;
-               // var ansTop = 10;
-              //  var ansLeft = 240;
-                if(Interaction.answerId == "greaterThan"){
-                    ansLeft += 40;
+                    $(Interaction.clone2[i]).css("position", "absolute")
+                        .css("top", ansTop)
+                        .css("left", ansLeft)
+                        .css("opacity", 0)
+
+                    $(Interaction.container).append(Interaction.clone2[i]);
+                    $(Interaction.clone2[i]).delay(0).animate(
+                        {opacity:200, top:flyTop, left:flyLeft},
+                        1500,
+                        'easeInOutQuad',
+                        function(){
+                            $(this).remove();
+                            $("."+Interaction.answerIdStr).css("opacity", 1);
+                            Interaction.resume(500);
+                        }
+                    );
                 }
-                var flyTop = parseInt($('.dropDivs')[i].style.top) + 11;
-                var flyLeft = parseInt($('.dropDivs')[i].style.left) + 11;
 
-                $(Interaction.clone2[i]).css("position", "absolute")
-                    .css("top",ansTop)
-                    .css("left", ansLeft)
-                    .css("opacity", 0)
-
-                $(Interaction.container).append(Interaction.clone2[i]);
-                $(Interaction.clone2[i]).insertAfter($('.dropDivs')[i]);
-
-                console.log("ansTop: "+ansTop)
-                console.log("ansLeft: "+ansLeft)
-                console.log("flyTop: "+flyTop)
-                console.log("flyLeft: "+flyLeft)
-//                $(Interaction.clone2[i]).css("position", "absolute")
-//                    .css("top",ansTop)
-//                    .css("left", ansLeft)
-//                    .css("opacity", 0)
-
-                $(Interaction.clone2[i]).delay(0).animate(
-                    {opacity:2, top:flyTop, left:flyLeft},
-                    1000,
-                    'easeInOutQuad',
-                    function(){
-                        $(Interaction.clone2[0]).css("opacity", 0)
-                        $("."+Interaction.answerIdStr).css("opacity", 1)
-                    }
-                );
                 $('#sortingDiv img').draggable("disable");
+
                 Interaction.oldActiveStr = Interaction.answerIdStr;
+
             }
 
 			for(var i = 0; i < Interaction.numOfFracs; i++){

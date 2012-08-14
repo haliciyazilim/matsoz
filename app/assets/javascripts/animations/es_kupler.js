@@ -43,14 +43,6 @@ var Animation = {
 				p2 = calculateRotation(p2,poBottom,yAngle).getRotatedPoint(zAngle,poCenter);
 				p3 = calculateRotation(p3,poBottom,yAngle).getRotatedPoint(zAngle,poCenter);
 				p4 = calculateRotation(p4,poBottom,yAngle).getRotatedPoint(zAngle,poCenter);
-//				
-//				p1.showOnCanvas();
-//				p2.showOnCanvas()
-//				p3.showOnCanvas()
-//				p4.showOnCanvas()
-//				p5.showOnCanvas()
-//				p6.showOnCanvas()
-//				p7.showOnCanvas()
 				//rotate top points;
 				var vertexArray = [];
 				vertexArray.push(p1);
@@ -100,7 +92,7 @@ var Animation = {
 				zAngle:0,
 				xAngle:0,
 				position:p.add(520,-120)
-			})
+			});
 			animHelp.animate({
 				style:{yAngle:585,zAngle:0,xAngle:30,position:p.add(Animation.a*Math.sqrt(2)*0.5,Animation.a*Math.sqrt(2)*0.5*Math.sin(Util.degreeToRadian(30)))},
 				duration:3000,
@@ -201,7 +193,7 @@ var Interaction = {
 			Interaction.xCubes = 0;
 			Interaction.yCubes = 0;
 			Interaction.zCubes = 0;
-			Interaction.zeroPoint = new Point(109,130);
+			Interaction.zeroPoint = new Point(138,126);
 			Interaction.a = 35;
 			Interaction.h = 35;
 			Interaction.prepareNextQuestion();
@@ -212,7 +204,10 @@ var Interaction = {
 			Interaction.pause = false;
 			Main.interactionProject.activeLayer.removeChildren();
 			Interaction.isometricPaper = new Raster('isometric_paper');
-			Interaction.isometricPaper.position = Interaction.zeroPoint.add(69,24);
+			Interaction.isometricPaper.position = new Point(
+                Interaction.isometricPaper.width*0.5,
+                Interaction.isometricPaper.height*0.5
+            );
 			var zero = Interaction.zeroPoint;
 			var a = Interaction.a;
 			
@@ -424,7 +419,7 @@ UnitCube.explode = function(cubes,zero,a,distance,_s){
 	
 	//draw the cubes
 	cubes.sort(UnitCube.compare);
-    var a = a + distance;
+    a = a + distance;
 	var dY = a*Math.sin(Util.degreeToRadian(Interaction.h))*Math.sqrt(2)/2;
 	for(var i=0; i<cubes.length;i++){
 		var p = zero.add(

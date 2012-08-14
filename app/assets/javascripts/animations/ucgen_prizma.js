@@ -1,14 +1,273 @@
-// JavaScript Document
-var kucultButtonStyle = {fillColor: "#456"}
+function __Styles() {
+    fillColor = new RgbColor(0.75, 0.91, 0.94, 0.7);
+    strokeColor = "#255b63";
+    strokeWidth = 1;
+    kucultButtonStyle = {
+        fillColor: "#456"
+    };
+    animationTextStyle = {
+        fontSize:16
+    }
+    animationSurfacesTextStyle = {
+        fillColor: '#5ba559',
+        fontSize:14
+    }
+    animationEdgesTextStyle = {
+        fillColor: '#c14444'
+    }
+    animationVertexesTextStyle = {
+        fillColor: '#4451d0'
+    }
+    animationSurfacesHighlightStyle = {
+        fillColor: '#5ba559'
+    }
+    animationEdgesHighlightStyle = {
+        strokeColor:'#c14444',
+        strokeWidth:2
+    }
+    animationVertexesHighlightStyle = {
+        fillColor:'#4451d0'
+    }
+}
+var Animation = {
+    init: function(container) {
+            var Prism = ExpandableShape.extend({
+                init: function(width, height, length, matrix) {
+                        this._super(matrix);
+                        
+                        width /= 2;
+                        height /= 2;
+                        length /= 2;
+                        var R = Math.sqrt(length*length+width*width/4);
+                        this.angle = Math.asin(width*0.5 / R)+Math.PI/2;
+                        this.setSurfaces({
+                            backSurface: new Surface([
+                                new Point3(-width,  height, length),
+                                new Point3( width,  height, length),
+                                new Point3( width, -height, length),
+                                new Point3(-width, -height, length)
+                                ]),
+                            bottomSurface: new Surface([
+                                new Point3(-width, height,  length),
+                                new Point3( width, height,  length),
+                                new Point3(     0, height, -length)
+                                ]),
+                            leftSurface: new Surface([
+                                new Point3(    -0, -height, -length),
+                                new Point3(-width, -height,  length),
+                                new Point3(-width,  height,  length),
+                                new Point3(    -0,  height, -length)
+                                ]),
+                            rightSurface: new Surface([
+                                new Point3(    0,  height, -length),
+                                new Point3(width,  height,  length),
+                                new Point3(width, -height,  length),
+                                new Point3(    0, -height, -length)
+                                ]),
+                            topSurface: new Surface([
+                                new Point3(    0, -height, -length),
+                                new Point3( width, -height,  length),
+                                new Point3(-width, -height,  length)
+                                ])
+                        });
+                    },
+                showVertexes : function(delay,startingDelay) {
+                        if(startingDelay == undefined)
+                                startingDelay = 0;
+                        var circle = function(p1,i){
+                            var anim = new AnimationHelper({});
+                            anim.animate({
+                                style:{},
+                                duration:0,
+                                delay:startingDelay,
+                                init: function() {
+                                    var path = new Path.Circle(p1,4);
+                                    path.set_style(animationVertexesHighlightStyle);
+                                    path.set_style({
+                                        opacity:0
+                                    });
+                                    path.animate({
+                                        style:{opacity:1},
+                                        duration:delay,
+                                        delay:delay*i
+                                    });
 
-var Animation = function(){};Animation();
+                                    path.animate({
+                                        style:{opacity:0},
+                                        delay:delay*8,
+                                        duration:delay,
+                                        callback:path.remove
+                                    })
+                                }
+                            })
+                        }
+                        new circle(this.surfaces["rightSurface"].get2DPoints(this.matrix)[0],0);
+                        new circle(this.surfaces["rightSurface"].get2DPoints(this.matrix)[3],1);
+                        var backPoints = this.surfaces.backSurface.get2DPoints(this.matrix);
+                        var i = 2;
+                        for (var j=0;j < backPoints.length ; j++,i++){
+                            new circle(backPoints[j],i);
+                        }
+
+                    },
+                showSurfaces : function(delay,startingDelay) {
+                        var surface = function(s,m,index){
+                            AnimationManager.delay(function(){
+                                var path = new Path();
+                                var p = s.get2DPoints(m);
+                                for(var i=0;i<p.length;i++)
+                                    path.add(p[i]);
+                                path.closed = true;
+                                path.set_style(animationSurfacesHighlightStyle);
+                                path.set_style({
+                                    opacity:0
+                                });
+                                path.animate({
+                                    style:{opacity:1},
+                                    duration:0,//delay,
+                                    delay:delay*index
+                                });
+
+                                path.animate({
+                                    style:{opacity:0},
+                                    delay:delay*8,
+                                    duration:delay,
+                                    callback:path.remove
+                                })
+                            }, startingDelay);
+                        }
+                        var i=0;
+                        surface(this.surfaces["bottomSurface"],this.matrix,i++);
+                        surface(this.surfaces["topSurface"],this.matrix,i++);
+                        surface(this.surfaces["leftSurface"],this.matrix,i++);
+                        surface(this.surfaces["backSurface"],this.matrix,i++);
+                        surface(this.surfaces["rightSurface"],this.matrix,i++);
+                    },
+                showEdges: function(delay,startingDelay){
+                        if(startingDelay == undefined)
+                            startingDelay = 0;
+                        var line = function(p1,p2,i) {
+                            var anim = new AnimationHelper({});
+                            anim.animate({
+                                style:{},
+                                duration:0,
+                                delay:startingDelay,
+                                init: function() {
+                                    var path = new Path.Line(p1,p2);
+                                    path.set_style(animationEdgesHighlightStyle);
+                                    path.set_style({
+                                        opacity:0
+                                    });
+                                    path.animate({
+                                        style:{opacity:1},
+                                        duration:0,
+                                        delay:delay*i
+                                    });
+                                    path.animate({
+                                        style:{opacity:0},
+                                        duration:delay,
+                                        delay:delay*14,
+                                        callback:path.remove
+                                    });
+                                }
+                            })
+                        }
+                        var topPoints = this.surfaces.topSurface.get2DPoints(this.matrix);
+                        var bottomPoints = this.surfaces.bottomSurface.get2DPoints(this.matrix);
+                        var i = 0,j = 0,k = 0;
+                        for (;i < bottomPoints.length ; i++)
+                            new line(bottomPoints[i],topPoints[2-i],i);
+                        
+                        for (;j < topPoints.length ; j++,i++)
+                            new line(topPoints[j],topPoints[(j+1)%topPoints.length],i);
+                        
+                        for (;k < bottomPoints.length ; k++,i++)
+                            new line(bottomPoints[k],bottomPoints[(k+1)%bottomPoints.length],i);
+                        
+                        
+                        
+                    },
+                expand: function(style) {
+                        this.rotateSurfaceX(this.surfaces.topSurface, -Math.PI/2, this.surfaces.topSurface.points[2]);
+                        this.rotateSurfaceY(this.surfaces.rightSurface, -this.angle, this.surfaces.rightSurface.points[2]);
+                        this.rotateSurfaceY(this.surfaces.leftSurface, this.angle, this.surfaces.leftSurface.points[1]);
+                        this.rotateSurfaceX(this.surfaces.bottomSurface, Math.PI/2, this.surfaces.bottomSurface.points[0]);
+                    },
+                contract: function (style){
+                        this.rotateSurfaceX(this.surfaces.bottomSurface, -Math.PI/2, this.surfaces.bottomSurface.points[0]);
+                        this.rotateSurfaceY(this.surfaces.leftSurface, -this.angle, this.surfaces.leftSurface.points[1]);
+                        this.rotateSurfaceY(this.surfaces.rightSurface, this.angle, this.surfaces.rightSurface.points[2]);
+                        this.rotateSurfaceX(this.surfaces.topSurface, Math.PI/2, this.surfaces.topSurface.points[2]);
+                    }
+            });// var Prisim
+            var cubeMatrix = Util.createProjectionMatrixForObjectAt(200, 85);
+            var cube = new Prism(50, 70, 30, cubeMatrix);
+            cube.project();
+            cube.expand();
+            cube.showSurfaces(500,5000);
+            cube.delay = 9000;
+            cube.contract();
+            cube.showEdges(500,14000);
+            cube.showVertexes(500,22000);
+            var textReferencePoint = new Point(370,60);
+            var surfacesText    = new PointText(textReferencePoint.add(0, 0))
+                .set_style(animationTextStyle)
+                .set_style(animationSurfacesTextStyle);
+            var edgesText       = new PointText(textReferencePoint.add(0,40))
+                .set_style(animationTextStyle)
+                .set_style(animationEdgesTextStyle);
+            var vertexesText    = new PointText(textReferencePoint.add(0,80))
+                .set_style(animationTextStyle)
+                .set_style(animationVertexesTextStyle);
+            surfacesText.count = 1;
+            surfacesText.rectCount = 0;
+            surfacesText.squareCount = 0;
+            surfacesText.animate({
+                style:{count:5},
+                duration:2000,
+                delay:5000,
+                update:function(){
+                    switch(Math.floor(this.count)){
+                        case 1:
+                            surfacesText.squareCount = 1;
+                            break;
+                        case 2:
+                            surfacesText.squareCount = 2;
+                            break;
+                        default:
+                            surfacesText.rectCount = Math.floor(this.count)-2;
+                    }
+                    this.content = surfacesText.squareCount + " üçgensel "+surfacesText.rectCount +" dikdörtgensel bölge şeklinde yüz"  
+                }
+            });
+            edgesText.count = 1;
+            edgesText.animate({
+                style:{count:9},
+                duration:4000,
+                delay:14000,
+                update:function(){
+                    this.content = Math.floor(this.count) + " ayrıt"
+                }
+            });
+            vertexesText.count = 1;
+            vertexesText.animate({
+                style:{count:6},
+                duration:2500,
+                delay:22000,
+                update:function(){
+                    this.content = Math.floor(this.count) + " köşe"
+                },
+                callback:Main.animationFinished
+            });
+        }
+};
 var Interaction =function(){};Interaction();
 Interaction.getFramework = function() {
 	return 'paper';
 }
 
 Interaction.init = function(container){
-	Main.setObjective("Aşağıdaki üçgen prizmayı küçültüp büyütünüz veya istediğiniz yönde döndürünüz.");
+	Main.setObjective("Yandaki üçgen prizmayı küçültüp büyütünüz veya istediğiniz yönde döndürünüz.");
 	load();
 	var w = $(Interaction.container).width();
 	var h = $(Interaction.container).height();
@@ -143,7 +402,7 @@ function load() {
 		new Point(0, 0, -1),
 		true /* double-sided */,
 		Polygon.SOLID,
-		[100, 100, 100,0.8]
+		[81, 124, 130,1]
 	));
 
 	
@@ -164,7 +423,7 @@ function load() {
 		new Point(0, 1, 0),
 		false /* single-sided */,
 		Polygon.WIRE,
-		[200, 200, 200,0.8]
+		[168, 189, 193,1]
 	));
 	// Transparent Top
 	scene.shapes['box'].polygons.push(new Polygon(
@@ -172,7 +431,7 @@ function load() {
 		new Point(0, 1, 0),
 		true /* single-sided */,
 		Polygon.SOLID,
-		[200, 200, 200,0.8]
+		[168, 189, 193,1]
 	));
 	
 	// Left
@@ -181,7 +440,7 @@ function load() {
 		new Point(-1, 0, 0),
 		true /* double-sided */,
 		Polygon.SOLID,
-		[150, 150, 150,0.8]
+		[102, 140, 145,1]
 	));
 
 	// Right
@@ -190,7 +449,7 @@ function load() {
 		new Point(1, 0, 0),
 		true /* double-sided */,
 		Polygon.SOLID,
-		[50, 50, 50,0.8]
+		[124, 157, 161,1]
 	));
 
 	// Create a floor shape and add it to the scene
@@ -208,28 +467,10 @@ function load() {
 		new Point(0, 1, 0),
 		true /* single-sided */,
 		Polygon.SOLID,
-		[200, 200, 200,0.8]
+		[58, 107, 114,1]
 	));
 
 
-	//Create a floor shape and add it to the scene
-//	scene.shapes['floor'] = new Shape();
-//	var p = scene.shapes['floor'].points; // for convenience
-//
-//	p[0]  = new Point3(-10, -10, -10);
-//	p[1]  = new Point3(-10, -10,  10);
-//	p[2] = new Point3( 10, -10,  10);
-//	p[3] = new Point3( 10, -10, -10);
-//
-//
-//	scene.shapes['floor'].polygons.push(new Polygon(
-//		[ p[0], p[1], p[2], p[3] ],
-//		new Point(0, 1, 0),
-//		true /* single-sided */,
-//		Polygon.SOLID,
-//		[200, 200, 200,0.8]
-//	));
-	//setInterval('loop()', 20);
 }
 
 /* -------------------------------------------------------------------- */// JavaScript Document

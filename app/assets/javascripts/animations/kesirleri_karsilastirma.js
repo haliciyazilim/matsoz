@@ -460,7 +460,7 @@ var Animation = {
 				},
 				duration: 0,
 				delay: redDotStart,
-				animationType: 'easeInEaseOut'
+				animationType: 'easeInEaseOut',
 			});
 			Main.animationFinished(20000);
 			
@@ -1271,7 +1271,7 @@ var Interaction = {
 		
 		setTimeout(
 				'Interaction.pause = 0;'
-				,2000);
+				,1500);
 		
 		Interaction.numericalAxis = new Group();
 		

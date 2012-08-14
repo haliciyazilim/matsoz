@@ -230,7 +230,7 @@ var Animation = {
             },
             duration: 1000,
             delay: 500,
-            animationType: 'easeInEaseOut'
+            animationType: 'easeInOutQuad'
         });
 
         segmentedRect.animate({
@@ -239,7 +239,7 @@ var Animation = {
             },
             duration: 1000,
             delay: 1500,
-            animationType: 'easeInEaseOut',
+            animationType: 'easeInOutQuad',
             callback: function () {
                 emptyRect.remove();
             }
@@ -251,7 +251,7 @@ var Animation = {
             },
             duration: 1000,
             delay: 2500,
-            animationType: 'easeInEaseOut',
+            animationType: 'easeInOutQuad',
             callback: function () {
                 segmentedRect.remove();
             }
@@ -263,7 +263,7 @@ var Animation = {
             },
             duration: 1500,
             delay: 4000,
-            animationType: 'easeIn'
+            animationType: 'easeInOutQuad'
             //	animationType: 'easeOut'
         });
 
@@ -273,7 +273,7 @@ var Animation = {
             },
             duration: 1500,
             delay: 5500,
-            animationType: 'easeIn'
+            animationType: 'easeInOutQuad'
             //	animationType: 'easeOut'
         });
 
@@ -283,7 +283,7 @@ var Animation = {
             },
             duration: 1500,
             delay: 7000,
-            animationType: 'easeIn'
+            animationType: 'easeInOutQuad'
             //	animationType: 'easeOut'
         });
 
@@ -293,7 +293,7 @@ var Animation = {
             },
             duration: 1500,
             delay: 8500,
-            animationType: 'easeIn'
+            animationType: 'easeInOutQuad'
             //	animationType: 'easeOut'
         });
 
@@ -303,8 +303,7 @@ var Animation = {
             },
             duration: 1500,
             delay: 10000,
-            animationType: 'easeIn'
-            //	animationType: 'easeOut'
+            animationType: 'easeInOutQuad'
         });
 
         rectt2.animate({
@@ -313,7 +312,7 @@ var Animation = {
             },
             duration: 1500,
             delay: 11500,
-            animationType: 'easeIn',
+            animationType: 'easeInOutQuad',
         });
 
         rectt3.animate({
@@ -322,7 +321,7 @@ var Animation = {
             },
             duration: 1000,
             delay: 13000,
-            animationType: 'easeIn',
+            animationType: 'easeInOutQuad',
             callback: function () {
                 rectt2.remove();
             }
@@ -334,8 +333,11 @@ var Animation = {
             },
             duration: 1000,
             delay: 14000,
-            animationType: 'easeIn'
-            //	animationType: 'easeOut'
+            animationType: 'easeInOutQuad',
+            callback: function(){
+                Main.animationFinished();
+            }
+
         });
 
     }
