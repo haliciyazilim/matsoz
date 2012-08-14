@@ -176,11 +176,33 @@ Main.init = function(){
                 throw '';
         }
         catch(e){
-            setTimeout(Main.startAnimation,3000);
+            setTimeout(Main.startAnimation,Main.calculateDefinitionWaitTime());
         }
     }
 };
-
+Main.calculateDefinitionWaitTime = function(){
+    function removeHTMLTags(htmlString){
+        if(htmlString){
+            var mydiv = document.createElement("div");
+            mydiv.innerHTML = htmlString;
+            if (document.all)// IE Stuff
+                return mydiv.innerText;
+            else // Mozilla does not work with innerText
+                return mydiv.textContent;
+        }
+        return null;
+    }
+    function countWords(s){
+        s = s.replace(/(^\s*)|(\s*$)/gi,"");
+        s = s.replace(/[ ]{2,}/gi," ");
+        s = s.replace(/\n /,"\n");
+        return s.split(' ').length;
+    }
+    var html = $('.definition').html();
+    html = removeHTMLTags(html);
+//    console.log(html);
+    return countWords(html)*400+500;
+}
 Main.initializeNavigation = function() {
 	var createWordList = function(letter) {
 		var entries = wordList[letter];
@@ -192,6 +214,7 @@ Main.initializeNavigation = function() {
 		
 		$('#liste').html(htmlString);
 	}
+    
 	$('.navlink').click(function() {
 		createWordList($(this).data('letter'));
 	});

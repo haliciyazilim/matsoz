@@ -6878,7 +6878,7 @@ var View = this.View = PaperScopeItem.extend({
 					var view = scope.views[i];
 					if (view.isVisible()) {
 						View._focused = tempFocus = view;
-						throw Base.stop;
+						// throw Base.stop;
 					}
 				}
 			});
