@@ -32,8 +32,8 @@ Animation.init=function(container){
 	.css("left","290px")
 	.css("top","10px");
 
-        var islem=new LongMultiplication(512,235,"ornek");
-        //var islem=new LongMultiplication(129,93,"ornek");
+        var islem=new LongMultiplication(109,457,"ornek",30);
+        //var islem=new LongMultiplication(178,172,"ornek");
         islem.doldur()
         islem.basla(1000,1000);
 
@@ -957,7 +957,7 @@ kontrolSayaci=0;
 //								
 								
                                                                 $("#cevap").html("");
-                                                                var islemKontrol=new LongMultiplication(carpan1,carpan2, "cevap");
+                                                                var islemKontrol=new LongMultiplication(carpan1,carpan2, "cevap",30);
                                                                 islemKontrol.doldur();
                                                                 islemKontrol.basla(1000,1000);
                                                                 
@@ -1017,7 +1017,7 @@ kontrolSayaci=0;
 								
                                                                 
                                                                 $("#cevap").html("");
-                                                                var islemKontrol=new LongMultiplication(carpan1,carpan2, "cevap");
+                                                                var islemKontrol=new LongMultiplication(carpan1,carpan2, "cevap",30);
                                                                 islemKontrol.doldur();
                                                                 islemKontrol.basla(1000,1000);
                                                                 
@@ -1086,7 +1086,7 @@ kontrolSayaci=0;
 								
 								
                                                                 $("#cevap").html("");
-                                                                var islemKontrol=new LongMultiplication(carpan1,carpan2, "cevap");
+                                                                var islemKontrol=new LongMultiplication(carpan1,carpan2, "cevap",30);
                                                                 islemKontrol.doldur();
                                                                 islemKontrol.basla(1000,1000);
 								
@@ -1171,7 +1171,7 @@ kontrolSayaci=0;
 								
 								
                                                                 $("#cevap").html("");
-                                                                var islemKontrol=new LongMultiplication(carpan1,carpan2, "cevap");
+                                                                var islemKontrol=new LongMultiplication(carpan1,carpan2, "cevap",30);
                                                                 islemKontrol.doldur();
                                                                 islemKontrol.basla(1000,1000);
                                                                 
