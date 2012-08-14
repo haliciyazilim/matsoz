@@ -239,6 +239,7 @@ var Interaction = {
 			Interaction.prepareNextQuestion();
 		},
 	nextQuestion: function(){
+            $('#addition').remove();
 			if(Interaction.solutionDiv)
 				$(Interaction.solutionDiv).remove();
 			Interaction.addend1 = Math.floor(Math.random()*1000)/100;
@@ -272,23 +273,22 @@ var Interaction = {
 		},
 	onFail : function(){
 			Interaction.setStatus('Yanlış cevap, doğrusu ' +  Util.numberTurkishFloating(Interaction.addend1 + Interaction.addend2,2) + ' olacaktı',false);
-                        
-                        var div = document.createElement('div');
-                        div.id = "addition";
-                        $(Interaction.container).append(div);
-                        $(div)
-                            .css({
-                                position:'absolute',
-                                top:'30px',
-                                left:'400px',
-                                width:'100px',
-                                fontSize:'24px'
-                            })
-                        console.log(Interaction.addend1,Interaction.addend2)
-                        
-                        var addition = new LongAddition(Interaction.addend1,Interaction.addend2,"addition",20);
-                                    addition.doldur();
-                                    addition.basla(1000, 1000);
-			
+            var div = document.createElement('div');
+            div.id = "addition";
+            $(Interaction.container).append(div);
+            $(div)
+                .css({
+                    position:'absolute',
+                    top:'30px',
+                    left:'400px',
+                    width:'100px',
+                    fontSize:'24px'
+                })
+            console.log(Interaction.addend1,Interaction.addend2)
+            Interaction.pause();
+			var addition = new LongAddition(Interaction.addend1,Interaction.addend2,"addition",24);
+            addition.doldur();
+            addition.basla(1000, 1000,Interaction.resume);
+            
 		}
 }
