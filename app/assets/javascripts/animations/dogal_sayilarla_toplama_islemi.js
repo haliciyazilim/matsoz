@@ -33,6 +33,7 @@ Animation.init=function(container){
             .css("top","40px");
 		
     var toplamaIslemi=new LongAddition(93507,78235,"ornek");
+
         toplamaIslemi.doldur();
 	toplamaIslemi.basla(1000,800);
      Main.animationFinished(12000);
