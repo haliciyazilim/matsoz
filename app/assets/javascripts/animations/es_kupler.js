@@ -424,7 +424,7 @@ UnitCube.explode = function(cubes,zero,a,distance,_s){
 	
 	//draw the cubes
 	cubes.sort(UnitCube.compare);
-    var a = a + distance;
+    a = a + distance;
 	var dY = a*Math.sin(Util.degreeToRadian(Interaction.h))*Math.sqrt(2)/2;
 	for(var i=0; i<cubes.length;i++){
 		var p = zero.add(
