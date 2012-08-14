@@ -20,7 +20,7 @@ function LongAddition(ilkDeger, ikinciDeger, div,fontSize){
             
             if(kesikIlk[1].length<kesikIkinci[1].length)
                 kesikIlk[1]=kesikIlk[1]+"0";
-            else
+            else if(kesikIlk[1].length>kesikIkinci[1].length)
                 kesikIkinci[1]=kesikIkinci[1]+"0";
             
             
