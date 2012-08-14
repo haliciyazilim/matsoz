@@ -485,7 +485,11 @@ Interaction.init = function(container){
 			else{
 			var ondalikliGirdi=parseInt(girdi);
 			if(girdi<10)
-				ondalikliGirdi="0"+girdi;
+				if(girdi<0)
+                                    ondalikliGirdi="0"+girdi;
+                                else
+                                    ondalikliGirdi=girdi;
+                                
 			else if(girdi==100)
 				ondalikliGirdi=1;
 			else
@@ -609,10 +613,7 @@ Interaction.init = function(container){
 				$("#geriBildirim, #Corta1, #Corta2, #Corta3, #sonraki").show();
 					
 				}
-				if(tiklamaSayisi==3){
-				console.log("tikalam 3'e grdim");
-				yeniSoru();
-				}
+				
 			}		
 					
 		}
@@ -634,9 +635,9 @@ Interaction.init = function(container){
 		
 		$("#girdiCevap3").keyup(function(event) {
 				
-				if(event.keyCode == 13) {
-					kontrol();
-				}
+                    if(event.keyCode == 13) {
+                        kontrol();
+                    }
 		});
 		
 
