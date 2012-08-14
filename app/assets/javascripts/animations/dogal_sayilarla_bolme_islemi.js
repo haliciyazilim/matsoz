@@ -62,148 +62,46 @@ var Animation = {
 		.css("margin","auto")
 		.css("position","absolute")
 		//.css("bottom","20px")
-		.css("left","460px")
+		.css("left","450px")
 		//.css("right","0")
-		.css("top","50px").css("opacity","0");;
-	
-	$("#saglama",container).append("<div id='ornekCarpmaIsareti'>");
-	$("#ornekCarpmaIsareti").css("width","50px")
-		.css("text-align","left")
-		.css("height","15px")
-		.css("margin","auto")
-		.css("position","absolute")
-		//.css("bottom","20px")
-		//.css("left","0")
-		.css("right","0px")
-		.css("font-size","15px")
-		.css("border-bottom","solid 2px black")
-		.css("top","25px")
-		.html("x");
-		
-	$("#saglama",container).append("<div id='ornekToplamaIsareti'>");
-	$("#ornekToplamaIsareti").css("width","60px")
-		.css("text-align","left")
-		.css("height","15px")
-		.css("margin","auto")
-		.css("position","absolute")
-		//.css("bottom","20px")
-		//.css("left","0")
-		.css("right","0px")
-		.css("font-size","15px")
-		.css("border-bottom","solid 2px black")
-		.css("top","70px")
-		.html("+");
-
-	// toplanan1
-	$("#saglama",container).append("<p id='toplanan1B1' class='sayilarTekToplanan1'>");
-		$("#toplanan1B1")
-			.css("right","0px")
-			.css("position","absolute")
-			.css("top","0px")
-			.css("font-size","18px")
-			.html("261");	
-
-	
-	// toplanan2
-	$("#saglama",container).append("<p id='toplanan2B1' class='sayilarTekToplanan2'>");
-		$("#toplanan2B1")
-			.css("right","0px")
-			.css("position","absolute")
-			.css("top","20px")
-			.css("font-size","18px")
-			.html("32");	
-	
-	//çarpim1
-	$("#saglama",container).append("<p id='carpim1B1' class='sayilarTekCarpim1'>");
-		$("#carpim1B1")
-			.css("right","0px")
-			.css("position","absolute")
-			.css("top","45px")
-			.css("font-size","18px")
-			.html("522");	
-			
+		.css("top","50px");
 	
 	
-	//çarpim2
-	$("#saglama",container).append("<p id='carpim2B1' class='sayilarTekCarpim2'>");
-		$("#carpim2B1")
-			.css("right","10px")
-			.css("position","absolute")
-			.css("top","65px")
-			.css("font-size","18px")
-			.html("783");	
-	
-	// Toplam
-	$("#saglama",container).append("<p id='cevapB1' class='sayilarTekToplam'>");
-		$("#cevapB1")
-			.css("right","0px")
-			.css("position","absolute")
-			.css("top","88px")
-			.css("font-size","18px")
-			.html("8352");	
 	
 	// saglama2	
 	$(container).append("<div id='saglama2'>");
-		$("#saglama2").css("width","50px")
+		$("#saglama2").css("width","80px")
 		.css("height","130px")
 		.css("margin","auto")
 		.css("position","absolute")
 		//.css("bottom","20px")
-		.css("left","540px")
+		.css("left","550px")
 		//.css("right","0")
 		.css("top","50px").css("opacity","0");
 	
-	$("#saglama2",container).append("<div id='ornekCarpmaIsareti'>");
-	$("#saglama2 #ornekCarpmaIsareti").css("width","50px")
-		.css("text-align","left")
-		.css("height","15px")
-		.css("margin","auto")
-		.css("position","absolute")
-		//.css("bottom","20px")
-		//.css("left","0")
-		.css("right","0px")
-		.css("font-size","15px")
-		.css("border-bottom","solid 2px black")
-		.css("top","25px")
-		.html("+");
-		
 	
-	// toplanan1
-	$("#saglama2",container).append("<p id='toplanan1B1' class='sayilarTekToplanan1'>");
-		$("#saglama2 #toplanan1B1")
-			.css("right","0px")
-			.css("position","absolute")
-			.css("top","0px")
-			.css("font-size","18px")
-			.html("8352");	
-
+        
+        Animation.islem=new LongMultiplication(261,32,"saglama",20);
+        //var islem=new LongMultiplication(178,172,"ornek");
+        //Animation.islem.doldur()
+        //islem.basla(1000,1000);
 	
-	// toplanan2
-	$("#saglama2",container).append("<p id='toplanan2B1' class='sayilarTekToplanan2'>");
-		$("#saglama2 #toplanan2B1")
-			.css("right","0px")
-			.css("position","absolute")
-			.css("top","20px")
-			.css("font-size","18px")
-			.html("5");	
-	
-	//çarpim1
-	$("#saglama2",container).append("<p id='toplam' class='sayilarTekCarpim1'>");
-		$("#saglama2 #toplam")
-			.css("right","0px")
-			.css("position","absolute")
-			.css("top","45px")
-			.css("font-size","18px")
-			.html("8357");	
-		
-	
+        Animation.toplamaIslemi=new LongAddition(93507,78235,"saglama2",20);
+        //Animation.toplamaIslemi.doldur();
+	//Animation.toplamaIslemi.basla(1000,800);
+        
+        
 	Animation.ornekIslem = new LongDivision(8357,32,"#ornek");
 			setTimeout('Animation.ornekIslem.nextStep(1000);',1000);
 			setTimeout('Animation.ornekIslem.nextStep(1000);',3000);
 			setTimeout('Animation.ornekIslem.nextStep(1000);',5000);
 			setTimeout('Animation.ornekIslem.nextStep(1000);',7000);
 			$("#kalan").delay(7000).animate({opacity:"1"},1000);
-			$("#saglama, #saglama2, #islemKontrolu").delay(8000).animate({opacity:"1"},1000);
+                        setTimeout('Animation.islem.doldur()',8000);
+                        setTimeout('Animation.islem.basla(1000,1000);',8000);
+                        setTimeout('Animation.toplamaIslemi.doldur();',40000);
+                        setTimeout('Animation.toplamaIslemi.basla(1000,1000);',40000);
+			$("#saglama, #saglama2, #islemKontrolu").delay(7500).animate({opacity:"1"},1000);
 	
 	
 	
@@ -620,6 +518,17 @@ var Interaction = {
 		
 		},
 	onFail : function(){
+            
+            function callNextStep(){
+                                        var div = Interaction.cevap1.nextStep(1000);
+                                        if(div!=null)
+                                                setTimeout(callNextStep,1500);
+                                        else{
+                                                Interaction.pause = false;
+                                                
+                                        }
+                                }
+                                
 		switch(soruId){
 			case 1:
 			case 2:
@@ -630,26 +539,38 @@ var Interaction = {
 				
 				var cBolunen=normalIslem.bolunen;
 				var cBolen=normalIslem.bolen;
-				cevapIslem= new NormalBolmeIslemi(cBolen,cBolunen, "cevap");
-				cevapIslem.yap();
-				
+//				cevapIslem= new NormalBolmeIslemi(cBolen,cBolunen, "cevap");
+//				cevapIslem.yap();
+
+                                Interaction.cevap1 = new LongDivision(cBolunen,cBolen,"#cevap");
+                                
+                                
+                                //Interaction.cevap1.nextStep(1000);
+                                
+                                
+                                setTimeout(function(){callNextStep()},500);
 				
 				break;
 			case 6:
 			case 7:
 				var cBolunen=bolunensizIslem.bolunen;
 				var cBolen=bolunensizIslem.bolen;
-				cevapIslem= new BolunensizBolmeIslemi(cBolen,cBolunen, "cevap");
-				cevapIslem.yap();
 				
+//                                cevapIslem= new BolunensizBolmeIslemi(cBolen,cBolunen, "cevap");
+//				cevapIslem.yap();
+				
+                                Interaction.cevap1 = new LongDivision(cBolunen,cBolen,"#cevap");
+                                
 				break;
 			case 8:
 			case 9:
 				var cBolunen=bolensizIslem.bolunen;
 				var cBolen=bolensizIslem.bolen;
-				cevapIslem= new BolensizBolmeIslemi(cBolen,cBolunen, "cevap");
-				cevapIslem.yap();
+//				cevapIslem= new BolensizBolmeIslemi(cBolen,cBolunen, "cevap");
+//				cevapIslem.yap();
 				
+                                Interaction.cevap1 = new LongDivision(cBolunen,cBolen,"#cevap");
+                                
 				break;
 		}
 		$("#soru").animate({right:"250px"},1000);
