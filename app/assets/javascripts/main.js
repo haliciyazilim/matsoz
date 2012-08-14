@@ -201,7 +201,7 @@ Main.calculateDefinitionWaitTime = function(){
     var html = $('.definition').html();
     html = removeHTMLTags(html);
 //    console.log(html);
-    return countWords(html)*500+500;
+    return countWords(html)*400+500;
 }
 Main.initializeNavigation = function() {
 	var createWordList = function(letter) {
