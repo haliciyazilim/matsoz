@@ -185,16 +185,10 @@ Main.calculateDefinitionWaitTime = function(){
         if(htmlString){
             var mydiv = document.createElement("div");
             mydiv.innerHTML = htmlString;
-
-            if (document.all) // IE Stuff
-            {
+            if (document.all)// IE Stuff
                 return mydiv.innerText;
-
-            }   
             else // Mozilla does not work with innerText
-            {
                 return mydiv.textContent;
-            }                           
         }
         return null;
     }
