@@ -209,7 +209,7 @@ var Interaction = {
             {
                 id:'matchbox',
                 src:'/assets/animations/uzay/matchbox.jpg',
-                name:'Ağzı açık kibrit kutusu',
+                name:'Kibrit kutusu',
                 isSpace:true
             },
             {
@@ -227,13 +227,13 @@ var Interaction = {
             {
                 id:'bus',
                 src:'/assets/animations/uzay/bus.jpg',
-                name:'Otobüsün içi',
+                name:'Otobüs',
                 isSpace:true
             },
             {
                 id:'pencilbox',
                 src:'/assets/animations/uzay/case.jpg',
-                name:'Ağzı açık kalem kutusu',
+                name:'Kalem kutusu',
                 isSpace:true
             },
             {
@@ -245,7 +245,7 @@ var Interaction = {
             {
                 id:'refrigerator',
                 src:'/assets/animations/uzay/refrigerator.jpg',
-                name:'Kapısı açık buzdolabı',
+                name:'Buzdolabı',
                 isSpace:true
             },
         ],
