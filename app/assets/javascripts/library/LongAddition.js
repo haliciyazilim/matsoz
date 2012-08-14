@@ -170,7 +170,7 @@ function LongAddition(ilkDeger, ikinciDeger, div,fontSize){
                 
 	}
 			
-		this.basla=function(hizB,hizA){
+		this.basla=function(hizB,hizA,callback){
 			this.hizB=hizB;
 			this.hizA=hizA;
 			var elde=0;
@@ -221,7 +221,7 @@ function LongAddition(ilkDeger, ikinciDeger, div,fontSize){
 					//$(this.div+" #elde #eldeBasamak"+(i+1)).delay(hizB*i*2).animate({opacity:"1"},hizA)
 					//var elde=parseInt(basamakToplamlar.toString().charAt(0));
 					console.log("sonuc_"+i+": "+this.sonuc.toString().charAt(i));
-                                        $(this.div +" #virgul3").delay(hizB*i*2+1000).animate({opacity:"1"},1000)
+                                        $(this.div +" #virgul3").delay(hizB*i*2+1000).animate({opacity:"1"},1000,callback)
 					
 
 					
