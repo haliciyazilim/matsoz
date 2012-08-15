@@ -70,6 +70,7 @@ var Animation = {
                 if(Animation.h == 24){
                     Animation.h = 0;
                 }
+//                Animation.m+=0.1;
                 Animation.setImagesByTime(Animation.h, Animation.m++);
             },1)
         },
@@ -398,7 +399,7 @@ var Interaction = {
 			var zero = (""+Interaction.correctAnswer.m).length < 2 ? '0':''
 			Interaction.setStatus('Yanlış, doğru cevap '+Interaction.correctAnswer.h+':'+zero + Interaction.correctAnswer.m+' olacaktı.',false);
 			Interaction.clock.setTime(Interaction.correctAnswer);
-		},
+		}
 }
 
 function Clock(p){
