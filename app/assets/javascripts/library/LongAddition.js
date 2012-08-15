@@ -36,7 +36,7 @@ function LongAddition(ilkDeger, ikinciDeger, div,fontSize){
         
 
 	this.div="#"+div;
-	this.sonuc=this.ilkDeger+this.ikinciDeger;
+	this.sonuc=parseInt(this.ilkDeger,10)+parseInt(this.ikinciDeger,10);
 	
         this.fontSize=fontSize;
     
