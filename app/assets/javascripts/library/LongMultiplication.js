@@ -326,7 +326,7 @@ this.basla=function(hizB,hizA){
                     console.log("1 if(p==3)........................")
                     
                     
-                    $("#"+div+" #elde"+(i)+"Basamak"+(p+1)).delay(sayac+hizB).animate({opacity:"1", color:sonuclarRengi},hizA/5).delay(hizB).animate({color:"#000000"},hizA);
+                    $("#"+div+" #elde"+(i)+"Basamak"+(p+1)).delay(sayac+hizB*2).animate({opacity:"1", color:sonuclarRengi},hizA/5).delay(hizB).animate({color:"#000000"},hizA);
                 }
                 else{
                     console.log("1 if(p==3) else........................")

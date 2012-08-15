@@ -28,8 +28,8 @@ function LongAddition(ilkDeger, ikinciDeger, div,fontSize){
             console.log(kesikIlk);
             console.log(kesikIkinci);
            
-            this.ilkDeger=parseInt((kesikIlk[0]+kesikIlk[1]),10);
-            this.ikinciDeger=parseInt((kesikIkinci[0]+kesikIkinci[1]),10);
+            this.ilkDeger=(kesikIlk[0]+kesikIlk[1]);
+            this.ikinciDeger=(kesikIkinci[0]+kesikIkinci[1]);
         }
         
        

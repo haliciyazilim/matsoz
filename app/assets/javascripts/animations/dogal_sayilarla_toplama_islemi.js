@@ -788,6 +788,7 @@ Interaction.init = function(container){
 		}
 	);
 	function yeniSoru(){
+            
 		soruSirasi++;
 		$("#soru").html("");
 		$("#geriBildirimText").html("");
@@ -797,7 +798,8 @@ Interaction.init = function(container){
 		$("#girdi, #girdi1, #girdi2, #girdi3").trigger("yeniSoru");
 		
 		$("#soru").delay(500).animate({right:"0px"},1000);
-		$("#cevap").animate({opacity:"0",},1000);
+		$("#cevap").animate({opacity:"0"},1000);
+            
 	}
 	//var soruSirasi=9;
 	function soruGetir(){
@@ -893,6 +895,7 @@ Interaction.init = function(container){
 								
 								var toplamaIslemi=new LongAddition(nihaiToplanan1,nihaiToplanan2,"cevap");
 									toplamaIslemi.doldur();
+                                                                        
 									toplamaIslemi.basla(1000,800);							
 								
 								
