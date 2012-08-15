@@ -12,7 +12,6 @@ function __Styles(){
 		left:'250px',
 		fontSize:'24px',
 		textAlign:'right',
-		lineHeight:'40px',
         fontWeight:'bold',
 		fontFamily:"cursive",
 		zIndex:1,
@@ -32,29 +31,36 @@ var Animation = {
 			board.position = new Point(Math.floor(w*0.5),Math.floor(h*0.5)+2)
 			var div = document.createElement('div');
 			$(container).append(div);
-			$(div)
-				.append('<div id="addend1"><span class="3">2</span>,<span class="2">3</span><span class="1">8</span></div><div id="addend2"><span class="3">1</span>,<span class="2">2</span><span class="1">6</span></div><div id="line"><span>-</span></div><br/>')
-				.append('<div id="result"></div>')
-				.css(animationSubtractCss);
-			
-			$('#line',div).css({
-				height:'2px',
-				borderBottom:'2px solid #fff',
-				position:'relative',
-				top:'5px',
-				left:'15px'
-			});
-			
-			$('#line span',div).css({
-				position:'absolute',
-				top:'-35px',	
-				left:'10px',
-				zIndex:2
-			});
-			$('#result').css({
-				position:'relative',
-				top:'-35px'
-			})
+            div.id = "animation_subtraction";
+            
+            $(div).css(animationSubtractCss);
+            var subtraction = new LongSubtraction(2.38,1.26,"animation_subtraction",24);
+            subtraction.doldur();
+            subtraction.basla(1000, 1000);
+//			$(container).append(div);
+//			$(div)
+//				.append('<div id="addend1"><span class="3">2</span>,<span class="2">3</span><span class="1">8</span></div><div id="addend2"><span class="3">1</span>,<span class="2">2</span><span class="1">6</span></div><div id="line"><span>-</span></div><br/>')
+//				.append('<div id="result"></div>')
+//				.css(animationSubtractCss);
+//			
+//			$('#line',div).css({
+//				height:'2px',
+//				borderBottom:'2px solid #fff',
+//				position:'relative',
+//				top:'5px',
+//				left:'15px'
+//			});
+//			
+//			$('#line span',div).css({
+//				position:'absolute',
+//				top:'-35px',	
+//				left:'10px',
+//				zIndex:2
+//			});
+//			$('#result').css({
+//				position:'relative',
+//				top:'-35px'
+//			})
 			var size = new Size(40,40)
 			var p1 = new Point(450,10).add(0.5,0.5);
 			var r1 = new Path.Rectangle(p1, size);
@@ -99,21 +105,21 @@ var Animation = {
 			}).animate({
 				style:{count:2},
 				duration:1000,
-				delay:3000,
+				delay:1000,
 				update:Animation.rectDraw
 			});
 			
 			new AnimationHelper({
-				count:14
+				count:2
 			}).animate({
 				style:{count:12},
 				duration:1000,
-				delay:7000,
+				delay:3000,
 				update:Animation.rectDraw	
 			})
 			new AnimationHelper().animate({
 				duration:1,
-				delay:11000,
+				delay:5000,
 				callback:function(){
 					var r3 = new Path.Rectangle(p3, size);
 					r3.set_style(rectStyle);
@@ -257,5 +263,21 @@ var Interaction = {
 		},
 	onFail : function(){
 			Interaction.setStatus('Yanlış cevap, doğrusu ' +  Util.numberTurkishFloating(Interaction.addend1 - Interaction.addend2,2) + ' olacaktı',false);
+            var div = document.createElement('div');
+            div.id = "subtraction";
+            $(Interaction.container).append(div);
+            $(div)
+                .css({
+                    position:'absolute',
+                    top:'60px',
+                    left:'400px',
+                    width:'100px',
+                    fontSize:'24px'
+                })
+            console.log(Interaction.addend1,Interaction.addend2)
+            Interaction.pause();
+			var subtraction = new LongSubtraction(Interaction.addend1,Interaction.addend2,"subtraction",24);
+            subtraction.doldur();
+            subtraction.basla(1000, 1000,Interaction.resume);
 		}
 }
