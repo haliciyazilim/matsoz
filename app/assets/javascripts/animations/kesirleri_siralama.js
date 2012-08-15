@@ -63,9 +63,9 @@ var Animation = {
 		//	arr.opacity = 0;
 			
 			var bigDots = new Group();
-			var bigDot1 = new Path.Circle(new Point(151, 134), 6);
+			var bigDot1 = new Path.Circle(new Point(151, 134), 5);
 			bigDot1.fillColor = "black";
-			var bigDot2 = new Path.Circle(new Point(631, 134), 6);
+			var bigDot2 = new Path.Circle(new Point(631, 134), 5);
 			bigDot2.fillColor = "black";
 			bigDots.addChild(bigDot1);
 			bigDots.addChild(bigDot2);
@@ -1436,9 +1436,9 @@ var Interaction = {
 		arr.addChild(arrow2);
 		
 		var bigDots = new Group();
-		var bigDot1 = new Path.Circle(new Point(50, 170), 6);
+		var bigDot1 = new Path.Circle(new Point(50, 170), 5);
 		bigDot1.fillColor = "black";
-		var bigDot2 = new Path.Circle(new Point(530, 170), 6);
+		var bigDot2 = new Path.Circle(new Point(530, 170), 5);
 		bigDot2.fillColor = "black";
 		bigDots.addChild(bigDot1);
 		bigDots.addChild(bigDot2);
