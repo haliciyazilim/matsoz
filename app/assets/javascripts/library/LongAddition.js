@@ -1,36 +1,33 @@
 			
 function LongAddition(ilkDeger, ikinciDeger, div,fontSize){
-	
         
-         this.ilk=ilkDeger.toString();
-         this.ikinci=ikinciDeger.toString();
-         console.log("ikinci değer: "+this.ikinci);
-         console.log("İndex Of: "+this.ilk.indexOf("."));
-        this.floatKontrolu=this.ilk.indexOf(".");
-        if (this.floatKontrolu==-1){
-            this.ilkDeger=parseInt(ilkDeger,10);
-            this.ikinciDeger=parseInt(ikinciDeger,10);
-        }
         
-        else{
-            var kesikIlk=this.ilk.split(".");
-            var kesikIkinci=this.ikinci.split(".");
-            console.log(kesikIlk);
-            console.log(kesikIkinci);
-            
-            if(kesikIlk[1].length<kesikIkinci[1].length)
-                kesikIlk[1]=kesikIlk[1]+"0";
-            else if(kesikIlk[1].length>kesikIkinci[1].length)
-                kesikIkinci[1]=kesikIkinci[1]+"0";
-            
-            
-            
-            console.log(kesikIlk);
-            console.log(kesikIkinci);
-           
-            this.ilkDeger=parseInt((kesikIlk[0]+kesikIlk[1]),10);
-            this.ikinciDeger=parseInt((kesikIkinci[0]+kesikIkinci[1]),10);
-        }
+    this.ilk=ilkDeger.toString();
+    this.ikinci=ikinciDeger.toString();
+    console.log("ikinci değer: "+this.ikinci);
+    console.log("İndex Of: "+this.ilk.indexOf("."));
+    this.floatKontrolu=this.ilk.indexOf(".");
+    if (this.floatKontrolu==-1){
+        this.ilkDeger=parseInt(ilkDeger,10);
+        this.ikinciDeger=parseInt(ikinciDeger,10);
+    }
+
+    else{
+        var kesikIlk=this.ilk.split(".");
+        var kesikIkinci=this.ikinci.split(".");
+        console.log(kesikIlk);
+        console.log(kesikIkinci);
+
+        if(kesikIlk[1].length<kesikIkinci[1].length)
+            kesikIlk[1]=kesikIlk[1]+"0";
+        else if(kesikIlk[1].length>kesikIkinci[1].length)
+            kesikIkinci[1]=kesikIkinci[1]+"0";
+        console.log(kesikIlk);
+        console.log(kesikIkinci);
+
+        this.ilkDeger=(kesikIlk[0]+kesikIlk[1]);
+        this.ikinciDeger=(kesikIkinci[0]+kesikIkinci[1]);
+    }
         
        
         
@@ -38,10 +35,15 @@ function LongAddition(ilkDeger, ikinciDeger, div,fontSize){
 	this.div="#"+div;
 	this.sonuc=this.ilkDeger+this.ikinciDeger;
 	
-        this.fontSize=fontSize;
+    if($(this.div).css('color') != undefined)
+        this.color = $(this.div).css('color');
+    else
+        this.color = '#000';
     
-        if(this.fontSize==undefined)
-            this.fontSize=30;
+    this.fontSize=fontSize;
+
+    if(this.fontSize==undefined)
+        this.fontSize=30;
 	
 	this.doldur=function(){
                 
@@ -81,11 +83,13 @@ function LongAddition(ilkDeger, ikinciDeger, div,fontSize){
 			.css("height",this.fontSize*30/30)
 			.css("margin","auto")
 			.css("position","absolute")
+            .css('color',this.color)
 			//.css("bottom","20px")
 			//.css("left","0")
 			.css("right","0px")
 			.css("font-size",this.fontSize*30/30)
 			.css("border-bottom","solid 2px black")
+            .css('borderColor',this.color)
 			.css("top",this.fontSize*60/30)
 			.html("+");
 		$(this.div+" .toplanan").css("width","100%")
@@ -93,6 +97,7 @@ function LongAddition(ilkDeger, ikinciDeger, div,fontSize){
 			.css("height",this.fontSize*30/30)
 			.css("margin","auto")
 			.css("position","absolute")
+            .css('color',this.color)
 			//.css("bottom","20px")
 			//.css("left","0")
 			.css("right","0px")
@@ -146,6 +151,7 @@ function LongAddition(ilkDeger, ikinciDeger, div,fontSize){
 			.css("height",this.fontSize*30/30)
 			.css("margin","auto")
 			.css("position","absolute")
+            .css('color',this.color)
 			//.css("bottom","20px")
 			//.css("left","0")
 			.css("right","0px")
@@ -175,8 +181,8 @@ function LongAddition(ilkDeger, ikinciDeger, div,fontSize){
 			console.log("uzunsayi: "+uzunSayi);
 			console.log("sonuc: "+this.sonuc);
 			for(var i=1; i<=uzunSayi;i++){
-				$(this.div+" #ilkBasamak"+i).delay(hizB*i*2).animate({color:"#FF6600"},hizA).delay(hizB).animate({color:"#000000"},hizA);
-				$(this.div+" #ikinciBasamak"+i).delay(hizB*i*2).animate({color:"#FF6600"},hizA).delay(hizB).animate({color:"#000000"},hizA);
+				$(this.div+" #ilkBasamak"+i).delay(hizB*i*2).animate({color:"#FF6600"},hizA).delay(hizB).animate({color:this.color},hizA);
+				$(this.div+" #ikinciBasamak"+i).delay(hizB*i*2).animate({color:"#FF6600"},hizA).delay(hizB).animate({color:this.color},hizA);
 				var ustBasamak=parseInt($(this.div+" #ilkBasamak"+i).html())||0;
 				var altBasamak=parseInt($(this.div+" #ikinciBasamak"+i).html())||0;
 				var basamakToplamlar=parseInt(ustBasamak)+parseInt(altBasamak)+elde;

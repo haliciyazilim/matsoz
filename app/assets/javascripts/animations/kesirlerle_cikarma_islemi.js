@@ -40,10 +40,10 @@ var Animation = {
 		arr.opacity = 0;
 		
 		var bigDots = new Group();
-		var bigDot1 = new Path.Circle(new Point(260.5, 164.5), 4);
+		var bigDot1 = new Path.Circle(new Point(260.5, 164.5), 5);
 		bigDot1.strokeColor = "black";
 		bigDot1.fillColor = "black";
-		var bigDot2 = new Path.Circle(new Point(660.5, 164.5), 4);
+		var bigDot2 = new Path.Circle(new Point(660.5, 164.5), 5);
 		bigDot2.strokeColor = "black";
 		bigDot2.fillColor = "black";
 		bigDots.addChild(bigDot1);
@@ -52,7 +52,7 @@ var Animation = {
 		
 		var smallDots = new Group();
 		for(i = 0; i < 7; i++){
-			var smallDot = new Path.Circle(new Point(310.5+(50*i), 164.5), 2);
+			var smallDot = new Path.Circle(new Point(310.5+(50*i), 164.5), 3);
 			smallDot.strokeColor = "black";
 			smallDot.fillColor = "black";
 			smallDots.addChild(smallDot);

@@ -29,7 +29,130 @@ var ExpandableShapeTetrahedron = ExpandableShape.extend({
 	            ])
 	    });
 	},
-	
+	 showSurfaces : function(delay,startingDelay) {
+        var surface = function(s,m,index){
+                AnimationManager.delay(function(){
+                    var path = new Path();
+                    var p = s.get2DPoints(m);
+                    for(var i=0;i<p.length;i++)
+                        path.add(p[i]);
+                    path.closed = true;
+                    path.set_style(animationSurfacesHighlightStyle);
+                    path.set_style({
+                        opacity:0
+                    });
+                    path.animate({
+                        style:{opacity:1},
+                        duration:0,//delay,
+                        delay:delay*index
+                    });
+
+                    path.animate({
+                        style:{opacity:0},
+                        delay:delay*8,
+                        duration:delay,
+                        callback:path.remove
+                    })
+                }, startingDelay);
+            }
+            var i=0;
+            surface(this.surfaces["bottomSurface"],this.matrix,i++);
+            surface(this.surfaces["leftSurface"],this.matrix,i++);
+            surface(this.surfaces["backSurface"],this.matrix,i++);
+            surface(this.surfaces["rightSurface"],this.matrix,i++);
+    },
+    showVertexes : function(delay,startingDelay) {
+            if(startingDelay == undefined)
+                    startingDelay = 0;
+            var circle = function(p1,i){
+                var anim = new AnimationHelper({});
+                anim.animate({
+                    style:{},
+                    duration:0,
+                    delay:startingDelay,
+                    init: function() {
+                        var a = new AnimationHelper({
+                            shape:null,
+                            opacity:0
+                        });
+                        a.animate({
+                            style:{opacity:1}, 
+                            duration:0,//delay,
+                            delay:delay*i,
+                            update:function(){
+                                if(this.shape)
+                                    this.shape.remove();
+                                this.shape = new Path.Circle(p1,4);
+                                this.shape.set_style(animationVertexesHighlightStyle);
+                                this.shape.set_style({opacity:this.opacity});
+                            }
+                        })
+                        a.animate({
+                            style:{opacity:0},
+                            delay:delay*8,
+                            duration:delay,
+                            callback:function(){
+                                this.shape.remove();
+                            },
+                            update:function(){
+                                if(this.shape)
+                                    this.shape.remove();
+                                this.shape = new Path.Circle(p1,4);
+                                this.shape.set_style(animationVertexesHighlightStyle);
+                                this.shape.set_style({opacity:this.opacity});
+                            }
+                        })
+                    }
+                })
+            }
+            var bottomPoints = this.surfaces.bottomSurface.get2DPoints(this.matrix);
+            var topPoint = this.surfaces.leftSurface.get2DPoints(this.matrix)[2];
+            var i = 0,j = 0,k = 0;
+            for (; i < bottomPoints.length; i++) {
+                new circle(bottomPoints[i],i);
+            }
+            new circle(topPoint,i);
+
+        },
+    showEdges: function(delay,startingDelay){
+            if(startingDelay == undefined)
+                startingDelay = 0;
+            var line = function(p1,p2,i) {
+                var anim = new AnimationHelper({});
+                anim.animate({
+                    style:{},
+                    duration:0,
+                    delay:startingDelay,
+                    init: function() {
+                        var path = new Path.Line(p1,p2);
+                        path.set_style(animationEdgesHighlightStyle);
+                        path.set_style({
+                            opacity:0
+                        });
+                        path.animate({
+                            style:{opacity:1},
+                            duration:0,//delay,
+                            delay:delay*i
+                        });
+                        path.animate({
+                            style:{opacity:0},
+                            duration:delay,
+                            delay:delay*14,
+                            callback:path.remove
+                        });
+                    }
+                })
+            }
+            var bottomPoints = this.surfaces.bottomSurface.get2DPoints(this.matrix);
+            var topPoint = this.surfaces.leftSurface.get2DPoints(this.matrix)[2];
+            var i = 0,j = 0,k = 0;
+            for (; i < bottomPoints.length; i++) {
+                new line(bottomPoints[i],bottomPoints[(i+1)%bottomPoints.length],i);
+            }
+            for (;j < bottomPoints.length ; j++,i++){
+                new line(bottomPoints[j],topPoint,i);
+            }
+        },
 	expand: function(style) {
 		switch (style) {
 			case 0:

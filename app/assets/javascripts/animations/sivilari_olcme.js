@@ -98,7 +98,7 @@ var Interaction = {
     },
     init:function(container){
         Interaction.container = container;
-        Main.setObjective('Yandaki birimleri birbirine dönüştürünüz.');
+        Main.setObjective('Yandaki dönüşümleri yapınız.');
         Interaction.paper = {
             width:$(container).width(),
             height:$(container).height()
@@ -133,27 +133,27 @@ var Interaction = {
             Interaction.answer = Interaction.question/100;
 
             Interaction.appendInput({
-                width: '54px',
+                width: '60px',
                 height: '32px',
                 textAlign: 'center',
                 position: 'absolute',
-                left: '93px',
+                left: '92px',
                 top: "8px",
                 fontSize: '20px',
             });
 
             Interaction.appendInput({
-                width: '54px',
+                width: '60px',
                 height: '32px',
                 textAlign: 'center',
                 position: 'absolute',
-                left: '93px',
+                left: '92px',
                 top: "52px",
                 fontSize: '20px',
             });
 
             Interaction.appendInput({
-                width: '62px',
+                width: '60px',
                 height: '32px',
                 textAlign: 'center',
                 position: 'absolute',
@@ -162,8 +162,8 @@ var Interaction = {
                 fontSize: '20px',
             });
 
-            $(Interaction.inputs[0]).attr('maxlength', '4')
-            $(Interaction.inputs[1]).attr('maxlength', '4')
+            $(Interaction.inputs[0]).attr('maxlength', '5')
+            $(Interaction.inputs[1]).attr('maxlength', '5')
             $(Interaction.inputs[2]).attr('maxlength', '5')
 
             $(Interaction.container).append('<div id="questionDiv"></div>');
@@ -203,7 +203,7 @@ var Interaction = {
             $('#line1').css("position","absolute")
                 .css("left", "92px")
                 .css("top", "46px")
-                .css("width", "58px")
+                .css("width", "62px")
                 .css("height", "1px")
                 .css("padding", 0)
                 .css("border-top", "2px solid")
@@ -262,28 +262,28 @@ var Interaction = {
             });
 
             Interaction.appendInput({
-                width: '54px',
+                width: '60px',
                 height: '32px',
                 textAlign: 'center',
                 position: 'absolute',
-                left: '172px',
+                left: '174px',
                 top: "32px",
                 fontSize: '20px',
             });
 
             Interaction.appendInput({
-                width: '62px',
+                width: '60px',
                 height: '32px',
                 textAlign: 'center',
                 position: 'absolute',
-                left: '282px',
+                left: '286px',
                 top: "32px",
                 fontSize: '20px',
             });
 
             $(Interaction.inputs[0]).attr('maxlength', '5')
-            $(Interaction.inputs[1]).attr('maxlength', '4')
-            $(Interaction.inputs[2]).attr('maxlength', '4')
+            $(Interaction.inputs[1]).attr('maxlength', '5')
+            $(Interaction.inputs[2]).attr('maxlength', '5')
 
             $(Interaction.container).append('<div id="questionDiv"></div>');
             $('#questionDiv').css("position", "absolute")
@@ -320,27 +320,27 @@ var Interaction = {
 
             $('#questionDiv').append('<p id="cross1" >x</p>');
             $('#cross1').css("position", "absolute")
-                .css("left", "156px")
+                .css("left", "158px")
                 .css("top", "38px");
 
             $('#questionDiv').append('<p id="answerU" >mL<p/>');
             $('#answerU').css("width", "32")
                 .css("height", "30")
                 .css("position", "absolute")
-                .css("left", "232px")
+                .css("left", "236px")
                 .css("top", "38px")
                 .css("text-align", "center");
 
             $('#questionDiv').append('<p id="equal2" >=</p>');
             $('#equal2').css("position", "absolute")
-                .css("left", "266px")
+                .css("left", "270px")
                 .css("top", "38px");
 
             $('#questionDiv').append('<p id="answerU2" >mL<p/>');
             $('#answerU2').css("width", "32")
                 .css("height", "30")
                 .css("position", "absolute")
-                .css("left", "352px")
+                .css("left", "354px")
                 .css("top", "38px")
                 .css("text-align", "center");
 

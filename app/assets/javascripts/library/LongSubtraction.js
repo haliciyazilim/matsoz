@@ -30,8 +30,8 @@ function LongSubtraction(cikan1, cikan2, div, fontSize){
             console.log(kesikIlk);
             console.log(kesikIkinci);
            
-            this.cikan1=parseInt((kesikIlk[0]+kesikIlk[1]),10);
-            this.cikan2=parseInt((kesikIkinci[0]+kesikIkinci[1]),10);
+            this.cikan1=(kesikIlk[0]+kesikIlk[1]);
+            this.cikan2=(kesikIkinci[0]+kesikIkinci[1]);
             
             console.log(this.cikan1+", "+this.cikan2);
             
@@ -41,9 +41,12 @@ function LongSubtraction(cikan1, cikan2, div, fontSize){
                 console.log(this.sonuc)
 
 		this.div="#"+div;
-		
+		if($(this.div).css('color') != undefined)
+            this.color = $(this.div).css('color');
+        else
+            this.color = '#000';
 		var sayilarFadeInRenk="#FF6600";
-		var sayilarFadeOutRenk="#000000";
+		var sayilarFadeOutRenk=this.color;
 		var oduncKontrolSayiRengi="#878787";
 		this.doldur=function(){
 	
@@ -82,11 +85,13 @@ function LongSubtraction(cikan1, cikan2, div, fontSize){
 			.css("height",this.fontSize*30/30)
 			.css("margin","auto")
 			.css("position","absolute")
+            .css('color',this.color)
 			//.css("bottom","20px")
 			//.css("left","0")
 			.css("right","0px")
 			.css("font-size",this.fontSize*30/30)
 			.css("border-bottom","solid 2px black")
+            .css('borderColor',this.color)
 			.css("top",this.fontSize*60/30)
 			.html("-");
 		$(this.div+" .sonuc").css("width",this.fontSize*100/30)
@@ -94,6 +99,7 @@ function LongSubtraction(cikan1, cikan2, div, fontSize){
 			.css("height",this.fontSize*30/30)
 			.css("margin","auto")
 			.css("position","absolute")
+            .css('color',this.color)
 			//.css("bottom","20px")
 			//.css("left","0")
 			.css("right","0px")
@@ -161,7 +167,7 @@ function LongSubtraction(cikan1, cikan2, div, fontSize){
                    
                 }
 		else{
-                    $(this.div+" #cikan1 #ilkBasamak3"+","+this.div+" #cikan2 #ikinciBasamak3"+","+this.div+" #odunctenSonra #odunctenSonraBasamak3"+","+this.div+" #sonuc #sonucBasamak3").css("margin-right",this.fontSize*15/30);
+                    $(this.div+" #cikan1 #ilkBasamak3"+","+this.div+" #cikan2 #ikinciBasamak3"+","+this.div+" #odunctenSonra #odunctenSonraBasamak3"+","+this.div+" #odunc #oduncBasamak3"+","+this.div+" #sonuc #sonucBasamak3").css("margin-right",this.fontSize*15/30);
                     
                     
                     $(this.div+" #cikan1",container).append("<div id='virgul1' class='virgul'>");
