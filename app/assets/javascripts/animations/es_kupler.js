@@ -199,6 +199,7 @@ var Interaction = {
 			Interaction.prepareNextQuestion();
 		},
 	nextQuestion:function(randomNumber){
+            console.log('random number is: '+randomNumber);
 			if(Interaction.pause == true)
 				return;
 			Interaction.pause = false;
@@ -241,19 +242,19 @@ var Interaction = {
             switch(randomNumber){
                 case 0:
                     for(i=0; i< Interaction.xCubes ; i++)
-                        cubes.push(new UnitCube(i-1,2,0));
+                        cubes.push(new UnitCube(i-1,0,0));
                     for(i=0; i< Interaction.yCubes ; i++)
-                        cubes.push(new UnitCube(0,2-(i+1),0));
+                        cubes.push(new UnitCube(0,(i+1),0));
                     for(i=0; i< Interaction.zCubes ; i++)
-                        cubes.push(new UnitCube(-Math.floor(i/3),2,i%3+1));
+                        cubes.push(new UnitCube(-Math.floor(i/3),0,i%3+1));
                     break;
                 case 1:
                     for(i=0; i< Interaction.xCubes ; i++)
-                        cubes.push(new UnitCube(i-1,2,2));
+                        cubes.push(new UnitCube(i-1,0,2));
                     for(i=0; i< Interaction.yCubes ; i++)
-                        cubes.push(new UnitCube(0,2-(i+1),2));
+                        cubes.push(new UnitCube(0,i+1,2));
                     for(i=0; i< Interaction.zCubes ; i++)
-                        cubes.push(new UnitCube(-Math.floor(i/3),2, - i%3+1));
+                        cubes.push(new UnitCube(-Math.floor(i/3),0, - i%3+1));
                     break;
                 case 2:
                     for(i=0; i< Interaction.xCubes ; i++)
