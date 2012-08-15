@@ -104,7 +104,7 @@ var Animation = {
 			$("#saglama, #saglama2, #islemKontrolu").delay(7500).animate({opacity:"1"},1000);
 	
 	
-	
+	Main.animationFinished(49000);
 	
 	}
 	
