@@ -32,10 +32,12 @@ Animation.init=function(container){
 	.css("left","290px")
 	.css("top","10px");
 
-        var islem=new LongMultiplication(109,457,"ornek",30);
+        var islem=new LongMultiplication(502,235,"ornek",30);
         //var islem=new LongMultiplication(178,172,"ornek");
         islem.doldur()
         islem.basla(1000,1000);
+        
+         Main.animationFinished(47000);
 
 };
 
