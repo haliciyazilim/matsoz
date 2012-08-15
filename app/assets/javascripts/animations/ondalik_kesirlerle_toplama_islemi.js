@@ -12,7 +12,6 @@ function __Styles(){
 		left:'250px',
 		fontSize:'24px',
 		textAlign:'right',
-		lineHeight:'40px',
         fontWeight:'bold',
 		fontFamily:"cursive",
 		zIndex:1,
@@ -32,28 +31,35 @@ var Animation = {
 			board.position = new Point(Math.floor(w*0.5),Math.floor(h*0.5)+2)
 			var div = document.createElement('div');
 			$(container).append(div);
-			$(div)
-				.append('<div id="addend1"><span class="3">2</span>,<span class="2">3</span><span class="1">8</span></div><div id="addend2"><span class="3">1</span>,<span class="2">2</span><span class="1">6</span></div><div id="line"><span>+</span></div><br/>')
-				.append('<div id="result"></div>')
-				.css(animationSubtractCss);
-			
-			$('#line',div).css({
-				height:'2px',
-				borderBottom:'2px solid '+ animationSubtractCss.color,
-				position:'relative',
-				top:'5px',
-				left:'15px'
-			});
-			
-			$('#line span',div).css({
-				position:'absolute',
-				top:'-35px',	
-				left:'10px'
-			});
-			$('#result').css({
-				position:'relative',
-				top:'-35px'
-			});
+            div.id = "animation_addition";
+            
+            $(div).css(animationSubtractCss);
+            var addition = new LongAddition(2.38,1.26,"animation_addition",24);
+            addition.doldur();
+            addition.basla(1000, 1000);
+            
+//			$(div)
+//				.append('<div id="addend1"><span class="3">2</span>,<span class="2">3</span><span class="1">8</span></div><div id="addend2"><span class="3">1</span>,<span class="2">2</span><span class="1">6</span></div><div id="line"><span>+</span></div><br/>')
+//				.append('<div id="result"></div>')
+//				.css(animationSubtractCss);
+//			
+//			$('#line',div).css({
+//				height:'2px',
+//				borderBottom:'2px solid '+ animationSubtractCss.color,
+//				position:'relative',
+//				top:'5px',
+//				left:'15px'
+//			});
+//			
+//			$('#line span',div).css({
+//				position:'absolute',
+//				top:'-35px',	
+//				left:'10px'
+//			});
+//			$('#result').css({
+//				position:'relative',
+//				top:'-35px'
+//			});
             var p1,p2,y1,r1,r2;
 			var size = new Size(40,40);
 			var segmRectSize = new Size(40,40)
