@@ -1354,20 +1354,24 @@ var Interaction = {
 		},
 	checkDatas: function(values){
 		var correctN = 0;
-		
+		console.log(values)
 		for(var i = 0; i < Interaction.datas.length; i++){
 			for(var j = 0; j < Interaction.datas.length; j++){
-				if(values[j] == Interaction.datas[i])
-					values[j] = -1;
+				if(values[j] == Interaction.datas[i]){
+					values[j] = "axxwt";
+                }
 			}
 		}
 		
 		for(var i = 0; i < Interaction.datas.length; i++){
-			if(values[j] == -1)
+            console.log(values[i]);
+			if(values[i] == "axxwt"){
 				correctN += 1;
+            }
 		}
+        console.log("correctN: "+correctN)
 		
-		if(correcN = Interaction.datas.length)
+		if(correctN == Interaction.datas.length)
 			return true;
 		else
 			return false;
