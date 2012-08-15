@@ -91,8 +91,6 @@ Interaction.init = function(container){
 	);
 	load_triangle_pyramid();
 	
-	//$('#slider').slider();
-	//var count =0;
 	Interaction._3d = {};
 	Interaction._3d.x=100;
 	Interaction._3d.y=100;
@@ -167,9 +165,6 @@ function load_triangle_pyramid(){
 	p[5] = new Point3(20, 0, 0);   // right bottom back
 	
 	p[2] = new Point3(0, 20, 0);   // right top    front
-	//p[3] = new Point3(-10, 20*Math.sqrt(3), -5);  // left  top    front
-	//p[6] = new Point3(10, 20*Math.sqrt(3), 10);    // right top    back
-	//p[7] = new Point3(-10, 20*Math.sqrt(3), 10);   // left  top    back
 	
 	p[3] = p[2];
 	p[6] = p[2];
