@@ -16,7 +16,11 @@ function __Styles(){
 		fontFamily:"cursive",
 		zIndex:1,
         color:'#fff'
-    }    
+    }
+
+    if(navigator.appName == "Microsoft Internet Explorer"){
+		animationSubtractCss.font = "arial";
+	}    
 }
 var Animation = {
 	images:[
