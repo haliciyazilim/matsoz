@@ -26,30 +26,30 @@ function __Styles(){
 	}
 	typeDivCss = {
 		position:'absolute',
-		color:'#c90',
-		border:'2px solid #c90',
-		backgroundColor:'#900',
 		width:'140px',
 		height:'50px',
 		top:'40px',
 		right:'100px',
 		fontWeight:'bold',
-		lineHeight:'46px',
-		textAlign:'center',
+		lineHeight:'36px',
+		textAlign:'left',
 		boxSizing:'border-box'
 	}
 	notExistDivCss = {
 		position:'absolute',
+        cursor:'pointer',
 		color:'#cfc',
-		border:'2px outset #afa',
+		border:'1px outset #afa',
 		backgroundColor:'#363',
+        fontWeight:'bold',
+        fontSize:'18px',
 		width:'70px',
-		height:'50px',
-		top:'40px',
-		right:'10px',
-		lineHeight:'46px',
+		height:'40px',
+		bottom:'70px',
+		right:'180px',
+		lineHeight:'40px',
 		textAlign:'center',
-		borderRadius:'25px',
+		borderRadius:'5px',
 		boxSizing:'border-box'
 	}
 	notExistDivSelectedCss = {
@@ -358,7 +358,7 @@ var Interaction = {
 			Main.interactionProject.activeLayer.removeChildren()
 			Interaction.notExistDiv.deselect();
 			Interaction.qType = Util.rand01()==0?Interaction._types.INTERSECTING:Interaction._types.PARALLEL;
-			$(Interaction.typeDiv).html(Interaction.qType);
+			$(Interaction.typeDiv).html(Interaction.qType+'<br/>var mıdır?');
 			/*<[[TestCode*/
 				//randomNumber = 7; 
 			/*TestCode]]>*/
