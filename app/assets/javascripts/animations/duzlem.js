@@ -26,13 +26,13 @@ function __Styles(){
 	}
 	typeDivCss = {
 		position:'absolute',
-		width:'140px',
+		width:'200px',
 		height:'50px',
 		top:'40px',
-		right:'100px',
-		fontWeight:'bold',
-		lineHeight:'36px',
-		textAlign:'left',
+		right:'50px',
+		lineHeight:'30px',
+        fontSize:'20px',
+		textAlign:'center',
 		boxSizing:'border-box'
 	}
 	notExistDivCss = {
@@ -45,7 +45,7 @@ function __Styles(){
         fontSize:'18px',
 		width:'70px',
 		height:'40px',
-		bottom:'70px',
+		bottom:'90px',
 		right:'180px',
 		lineHeight:'40px',
 		textAlign:'center',
@@ -301,7 +301,7 @@ var Interaction = {
 		},
 	init:function(container){
 			Interaction.container = container;
-			Main.setObjective('Yandaki geometrik cisimlerin istenen paralel ya da kesişen düzlem ikilisine fare ile tıklayarak gösteriniz. Olmayanlar için “Yok” düğmesine tıklayınız.');
+			Main.setObjective('Yandaki geometrik cisimlerin istenen paralel ya da kesişen düzlem ikilisine basarak gösteriniz. Olmayanlar için “Yok” düğmesine basıp daha sonra kontrol düğmesine basınız.');
 			Interaction.paper = {
 				width:$(container).width(),
 				height:$(container).height()
@@ -313,7 +313,7 @@ var Interaction = {
 				lineHeight:'20px'
 			});
 			Interaction.appendButton({
-				bottom:'70px',
+				bottom:'90px',
 				right:'40px'
 			});
 			Interaction.typeDiv = document.createElement('div');
@@ -358,7 +358,7 @@ var Interaction = {
 			Main.interactionProject.activeLayer.removeChildren()
 			Interaction.notExistDiv.deselect();
 			Interaction.qType = Util.rand01()==0?Interaction._types.INTERSECTING:Interaction._types.PARALLEL;
-			$(Interaction.typeDiv).html(Interaction.qType+'<br/>var mıdır?');
+			$(Interaction.typeDiv).html('<strong>'+Interaction.qType+'</strong><br/>var mıdır?');
 			/*<[[TestCode*/
 				//randomNumber = 7; 
 			/*TestCode]]>*/
