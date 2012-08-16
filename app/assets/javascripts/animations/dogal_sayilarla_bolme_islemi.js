@@ -3,7 +3,7 @@ var Animation = {
 		
 			// Örnek Divi
 		$(container).append("<div id='ornek'>");
-			$("#ornek").css("width","100px")
+			$("#ornek").css("width","110px")
 			.css("height","130px")
 			.css("margin","auto")
 			.css("position","absolute")
