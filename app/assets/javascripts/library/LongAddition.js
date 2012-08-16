@@ -27,16 +27,16 @@ function LongAddition(ilkDeger, ikinciDeger, div,fontSize){
 
         this.ilkDeger=(kesikIlk[0]+kesikIlk[1]);
         this.ikinciDeger=(kesikIkinci[0]+kesikIkinci[1]);
-        console.log("ilk Değer: "+this.ilkDeger);
-        console.log("ilk Değer: "+this.ikinciDeger);
+
     }
         
        
         
 
-	this.div="#"+div;
-	this.sonuc=parseInt(this.ilkDeger,10)+parseInt(this.ikinciDeger,10);
-	
+    this.div="#"+div;
+
+    this.sonuc=parseInt(this.ilkDeger,10)+parseInt(this.ikinciDeger,10);
+    
     if($(this.div).css('color') != undefined)
         this.color = $(this.div).css('color');
     else
