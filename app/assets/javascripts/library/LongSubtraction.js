@@ -6,7 +6,6 @@ function LongSubtraction(cikan1, cikan2, div, fontSize){
         
         this.ilk=cikan1.toString();
         this.ikinci=cikan2.toString();
-        
         this.floatKontrolu=this.ilk.indexOf(".");
         if (this.floatKontrolu==-1){
 
@@ -201,7 +200,7 @@ function LongSubtraction(cikan1, cikan2, div, fontSize){
 		
 
 		
-		this.basla=function(hizB,hizA){
+		this.basla=function(hizB,hizA,callback){
 			this.hizB=hizB;
 			this.hizA=hizA;
 
