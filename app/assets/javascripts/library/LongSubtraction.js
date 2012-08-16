@@ -430,7 +430,7 @@ function LongSubtraction(cikan1, cikan2, div, fontSize){
 				}
                                 
                                 if(i==uzunSayi)
-                                    $(this.div +" #virgul3").delay(sayac+this.hizB).animate({opacity:"1"},1000)
+                                    $(this.div +" #virgul3").delay(sayac+this.hizB).animate({opacity:"1"},1000,callback)
 			}
 			console.log("selma");
 			for(var i=5; i>0;i--){
