@@ -22,7 +22,7 @@ var Animation = {
 		$(container).append("<div id='bolen'>");
 			$("#bolen").css("width","55px")
 			.css("position","absolute")
-			.css("left","290px")
+			.css("left","310px")
 			.css("top","30px")
 			.css("font-size","12px")
 			.html("bölen");
@@ -30,7 +30,7 @@ var Animation = {
 		$(container).append("<div id='bolum'>");
 			$("#bolum").css("width","55px")
 			.css("position","absolute")
-			.css("left","290px")
+			.css("left","310px")
 			.css("top","56px")
 			.css("font-size","12px")
 			.html("bölüm");
