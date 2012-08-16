@@ -309,7 +309,7 @@ application.js: application-30939899585cf2854059a1905b2feb91.js
 main.js: main-7db6d8b753db48cd3f31f260f02443f9.js
 processFiles.sh: processFiles-79b648dcbce096681d6650d60495e4ac.sh
 stats/highcharts.js: stats/highcharts-4b26148a5a280ffedb7386e3d0c73c77.js
-stats/stats.js: stats/stats-624ec132f5d247ef06a9cea305d0871b.js
+stats/stats.js: stats/stats-eb0d5b2516a5bcc5dea1dcebc2e4d975.js
 application.css: application-66242ab2594dfc92bb0a60eb27893989.css
 images/ui-bg_diagonals-thick_90_eeeeee_40x40.png: images/ui-bg_diagonals-thick_90_eeeeee_40x40-530b731d5b81d8460898b8550857acbc.png
 images/ui-bg_flat_15_cd0a0a_40x100.png: images/ui-bg_flat_15_cd0a0a_40x100-48c5d20958f1a9d2c3b3f4432a8b6326.png
