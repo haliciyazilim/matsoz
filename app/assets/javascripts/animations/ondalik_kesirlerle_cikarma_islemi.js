@@ -19,7 +19,7 @@ function __Styles(){
     }
 
     if(navigator.appName == "Microsoft Internet Explorer"){
-		animationSubtractCss.font = "arial";
+		animationSubtractCss.fontFamily = "arial";
 	}    
 }
 var Animation = {
@@ -163,34 +163,7 @@ var Interaction = {
 			Interaction.input.selectorIndex = 0;
 			$(Interaction.input)
 				.attr('maxlength','7')
-                .keyup(function(event) {
-                    switch(event.keyCode){
-                        case 8:
-                            if(this.selectorIndex == 0)
-                                this.selectorIndex = 1;
-                            break;
-                        case 37:
-                            if(this.selectorIndex > 0)
-                                this.selectorIndex--;
-                            break;
-                        case 39:
-                            if(this.selectorIndex < this.value.length)
-                                this.selectorIndex++
-                            break;
-                            
-                    }
-					if(this.createTextRange){
-						var textRange = node.createTextRange();
-						textRange.collapse(true);
-						textRange.moveEnd(this.selectorIndex);
-						textRange.moveStart(this.selectorIndex);
-						textRange.select();
-						return true;
-					}else if(this.setSelectionRange){
-						this.setSelectionRange(this.selectorIndex,this.selectorIndex);
-						return true;
-					}
-                })
+                .keyup(InputReverseWriteable)
 				
 			var div = document.createElement('div');
 			$(container).append(div);
