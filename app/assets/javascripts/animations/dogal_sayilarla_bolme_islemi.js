@@ -93,18 +93,18 @@ var Animation = {
         
 	Animation.ornekIslem = new LongDivision(8357,32,"#ornek");
 			setTimeout('Animation.ornekIslem.nextStep(1000);',1000);
+			setTimeout('Animation.ornekIslem.nextStep(1000);',2000);
 			setTimeout('Animation.ornekIslem.nextStep(1000);',3000);
-			setTimeout('Animation.ornekIslem.nextStep(1000);',5000);
-			setTimeout('Animation.ornekIslem.nextStep(1000);',7000);
-			$("#kalan").delay(7000).animate({opacity:"1"},1000);
-                        setTimeout('Animation.islem.doldur()',8000);
-                        setTimeout('Animation.islem.basla(1000,1000);',8000);
-                        setTimeout('Animation.toplamaIslemi.doldur();',40000);
-                        setTimeout('Animation.toplamaIslemi.basla(1000,1000);',40000);
-			$("#saglama, #saglama2, #islemKontrolu").delay(7500).animate({opacity:"1"},1000);
+			setTimeout('Animation.ornekIslem.nextStep(1000);',4000);
+			$("#kalan").delay(4000).animate({opacity:"1"},1000);
+                        setTimeout('Animation.islem.doldur()',5000);
+                        setTimeout('Animation.islem.basla(500,500);',5000);
+                        setTimeout('Animation.toplamaIslemi.doldur();',27000);
+                        setTimeout('Animation.toplamaIslemi.basla(500,500);',27000);
+			$("#saglama, #saglama2, #islemKontrolu").delay(4500).animate({opacity:"1"},1000);
 	
 	
-	Main.animationFinished(49000);
+	Main.animationFinished(33000);
 	
 	}
 	
