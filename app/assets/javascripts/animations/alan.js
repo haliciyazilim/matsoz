@@ -330,7 +330,7 @@ TestGenerator.nextQuestion = function(){
 	var m = Math.floor(Math.random()*2);
 	TestGenerator.setMeasure(m);
 	TestGenerator.letters = (Math.random()>0.5 ? ["A","B","C","D","E"]:["K","L","M","N","P"]);
-	/*TEST*/TestGenerator.shape = 0;/*TEST*/
+//	/*TEST*/TestGenerator.shape = 3;/*TEST*/
 	
 	switch(TestGenerator.shape){
 		case 0:
@@ -400,32 +400,32 @@ TestGenerator.showSolution = function(){
     switch(TestGenerator.shape){
 
         case 0:
-
             $("#0",solution).html(TestGenerator.values.a);
             $("#2",solution).html(TestGenerator.values.a);
             $("#4",solution).html(TestGenerator.values.area);
             break;
 
         case 1:
-//            TestGenerator.values = {a:a,b:b,area:a*b};
-
+            $("#0",solution).html(TestGenerator.values.a);
+            $("#2",solution).html(TestGenerator.values.b);
+            $("#4",solution).html(TestGenerator.values.area);
             break;
 
         case 2:
-//            TestGenerator.values = {a:a,b:b,H:H,area:(a+b)*H};
-
+            $("#0",solution).html(TestGenerator.values.a+TestGenerator.values.b);
+            $("#2",solution).html(TestGenerator.values.H);
+            $("#4",solution).html(TestGenerator.values.area);
             break;
 
         case 3:
-//            TestGenerator.values = {a:a,b:b,H:H,area:(a+b)*H*0.5};
-
+            $("#0",solution).html(TestGenerator.values.a+TestGenerator.values.b);
+            $("#2",solution).html(TestGenerator.values.H + ' x 1/2');
+            $("#4",solution).html(TestGenerator.values.area);
             break;
     }
 
     for(var i=0;i<5;i++)
         $("#"+i,solution).css({opacity:0}).delay(1000*i).animate({opacity:1},1000,(i==4?Interaction.resume:undefined));
-
-
 }
 TestGenerator.checkAnswer = function(){
     if(Interaction.isPaused())
