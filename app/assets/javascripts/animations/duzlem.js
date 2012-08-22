@@ -98,7 +98,8 @@ var Animation = {
 				x2: -100,
 				y2: 90,
 				rotation: 0,
-				offsetY: 0
+				rotation2: 0,
+				lineOpacity: -2
 			})
 
 			var matrix;
@@ -355,11 +356,19 @@ var Animation = {
 			})
 
 
+			var p1 = new Point3(-animationHelper.width, animationHelper.height, 0)
+			var p2 = new Point3( animationHelper.width, animationHelper.height, 0)
+			var m = Util.createProjectionMatrixForObjectAt(312, 90);
+			var pp1 = Util.project(p1, m);
+			var pp2 = Util.project(p2, m);			
+			var line = new Path.Line(pp1, pp2);
+			line.strokeColor = 'red';
+			line.opacity = 0;
 
 			animationHelper.animate({
 				style: {
 					rotation: Math.PI*3.5,
-					offsetY: 30
+					lineOpacity: 1
 				},
 				duration: 1000,
 				delay: totalDelay += 2000 + 1000,
@@ -370,22 +379,22 @@ var Animation = {
 					}, 1000);
 				},
 				update: function() {
-					surface1.pivotsX[0] = new Point3(0, this.offsetY, animationHelper.length - animationHelper.height);
-
+					surface1.pivotsX[0] = new Point3(0, -animationHelper.height, 0);
+					
 					surface1.rotationsX[0] = this.rotation;
 
 					surface1.points = [
-						new Point3(-animationHelper.width, -animationHelper.height + this.offsetY, -animationHelper.length),
-						new Point3( animationHelper.width, -animationHelper.height + this.offsetY, -animationHelper.length),
-						new Point3( animationHelper.width, -animationHelper.height + this.offsetY,  animationHelper.length),
-						new Point3(-animationHelper.width, -animationHelper.height + this.offsetY,  animationHelper.length)
+						new Point3(-animationHelper.width, -animationHelper.height, -animationHelper.length),
+						new Point3( animationHelper.width, -animationHelper.height, -animationHelper.length),
+						new Point3( animationHelper.width, -animationHelper.height,  animationHelper.length),
+						new Point3(-animationHelper.width, -animationHelper.height,  animationHelper.length)
 					];
 
 					surface2.points = [
-						new Point3(-animationHelper.width, animationHelper.height + this.offsetY, -animationHelper.length),
-						new Point3( animationHelper.width, animationHelper.height + this.offsetY, -animationHelper.length),
-						new Point3( animationHelper.width, animationHelper.height + this.offsetY,  animationHelper.length),
-						new Point3(-animationHelper.width, animationHelper.height + this.offsetY,  animationHelper.length)
+						new Point3(-animationHelper.width, animationHelper.height, -animationHelper.length),
+						new Point3( animationHelper.width, animationHelper.height, -animationHelper.length),
+						new Point3( animationHelper.width, animationHelper.height,  animationHelper.length),
+						new Point3(-animationHelper.width, animationHelper.height,  animationHelper.length)
 					];
 
 					var path1 = surface1.project(matrix);
@@ -393,6 +402,162 @@ var Animation = {
 
 					var path2 = surface2.project(matrix);
 					path2.set_style(planeStyle2);
+					
+					if (this.lineOpacity > 0) {
+						line.remove();
+						line = new Path.Line(pp1, pp2);
+						line.strokeColor = 'red';
+						line.opacity = this.lineOpacity;						
+					}
+				}
+			})
+			
+			
+			animationHelper.animate({
+				style: {
+					rotation2: Math.PI*2
+				},
+				duration: 3000,
+				delay: totalDelay += 1000,
+				animationType: 'easeInEaseOut',
+				init: function() {
+					$("#intersecting").animate({
+						opacity: 1
+					}, 1000);
+				},
+				update: function() {
+					surface1.pivotsX[1] = new Point3(0, 0, 0);
+					surface2.pivotsX[0] = new Point3(0, 0, 0);
+					
+					surface1.rotationsX[1] = this.rotation2;
+					surface2.rotationsX[0] = this.rotation2;
+
+					surface1.points = [
+						new Point3(-animationHelper.width, -animationHelper.height, -animationHelper.length),
+						new Point3( animationHelper.width, -animationHelper.height, -animationHelper.length),
+						new Point3( animationHelper.width, -animationHelper.height,  animationHelper.length),
+						new Point3(-animationHelper.width, -animationHelper.height,  animationHelper.length)
+					];
+
+					surface2.points = [
+						new Point3(-animationHelper.width, animationHelper.height, -animationHelper.length),
+						new Point3( animationHelper.width, animationHelper.height, -animationHelper.length),
+						new Point3( animationHelper.width, animationHelper.height,  animationHelper.length),
+						new Point3(-animationHelper.width, animationHelper.height,  animationHelper.length)
+					];
+
+					var path1 = surface1.project(matrix);
+					path1.set_style(planeStyle1);
+
+					var path2 = surface2.project(matrix);
+					path2.set_style(planeStyle2);
+					
+					if (this.lineOpacity > 0) {
+						line.remove();
+						
+						pp1 = Util.project(p1.getRotatedPointByX(this.rotation2), m);
+						pp2 = Util.project(p2.getRotatedPointByX(this.rotation2), m);
+						
+						line = new Path.Line(pp1, pp2);
+						line.strokeColor = 'red';
+						line.opacity = this.lineOpacity;						
+					}
+				}
+			})
+			
+			animationHelper.animate({
+				style: {
+					width: 600,
+					length: 300
+				},
+				duration: 2000,
+				delay: totalDelay += 3000,
+				animationType: 'easeInEaseOut',
+				init: function() {
+					$("#intersecting").animate({
+						opacity: 1
+					}, 1000);
+				},
+				update: function() {
+
+					surface1.points = [
+						new Point3(-animationHelper.width, -animationHelper.height, -animationHelper.length),
+						new Point3( animationHelper.width, -animationHelper.height, -animationHelper.length),
+						new Point3( animationHelper.width, -animationHelper.height,  animationHelper.length),
+						new Point3(-animationHelper.width, -animationHelper.height,  animationHelper.length)
+					];
+
+					surface2.points = [
+						new Point3(-animationHelper.width, animationHelper.height, -animationHelper.length),
+						new Point3( animationHelper.width, animationHelper.height, -animationHelper.length),
+						new Point3( animationHelper.width, animationHelper.height,  animationHelper.length),
+						new Point3(-animationHelper.width, animationHelper.height,  animationHelper.length)
+					];
+
+					var path1 = surface1.project(matrix);
+					path1.set_style(planeStyle1);
+
+					var path2 = surface2.project(matrix);
+					path2.set_style(planeStyle2);
+					
+					line.remove();
+					
+					p1 = new Point3(-animationHelper.width, animationHelper.height, 0)
+					p2 = new Point3( animationHelper.width, animationHelper.height, 0)
+					pp1 = Util.project(p1, m);
+					pp2 = Util.project(p2, m);
+					
+					line = new Path.Line(pp1, pp2);
+					line.strokeColor = 'red';
+					
+				}
+			})
+			
+			animationHelper.animate({
+				style: {
+					width: 100,
+					length: 50
+				},
+				duration: 2000,
+				delay: totalDelay += 2000,
+				animationType: 'easeInEaseOut',
+				init: function() {
+					$("#intersecting").animate({
+						opacity: 1
+					}, 1000);
+				},
+				update: function() {
+
+					surface1.points = [
+						new Point3(-animationHelper.width, -animationHelper.height, -animationHelper.length),
+						new Point3( animationHelper.width, -animationHelper.height, -animationHelper.length),
+						new Point3( animationHelper.width, -animationHelper.height,  animationHelper.length),
+						new Point3(-animationHelper.width, -animationHelper.height,  animationHelper.length)
+					];
+
+					surface2.points = [
+						new Point3(-animationHelper.width, animationHelper.height, -animationHelper.length),
+						new Point3( animationHelper.width, animationHelper.height, -animationHelper.length),
+						new Point3( animationHelper.width, animationHelper.height,  animationHelper.length),
+						new Point3(-animationHelper.width, animationHelper.height,  animationHelper.length)
+					];
+
+					var path1 = surface1.project(matrix);
+					path1.set_style(planeStyle1);
+
+					var path2 = surface2.project(matrix);
+					path2.set_style(planeStyle2);
+					
+					line.remove();
+					
+					p1 = new Point3(-animationHelper.width, animationHelper.height, 0)
+					p2 = new Point3( animationHelper.width, animationHelper.height, 0)
+					pp1 = Util.project(p1, m);
+					pp2 = Util.project(p2, m);
+					
+					line = new Path.Line(pp1, pp2);
+					line.strokeColor = 'red';
+					
 				},
 				callback: Main.animationFinished
 			})
