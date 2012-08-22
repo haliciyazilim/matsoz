@@ -1,6 +1,14 @@
 // JavaScript Document
 
 /*Styles*/
+var solutionCSS = {
+    position:'absolute',
+    bottom:'40px',
+    right:'60px',
+    color:'green',
+    fontSize:'16px',
+    fontWeight:'bold'
+};
 var textStyle = {'font-size':'16px'};
 var edgeStyle = {
 	strokeColor:'#255b63',
@@ -306,6 +314,7 @@ TestGenerator.nextQuestion = function(){
 		if(e.keyCode == 13)
 			TestGenerator.checkAnswer();		
 	}
+    $(TestGenerator.solution).remove();
 	TestGenerator.shape = null;
 	TestGenerator.trial = 0;
 	TestGenerator.values = null;
@@ -321,7 +330,7 @@ TestGenerator.nextQuestion = function(){
 	var m = Math.floor(Math.random()*2);
 	TestGenerator.setMeasure(m);
 	TestGenerator.letters = (Math.random()>0.5 ? ["A","B","C","D","E"]:["K","L","M","N","P"]);
-	//*TEST*/TestGenerator.shape = 3;/*TEST*/
+	/*TEST*/TestGenerator.shape = 0;/*TEST*/
 	
 	switch(TestGenerator.shape){
 		case 0:
@@ -369,14 +378,58 @@ TestGenerator.setMeasure = function(m){
 }
 TestGenerator.getMeasure = function(){
 	if(TestGenerator.measure == null || TestGenerator.measure == 'undefined')
-		throw 'TestGenerator.values.m is not defined';
+		throw 'TestGenerator.measure is not defined';
 	if(TestGenerator.measure == 0)
 		return 'cm';
 	else
 		return 'm';
 };
+TestGenerator.showSolution = function(){
+    Interaction.pause();
+    var solution = Util.dom({
+        tag:'div',
+        parent:Interaction.container,
+        css:solutionCSS,
+        html:'<span id="0"></span><span id="1">&nbsp;x&nbsp;</span><span id="2"></span><span id="3">&nbsp;=&nbsp;</span><span id="4"></span>'
+    });
+    TestGenerator.solution = solution;
 
+
+    $(solution).html();
+
+    switch(TestGenerator.shape){
+
+        case 0:
+
+            $("#0",solution).html(TestGenerator.values.a);
+            $("#2",solution).html(TestGenerator.values.a);
+            $("#4",solution).html(TestGenerator.values.area);
+            break;
+
+        case 1:
+//            TestGenerator.values = {a:a,b:b,area:a*b};
+
+            break;
+
+        case 2:
+//            TestGenerator.values = {a:a,b:b,H:H,area:(a+b)*H};
+
+            break;
+
+        case 3:
+//            TestGenerator.values = {a:a,b:b,H:H,area:(a+b)*H*0.5};
+
+            break;
+    }
+
+    for(var i=0;i<5;i++)
+        $("#"+i,solution).css({opacity:0}).delay(1000*i).animate({opacity:1},1000,(i==4?Interaction.resume:undefined));
+
+
+}
 TestGenerator.checkAnswer = function(){
+    if(Interaction.isPaused())
+        return;
 	//check the answer
 	var value = Interaction.input.value;
 	var isWrong = false;
@@ -405,11 +458,13 @@ TestGenerator.checkAnswer = function(){
 		Interaction.input.onkeyup = TestGenerator.nextQuestion;
 		//Interaction.button.value = 'Sonraki';
 		Interaction.button.className = 'next_button';
+        TestGenerator.showSolution();
 	}	
 	else{
 		TestGenerator.trial++;
 	}
 }
+
 TestGenerator.printVertexLetters = function(p){
 	for(var i=0; i<p.length;i++){
 		var text = new PointText(p[i]);
