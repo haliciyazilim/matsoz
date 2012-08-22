@@ -314,7 +314,7 @@ interactionInit = function(container) {
 				correctCircle.remove();
 			}
 			correctCircle = new Path.Circle(graph.getXYCoordinate(randomDay, data[randomDay] - 90), 6);
-			correctCircle.fillColor = 'red';
+			correctCircle.fillColor = 'green';
 			
 			$('#status').html('<span class="status_true">Tebrikler!</span>');
 			$('#submitButton').get(0).className = "next_button";
@@ -337,7 +337,7 @@ interactionInit = function(container) {
 					correctCircle.remove();
 				}
 				correctCircle = new Path.Circle(graph.getXYCoordinate(randomDay, data[randomDay] - 90), 6);
-				correctCircle.fillColor = 'red';
+				correctCircle.fillColor = 'green';
 				$('#status').html('<span class="status_false">Olmadı!</span>');
 				$('#textInput').val(correctAnswer);
 				$('#submitButton').get(0).className = "next_button";
@@ -436,11 +436,11 @@ paperAddOns = function () {
 		
 		// Grid Labels
 		for (index = 0; index < numOfXPoints; index++) {
-			var xOffset = -3;
+			var xOffset = -3 + 6;
 			var yOffset = 15;
 			
 			if (xGridLabelStyle.rotation == 90) {
-				xOffset = 2.5;
+				xOffset = 2.5 + 5;
 				yOffset = 5.5;
 			}
 			
