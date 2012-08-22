@@ -314,7 +314,7 @@ var Interaction = {
 				fontSize:'16px'
 			})
 			.html('π’nin yaklaşık değeri = ');
-		;
+
 		Interaction.pause = false;
 		Interaction.drawRuler(10,10);
 		Interaction.nextQuestion();
