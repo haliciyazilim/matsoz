@@ -462,7 +462,6 @@ TestGenerator.checkAnswer = function(){
 		Interaction.setStatus('Tebrikler !',true);
 		Interaction.button.onclick = TestGenerator.nextQuestion;
 		Interaction.input.onkeyup = TestGenerator.nextQuestion;
-		//Interaction.button.value = 'Sonraki';
 		Interaction.button.className = 'next_button';
 	}
 	else{
@@ -476,7 +475,6 @@ TestGenerator.checkAnswer = function(){
 		Interaction.setStatus('Yanlış. Doğru cevap: '+TestGenerator.values.area+' '+TestGenerator.getMeasure() + '²',false);
 		Interaction.button.onclick = TestGenerator.nextQuestion;
 		Interaction.input.onkeyup = TestGenerator.nextQuestion;
-		//Interaction.button.value = 'Sonraki';
 		Interaction.button.className = 'next_button';
         TestGenerator.showSolution();
 	}	
