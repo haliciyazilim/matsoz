@@ -318,6 +318,8 @@ Interaction.setStatus = function(str,cls){
 var TestGenerator = {};
 
 TestGenerator.nextQuestion = function(){
+    if(Interaction.isPaused())
+        return;
 	Interaction.input.onkeyup = function(e){
 		//console.log(e.keyCode)
 		if(e.keyCode == 13)
@@ -402,10 +404,6 @@ TestGenerator.showSolution = function(){
         html:'<span id="0"></span><span id="1">&nbsp;x&nbsp;</span><span id="2"></span><span id="3">&nbsp;=&nbsp;</span><span id="4"></span>'
     });
     TestGenerator.solution = solution;
-
-
-    $(solution).html();
-
     switch(TestGenerator.shape){
 
         case 0:
@@ -427,10 +425,23 @@ TestGenerator.showSolution = function(){
             break;
 
         case 3:
-            $("#0",solution).html(TestGenerator.values.a+TestGenerator.values.b);
-            $("#2",solution).html(TestGenerator.values.H + ' x 1/2');
+            var style = {position:'relative',top:'-8px'};
+            $("#0",solution).css(style).html(TestGenerator.values.a+TestGenerator.values.b);
+            $("#1",solution).css(style);
+            $("#2",solution).css(style).html(TestGenerator.values.H);
+            $(solution).append('<div></div>');
+            $('div',solution).css({
+                position:'absolute',
+                width:$("#0",solution).width()+$("#1",solution).width()+$("#2",solution).width(),
+                borderTop:'1px solid green',
+                textAlign:'center',
+                height:'30px',
+                top:'7px',
+                left:'0px'
+            }).html(2)
             $("#4",solution).html(TestGenerator.values.area);
             break;
+
     }
 
     for(var i=0;i<5;i++)
@@ -451,7 +462,6 @@ TestGenerator.checkAnswer = function(){
 		Interaction.setStatus('Tebrikler !',true);
 		Interaction.button.onclick = TestGenerator.nextQuestion;
 		Interaction.input.onkeyup = TestGenerator.nextQuestion;
-		//Interaction.button.value = 'Sonraki';
 		Interaction.button.className = 'next_button';
 	}
 	else{
@@ -465,7 +475,6 @@ TestGenerator.checkAnswer = function(){
 		Interaction.setStatus('Yanlış. Doğru cevap: '+TestGenerator.values.area+' '+TestGenerator.getMeasure() + '²',false);
 		Interaction.button.onclick = TestGenerator.nextQuestion;
 		Interaction.input.onkeyup = TestGenerator.nextQuestion;
-		//Interaction.button.value = 'Sonraki';
 		Interaction.button.className = 'next_button';
         TestGenerator.showSolution();
 	}	
