@@ -32,33 +32,35 @@ var Animation = {
 			this.textHTML = textHTML
 			this.shape = null;
 			this.draw = function(){
+                if(this.shape)
+                    this.shape.remove();
 				this.shape = new Path();
 				for(var i=0; i < this.staticPoints.length; i++){
 					this.shape.add(this.staticPoints[i]);
 				}
 				this.shape.add(this.staticPoints[0]);
-				this.shape.set_style(style1);			
+				this.shape.set_style(this.style1);
 			}
+            this.animate({
+                style:{},
+                duration:0,
+                delay:delay,
+                init:this.draw
+            })
 			if(delay == null || delay == undefined)
 				this.delay = 0;
 			this.startAnimation = function(){
-				var anim = new AnimationHelper({
-					textHTML:this.textHTML,
-					style1:style1,
-					style2:style2,
-					shape:this.shape,
-					pointsLength:this.staticPoints.length,
-				});
+                this.pointsLength=this.staticPoints.length;
 				for(var i=0; i<this.staticPoints.length; i++)
-					anim["point"+i] = this.staticPoints[i];
-				for(var key in style1)
-					anim[key] = style1[key];
+					this["point"+i] = this.staticPoints[i];
+				for(var key in this.style1)
+					this[key] = this.style1[key];
 				var style = {};
 				for(var i=0; i<this.relativePoints.length; i++)
-					style["point"+i] = this.relativePoints[i];	
+					style["point"+i] = this.relativePoints[i];
 				for(var key in this.style2)
 					style[key] = this.style2[key];
-				anim.animate({
+				this.animate({
 					style:style,
 					duration:this.duration,
 					delay:this.delay,
@@ -71,8 +73,9 @@ var Animation = {
 							this.shape.add(this["point"+i]);
 						}
 						this.shape.add(this["point0"]);
-						this.shape.set_style(this.style1);
-						//console.log(this.fillColor);
+                        this.shape.set_style(this.style1);
+                        if(this.opacity)
+                            this.shape.set_style({opacity:this.opacity});
 						this.shape.fillColor = this.fillColor;
 								
 					},
@@ -138,12 +141,12 @@ var Animation = {
 				});	
 			};
 		}
+        ShapeShifter.prototype.animate = Item.prototype.animate;
 		Animation.container = container;
 		var w=$(container).width(), h=$(container).height();
 		var p = new Point(w*0.5-350+0.5,h*0.5-90)
 		var a = 35;
 		Animation.gridSize = a;
-		
 		//draw grids
 		for(var i=1;i<4;i++)
 			new Path.Line(
@@ -155,9 +158,6 @@ var Animation = {
 				new Point(p.x+a*i,p.y),
 				new Point(p.x+a*i,p.y+140)
 			).set_style(gridLineStyle);
-		
-		
-		
 		var square = new ShapeShifter(
 			[
 				new Point(p.x+a*1,p.y+a*1),
@@ -180,7 +180,6 @@ var Animation = {
 			
 		);
 		square.startAnimation();
-		
 		var rectangle = new ShapeShifter(
 			[
 				new Point(p.x+a*5,p.y+a*1),
@@ -202,7 +201,6 @@ var Animation = {
 			'Dikdörtgensel Bölge<br/> A = <span id="1" lineFrom="0,0" lineTo="0,2" >2br</span> x <span id="2" lineFrom="0,2" lineTo="3,2" >3br</span> = 6br²'
 		);
 		rectangle.startAnimation();
-		
 		var rhomboid = new ShapeShifter(
 			[
 				new Point(p.x+a*10,p.y+a*1),
@@ -224,37 +222,50 @@ var Animation = {
 			'Paralelkenarsal Bölge<br/> A = <span id="1" lineFrom="0,0" lineTo="0,2" >2br</span> x <span id="2" lineFrom="-1,2" lineTo="2,2" >3br</span> = 6br²'
 		);
 		rhomboid.startAnimation();
-		
-		var triangle = new ShapeShifter(
-			[
-				new Point(p.x+a*17,p.y+a*1),
-				new Point(p.x+a*20,p.y+a*1),
-				new Point(p.x+a*19,p.y+a*3),
-				new Point(p.x+a*17,p.y+a*1),
-				new Point(p.x+a*19,p.y+a*3),
-				new Point(p.x+a*16,p.y+a*3),
-			],
-			[
-				new Point(p.x+a*17,p.y+a*1),
-				new Point(p.x+a*18,p.y+a*2),
-				new Point(p.x+a*19,p.y+a*3),
-				new Point(p.x+a*17,p.y+a*1),
-				new Point(p.x+a*19,p.y+a*3),
-				new Point(p.x+a*16,p.y+a*3),
-			
-			],
-			{strokeColor:"#000",strokeWidth:2,fillColor:new RgbColor(0.5,0.7,1,0.5)},
-			{fillColor:new RgbColor(1,1,0.7,0.5)},
-			1500,
-			12000,
-			'Üçgensel Bölge<br/><span style="position:relative;top:10px;"> A =</span><span id="2" lineFrom="-1,2" lineTo="2,2" >3br</span> x <span id="1" lineFrom="0,0" lineTo="0,2" >2br</span><span style="position:relative;top:10px;"> = 3br²</span><br/><div style="position:relative;height:20px;width:50px;border-top:1px solid #000;left:30px;text-align:center;">2</div>'
-		);
-		triangle.startAnimation();
+
+        var triangle1 = new ShapeShifter(
+            [
+                new Point(p.x+a*17,p.y+a*1),
+                new Point(p.x+a*20,p.y+a*1),
+                new Point(p.x+a*19,p.y+a*3),
+                new Point(p.x+a*16,p.y+a*3)
+            ],
+            [
+                new Point(p.x+a*17,p.y+a*1),
+                new Point(p.x+a*20,p.y+a*1),
+                new Point(p.x+a*19,p.y+a*3),
+                new Point(p.x+a*16,p.y+a*3)
+            ],
+            {strokeColor:"#000",strokeWidth:2,fillColor:new RgbColor(0.5,0.7,1,0.5),opacity:1},
+            {fillColor:new RgbColor(1,1,0.7,0.5),opacity:0},
+            1500,
+            12000
+        );
+        triangle1.startAnimation()
+        var triangle2 = new ShapeShifter(
+            [
+                new Point(p.x+a*17,p.y+a*1),
+                new Point(p.x+a*17,p.y+a*1),
+                new Point(p.x+a*19,p.y+a*3),
+                new Point(p.x+a*16,p.y+a*3)
+            ],
+            [
+                new Point(p.x+a*17,p.y+a*1),
+                new Point(p.x+a*17,p.y+a*1),
+                new Point(p.x+a*19,p.y+a*3),
+                new Point(p.x+a*16,p.y+a*3)
+            ],
+            {strokeColor:"#000",strokeWidth:2,fillColor:new RgbColor(0.5,0.7,1,0.5)},
+            {fillColor:new RgbColor(1,1,0.7,0.5)},
+            1500,
+            13000,
+            'Üçgensel Bölge<br/><span style="position:relative;top:10px;"> A =</span><span id="1" lineFrom="0,0" lineTo="0,2" >2br</span> x <span id="2" lineFrom="-1,2" lineTo="2,2" >3br</span><span style="position:relative;top:10px;"> = 3br²</span><br/><div style="position:relative;height:20px;width:50px;border-top:1px solid #000;left:30px;text-align:center;">2</div>'
+        );
+		triangle2.startAnimation();
         Main.animationFinished(17000);
-		
 	}
 };
-var Interaction =function(){};Interaction();
+var Interaction = {};
 Interaction.images = [
 	{
 		id : 'curve',
