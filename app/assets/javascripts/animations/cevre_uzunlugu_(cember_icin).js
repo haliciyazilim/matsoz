@@ -1,6 +1,12 @@
-
-
 /*Styles*/
+var solutionCSS = {
+    position:'absolute',
+    bottom:'10px',
+    right:'117px',
+    color:'green',
+    fontSize:'16px',
+    fontWeight:'bold'
+};
 var triangleStyle = {
 	'fill': '#f55',
 	'stroke-width':'2px'
@@ -40,9 +46,7 @@ var animationEdgeStyle = {
 }
 /*Styles*/
 
-
 var Animation = {
-
 	init:function(container){
 		Animation.container = container;
 		var w=$(container).width(), h=$(container).height();
@@ -256,15 +260,16 @@ Interaction.init = function(container){
 	Main.setObjective('Yandaki çemberin yarıçapını cetvel yardımıyla ölçünüz ve çevresini hesaplayınız. Bulduğunuz sonucu aşağıdaki kutucuğa yazınız ve “Kontrol” düğmesine basınız. <span style="font-weight:bold;">(π = 3 alınız.)</span>');
 	Interaction.container = container;
 	$(Interaction.container).append('<div id="B" style="position:absolute; top:70%; left:0%; width:100%; "></div>');
-	//Interaction.paper = new Raphael( $('div#T',Interaction.container).get(0) ,$('div#T',Interaction.container).width(),$(Interaction.container).height()*0.6);
-	Interaction.paper = {width:$(container).width(),height:$(container).height()}
+
+	Interaction.paper = {width:$(container).width(),height:$(container).height()};
 	$('div#B',Interaction.container).html('<div style="text-align:right;padding-right:130px;position:relative;top:-20px;">Çevre&nbsp;=&nbsp;<input type="text" style="width:35px;height:30px;font-size:16px;font-weight:bold;text-align:center;" id="input" maxlength="3" />&nbsp;br</div><div style="text-align:right;"><span id="status" style="position:relative;top:10px;"></span>&emsp;<input type="button" id="control" class="control_button" onclick="Interaction.checkAnswer()" /></div>');
 	Interaction.status = $('#status').get(0);
 	Interaction.control = $('#control',Interaction.container).get(0);
 	Interaction.input = $('#input',Interaction.container).get(0);
 	Interaction.drawRuler();
-	Interaction.nextQuestion();
+	Interaction.prepareNextQuestion();
 }
+
 Interaction.generateCircle = function(){
 	var x,y,r;
 	x = Interaction.paper.width*0.3;
@@ -300,9 +305,13 @@ Interaction.generateCircle = function(){
 	}
 	
 }
+
 Interaction.nextQuestion = function(){
+    if(Interaction.isPaused())
+        return;
 	if(Interaction.circleSet)
 		Interaction.circleSet.remove();
+    $(Interaction.solution).remove();
 	Interaction.control.onclick = Interaction.checkAnswer;
 	Interaction.control.className = 'control_button';
 	Interaction.input.value = '';
@@ -326,6 +335,24 @@ Interaction.nextQuestion = function(){
 	Interaction.odx=0;
 	Interaction.ody=0;
 }
+
+Interaction.showSolution = function(){
+    Interaction.pause();
+    var solution = Util.dom({
+        tag:'div',
+        parent:Interaction.container,
+        css:solutionCSS,
+        html:'<span id="0"></span><span id="1">&nbsp;x&nbsp;</span><span id="2"></span><span id="3">&nbsp;=&nbsp;</span><span id="4"></span>'
+    });//2 * Interaction.r * 3 / Interaction.br
+    Interaction.solution = solution;
+    $(solution).html();
+    $("#0",solution).html(Interaction.r / Interaction.br);
+    $("#2",solution).html('3 x 2');
+    $("#4",solution).html(2 * Interaction.r * 3 / Interaction.br);
+    for(var i=0;i<5;i++)
+        $("#"+i,solution).css({opacity:0}).delay(1000*i).animate({opacity:1},1000,(i==4?Interaction.resume:undefined));
+}
+
 Interaction.checkAnswer = function(){
 	var answer = Interaction.input.value;
 	var rightAnswer = 2 * Interaction.r * 3 / Interaction.br;
@@ -347,21 +374,15 @@ Interaction.checkAnswer = function(){
 	}
 	else{
 		Interaction.setStatus('Yanlış, doğru cevap: '+rightAnswer,false);
+        Interaction.showSolution();
 		Interaction.control.onclick = Interaction.nextQuestion;
 		Interaction.control.className = 'next_button';
 		Interaction.input.onkeyup = Interaction.nextQuestion;
 		Interaction.input.value = rightAnswer;
 	}
 }
-Interaction.setStatus = function(str,cls){
-	$('#status').html(str);
-	if(cls === true)
-		$('#status').get(0).className = 'status_true';
-	else if(cls === false)
-		$('#status').get(0).className = 'status_false';
-	else
-		$('#status').get(0).className = 'status';
-}
+
+
 Interaction.drawRuler = function(){
 	var x,y,w,h,b,st;
 	x = Interaction.paper.width*0.7;

@@ -1,6 +1,12 @@
-// JavaScript Document
-
 /*Styles*/
+var solutionCSS = {
+    position:'absolute',
+    bottom:'100px',
+    right:'60px',
+    color:'green',
+    fontSize:'16px',
+    fontWeight:'bold'
+};
 var textStyle = {'font-size':'16px'};
 var edgeStyle = {strokeColor:'#255b63',strokeWidth:2,fillColor:'#fff',cursor:'move'};
 var rectangularShapeStyle = {'shape-rendering':'crispEdges'}
@@ -338,7 +344,6 @@ var Animation = {
 			}
 		});
 	}
-	
 };
 var Interaction = {};
 Interaction.getFramework = function() {
@@ -367,7 +372,6 @@ Interaction.init = function(container){
 	Interaction.button.className = 'control_button';
 	$('div#B > div#R',Interaction.container).append(Interaction.button);
 	$('div#B > div#R',Interaction.container).append('<div id="status"></div>');
-	
 	Interaction.status = $('div#B > div#R > div#status',Interaction.R).get(0);
 	$(Interaction.status ).css({
 		position:'relative',
@@ -385,29 +389,12 @@ Interaction.init = function(container){
 	TestGenerator.nextQuestion();
 	
 }
-
-Interaction.setStatus = function(msg,isCorrect){
-	if(isCorrect === null || isCorrect === undefined){
-		Interaction.status.innerHTML = msg;
-		Interaction.status.className = '';
-	}
-	else if(isCorrect === true){
-		Interaction.status.innerHTML = msg;
-		Interaction.status.className = 'status_true';		
-	}
-	else if(isCorrect === false){
-		Interaction.status.innerHTML = msg;
-		Interaction.status.className = 'status_false';
-	
-	}
-		
-}
-
 var TestGenerator = {};
-
 TestGenerator.nextQuestion = function(){
+    if(Interaction.isPaused())
+        return;
 	Main.interactionProject.activeLayer.removeChildren();
-	//project.activeLayer.removeChildren();
+    $(TestGenerator.solution).remove();
 	TestGenerator.shape = null;
 	TestGenerator.trial = 0;
 	TestGenerator.values = null;
@@ -427,7 +414,7 @@ TestGenerator.nextQuestion = function(){
 	TestGenerator.letters = (Math.random()>0.5 ? ["A","B","C","D","E"]:["K","L","M","N","P"]);
 	var count = (Interaction.count++)%Interaction.shuffledArray.length;
 	TestGenerator.shape = Interaction.shuffledArray[count];
-	///*TEST*/TestGenerator.shape = 6;/*TEST*/
+//	/*TEST*/TestGenerator.shape = 6;/*TEST*/
 	switch(TestGenerator.shape){
 		case 0:
 			var a = Math.floor(Math.random()*10)+5;
@@ -451,7 +438,7 @@ TestGenerator.nextQuestion = function(){
 			while(a==_a)
 				_a = Math.floor(Math.random()*5)+5;
 			b = Math.floor(Math.random()*5)+5;
-			TestGenerator.values = {a:a,b:b,cevre:2*(a+_a+b)};
+			TestGenerator.values = {a:a,b:b,_a:_a,cevre:2*(a+_a+b)};
 			rhomboid(a,_a,b,TestGenerator.getMeasure(),TestGenerator.paper);
 			break;
 		case 3:
@@ -479,7 +466,7 @@ TestGenerator.nextQuestion = function(){
 				_a = Math.floor(Math.random()*5)+4;
 			b = Math.floor(Math.random()*5)+5;
 			c = Math.floor(Math.random()*3+b-1)
-			TestGenerator.values = {a:a,b:b,c:c,cevre:(a+_a+b+c)};
+			TestGenerator.values = {a:a,b:b,_a:_a,c:c,cevre:(a+_a+b+c)};
 			trapezoid(a,_a,b,c,TestGenerator.getMeasure(),TestGenerator.paper);
 			break;
 		case 6:
@@ -491,14 +478,6 @@ TestGenerator.nextQuestion = function(){
 			TestGenerator.values = {a:a,cevre:4*a};
 			rhombus(a,W,TestGenerator.getMeasure(),TestGenerator.paper);
 			break;
-		//case 4:
-//			var a,b,c;
-//			a = 3,
-//			b = 4,
-//			c = 5,
-//			TestGenerator.values = {a:a,b:b,c:c,cevre:(a+b+c)} ;
-//			new Triangle(a,b,c,TestGenerator.getMeasure(),TestGenerator.paper).showEdge('a').showEdge('b').showAngle('B');
-//			break;
 	}
 }
 TestGenerator.setMeasure = function(m){ 
@@ -513,6 +492,70 @@ TestGenerator.getMeasure = function(){
 	else
 		return 'm';
 };
+
+TestGenerator.showSolution = function(){
+    Interaction.pause();
+    var solution = Util.dom({
+        tag:'div',
+        parent:Interaction.container,
+        css:solutionCSS,
+        html:'Ç = <span id="0"></span><span id="1"></span><span id="2"></span><span id="3">&nbsp;=&nbsp;</span><span id="4"></span>'
+    });
+    TestGenerator.solution = solution;
+
+
+    $(solution).html();
+
+    switch(TestGenerator.shape){
+        case 0:
+            $("#0",solution).html(4);
+            $("#1",solution).html('&nbsp;x&nbsp;');
+            $("#2",solution).html(TestGenerator.values.a);
+            $("#4",solution).html(TestGenerator.values.cevre);
+            break;
+        case 1:
+            $("#0",solution).html(2);
+            $("#1",solution).html('&nbsp;x&nbsp;');
+            $("#2",solution).html('('+TestGenerator.values.a+' + '+TestGenerator.values.b+')');
+            $("#4",solution).html(TestGenerator.values.cevre);
+            break;
+        case 2:
+            $("#0",solution).html(2);
+            $("#1",solution).html('&nbsp;x&nbsp;');
+            $("#2",solution).html('('+(TestGenerator.values.a+TestGenerator.values._a)+' + '+TestGenerator.values.b+')');
+            $("#4",solution).html(TestGenerator.values.cevre);
+            break;
+        case 3:
+            $("#0",solution).html(TestGenerator.values.a);
+            $("#1",solution).html(' + ');
+            $("#2",solution).html(TestGenerator.values.b+' + '+TestGenerator.values.c);
+            $("#4",solution).html(TestGenerator.values.cevre);
+            break;
+
+        case 4:
+            $("#0",solution).html(TestGenerator.values.a);
+            $("#1",solution).html(' + ');
+            $("#2",solution).html(TestGenerator.values.b+' + '+TestGenerator.values.c);
+            $("#4",solution).html(TestGenerator.values.cevre);
+            break;
+        case 5:
+            $("#0",solution).html(TestGenerator.values.a+' + '+TestGenerator.values._a);
+            $("#1",solution).html(' + ');
+            $("#2",solution).html(TestGenerator.values.b+' + '+TestGenerator.values.c);
+            $("#4",solution).html(TestGenerator.values.cevre);
+            break;
+        case 6:
+            $("#0",solution).html(4);
+            $("#1",solution).html('&nbsp;x&nbsp;');
+            $("#2",solution).html(TestGenerator.values.a);
+            $("#4",solution).html(TestGenerator.values.cevre);
+            break;
+    }
+
+    for(var i=0;i<5;i++)
+        $("#"+i,solution).css({opacity:0}).delay(1000*i).animate({opacity:1},1000,(i==4?Interaction.resume:undefined));
+}
+
 TestGenerator.printVertexLetters = function(p){
 	for(var i=0; i<p.length;i++){
 		var text = new PointText(p[i]);
@@ -546,6 +589,7 @@ TestGenerator.checkAnswer = function(){
 		Interaction.setStatus('Yanlış. Doğru cevap: '+TestGenerator.values.cevre+' '+TestGenerator.getMeasure(),false);
 		Interaction.button.onclick = TestGenerator.nextQuestion;
 		Interaction.button.className = 'next_button';
+        TestGenerator.showSolution();
 	}	
 	else{
 		Interaction.button.onlick = TestGenerator.nextQuestion;

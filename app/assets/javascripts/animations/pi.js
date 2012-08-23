@@ -154,10 +154,19 @@ var Animation = {
 			3000
 		);
 		htmlPlaceAndAnimate(
-			'_____________________',
-			x+80,
-			y-7,
-			4000
+			'',
+			458,
+			90,
+			3000,
+            function(div){
+                $(div).css({
+                    position:'absolute',
+                    top:'90px',
+                    borderBottom:'1px solid #000',
+                    height:'1px',
+                    width:'170px'
+                })
+            }
 		);
 		htmlPlaceAndAnimate(
 			'dairenin çevre uzunluğu',
@@ -236,7 +245,7 @@ var Interaction = {
 		return 'paper';
 	},
 	init: function(container){
-		Main.setObjective('Aşağıdaki cetveli sürükleyip kullanarak verilen çemberin çapını ölçünüz. “Aç” düğmesine basıp oluşan çemberin uzunluğunu ölçünüz. Bu iki uzunluktan hareketle π (pi) sayısını yaklaşık olarak bulup kutuya yazınız ve kontrol ediniz.');
+		Main.setObjective('Yandaki cetveli sürükleyip kullanarak verilen çemberin çapını ölçünüz. “Aç” düğmesine basıp oluşan çemberin uzunluğunu ölçünüz. Bu iki uzunluktan hareketle π (pi) sayısını yaklaşık olarak bulup kutuya yazınız ve kontrol ediniz.');
 		Interaction.paper = {
 			width:$(container).width(),
 			height:$(container).height()
@@ -371,6 +380,8 @@ var Interaction = {
 			}
 		}
 		tool.onMouseDrag = function(event){
+            if(!this.drag)
+                return;
 			var newPoint = this.firstPosition.add(this.totalDelta).add(event.delta);
             //change byu the circles radius;
 			if(Interaction.isLineDrawed && newPoint.x < 400 && 
