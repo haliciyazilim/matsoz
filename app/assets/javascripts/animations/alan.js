@@ -1,5 +1,3 @@
-// JavaScript Document
-
 /*Styles*/
 var solutionCSS = {
     position:'absolute',
@@ -9,12 +7,12 @@ var solutionCSS = {
     fontSize:'16px',
     fontWeight:'bold'
 };
-var textStyle = {'font-size':'16px'};
+var textStyle = { 'font-size' : '16px' };
 var edgeStyle = {
-	strokeColor:'#255b63',
-	fillColor:'#bfe8ef',
-	strokeWidth:2,
-	cursor:'move'
+	strokeColor : '#255b63',
+	fillColor : '#bfe8ef',
+	strokeWidth : 2,
+	cursor : 'move'
 };
 var angleStyle = {'fill':'#DDD'};
 var gridLineStyle = {strokeColor:'#ccc',strokeWidth:1}
