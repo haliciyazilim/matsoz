@@ -104,7 +104,7 @@ var Interaction = {
           asama = bolmeIslemi.nextStep();
           
           
-          console.log(asama);
+          //console.log(asama);
           if (asama == null) break;
           asama.id="step"+i;
           asamalarArray[i] = asama;
@@ -127,17 +127,22 @@ var Interaction = {
             
             var sonuc = $(".up", asamalarArray[i]).html();
             asamaUp[i] = sonuc;
-            console.log("icerik" + sonuc);
+            console.log("up" + sonuc);
             //$(".up", asama).html("<input></input>");
             var kalan = $(".down", asamalarArray[i]).html();
             asamaDown[i] = kalan;
-            console.log("icerik" + kalan);
+            console.log("down" + kalan);
             //$(".down", asama).html("<input></input>");
             if (this.div == "#soru") {
                 console.log($(".down", asamalarArray[i]).html());
-                $(".up", asamalarArray[i]).html("<input id='up_"+i+"' class='input' isNumber='true' type='text' maxlength=4></input>");
+                var upUzunluk=sonuc.toString().length;
+                $(".up", asamalarArray[i]).html("<input id='up_"+i+"' class='inputUp' isNumber='true' type='text' maxlength="+upUzunluk+"></input>");
+                $("#up_"+i).css("width",upUzunluk+"ex");
                 Interaction.inputs.push($(".up input", asamalarArray[i]).get(0));
-                $(".down", asamalarArray[i]).html("<input id='down_"+i+"' class='input' isNumber='true' type='text' maxlength=4></input>");
+                
+                var downUzunluk=kalan.toString().length;
+                $(".down", asamalarArray[i]).html("<input id='down_"+i+"' class='inputDown' isNumber='true' type='text' maxlength="+downUzunluk+"></input>");
+                 $("#down_"+i).css("width",downUzunluk+"ex");
                 Interaction.inputs.push($(".down input", asamalarArray[i]).get(0));
             } 
             else
@@ -169,12 +174,17 @@ var Interaction = {
 //                  $("#step"+(i+1)).css("visibility","visible");
 //          });
 //        
-        $("#soru .input").css("width", "50px").css("font-size", "20px").css("text-align", "left").css("z-index", "5");
+        $("#soru input:not(.inputUp, .inputDown)").css("width","50px").css("font-size", "20px").css("text-align", "left").css("z-index", "5");
         $("#soru .up").css("margin-bottom", "12px")
         //.css("margin-top","28px");
         $("#soru .step").css("height", "68px");
         $("#soru .step:first").css("width", "60px")
         //.css("margin-top","28px");
+        
+        $("#soru .inputUp, #soru .inputDown").css("font-size", "20px").css("text-align", "right").css("z-index", "5").keyup(InputReverseWriteable);
+        $("#soru input").css("height","30px");
+        
+        Interaction.inputs[0].id="islemSonucu";
       };
       
       
@@ -182,8 +192,8 @@ var Interaction = {
     BolensizBolmeIslemi = function (bolen, bolunen, div) {
       this.bolunen = bolunen;
       this.bolen = bolen;
-      this.bolunen = 689;
-      this.bolen = 1;
+      //this.bolunen = 689;
+      //this.bolen = 1;
       this.div = "#" + div;
       this.yap = function () {
         bolmeIslemi = new LongDivision(this.bolunen, this.bolen, this.div);
@@ -208,19 +218,19 @@ var Interaction = {
           //$(".up", asama).html("<input></input>");
           var kalan = $(".down", asamalarArray[i]).html();
           asamaDown[i] = kalan;
-//          console.log("icerik" + kalan);
-//          //$(".down", asama).html("<input></input>");
-//          console.log($(".down", asamalarArray[i]).html());
-//          $(".up", asamalarArray[i]).html();
-//          //Interaction.inputs.push($(".up input", asamalarArray[i]).get(0));
-//          if (asamalarArray.length - 1 == i) $(".down", asamalarArray[i]).html();
-//          else $(".down", asamalarArray[i]).html();
-//          //Interaction.inputs.push($(".down input", asamalarArray[i]).get(0));
+          console.log("icerik" + kalan);
+          //$(".down", asama).html("<input></input>");
+          console.log($(".down", asamalarArray[i]).html());
+          $(".up", asamalarArray[i]).html(" ");
+          //Interaction.inputs.push($(".up input", asamalarArray[i]).get(0));
+          if (asamalarArray.length - 1 == i) $(".down", asamalarArray[i]).html();
+          else $(".down", asamalarArray[i]).html(" ");
+          //Interaction.inputs.push($(".down input", asamalarArray[i]).get(0));
         }
         if (this.div == "#soru") {
           var input = Interaction.appendInput({
             width: '50px',
-            fontSize: '20px',
+            fontSize: '20px'
           });
           $(Interaction.inputs[0]).attr('maxlength', '3')
           $("#soru #divisor").html(input).css("height", "35px");
@@ -279,17 +289,17 @@ var Interaction = {
       };
     };
     
-    
+    soruId = 0;
     Interaction.prepareNextQuestion();
   },
   nextQuestion: function () {
-    soruId = 0;
+    
 
     function yeniSoru() {
-      if (Interaction.soruSirasi < 9) {
+      if (Interaction.soruSirasi <= 9) {
         soruId++;
-        
-        //soruId=6;
+        console.log("Soru İD: "+soruId);
+        //soruId=8;
         soruGetir(soruId);
       } else randomSoruGetir();
     }
@@ -313,7 +323,7 @@ var Interaction = {
     function soruGetir(soruId) {
       $("#soru", Interaction.container).html("");
       bolunen = Math.floor(Math.random() * 9000 + 999);
-      bolen = Math.floor(Math.random() * 990 + 9);
+      bolen = soruId%2==0?Math.floor(Math.random() * 90 + 9):Math.floor(Math.random() * 990 + 9);
       Interaction.inputs = new Array();
       console.log(Interaction.soruSirasi + ". soru");
       switch (soruId) {
@@ -354,16 +364,16 @@ var Interaction = {
     case 4:
     case 5:
       for (var i = 0; i < asamaUp.length; i++) {
-        console.log(i + ") sonuc val " + values[0]);
-        console.log("sonuc" + normalIslem.sonuc);
-        console.log(i + ") up val " + values[i + 1]);
-        console.log(i + ") up " + asamaUp[i]);
-        console.log(i + ") down val " + values[2 * i + 1]);
-        console.log(i + ") down " + parseInt(asamaDown[i], 10));
-        console.log(i + ") val" + values[1]);
-        console.log(i + ") val" + values[2]);
-        console.log(i + ") val" + values[3]);
-        console.log(i + ") val" + values[4]);
+//        console.log(i + ") sonuc val " + values[0]);
+//        console.log("sonuc" + normalIslem.sonuc);
+//        console.log(i + ") up val " + values[i + 1]);
+//        console.log(i + ") up " + asamaUp[i]);
+//        console.log(i + ") down val " + values[2 * i + 1]);
+//        console.log(i + ") down " + parseInt(asamaDown[i], 10));
+//        console.log(i + ") val" + values[1]);
+//        console.log(i + ") val" + values[2]);
+//        console.log(i + ") val" + values[3]);
+//        console.log(i + ") val" + values[4]);
         //if(parseInt(values[0],10)===parseInt(normalIslem.sonuc,10) && parseInt(values[i+1],10)===parseInt(asamaUp[i],10) && parseInt(values[i+2],10)===parseInt(asamaDown[i]),10){
         if ((parseInt(values[0], 10) == parseInt(normalIslem.sonuc, 10)) && (parseInt(values[2 * i + 1], 10) == parseInt(asamaUp[i], 10)) && (parseInt(values[2 * i + 2], 10) == parseInt(asamaDown[i], 10))) {
           console.log("denetim true");
@@ -409,8 +419,29 @@ var Interaction = {
     case 3:
     case 4:
     case 5:
-      var cBolunen = normalIslem.bolunen;
-      var cBolen = normalIslem.bolen;
+         if ((parseInt($("#islemSonucu").val(), 10) == parseInt(normalIslem.sonuc, 10))) {
+            $("#islemSonucu").css("color","green")
+        }
+        else
+            $("#islemSonucu").css("color","red")
+        
+        //console.log("Normal İşlem: "+normalIslem.sonuc+", işlem Sonucu: "+$("#islemSonucu").val());
+        for (var i = 0; i < asamaUp.length; i++) {
+            if(parseInt($("#up_"+i).val(),10)==parseInt(asamaUp[i], 10))
+                $("#up_"+[i]).css("color","green");
+            else
+                $("#up_"+[i]).css("color","red");
+            
+            if(parseInt($("#down_"+i).val(),10)==parseInt(asamaDown[i], 10))
+                $("#down_"+[i]).css("color","green");
+            else
+                $("#down_"+[i]).css("color","red");
+          
+        
+      }
+        
+        var cBolunen = normalIslem.bolunen;
+        var cBolen = normalIslem.bolen;
       //				cevapIslem= new NormalBolmeIslemi(cBolen,cBolunen, "cevap");
       //				cevapIslem.yap();
       Interaction.cevap1 = new LongDivision(cBolunen, cBolen, "#cevap");
