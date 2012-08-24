@@ -192,8 +192,8 @@ var Interaction = {
     BolensizBolmeIslemi = function (bolen, bolunen, div) {
       this.bolunen = bolunen;
       this.bolen = bolen;
-      this.bolunen = 689;
-      this.bolen = 1;
+      //this.bolunen = 689;
+      //this.bolen = 1;
       this.div = "#" + div;
       this.yap = function () {
         bolmeIslemi = new LongDivision(this.bolunen, this.bolen, this.div);
@@ -218,19 +218,19 @@ var Interaction = {
           //$(".up", asama).html("<input></input>");
           var kalan = $(".down", asamalarArray[i]).html();
           asamaDown[i] = kalan;
-//          console.log("icerik" + kalan);
-//          //$(".down", asama).html("<input></input>");
-//          console.log($(".down", asamalarArray[i]).html());
-//          $(".up", asamalarArray[i]).html();
-//          //Interaction.inputs.push($(".up input", asamalarArray[i]).get(0));
-//          if (asamalarArray.length - 1 == i) $(".down", asamalarArray[i]).html();
-//          else $(".down", asamalarArray[i]).html();
-//          //Interaction.inputs.push($(".down input", asamalarArray[i]).get(0));
+          console.log("icerik" + kalan);
+          //$(".down", asama).html("<input></input>");
+          console.log($(".down", asamalarArray[i]).html());
+          $(".up", asamalarArray[i]).html(" ");
+          //Interaction.inputs.push($(".up input", asamalarArray[i]).get(0));
+          if (asamalarArray.length - 1 == i) $(".down", asamalarArray[i]).html();
+          else $(".down", asamalarArray[i]).html(" ");
+          //Interaction.inputs.push($(".down input", asamalarArray[i]).get(0));
         }
         if (this.div == "#soru") {
           var input = Interaction.appendInput({
             width: '50px',
-            fontSize: '20px',
+            fontSize: '20px'
           });
           $(Interaction.inputs[0]).attr('maxlength', '3')
           $("#soru #divisor").html(input).css("height", "35px");
@@ -289,17 +289,17 @@ var Interaction = {
       };
     };
     
-    
+    soruId = 0;
     Interaction.prepareNextQuestion();
   },
   nextQuestion: function () {
-    soruId = 0;
+    
 
     function yeniSoru() {
-      if (Interaction.soruSirasi < 9) {
+      if (Interaction.soruSirasi <= 9) {
         soruId++;
-        
-        //soruId=6;
+        console.log("Soru İD: "+soruId);
+        //soruId=8;
         soruGetir(soruId);
       } else randomSoruGetir();
     }
@@ -364,16 +364,16 @@ var Interaction = {
     case 4:
     case 5:
       for (var i = 0; i < asamaUp.length; i++) {
-        console.log(i + ") sonuc val " + values[0]);
-        console.log("sonuc" + normalIslem.sonuc);
-        console.log(i + ") up val " + values[i + 1]);
-        console.log(i + ") up " + asamaUp[i]);
-        console.log(i + ") down val " + values[2 * i + 1]);
-        console.log(i + ") down " + parseInt(asamaDown[i], 10));
-        console.log(i + ") val" + values[1]);
-        console.log(i + ") val" + values[2]);
-        console.log(i + ") val" + values[3]);
-        console.log(i + ") val" + values[4]);
+//        console.log(i + ") sonuc val " + values[0]);
+//        console.log("sonuc" + normalIslem.sonuc);
+//        console.log(i + ") up val " + values[i + 1]);
+//        console.log(i + ") up " + asamaUp[i]);
+//        console.log(i + ") down val " + values[2 * i + 1]);
+//        console.log(i + ") down " + parseInt(asamaDown[i], 10));
+//        console.log(i + ") val" + values[1]);
+//        console.log(i + ") val" + values[2]);
+//        console.log(i + ") val" + values[3]);
+//        console.log(i + ") val" + values[4]);
         //if(parseInt(values[0],10)===parseInt(normalIslem.sonuc,10) && parseInt(values[i+1],10)===parseInt(asamaUp[i],10) && parseInt(values[i+2],10)===parseInt(asamaDown[i]),10){
         if ((parseInt(values[0], 10) == parseInt(normalIslem.sonuc, 10)) && (parseInt(values[2 * i + 1], 10) == parseInt(asamaUp[i], 10)) && (parseInt(values[2 * i + 2], 10) == parseInt(asamaDown[i], 10))) {
           console.log("denetim true");
