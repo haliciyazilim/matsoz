@@ -8,29 +8,29 @@ Interaction.getFramework = function() {
 
 Interaction.images = [{
 	id: "fullImage",
-	src: '/assets/animations/paralelkenar/paralel01.png'
+	src: '/assets/animations/yamuk/yamuk01.png'
 },
 {
 	id: "cornerA",
-	src: '/assets/animations/paralelkenar/soru_paralel_kose_a.png'
+	src: '/assets/animations/yamuk/soru_yamuk_kose_a.png'
 },
 {
 	id: "cornerB",
-	src: '/assets/animations/paralelkenar/soru_paralel_kose_b.png'
+	src: '/assets/animations/yamuk/soru_yamuk_kose_b.png'
 },
 {
 	id: "cornerC",
-	src: '/assets/animations/paralelkenar/soru_paralel_kose_c.png'
+	src: '/assets/animations/yamuk/soru_yamuk_kose_c.png'
 },
 {
 	id: "cornerD",
-	src: '/assets/animations/paralelkenar/soru_paralel_kose_d.png'
+	src: '/assets/animations/yamuk/soru_yamuk_kose_d.png'
 }]
 
 Interaction.init = function(container) {
 	paperAddOns();
 	
-	Main.setObjective('Paralelkenarın iç açıları toplamı 360° dir. Bunu görmek için "Oynat" düğmesine basınız.')
+	Main.setObjective('Yamuğun iç açıları toplamı 360° dir. Bunu görmek için "Oynat" düğmesine basınız.')
 	
 	// Images
 	var fullImage = new Raster('fullImage');
@@ -90,15 +90,14 @@ Interaction.init = function(container) {
 		var duration = 1000;
 		var delay = 5000;
 		var deltaY = 64;
-		var deltaX = 64;
+		var deltaX = 84;
 		
 		var offSetY = 0.5;
-		var offSetX = 20;
 		
 
 		cornerA.animate({
 			style: {
-				position: new Point(206.5 + deltaX + offSetX, 194 - deltaY + offSetY)
+				position: new Point(206.5 + deltaX, 194 - deltaY + offSetY)
 			},
 			duration: duration,
 			delay: delay,
@@ -107,7 +106,7 @@ Interaction.init = function(container) {
 	
 		cornerB.animate({
 			style: {
-				position: new Point(293.5 - deltaX + offSetX, 194 - deltaY + offSetY)
+				position: new Point(293.5 - deltaX, 194 - deltaY + offSetY)
 			},
 			duration: duration - 150*2,
 			delay: delay+100,
@@ -116,7 +115,7 @@ Interaction.init = function(container) {
 	
 		cornerC.animate({
 			style: {
-				position: new Point(293.5 - deltaX - offSetX, 107 + deltaY + offSetY)
+				position: new Point(293.5 - deltaX, 107 + deltaY + offSetY)
 			},
 			duration: duration + 100*2,
 			delay: delay + 200,
@@ -125,7 +124,7 @@ Interaction.init = function(container) {
 	
 		cornerD.animate({
 			style: {
-				position: new Point(206.5 + deltaX - offSetX, 107 + deltaY + offSetY)
+				position: new Point(206.5 + deltaX, 107 + deltaY + offSetY)
 			},
 			duration: duration,
 			delay: delay + 250,
@@ -141,7 +140,7 @@ Interaction.init = function(container) {
 			if (arrow) {
 				arrow.remove();
 			}
-			arrow = new Path.OneSidedRoundArrow(new Point(250,150), 80, -Math.PI/3 + 0.4, arrowHelper.endAngle, {arrowEnd: true});
+			arrow = new Path.OneSidedRoundArrow(new Point(250,150), 90, -Math.PI/3 + 0.4, arrowHelper.endAngle, {arrowEnd: true});
 			arrow.opacity = arrowHelper.opacity;
 			arrow.strokeColor = 'black';
 			arrow.strokeWidth = 2.5;
@@ -149,7 +148,7 @@ Interaction.init = function(container) {
 				angleText.remove();
 			}
 		
-			angleText = new PointText(new Point(316, 92));
+			angleText = new PointText(new Point(322, 86));
 			angleText.justification = 'left';
 			angleText.fillColor = 'black';
 			angleText.content = Math.floor(arrowHelper.angle) + "°";
@@ -288,85 +287,71 @@ paperAddOns = function () {
 }
 
 Animation.images = [{
-	id: "paralel01",
-	src: '/assets/animations/paralelkenar/paralel_ornek_01.png'
+	id: "yamuk01",
+	src: '/assets/animations/yamuk/yamuk_ornek_01.png'
 },
 {
-	id: "paralel02",
-	src: '/assets/animations/paralelkenar/paralel_ornek_02.png'
+	id: "yamuk02",
+	src: '/assets/animations/yamuk/yamuk_ornek_02.png'
 },
 {
-	id: "paralel03",
-	src: '/assets/animations/paralelkenar/paralel_ornek_03.png'
+	id: "yamuk03",
+	src: '/assets/animations/yamuk/yamuk_ornek_03.png'
 },
 {
-	id: "paralel03",
-	src: '/assets/animations/paralelkenar/paralel_ornek_03.png'
+	id: "yamuk03",
+	src: '/assets/animations/yamuk/yamuk_ornek_03.png'
 },
 {
-	id: "paralel04",
-	src: '/assets/animations/paralelkenar/paralel_ornek_04.png'
+	id: "yamuk04",
+	src: '/assets/animations/yamuk/yamuk_ornek_04.png'
 },
 {
-	id: "paralel05",
-	src: '/assets/animations/paralelkenar/paralel_ornek_05.png'
+	id: "yamuk05",
+	src: '/assets/animations/yamuk/yamuk_ornek_05.png'
 },
 {
-	id: "paralel06",
-	src: '/assets/animations/paralelkenar/paralel_ornek_06.png'
+	id: "yamuk06",
+	src: '/assets/animations/yamuk/yamuk_ornek_06.png'
 },
 {
-	id: "paralel07",
-	src: '/assets/animations/paralelkenar/paralel_ornek_07.png'
+	id: "yamuk07",
+	src: '/assets/animations/yamuk/yamuk_ornek_07.png'
 },
 {
-	id: "paralel08",
-	src: '/assets/animations/paralelkenar/paralel_ornek_08.png'
-},
-{
-	id: "paralel09",
-	src: '/assets/animations/paralelkenar/paralel_ornek_09.png'
-},
-{
-	id: "paralel10",
-	src: '/assets/animations/paralelkenar/paralel_ornek_10.png'
+	id: "yamuk08",
+	src: '/assets/animations/yamuk/yamuk_ornek_08.png'
 }]
 
 Animation.init = function (container) {
 	var imageGroup = new Group();
 	
-	var paralel01 = new Raster("paralel01");
-	var paralel02 = new Raster("paralel02");
-	var paralel03 = new Raster("paralel03");
-	var paralel04 = new Raster("paralel04");
-	var paralel05 = new Raster("paralel05");
-	var paralel06 = new Raster("paralel06");
-	var paralel07 = new Raster("paralel07");
-	var paralel08 = new Raster("paralel08");
-	var paralel09 = new Raster("paralel09");
-	var paralel10 = new Raster("paralel10");
+	var yamuk01 = new Raster("yamuk01");
+	var yamuk02 = new Raster("yamuk02");
+	var yamuk03 = new Raster("yamuk03");
+	var yamuk04 = new Raster("yamuk04");
+	var yamuk05 = new Raster("yamuk05");
+	var yamuk06 = new Raster("yamuk06");
+	var yamuk07 = new Raster("yamuk07");
+	var yamuk08 = new Raster("yamuk08");
 	
-	imageGroup.addChild(paralel01);
-	imageGroup.addChild(paralel02);
-	imageGroup.addChild(paralel03);
-	imageGroup.addChild(paralel04);
-	imageGroup.addChild(paralel05);
-	imageGroup.addChild(paralel06);
-	imageGroup.addChild(paralel07);
-	imageGroup.addChild(paralel08);
-	imageGroup.addChild(paralel09);
-	imageGroup.addChild(paralel10);
+	imageGroup.addChild(yamuk01);
+	imageGroup.addChild(yamuk02);
+	imageGroup.addChild(yamuk03);
+	imageGroup.addChild(yamuk04);
+	imageGroup.addChild(yamuk05);
+	imageGroup.addChild(yamuk06);
+	imageGroup.addChild(yamuk07);
+	imageGroup.addChild(yamuk08);
 	
-	paralel01.opacity = 0;
-	paralel02.opacity = 0;
-	paralel03.opacity = 0;
-	paralel04.opacity = 0;
-	paralel05.opacity = 0;
-	paralel06.opacity = 0;
-	paralel07.opacity = 0;
-	paralel08.opacity = 0;
-	paralel09.opacity = 0;
-	paralel10.opacity = 0;
+	yamuk01.opacity = 0;
+	yamuk02.opacity = 0;
+	yamuk03.opacity = 0;
+	yamuk04.opacity = 0;
+	yamuk05.opacity = 0;
+	yamuk06.opacity = 0;
+	yamuk07.opacity = 0;
+	yamuk08.opacity = 0;
 	
 	imageGroup.position = new Point(200.5, 84);
 	
@@ -379,11 +364,9 @@ Animation.init = function (container) {
 					.css("width", "330")
 					.css("height", "100");
 
-	$('#textHolder').append('<div id="text01">Ardışık açıları toplamı 180° dir.</div>');
-	$('#textHolder').append('<div id="text02">Karşılıklı açıları eşittir.</div>');
-	$('#textHolder').append('<div id="text03">Karşılıklı kenar uzunlukları eşittir.</div>');
-	$('#textHolder').append('<div id="text04">Karşılıklı kenarları paraleldir.</div>');
-	$('#textHolder').append('<div id="text05">Ve daha bir sürü şey --Candan Erçetin</div>');
+	$('#textHolder').append('<div id="text01">A ve D açılarının ölçüleri toplamı 180° dir.</div>');
+	$('#textHolder').append('<div id="text02">B ve C açılarının ölçüleri toplamı 180° dir.</div>');
+	$('#textHolder').append('<div id="text03">Karşılıklı kenar çiftlerinden en az biri paraleldir.</div>');
 
 	$('#text01').css('opacity', 0);
 	$('#text02').css('opacity', 0);
@@ -411,7 +394,7 @@ Animation.init = function (container) {
 	textHelper.animate = Item.prototype.animate;
 
 
-	paralel01.animate({
+	yamuk01.animate({
 		style: {
 			opacity: 1
 		},
@@ -422,7 +405,7 @@ Animation.init = function (container) {
 	
 	///
 	
-	paralel03.animate({
+	yamuk03.animate({
 		style: {
 			opacity: 1
 		},
@@ -430,7 +413,7 @@ Animation.init = function (container) {
 		delay: 1500,
 		animationType: 'easeInEaseOut',
 		callback: function () {
-			paralel01.remove();
+			yamuk01.remove();
 		}
 	});
 	
@@ -445,7 +428,7 @@ Animation.init = function (container) {
 		animationType: 'easeInEaseOut',
 	});
 	
-	paralel04.animate({
+	yamuk04.animate({
 		style: {
 			opacity: 1
 		},
@@ -453,7 +436,7 @@ Animation.init = function (container) {
 		delay: 3000,
 		animationType: 'easeInEaseOut',
 		callback: function () {
-			paralel03.remove();
+			yamuk03.remove();
 		}
 	});
 
@@ -468,7 +451,7 @@ Animation.init = function (container) {
 		animationType: 'easeInEaseOut',
 	});
 	
-	paralel05.animate({
+	yamuk05.animate({
 		style: {
 			opacity: 1
 		},
@@ -476,7 +459,7 @@ Animation.init = function (container) {
 		delay: 5000,
 		animationType: 'easeInEaseOut',
 		callback: function () {
-			paralel04.opacity = 0;
+			yamuk04.remove();
 		}
 	});
 	
@@ -491,7 +474,7 @@ Animation.init = function (container) {
 		animationType: 'easeInEaseOut',
 	});
 	
-	paralel06.animate({
+	yamuk06.animate({
 		style: {
 			opacity: 1
 		},
@@ -499,11 +482,11 @@ Animation.init = function (container) {
 		delay: 7000,
 		animationType: 'easeInEaseOut',
 		callback: function () {
-			paralel05.remove();
+			yamuk05.remove();
 		}
 	});
 	
-	paralel07.animate({
+	yamuk07.animate({
 		style: {
 			opacity: 1
 		},
@@ -511,7 +494,7 @@ Animation.init = function (container) {
 		delay: 9000,
 		animationType: 'easeInEaseOut',
 		callback: function () {
-			paralel06.remove();
+			yamuk06.remove();
 		}
 	});
 	
@@ -526,7 +509,7 @@ Animation.init = function (container) {
 		animationType: 'easeInEaseOut',
 	});
 	
-	paralel08.animate({
+	yamuk08.animate({
 		style: {
 			opacity: 1
 		},
@@ -534,7 +517,7 @@ Animation.init = function (container) {
 		delay: 11000,
 		animationType: 'easeInEaseOut',
 		callback: function () {
-			paralel07.remove();
+			yamuk07.remove();
 		}
 	});
 	
@@ -542,50 +525,11 @@ Animation.init = function (container) {
 	
 	textHelper.animate({
 		style: {
-			text05Opacity: 0
-		},
-		duration: 1000,
-		delay: 13000,
-		animationType: 'easeInEaseOut'
-	});
-	
-	paralel09.animate({
-		style: {
-			opacity: 1
+			text05Opacity: 1
 		},
 		duration: 1000,
 		delay: 13000,
 		animationType: 'easeInEaseOut',
-		callback: function () {
-			paralel08.remove();
-		}
-	});
-	
-	
-	paralel10.animate({
-		style: {
-			opacity: 1
-		},
-		duration: 1000,
-		delay: 15000,
-		animationType: 'easeInEaseOut',
-		callback: function () {
-			paralel09.remove();
-			paralel04.opacity = 1;
-		}
-	});
-	
-	
-	paralel10.animate({
-		style: {
-			opacity: 0
-		},
-		duration: 1000,
-		delay: 17000,
-		animationType: 'easeInEaseOut',
-		callback: function () {
-			paralel10.remove();
-			Main.animationFinished();
-		}
+		callback: Main.animationFinished
 	});
 }
