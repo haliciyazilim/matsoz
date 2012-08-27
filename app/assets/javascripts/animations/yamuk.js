@@ -453,7 +453,7 @@ Animation.init = function (container) {
 			text01Opacity: 1
 		},
 		duration: 1000,
-		delay: 3000,
+		delay: 5000,
 		animationType: 'easeInEaseOut',
 	});
 	
@@ -476,7 +476,7 @@ Animation.init = function (container) {
 			text02Opacity: 1
 		},
 		duration: 1000,
-		delay: 5000,
+		delay: 7000,
 		animationType: 'easeInEaseOut',
 	});
 	
@@ -547,6 +547,7 @@ Animation.init = function (container) {
 		animationType: 'easeInEaseOut',
 		callback: function () {
 			yamuk07.remove();
+			Main.animationFinished();
 		}
 	});
 	
@@ -558,7 +559,6 @@ Animation.init = function (container) {
 		},
 		duration: 1000,
 		delay: 13000,
-		animationType: 'easeInEaseOut',
-		callback: Main.animationFinished
+		animationType: 'easeInEaseOut'
 	});
 }
