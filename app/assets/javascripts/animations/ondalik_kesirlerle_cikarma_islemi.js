@@ -164,7 +164,7 @@ var Interaction = {
 			Interaction.input.selectorIndex = 0;
 			$(Interaction.input)
 				.attr('maxlength','7')
-                .keyup(InputReverseWriteable)
+                .keydown(InputReverseWriteable)
 				
 			var div = document.createElement('div');
 			$(container).append(div);

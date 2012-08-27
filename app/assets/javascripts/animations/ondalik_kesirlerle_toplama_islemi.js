@@ -180,7 +180,7 @@ var Interaction = {
 			});
 			$(Interaction.input)
 				.attr('maxlength','7')
-				.keyup(InputReverseWriteable);
+				.keydown(InputReverseWriteable);
 			var div = document.createElement('div');
 			$(container).append(div);
 			$(div)
