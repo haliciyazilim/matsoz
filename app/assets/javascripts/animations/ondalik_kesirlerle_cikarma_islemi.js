@@ -206,7 +206,7 @@ var Interaction = {
 			Interaction.prepareNextQuestion();
 		},
 	nextQuestion: function(){
-            $("subtraction").remove()
+            $("#subtraction").remove()
 			if(Interaction.solutionDiv)
 				$(Interaction.solutionDiv).remove();
 			Interaction.addend1 = Math.floor(Math.random()*1000)/100;
