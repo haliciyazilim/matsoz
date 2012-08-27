@@ -181,7 +181,7 @@ var Interaction = {
         $("#soru .step:first").css("width", "60px")
         //.css("margin-top","28px");
         
-        $("#soru .inputUp, #soru .inputDown").css("font-size", "20px").css("text-align", "right").css("z-index", "5").keyup(InputReverseWriteable);
+        $("#soru .inputUp, #soru .inputDown").css("font-size", "20px").css("text-align", "right").css("z-index", "5").keydown(InputReverseWriteable);
         $("#soru input").css("height","30px");
         
         Interaction.inputs[0].id="islemSonucu";
