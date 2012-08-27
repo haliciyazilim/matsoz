@@ -24,7 +24,7 @@ var Animation = {
 	showResult:function(){
 		$(Animation.container).append(
 			'<div id="result">'+
-				'<div style="width:150px;line-height:50px;">Yeşil Gelme Olasılığı = </div>'+
+				'<div style="width:150px;line-height:50px;">Yeşil Gelme Yüzdesi = </div>'+
 				'<div style="width:130px;line-height:25px;text-align:center;">'+
 					'<div>Yeşil Gelme Sayısı</div>'+
 					'<div style="height:1px;border-top:2px solid #000;"></div>'+
@@ -268,7 +268,7 @@ Interaction.getFramework = function() {
 	return 'paper';
 }
 Interaction.init = function(container){
-	Main.setObjective('Yandaki madeni parayı üzerine basıp istediğiniz kadar atarak tura geliş olasılığını izleyiniz.');
+	Main.setObjective('Yandaki madeni parayı üzerine basıp istediğiniz kadar atarak tura geliş yüzdesini izleyiniz. Madeni para peş peşe çok sayıda atıldığında tura gelme olasılığının &frac12; oranına yani %50 ye yaklaştığı görülür.');
 	Interaction.container = container;
 	var w = $(container).width();
 	var h = $(container).height();
@@ -292,7 +292,7 @@ Interaction.init = function(container){
 	});
 	$(container).append(Interaction.probability.div);
 	//
-	$(container).append('<div style="position:absolute;right:145px;top:'+(h*0.5-25)+'px">Tura gelme olasılığı = </div>')
+	$(container).append('<div style="position:absolute;right:145px;top:'+(h*0.5-25)+'px">Tura gelme oranı = </div>')
 	Interaction.side = new Raster(Util.rand01==1?'tura':'yazi')
 	Interaction.side.position = Interaction.position;
 	Interaction.bindTool();

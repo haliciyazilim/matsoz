@@ -164,7 +164,7 @@ var Interaction = {
 			Interaction.input.selectorIndex = 0;
 			$(Interaction.input)
 				.attr('maxlength','7')
-                .keyup(InputReverseWriteable)
+                .keydown(InputReverseWriteable)
 				
 			var div = document.createElement('div');
 			$(container).append(div);
@@ -206,7 +206,7 @@ var Interaction = {
 			Interaction.prepareNextQuestion();
 		},
 	nextQuestion: function(){
-            $("subtraction").remove()
+            $("#subtraction").remove()
 			if(Interaction.solutionDiv)
 				$(Interaction.solutionDiv).remove();
 			Interaction.addend1 = Math.floor(Math.random()*1000)/100;

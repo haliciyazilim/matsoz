@@ -86,27 +86,56 @@ Interaction.init = function(container) {
 			duration: 1000,
 			delay: 1000
 		})
-	
+		
+		
+		cornerHelper = new AnimationHelper({angle: 0});
+		
+		cornerB.lastTransformation = cornerB.matrix;
+		cornerD.lastTransformation = cornerD.matrix;
+		
+		cornerHelper.animate({
+			style: {
+				angle: 180
+			},
+			duration: 1000,
+			delay: 5000,
+			animationType: 'easeInEaseOut',
+			update: function() {
+				var matrix = new Matrix();
+				matrix.rotate(this.angle, 250, 150.5);
+				matrix.concatenate(cornerB.lastTransformation);
+
+				cornerB.setMatrix(matrix);
+
+				matrix = new Matrix();
+				matrix.rotate(this.angle, 250, 150.5);
+				matrix.concatenate(cornerD.lastTransformation);
+
+				cornerD.setMatrix(matrix);
+			}
+		})
+		
+		
 		var duration = 1000;
-		var delay = 5000;
+		var delay = 6100;
 		var deltaY = 64;
-		var deltaX = 84;
+		var deltaX = 64;
 		
 		var offSetY = 0.5;
-		
+		var offSetX = 20;
 
 		cornerA.animate({
 			style: {
-				position: new Point(206.5 + deltaX, 194 - deltaY + offSetY)
+				position: new Point(206.5 + deltaX + offSetX, 194 - deltaY + offSetY)
 			},
 			duration: duration,
 			delay: delay,
 			animationType: 'easeInEaseOut'
 		})
 	
-		cornerB.animate({
+		cornerD.animate({
 			style: {
-				position: new Point(293.5 - deltaX, 194 - deltaY + offSetY)
+				position: new Point(293.5 - deltaX + offSetX, 194 - deltaY + offSetY)
 			},
 			duration: duration - 150*2,
 			delay: delay+100,
@@ -115,16 +144,16 @@ Interaction.init = function(container) {
 	
 		cornerC.animate({
 			style: {
-				position: new Point(293.5 - deltaX, 107 + deltaY + offSetY)
+				position: new Point(293.5 - deltaX + offSetX, 107 + deltaY + offSetY)
 			},
 			duration: duration + 100*2,
 			delay: delay + 200,
 			animationType: 'easeInEaseOut'
 		})
 	
-		cornerD.animate({
+		cornerB.animate({
 			style: {
-				position: new Point(206.5 + deltaX, 107 + deltaY + offSetY)
+				position: new Point(206.5 + deltaX + offSetX, 107 + deltaY + offSetY)
 			},
 			duration: duration,
 			delay: delay + 250,
@@ -140,7 +169,7 @@ Interaction.init = function(container) {
 			if (arrow) {
 				arrow.remove();
 			}
-			arrow = new Path.OneSidedRoundArrow(new Point(250,150), 90, -Math.PI/3 + 0.4, arrowHelper.endAngle, {arrowEnd: true});
+			arrow = new Path.OneSidedRoundArrow(new Point(250,150), 80, -Math.PI/3 + 0.4, arrowHelper.endAngle, {arrowEnd: true});
 			arrow.opacity = arrowHelper.opacity;
 			arrow.strokeColor = 'black';
 			arrow.strokeWidth = 2.5;
