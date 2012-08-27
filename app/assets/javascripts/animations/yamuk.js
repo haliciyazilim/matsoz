@@ -39,6 +39,9 @@ Interaction.init = function(container) {
 	var cornerB = new Raster('cornerB');
 	var cornerC = new Raster('cornerC');
 	var cornerD = new Raster('cornerD');
+	
+	cornerB.lastTransformation = cornerB.matrix;
+	cornerD.lastTransformation = cornerD.matrix;
 
 	var cornerGroup = new Group();	
 	cornerGroup.addChild(cornerA);
@@ -58,6 +61,9 @@ Interaction.init = function(container) {
 		cornerB.position = new Point(312.5,192.5);
 		cornerC.position = new Point(312.5,107.5);
 		cornerD.position = new Point(188.5,107.5);
+
+		cornerB.matrix = cornerB.lastTransformation;
+		cornerD.matrix = cornerD.lastTransformation;
 
 		cornerGroup.opacity = 0;	
 		
@@ -87,12 +93,8 @@ Interaction.init = function(container) {
 			delay: 1000
 		})
 		
-		
 		cornerHelper = new AnimationHelper({angle: 0});
-		
-		cornerB.lastTransformation = cornerB.matrix;
-		cornerD.lastTransformation = cornerD.matrix;
-		
+				
 		cornerHelper.animate({
 			style: {
 				angle: 180
