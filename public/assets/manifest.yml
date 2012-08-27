@@ -242,8 +242,8 @@ animations/yamuk/yamuk_ornek_01.png: animations/yamuk/yamuk_ornek_01-d25ef5fd593
 animations/yamuk/yamuk_ornek_02.png: animations/yamuk/yamuk_ornek_02-558de34b075fe0f90e0792e6a5ea0f94.png
 animations/yamuk/yamuk_ornek_03.png: animations/yamuk/yamuk_ornek_03-a283f6c68fa92ce1d4a0455be2815992.png
 animations/yamuk/yamuk_ornek_04.png: animations/yamuk/yamuk_ornek_04-36468bda95318383f3613741b523e40c.png
-animations/yamuk/yamuk_ornek_05.png: animations/yamuk/yamuk_ornek_05-2e984b1c249282306bc22b8ee66ae8df.png
-animations/yamuk/yamuk_ornek_06.png: animations/yamuk/yamuk_ornek_06-d47a7534e926bccc061a6cac22f8339c.png
+animations/yamuk/yamuk_ornek_05.png: animations/yamuk/yamuk_ornek_05-3736e69fdf68c662acbfc5cbed114672.png
+animations/yamuk/yamuk_ornek_06.png: animations/yamuk/yamuk_ornek_06-dea66858d288e24c02e61d0d2ad64410.png
 animations/yamuk/yamuk_ornek_07.png: animations/yamuk/yamuk_ornek_07-344fb8e679b49aa13091180114f52995.png
 animations/yamuk/yamuk_ornek_08.png: animations/yamuk/yamuk_ornek_08-cf8cfdd376d088356369c5974b3d9cf4.png
 animations/yukseklik/height.png: animations/yukseklik/height-4aca1f64730376cc33665a53388a1c6f.png
@@ -345,7 +345,7 @@ animations/uslu_gosterim.js: animations/uslu_gosterim-2b44c375e790d210db6df98e4e
 animations/uzay.js: animations/uzay-0b7f9121082ebe15532437dbdf9b8d0d.js
 animations/uzunluklari_olcme.js: animations/uzunluklari_olcme-82a6e869fa2efdf43e5deb65f73ea8af.js
 animations/veri.js: animations/veri-fd71f0ead1e94064c46f95d0f7f18869.js
-animations/yamuk.js: animations/yamuk-60bc635321e86a5c9747602abe6e6441.js
+animations/yamuk.js: animations/yamuk-bf4d3ba579f52a46507e12ec798f56e4.js
 animations/yukseklik.js: animations/yukseklik-9d493d51aaa67d85788d756e3db2b262.js
 animations/yuvarlama.js: animations/yuvarlama-3cc807ce01a34c1a8b918f3474ec261b.js
 animations/yuzde.js: animations/yuzde-edbac73ca155306325324f2826163da4.js
