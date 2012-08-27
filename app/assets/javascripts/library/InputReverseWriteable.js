@@ -12,6 +12,7 @@ function InputReverseWriteable(event) {
         case 188:
             break;
         case 8:
+            willSelectorBePlaced = true;
             this.selectorIndex = 1;
             break;
         case 37:
