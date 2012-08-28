@@ -146,7 +146,7 @@ var Interaction = {
 		},
 	init:function(container){
 			Interaction.container = container;
-			Main.setObjective('Yüzde birler basamağından itibaren çıkarma işlemini yapınız ve sonra uygun yere virgül koyarak kontrol ediniz.');
+            Main.setObjective('Yüzde birler basamağından itibaren çıkarma işlemini sırası geldiğinde uygun yere virgül koymayı unutmadan yapınız ve kontrol ediniz.');
 			Interaction.paper = {
 				width:$(container).width(),
 				height:$(container).height()

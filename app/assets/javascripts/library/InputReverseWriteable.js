@@ -5,12 +5,10 @@
 function InputReverseWriteable(event) {
     if(this.selectorIndex == undefined)
         this.selectorIndex = 0;
-//    console.log(this.selectorIndex);
+    console.log(this.selectorIndex);
     var willSelectorBePlaced = false;
     console.log('keyCode: ',event.keyCode);
     switch(event.keyCode){
-        case 188:
-            break;
         case 8:
             willSelectorBePlaced = true;
             this.selectorIndex = 1;
@@ -30,6 +28,8 @@ function InputReverseWriteable(event) {
             break;
 
     }
+    if(this.value.indexOf(',') > this.selectorIndex)
+        willSelectorBePlaced = false;
 
 //    console.log(this.selectorIndex)
     if(willSelectorBePlaced){
