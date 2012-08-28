@@ -326,8 +326,8 @@ animations/olasilik.js: animations/olasilik-23a8d0a8004fdd3f16784369f15d9976.js
 animations/ondalik_kesir.js: animations/ondalik_kesir-2f7f238803ce0117b0011f6f135a0274.js
 animations/ondalik_kesir_olusturma.js: animations/ondalik_kesir_olusturma-56d09d5b6125c6112dde5d47695e0b4b.js
 animations/ondalik_kesirleri_karsilastirma.js: animations/ondalik_kesirleri_karsilastirma-6aa03691c1193d4fe5312eeaf1b1bf1d.js
-animations/ondalik_kesirlerle_cikarma_islemi.js: animations/ondalik_kesirlerle_cikarma_islemi-d96ddd4d27a68b86cd8f86f80b43f589.js
-animations/ondalik_kesirlerle_toplama_islemi.js: animations/ondalik_kesirlerle_toplama_islemi-0817ad9cfe6371bb57350d8b10acd702.js
+animations/ondalik_kesirlerle_cikarma_islemi.js: animations/ondalik_kesirlerle_cikarma_islemi-38c4694c0a8f082e077b1327c9e273b1.js
+animations/ondalik_kesirlerle_toplama_islemi.js: animations/ondalik_kesirlerle_toplama_islemi-b42033ff0f16393dc792293cc357cb0a.js
 animations/oran.js: animations/oran-707f8d0435585b4a9d7dc6fc85f65108.js
 animations/oruntu_(sayi).js: animations/oruntu_(sayi)-3b03a02863be6a01aabe8d4e499ccc04.js
 animations/paralelkenar.js: animations/paralelkenar-84a8f50a591f5c6517b67fc1297e1580.js
@@ -356,7 +356,7 @@ animations/zihinden_carpma_islemi.js: animations/zihinden_carpma_islemi-0006d02c
 animations/zihinden_cikarma_islemi.js: animations/zihinden_cikarma_islemi-99bfff64064fbb1171dbe7804a28fa76.js
 animations/zihinden_toplama_islemi.js: animations/zihinden_toplama_islemi-c1af0816b15e3aa740cdbf582ce6fa53.js
 application.js: application-30939899585cf2854059a1905b2feb91.js
-main.js: main-b9077966251e108f7aef442d678ef029.js
+main.js: main-e6d49e9cf08d462ce18e140b93fb30ff.js
 processFiles.sh: processFiles-79b648dcbce096681d6650d60495e4ac.sh
 stats/highcharts.js: stats/highcharts-4b26148a5a280ffedb7386e3d0c73c77.js
 stats/stats.js: stats/stats-eb0d5b2516a5bcc5dea1dcebc2e4d975.js
