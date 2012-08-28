@@ -227,7 +227,7 @@ Main.initializeNavigation = function() {
 }
 
 Main.initializeSoundManager = function() {
-	// soundManager.mute();
+	soundManager.mute();
 	
 	soundManager.setup({
 
