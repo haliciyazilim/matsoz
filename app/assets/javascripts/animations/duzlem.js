@@ -2,15 +2,15 @@ function __Styles(){
 	planeStyle1 = {
 		fillColor: new RgbColor(0.95, 0.78, 0.52, 0.7),
 		strokeColor:'#9b763d',
-		strokeWidth:1		
+		strokeWidth:1
 	}
-	
+
 	planeStyle2 = {
 		fillColor: new RgbColor(0.91, 0.62, 0.62, 0.7),
 		strokeColor:'#9c4f4f',
-		strokeWidth:1		
+		strokeWidth:1
 	}
-	
+
 	planeStyle = {
 		fillColor:new RgbColor(0.75,0.91,0.94,0.5),
 		strokeColor:'#255b63',
@@ -26,30 +26,30 @@ function __Styles(){
 	}
 	typeDivCss = {
 		position:'absolute',
-		color:'#c90',
-		border:'2px solid #c90',
-		backgroundColor:'#900',
-		width:'140px',
+		width:'200px',
 		height:'50px',
 		top:'40px',
-		right:'100px',
-		fontWeight:'bold',
-		lineHeight:'46px',
+		right:'50px',
+		lineHeight:'30px',
+        fontSize:'20px',
 		textAlign:'center',
 		boxSizing:'border-box'
 	}
 	notExistDivCss = {
 		position:'absolute',
+        cursor:'pointer',
 		color:'#cfc',
-		border:'2px outset #afa',
+		border:'1px outset #afa',
 		backgroundColor:'#363',
+        fontWeight:'bold',
+        fontSize:'18px',
 		width:'70px',
-		height:'50px',
-		top:'40px',
-		right:'10px',
-		lineHeight:'46px',
+		height:'40px',
+		bottom:'90px',
+		right:'180px',
+		lineHeight:'40px',
 		textAlign:'center',
-		borderRadius:'25px',
+		borderRadius:'5px',
 		boxSizing:'border-box'
 	}
 	notExistDivSelectedCss = {
@@ -64,10 +64,10 @@ function __Styles(){
 var Animation = {
 	init:function(container){
 			Animation.container = container;
-			
+
 			$(container).append("<div id='parallel'>Paralel Düzlemler</div>");
 			$(container).append("<div id='intersecting'>Kesişen Düzlemler</div>");
-			
+
 			$('#parallel').css({
 				fontSize: 22,
 				position: 'absolute',
@@ -77,30 +77,31 @@ var Animation = {
 				left: 500,
 				opacity: 0
 			})
-			
+
 			$('#intersecting').css({
 				fontSize: 22,
 				position: 'absolute',
 				textAlign: 'center',
-				width: 200,				
+				width: 200,
 				top: 90,
 				left: 500,
 				opacity: 0
 			})
-			
-			
+
+
 			var animationHelper = new AnimationHelper({
 				x: -75,
 				y: 90,
-				width: 50,
-				length: 25,
+				width: 100,
+				length: 50,
 				height: 20,
 				x2: -100,
 				y2: 90,
 				rotation: 0,
-				offsetY: 0
+				rotation2: 0,
+				lineOpacity: -2
 			})
-			
+
 			var matrix;
 			var surface1 = new Surface([
 				new Point3(-animationHelper.width, -animationHelper.height, -animationHelper.length),
@@ -108,34 +109,53 @@ var Animation = {
 				new Point3( animationHelper.width, -animationHelper.height,  animationHelper.length),
 				new Point3(-animationHelper.width, -animationHelper.height,  animationHelper.length)
 			]);
-			
+
 			var surface2;
-			
-			
+			var totalDelay = -1000;
+
 			animationHelper.animate({
 				style: {
 					x: 312,
 					y: 90
 				},
 				duration: 2000,
-				delay: 1000,
+				delay: totalDelay += 2000,
 				animationType: 'easeInEaseOut',
 				update: function () {
 					matrix = Util.createProjectionMatrixForObjectAt(this.x, this.y);
-					
+
 					var path = surface1.project(matrix);
 					path.set_style(planeStyle1);
 				}
 			})
-		
-			
+
+
 			animationHelper.animate({
 				style: {
-					width: 100,
-					length: 50
+					rotation: Math.PI*2
 				},
-				duration: 1000,
-				delay: 3000,
+				duration: 3000,
+				delay: totalDelay += 2000,
+				animationType: 'easeInEaseOut',
+				init: function() {
+					surface1.pivotsX[0] = new Point3(0, -animationHelper.height, 0);
+				},
+				update: function() {
+					surface1.rotationsX[0] = this.rotation;
+
+					var path = surface1.project(matrix);
+					path.set_style(planeStyle1);
+				}
+			})
+
+
+			animationHelper.animate({
+				style: {
+					width: 600,
+					length: 300
+				},
+				duration: 2000,
+				delay: totalDelay += 3000,
 				animationType: 'easeInEaseOut',
 				update: function () {
 					surface1.points = [
@@ -144,43 +164,67 @@ var Animation = {
 						new Point3( animationHelper.width, -animationHelper.height,  animationHelper.length),
 						new Point3(-animationHelper.width, -animationHelper.height,  animationHelper.length)
 					];
-					
+
 					var path = surface1.project(matrix);
 					path.set_style(planeStyle1);
 				}
 			})
+			
 			
 			animationHelper.animate({
 				style: {
-					rotation: Math.PI*2
+					width: 100,
+					length: 50
 				},
-				duration: 3000,
-				delay: 5000,
+				duration: 2000,
+				delay: totalDelay += 2000,
 				animationType: 'easeInEaseOut',
-				init: function() {
-					surface1.pivotsX[0] = new Point3(0, -animationHelper.height, 0);
-				},
-				update: function() {
-					surface1.rotationsX[0] = this.rotation;
-					
+				update: function () {
+					surface1.points = [
+						new Point3(-animationHelper.width, -animationHelper.height, -animationHelper.length),
+						new Point3( animationHelper.width, -animationHelper.height, -animationHelper.length),
+						new Point3( animationHelper.width, -animationHelper.height,  animationHelper.length),
+						new Point3(-animationHelper.width, -animationHelper.height,  animationHelper.length)
+					];
+
 					var path = surface1.project(matrix);
 					path.set_style(planeStyle1);
 				}
 			})
-			
+
+
+			// animationHelper.animate({
+			// 	style: {
+			// 		rotation: Math.PI*2
+			// 	},
+			// 	duration: 1000,
+			// 	delay: totalDelay += 2000,
+			// 	animationType: 'easeInEaseOut',
+			// 	init: function() {
+			// 		surface1.pivotsX[0] = new Point3(0, -animationHelper.height, 0);
+			// 	},
+			// 	update: function() {
+			// 		surface1.rotationsX[0] = this.rotation;
+			// 
+			// 		var path = surface1.project(matrix);
+			// 		path.set_style(planeStyle1);
+			// 	}
+			// })
+
+
 			animationHelper.animate({
 				style: {
 					x2: 312,
 					y2: 90
 				},
 				duration: 2000,
-				delay: 9000,
+				delay: totalDelay += 2000 + 2000,
 				animationType: 'easeInEaseOut',
 				init: function() {
 					$("#parallel").animate({
 						opacity: 1
 					}, 1000)
-					
+
 					surface2 = new Surface([
 						new Point3(-animationHelper.width, animationHelper.height, -animationHelper.length),
 						new Point3( animationHelper.width, animationHelper.height, -animationHelper.length),
@@ -190,18 +234,18 @@ var Animation = {
 				},
 				update: function() {
 					var matrix2 = Util.createProjectionMatrixForObjectAt(this.x2, this.y2);
-					
+
 					var path = surface2.project(matrix2);
 					path.set_style(planeStyle2);
 				}
 			})
-			
+
 			animationHelper.animate({
 				style: {
 					rotation: Math.PI*3.5
 				},
 				duration: 3000,
-				delay: 11000,
+				delay: totalDelay += 2000,
 				animationType: 'easeInEaseOut',
 				init: function() {
 					surface1.pivotsX[0] = new Point3(0, 0, 0);
@@ -210,24 +254,24 @@ var Animation = {
 				update: function() {
 					surface1.rotationsX[0] = this.rotation;
 					surface2.rotationsX[0] = this.rotation;
-					
+
 					var path1 = surface1.project(matrix);
 					path1.set_style(planeStyle1);
-					
+
 					var path2 = surface2.project(matrix);
 					path2.set_style(planeStyle2);
 				}
 			})
-			
+
 			animationHelper.animate({
 				style: {
 					rotation: Math.PI*4
 				},
 				duration: 1000,
-				delay: 15000,
+				delay: totalDelay += 3000 + 1000,
 				animationType: 'easeInEaseOut',
 				init: function() {
-				
+
 					$("#parallel").animate({
 						opacity: 0
 					}, 1000);
@@ -239,9 +283,41 @@ var Animation = {
 				update: function() {
 					surface1.rotationsX[0] = this.rotation;
 					surface2.rotationsX[0] = this.rotation;
-					
+
 					var path1 = surface1.project(matrix);
 					path1.set_style(planeStyle1);
+
+					var path2 = surface2.project(matrix);
+					path2.set_style(planeStyle2);
+				}
+			})
+
+
+			animationHelper.animate({
+				style: {
+					width: 600,
+					length: 300
+				},
+				duration: 2000,
+				delay: totalDelay += 1000,
+				animationType: 'easeInEaseOut',
+				update: function () {
+					surface1.points = [
+						new Point3(-animationHelper.width, -animationHelper.height, -animationHelper.length),
+						new Point3( animationHelper.width, -animationHelper.height, -animationHelper.length),
+						new Point3( animationHelper.width, -animationHelper.height,  animationHelper.length),
+						new Point3(-animationHelper.width, -animationHelper.height,  animationHelper.length)
+					];
+					
+					surface2.points = [
+						new Point3(-animationHelper.width, animationHelper.height, -animationHelper.length),
+						new Point3( animationHelper.width, animationHelper.height, -animationHelper.length),
+						new Point3( animationHelper.width, animationHelper.height,  animationHelper.length),
+						new Point3(-animationHelper.width, animationHelper.height,  animationHelper.length)
+					];
+
+					var path = surface1.project(matrix);
+					path.set_style(planeStyle1);
 					
 					var path2 = surface2.project(matrix);
 					path2.set_style(planeStyle2);
@@ -250,11 +326,52 @@ var Animation = {
 			
 			animationHelper.animate({
 				style: {
+					width: 100,
+					length: 50
+				},
+				duration: 2000,
+				delay: totalDelay += 2000,
+				animationType: 'easeInEaseOut',
+				update: function () {
+					surface1.points = [
+						new Point3(-animationHelper.width, -animationHelper.height, -animationHelper.length),
+						new Point3( animationHelper.width, -animationHelper.height, -animationHelper.length),
+						new Point3( animationHelper.width, -animationHelper.height,  animationHelper.length),
+						new Point3(-animationHelper.width, -animationHelper.height,  animationHelper.length)
+					];
+					
+					surface2.points = [
+						new Point3(-animationHelper.width, animationHelper.height, -animationHelper.length),
+						new Point3( animationHelper.width, animationHelper.height, -animationHelper.length),
+						new Point3( animationHelper.width, animationHelper.height,  animationHelper.length),
+						new Point3(-animationHelper.width, animationHelper.height,  animationHelper.length)
+					];
+
+					var path = surface1.project(matrix);
+					path.set_style(planeStyle1);
+					
+					var path2 = surface2.project(matrix);
+					path2.set_style(planeStyle2);
+				}
+			})
+
+
+			var p1 = new Point3(-animationHelper.width, animationHelper.height, 0)
+			var p2 = new Point3( animationHelper.width, animationHelper.height, 0)
+			var m = Util.createProjectionMatrixForObjectAt(312, 90);
+			var pp1 = Util.project(p1, m);
+			var pp2 = Util.project(p2, m);			
+			var line = new Path.Line(pp1, pp2);
+			line.strokeColor = 'red';
+			line.opacity = 0;
+
+			animationHelper.animate({
+				style: {
 					rotation: Math.PI*3.5,
-					offsetY: 30
+					lineOpacity: 1
 				},
 				duration: 1000,
-				delay: 17000,
+				delay: totalDelay += 2000 + 1000,
 				animationType: 'easeInEaseOut',
 				init: function() {
 					$("#intersecting").animate({
@@ -262,29 +379,185 @@ var Animation = {
 					}, 1000);
 				},
 				update: function() {
-					surface1.pivotsX[0] = new Point3(0, this.offsetY, animationHelper.length - animationHelper.height);
+					surface1.pivotsX[0] = new Point3(0, -animationHelper.height, 0);
 					
 					surface1.rotationsX[0] = this.rotation;
-					
+
 					surface1.points = [
-						new Point3(-animationHelper.width, -animationHelper.height + this.offsetY, -animationHelper.length),
-						new Point3( animationHelper.width, -animationHelper.height + this.offsetY, -animationHelper.length),
-						new Point3( animationHelper.width, -animationHelper.height + this.offsetY,  animationHelper.length),
-						new Point3(-animationHelper.width, -animationHelper.height + this.offsetY,  animationHelper.length)
+						new Point3(-animationHelper.width, -animationHelper.height, -animationHelper.length),
+						new Point3( animationHelper.width, -animationHelper.height, -animationHelper.length),
+						new Point3( animationHelper.width, -animationHelper.height,  animationHelper.length),
+						new Point3(-animationHelper.width, -animationHelper.height,  animationHelper.length)
 					];
-					
+
 					surface2.points = [
-						new Point3(-animationHelper.width, animationHelper.height + this.offsetY, -animationHelper.length),
-						new Point3( animationHelper.width, animationHelper.height + this.offsetY, -animationHelper.length),
-						new Point3( animationHelper.width, animationHelper.height + this.offsetY,  animationHelper.length),
-						new Point3(-animationHelper.width, animationHelper.height + this.offsetY,  animationHelper.length)
-					];										
-					
+						new Point3(-animationHelper.width, animationHelper.height, -animationHelper.length),
+						new Point3( animationHelper.width, animationHelper.height, -animationHelper.length),
+						new Point3( animationHelper.width, animationHelper.height,  animationHelper.length),
+						new Point3(-animationHelper.width, animationHelper.height,  animationHelper.length)
+					];
+
 					var path1 = surface1.project(matrix);
 					path1.set_style(planeStyle1);
-					
+
 					var path2 = surface2.project(matrix);
 					path2.set_style(planeStyle2);
+					
+					if (this.lineOpacity > 0) {
+						line.remove();
+						line = new Path.Line(pp1, pp2);
+						line.strokeColor = 'red';
+						line.opacity = this.lineOpacity;						
+					}
+				}
+			})
+			
+			
+			animationHelper.animate({
+				style: {
+					rotation2: Math.PI*2
+				},
+				duration: 3000,
+				delay: totalDelay += 1000,
+				animationType: 'easeInEaseOut',
+				init: function() {
+					$("#intersecting").animate({
+						opacity: 1
+					}, 1000);
+				},
+				update: function() {
+					surface1.pivotsX[1] = new Point3(0, 0, 0);
+					surface2.pivotsX[0] = new Point3(0, 0, 0);
+					
+					surface1.rotationsX[1] = this.rotation2;
+					surface2.rotationsX[0] = this.rotation2;
+
+					surface1.points = [
+						new Point3(-animationHelper.width, -animationHelper.height, -animationHelper.length),
+						new Point3( animationHelper.width, -animationHelper.height, -animationHelper.length),
+						new Point3( animationHelper.width, -animationHelper.height,  animationHelper.length),
+						new Point3(-animationHelper.width, -animationHelper.height,  animationHelper.length)
+					];
+
+					surface2.points = [
+						new Point3(-animationHelper.width, animationHelper.height, -animationHelper.length),
+						new Point3( animationHelper.width, animationHelper.height, -animationHelper.length),
+						new Point3( animationHelper.width, animationHelper.height,  animationHelper.length),
+						new Point3(-animationHelper.width, animationHelper.height,  animationHelper.length)
+					];
+
+					var path1 = surface1.project(matrix);
+					path1.set_style(planeStyle1);
+
+					var path2 = surface2.project(matrix);
+					path2.set_style(planeStyle2);
+					
+					if (this.lineOpacity > 0) {
+						line.remove();
+						
+						pp1 = Util.project(p1.getRotatedPointByX(this.rotation2), m);
+						pp2 = Util.project(p2.getRotatedPointByX(this.rotation2), m);
+						
+						line = new Path.Line(pp1, pp2);
+						line.strokeColor = 'red';
+						line.opacity = this.lineOpacity;						
+					}
+				}
+			})
+			
+			animationHelper.animate({
+				style: {
+					width: 600,
+					length: 300
+				},
+				duration: 2000,
+				delay: totalDelay += 3000,
+				animationType: 'easeInEaseOut',
+				init: function() {
+					$("#intersecting").animate({
+						opacity: 1
+					}, 1000);
+				},
+				update: function() {
+
+					surface1.points = [
+						new Point3(-animationHelper.width, -animationHelper.height, -animationHelper.length),
+						new Point3( animationHelper.width, -animationHelper.height, -animationHelper.length),
+						new Point3( animationHelper.width, -animationHelper.height,  animationHelper.length),
+						new Point3(-animationHelper.width, -animationHelper.height,  animationHelper.length)
+					];
+
+					surface2.points = [
+						new Point3(-animationHelper.width, animationHelper.height, -animationHelper.length),
+						new Point3( animationHelper.width, animationHelper.height, -animationHelper.length),
+						new Point3( animationHelper.width, animationHelper.height,  animationHelper.length),
+						new Point3(-animationHelper.width, animationHelper.height,  animationHelper.length)
+					];
+
+					var path1 = surface1.project(matrix);
+					path1.set_style(planeStyle1);
+
+					var path2 = surface2.project(matrix);
+					path2.set_style(planeStyle2);
+					
+					line.remove();
+					
+					p1 = new Point3(-animationHelper.width, animationHelper.height, 0)
+					p2 = new Point3( animationHelper.width, animationHelper.height, 0)
+					pp1 = Util.project(p1, m);
+					pp2 = Util.project(p2, m);
+					
+					line = new Path.Line(pp1, pp2);
+					line.strokeColor = 'red';
+					
+				}
+			})
+			
+			animationHelper.animate({
+				style: {
+					width: 100,
+					length: 50
+				},
+				duration: 2000,
+				delay: totalDelay += 2000,
+				animationType: 'easeInEaseOut',
+				init: function() {
+					$("#intersecting").animate({
+						opacity: 1
+					}, 1000);
+				},
+				update: function() {
+
+					surface1.points = [
+						new Point3(-animationHelper.width, -animationHelper.height, -animationHelper.length),
+						new Point3( animationHelper.width, -animationHelper.height, -animationHelper.length),
+						new Point3( animationHelper.width, -animationHelper.height,  animationHelper.length),
+						new Point3(-animationHelper.width, -animationHelper.height,  animationHelper.length)
+					];
+
+					surface2.points = [
+						new Point3(-animationHelper.width, animationHelper.height, -animationHelper.length),
+						new Point3( animationHelper.width, animationHelper.height, -animationHelper.length),
+						new Point3( animationHelper.width, animationHelper.height,  animationHelper.length),
+						new Point3(-animationHelper.width, animationHelper.height,  animationHelper.length)
+					];
+
+					var path1 = surface1.project(matrix);
+					path1.set_style(planeStyle1);
+
+					var path2 = surface2.project(matrix);
+					path2.set_style(planeStyle2);
+					
+					line.remove();
+					
+					p1 = new Point3(-animationHelper.width, animationHelper.height, 0)
+					p2 = new Point3( animationHelper.width, animationHelper.height, 0)
+					pp1 = Util.project(p1, m);
+					pp2 = Util.project(p2, m);
+					
+					line = new Path.Line(pp1, pp2);
+					line.strokeColor = 'red';
+					
 				},
 				callback: Main.animationFinished
 			})
@@ -301,7 +574,7 @@ var Interaction = {
 		},
 	init:function(container){
 			Interaction.container = container;
-			Main.setObjective('Yandaki geometrik cisimlerin istenen paralel ya da kesişen düzlem ikilisine fare ile tıklayarak gösteriniz. Olmayanlar için “Yok” düğmesine tıklayınız.');
+			Main.setObjective('Yandaki geometrik cisimlerin istenen paralel ya da kesişen düzlem ikilisine basarak gösteriniz. Olmayanlar için “Yok” düğmesine basıp daha sonra kontrol düğmesine basınız.');
 			Interaction.paper = {
 				width:$(container).width(),
 				height:$(container).height()
@@ -313,7 +586,7 @@ var Interaction = {
 				lineHeight:'20px'
 			});
 			Interaction.appendButton({
-				bottom:'70px',
+				bottom:'90px',
 				right:'40px'
 			});
 			Interaction.typeDiv = document.createElement('div');
@@ -321,7 +594,7 @@ var Interaction = {
 			$(Interaction.typeDiv)
 				.attr('id','typeDiv')
 				.css(typeDivCss)
-			
+
 			Interaction.notExistDiv = document.createElement('div');
 			$(container).append(Interaction.notExistDiv);
 			$(Interaction.notExistDiv)
@@ -358,13 +631,13 @@ var Interaction = {
 			Main.interactionProject.activeLayer.removeChildren()
 			Interaction.notExistDiv.deselect();
 			Interaction.qType = Util.rand01()==0?Interaction._types.INTERSECTING:Interaction._types.PARALLEL;
-			$(Interaction.typeDiv).html(Interaction.qType);
+			$(Interaction.typeDiv).html('İstenen:<br/><strong>'+Interaction.qType+'</strong><br/>');
 			/*<[[TestCode*/
-				//randomNumber = 7; 
+				//randomNumber = 7;
 			/*TestCode]]>*/
 			Interaction.shapeType = randomNumber;
 			switch(randomNumber){
-				case 0://cube					
+				case 0://cube
 					var rPrism = new RectangularPrisim(new Point(150,150),100,100,100);
 					Interaction.shape = rPrism.draw();
 					break;
@@ -396,7 +669,7 @@ var Interaction = {
 					var sphere = new Path.Sphere(new Point(150,125),100).set_style(planeStyle);
 					break;
 			}
-			
+
 		},
 	preCheck : function(){
 			if(!Interaction.notExistDiv.isSelected() && (Interaction.getSelectedPlanes().length < 2 && Interaction.shapeType != 6 || Interaction.shapeType == 6/*cone*/ &&Interaction.getSelectedPlanes().length < 1 ) ){
@@ -436,7 +709,7 @@ var Interaction = {
 						!Interaction.notExistDiv.isSelected()
 					)
 						return true;
-					
+
 					if( Interaction.qType == Interaction._types.INTERSECTING &&
 						Interaction.notExistDiv.isSelected()
 					)
@@ -448,14 +721,14 @@ var Interaction = {
 						return false;
 					return true;
 					break;
-						
+
 			}
 		},
 	onCorrectAnswer : function(){
-		
+
 		},
 	onWrongAnswer : function(){
-		
+
 		},
 	onFail : function(){
 			Interaction.pause = true;
@@ -502,10 +775,10 @@ var Interaction = {
 						Interaction.setStatus('Yanlış cevap. Kesişen düzlemler yok.',false);
 					}
 					break;
-						
+
 			}
-			
-			
+
+
 			$(pairs).each(function(index, element) {
                 $(this).each(function() {
                 	this.shape.animate({
@@ -521,14 +794,14 @@ var Interaction = {
 								delay:700
 							})
 						}
-					});    
+					});
                 });
             });
 			if(pairs.length > 0)
 				setTimeout('Interaction.pause = false',2000+pairs.length*2000);
 			else
 				Interaction.pause = false;
-			
+
 		},
 	getParellelPlanePairs:function(){
 			return Interaction.getPlanePairs('parallel');
@@ -546,12 +819,12 @@ var Interaction = {
 				}
 				else{
 					$(node.children).each(function(index, element) {
-                    	_recursive(this);   
+                    	_recursive(this);
                     });
 				}
 			}
 			_recursive(Main.interactionProject.activeLayer);
-			
+
 			var planePairs = [];
 			for(var i=0; i<planes.length;i++)
 				for(var j=0; j<planes.length;j++){
@@ -566,7 +839,7 @@ var Interaction = {
 							planes[i].plane,
 							planes[j].plane
 						]);
-						
+
 					}
 				}
 			return planePairs;
@@ -579,7 +852,7 @@ var Interaction = {
 				}
 				else{
 					$(node.children).each(function(index, element) {
-                    	_recursive(this);   
+                    	_recursive(this);
                     });
 				}
 			}
@@ -595,7 +868,7 @@ var Interaction = {
 				}
 				else{
 					$(node.children).each(function(index, element) {
-                    	_recursive(this);   
+                    	_recursive(this);
                     });
 				}
 			}
@@ -622,7 +895,7 @@ var Interaction = {
 						item.plane.plane.deselect()
 						this.count--;
 					}
-				} 
+				}
 			}
 			Interaction.tool.activate();
 		}
@@ -633,7 +906,7 @@ var ClickableArea = Class.extend({
 			this.plane = plane;
 			this.matrix = this.plane.matrix;
 			console.log("I'm here");
-		},	
+		},
 	setParent : function(parent){
 			this.parent = parent;
 			this.matrix = this.parent.matrix;
@@ -644,7 +917,7 @@ var ClickableArea = Class.extend({
 			var c = projectPoint(this.plane.centerPoint,this.matrix);
 			for(var i=0;i<=this.plane.points.length;i++){
 				var p = projectPoint(this.plane.points[i%this.plane.points.length],this.matrix);
-				var _p = c.findPointTo(p,20,true) 
+				var _p = c.findPointTo(p,20,true)
 				shape.add(Math.floor(_p.x)+0.5,Math.floor(_p.y)+0.5);
 			}
 			shape.closed = true;
@@ -664,7 +937,7 @@ var CircularClickableArea = ClickableArea.extend({
 			var c = Util.centerOfPoints(this.plane.shape.points);
 			var points = [];
 			$(this.plane.shape.points).each(function(index, element) {
-                var p = c.findPointTo(this,20,true) 
+                var p = c.findPointTo(this,20,true)
 				points.push(p);
             });
 			shape.add(points[0]);
@@ -737,11 +1010,11 @@ function TrianglePrisim(p,a,b,c){
 	p[0] = new Point3(-a*0.5,-b*0.5,+c*0);
 	p[3] = new Point3(+a*0.5,-b*0.5,+c*0.5);
 	p[4] = new Point3(+a*0.5,-b*0.5,-c*0.5);
-	
+
 	p[1] = new Point3(-a*0.5,+b*0.5,+c*0);
 	p[2] = new Point3(+a*0.5,+b*0.5,+c*0.5);
 	p[5] = new Point3(+a*0.5,+b*0.5,-c*0.5);
-	
+
 	this.matrix = Util.createProjectionMatrixForObjectAt(x,y);
 	//console.log(this.matrix);
 	this.planes = [];
@@ -779,15 +1052,15 @@ function Pyramid(p,a,b,c){
 	this.centerPoint = p;
 	var x = p.x, y = p.y, z = a*5;
 	p = [];
-	
-	
-	
+
+
+
 	p[0] = new Point3(-a*0,-b*0.5,+c*0);
 	p[1] = new Point3(-a*0.4,+b*0.5,+c*0.5);
 	p[2] = new Point3(+a*0.6,+b*0.5,+c*0.5);
 	p[5] = new Point3(+a*0.5,+b*0.5,-c*0.5)
 	p[6] = new Point3(-a*0.5,+b*0.5,-c*0.5);
-	
+
 	this.matrix = Util.createProjectionMatrixForObjectAt(x,y);
 	//console.log(this.matrix);
 	this.planes = [];
@@ -826,9 +1099,9 @@ function Cylinder(p,a,b){
 	this.matrix = Util.createProjectionMatrixForObjectAt(x,y);
 	/*this.matrix = [
 						1, 0, 0, 150,
-						0, 0, 1, 150,			
+						0, 0, 1, 150,
 						0, 0, 0, 1,
-						0, 0, 0, 1,		
+						0, 0, 0, 1,
 					]*/
 	this.planes = [];
 	this.planes.push(new CircularPlane([new Point3(0,b*0.5,0)],a*0.5).setParent(this));
@@ -843,7 +1116,7 @@ function Cylinder(p,a,b){
 		for(var i=0;i<this.planes.length;i++){
 			shape.push(this.planes[i].draw())
 		}
-		
+
 		var backSide = new Path();
 		backSide.add(shape[1].points[3]);
 		backSide.cubicCurveTo(
@@ -978,7 +1251,7 @@ var Plane = Class.extend({
 				this.plane.isPlaneSelected = true;
 				Interaction.pause = false;
 			}
-		});			
+		});
 	},
 	deselect : function(time){
 		if(!time)
@@ -991,7 +1264,7 @@ var Plane = Class.extend({
 				this.plane.isPlaneSelected = false;
 				Interaction.pause = false;
 			}
-		});			
+		});
 	},
 	set_style : function(style){
 		this.style = style;
@@ -1042,7 +1315,7 @@ var CircularPlane = Plane.extend({
             var p = projectPoint(this,matrix)
 			points[index] = p;
         });
-		
+
 		shape.add(points[0]);
 		shape.cubicCurveTo(points[1],points[2],points[3])
 		shape.add(points[3]);
@@ -1063,7 +1336,7 @@ var CircularPlane = Plane.extend({
 				break;
 			}
 		}
-			
+
 		shape.closed = true;
 		if(this.style)
 			shape.set_style(this.style);

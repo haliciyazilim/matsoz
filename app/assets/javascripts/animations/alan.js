@@ -1,12 +1,18 @@
-// JavaScript Document
-
 /*Styles*/
-var textStyle = {'font-size':'16px'};
+var solutionCSS = {
+    position:'absolute',
+    bottom:'40px',
+    right:'60px',
+    color:'green',
+    fontSize:'16px',
+    fontWeight:'bold'
+};
+var textStyle = { 'font-size' : '16px' };
 var edgeStyle = {
-	strokeColor:'#255b63',
-	fillColor:'#bfe8ef',
-	strokeWidth:2,
-	cursor:'move'
+	strokeColor : '#255b63',
+	fillColor : '#bfe8ef',
+	strokeWidth : 2,
+	cursor : 'move'
 };
 var angleStyle = {'fill':'#DDD'};
 var gridLineStyle = {strokeColor:'#ccc',strokeWidth:1}
@@ -24,33 +30,35 @@ var Animation = {
 			this.textHTML = textHTML
 			this.shape = null;
 			this.draw = function(){
+                if(this.shape)
+                    this.shape.remove();
 				this.shape = new Path();
 				for(var i=0; i < this.staticPoints.length; i++){
 					this.shape.add(this.staticPoints[i]);
 				}
 				this.shape.add(this.staticPoints[0]);
-				this.shape.set_style(style1);			
+				this.shape.set_style(this.style1);
 			}
+            this.animate({
+                style:{},
+                duration:0,
+                delay:delay,
+                init:this.draw
+            })
 			if(delay == null || delay == undefined)
 				this.delay = 0;
 			this.startAnimation = function(){
-				var anim = new AnimationHelper({
-					textHTML:this.textHTML,
-					style1:style1,
-					style2:style2,
-					shape:this.shape,
-					pointsLength:this.staticPoints.length,
-				});
+                this.pointsLength=this.staticPoints.length;
 				for(var i=0; i<this.staticPoints.length; i++)
-					anim["point"+i] = this.staticPoints[i];
-				for(var key in style1)
-					anim[key] = style1[key];
+					this["point"+i] = this.staticPoints[i];
+				for(var key in this.style1)
+					this[key] = this.style1[key];
 				var style = {};
 				for(var i=0; i<this.relativePoints.length; i++)
-					style["point"+i] = this.relativePoints[i];	
+					style["point"+i] = this.relativePoints[i];
 				for(var key in this.style2)
 					style[key] = this.style2[key];
-				anim.animate({
+				this.animate({
 					style:style,
 					duration:this.duration,
 					delay:this.delay,
@@ -63,8 +71,9 @@ var Animation = {
 							this.shape.add(this["point"+i]);
 						}
 						this.shape.add(this["point0"]);
-						this.shape.set_style(this.style1);
-						//console.log(this.fillColor);
+                        this.shape.set_style(this.style1);
+                        if(this.opacity)
+                            this.shape.set_style({opacity:this.opacity});
 						this.shape.fillColor = this.fillColor;
 								
 					},
@@ -130,12 +139,12 @@ var Animation = {
 				});	
 			};
 		}
+        ShapeShifter.prototype.animate = Item.prototype.animate;
 		Animation.container = container;
 		var w=$(container).width(), h=$(container).height();
 		var p = new Point(w*0.5-350+0.5,h*0.5-90)
 		var a = 35;
 		Animation.gridSize = a;
-		
 		//draw grids
 		for(var i=1;i<4;i++)
 			new Path.Line(
@@ -147,9 +156,6 @@ var Animation = {
 				new Point(p.x+a*i,p.y),
 				new Point(p.x+a*i,p.y+140)
 			).set_style(gridLineStyle);
-		
-		
-		
 		var square = new ShapeShifter(
 			[
 				new Point(p.x+a*1,p.y+a*1),
@@ -172,7 +178,6 @@ var Animation = {
 			
 		);
 		square.startAnimation();
-		
 		var rectangle = new ShapeShifter(
 			[
 				new Point(p.x+a*5,p.y+a*1),
@@ -194,7 +199,6 @@ var Animation = {
 			'Dikdörtgensel Bölge<br/> A = <span id="1" lineFrom="0,0" lineTo="0,2" >2br</span> x <span id="2" lineFrom="0,2" lineTo="3,2" >3br</span> = 6br²'
 		);
 		rectangle.startAnimation();
-		
 		var rhomboid = new ShapeShifter(
 			[
 				new Point(p.x+a*10,p.y+a*1),
@@ -216,37 +220,50 @@ var Animation = {
 			'Paralelkenarsal Bölge<br/> A = <span id="1" lineFrom="0,0" lineTo="0,2" >2br</span> x <span id="2" lineFrom="-1,2" lineTo="2,2" >3br</span> = 6br²'
 		);
 		rhomboid.startAnimation();
-		
-		var triangle = new ShapeShifter(
-			[
-				new Point(p.x+a*17,p.y+a*1),
-				new Point(p.x+a*20,p.y+a*1),
-				new Point(p.x+a*19,p.y+a*3),
-				new Point(p.x+a*17,p.y+a*1),
-				new Point(p.x+a*19,p.y+a*3),
-				new Point(p.x+a*16,p.y+a*3),
-			],
-			[
-				new Point(p.x+a*17,p.y+a*1),
-				new Point(p.x+a*18,p.y+a*2),
-				new Point(p.x+a*19,p.y+a*3),
-				new Point(p.x+a*17,p.y+a*1),
-				new Point(p.x+a*19,p.y+a*3),
-				new Point(p.x+a*16,p.y+a*3),
-			
-			],
-			{strokeColor:"#000",strokeWidth:2,fillColor:new RgbColor(0.5,0.7,1,0.5)},
-			{fillColor:new RgbColor(1,1,0.7,0.5)},
-			1500,
-			12000,
-			'Üçgensel Bölge<br/><span style="position:relative;top:10px;"> A =</span><span id="2" lineFrom="-1,2" lineTo="2,2" >3br</span> x <span id="1" lineFrom="0,0" lineTo="0,2" >2br</span><span style="position:relative;top:10px;"> = 3br²</span><br/><div style="position:relative;height:20px;width:50px;border-top:1px solid #000;left:30px;text-align:center;">2</div>'
-		);
-		triangle.startAnimation();
+
+        var triangle1 = new ShapeShifter(
+            [
+                new Point(p.x+a*17,p.y+a*1),
+                new Point(p.x+a*20,p.y+a*1),
+                new Point(p.x+a*19,p.y+a*3),
+                new Point(p.x+a*16,p.y+a*3)
+            ],
+            [
+                new Point(p.x+a*17,p.y+a*1),
+                new Point(p.x+a*20,p.y+a*1),
+                new Point(p.x+a*19,p.y+a*3),
+                new Point(p.x+a*16,p.y+a*3)
+            ],
+            {strokeColor:"#000",strokeWidth:2,fillColor:new RgbColor(0.5,0.7,1,0.5),opacity:1},
+            {fillColor:new RgbColor(1,1,0.7,0.5),opacity:0},
+            1500,
+            12000
+        );
+        triangle1.startAnimation()
+        var triangle2 = new ShapeShifter(
+            [
+                new Point(p.x+a*17,p.y+a*1),
+                new Point(p.x+a*17,p.y+a*1),
+                new Point(p.x+a*19,p.y+a*3),
+                new Point(p.x+a*16,p.y+a*3)
+            ],
+            [
+                new Point(p.x+a*17,p.y+a*1),
+                new Point(p.x+a*17,p.y+a*1),
+                new Point(p.x+a*19,p.y+a*3),
+                new Point(p.x+a*16,p.y+a*3)
+            ],
+            {strokeColor:"#000",strokeWidth:2,fillColor:new RgbColor(0.5,0.7,1,0.5)},
+            {fillColor:new RgbColor(1,1,0.7,0.5)},
+            1500,
+            13000,
+            'Üçgensel Bölge<br/><span style="position:relative;top:10px;"> A =</span><span id="1" lineFrom="0,0" lineTo="0,2" >2br</span> x <span id="2" lineFrom="-1,2" lineTo="2,2" >3br</span><span style="position:relative;top:10px;"> = 3br²</span><br/><div style="position:relative;height:20px;width:50px;border-top:1px solid #000;left:30px;text-align:center;">2</div>'
+        );
+		triangle2.startAnimation();
         Main.animationFinished(17000);
-		
 	}
 };
-var Interaction =function(){};Interaction();
+var Interaction = {};
 Interaction.images = [
 	{
 		id : 'curve',
@@ -301,11 +318,14 @@ Interaction.setStatus = function(str,cls){
 var TestGenerator = {};
 
 TestGenerator.nextQuestion = function(){
+    if(Interaction.isPaused())
+        return;
 	Interaction.input.onkeyup = function(e){
 		//console.log(e.keyCode)
 		if(e.keyCode == 13)
 			TestGenerator.checkAnswer();		
 	}
+    $(TestGenerator.solution).remove();
 	TestGenerator.shape = null;
 	TestGenerator.trial = 0;
 	TestGenerator.values = null;
@@ -321,7 +341,7 @@ TestGenerator.nextQuestion = function(){
 	var m = Math.floor(Math.random()*2);
 	TestGenerator.setMeasure(m);
 	TestGenerator.letters = (Math.random()>0.5 ? ["A","B","C","D","E"]:["K","L","M","N","P"]);
-	//*TEST*/TestGenerator.shape = 3;/*TEST*/
+//	/*TEST*/TestGenerator.shape = 3;/*TEST*/
 	
 	switch(TestGenerator.shape){
 		case 0:
@@ -369,14 +389,67 @@ TestGenerator.setMeasure = function(m){
 }
 TestGenerator.getMeasure = function(){
 	if(TestGenerator.measure == null || TestGenerator.measure == 'undefined')
-		throw 'TestGenerator.values.m is not defined';
+		throw 'TestGenerator.measure is not defined';
 	if(TestGenerator.measure == 0)
 		return 'cm';
 	else
 		return 'm';
 };
+TestGenerator.showSolution = function(){
+    Interaction.pause();
+    var solution = Util.dom({
+        tag:'div',
+        parent:Interaction.container,
+        css:solutionCSS,
+        html:'<span id="0"></span><span id="1">&nbsp;x&nbsp;</span><span id="2"></span><span id="3">&nbsp;=&nbsp;</span><span id="4"></span>'
+    });
+    TestGenerator.solution = solution;
+    switch(TestGenerator.shape){
 
+        case 0:
+            $("#0",solution).html(TestGenerator.values.a);
+            $("#2",solution).html(TestGenerator.values.a);
+            $("#4",solution).html(TestGenerator.values.area);
+            break;
+
+        case 1:
+            $("#0",solution).html(TestGenerator.values.a);
+            $("#2",solution).html(TestGenerator.values.b);
+            $("#4",solution).html(TestGenerator.values.area);
+            break;
+
+        case 2:
+            $("#0",solution).html(TestGenerator.values.a+TestGenerator.values.b);
+            $("#2",solution).html(TestGenerator.values.H);
+            $("#4",solution).html(TestGenerator.values.area);
+            break;
+
+        case 3:
+            var style = {position:'relative',top:'-8px'};
+            $("#0",solution).css(style).html(TestGenerator.values.a+TestGenerator.values.b);
+            $("#1",solution).css(style);
+            $("#2",solution).css(style).html(TestGenerator.values.H);
+            $(solution).append('<div></div>');
+            $('div',solution).css({
+                position:'absolute',
+                width:$("#0",solution).width()+$("#1",solution).width()+$("#2",solution).width(),
+                borderTop:'1px solid green',
+                textAlign:'center',
+                height:'30px',
+                top:'7px',
+                left:'0px'
+            }).html(2)
+            $("#4",solution).html(TestGenerator.values.area);
+            break;
+
+    }
+
+    for(var i=0;i<5;i++)
+        $("#"+i,solution).css({opacity:0}).delay(1000*i).animate({opacity:1},1000,(i==4?Interaction.resume:undefined));
+}
 TestGenerator.checkAnswer = function(){
+    if(Interaction.isPaused())
+        return;
 	//check the answer
 	var value = Interaction.input.value;
 	var isWrong = false;
@@ -389,7 +462,6 @@ TestGenerator.checkAnswer = function(){
 		Interaction.setStatus('Tebrikler !',true);
 		Interaction.button.onclick = TestGenerator.nextQuestion;
 		Interaction.input.onkeyup = TestGenerator.nextQuestion;
-		//Interaction.button.value = 'Sonraki';
 		Interaction.button.className = 'next_button';
 	}
 	else{
@@ -403,13 +475,14 @@ TestGenerator.checkAnswer = function(){
 		Interaction.setStatus('Yanlış. Doğru cevap: '+TestGenerator.values.area+' '+TestGenerator.getMeasure() + '²',false);
 		Interaction.button.onclick = TestGenerator.nextQuestion;
 		Interaction.input.onkeyup = TestGenerator.nextQuestion;
-		//Interaction.button.value = 'Sonraki';
 		Interaction.button.className = 'next_button';
+        TestGenerator.showSolution();
 	}	
 	else{
 		TestGenerator.trial++;
 	}
 }
+
 TestGenerator.printVertexLetters = function(p){
 	for(var i=0; i<p.length;i++){
 		var text = new PointText(p[i]);

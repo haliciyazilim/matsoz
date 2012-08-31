@@ -64,7 +64,7 @@ var Animation = {
 				Animation.arcByAngle.strokeWidth = circularAreaStyle.strokeWidth;
 				
 				//console.log(Animation.arcByAngle);
-				console.log(this.circleCenter.toString());
+//				console.log(this.circleCenter.toString());
 			}
 		})
 		var text = new PointText(
@@ -154,10 +154,19 @@ var Animation = {
 			3000
 		);
 		htmlPlaceAndAnimate(
-			'_____________________',
-			x+80,
-			y-7,
-			4000
+			'',
+			458,
+			90,
+			3000,
+            function(div){
+                $(div).css({
+                    position:'absolute',
+                    top:'90px',
+                    borderBottom:'1px solid #000',
+                    height:'1px',
+                    width:'170px'
+                })
+            }
 		);
 		htmlPlaceAndAnimate(
 			'dairenin çevre uzunluğu',
@@ -230,13 +239,13 @@ var Interaction = {
 		{
 			id:'ruler',
 			src:'/assets/animations/pi/ruler_4cm.png'
-		},
+		}
 	],
 	getFramework : function() {
 		return 'paper';
 	},
 	init: function(container){
-		Main.setObjective('Aşağıdaki cetveli kullanarak verilen çemberin çapını ölçünüz. “Aç” düğmesine tıklayıp oluşan çemberin uzunluğunu ölçünüz. Bu iki uzunluktan hareketle π (pi) sayısını yaklaşık olarak bulup kutuya yazınız ve kontrol ediniz.');
+		Main.setObjective('Yandaki cetveli sürükleyip kullanarak verilen çemberin çapını ölçünüz. “Aç” düğmesine basıp oluşan çemberin uzunluğunu ölçünüz. Bu iki uzunluktan hareketle π (pi) sayısını yaklaşık olarak bulup kutuya yazınız ve kontrol ediniz.');
 		Interaction.paper = {
 			width:$(container).width(),
 			height:$(container).height()
@@ -314,7 +323,7 @@ var Interaction = {
 				fontSize:'16px'
 			})
 			.html('π’nin yaklaşık değeri = ');
-		;
+
 		Interaction.pause = false;
 		Interaction.drawRuler(10,10);
 		Interaction.nextQuestion();
@@ -371,6 +380,8 @@ var Interaction = {
 			}
 		}
 		tool.onMouseDrag = function(event){
+            if(!this.drag)
+                return;
 			var newPoint = this.firstPosition.add(this.totalDelta).add(event.delta);
             //change byu the circles radius;
 			if(Interaction.isLineDrawed && newPoint.x < 400 && 
@@ -494,6 +505,7 @@ var Interaction = {
 			return;
 		
 		var value = $(Interaction.input).val();
+        
 		
 		if(value == "" || isNaN( parseInt(value.substr(0,1),10) ) ){
 			Interaction.setStatus('Lütfen bir sayı giriniz.',false);
@@ -504,18 +516,15 @@ var Interaction = {
 			return;
 		}
 		var isWrong = true;
-		switch(value){
-			case '3':
-			case '3,1':
-			case '3,14':
-				isWrong = false;
-				break;
-		}
+        var valInt = parseFloat(value.replace(',','.'),10);
+		if(valInt >= 3 && valInt <= 3.15)
+            isWrong = false;
+				
 		if(isWrong === true){
 			Interaction.setStatus('Yanlış cevap. Tekrar Deneyiniz',false);
 			Interaction.trial++;
 			if(Interaction.trial > 1){
-				Interaction.setStatus('Yanlış, doğru cevap: 3,14 ya da 3,1 ya da 3 olacaktı',false);
+				Interaction.setStatus('Yanlış, doğru cevap: 3,14 . Eğer 3 ile 3,15 arasında bir değer bulup girseydiniz kabul edilirdi.',false);
 				Interaction.button.className = 'next_button';
 				Interaction.button.onclick = Interaction.nextQuestion;
 			}			
@@ -525,19 +534,5 @@ var Interaction = {
 			Interaction.button.className = 'next_button';
 			Interaction.button.onclick = Interaction.nextQuestion;
 		}
-	},
-	setStatus : function(str,cls){
-		$(Interaction.status).hide();
-		$(Interaction.status).show();
-		$(Interaction.status ).html(str);
-		if(cls == undefined || cls == null)
-			cls = -1;
-		if(cls === true)
-			$(Interaction.status ).get(0).className = 'status_true';
-		else if(cls === false)
-			$(Interaction.status ).get(0).className = 'status_false';
-		else
-			$(Interaction.status ).get(0).className = 'status';
-		
 	}
 };

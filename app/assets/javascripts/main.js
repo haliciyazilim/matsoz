@@ -31,6 +31,7 @@ Main.config = {
 Main.startAnimation = function(){
     animationView.onFrame = function(event) {
         Main.animationProject.activate();
+		View._focused = animationView;
         AnimationManager.update(event);
         if (typeof(Animation.onFrame) == 'function') {
             Animation.onFrame(event);
@@ -40,8 +41,9 @@ Main.startAnimation = function(){
         animationReady = true;
         return;
     } else {
-       Main.animationProject.activate();
-       Animation.init(Main.animation);
+		Main.animationProject.activate();
+		View._focused = animationView;
+		Animation.init(Main.animation);
     }
     try{
         if(__START_INTERACTION_IMMEDIATELY === true)
@@ -75,6 +77,7 @@ Main.startInteraction = function(){
         interactionReady = true;
     } else {
         Main.interactionProject.activate();
+		View._focused = interactionView;
         initializeRunLoop();
         Interaction.init(Main.interaction);
     }
@@ -89,6 +92,7 @@ Main.animateDefinition = function(){
 
 Main.init = function(){
 	Main.initializeNavigation();
+	Main.initializeSoundManager();
 	
 	Main.interaction = $('.etkilesimalan').get(0);
 	Main.animation = $('.ornek').get(0);
@@ -160,6 +164,7 @@ Main.init = function(){
 			if (animationReady === true && interactionReady === true) {
 				interactionView.onFrame = function(event) {
 					Main.interactionProject.activate();
+					View._focused = interactionView;
 					AnimationManager.update(event);
 					if (typeof(Interaction.onFrame) == 'function') {
 						Interaction.onFrame(event);
@@ -219,6 +224,46 @@ Main.initializeNavigation = function() {
 		createWordList($(this).data('letter'));
 	});
 	createWordList(currentLetter);
+}
+
+Main.initializeSoundManager = function() {
+	soundManager.mute();
+	
+	soundManager.setup({
+
+		// location: path to SWF files, as needed (SWF file name is appended later.)
+
+		url: '/swf/',
+
+		// optional: version of SM2 flash audio API to use (8 or 9; default is 8 if omitted, OK for most use cases.)
+		// flashVersion: 9,
+    
+		// use soundmanager2-nodebug-jsmin.js, or disable debug mode (enabled by default) after development/testing
+		// debugMode: false,
+    
+		// good to go: the onready() callback
+    
+		onready: function() {
+			
+			// SM2 has started - now you can create and play sounds!
+    	
+			Main.wrongSound = soundManager.createSound({
+				id: 'wrongSound',
+				url: '/sounds/wrong.mp3'
+				// onload: function() { console.log('sound loaded!', this); }
+				// other options here..
+			});
+			
+			Main.correctSound = soundManager.createSound({
+				id: 'correctSound',
+				url: '/sounds/correct.mp3'
+				// onload: function() { console.log('sound loaded!', this); }
+				// other options here..
+			});
+			//     	
+			// mySound.play();
+		}
+	});
 }
 
 Main.setObjective = function(str){

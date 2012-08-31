@@ -1,3 +1,4 @@
+
 function __Styles(){
     fillColor = '#f3b93e'//'#bfe8ef';
     rectStyle = {
@@ -19,7 +20,7 @@ function __Styles(){
     }
 
     if(navigator.appName == "Microsoft Internet Explorer"){
-		animationSubtractCss.font = "arial";
+		animationSubtractCss.fontFamily = "arial";
 	}    
 }
 var Animation = {
@@ -145,7 +146,7 @@ var Interaction = {
 		},
 	init:function(container){
 			Interaction.container = container;
-			Main.setObjective('Yüzde birler basamağından itibaren çıkarma işlemini yapınız ve sonra uygun yere virgül koyarak kontrol ediniz.');
+            Main.setObjective('Yüzde birler basamağından itibaren çıkarma işlemini sırası geldiğinde uygun yere virgül koymayı unutmadan yapınız ve kontrol ediniz.');
 			Interaction.paper = {
 				width:$(container).width(),
 				height:$(container).height()
@@ -163,34 +164,7 @@ var Interaction = {
 			Interaction.input.selectorIndex = 0;
 			$(Interaction.input)
 				.attr('maxlength','7')
-                .keyup(function(event) {
-                    switch(event.keyCode){
-                        case 8:
-                            if(this.selectorIndex == 0)
-                                this.selectorIndex = 1;
-                            break;
-                        case 37:
-                            if(this.selectorIndex > 0)
-                                this.selectorIndex--;
-                            break;
-                        case 39:
-                            if(this.selectorIndex < this.value.length)
-                                this.selectorIndex++
-                            break;
-                            
-                    }
-					if(this.createTextRange){
-						var textRange = node.createTextRange();
-						textRange.collapse(true);
-						textRange.moveEnd(this.selectorIndex);
-						textRange.moveStart(this.selectorIndex);
-						textRange.select();
-						return true;
-					}else if(this.setSelectionRange){
-						this.setSelectionRange(this.selectorIndex,this.selectorIndex);
-						return true;
-					}
-                })
+                .keydown(InputReverseWriteable)
 				
 			var div = document.createElement('div');
 			$(container).append(div);
@@ -232,6 +206,7 @@ var Interaction = {
 			Interaction.prepareNextQuestion();
 		},
 	nextQuestion: function(){
+            $("#subtraction").remove()
 			if(Interaction.solutionDiv)
 				$(Interaction.solutionDiv).remove();
 			Interaction.addend1 = Math.floor(Math.random()*1000)/100;

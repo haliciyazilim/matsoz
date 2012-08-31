@@ -5,6 +5,7 @@ var chart2;
 $(document).ready(function() {
 	//var colors = ['#33aa33', '#55aa55', '#ffaa33', '#ff3333', '#777777'];
 	var colors = ['#33aa33', '#cccc33', '#ff7733', '#ff3333', '#666677'];
+	var colorsReversed = ['#666677', '#ff3333', '#ff7733', '#cccc33', '#33aa33'];
 	chart1 = new Highcharts.Chart({
 		chart: {
 			renderTo: 'pie_chart',
@@ -75,7 +76,7 @@ $(document).ready(function() {
 	        renderTo: 'stacked_area',
 	        type: 'area'
 	    },
-		colors: colors,
+		colors: colorsReversed,
 	    title: {
 	        text: 'Stats History'
 	    },
@@ -117,22 +118,22 @@ $(document).ready(function() {
 	            }
 	        }
 	    },
-	    series: [{
-	        name: 'Accepted',
-	        data: accepted
+		series: [{
+		    name: 'Not Yet Started',
+	        data: unscheduled
 	    }, {
-	        name: 'Delivered',
-	        data: delivered
+		    name: 'Active',
+	        data: active
 	    }, {
 	        name: 'Finished',
 	        data: finished
 	    }, {
-	        name: 'Active',
-	        data: active
+	        name: 'Delivered',
+	        data: delivered
 	    }, {
-	        name: 'Not Yet Started',
-	        data: unscheduled
-	    }]
+	        name: 'Accepted',
+	        data: accepted
+		}]
 	});	
 });
 

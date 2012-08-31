@@ -5180,10 +5180,10 @@ Path.inject({ statics: new function() {
 				bottom = top + rect.height,
 				path = new Path();
 			path._add([
-				new Segment(Point.create(left, bottom)),
 				new Segment(Point.create(left, top)),
-				new Segment(Point.create(right, top)),
-				new Segment(Point.create(right, bottom))
+				new Segment(Point.create(left, bottom)),
+				new Segment(Point.create(right, bottom)),
+				new Segment(Point.create(right, top))
 			]);
 			path._closed = true;
 			return path;
@@ -7217,6 +7217,7 @@ var Tool = this.Tool = PaperScopeItem.extend({
 	_reference: 'tool',
 
 	initialize: function() {
+		this.view = View._focused;
 		this.base();
 		this._firstMove = true;
 		this._count = 0;
@@ -7300,6 +7301,9 @@ var Tool = this.Tool = PaperScopeItem.extend({
 	},
 
 	onHandleEvent: function(type, pt, event) {
+		if (this.view != View._focused) {
+			return;
+		}
 		paper = this._scope;
 		var called = false;
 		switch (type) {

@@ -75,7 +75,7 @@ Animation.init = function(container) {
 			}
 			
 			line1 = new Path.Line(graph.getXYCoordinate(0,0), this.line1End);
-			line1.strokeColor = '#262626';
+			line1.strokeColor = '#8b5400';
 			line1.strokeWidth = 2;
 		}
 	});
@@ -92,7 +92,7 @@ Animation.init = function(container) {
 			}
 			
 			line2 = new Path.Line(graph.getXYCoordinate(2,2), this.line2End);
-			line2.strokeColor = '#262626';
+			line2.strokeColor = '#8b5400';
 			line2.strokeWidth = 2;
 		}
 	});
@@ -109,7 +109,7 @@ Animation.init = function(container) {
 			}
 			
 			line3 = new Path.Line(graph.getXYCoordinate(3,2), this.line3End);
-			line3.strokeColor = '#262626';
+			line3.strokeColor = '#8b5400';
 			line3.strokeWidth = 2;
 		}
 	});
@@ -314,7 +314,7 @@ interactionInit = function(container) {
 				correctCircle.remove();
 			}
 			correctCircle = new Path.Circle(graph.getXYCoordinate(randomDay, data[randomDay] - 90), 6);
-			correctCircle.fillColor = 'red';
+			correctCircle.fillColor = 'green';
 			
 			$('#status').html('<span class="status_true">Tebrikler!</span>');
 			$('#submitButton').get(0).className = "next_button";
@@ -337,7 +337,7 @@ interactionInit = function(container) {
 					correctCircle.remove();
 				}
 				correctCircle = new Path.Circle(graph.getXYCoordinate(randomDay, data[randomDay] - 90), 6);
-				correctCircle.fillColor = 'red';
+				correctCircle.fillColor = 'green';
 				$('#status').html('<span class="status_false">Olmadı!</span>');
 				$('#textInput').val(correctAnswer);
 				$('#submitButton').get(0).className = "next_button";
@@ -378,7 +378,16 @@ interactionInit = function(container) {
 paperAddOns = function () {
 	
 	
-	Path.LineGraph = function(point, width, height, chart) {
+	Path.LineGraph = function(point, width, height, chart, style) {
+		if (style == undefined) {
+			style = {
+				axisColor: '#41818a',
+				gridColor: '#a8dbe3',
+				lineColor: '#8b5400',
+				textColor: '#006e7d'
+			}
+		}
+		
 		var group = new Group();
 		
 		var gridStartOffset = 0;
@@ -414,29 +423,30 @@ paperAddOns = function () {
 		for (index = 0; index < numOfXPoints; index++) {
 			gridLine = new Path.Line(new Point(xStep * index + xStart, yStart + gridStartOffset), new Point(xStep * index + xStart, yStep * (numOfYPoints - 1) + yStart - 10));
 			gridLine.strokeWidth = 1;
-			gridLine.strokeColor = 'gray';
+			gridLine.strokeColor = style.gridColor;
 			group.addChild(gridLine);
 		}
 		
 		for (index = 0; index < numOfYPoints; index++) {
 			gridLine = new Path.Line(new Point(xStart - gridStartOffset, index * yStep + yStart), new Point(xStep * (numOfXPoints-1) + xStart + 10, index * yStep + yStart));
 			gridLine.strokeWidth = 1;
-			gridLine.strokeColor = 'gray';
+			gridLine.strokeColor = style.gridColor;
 			group.addChild(gridLine);
 		}
 		
 		// Grid Labels
 		for (index = 0; index < numOfXPoints; index++) {
-			var xOffset = -3;
+			var xOffset = -3 + 6;
 			var yOffset = 15;
 			
 			if (xGridLabelStyle.rotation == 90) {
-				xOffset = 2.5;
+				xOffset = 2.5 + 5;
 				yOffset = 5.5;
 			}
 			
 			var text = new PointText(new Point(xStart + index*xStep + xOffset, yStart + yOffset + gridStartOffset));
 			text.set_style(xGridLabelStyle);
+			text.fillColor = style.textColor;
 			text.content = chart.xLabels[index];
 			if (xGridLabelStyle.rotation) {
 			 	text.rotate(xGridLabelStyle.rotation);
@@ -447,6 +457,7 @@ paperAddOns = function () {
 		for (index = 0; index < numOfYPoints; index++) {
 			var text = new PointText(new Point(xStart - 10 - gridStartOffset, yStart + index*yStep + 1));
 			text.set_style(yGridLabelStyle);
+			text.fillColor = style.textColor;
 			text.content = (yMax - yMin) / (numOfYPoints-1) * index + yMin;
 			group.addChild(text);
 		}
@@ -454,11 +465,15 @@ paperAddOns = function () {
 		// Axes
 		origin = new Point(point.add([0, height]));
 		
-		xAxis = new Path.OneSidedArrow(origin, origin.add([width + 10 + gridStartOffset, 0]),15, 30);
-		xAxis.strokeWidth = 4;
+		xAxis = new Path.OneSidedArrow(origin, origin.add([width + 10 + gridStartOffset, 0]),10, 18);
+		xAxis.strokeWidth = 2;
+		xAxis.fillColor = style.axisColor;
+		xAxis.strokeColor = style.axisColor;
 		
-		yAxis = new Path.OneSidedArrow(origin, origin.add([0, -height - 10 - gridStartOffset]),15, 30);
-		yAxis.strokeWidth = 4;
+		yAxis = new Path.OneSidedArrow(origin, origin.add([0, -height - 10 - gridStartOffset]),10, 18);
+		yAxis.strokeWidth = 2;
+		yAxis.fillColor = style.axisColor;		
+		yAxis.strokeColor = style.axisColor;
 		
 		group.addChild(xAxis);
 		group.addChild(yAxis);
@@ -506,7 +521,7 @@ paperAddOns = function () {
 			path.lineTo(new Point((xStep * index + xStart), ((chart.data[index] - yMin) * yStep + yStart)));
 		}
 		path.strokeWidth = 2;
-		path.strokeColor = 'black';
+		path.strokeColor = style.lineColor;
 		
 		group.addChild(path);
 		
