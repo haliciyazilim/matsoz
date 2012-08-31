@@ -680,6 +680,7 @@ var Interaction = {
 			Interaction.prepareNextQuestion();
 		},
 	nextQuestion: function(randomNumber){
+            Interaction.trial += 1;
 			if(Interaction.numericalAxis)
 				Interaction.numericalAxis.remove();
 			if($('#pointDiv'))
