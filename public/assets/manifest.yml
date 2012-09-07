@@ -228,9 +228,10 @@ animations/uzay/school.jpg: animations/uzay/school-6f631590139b1668994ce17b7d675
 animations/uzay/solar_system.jpg: animations/uzay/solar_system-7607b29064f45f8438f035622c4cc06d.jpg
 animations/uzay/stadium.jpg: animations/uzay/stadium-f2b0b304f838efc3cc481655a7d14df9.jpg
 animations/uzay/staple.jpg: animations/uzay/staple-ff2c5802b6ed3f0091506d4ab126879c.jpg
-animations/uzunluklari_olcme/ant.png: animations/uzunluklari_olcme/ant-832500c143a975b1ddb55b7be6e07d7e.png
-animations/uzunluklari_olcme/apartment.png: animations/uzunluklari_olcme/apartment-e4a451b4aff2f598ea2eaa21a77f094c.png
-animations/uzunluklari_olcme/pencil.png: animations/uzunluklari_olcme/pencil-5fa1132829ae8da17693edc5b2b056cf.png
+animations/uzunluklari_olcme/uzunluk_apartman.gif: animations/uzunluklari_olcme/uzunluk_apartman-0b726b075fdb772f8be7405873cb2e94.gif
+animations/uzunluklari_olcme/uzunluk_kalem.gif: animations/uzunluklari_olcme/uzunluk_kalem-b461121b17718c630c4849a7096e54c6.gif
+animations/uzunluklari_olcme/uzunluk_karinca.gif: animations/uzunluklari_olcme/uzunluk_karinca-9dbb3fb17ecc2791586c8d1351a25b2e.gif
+animations/uzunluklari_olcme/uzunluk_yol.gif: animations/uzunluklari_olcme/uzunluk_yol-1f46168911d657d502a5558bad9be6a7.gif
 animations/veri/FUTBOL.jpg: animations/veri/FUTBOL-edf7a82f543444ede60aff2d053f7654.jpg
 animations/veri/futbolcu_01.png: animations/veri/futbolcu_01-4825de6ede581fc1e247a4954a03e4c1.png
 animations/veri/futbolcu_02.png: animations/veri/futbolcu_02-cf0a47f9b2e59f43562ee15289c94b60.png
@@ -360,7 +361,7 @@ animations/ucgen_prizma.js: animations/ucgen_prizma-c29dc33afb81e1b58ddb1f141d69
 animations/ucgenlerin_siniflandirilmasi.js: animations/ucgenlerin_siniflandirilmasi-8ee98da16195124e47c23272f5695c4a.js
 animations/uslu_gosterim.js: animations/uslu_gosterim-2b44c375e790d210db6df98e4ea6b451.js
 animations/uzay.js: animations/uzay-0b7f9121082ebe15532437dbdf9b8d0d.js
-animations/uzunluklari_olcme.js: animations/uzunluklari_olcme-82a6e869fa2efdf43e5deb65f73ea8af.js
+animations/uzunluklari_olcme.js: animations/uzunluklari_olcme-9d9d18a69da4c296762b78428a3d4b40.js
 animations/veri.js: animations/veri-fd71f0ead1e94064c46f95d0f7f18869.js
 animations/yamuk.js: animations/yamuk-00078e52d69992a246447977a8206ac9.js
 animations/yukseklik.js: animations/yukseklik-9d493d51aaa67d85788d756e3db2b262.js
