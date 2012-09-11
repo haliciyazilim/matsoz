@@ -64,7 +64,7 @@ var Interaction = {
 		},
 	init:function(container){
 			Interaction.container = container;
-			Main.setObjective('Yandaki çarpma işlemini yapınız ve kontrol ediniz.');
+			Main.setObjective('Yandaki çarpma işlemini zihinden yapınız ve sonucu kontrol ediniz.');
 			Interaction.paper = {
 				width:$(container).width(),
 				height:$(container).height()
