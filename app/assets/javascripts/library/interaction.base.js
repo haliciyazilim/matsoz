@@ -85,11 +85,12 @@ function InteractionBase(){
 			.css({
 				position:'absolute'
 			})
+        $(input).css(css);
+        $(Interaction.container).append(input);
 		if(Interaction.inputs.length == 0)
 			Interaction.input = input;
 		Interaction.inputs.push(input);
-		$(Interaction.container).append(input);
-		$(input).css(css);
+
 		return input;
 	};
 	
@@ -164,8 +165,8 @@ function InteractionBase(){
 					Interaction.button.click();
 			})
 			.css({
-				width:(parseInt($(".input").css('font-size'),10)*(maxLength*0.5+0.5))+"px",
-				height:(parseInt($(".input").css('font-size'),10)*1.2)+"px"
+				width:(parseInt($(input).css('font-size'),10)*(maxLength*0.5+0.5))+"px",
+				height:(parseInt($(input).css('font-size'),10)*1.2)+"px"
 			});
 			
 		if (css) {
