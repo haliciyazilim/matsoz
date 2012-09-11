@@ -232,7 +232,7 @@ var Interaction = {
             
 			Interaction.cubes = Interaction.generateShape(randomNumber);
             Interaction.pause = true;
-            var delay = 500;
+            var delay = 1;
 			UnitCube.drawCubesOneByOne(Interaction.cubes,zero,a,Interaction,delay);
             setTimeout("Interaction.pause = false",delay*Interaction.cubes.length);
         }, 

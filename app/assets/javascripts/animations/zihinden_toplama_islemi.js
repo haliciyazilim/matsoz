@@ -80,7 +80,7 @@ var Interaction = {
 		},
 	init:function(container){
 			Interaction.container = container;
-			Main.setObjective('Dört basamaklı doğal sayılarla 10’un, 100’ün ve 1000’in en çok dokuz katı olan doğal sayıların toplama işlemi.');
+			Main.setObjective('Yandaki toplama işlemini zihinden yapınız ve sonucu kontrol ediniz.');
 			Interaction.paper = {
 				width:$(container).width(),
 				height:$(container).height()

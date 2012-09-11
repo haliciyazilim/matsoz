@@ -86,7 +86,7 @@ var Interaction = {
 		},
 	init:function(container){
 			Interaction.container = container;
-			Main.setObjective('Dört basamaklı doğal sayılarla 10’un, 100’ün ve 1000’in en çok dokuz katı olan doğal sayıların çıkarma işlemi.');
+			Main.setObjective('Yandaki çıkarma işlemini zihinden yapınız ve sonucu kontrol ediniz.');
 			Interaction.paper = {
 				width:$(container).width(),
 				height:$(container).height()

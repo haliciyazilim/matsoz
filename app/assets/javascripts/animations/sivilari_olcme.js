@@ -85,7 +85,7 @@ var Animation = {
             delay: 7000,
             animationType: 'easeInEaseOut',
             callback: function(){
-                Main.animationFinished();
+                Main.animationFinished(2000);
             }
         });
 

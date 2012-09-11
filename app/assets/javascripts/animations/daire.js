@@ -465,6 +465,47 @@ Interaction.showCircularRegion = function(){
 			$(Interaction.status).hide();
 			Interaction.status.innerHTML += ' <input type="button" class="repeat_button" style="margin-top:5px;" onclick="Interaction.nextQuestion()">';
 			$(Interaction.status).show();
+            Interaction.drawCircle.textO = new PointText(
+                new Point(
+                    Interaction.drawCircle.x-10,
+                    Interaction.drawCircle.y+10
+                )
+            );
+            Interaction.drawCircle.textO.content = "O";
+            Interaction.drawCircle.textR = new PointText(new Point(Interaction.drawCircle.x,Interaction.drawCircle.y));
+            if(Interaction.r/Interaction.br > 4.3){
+                Interaction.drawCircle.textR.position = Interaction.drawCircle.textR.position.add(+Interaction.r*0.5,+15);
+                Interaction.drawCircle.textR.paragraphStyle.justification = 'center';
+            }
+            else
+                Interaction.drawCircle.textR.position = Interaction.drawCircle.textR.position.add(Interaction.r,20);
+
+            Interaction.drawCircle.textR.content = "r = "+(Interaction.radius.innerHTML);
+            Interaction.drawCircle.lineR = new Path.Line(new Point(Interaction.drawCircle.x,Interaction.drawCircle.y),new Point(Interaction.drawCircle.x+Interaction.r,Interaction.drawCircle.y));
+            Interaction.drawCircle.lineR.set_style(lineStyle);
+
+            Interaction.drawCircle.textO.opacity=0;
+            Interaction.drawCircle.textO.animate({
+                style:{
+                    opacity:1
+                },
+                duration:1000
+            });
+
+            Interaction.drawCircle.textR.opacity=0;
+            Interaction.drawCircle.textR.animate({
+                style:{
+                    opacity:1
+                },
+                duration:1000
+            });
+            Interaction.drawCircle.lineR.opacity=0;
+            Interaction.drawCircle.lineR.animate({
+                style:{
+                    opacity:1
+                },
+                duration:1000
+            });
 			return;
 		}
 		var w = Interaction.r*Math.cos(Util.degreeToRadian(angle));
@@ -528,7 +569,6 @@ Interaction.splitCircularRegion = function(){
 			var radius = Interaction.r+1;
 			var startAngle = Util.degreeToRadians(0);
 			var endAngle = Util.degreeToRadians(-Interaction.splitCircularRegion._o);
-			
 			Interaction.scissor_half.rotate(+Interaction.splitCircularRegion._o_old-Interaction.splitCircularRegion._o, center);
 			Interaction.splitCircularRegion._o_old = Interaction.splitCircularRegion._o;
 			var point1 = new Point(center.x + Math.cos(startAngle) * radius,
@@ -540,9 +580,7 @@ Interaction.splitCircularRegion = function(){
 			try{
 				Interaction.splitCircularRegion.circle = new Path.Arc(point1, point2, point3);
 			}
-			catch(e){
-				//console.log("I'm here");
-			}
+			catch(e){}
 			Interaction.splitCircularRegion.circle.set_style(circleStyle);
 			Interaction.splitCircularRegion.circle.set_style({strokeColor:'#fff',strokeWidth:2,dashArray:[3,2]});
 			Interaction.splitCircularRegion.circle.moveBelow(Interaction.scissor_half);
@@ -554,7 +592,6 @@ Interaction.splitCircularRegion = function(){
 Interaction.initCompass = function(){
 	Interaction.compass = new Compass(Interaction.ruler.bounds.x+9,Interaction.ruler.bounds.y);
 	Interaction.compass.right.class = "right_leg";
-
 	Interaction.drawCompass(Interaction.br*3.5);
 	var tool = new Tool();
 	tool.drag = false;
@@ -594,7 +631,6 @@ Interaction.drawRuler = function(){
 		Math.floor(y+Interaction.ruler.size.height*0.5)+0.5
 	);
 	Interaction.br = 12;
-
 	var _y1 = y+h*0.6;
 	var _yt = y+h*0.4;
 	var _y2 = y+h;
