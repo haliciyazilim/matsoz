@@ -245,6 +245,7 @@ var Interaction = {
 		return 'paper';
 	},
 	init: function(container){
+        Interaction.container = container;
 		Main.setObjective('Yandaki cetveli sürükleyip kullanarak verilen çemberin çapını ölçünüz. “Aç” düğmesine basıp oluşan çemberin uzunluğunu ölçünüz. Bu iki uzunluktan hareketle π (pi) sayısını yaklaşık olarak bulup kutuya yazınız ve kontrol ediniz.');
 		Interaction.paper = {
 			width:$(container).width(),
@@ -267,66 +268,70 @@ var Interaction = {
 				width:'57px',
 				height:'32px'
 			});
-		
-		Interaction.input = document.createElement('input');
-		Interaction.input.setAttribute('type','text');
-		$(container).append(Interaction.input);
-		$(Interaction.input)
-			.attr({
-				class:'number_input_field',
-				maxLength:4
-			})
-			.css({
-				position:'absolute',
-				top:'200px',
-				right:'50px'
-			});
-		Interaction.input.onkeyup = function(e){
-			if(e.keyCode == 13){
-				Interaction.button.click();
-			}
-		}
-		Interaction.button = document.createElement('input');
-		Interaction.button.setAttribute('type','button');
-		$(container).append(Interaction.button);
-		$(Interaction.button)
-			.attr({
-				class:'control_button',
-				onClick:'Interaction.checkAnswer()'
-			})
-			.css({
-				position:'absolute',
-				top:'250px',
-				right:'50px'
-			});
-		Interaction.status = document.createElement('div');
-		$(container).append(Interaction.status);
-		$(Interaction.status).css({
-			position:'absolute',
-			top:'260px',
-			right:'160px',
-			width:'400px',
-			height:'50px',
-			textAlign:'right'
-		});
+
+        Interaction.appendInput({
+            top:'200px',
+            right:'130px',
+            width:'4.5ex'
+        }).maxLength = 4;
+        Interaction.appendInput({
+            top:'175px',
+            right:'225px'
+        });
+        Interaction.appendInput({
+            top:'225px',
+            right:'225px',
+            zIndex:9
+        })
+
+		Interaction.appendButton({
+            bottom:'10px',
+            right:'50px'
+        })
+
+        Interaction.appendStatus({
+            bottom:'20px',
+            right:'160px',
+            width:'400px',
+            textAlign:'right'
+        })
 		Interaction.span = document.createElement('div');
 		$(container).append(Interaction.span);
 		$(Interaction.span)
 			.css({
 				position:'absolute',
 				top:'210px',
-				right:'100px',
-				width:'400px',
-				height:'50px',
+				right:'180px',
+				width:'280px',
+				height:'20px',
 				textAlign:'right',
 				fontWeight:'bold',
 				fontSize:'16px'
 			})
-			.html('π’nin yaklaşık değeri = ');
-
+			.html('π’nin yaklaşık değeri = <span style="border-bottom: 1px solid #000;position: relative;top: -10px;">&emsp;&emsp;&emsp;&emsp;&nbsp;&emsp;</span> = ');
+        Util.dom({
+            tag:'span',
+            parent:container,
+            html:'br',
+            css:{
+                position:'absolute',
+                top:parseInt($(Interaction.inputs[1]).css('top'),10)+12,
+                right:parseInt($(Interaction.inputs[1]).css('right'),10)-20
+            }
+        });
+        Util.dom({
+            tag:'span',
+            parent:container,
+            html:'br',
+            css:{
+                position:'absolute',
+                top:parseInt($(Interaction.inputs[2]).css('top'),10)+12,
+                right:parseInt($(Interaction.inputs[2]).css('right'),10)-20
+            }
+        })
 		Interaction.pause = false;
 		Interaction.drawRuler(10,10);
-		Interaction.nextQuestion();
+		Interaction.prepareNextQuestion();
 	},
 	nextQuestion:function(){
         if(Interaction.circleRadius == undefined)
@@ -350,10 +355,6 @@ var Interaction = {
 		Interaction.trial = 0;
         Interaction.isLineDrawed = false;
 		Interaction.drawCircle();
-		Interaction.setStatus('');
-		Interaction.button.className = 'control_button';
-		Interaction.button.onclick = Interaction.checkAnswer;
-		Interaction.input.value = '';
 		Interaction.ruler.animate({
 			style:{position:Interaction.ruler.firstPosition},
 			duration:500
@@ -500,39 +501,35 @@ var Interaction = {
 		});
 		
 	},
-	checkAnswer:function(){
-		if(Interaction.pause === true)
-			return;
-		
-		var value = $(Interaction.input).val();
-        
-		
-		if(value == "" || isNaN( parseInt(value.substr(0,1),10) ) ){
-			Interaction.setStatus('Lütfen bir sayı giriniz.',false);
-			return;
-		}
-		if(value.indexOf('.') > -1){
-			Interaction.setStatus('Ondalıklı sayıları virgülle yazınız.',false);
-			return;
-		}
-		var isWrong = true;
-        var valInt = parseFloat(value.replace(',','.'),10);
-		if(valInt >= 3 && valInt <= 3.15)
-            isWrong = false;
-				
-		if(isWrong === true){
-			Interaction.setStatus('Yanlış cevap. Tekrar Deneyiniz',false);
-			Interaction.trial++;
-			if(Interaction.trial > 1){
-				Interaction.setStatus('Yanlış, doğru cevap: 3,14 . Eğer 3 ile 3,15 arasında bir değer bulup girseydiniz kabul edilirdi.',false);
-				Interaction.button.className = 'next_button';
-				Interaction.button.onclick = Interaction.nextQuestion;
-			}			
-		}
-		else{
-			Interaction.setStatus('Tebrikler !',true);
-			Interaction.button.className = 'next_button';
-			Interaction.button.onclick = Interaction.nextQuestion;
-		}
-	}
+    preCheck : function(){
+
+    },
+    isAnswerCorrect : function(values){
+        console.log(values);
+        if(values[2] != (""+Interaction.circleRadius / 60).replace(".",","))
+            return false;
+        if(parseFloat(values[1].replace(",","."),10) < (Interaction.circleRadius / 60) * 2 * 3 ||
+           parseFloat(values[1].replace(",","."),10) > (Interaction.circleRadius / 60) * 2 * 3.15)
+            return false;
+        if(parseFloat(values[0].replace(",","."),10) < 3 ||
+           parseFloat(values[0].replace(",","."),10) > 3.15 )
+            return false;
+        return true;
+    },
+    onCorrectAnswer : function(){
+
+    },
+    onWrongAnswer : function(){
+
+    },
+    onFail : function(){
+        Interaction.inputs[2].value = (""+Interaction.circleRadius / 60).replace(".",",");
+        Interaction.inputs[1].value = (""+(Interaction.circleRadius / 60 * 6)).replace(".",",");
+        Interaction.inputs[0].value = 3;
+        Interaction.inputs[0].style.color = "#0a0";
+        Interaction.inputs[1].style.color = "#0a0";
+        Interaction.inputs[2].style.color = "#0a0";
+        Interaction.setStatus('Yanlış cevap, doğrular kutularda gösterilmektedir',false);
+    }
+
 };
