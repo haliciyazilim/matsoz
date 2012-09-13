@@ -309,7 +309,7 @@ var Interaction = {
 				}
 			}
 			/*<[[TEST*/
-				randomNumber = Interaction.__type.LARGER_THAN;
+//				randomNumber = Interaction.__type.LARGER_THAN;
 			/*TEST]]>*/
 			Interaction.qType = randomNumber;
 			switch(randomNumber){
