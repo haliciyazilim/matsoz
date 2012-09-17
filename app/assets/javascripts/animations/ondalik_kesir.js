@@ -728,33 +728,49 @@ var Interaction = {
 		Interaction.sonuc=pay/payda;
 		Interaction.yanlis="";
                 console.log("else");
-		var girdilerdenGelen="";
+		Interaction.girdilerdenGelen="";
 		for(var i=1; i<values.length;i++){
-		girdilerdenGelen+=values[i];
+		Interaction.girdilerdenGelen+=values[i];
 		if(i==3)
-                    girdilerdenGelen+=".";
+                    Interaction.girdilerdenGelen+=".";
                 }
 		
-                console.log("Girdi Gelen: "+girdilerdenGelen);
-                 console.log("Girdi Gelen: "+parseFloat(girdilerdenGelen,10));
-                console.log("Girdi Gelen: "+format(parseFloat(girdilerdenGelen,10), {group:"", places:3}));
-                console.log("sonuc: "+format(Interaction.sonuc, {group:"", places:3}));
-                if(parseInt(format(Interaction.sonuc, {group:"", places:3}))==parseInt(values) && format((girdilerdenGelen), {group:"", places:3})==format(Interaction.sonuc, {group:"", places:3}))
+//                console.log("Girdi Gelen: "+girdilerdenGelen);
+//                 console.log("Girdi Gelen: "+parseFloat(girdilerdenGelen,10));
+//                console.log("Girdi Gelen: "+format(parseFloat(girdilerdenGelen,10), {group:"", places:3}));
+//                console.log("sonuc: "+format(Interaction.sonuc, {group:"", places:3}));
+                Interaction.girdilerdenGelen=format(parseFloat(Interaction.girdilerdenGelen,10), {group:"", places:3})
+                Interaction.formatliSonuc=format(Interaction.sonuc, {group:"", places:3});
+                
+                Interaction.ondalikGirdi=values[0];
+                var ondalikGirdiAyrim=Interaction.ondalikGirdi.split(",");
+                
+                Interaction.ondalikGirdi=ondalikGirdiAyrim[0]+"."+ondalikGirdiAyrim[1];
+                
+                Interaction.ondalikGirdi=format(parseFloat(Interaction.ondalikGirdi,10), {group:"", places:3});
+                if(Interaction.girdilerdenGelen==Interaction.formatliSonuc && Interaction.formatliSonuc==Interaction.ondalikGirdi)
                     return true
-                else if(parseInt(format(Interaction.sonuc, {group:"", places:3}))!=parseInt(values) && format(girdilerdenGelen, {group:"", places:3})!=format(Interaction.sonuc, {group:"", places:3}))
+                else if(Interaction.girdilerdenGelen!=Interaction.formatliSonuc && Interaction.formatliSonuc!=Interaction.ondalikGirdi)
                     return false
                 else{
-                    if(parseInt(format(Interaction.sonuc, {group:"", places:3}))!=parseInt(values))
+                    if(Interaction.formatliSonuc!=Interaction.ondalikGirdi)
                         Interaction.yanlis="ondalik";
-                    else if(format(girdilerdenGelen, {group:"", places:3})!=format(Interaction.sonuc, {group:"", places:3}))
+                        
+                    
+                    else if(Interaction.girdilerdeGelen!=Interaction.formatliSonuc)
                         Interaction.yanlis="tablo";
+                       
                 }   
 		},
 	onCorrectAnswer : function(){
 		
 		},
 	onWrongAnswer : function(){
-		 
+             if(Interaction.yanlis=="ondalik" || Interaction.yanlis=="tablo"){
+                 Interaction.setStatus("Cevabın bir kısmı <b id='dogru'>doğru</b>, bir kısmı <b id='yanlis'>yanlış</b>; lütfen tekrar deneyiniz");
+                 $("#dogru").css("color","green")
+                 $("#yanlis").css("color","red")
+             }
                      
                      
 		
