@@ -640,7 +640,7 @@ var Interaction = {
 			
 			
 			Interaction.appendButton({bottom:"20px", right:"48px"});
-			Interaction.appendStatus({bottom:"30px", right:"200px"});
+			Interaction.appendStatus({bottom:"30px", right:"185px", width:"400px"});
 			
 			
 			
@@ -653,6 +653,9 @@ var Interaction = {
 		$("#kesirPayda").html(payda);
 		$("input").css("color","black");
                 $("input").html("");
+                
+                $("#soruTekliInputCevap").animate({opacity:"0"},1000);
+                $(".cokluCevap").animate({opacity:"0"},1000);
 		
 		
 	
@@ -753,22 +756,12 @@ var Interaction = {
 	onFail : function(){
             var sonucStr=Interaction.sonuc.toString().replace(".",",");
             
-            if(Interaction.yanlis=="ondalik"){
-                Interaction.setStatus('Ondalık kısımdaki cevap yanlış, doğrusu <strong id="dCevap">'+sonucStr+' </strong>şeklinde olacaktı.',false);
-                $("input").css("color","green");
-                $(Interaction.inputs[0]).css("color","red");
-                
-                $("#kesirPayCevap").html($("#kesirPay").html());
-                $("#kesirPaydaCevap").html($("#kesirPayda").html());
-                $("#inputCevap").html(Interaction.formatliSonuc).css("color","red");
-                $("#soruTekliInputCevap").animate({opacity:"1"},1000);
-            }
-            else if(Interaction.yanlis=="tablo"){
-                Interaction.setStatus('Tablodaki cevap yanlış, doğrusu <strong id="dCevap">'+sonucStr+' </strong>şeklinde olacaktı.',false);
-                $("input").css("color","red");
-                $(Interaction.inputs[0]).css("color","green");
-                
-                var sonucAyrim=sonucStr.split(",");
+            $("#kesirPayCevap").html($("#kesirPay").html());
+            $("#kesirPaydaCevap").html($("#kesirPayda").html());
+            $("#inputCevap").html(sonucStr).css("color","green").css("font-weight","bold");
+            
+            
+            var sonucAyrim=sonucStr.split(",");
                 console.log("sonucAytrim: "+sonucAyrim[0]);
                 console.log("sonucAytrim: "+sonucAyrim[1]);
                 //sonucAyrim[0].reverse();
@@ -786,12 +779,31 @@ var Interaction = {
                         var rakam=sonucAyrim[0].charAt(sonucAyrim[0].length-(i-2));
                    $("#cokluInputCevap"+i).html(rakam);
                 }
+            
+            
+            if(Interaction.yanlis=="ondalik"){
+                Interaction.setStatus('Ondalık kısımdaki cevap yanlış, doğrusu ondalık kısmın altındadır.',false);
+                $("input").css("color","green");
+                $(Interaction.inputs[0]).css("color","red");
+                
+                
+                $("#soruTekliInputCevap").animate({opacity:"1"},1000);
+            }
+            else if(Interaction.yanlis=="tablo"){
+                Interaction.setStatus('Tablodaki cevap yanlış, doğrusu tablonun altındadır.',false);
+                $("input").css("color","red");
+                $(Interaction.inputs[0]).css("color","green");
+                $(".cokluCevap").animate({opacity:"1"},1000);
+                
                 
                 
             }
             else{
-                Interaction.setStatus('Yanlış cevap, doğrusu <strong id="dCevap">'+sonucStr+' </strong>şeklinde olacaktı.',false);
+                Interaction.setStatus('Yanlış cevap, doğrusu yukarıda belirtilmiştir.',false);
 		$("input").css("color","red");
+                
+                $("#soruTekliInputCevap").animate({opacity:"1"},1000);
+                $(".cokluCevap").animate({opacity:"1"},1000);
             }
  
             $("#dCevap").css("color","green");
@@ -1271,7 +1283,7 @@ var etkilesim=function(amac){
                     
                     for(var i=0; i<=6;i++){
                         if(i==3){
-                             $(Interaction.container).append("<div id='cokluInputCevapVirgul'>");
+                             $(Interaction.container).append("<div id='cokluInputCevapVirgul' class='cokluCevap'>");
                             $("#cokluInputCevapVirgul").css({
                                 width:"20px",
                                 height:"40px",
@@ -1286,15 +1298,15 @@ var etkilesim=function(amac){
                             
                         }
                         else if(i>3 && i<6){
-                             $(Interaction.container).append("<div id='cokluInputCevap"+(i-1)+"' class='cokluInputCevap'>");
+                             $(Interaction.container).append("<div id='cokluInputCevap"+(i-1)+"' class='cokluInputCevap cokluCevap'>");
                             $("#cokluInputCevap"+(i-1)).css({right:(40*i+28)+"px"});
                         }
                         else if(i==6){
-                             $(Interaction.container).append("<div id='cokluInputCevap"+(i-1)+"'  class='cokluInputCevap'>");
+                             $(Interaction.container).append("<div id='cokluInputCevap"+(i-1)+"'  class='cokluInputCevap cokluCevap'>");
                             $("#cokluInputCevap"+(i-1)).css({right:(40*i+28)+"px"});
                         }
                         else{
-                            $(Interaction.container).append("<div id='cokluInputCevap"+(i)+"'  class='cokluInputCevap'>");
+                            $(Interaction.container).append("<div id='cokluInputCevap"+(i)+"'  class='cokluInputCevap cokluCevap'>");
                             $("#cokluInputCevap"+(i)).css({right:(40*i+48)+"px"});
                         }
                     }
@@ -1310,6 +1322,7 @@ var etkilesim=function(amac){
                         fontSize:"40px",
                         color:"green"
                     });
+                    $(".cokluCevap").css("opacity","0").css("font-weight","bold");
                     $("#cokluInputCevap5").css({border:"solid 1px #255B63"});
                     
                     
@@ -1376,7 +1389,8 @@ var etkilesim=function(amac){
 			.css("width","60px")
 			.css("float","left")
 			.css("line-height","45px")
-			.css("text-align","center");
+			.css("text-align","center")
+                        .css("font-size","40px");
 			
 	
 			
