@@ -57,22 +57,26 @@ var Animation = {
             Animation.play();
 		},
     play:function(){
-            Animation.isPaused = false;
-            Animation.h = 0;
-            Animation.m = 0;
-            Animation.t = setInterval(function(){
-                if(Animation.isPaused == true)
-                     return;
-                if(Animation.m==60){
-                    Animation.h++;
-                    Animation.m=0;
-                }
-                if(Animation.h == 24){
-                    Animation.h = 0;
-                }
+        Animation.isPaused = false;
+        Animation.h = 0;
+        Animation.m = 0;
+        Animation.t = setInterval(function(){
+            if(Animation.isPaused == true)
+                 return;
+            if(Animation.m==60){
+                Animation.h++;
+                Animation.m=0;
+            }
+            if(Animation.h == 24){
+                Animation.h = 0;
+            }
 //                Animation.m+=0.1;
-                Animation.setImagesByTime(Animation.h, Animation.m++);
-            },1)
+            Animation.setImagesByTime(Animation.h, Animation.m++);
+        },1);
+        setTimeout(function(){
+            clearInterval(Animation.t);
+            Main.animationFinished();
+        },7000)
         },
     pause:function(){
             Animation.isPaused = true;
