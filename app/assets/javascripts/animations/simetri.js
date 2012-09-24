@@ -15,11 +15,11 @@ var Animation = {
             .css("left", "40px")
             .css("top", "50px")
             .css("opacity", 0)
-            .delay(1000).animate({opacity:1}, 1000)
+            .delay(1000).animate({opacity:1}, 1000);
 
-        setTimeout('$("#butterfly").attr("src", "/assets/animations/simetri/butterfly_animated_01.gif")', 3000)
+        setTimeout('$("#butterfly").attr("src", "/assets/animations/simetri/butterfly_animated_01.gif")', 3000);
 
-        setTimeout('$("#butterfly").attr("src", "/assets/animations/simetri/01.jpg")', 7000)
+        setTimeout('$("#butterfly").attr("src", "/assets/animations/simetri/01.jpg")', 8000);
 
 
         AnimateHelper = new AnimationHelper({
