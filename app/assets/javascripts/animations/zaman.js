@@ -226,7 +226,16 @@ var Interaction = {
 						$(yearDiv)
 							.html('')
 							.css(divCss).css({top:'30px',left:45+i*70,fontSize:'30px',backgroundColor:"#a9dbe4",borderColor:"#7aa7ad"})
-						
+                            .keydown(function(event){
+                                if(event.keyCode == 8 || event.keyCode == 46)
+                                    return true;
+                                if(event.target.value.length >= 4)
+                                    return false;
+                                if(event.keyCode >= 96 && event.keyCode <= 105)
+                                    return true;
+                                if(isNaN(parseInt(String.fromCharCode(event.keyCode),10)))
+                                   return false;
+                            });
 						var eventDiv = document.createElement('textarea');
 						eventDiv.setAttribute('type','text');
 						Interaction.eventDivs.push(eventDiv);
@@ -234,7 +243,7 @@ var Interaction = {
 						$(eventDiv)
 							.html('')
 							.css(divCss).css({top:'150px',left:25+i*70,width:'120px',backgroundColor:"#f3c884",borderColor:"#b9a077"});
-					}
+                    }
 					$(Interaction.eventDivs[0]).html('Annem ve babam evlendi.')
 					$(Interaction.eventDivs[2]).html('Doğum tarihim.')
 					$(Interaction.eventDivs[4]).html('Okula başladım.')
@@ -375,10 +384,6 @@ var Interaction = {
 			]);
 		},
 		
-	/*
-	*	this function is called inside Interaction.__checkAnswer() function
-	*	if this function returns false, check answer operation is cancelled
-	*/
 	preCheck : function(){
 		
 		},
