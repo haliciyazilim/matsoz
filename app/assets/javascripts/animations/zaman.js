@@ -57,22 +57,26 @@ var Animation = {
             Animation.play();
 		},
     play:function(){
-            Animation.isPaused = false;
-            Animation.h = 0;
-            Animation.m = 0;
-            Animation.t = setInterval(function(){
-                if(Animation.isPaused == true)
-                     return;
-                if(Animation.m==60){
-                    Animation.h++;
-                    Animation.m=0;
-                }
-                if(Animation.h == 24){
-                    Animation.h = 0;
-                }
+        Animation.isPaused = false;
+        Animation.h = 0;
+        Animation.m = 0;
+        Animation.t = setInterval(function(){
+            if(Animation.isPaused == true)
+                 return;
+            if(Animation.m==60){
+                Animation.h++;
+                Animation.m=0;
+            }
+            if(Animation.h == 24){
+                Animation.h = 0;
+            }
 //                Animation.m+=0.1;
-                Animation.setImagesByTime(Animation.h, Animation.m++);
-            },1)
+            Animation.setImagesByTime(Animation.h, Animation.m++);
+        },1);
+        setTimeout(function(){
+            clearInterval(Animation.t);
+            Main.animationFinished();
+        },7000)
         },
     pause:function(){
             Animation.isPaused = true;
@@ -190,11 +194,12 @@ var Interaction = {
 					var arr = new Group(); 
 					var startPoint = Interaction.centerPoint.add(-250, -50);
 					var endPoint = startPoint.add(501,0);
-					var arrow = new Path.OneSidedArrow(startPoint,endPoint, 10, 30);
-					var arrow2 = new Path.OneSidedArrow(startPoint, endPoint, 10, 30);
-					arrow.rotate(180,Interaction.centerPoint.add(0,-50));
+					var arrow = new Path.OneSidedArrow(startPoint.add(0,3),endPoint.add(0,3), 10, 30);
+					var arrow2 = new Path.OneSidedArrow(startPoint.add(0,3), endPoint.add(0,3), 10, 30);
+					arrow.rotate(180,Interaction.centerPoint.add(0,-47));
 					arr.addChild(arrow);
 					arr.addChild(arrow2);
+                    arr.set_style({strokeColor:"#e99d9d",fillColor:"#e99d9d"})
 					Interaction.timeLine = arr;
 					Interaction.yearDivs = [];
 					Interaction.eventDivs = [];
@@ -209,17 +214,18 @@ var Interaction = {
 							height:'40px',
 							border:'1px solid #999',
 							overflow:'hidden',
-							resize:'none'
+							resize:'none',
+                            fontFamily:"Arial"
 						}
 					for(var i=0; i<7;i++){
-						arr.addChild(new Path.Circle(startPoint.add(40+i*70,0),5).set_style({fillColor:'#000'}));
+						arr.addChild(new Path.Circle(startPoint.add(40+i*70,3),5).set_style({fillColor:'#9d4f4f'}));
 						var yearDiv = document.createElement('textarea');
 						yearDiv.setAttribute('type','text');
 						Interaction.yearDivs.push(yearDiv);
 						$(Interaction.container).append(yearDiv);
 						$(yearDiv)
 							.html('')
-							.css(divCss).css({top:'30px',left:45+i*70,fontSize:'30px'})
+							.css(divCss).css({top:'30px',left:45+i*70,fontSize:'30px',backgroundColor:"#a9dbe4",borderColor:"#7aa7ad"})
 						
 						var eventDiv = document.createElement('textarea');
 						eventDiv.setAttribute('type','text');
@@ -227,7 +233,7 @@ var Interaction = {
 						$(Interaction.container).append(eventDiv);
 						$(eventDiv)
 							.html('')
-							.css(divCss).css({top:'150px',left:25+i*70,width:'120px'});
+							.css(divCss).css({top:'150px',left:25+i*70,width:'120px',backgroundColor:"#f3c884",borderColor:"#b9a077"});
 					}
 					$(Interaction.eventDivs[0]).html('Annem ve babam evlendi.')
 					$(Interaction.eventDivs[2]).html('Doğum tarihim.')

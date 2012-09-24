@@ -539,23 +539,16 @@ var Animation = {
 		$(".Oyatay").css("-moz-transform","rotate(-90deg)");
 		$(".Oyatay").css("-o-transform","rotate(-90deg)");
 		
-		
-		//$("#yuzler .yazi").css("-writing-mode","tb-rl");
-		//-webkit-transform:rotate(-90deg);
+
 		$(".Oyatay").css("text-align","left");
 		$(".Oyatay").css("position","absolute");
 		$(".Oyatay").css("height","30px");
 		$(".Oyatay").css("width","150px");
 		$(".Oyatay").css("bottom","130px");
 		$(".Oyatay").css("left","-50px");
-		//$("#yatay").css("right","200px");
-		//$("#yatay").css("margin","auto");
+
 		$(".Oyatay").css("font-size","small");
 		
-		/*$("#Okesir").css("opacity","0").delay(1000).animate({opacity:"1"},1000);
-		$("#Oesittir").css("opacity","0").delay(2000).animate({opacity:"1"},1000);
-		$("#Oinput").css("opacity","0").delay(3000).animate({opacity:"1"},1000);
-		$("#OSoruCokluInput").css("opacity","0").delay(4000).animate({opacity:"1"},1000);*/
 		var sayac=0;
 		var hiz=500
 		for(var i=1; i<=paySayi.length;i++)
@@ -636,6 +629,7 @@ var Interaction = {
 						payda=10;
 						break;
 				}
+                                
 				return true;
 					
 			}
@@ -645,8 +639,8 @@ var Interaction = {
 			
 			
 			
-			Interaction.appendButton({bottom:"40px", right:"48px"});
-			Interaction.appendStatus({bottom:"50px", right:"200px"});
+			Interaction.appendButton({bottom:"20px", right:"48px"});
+			Interaction.appendStatus({bottom:"30px", right:"185px", width:"400px"});
 			
 			
 			
@@ -659,6 +653,9 @@ var Interaction = {
 		$("#kesirPayda").html(payda);
 		$("input").css("color","black");
                 $("input").html("");
+                
+                $("#soruTekliInputCevap").animate({opacity:"0"},1000);
+                $(".cokluCevap").animate({opacity:"0"},1000);
 		
 		
 	
@@ -674,23 +671,7 @@ var Interaction = {
 
 			}
 		}
-		/*	
-		if(bosSayisi==7){
-			console.log("if denetim"+bosSayisi);
-			Interaction.setStatus('Lüften bütün kutucukları doldurun.',false);
-			return false
-		}
 		
-		else{
-			if(Interaction.inputs[0]==""){
-				console.log("girdsm");
-				Interaction.setStatus('Lüften ondalık kısmı doldurun.',false);
-			}
-			else{
-			console.log("if else denetim"+bosSayisi);
-			return true;
-			}
-		}*/
 		
 		
 		if(bosSayisi==7){
@@ -726,35 +707,48 @@ var Interaction = {
 		},
 	isAnswerCorrect : function(values){
 		Interaction.sonuc=pay/payda;
+                
 		Interaction.yanlis="";
                 console.log("else");
-		var girdilerdenGelen="";
+		Interaction.girdilerdenGelen="";
 		for(var i=1; i<values.length;i++){
-		girdilerdenGelen+=values[i];
+		Interaction.girdilerdenGelen+=values[i];
 		if(i==3)
-                    girdilerdenGelen+=".";
+                    Interaction.girdilerdenGelen+=".";
                 }
-		
-                console.log("Girdi Gelen: "+girdilerdenGelen);
-                 console.log("Girdi Gelen: "+parseFloat(girdilerdenGelen,10));
-                console.log("Girdi Gelen: "+format(parseFloat(girdilerdenGelen,10), {group:"", places:3}));
-                console.log("sonuc: "+format(Interaction.sonuc, {group:"", places:3}));
-                if(parseInt(format(Interaction.sonuc, {group:"", places:3}))==parseInt(values) && format((girdilerdenGelen), {group:"", places:3})==format(Interaction.sonuc, {group:"", places:3}))
+		               
+                Interaction.girdilerdenGelen=format(parseFloat(Interaction.girdilerdenGelen,10), {group:"", places:3})
+                Interaction.formatliSonuc=format(Interaction.sonuc, {group:"", places:3});
+                
+                Interaction.ondalikGirdi=values[0];
+                var ondalikGirdiAyrim=Interaction.ondalikGirdi.split(",");
+                
+                Interaction.ondalikGirdi=ondalikGirdiAyrim[0]+"."+ondalikGirdiAyrim[1];
+                
+                Interaction.ondalikGirdi=format(parseFloat(Interaction.ondalikGirdi,10), {group:"", places:3});
+                if(Interaction.girdilerdenGelen==Interaction.formatliSonuc && Interaction.formatliSonuc==Interaction.ondalikGirdi)
                     return true
-                else if(parseInt(format(Interaction.sonuc, {group:"", places:3}))!=parseInt(values) && format(girdilerdenGelen, {group:"", places:3})!=format(Interaction.sonuc, {group:"", places:3}))
+                else if(Interaction.girdilerdenGelen!=Interaction.formatliSonuc && Interaction.formatliSonuc!=Interaction.ondalikGirdi)
                     return false
                 else{
-                    if(parseInt(format(Interaction.sonuc, {group:"", places:3}))!=parseInt(values))
+                    if(Interaction.formatliSonuc!=Interaction.ondalikGirdi)
                         Interaction.yanlis="ondalik";
-                    else if(format(girdilerdenGelen, {group:"", places:3})!=format(Interaction.sonuc, {group:"", places:3}))
+                        
+                    
+                    else if(Interaction.girdilerdeGelen!=Interaction.formatliSonuc)
                         Interaction.yanlis="tablo";
+                       
                 }   
 		},
 	onCorrectAnswer : function(){
 		
 		},
 	onWrongAnswer : function(){
-		 
+             if(Interaction.yanlis=="ondalik" || Interaction.yanlis=="tablo"){
+                 Interaction.setStatus("Cevabın bir kısmı <b id='dogru'>doğru</b>, bir kısmı <b id='yanlis'>yanlış</b>; lütfen tekrar deneyiniz");
+                 $("#dogru").css("color","green")
+                 $("#yanlis").css("color","red")
+             }
                      
                      
 		
@@ -762,23 +756,58 @@ var Interaction = {
 	onFail : function(){
             var sonucStr=Interaction.sonuc.toString().replace(".",",");
             
+            $("#kesirPayCevap").html($("#kesirPay").html());
+            $("#kesirPaydaCevap").html($("#kesirPayda").html());
+            $("#inputCevap").html(sonucStr).css("color","green").css("font-weight","bold");
+            
+            
+            var sonucAyrim=sonucStr.split(",");
+                console.log("sonucAytrim: "+sonucAyrim[0]);
+                console.log("sonucAytrim: "+sonucAyrim[1]);
+                //sonucAyrim[0].reverse();
+                //sonucAyrim[1].reverse();
+                for(var i=2;i>=0;i--){
+                    if(sonucAyrim[1].length==3)
+                        var rakam=sonucAyrim[1].charAt(sonucAyrim[1].length-1-i);
+                    else
+                        var rakam=sonucAyrim[1].charAt(sonucAyrim[1].length-i);
+                   $("#cokluInputCevap"+i).html(rakam);
+                }
+                
+                for(var i=3;i<=5;i++){
+                    
+                        var rakam=sonucAyrim[0].charAt(sonucAyrim[0].length-(i-2));
+                   $("#cokluInputCevap"+i).html(rakam);
+                }
+            
+            
             if(Interaction.yanlis=="ondalik"){
-                Interaction.setStatus('Ondalık kısımdaki cevap yanlış, doğrusu <strong id="dCevap">'+sonucStr+' </strong>şeklinde olacaktı.',false);
+                Interaction.setStatus('Ondalık kısımdaki cevap yanlış, doğrusu ondalık kısmın altındadır.',false);
                 $("input").css("color","green");
                 $(Interaction.inputs[0]).css("color","red");
+                
+                
+                $("#soruTekliInputCevap").animate({opacity:"1"},1000);
             }
             else if(Interaction.yanlis=="tablo"){
-                Interaction.setStatus('Tablodaki cevap yanlış, doğrusu <strong id="dCevap">'+sonucStr+' </strong>şeklinde olacaktı.',false);
-                 $("input").css("color","red");
+                Interaction.setStatus('Tablodaki cevap yanlış, doğrusu tablonun altındadır.',false);
+                $("input").css("color","red");
                 $(Interaction.inputs[0]).css("color","green");
+                $(".cokluCevap").animate({opacity:"1"},1000);
+                
+                
+                
             }
             else{
-                Interaction.setStatus('Yanlış cevap, doğrusu <strong id="dCevap">'+sonucStr+' </strong>şeklinde olacaktı.',false);
+                Interaction.setStatus('Yanlış cevap, doğrusu yukarıda belirtilmiştir.',false);
 		$("input").css("color","red");
+                
+                $("#soruTekliInputCevap").animate({opacity:"1"},1000);
+                $(".cokluCevap").animate({opacity:"1"},1000);
             }
  
             $("#dCevap").css("color","green");
-		},
+		}
 }
 
 
@@ -871,7 +900,7 @@ var etkilesim=function(amac){
 			// cok inputlu
 		$(this.anadiv, Interaction.container).append("<div id='SoruCokluInput'>");
 			$("#SoruCokluInput").css("width","261px")
-			.css("height","180px")
+			.css("height","160px")
 			.css("margin","auto")
 			.css("position","absolute")
 			//.css("bottom","20px")
@@ -916,40 +945,11 @@ var etkilesim=function(amac){
 	$("#kesirKisim", container).append("<div class='yaziBolukler'>");
 		$("#kesirKisim .yaziBolukler").html("Kesir Kısmı");	
 		
-		// basamaklar baslık
-	/*$("#tamKisim",container).append("<div id='basamaklarBaslik' >");
-	
-		$("#basamaklarBaslik").css("width","31px")
-			.css("height","108px")
-			.css("position","absolute")
-			.css("top","30px")
-			.css("left","-32px")
-			.css("margin","auto")
-			.css("border","solid 1px "+tabloStrokeRenk)
-			//.css("background-color", tabloMilyonlarFillRenk)
-			.css("border-right","none").css("border-left","none")
-			.css("font-size","small").css("font-weight","bold");
 		
-		$("#basamaklarBaslik",container).append("<div class='yatayBaslik'>");
-		$("#basamaklarBaslik .yatayBaslik").html("Basamaklar")
-			.css("-webkit-transform","rotate(-90deg)")
-			.css("transform","rotate(-90deg)")
-			.css("-ms-transform","rotate(-90deg)")
-			.css("-moz-transform","rotate(-90deg)")
-			.css("-o-transform","rotate(-90deg)")
-			.css("text-align","left")
-			.css("position","absolute")
-			.css("height","30px")
-			.css("width","150px")
-			.css("bottom","70px")
-			.css("left","-53px")
-			.css("font-size","small");*/
-		
-			// 
 	$("#SoruCokluInput",container).append("<div id='yuzler' >");
 	
 		$("#yuzler").css("width","40px");
-		$("#yuzler").css("height","150px");
+		$("#yuzler").css("height","130px");
 		$("#yuzler").css("position","absolute");
 		$("#yuzler").css("top","30px");
 		$("#yuzler").css("left","0px");
@@ -1000,7 +1000,7 @@ var etkilesim=function(amac){
 		// onlar
 	$("#SoruCokluInput",container).append("<div id='onlar' >");
 		$("#onlar").css("width","40px");
-		$("#onlar").css("height","150px");
+		$("#onlar").css("height","130px");
 		$("#onlar").css("position","absolute");
 		$("#onlar").css("top","30px");
 		$("#onlar").css("left","40px");
@@ -1047,7 +1047,7 @@ var etkilesim=function(amac){
 		// birler
 	$("#SoruCokluInput",container).append("<div id='birler' >");
 		$("#birler").css("width","40px");
-		$("#birler").css("height","150px");
+		$("#birler").css("height","130px");
 		$("#birler").css("position","absolute");
 		$("#birler").css("top","30px");
 		$("#birler").css("left","80px");
@@ -1091,7 +1091,7 @@ var etkilesim=function(amac){
 		
 		$("#SoruCokluInput",container).append("<div id='virgul' >");
 		$("#virgul").css("width","20px")
-			.css("height","180px")
+			.css("height","160px")
 			.css("position","absolute")
 			.css("top","0px")
 			.css("left","120px")
@@ -1102,7 +1102,7 @@ var etkilesim=function(amac){
 			.css("font-size","medium")
 			.css("text-align","center")
 			.css("font-size","40px")
-			.css("line-height","310px")
+			.css("line-height","270px")
 			.html(",");
 
 		
@@ -1111,7 +1111,7 @@ var etkilesim=function(amac){
 		// Onda birler
 	$("#SoruCokluInput",container).append("<div id='ondaBirler' >");
 		$("#ondaBirler").css("width","40px");
-		$("#ondaBirler").css("height","150px");
+		$("#ondaBirler").css("height","130px");
 		$("#ondaBirler").css("position","absolute");
 		$("#ondaBirler").css("top","30px");
 		$("#ondaBirler").css("left","141px");
@@ -1156,7 +1156,7 @@ var etkilesim=function(amac){
 		// Yüzde birler
 	$("#SoruCokluInput",container).append("<div id='yuzdeBirler' >");
 		$("#yuzdeBirler").css("width","40px");
-		$("#yuzdeBirler").css("height","150px");
+		$("#yuzdeBirler").css("height","130px");
 		$("#yuzdeBirler").css("position","absolute");
 		$("#yuzdeBirler").css("top","30px");
 		$("#yuzdeBirler").css("left","180px");
@@ -1199,7 +1199,7 @@ var etkilesim=function(amac){
 		// Binde Birler
 	$("#SoruCokluInput",container).append("<div id='bindeBirler' >");
 		$("#bindeBirler").css("width","40px");
-		$("#bindeBirler").css("height","150px");
+		$("#bindeBirler").css("height","130px");
 		$("#bindeBirler").css("position","absolute");
 		$("#bindeBirler").css("top","30px");
 		$("#bindeBirler").css("left","220px");
@@ -1268,8 +1268,8 @@ var etkilesim=function(amac){
 		//-webkit-transform:rotate(-90deg);
 		$(".yatay").css("text-align","left");
 		$(".yatay").css("position","absolute");
-		$(".yatay").css("height","30px");
-		$(".yatay").css("width","150px");
+		$(".yatay").css("height","6px");
+		$(".yatay").css("width","130px");
 		$(".yatay").css("bottom","110px");
 		$(".yatay").css("left","-50px");
 		//$("#yatay").css("right","200px");
@@ -1277,6 +1277,126 @@ var etkilesim=function(amac){
 		$(".yatay").css("font-size","small");
 		
 		}
+                // cevaplar
+                if(this.amac=="soru"){
+                    
+                    
+                    for(var i=0; i<=6;i++){
+                        if(i==3){
+                             $(Interaction.container).append("<div id='cokluInputCevapVirgul' class='cokluCevap'>");
+                            $("#cokluInputCevapVirgul").css({
+                                width:"20px",
+                                height:"40px",
+                                border:"solid 1px #255B63",
+                                borderLeft:"none",
+                                bottom:"75px",
+                                right:(40*i+48)+"px",
+                                position:"absolute",
+                                fontSize:"40px",
+                                textAlign:"center"
+                            }).html(",");
+                            
+                        }
+                        else if(i>3 && i<6){
+                             $(Interaction.container).append("<div id='cokluInputCevap"+(i-1)+"' class='cokluInputCevap cokluCevap'>");
+                            $("#cokluInputCevap"+(i-1)).css({right:(40*i+28)+"px"});
+                        }
+                        else if(i==6){
+                             $(Interaction.container).append("<div id='cokluInputCevap"+(i-1)+"'  class='cokluInputCevap cokluCevap'>");
+                            $("#cokluInputCevap"+(i-1)).css({right:(40*i+28)+"px"});
+                        }
+                        else{
+                            $(Interaction.container).append("<div id='cokluInputCevap"+(i)+"'  class='cokluInputCevap cokluCevap'>");
+                            $("#cokluInputCevap"+(i)).css({right:(40*i+48)+"px"});
+                        }
+                    }
+                    
+                    $(".cokluInputCevap").css({
+                        width:"40px",
+                        height:"40px",
+                        border:"solid 1px #255B63",
+                        borderLeft:"none",
+                        bottom:"75px",
+                        position:"absolute",
+                        textAlign:"center",
+                        fontSize:"40px",
+                        color:"green"
+                    });
+                    $(".cokluCevap").css("opacity","0").css("font-weight","bold");
+                    $("#cokluInputCevap5").css({border:"solid 1px #255B63"});
+                    
+                    
+                    $(Interaction.container).append("<div id='soruTekliInputCevap'>");
+			$("#soruTekliInputCevap").css("width","200px")
+			.css("height","50px")
+			.css("margin","auto")
+			.css("position","absolute")
+			//.css("bottom","20px")
+			.css("left","30px")
+			.css("top","150px")
+			.css("font-size","20px")
+			.css("float","left")
+                        .css("opacity","0");
+			//.css("border","solid 1px black");
+			
+		$("#soruTekliInputCevap",Interaction.container).append("<div id='kesirCevap'>");
+		$("#kesirCevap")
+			.css("width", "90px")
+			.css("height", "45px")
+			.css("float","left")
+			.css("position","relative")
+			/*.css("position","absolute")
+			.css("left", "0px")
+			.css("top", "0px")
+			.css("padding", 0)
+			.css("border", "2px solid");*/
+		
+		$("#kesirCevap",Interaction.container).append("<div id='kesirPayCevap'>");
+		$("#kesirPayCevap").css("text-align","center");
+		
+			$("#kesirPayCevap").html(format(pay, {places:3})).css("line-height","24px");
+		
+		$("#kesirCevap",Interaction.container).append("<div id='kesirIsaretiCevap'>");
+		$('#kesirIsaretiCevap').css("position","absolute")
+				.css("left", "px")
+				.css("top", "22px")
+				.css("width", "90px")
+				.css("height", "1px")
+				.css("padding", 0)
+				.css("border-top", "2px solid");
+			
+		$("#kesirCevap",Interaction.container).append("<div id='kesirPaydaCevap'>");
+		
+		
+			$("#kesirPaydaCevap").html(payda);
+		$("#kesirPaydaCevap").css("text-align","center");
+		
+		$("#soruTekliInputCevap",Interaction.container).append("<div id='esittirCevap'>");
+
+		$("#esittirCevap")
+			.css("height", "45px")
+			.css("width","20px")
+			.css("float","left")
+			.css("line-height","45px")
+			.css("text-align","center")
+			.html("=");
+		
+	
+		$("#soruTekliInputCevap",Interaction.container).append("<div id='inputCevap'>");
+
+		$("#inputCevap")
+			.css("height", "45px")
+			.css("width","60px")
+			.css("float","left")
+			.css("line-height","45px")
+			.css("text-align","center")
+                        .css("font-size","40px");
+			
+	
+			
+				//$("#soruTekliInput #input",Interaction.container).append(girdi);
+			
+                }
 	
 	};
 var format = function(num, options) {

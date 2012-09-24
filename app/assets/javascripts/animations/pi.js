@@ -508,8 +508,8 @@ var Interaction = {
         console.log(values);
         if(values[2] != (""+Interaction.circleRadius / 60).replace(".",","))
             return false;
-        if(parseFloat(values[1].replace(",","."),10) < (Interaction.circleRadius / 60) * 2 * 3 ||
-           parseFloat(values[1].replace(",","."),10) > (Interaction.circleRadius / 60) * 2 * 3.15)
+        if(parseFloat(values[1].replace(",","."),10) < (Interaction.circleRadius / 60)  * 3 ||
+           parseFloat(values[1].replace(",","."),10) > (Interaction.circleRadius / 60)  * 3.15)
             return false;
         if(parseFloat(values[0].replace(",","."),10) < 3 ||
            parseFloat(values[0].replace(",","."),10) > 3.15 )
