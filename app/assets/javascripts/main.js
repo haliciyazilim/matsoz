@@ -181,7 +181,7 @@ Main.init = function(){
                 throw '';
         }
         catch(e){
-            setTimeout(Main.startAnimation,Main.calculateDefinitionWaitTime());
+            setTimeout(Main.startAnimation,/*Main.calculateDefinitionWaitTime()*/1000);
         }
     }
 };
