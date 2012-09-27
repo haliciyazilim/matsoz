@@ -54,12 +54,13 @@ var Animation = {
             $(container).append(div);
             $(div).css(hourDivCss);
             Animation.hour = div;
-            Animation.play();
+            Animation.setImagesByTime(0,0);
+            AnimationManager.delay(Animation.play,1000);
 		},
     play:function(){
         Animation.isPaused = false;
         Animation.h = 0;
-        Animation.m = 0;
+        Animation.m = 1;
         Animation.t = setInterval(function(){
             if(Animation.isPaused == true)
                  return;
@@ -71,12 +72,17 @@ var Animation = {
                 Animation.h = 0;
             }
 //                Animation.m+=0.1;
+            if(Animation.h == 0 && Animation.m == 0){
+                clearInterval(Animation.t);
+                Main.animationFinished();
+            }
             Animation.setImagesByTime(Animation.h, Animation.m++);
-        },1);
-        setTimeout(function(){
-            clearInterval(Animation.t);
-            Main.animationFinished();
-        },7000)
+
+        },7);
+//        setTimeout(function(){
+//            clearInterval(Animation.t);
+//            Main.animationFinished();
+//        },7200)
         },
     pause:function(){
             Animation.isPaused = true;
@@ -189,8 +195,12 @@ var Interaction = {
 				}
             });
 			Interaction.timeIntervalPage = {
-				objective:'Yandaki zaman çizelgesini doldurunuz. Belirtilen olayların tarihlerini üstteki kutulara klavye yardımıyla yazınız. Sizin için önemli diğer tarihleri ve olayları da ekleyebilirsiniz.',
+				objective:'Yandaki zaman çizelgesini doldurunuz. Belirtilen olayların tarihlerini üstteki kutulara yazınız. Sizin için önemli diğer tarihleri ve olayları da ekleyebilirsiniz.',
 				init:function(){
+                    Interaction.appendStatus({
+                        bottom:'20px',
+                        right:'10px'
+                    });
 					var arr = new Group(); 
 					var startPoint = Interaction.centerPoint.add(-250, -50);
 					var endPoint = startPoint.add(501,0);
@@ -226,18 +236,52 @@ var Interaction = {
 						$(yearDiv)
 							.html('')
 							.css(divCss).css({top:'30px',left:45+i*70,fontSize:'30px',backgroundColor:"#a9dbe4",borderColor:"#7aa7ad"})
-						
+                            .keydown(function(event){
+                                if(event.keyCode == 8 || event.keyCode == 46)
+                                    return true;
+                                if(event.target.value.length >= 4)
+                                    return false;
+                                if(event.keyCode >= 96 && event.keyCode <= 105)
+                                    return true;
+                                if(isNaN(parseInt(String.fromCharCode(event.keyCode),10)))
+                                   return false;
+                            })
+                            .focus(function(){
+                                Interaction.setStatus('');
+                            })
+                            .blur(function(event){
+                                if(event.target.value != "" &&event.target.eventDiv.value == '')
+                                    Interaction.setStatus("Lütfen girdiğiniz tarih karşısına olay yazınız.",false);
+                                for(var i = event.target.index - 1; i >= 0 ; i--)
+                                    if(parseInt(Interaction.yearDivs[i].value,10) > parseInt(event.target.value,10))
+                                        Interaction.setStatus("Lütfen girdiğiniz tarih kronolojik sıraya uysun.",false);
+                                for(var i = event.target.index + 1; i < Interaction.yearDivs.length ; i++)
+                                    if(parseInt(Interaction.yearDivs[i].value,10) < parseInt(event.target.value,10))
+                                        Interaction.setStatus("Lütfen girdiğiniz tarih kronolojik sıraya uysun.",false);
+
+                            });
 						var eventDiv = document.createElement('textarea');
 						eventDiv.setAttribute('type','text');
 						Interaction.eventDivs.push(eventDiv);
 						$(Interaction.container).append(eventDiv);
 						$(eventDiv)
 							.html('')
-							.css(divCss).css({top:'150px',left:25+i*70,width:'120px',backgroundColor:"#f3c884",borderColor:"#b9a077"});
-					}
-					$(Interaction.eventDivs[0]).html('Annem ve babam evlendi.')
-					$(Interaction.eventDivs[2]).html('Doğum tarihim.')
-					$(Interaction.eventDivs[4]).html('Okula başladım.')
+							.css(divCss).css({top:'150px',left:25+i*70,width:'120px',backgroundColor:"#f3c884",borderColor:"#b9a077"})
+                            .focus(function(){
+                                Interaction.setStatus('');
+                            })
+                            .blur(function(event){
+                                if(event.target.value != "" &&  event.target.yearDiv.value == '')
+                                    Interaction.setStatus("Lütfen girdiğiniz olay karşısına tarih yazınız.",false);
+                            });
+                        yearDiv.eventDiv = eventDiv;
+                        eventDiv.yearDiv = yearDiv;
+                        yearDiv.index = i;
+                        eventDiv.index= i ;
+                    }
+					$(Interaction.eventDivs[0]).html('Annem ve babam evlendi.');
+					$(Interaction.eventDivs[2]).html('Doğum tarihim.');
+					$(Interaction.eventDivs[4]).html('Okula başladım.');
 				},
 				dispose:function(f){
 					$(Interaction.yearDivs).each(function(index, element) {
@@ -250,13 +294,13 @@ var Interaction = {
 						style:{opacity:0},
 						duration:500,
 						animationType:'easeOut',
-						callback:function(){this.remove()}
+						callback:function(){this.remove();}
 					});
 					setTimeout(function(){Interaction.pause = false;f();},500);
 				}
 			};
 			Interaction.calendarPage = {
-				objective:'Takvimde ileri geri ilerleyebilirsiniz.',
+				objective:'Takvimde bulunduğunuz ay ve gün belirtilmiştir. Ay ve günü ileri ya da geri değiştirebilirsiniz.',
 				init:function(){
 					
 					var calendarContainer = document.createElement('div');
@@ -309,19 +353,29 @@ var Interaction = {
 							fontSize:'16px',
 							width:'24px'
 						}
+                    Interaction.dayDiv = Util.dom({
+                        parent:Interaction.container,
+                        tag:'span',
+                        css:{
+                            position:'absolute',
+                            left:'80px',
+                            top:'20px'
+                        }
+                    })
 					var hour = Interaction.appendInput(inputStyle,true,false);
 					var minute = Interaction.appendInput(inputStyle,true,false);
 					$(hour).attr('maxlength',2);
 					$(minute).attr('maxlength',2);
 					var div = Interaction.appendQuestion(
-						'<span id="hour"></span>&nbsp;saat&nbsp;<span id="minute"></span>&nbsp;dakika sonra saat&nbsp;',
+						'saat <span id="old_hour"></span>:<span id="old_minute"></span> olduğuna göre <br/><span id="hour"></span>&nbsp;saat&nbsp;<span id="minute"></span>&nbsp;dakika sonra saat&nbsp;',
 						{
 							position:'absolute',
 							top:'100px',
 							right:'40px',
 							width:'400px',
 							textAlign:'right',
-							fontSize:'16px'
+							fontSize:'16px',
+                            lineHeight:'30px'
 						}
 					)
 					$(div)
@@ -332,6 +386,7 @@ var Interaction = {
 					Interaction.prepareNextQuestion();
 				},
 				dispose:function(f){
+                    $(Interaction.dayDiv).animate({opacity:0},500,$(Interaction.dayDiv).remove)
 					$(Interaction.button).animate({opacity:0},500,$(Interaction.button).remove)
 					$(Interaction.status).animate({opacity:0},500,$(Interaction.status).remove)
 					$(Interaction.questionDiv).animate({opacity:0},500,$(Interaction.questionDiv).remove)
@@ -352,33 +407,56 @@ var Interaction = {
 				Interaction._waitingPage = null;
 			}
 			if(Interaction._openedPage){
-				Interaction._openedPage.dispose(_openPage)
+				Interaction._openedPage.dispose(_openPage);
 			}
 			else{
 				$('.menu_link_images').each(function(index, element) {
-                    $(this).animate({width:$(this).width()*0.6,bottom:'0px',left:(100+70*index)+'px',marginLeft:-$(this).width()*0.63},1000);
+                    $(this).animate({width:$(this).width()*0.6,bottom:'0px',left:(70+70*index)+'px',marginLeft:-$(this).width()*0.63},1000);
                 }); 
-				setTimeout(_openPage,1000)
+				setTimeout(_openPage,1000);
 			}
 			
 		},
 	nextQuestion: function(randomNumber){
-			Interaction.clock.setTime({
-				h: Math.floor(Math.random()*12),
-				m: Math.floor(Math.random()*11+1)*5
-			});
-			var hour = Math.floor(Math.random()*12);
-			var minute = Math.floor(Math.random()*11+1)*5;
-			Interaction.setQuestionParams([
-				{id:'hour', html:hour},
-				{id:'minute', html:minute}
-			]);
+            Interaction.dayDiv.innerHTML = "";
+            Interaction.clock.setTime({
+                h:0,
+                m:0
+            })
+            var button = Util.dom({
+                parent:Interaction.container,
+                tag:"button",
+                css:{
+                    position:"absolute",
+                    top:"175px",
+                    left:"102px",
+                    marginLeft:'-26.5px'
+                },
+                html:'Başlat'
+            })
+            $(Interaction.questionDiv).css({opacity:0});
+            $(button).click(function(){
+                Interaction.dayDiv.innerHTML = "";
+
+                Interaction.clock.setTime({
+                    h: Math.floor(Math.random()*12),
+                    m: Math.floor(Math.random()*11+1)*5
+                },undefined,function(){
+                    var hour = Math.floor(Math.random()*12);
+                    var minute = Math.floor(Math.random()*11+1)*5;
+                    $(Interaction.questionDiv).css({opacity:1});
+                    Interaction.setQuestionParams([
+                        {id:'hour', html:hour},
+                        {id:'minute', html:minute},
+                        {id:'old_hour',html:Interaction.clock.getTime().h},
+                        {id:'old_minute',html:Interaction.clock.getTime().m}
+                    ]);
+                    Interaction.dayDiv.innerHTML = Interaction.clock.day == true ? "öğlen" : "gece"
+                });
+                $(this).remove();
+            });
 		},
 		
-	/*
-	*	this function is called inside Interaction.__checkAnswer() function
-	*	if this function returns false, check answer operation is cancelled
-	*/
 	preCheck : function(){
 		
 		},
@@ -404,12 +482,17 @@ var Interaction = {
 	onFail : function(){
 			var zero = (""+Interaction.correctAnswer.m).length < 2 ? '0':''
 			Interaction.setStatus('Yanlış, doğru cevap '+Interaction.correctAnswer.h+':'+zero + Interaction.correctAnswer.m+' olacaktı.',false);
-			Interaction.clock.setTime(Interaction.correctAnswer);
+            Interaction.dayDiv.innerHTML = "";
+            Interaction.clock.setTime(Interaction.correctAnswer,undefined,function(){
+                Interaction.dayDiv.innerHTML = Interaction.clock.day == true ? "öğlen" : "gece"
+
+            });
 		}
 }
 
 function Clock(p){
 	this.p = p;
+    this.day = true;
 	this.animating = false;
 	this.kadran = new Raster('kadran');
 	this.kadran.position = this.p;
@@ -449,12 +532,13 @@ function Clock(p){
 	this.getTime = function(){
 		return this.endTime;
 	}
-	this.setTime = function(endTime,startTime){
+	this.setTime = function(endTime,startTime,callback){
 		
 		if(this.animating == true)
 			return;
 		Interaction.pause = true;
 		this.animating = true;
+
 		if(this.endTime){
 			while(endTime.h < this.endTime.h)
 				endTime.h += 12;
@@ -473,17 +557,29 @@ function Clock(p){
 		else{
 			startTime = {h:0,m:0}
 		}
+        this.endTime.h = this.endTime.h % 12;
+
+        var yelkovanStartAngle = 360*startTime.h + 6*startTime.m;
+        var akrepStartAngle = 30*startTime.h+startTime.m*0.5
+        var yelkovanEndAngle = 360*this.endTime.h + 6*this.endTime.m;
+        var akrepEndAngle = 30*this.endTime.h+this.endTime.m*0.5;
+        if(akrepEndAngle < akrepStartAngle){
+            akrepEndAngle += 360;
+            yelkovanEndAngle += 360 *12;
+            this.day = this.day === true ? false : true;
+        }
 		this.clockHelper = new AnimationHelper({
-			yelkovanAngle: 360*startTime.h + 6*startTime.m,
-			akrepAngle: 30*startTime.h+startTime.m*0.5,
+			yelkovanAngle: yelkovanStartAngle,
+			akrepAngle: akrepStartAngle,
 			owner:this
 		});
+        this.day = Math.floor((30*this.endTime.h+this.endTime.m*0.5 + 30*startTime.h+startTime.m*0.5) / 360) % 2 == 0;
 		this.clockHelper.animate({
 			style: {
-				yelkovanAngle: 360*this.endTime.h + 6*this.endTime.m,
-				akrepAngle: 30*this.endTime.h+this.endTime.m*0.5
+				yelkovanAngle: yelkovanEndAngle,
+				akrepAngle: akrepEndAngle
 			},
-			duration: Math.abs(this.endTime.h - startTime.h + (this.endTime.m - startTime.m)/60)*400,
+			duration: Math.abs(akrepStartAngle-akrepEndAngle)*10,
 			animationType:'easeInEaseOut',
 			update: function() {
 				var matrix = new Matrix();
@@ -499,6 +595,8 @@ function Clock(p){
 				this.owner.startTime = this.owner.endTime;
 				this.owner.animating = false;
 				Interaction.pause = false;
+                if(callback)
+                    callback();
 			}
 		});
 	}
