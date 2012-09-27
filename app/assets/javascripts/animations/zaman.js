@@ -189,8 +189,12 @@ var Interaction = {
 				}
             });
 			Interaction.timeIntervalPage = {
-				objective:'Yandaki zaman çizelgesini doldurunuz. Belirtilen olayların tarihlerini üstteki kutulara klavye yardımıyla yazınız. Sizin için önemli diğer tarihleri ve olayları da ekleyebilirsiniz.',
+				objective:'Yandaki zaman çizelgesini doldurunuz. Belirtilen olayların tarihlerini üstteki kutulara yazınız. Sizin için önemli diğer tarihleri ve olayları da ekleyebilirsiniz.',
 				init:function(){
+                    Interaction.appendStatus({
+                        bottom:'20px',
+                        right:'10px'
+                    });
 					var arr = new Group(); 
 					var startPoint = Interaction.centerPoint.add(-250, -50);
 					var endPoint = startPoint.add(501,0);
@@ -235,6 +239,20 @@ var Interaction = {
                                     return true;
                                 if(isNaN(parseInt(String.fromCharCode(event.keyCode),10)))
                                    return false;
+                            })
+                            .focus(function(){
+                                Interaction.setStatus('');
+                            })
+                            .blur(function(event){
+                                if(event.target.value != "" &&event.target.eventDiv.value == '')
+                                    Interaction.setStatus("Lütfen girdiğiniz tarih karşısına olay yazınız.",false);
+                                for(var i = event.target.index - 1; i >= 0 ; i--)
+                                    if(parseInt(Interaction.yearDivs[i].value,10) > parseInt(event.target.value,10))
+                                        Interaction.setStatus("Lütfen girdiğiniz tarih kronolojik sıraya uysun.",false);
+                                for(var i = event.target.index + 1; i < Interaction.yearDivs.length ; i++)
+                                    if(parseInt(Interaction.yearDivs[i].value,10) < parseInt(event.target.value,10))
+                                        Interaction.setStatus("Lütfen girdiğiniz tarih kronolojik sıraya uysun.",false);
+
                             });
 						var eventDiv = document.createElement('textarea');
 						eventDiv.setAttribute('type','text');
@@ -242,11 +260,22 @@ var Interaction = {
 						$(Interaction.container).append(eventDiv);
 						$(eventDiv)
 							.html('')
-							.css(divCss).css({top:'150px',left:25+i*70,width:'120px',backgroundColor:"#f3c884",borderColor:"#b9a077"});
+							.css(divCss).css({top:'150px',left:25+i*70,width:'120px',backgroundColor:"#f3c884",borderColor:"#b9a077"})
+                            .focus(function(){
+                                Interaction.setStatus('');
+                            })
+                            .blur(function(event){
+                                if(event.target.value != "" &&  event.target.yearDiv.value == '')
+                                    Interaction.setStatus("Lütfen girdiğiniz olay karşısına tarih yazınız.",false);
+                            });
+                        yearDiv.eventDiv = eventDiv;
+                        eventDiv.yearDiv = yearDiv;
+                        yearDiv.index = i;
+                        eventDiv.index= i ;
                     }
-					$(Interaction.eventDivs[0]).html('Annem ve babam evlendi.')
-					$(Interaction.eventDivs[2]).html('Doğum tarihim.')
-					$(Interaction.eventDivs[4]).html('Okula başladım.')
+					$(Interaction.eventDivs[0]).html('Annem ve babam evlendi.');
+					$(Interaction.eventDivs[2]).html('Doğum tarihim.');
+					$(Interaction.eventDivs[4]).html('Okula başladım.');
 				},
 				dispose:function(f){
 					$(Interaction.yearDivs).each(function(index, element) {
@@ -259,13 +288,13 @@ var Interaction = {
 						style:{opacity:0},
 						duration:500,
 						animationType:'easeOut',
-						callback:function(){this.remove()}
+						callback:function(){this.remove();}
 					});
 					setTimeout(function(){Interaction.pause = false;f();},500);
 				}
 			};
 			Interaction.calendarPage = {
-				objective:'Takvimde ileri geri ilerleyebilirsiniz.',
+				objective:'Takvimde bulunduğunuz ay ve gün belirtilmiştir. Ay ve günü ileri ya da geri değiştirebilirsiniz.',
 				init:function(){
 					
 					var calendarContainer = document.createElement('div');
@@ -361,27 +390,49 @@ var Interaction = {
 				Interaction._waitingPage = null;
 			}
 			if(Interaction._openedPage){
-				Interaction._openedPage.dispose(_openPage)
+				Interaction._openedPage.dispose(_openPage);
 			}
 			else{
 				$('.menu_link_images').each(function(index, element) {
-                    $(this).animate({width:$(this).width()*0.6,bottom:'0px',left:(100+70*index)+'px',marginLeft:-$(this).width()*0.63},1000);
+                    $(this).animate({width:$(this).width()*0.6,bottom:'0px',left:(70+70*index)+'px',marginLeft:-$(this).width()*0.63},1000);
                 }); 
-				setTimeout(_openPage,1000)
+				setTimeout(_openPage,1000);
 			}
 			
 		},
 	nextQuestion: function(randomNumber){
 			Interaction.clock.setTime({
-				h: Math.floor(Math.random()*12),
-				m: Math.floor(Math.random()*11+1)*5
-			});
-			var hour = Math.floor(Math.random()*12);
-			var minute = Math.floor(Math.random()*11+1)*5;
-			Interaction.setQuestionParams([
-				{id:'hour', html:hour},
-				{id:'minute', html:minute}
-			]);
+                h:0,
+                m:0
+            })
+            var button = Util.dom({
+                parent:Interaction.container,
+                tag:"button",
+                css:{
+                    position:"absolute",
+                    top:"175px",
+                    left:"102px",
+                    marginLeft:'-26.5px'
+                },
+                html:'Başlat'
+            })
+            $(Interaction.questionDiv).css({opacity:0});
+            $(button).click(function(){
+
+                $(Interaction.questionDiv).css({opacity:1});
+                Interaction.clock.setTime({
+                    h: Math.floor(Math.random()*12),
+                    m: Math.floor(Math.random()*11+1)*5
+                },function(){
+                    var hour = Math.floor(Math.random()*12);
+                    var minute = Math.floor(Math.random()*11+1)*5;
+                    Interaction.setQuestionParams([
+                        {id:'hour', html:hour},
+                        {id:'minute', html:minute}
+                    ]);
+                });
+                $(this).remove();
+            });
 		},
 		
 	preCheck : function(){
@@ -454,7 +505,7 @@ function Clock(p){
 	this.getTime = function(){
 		return this.endTime;
 	}
-	this.setTime = function(endTime,startTime){
+	this.setTime = function(endTime,startTime,callback){
 		
 		if(this.animating == true)
 			return;
@@ -504,6 +555,8 @@ function Clock(p){
 				this.owner.startTime = this.owner.endTime;
 				this.owner.animating = false;
 				Interaction.pause = false;
+                if(callback)
+                    callback();
 			}
 		});
 	}
