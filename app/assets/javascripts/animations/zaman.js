@@ -54,12 +54,13 @@ var Animation = {
             $(container).append(div);
             $(div).css(hourDivCss);
             Animation.hour = div;
-            Animation.play();
+            Animation.setImagesByTime(0,0);
+            AnimationManager.delay(Animation.play,1000);
 		},
     play:function(){
         Animation.isPaused = false;
         Animation.h = 0;
-        Animation.m = 0;
+        Animation.m = 1;
         Animation.t = setInterval(function(){
             if(Animation.isPaused == true)
                  return;
@@ -71,12 +72,17 @@ var Animation = {
                 Animation.h = 0;
             }
 //                Animation.m+=0.1;
+            if(Animation.h == 0 && Animation.m == 0){
+                clearInterval(Animation.t);
+                Main.animationFinished();
+            }
             Animation.setImagesByTime(Animation.h, Animation.m++);
-        },1);
-        setTimeout(function(){
-            clearInterval(Animation.t);
-            Main.animationFinished();
-        },7000)
+
+        },7);
+//        setTimeout(function(){
+//            clearInterval(Animation.t);
+//            Main.animationFinished();
+//        },7200)
         },
     pause:function(){
             Animation.isPaused = true;
@@ -347,19 +353,29 @@ var Interaction = {
 							fontSize:'16px',
 							width:'24px'
 						}
+                    Interaction.dayDiv = Util.dom({
+                        parent:Interaction.container,
+                        tag:'span',
+                        css:{
+                            position:'absolute',
+                            left:'80px',
+                            top:'20px'
+                        }
+                    })
 					var hour = Interaction.appendInput(inputStyle,true,false);
 					var minute = Interaction.appendInput(inputStyle,true,false);
 					$(hour).attr('maxlength',2);
 					$(minute).attr('maxlength',2);
 					var div = Interaction.appendQuestion(
-						'<span id="hour"></span>&nbsp;saat&nbsp;<span id="minute"></span>&nbsp;dakika sonra saat&nbsp;',
+						'saat <span id="old_hour"></span>:<span id="old_minute"></span> olduğuna göre <br/><span id="hour"></span>&nbsp;saat&nbsp;<span id="minute"></span>&nbsp;dakika sonra saat&nbsp;',
 						{
 							position:'absolute',
 							top:'100px',
 							right:'40px',
 							width:'400px',
 							textAlign:'right',
-							fontSize:'16px'
+							fontSize:'16px',
+                            lineHeight:'30px'
 						}
 					)
 					$(div)
@@ -370,6 +386,7 @@ var Interaction = {
 					Interaction.prepareNextQuestion();
 				},
 				dispose:function(f){
+                    $(Interaction.dayDiv).animate({opacity:0},500,$(Interaction.dayDiv).remove)
 					$(Interaction.button).animate({opacity:0},500,$(Interaction.button).remove)
 					$(Interaction.status).animate({opacity:0},500,$(Interaction.status).remove)
 					$(Interaction.questionDiv).animate({opacity:0},500,$(Interaction.questionDiv).remove)
@@ -401,7 +418,8 @@ var Interaction = {
 			
 		},
 	nextQuestion: function(randomNumber){
-			Interaction.clock.setTime({
+            Interaction.dayDiv.innerHTML = "";
+            Interaction.clock.setTime({
                 h:0,
                 m:0
             })
@@ -418,18 +436,22 @@ var Interaction = {
             })
             $(Interaction.questionDiv).css({opacity:0});
             $(button).click(function(){
+                Interaction.dayDiv.innerHTML = "";
 
-                $(Interaction.questionDiv).css({opacity:1});
                 Interaction.clock.setTime({
                     h: Math.floor(Math.random()*12),
                     m: Math.floor(Math.random()*11+1)*5
-                },function(){
+                },undefined,function(){
                     var hour = Math.floor(Math.random()*12);
                     var minute = Math.floor(Math.random()*11+1)*5;
+                    $(Interaction.questionDiv).css({opacity:1});
                     Interaction.setQuestionParams([
                         {id:'hour', html:hour},
-                        {id:'minute', html:minute}
+                        {id:'minute', html:minute},
+                        {id:'old_hour',html:Interaction.clock.getTime().h},
+                        {id:'old_minute',html:Interaction.clock.getTime().m}
                     ]);
+                    Interaction.dayDiv.innerHTML = Interaction.clock.day == true ? "öğlen" : "gece"
                 });
                 $(this).remove();
             });
@@ -460,12 +482,17 @@ var Interaction = {
 	onFail : function(){
 			var zero = (""+Interaction.correctAnswer.m).length < 2 ? '0':''
 			Interaction.setStatus('Yanlış, doğru cevap '+Interaction.correctAnswer.h+':'+zero + Interaction.correctAnswer.m+' olacaktı.',false);
-			Interaction.clock.setTime(Interaction.correctAnswer);
+            Interaction.dayDiv.innerHTML = "";
+            Interaction.clock.setTime(Interaction.correctAnswer,undefined,function(){
+                Interaction.dayDiv.innerHTML = Interaction.clock.day == true ? "öğlen" : "gece"
+
+            });
 		}
 }
 
 function Clock(p){
 	this.p = p;
+    this.day = true;
 	this.animating = false;
 	this.kadran = new Raster('kadran');
 	this.kadran.position = this.p;
@@ -511,6 +538,7 @@ function Clock(p){
 			return;
 		Interaction.pause = true;
 		this.animating = true;
+
 		if(this.endTime){
 			while(endTime.h < this.endTime.h)
 				endTime.h += 12;
@@ -529,17 +557,29 @@ function Clock(p){
 		else{
 			startTime = {h:0,m:0}
 		}
+        this.endTime.h = this.endTime.h % 12;
+
+        var yelkovanStartAngle = 360*startTime.h + 6*startTime.m;
+        var akrepStartAngle = 30*startTime.h+startTime.m*0.5
+        var yelkovanEndAngle = 360*this.endTime.h + 6*this.endTime.m;
+        var akrepEndAngle = 30*this.endTime.h+this.endTime.m*0.5;
+        if(akrepEndAngle < akrepStartAngle){
+            akrepEndAngle += 360;
+            yelkovanEndAngle += 360 *12;
+            this.day = this.day === true ? false : true;
+        }
 		this.clockHelper = new AnimationHelper({
-			yelkovanAngle: 360*startTime.h + 6*startTime.m,
-			akrepAngle: 30*startTime.h+startTime.m*0.5,
+			yelkovanAngle: yelkovanStartAngle,
+			akrepAngle: akrepStartAngle,
 			owner:this
 		});
+        this.day = Math.floor((30*this.endTime.h+this.endTime.m*0.5 + 30*startTime.h+startTime.m*0.5) / 360) % 2 == 0;
 		this.clockHelper.animate({
 			style: {
-				yelkovanAngle: 360*this.endTime.h + 6*this.endTime.m,
-				akrepAngle: 30*this.endTime.h+this.endTime.m*0.5
+				yelkovanAngle: yelkovanEndAngle,
+				akrepAngle: akrepEndAngle
 			},
-			duration: Math.abs(this.endTime.h - startTime.h + (this.endTime.m - startTime.m)/60)*400,
+			duration: Math.abs(akrepStartAngle-akrepEndAngle)*10,
 			animationType:'easeInEaseOut',
 			update: function() {
 				var matrix = new Matrix();
