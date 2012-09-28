@@ -317,14 +317,6 @@ var Interaction = {
 					var calendar = document.createElement('div');
 					$(calendarContainer).append(calendar);
 					$( calendar ).datepicker({firstDay:1});
-					var date = new Date();
-					if(date.getMonth() > 5)
-						date.setMonth(8,10);
-					else{
-						date.setMonth(8,10)
-						date.setFullYear(date.getFullYear()-1);
-					}
-					$(calendar).datepicker('setDate',date)
 					Interaction.calendarContainer = calendarContainer;
 				},
 				dispose:function(f){
