@@ -246,10 +246,7 @@ var Interaction = {
                                 if(isNaN(parseInt(String.fromCharCode(event.keyCode),10)))
                                    return false;
                             })
-                            .focus(function(){
-                                Interaction.setStatus('');
-                            })
-                            .blur(function(event){
+                            .change(function(event){
                                 if(event.target.value != "" &&event.target.eventDiv.value == '')
                                     Interaction.setStatus("Lütfen girdiğiniz tarih karşısına olay yazınız.",false);
                                 for(var i = event.target.index - 1; i >= 0 ; i--)
@@ -267,10 +264,7 @@ var Interaction = {
 						$(eventDiv)
 							.html('')
 							.css(divCss).css({top:'150px',left:25+i*70,width:'120px',backgroundColor:"#f3c884",borderColor:"#b9a077"})
-                            .focus(function(){
-                                Interaction.setStatus('');
-                            })
-                            .blur(function(event){
+                            .change(function(event){
                                 if(event.target.value != "" &&  event.target.yearDiv.value == '')
                                     Interaction.setStatus("Lütfen girdiğiniz olay karşısına tarih yazınız.",false);
                             });
@@ -350,7 +344,10 @@ var Interaction = {
                         tag:'span',
                         css:{
                             position:'absolute',
-                            left:'80px',
+                            width:'160px',
+                            textAlign:'center',
+                            marginLeft:'-80px',
+                            left:'95px',
                             top:'20px'
                         }
                     })
@@ -378,6 +375,7 @@ var Interaction = {
 					Interaction.prepareNextQuestion();
 				},
 				dispose:function(f){
+                    $(Interaction.startButton).animate({opacity:0},500,$(Interaction.startButton).remove)
                     $(Interaction.dayDiv).animate({opacity:0},500,$(Interaction.dayDiv).remove)
 					$(Interaction.button).animate({opacity:0},500,$(Interaction.button).remove)
 					$(Interaction.status).animate({opacity:0},500,$(Interaction.status).remove)
@@ -421,11 +419,16 @@ var Interaction = {
                 css:{
                     position:"absolute",
                     top:"175px",
-                    left:"102px",
-                    marginLeft:'-26.5px'
+                    left:"92px",
+                    marginLeft:'-26.5px',
+                    width:'75px',
+                    height:'30px',
+                    backgroundImage:'url(/assets/animations/zaman/btn_gray_start.png)',
+                    border:0
                 },
-                html:'Başlat'
+                html:''
             })
+            Interaction.startButton = button;
             $(Interaction.questionDiv).css({opacity:0});
             $(button).click(function(){
                 Interaction.dayDiv.innerHTML = "";
@@ -443,7 +446,7 @@ var Interaction = {
                         {id:'old_hour',html:Interaction.clock.getTime().h},
                         {id:'old_minute',html:Interaction.clock.getTime().m}
                     ]);
-                    Interaction.dayDiv.innerHTML = Interaction.clock.day == true ? "öğlen" : "gece"
+                    Interaction.dayDiv.innerHTML = Interaction.clock.getStatus();
                 });
                 $(this).remove();
             });
@@ -476,7 +479,7 @@ var Interaction = {
 			Interaction.setStatus('Yanlış, doğru cevap '+Interaction.correctAnswer.h+':'+zero + Interaction.correctAnswer.m+' olacaktı.',false);
             Interaction.dayDiv.innerHTML = "";
             Interaction.clock.setTime(Interaction.correctAnswer,undefined,function(){
-                Interaction.dayDiv.innerHTML = Interaction.clock.day == true ? "öğlen" : "gece"
+                Interaction.dayDiv.innerHTML = Interaction.clock.getStatus();
 
             });
 		}
@@ -494,102 +497,132 @@ function Clock(p){
 	this.akrep.position = this.p;
 	this.akrep.lastTransformation = this.akrep.matrix;
 	this.yelkovan.lastTransformation = this.yelkovan.matrix;
-	this.remove = function(time){
-		if(!isNaN(time)){
-			this.akrep.animate({
-				style:{opacity:0},
-				duration:500,
-				animationType:'easeOut',
-				callback:function(){this.remove()}
-			})
-			this.yelkovan.animate({
-				style:{opacity:0},
-				duration:500,
-				animationType:'easeOut',
-				callback:function(){this.remove()}
-			})
-			this.kadran.animate({
-				style:{opacity:0},
-				duration:500,
-				animationType:'easeOut',
-				callback:function(){this.remove()}
-			})
-		}	
-		else{
-			this.akrep.remove();
-			this.yelkovan.remove();
-			this.kadran.remove();
-		}
-	}
-	this.getTime = function(){
-		return this.endTime;
-	}
-	this.setTime = function(endTime,startTime,callback){
-		
-		if(this.animating == true)
-			return;
-		Interaction.pause = true;
-		this.animating = true;
+    this.akrepStartAngle = 0;
 
-		if(this.endTime){
-			while(endTime.h < this.endTime.h)
-				endTime.h += 12;
-		}
-		this.endTime = endTime;
-		this.endTime.h = this.endTime.h;
-		this.endTime.m = this.endTime.m%60;
-		if(startTime){
-			startTime.h = startTime.h;
-			startTime.m = startTime.m%60;
-		}
-		else if(this.startTime){
-			startTime = this.startTime;
-			this.startTime = undefined;
-		}
-		else{
-			startTime = {h:0,m:0}
-		}
-        this.endTime.h = this.endTime.h % 12;
+}
+Clock.prototype.remove = function(time){
+    if(!isNaN(time)){
+        this.akrep.animate({
+            style:{opacity:0},
+            duration:500,
+            animationType:'easeOut',
+            callback:function(){this.remove()}
+        })
+        this.yelkovan.animate({
+            style:{opacity:0},
+            duration:500,
+            animationType:'easeOut',
+            callback:function(){this.remove()}
+        })
+        this.kadran.animate({
+            style:{opacity:0},
+            duration:500,
+            animationType:'easeOut',
+            callback:function(){this.remove()}
+        })
+    }
+    else{
+        this.akrep.remove();
+        this.yelkovan.remove();
+        this.kadran.remove();
+    }
+}
+Clock.prototype.getTime = function(){
+    return this.endTime;
+}
+Clock.prototype.setTime = function(endTime,startTime,callback){
+    if(this.animating == true)
+        return;
+    Interaction.pause = true;
+    this.animating = true;
 
-        var yelkovanStartAngle = 360*startTime.h + 6*startTime.m;
-        var akrepStartAngle = 30*startTime.h+startTime.m*0.5
-        var yelkovanEndAngle = 360*this.endTime.h + 6*this.endTime.m;
-        var akrepEndAngle = 30*this.endTime.h+this.endTime.m*0.5;
-        if(akrepEndAngle < akrepStartAngle){
-            akrepEndAngle += 360;
-            yelkovanEndAngle += 360 *12;
-            this.day = this.day === true ? false : true;
+    if(this.endTime){
+        while(endTime.h < this.endTime.h)
+            endTime.h += 12;
+    }
+    this.endTime = endTime;
+    this.endTime.h = this.endTime.h;
+    this.endTime.m = this.endTime.m%60;
+    if(startTime){
+        startTime.h = startTime.h;
+        startTime.m = startTime.m%60;
+    }
+    else if(this.startTime){
+        startTime = this.startTime;
+        this.startTime = undefined;
+    }
+    else{
+        startTime = {h:0,m:0}
+    }
+    this.endTime.h = this.endTime.h % 12;
+    var yelkovanStartAngle = 360*startTime.h + 6*startTime.m;
+    var akrepStartAngle = 30*startTime.h+startTime.m*0.5
+    var yelkovanEndAngle = 360*this.endTime.h + 6*this.endTime.m;
+    var akrepEndAngle = 30*this.endTime.h+this.endTime.m*0.5;
+    if(akrepEndAngle < akrepStartAngle){
+        akrepEndAngle += 360;
+        yelkovanEndAngle += 360 *12;
+        this.day = this.day === true ? false : true;
+    }this.akrepStartAngle += akrepEndAngle - akrepStartAngle;
+    console.log(
+        "yelkovanStartAngle: " + yelkovanStartAngle,
+        "yelkovanEndAngle: " + yelkovanEndAngle,
+        "akrepStartAngle: " + akrepStartAngle,
+        "akrepEndAngle: " + akrepEndAngle,
+        "this.akrepStartAngle: " + this.akrepStartAngle
+    );
+    /*<[[TEST*/
+//        yelkovanStartAngle = 400;
+//        akrepStartAngle = 500;
+//        yelkovanEndAngle = 5600;
+//        akrepEndAngle = 700;
+    /*TEST]]>*/
+//    console.log()
+    this.clockHelper = new AnimationHelper({
+        yelkovanAngle: yelkovanStartAngle,
+        akrepAngle: akrepStartAngle,
+        owner:this
+    });
+    console.log(this.endTime.h,this.endTime.m);
+    this.clockHelper.animate({
+        style: {
+            yelkovanAngle: yelkovanEndAngle,
+            akrepAngle: akrepEndAngle
+        },
+        duration: Math.abs(akrepStartAngle-akrepEndAngle)*10,
+        animationType:'easeInEaseOut',
+        update: function() {
+            var matrix = new Matrix();
+            matrix.rotate(this.akrepAngle, this.owner.p.x, this.owner.p.y);
+            matrix.concatenate(this.owner.akrep.lastTransformation);
+            this.owner.akrep.setMatrix(matrix);
+            matrix = new Matrix();
+            matrix.rotate(this.yelkovanAngle, this.owner.p.x, this.owner.p.y);
+            matrix.concatenate(this.owner.yelkovan.lastTransformation);
+            this.owner.yelkovan.setMatrix(matrix);
+        },
+        callback:function(){
+            this.owner.startTime = this.owner.endTime;
+            this.owner.animating = false;
+            Interaction.pause = false;
+            if(callback)
+                callback();
         }
-		this.clockHelper = new AnimationHelper({
-			yelkovanAngle: yelkovanStartAngle,
-			akrepAngle: akrepStartAngle,
-			owner:this
-		});
-        this.day = Math.floor((30*this.endTime.h+this.endTime.m*0.5 + 30*startTime.h+startTime.m*0.5) / 360) % 2 == 0;
-		this.clockHelper.animate({
-			style: {
-				yelkovanAngle: yelkovanEndAngle,
-				akrepAngle: akrepEndAngle
-			},
-			duration: Math.abs(akrepStartAngle-akrepEndAngle)*10,
-			animationType:'easeInEaseOut',
-			update: function() {
-				var matrix = new Matrix();
-				matrix.rotate(this.akrepAngle, this.owner.p.x, this.owner.p.y);
-				matrix.concatenate(this.owner.akrep.lastTransformation);
-				this.owner.akrep.setMatrix(matrix);
-				matrix = new Matrix();
-				matrix.rotate(this.yelkovanAngle, this.owner.p.x, this.owner.p.y);
-				matrix.concatenate(this.owner.yelkovan.lastTransformation);
-				this.owner.yelkovan.setMatrix(matrix);
-			},
-			callback:function(){
-				this.owner.startTime = this.owner.endTime;
-				this.owner.animating = false;
-				Interaction.pause = false;
-                if(callback)
-                    callback();
-			}
-		});
-	}
+    });
+}
+
+Clock.prototype.getStatus = function(){
+    var angle = this.akrepStartAngle % 720;
+    if( angle <= 120)
+        return "gece yarısından sonra";
+    if(angle > 120 && angle < 360 )
+        return "sabah";
+    if(angle == 360)
+        return "öğle";
+    if(angle > 360 && angle <= 510)
+        return "öğleden sonra";
+    if(angle > 510 && angle <= 600)
+        return "akşam";
+    if(angle > 600 && angle < 720)
+        return "gece";
 }
