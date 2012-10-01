@@ -273,6 +273,7 @@ animations/yukseklik/wall_redline_height.psd: animations/yukseklik/wall_redline_
 animations/yuzdeleri_karsilastirma/sag_ok.png: animations/yuzdeleri_karsilastirma/sag_ok-1f04c4d3ba5a68b1570db45abf1d0284.png
 animations/yuzdeleri_karsilastirma/sol_ok.png: animations/yuzdeleri_karsilastirma/sol_ok-e9b4a4d0dcc6b2c58cd77ebc264fff9d.png
 animations/zaman/akrep.png: animations/zaman/akrep-b0046e8bb8a766cb1f246dd35bc89041.png
+animations/zaman/btn_gray_start.png: animations/zaman/btn_gray_start-9edc756ec4b0a5743c92f0323dcdfc9f.png
 animations/zaman/calendar.png: animations/zaman/calendar-27d3edf24145798d80ee65228b56a6b8.png
 animations/zaman/clock.png: animations/zaman/clock-43ef510480cadc1eaa1dc875321dceef.png
 animations/zaman/floor_day.png: animations/zaman/floor_day-6d79e77207abf334c7fb763558bc0370.png
