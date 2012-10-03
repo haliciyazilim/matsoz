@@ -278,7 +278,8 @@ var Interaction = {
 					$(Interaction.eventDivs[4]).html('Okula başladım.');
 				},
 				dispose:function(f){
-					$(Interaction.yearDivs).each(function(index, element) {
+                    $(Interaction.status).animate({opacity:0},500,$(Interaction.status).remove)
+                    $(Interaction.yearDivs).each(function(index, element) {
                         $(this).animate({opacity:0},500,this.remove);
                     });
 					$(Interaction.eventDivs).each(function(index, element) {
