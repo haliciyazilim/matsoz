@@ -61,11 +61,11 @@ class EntriesController < ApplicationController
         delimiter = delimiters.shift
         
         if delimiter == "**"
-          @chunks.push({chunk => Entry.find_by_word(chunk)})
+          @chunks.push({chunk => Entry.find_by_word(chunk.to_downcase_turkish)})
           @chunks.push({chunks.shift => nil})
         elsif delimiter == "=>"
           destination = chunks.shift
-          @chunks.push({chunk => Entry.find_by_word(destination)})
+          @chunks.push({chunk => Entry.find_by_word(destination.to_downcase_turkish)})
           
           delimiter = delimiters.shift
           if delimiter == "**"
