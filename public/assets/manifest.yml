@@ -370,12 +370,12 @@ animations/yuvarlama.js: animations/yuvarlama-3cc807ce01a34c1a8b918f3474ec261b.j
 animations/yuzde.js: animations/yuzde-edbac73ca155306325324f2826163da4.js
 animations/yuzdeleri_karsilastirma.js: animations/yuzdeleri_karsilastirma-5466bf8764d821ab54cc92df2a7aa5da.js
 animations/yuzdeyi_ondalik_kesre_cevirme.js: animations/yuzdeyi_ondalik_kesre_cevirme-bdeb0227777e1e0fd75d99a791a29533.js
-animations/zaman.js: animations/zaman-61cb26e984c13933265dae02892be8b3.js
+animations/zaman.js: animations/zaman-b30fd396ae4fd68093b5c3449482ce23.js
 animations/zihinden_carpma_islemi.js: animations/zihinden_carpma_islemi-b8b9e3a77472a16f87f57976bdd966a1.js
 animations/zihinden_cikarma_islemi.js: animations/zihinden_cikarma_islemi-4940920b61cfce2bd92f5cf28a514e69.js
 animations/zihinden_toplama_islemi.js: animations/zihinden_toplama_islemi-7737213d60f940a067b9da44a5a381d7.js
 application.js: application-30939899585cf2854059a1905b2feb91.js
-main.js: main-fb571c63005346787e6fd6fac613fce9.js
+main.js: main-f4ce53b9391b164314139852bc807ab3.js
 processFiles.sh: processFiles-79b648dcbce096681d6650d60495e4ac.sh
 stats/highcharts.js: stats/highcharts-4b26148a5a280ffedb7386e3d0c73c77.js
 stats/stats.js: stats/stats-eb0d5b2516a5bcc5dea1dcebc2e4d975.js
