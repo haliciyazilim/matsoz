@@ -210,6 +210,19 @@ Main.calculateDefinitionWaitTime = function(){
 }
 Main.initializeNavigation = function() {
 	var createWordList = function(letter) {
+        $('.navlinktasiyici a').removeClass('harfselected');
+
+        var letter_id = letter;
+        if (letter_id == 'ç') letter_id = 'cc';
+        else if (letter_id == 'ğ') letter_id = 'gg';
+        else if (letter_id == 'ı') letter_id = 'ii';
+        else if (letter_id == 'ö') letter_id = 'oo';
+        else if (letter_id == 'ş') letter_id = 'ss';
+        else if (letter_id == 'ü') letter_id = 'uu';
+
+        $("#letter_"+letter_id).addClass("harfselected");
+
+
 		var entries = wordList[letter];
 		var htmlString = "";
 		
