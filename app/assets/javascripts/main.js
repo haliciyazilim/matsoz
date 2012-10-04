@@ -234,9 +234,31 @@ Main.initializeNavigation = function() {
 	}
     
 	$('.navlink').click(function() {
-		createWordList($(this).data('letter'));
+        var letter = $(this).data('letter')
+        if (wordList[letter].length == 0) {
+            return;
+        } else {
+		    createWordList(letter);
+        }
 	});
 	createWordList(currentLetter);
+
+    var list = "abcçdefghıijklmnoöprsştuüvyz"
+
+    for (var i = 0; i < list.length; i++) {
+        var letter = list[i];
+        if (wordList[letter].length == 0) {
+            var letter_id = letter;
+            if (letter_id == 'ç') letter_id = 'cc';
+            else if (letter_id == 'ğ') letter_id = 'gg';
+            else if (letter_id == 'ı') letter_id = 'ii';
+            else if (letter_id == 'ö') letter_id = 'oo';
+            else if (letter_id == 'ş') letter_id = 'ss';
+            else if (letter_id == 'ü') letter_id = 'uu';
+
+            $("#letter_"+letter_id).addClass("harfpasif");
+        }
+    }
 }
 
 Main.initializeSoundManager = function() {

@@ -168,6 +168,43 @@ a.harf_sag_4 {
 	height:29px;
 	background:url(ui_img/harf_sag_4.png) no-repeat left top;
 }
+
+/*  PASIF BUTONLAR
+----------------------------------------*/
+.harf_sol_1.harfpasif, .harf_sag_1.harfpasif,
+.harf_sol_2.harfpasif, .harf_sag_2.harfpasif,
+.harf_sol_3.harfpasif, .harf_sag_3.harfpasif,
+.harf_sol_4.harfpasif, .harf_sag_4.harfpasif {
+    color:#2e2e2e !important;
+    text-shadow:none !important;
+    cursor:default !important;
+}
+
+.harf_sol_1.harfpasif {
+    background:url(ui_img/harf_sol_1_pasif.png) left top !important;
+}
+.harf_sag_1.harfpasif {
+    background:url(ui_img/harf_sag_1_pasif.png) left top !important;
+}
+.harf_sol_2.harfpasif {
+    background:url(ui_img/harf_sol_2_pasif.png) left top !important;
+}
+.harf_sag_2.harfpasif {
+    background:url(ui_img/harf_sag_2_pasif.png) left top !important;
+}
+.harf_sol_3.harfpasif {
+    background:url(ui_img/harf_sol_3_pasif.png) left top !important;
+}
+.harf_sag_3.harfpasif {
+    background:url(ui_img/harf_sag_3_pasif.png) left top !important;
+}
+.harf_sol_4.harfpasif {
+    background:url(ui_img/harf_sol_4_pasif.png) left top !important;
+}
+.harf_sag_4.harfpasif {
+    background:url(ui_img/harf_sag_4_pasif.png) left top !important;
+}
+
 /*-----  a.navlink:hover class > THEME icinde  --------*/
 
 /*    SOZCUKLER  
