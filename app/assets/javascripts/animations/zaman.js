@@ -79,20 +79,17 @@ var Animation = {
             Animation.setImagesByTime(Animation.h, Animation.m++);
 
         },7);
-//        setTimeout(function(){
-//            clearInterval(Animation.t);
-//            Main.animationFinished();
-//        },7200)
-        },
+
+    },
     pause:function(){
             Animation.isPaused = true;
-        },
+    },
     resume:function(){
             Animation.isPaused = false;
-        },
+    },
     stop:function(){
             clearInterval(Animation.t);
-        },
+    },
     setImagesByTime:function(h,m){
             var angle = ( 2 * Math.PI ) * (h*60+m) / 1440; 
             var opacity = 0.5 * Math.cos(angle) + 0.5;
@@ -105,7 +102,7 @@ var Animation = {
             Animation.moon_sun.position = Animation.moon_sun.firstPosition;
             m = Math.floor(m/10)*10;
             Animation.hour.innerHTML = ( (""+h).length<2?'0':'' ) + h + ':' +( (""+m).length<2?'0':'') + m;
-        }
+    }
 }
 var Interaction = {
 	images:[
@@ -171,304 +168,313 @@ var Interaction = {
 	
 	getFramework:function(){
 			return 'paper';
-		},
+    },
 	init:function(container){
-			Interaction.container = container;
-			Main.setObjective('Yandaki zaman birimlerinden istediğinizi seçiniz.');
-			Interaction.paper = {
-				width:$(container).width(),
-				height:$(container).height()
-			}
-			Interaction.centerPoint = new Point(Interaction.paper.width*0.5,Interaction.paper.height*0.5);
-			$(Interaction.images).each(function(index, element) {
-                if(index < 3){
-					$(Interaction.container).append($('#'+this.id).get(0));
-					$('#'+this.id)
-						.addClass('menu_link_images')
-						.css({
-							position:'absolute',
-							bottom:'100px',
-							left:(50+200*index)+'px',
-							height:'auto'						
-						})
-						.click(this.linkTo)
-				}
-            });
-			Interaction.timeIntervalPage = {
-				objective:'Yandaki zaman çizelgesini doldurunuz. Belirtilen olayların tarihlerini üstteki kutulara yazınız. Sizin için önemli diğer tarihleri ve olayları da ekleyebilirsiniz.',
-				init:function(){
-                    Interaction.appendStatus({
-                        bottom:'20px',
-                        right:'10px'
-                    });
-					var arr = new Group(); 
-					var startPoint = Interaction.centerPoint.add(-250, -50);
-					var endPoint = startPoint.add(501,0);
-					var arrow = new Path.OneSidedArrow(startPoint.add(0,3),endPoint.add(0,3), 10, 30);
-					var arrow2 = new Path.OneSidedArrow(startPoint.add(0,3), endPoint.add(0,3), 10, 30);
-					arrow.rotate(180,Interaction.centerPoint.add(0,-47));
-					arr.addChild(arrow);
-					arr.addChild(arrow2);
-                    arr.set_style({strokeColor:"#e99d9d",fillColor:"#e99d9d"})
-					Interaction.timeLine = arr;
-					Interaction.yearDivs = [];
-					Interaction.eventDivs = [];
-					var divCss = {
-							'transform':'rotate(-90deg)',
-							'-webkit-transform':'rotate(-90deg)',
-							'-ms-transform':'rotate(-90deg)', /* IE 9 */
-							'-moz-transform':'rotate(-90deg)', /* Firefox */
-							'-o-transform':'rotate(-90deg)', /* Opera */
-							position:'absolute',
-							width:'80px',
-							height:'40px',
-							border:'1px solid #999',
-							overflow:'hidden',
-							resize:'none',
-                            fontFamily:"Arial"
-						}
-					for(var i=0; i<7;i++){
-						arr.addChild(new Path.Circle(startPoint.add(40+i*70,3),5).set_style({fillColor:'#9d4f4f'}));
-						var yearDiv = document.createElement('textarea');
-						yearDiv.setAttribute('type','text');
-						Interaction.yearDivs.push(yearDiv);
-						$(Interaction.container).append(yearDiv);
-						$(yearDiv)
-							.html('')
-							.css(divCss).css({top:'30px',left:45+i*70,fontSize:'30px',backgroundColor:"#a9dbe4",borderColor:"#7aa7ad"})
-                            .keydown(function(event){
-                                if(event.keyCode == 8 || event.keyCode == 46)
-                                    return true;
-                                if(event.target.value.length >= 4)
-                                    return false;
-                                if(event.keyCode >= 96 && event.keyCode <= 105)
-                                    return true;
-                                if(isNaN(parseInt(String.fromCharCode(event.keyCode),10)))
-                                   return false;
-                            })
-                            .change(function(event){
-                                if(event.target.value != "" &&event.target.eventDiv.value == '')
-                                    Interaction.setStatus("Lütfen girdiğiniz tarih karşısına olay yazınız.",false);
-                                for(var i = event.target.index - 1; i >= 0 ; i--)
-                                    if(parseInt(Interaction.yearDivs[i].value,10) > parseInt(event.target.value,10))
-                                        Interaction.setStatus("Lütfen girdiğiniz tarih kronolojik sıraya uysun.",false);
-                                for(var i = event.target.index + 1; i < Interaction.yearDivs.length ; i++)
-                                    if(parseInt(Interaction.yearDivs[i].value,10) < parseInt(event.target.value,10))
-                                        Interaction.setStatus("Lütfen girdiğiniz tarih kronolojik sıraya uysun.",false);
-
-                            });
-						var eventDiv = document.createElement('textarea');
-						eventDiv.setAttribute('type','text');
-						Interaction.eventDivs.push(eventDiv);
-						$(Interaction.container).append(eventDiv);
-						$(eventDiv)
-							.html('')
-							.css(divCss).css({top:'150px',left:25+i*70,width:'120px',backgroundColor:"#f3c884",borderColor:"#b9a077"})
-                            .change(function(event){
-                                if(event.target.value != "" &&  event.target.yearDiv.value == '')
-                                    Interaction.setStatus("Lütfen girdiğiniz olay karşısına tarih yazınız.",false);
-                            });
-                        yearDiv.eventDiv = eventDiv;
-                        eventDiv.yearDiv = yearDiv;
-                        yearDiv.index = i;
-                        eventDiv.index= i ;
-                    }
-					$(Interaction.eventDivs[0]).html('Annem ve babam evlendi.');
-					$(Interaction.eventDivs[2]).html('Doğum tarihim.');
-					$(Interaction.eventDivs[4]).html('Okula başladım.');
-				},
-				dispose:function(f){
-                    $(Interaction.status).animate({opacity:0},500,$(Interaction.status).remove)
-                    $(Interaction.yearDivs).each(function(index, element) {
-                        $(this).animate({opacity:0},500,this.remove);
-                    });
-					$(Interaction.eventDivs).each(function(index, element) {
-                        $(this).animate({opacity:0},500,this.remove);
-                    });
-					Interaction.timeLine.animate({
-						style:{opacity:0},
-						duration:500,
-						animationType:'easeOut',
-						callback:function(){this.remove();}
-					});
-					setTimeout(function(){Interaction.pause = false;f();},500);
-				}
-			};
-			Interaction.calendarPage = {
-				objective:'Takvimde bulunduğunuz ay ve gün belirtilmiştir. Ay ve günü ileri ya da geri değiştirebilirsiniz.',
-				init:function(){
-					
-					var calendarContainer = document.createElement('div');
-					$(Interaction.container).append(calendarContainer);
-					$(calendarContainer).css({
-						position:'absolute',
-						top:'10px',
-						left:'50%',
-						width:'200px',
-						marginLeft:'-150px'
-					})
-					var calendarImageContainer = document.createElement('div');
-					$(calendarContainer).append('<style></style>');
-					var calendar = document.createElement('div');
-					$(calendarContainer).append(calendar);
-					$( calendar ).datepicker({firstDay:1});
-					Interaction.calendarContainer = calendarContainer;
-				},
-				dispose:function(f){
-					$(Interaction.calendarContainer).animate({opacity:0},500,function(){
-						$(Interaction.calendarContainer).remove();
-					});
-					setTimeout(function(){Interaction.pause = false;f();},500);
-				}
-			};
-			Interaction.clockPage = {
-				objective:'Yanda verilen saate göre sorulara cevap veriniz.',
-				init:function(){
-					Interaction.clock = new Clock(new Point(100,100));
-					Interaction.appendButton({
-						bottom:'40px',
-						right:'40px'
-					});
-					Interaction.appendStatus({
-						bottom:'10px',
-						right:'40px'
-					});
-					Interaction.flushInputs();
-					var inputStyle = {
-							position:'static',
-							height:'24px',
-							fontSize:'16px',
-							width:'24px'
-						}
-                    Interaction.dayDiv = Util.dom({
-                        parent:Interaction.container,
-                        tag:'span',
-                        css:{
-                            position:'absolute',
-                            width:'160px',
-                            textAlign:'center',
-                            marginLeft:'-80px',
-                            left:'95px',
-                            top:'20px'
-                        }
+        Interaction.container = container;
+        Main.setObjective('Yandaki zaman birimlerinden istediğinizi seçiniz.');
+        Interaction.paper = {
+            width:$(container).width(),
+            height:$(container).height()
+        }
+        Interaction.centerPoint = new Point(Interaction.paper.width*0.5,Interaction.paper.height*0.5);
+        $(Interaction.images).each(function(index, element) {
+            if(index < 3){
+                $(Interaction.container).append($('#'+this.id).get(0));
+                $('#'+this.id)
+                    .addClass('menu_link_images')
+                    .css({
+                        position:'absolute',
+                        bottom:'100px',
+                        left:(50+200*index)+'px',
+                        height:'auto'
                     })
-					var hour = Interaction.appendInput(inputStyle,true,false);
-					var minute = Interaction.appendInput(inputStyle,true,false);
-					$(hour).attr('maxlength',2);
-					$(minute).attr('maxlength',2);
-					var div = Interaction.appendQuestion(
-						'saat <span id="old_hour"></span>:<span id="old_minute"></span> olduğuna göre <br/><span id="hour"></span>&nbsp;saat&nbsp;<span id="minute"></span>&nbsp;dakika sonra saat&nbsp;',
-						{
-							position:'absolute',
-							top:'100px',
-							right:'40px',
-							width:'400px',
-							textAlign:'right',
-							fontSize:'16px',
-                            lineHeight:'30px'
-						}
-					)
-					$(div)
-						.append(hour)
-						.append('&nbsp;:&nbsp;')
-						.append(minute)
-						.append('&nbsp;olur.');
-					Interaction.prepareNextQuestion();
-				},
-				dispose:function(f){
-                    $(Interaction.startButton).animate({opacity:0},500,$(Interaction.startButton).remove)
-                    $(Interaction.dayDiv).animate({opacity:0},500,$(Interaction.dayDiv).remove)
-					$(Interaction.button).animate({opacity:0},500,$(Interaction.button).remove)
-					$(Interaction.status).animate({opacity:0},500,$(Interaction.status).remove)
-					$(Interaction.questionDiv).animate({opacity:0},500,$(Interaction.questionDiv).remove)
-					Interaction.clock.remove(500);
-					Interaction.clock = null;
-					setTimeout(function(){Interaction.pause = false;f();},500);
-				}
-			};
-		},
-	openPage: function(page){
-			if(page == Interaction._openedPage)
-				return;
-			Interaction._waitingPage = page;
-			function _openPage(){
-				Interaction._openedPage = Interaction._waitingPage;
-				Interaction._openedPage.init();
-				Main.setObjective(Interaction._waitingPage.objective);
-				Interaction._waitingPage = null;
-			}
-			if(Interaction._openedPage){
-				Interaction._openedPage.dispose(_openPage);
-			}
-			else{
-				$('.menu_link_images').each(function(index, element) {
-                    $(this).animate({width:$(this).width()*0.6,bottom:'0px',left:(70+70*index)+'px',marginLeft:-$(this).width()*0.63},1000);
-                }); 
-				setTimeout(_openPage,1000);
-			}
-			
-		},
-	nextQuestion: function(randomNumber){
-            Interaction.dayDiv.innerHTML = "";
-            Interaction.clock.setTime({
-                h:0,
-                m:0
-            })
-            var button = Util.dom({
-                parent:Interaction.container,
-                tag:"button",
-                css:{
-                    position:"absolute",
-                    top:"175px",
-                    left:"92px",
-                    marginLeft:'-26.5px',
-                    width:'75px',
-                    height:'30px',
-                    backgroundImage:'url(/assets/animations/zaman/btn_gray_start.png)',
-                    border:0
-                },
-                html:''
-            })
-            Interaction.startButton = button;
-            $(Interaction.questionDiv).css({opacity:0});
-            $(button).click(function(){
-                Interaction.dayDiv.innerHTML = "";
-
-                Interaction.clock.setTime({
-                    h: Math.floor(Math.random()*12),
-                    m: Math.floor(Math.random()*11+1)*5
-                },undefined,function(){
-                    var hour = Math.floor(Math.random()*12);
-                    var minute = Math.floor(Math.random()*11+1)*5;
-                    $(Interaction.questionDiv).css({opacity:1});
-                    Interaction.setQuestionParams([
-                        {id:'hour', html:hour},
-                        {id:'minute', html:minute},
-                        {id:'old_hour',html:Interaction.clock.getTime().h},
-                        {id:'old_minute',html:Interaction.clock.getTime().m}
-                    ]);
-                    Interaction.dayDiv.innerHTML = Interaction.clock.getStatus();
+                    .click(this.linkTo)
+            }
+        });
+        Interaction.timeIntervalPage = {
+            objective:'Yandaki zaman çizelgesini doldurunuz. Belirtilen olayların tarihlerini üstteki kutulara yazınız. Sizin için önemli diğer tarihleri ve olayları da ekleyebilirsiniz.',
+            init:function(){
+                Interaction.appendStatus({
+                    bottom:'20px',
+                    right:'10px'
                 });
-                $(this).remove();
+                var arr = new Group();
+                var startPoint = Interaction.centerPoint.add(-250, -50);
+                var endPoint = startPoint.add(501,0);
+                var arrow = new Path.OneSidedArrow(startPoint.add(0,3),endPoint.add(0,3), 10, 30);
+                var arrow2 = new Path.OneSidedArrow(startPoint.add(0,3), endPoint.add(0,3), 10, 30);
+                arrow.rotate(180,Interaction.centerPoint.add(0,-47));
+                arr.addChild(arrow);
+                arr.addChild(arrow2);
+                arr.set_style({strokeColor:"#e99d9d",fillColor:"#e99d9d"})
+                Interaction.timeLine = arr;
+                Interaction.yearDivs = [];
+                Interaction.eventDivs = [];
+                var divCss = {
+                        'transform':'rotate(-90deg)',
+                        '-webkit-transform':'rotate(-90deg)',
+                        '-ms-transform':'rotate(-90deg)', /* IE 9 */
+                        '-moz-transform':'rotate(-90deg)', /* Firefox */
+                        '-o-transform':'rotate(-90deg)', /* Opera */
+                        position:'absolute',
+                        width:'80px',
+                        height:'40px',
+                        border:'1px solid #999',
+                        overflow:'hidden',
+                        resize:'none',
+                        fontFamily:"Arial"
+                    }
+                for(var i=0; i<7;i++){
+                    arr.addChild(new Path.Circle(startPoint.add(40+i*70,3),5).set_style({fillColor:'#9d4f4f'}));
+                    var yearDiv = document.createElement('textarea');
+                    yearDiv.setAttribute('type','text');
+                    Interaction.yearDivs.push(yearDiv);
+                    $(Interaction.container).append(yearDiv);
+                    $(yearDiv)
+                        .html('')
+                        .css(divCss).css({top:'30px',left:45+i*70,fontSize:'30px',backgroundColor:"#a9dbe4",borderColor:"#7aa7ad"})
+                        .keydown(function(event){
+                            if(event.keyCode == 8 || event.keyCode == 46)
+                                return true;
+                            if(event.target.value.length >= 4)
+                                return false;
+                            if(event.keyCode >= 96 && event.keyCode <= 105)
+                                return true;
+                            if(isNaN(parseInt(String.fromCharCode(event.keyCode),10)))
+                               return false;
+                        })
+                        .change(function(event){
+                            if(event.target.value != "" &&event.target.eventDiv.value == '')
+                                Interaction.setStatus("Lütfen girdiğiniz tarih karşısına olay yazınız.",false);
+                            for(var i = event.target.index - 1; i >= 0 ; i--)
+                                if(parseInt(Interaction.yearDivs[i].value,10) > parseInt(event.target.value,10))
+                                    Interaction.setStatus("Lütfen girdiğiniz tarih kronolojik sıraya uysun.",false);
+                            for(var i = event.target.index + 1; i < Interaction.yearDivs.length ; i++)
+                                if(parseInt(Interaction.yearDivs[i].value,10) < parseInt(event.target.value,10))
+                                    Interaction.setStatus("Lütfen girdiğiniz tarih kronolojik sıraya uysun.",false);
+
+                        });
+                    var eventDiv = document.createElement('textarea');
+                    eventDiv.setAttribute('type','text');
+                    Interaction.eventDivs.push(eventDiv);
+                    $(Interaction.container).append(eventDiv);
+                    $(eventDiv)
+                        .html('')
+                        .css(divCss).css({top:'150px',left:25+i*70,width:'120px',backgroundColor:"#f3c884",borderColor:"#b9a077"})
+                        .change(function(event){
+                            if(event.target.value != "" &&  event.target.yearDiv.value == '')
+                                Interaction.setStatus("Lütfen girdiğiniz olay karşısına tarih yazınız.",false);
+                        });
+                    yearDiv.eventDiv = eventDiv;
+                    eventDiv.yearDiv = yearDiv;
+                    yearDiv.index = i;
+                    eventDiv.index= i ;
+                }
+                $(Interaction.eventDivs[0]).html('Annem ve babam evlendi.');
+                $(Interaction.eventDivs[2]).html('Doğum tarihim.');
+                $(Interaction.eventDivs[4]).html('Okula başladım.');
+            },
+            dispose:function(f){
+                $(Interaction.status).animate({opacity:0},500,$(Interaction.status).remove)
+                $(Interaction.yearDivs).each(function(index, element) {
+                    $(this).animate({opacity:0},500,this.remove);
+                });
+                $(Interaction.eventDivs).each(function(index, element) {
+                    $(this).animate({opacity:0},500,this.remove);
+                });
+                Interaction.timeLine.animate({
+                    style:{opacity:0},
+                    duration:500,
+                    animationType:'easeOut',
+                    callback:function(){this.remove();}
+                });
+                setTimeout(function(){Interaction.pause = false;f();},500);
+            }
+        };
+        Interaction.calendarPage = {
+            objective:'Takvimde bulunduğunuz ay ve gün belirtilmiştir. Ay ve günü ileri ya da geri değiştirebilirsiniz.',
+            init:function(){
+
+                var calendarContainer = document.createElement('div');
+                $(Interaction.container).append(calendarContainer);
+                $(calendarContainer).css({
+                    position:'absolute',
+                    top:'10px',
+                    left:'50%',
+                    width:'200px',
+                    marginLeft:'-150px'
+                })
+                var calendarImageContainer = document.createElement('div');
+                $(calendarContainer).append('<style></style>');
+                var calendar = document.createElement('div');
+                $(calendarContainer).append(calendar);
+                $( calendar ).datepicker({firstDay:1});
+                Interaction.calendarContainer = calendarContainer;
+            },
+            dispose:function(f){
+                $(Interaction.calendarContainer).animate({opacity:0},500,function(){
+                    $(Interaction.calendarContainer).remove();
+                });
+                setTimeout(function(){Interaction.pause = false;f();},500);
+            }
+        };
+        Interaction.clockPage = {
+            objective:'Yanda verilen saate göre sorulara cevap veriniz.',
+            init:function(){
+                Interaction.clock = new Clock(new Point(100,100));
+                Interaction.appendButton({
+                    bottom:'40px',
+                    right:'40px'
+                });
+                Interaction.appendStatus({
+                    bottom:'10px',
+                    right:'40px'
+                });
+                Interaction.flushInputs();
+                var inputStyle = {
+                        position:'static',
+                        height:'24px',
+                        fontSize:'16px',
+                        width:'24px'
+                    }
+                Interaction.dayDiv = Util.dom({
+                    parent:Interaction.container,
+                    tag:'span',
+                    css:{
+                        position:'absolute',
+                        width:'160px',
+                        textAlign:'center',
+                        marginLeft:'-80px',
+                        left:'95px',
+                        top:'20px'
+                    }
+                })
+                var hour = Interaction.appendInput(inputStyle,true,false);
+                var minute = Interaction.appendInput(inputStyle,true,false);
+                $(hour).attr('maxlength',2);
+                $(minute).attr('maxlength',2);
+                var div = Interaction.appendQuestion(
+                    'saat <span id="old_hour"></span>:<span id="old_minute"></span> olduğuna göre <br/><span id="hour"></span>&nbsp;saat&nbsp;<span id="minute"></span>&nbsp;dakika sonra saat&nbsp;',
+                    {
+                        position:'absolute',
+                        top:'100px',
+                        right:'40px',
+                        width:'400px',
+                        textAlign:'right',
+                        fontSize:'16px',
+                        lineHeight:'30px'
+                    }
+                )
+                $(div)
+                    .append(hour)
+                    .append('&nbsp;:&nbsp;')
+                    .append(minute)
+                    .append('&nbsp;olur.');
+                Interaction.prepareNextQuestion();
+            },
+            dispose:function(f){
+                $(Interaction.startButton).animate({opacity:0},500,$(Interaction.startButton).remove)
+                $(Interaction.dayDiv).animate({opacity:0},500,$(Interaction.dayDiv).remove)
+                $(Interaction.button).animate({opacity:0},500,$(Interaction.button).remove)
+                $(Interaction.status).animate({opacity:0},500,$(Interaction.status).remove)
+                $(Interaction.questionDiv).animate({opacity:0},500,$(Interaction.questionDiv).remove)
+                Interaction.clock.remove(500);
+                Interaction.clock = null;
+                setTimeout(function(){Interaction.pause = false;f();},500);
+            }
+        };
+    },
+	openPage: function(page){
+        if(page == Interaction._openedPage)
+            return;
+        Interaction._waitingPage = page;
+        function _openPage(){
+            Interaction._openedPage = Interaction._waitingPage;
+            Interaction._openedPage.init();
+            Main.setObjective(Interaction._waitingPage.objective);
+            Interaction._waitingPage = null;
+        }
+        if(Interaction._openedPage){
+            Interaction._openedPage.dispose(_openPage);
+        }
+        else{
+            $('.menu_link_images').each(function(index, element) {
+                $(this).animate({width:$(this).width()*0.6,bottom:'0px',left:(70+70*index)+'px',marginLeft:-$(this).width()*0.63},1000);
             });
-		},
+            setTimeout(_openPage,1000);
+        }
+
+    },
+	nextQuestion: function(randomNumber){
+        Interaction.dayDiv.innerHTML = "";
+        Interaction.clock.setTime({
+            h:0,
+            m:0
+        })
+        var button = Util.dom({
+            parent:Interaction.container,
+            tag:"button",
+            css:{
+                position:"absolute",
+                top:"175px",
+                left:"92px",
+                marginLeft:'-26.5px',
+                width:'75px',
+                height:'30px',
+                backgroundImage:'url(/assets/animations/zaman/btn_gray_start.png)',
+                border:0
+            },
+            html:''
+        })
+        Interaction.startButton = button;
+        $(Interaction.questionDiv).css({opacity:0});
+        $(button).click(function(){
+            if(Interaction.pause == true)
+                return;
+            Interaction.dayDiv.innerHTML = "";
+            Interaction.setStatus('');
+            Interaction.clock.setTime({
+                h: Math.floor(Math.random()*12),
+                m: Math.floor(Math.random()*11+1)*5
+            },undefined,function(){
+                var hour = Math.floor(Math.random()*11+1);
+                var minute = Math.floor(Math.random()*11+1)*5;
+                $(Interaction.questionDiv).css({opacity:1});
+                var h = Interaction.clock.getTime().h;
+                h = h==0?"0":h;
+                var m = ''+Interaction.clock.getTime().m;
+                m = m.length==1?"0"+m:m;
+                Interaction.setQuestionParams([
+                    {id:'hour', html:hour},
+                    {id:'minute', html:minute},
+                    {id:'old_hour',html:h},
+                    {id:'old_minute',html:m}
+                ]);
+                Interaction.dayDiv.innerHTML = Interaction.clock.getStatus();
+            });
+            $(this).remove();
+        });
+    },
 		
 	preCheck : function(){
-		
-		},
+		if($(Interaction.questionDiv).css('opacity')==0){
+            Interaction.setStatus('Lütfen başlat düğmesine basınız.',"alert");
+            return false;
+        }
+    },
 	isAnswerCorrect : function(values){
-			var minute = (Interaction.clock.getTime().m + parseInt(Interaction.getQuestionParams()[1].html,10) ) ;
-			var hour = Math.floor(minute/60);
-			minute = minute%60;
-			hour = (hour + Interaction.clock.getTime().h + parseInt(Interaction.getQuestionParams()[0].html,10) ) % 12;
-			if(hour == 0)
-				hour = 12;
-			Interaction.correctAnswer = {h:hour,m:minute};
-			if(hour == values[0] && minute == values[1])
-				return true;
-			else
-				return false;
-		},
+        var minute = (Interaction.clock.getTime().m + parseInt(Interaction.getQuestionParams()[1].html,10) ) ;
+        var hour = Math.floor(minute/60);
+        minute = minute%60;
+        hour = (hour + Interaction.clock.getTime().h + parseInt(Interaction.getQuestionParams()[0].html,10) ) % 12;
+        if(hour == 0)
+            hour = 12;
+        Interaction.correctAnswer = {h:hour,m:minute};
+        if((hour == values[0] || Interaction.clock.isAfternoonWithTime({h:hour,m:minute}) && hour+12 == values[0]) && minute == values[1])
+            return true;
+        else
+            return false;
+    },
 	onCorrectAnswer : function(){
 		
 		},
@@ -476,14 +482,14 @@ var Interaction = {
 		
 		},
 	onFail : function(){
-			var zero = (""+Interaction.correctAnswer.m).length < 2 ? '0':''
-			Interaction.setStatus('Yanlış, doğru cevap '+Interaction.correctAnswer.h+':'+zero + Interaction.correctAnswer.m+' olacaktı.',false);
-            Interaction.dayDiv.innerHTML = "";
-            Interaction.clock.setTime(Interaction.correctAnswer,undefined,function(){
-                Interaction.dayDiv.innerHTML = Interaction.clock.getStatus();
+        var zero = (""+Interaction.correctAnswer.m).length < 2 ? '0':''
+        Interaction.setStatus('Yanlış, doğru cevap '+Interaction.correctAnswer.h+':'+zero + Interaction.correctAnswer.m+' olacaktı.',false);
+        Interaction.dayDiv.innerHTML = "";
+        Interaction.clock.setTime(Interaction.correctAnswer,undefined,function(){
+            Interaction.dayDiv.innerHTML = Interaction.clock.getStatus();
 
-            });
-		}
+        });
+    }
 }
 
 function Clock(p){
@@ -564,7 +570,8 @@ Clock.prototype.setTime = function(endTime,startTime,callback){
         akrepEndAngle += 360;
         yelkovanEndAngle += 360 *12;
         this.day = this.day === true ? false : true;
-    }this.akrepStartAngle += akrepEndAngle - akrepStartAngle;
+    }
+    this.akrepStartAngle += akrepEndAngle - akrepStartAngle;
     console.log(
         "yelkovanStartAngle: " + yelkovanStartAngle,
         "yelkovanEndAngle: " + yelkovanEndAngle,
@@ -572,13 +579,7 @@ Clock.prototype.setTime = function(endTime,startTime,callback){
         "akrepEndAngle: " + akrepEndAngle,
         "this.akrepStartAngle: " + this.akrepStartAngle
     );
-    /*<[[TEST*/
-//        yelkovanStartAngle = 400;
-//        akrepStartAngle = 500;
-//        yelkovanEndAngle = 5600;
-//        akrepEndAngle = 700;
-    /*TEST]]>*/
-//    console.log()
+
     this.clockHelper = new AnimationHelper({
         yelkovanAngle: yelkovanStartAngle,
         akrepAngle: akrepStartAngle,
@@ -611,7 +612,21 @@ Clock.prototype.setTime = function(endTime,startTime,callback){
         }
     });
 }
-
+Clock.prototype.isAfternoonWithTime = function(time){
+    var angle = this.akrepStartAngle % 720;
+    angle += time.h*30 + time.m*0.5;
+    angle = angle % 720;
+    console.log("[isAfternoonWithTime] angle: "+angle);
+    if(angle < 360)
+        return false;
+    return true;
+}
+Clock.prototype.isAfternoon = function(){
+    var angle = this.akrepStartAngle % 720;
+    if(angle < 360)
+        return false;
+    return true;
+}
 Clock.prototype.getStatus = function(){
     var angle = this.akrepStartAngle % 720;
     if( angle <= 120)
