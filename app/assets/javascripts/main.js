@@ -321,6 +321,7 @@ Main.createInteractionSkipSlider = function(){
         overflow:'hidden',
         backgroundImage:'url(/assets/skip_screen.png)',
         backgroundRepeat:'no-repeat',
+        backgroundPosition:'-100px -9px',
         '-moz-user-select': '-moz-none',
         '-khtml-user-select': 'none',
         '-webkit-user-select': 'none',
@@ -347,7 +348,7 @@ Main.createInteractionSkipSlider = function(){
             var change = event.pageX - startPosition;
             change = change < 0 ? '0':change;
             $(div).css({
-                backgroundPosition:change+'px 0px'
+                backgroundPosition:(change-100)+'px -9px'
             });
         }
         return false;
@@ -370,10 +371,10 @@ Main.createInteractionSkipSlider = function(){
                 duration:250,
                 animationType:'easeIn',
                 update:function(){
-                    $(div).css({backgroundPosition:this.change+'px 0px'});
+                    $(div).css({backgroundPosition:(this.change-100)+'px -9px'});
                 },
                 callback:function(){
-                    $(div).animate({opacity:0},500,function(){$(this).remove()});
+                    $(div).animate({opacity:0},250,function(){$(this).remove()});
                 }
             })
         }
@@ -387,7 +388,7 @@ Main.createInteractionSkipSlider = function(){
                 duration:100,
                 animationType:'easeIn',
                 update:function(){
-                    $(div).css({backgroundPosition:this.change+'px 0px'});
+                    $(div).css({backgroundPosition:(this.change-100)+'px -9px'});
                 },
                 callback:function(){
                     isDraggable = true;
