@@ -94,6 +94,7 @@ Main.animateDefinition = function(){
 }
 
 Main.init = function(){
+    Main.initializeScreen();
 	Main.initializeNavigation();
 	Main.createInteractionSkipSlider();
 	Main.interaction = $('.etkilesimalan').get(0);
@@ -209,6 +210,11 @@ Main.calculateDefinitionWaitTime = function(){
     html = removeHTMLTags(html);
     return countWords(html)*400+500;
 }
+
+Main.initializeScreen = function() {
+    setTimeout(function() { window.scrollTo(0, 1); }, 1);
+}
+
 Main.initializeNavigation = function() {
 	var createWordList = function(letter) {
         $('.navlinktasiyici a').removeClass('harfselected');
