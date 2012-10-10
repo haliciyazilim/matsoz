@@ -349,7 +349,7 @@ function InteractionBase(){
 			if(Interaction.onWrongAnswer)
 				Interaction.onWrongAnswer();
 				
-			Main.wrongSound.play();
+//			Main.wrongSound.play();
 		}
 		else{
 			$(Interaction.inputs).each(function(index, element) {
@@ -363,7 +363,7 @@ function InteractionBase(){
 			if(Interaction.onFail)
 				Interaction.onFail();
 				
-			Main.wrongSound.play();
+//			Main.wrongSound.play();
 		}
 		if(isCorrect || Interaction.trial > 0){
 			Interaction.button.onclick = Interaction.prepareNextQuestion;
