@@ -256,7 +256,7 @@ Interaction.init = function(container){
 	$(Interaction.status).css({
 		position:'absolute',
 		display:'block',
-		left:10,
+		left:'30px',
 		top:Interaction.paper.height*0.4,
 		width:'40%'
 	});
@@ -623,7 +623,7 @@ Interaction.drawCompass = function(dx){
 
 Interaction.drawRuler = function(){
 	var x,y,w,h,b,st;
-	x = Interaction.paper.width*0.02;
+	x = 30;
 	y = Interaction.paper.height*0.4;
 	Interaction.ruler = new Raster('ruler');
 	Interaction.ruler.position = new Point(
