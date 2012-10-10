@@ -50,7 +50,7 @@
       - elsif index % 4 == 1
         - piece = 'harf_sag_2'
 
-      = link_to letter.to_upcase_turkish + letter, '#', {:class => 'navlink navposition ' + piece, :data=>{:letter => letter}}
+      = link_to letter.to_upcase_turkish + letter, '#', {:class => 'navlink navposition ' + piece, :data=>{:letter => letter}, :onclick=>'return false'}
       - index = index + 1
 
   %div.btn_prev

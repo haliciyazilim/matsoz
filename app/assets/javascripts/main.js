@@ -93,6 +93,7 @@ Main.animateDefinition = function(){
 Main.init = function(){
 	Main.initializeNavigation();
 	Main.createInteractionSkipSlider();
+    Main.initializeToolbar();
 	Main.interaction = $('.etkilesimalan').get(0);
 	Main.animation = $('.ornek').get(0);
 	Main.objective = $('.mavikontrol').get(0);
@@ -207,6 +208,8 @@ Main.calculateDefinitionWaitTime = function(){
 }
 Main.initializeNavigation = function() {
 	var createWordList = function(letter) {
+        $('.navlink').removeClass('harfselected');
+        $('.navlink[data-letter="'+letter+'"]').addClass('harfselected');
 		var entries = wordList[letter];
 		var htmlString = "";
 		
@@ -219,7 +222,9 @@ Main.initializeNavigation = function() {
     
 	$('.navlink').click(function() {
 		createWordList($(this).data('letter'));
+
 	});
+
 	createWordList(currentLetter);
 }
 
@@ -344,5 +349,14 @@ Main.createInteractionSkipSlider = function(){
         up(event);
     });
 
+}
+
+Main.initializeToolbar = function(){
+    $('.btn_prev').click(function(event){
+        window.history.go(-1);
+    });
+    $('.btn_next').click(function(event){
+        window.history.go(1);
+    });
 }
 Main();
