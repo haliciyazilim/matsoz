@@ -342,7 +342,7 @@ function InteractionBase(){
 			if(Interaction.onCorrectAnswer)
 				Interaction.onCorrectAnswer();
 				
-				Main.correctSound.play();
+//				Main.correctSound.play();
 		}
 		else if(Interaction.trial == 0){
 			Interaction.__status(Interaction.__status.WRONG);
