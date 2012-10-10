@@ -4,7 +4,7 @@
   %meta{'http-equiv'=>'Content-Type', 'content' => 'text/html; charset=UTF-8'}
   = javascript_include_tag 'main.js'
   = stylesheet_link_tag 'theme/blue/matsoz_blue.css'
-  = stylesheet_link_tag 'theme/yedi/matsoz_yedi.css'
+  = stylesheet_link_tag 'theme/bes/matsoz_bes.css'
   - begin
     = javascript_include_tag @entry.javascript_file
   - rescue
@@ -17,75 +17,83 @@
     var currentLetter = '#{@current_letter}';
 
 #container
-  #navigation
-    .navlinktasiyici
-      %a#letter_a{:class=>"navlink navposition harf_sol_1", :data=>{:letter => 'a'}}Aa
-      %a#letter_b{:class=>"navlink navposition harf_sag_1", :data=>{:letter => 'b'}}Bb
+  %div.matsoz_logo
+    %img{:src=>'/assets/theme/bes/logo_bes.png', :width=>'269', :height=>'77'}
+  .navlinktasiyici
+    - letters = []
+    - @word_list.keys.each do |key|
+      - if @word_list[key].length != 0
+        - letters << key
 
-      %a#letter_c{:class=>"navlink navposition harf_sol_2", :data=>{:letter => 'c'}}Cc
-      %a#letter_cc{:class=>"navlink navposition harf_sag_2", :data=>{:letter => 'ç'}}Çç
-      %a#letter_d{:class=>"navlink navposition harf_sol_3", :data=>{:letter => 'd'}}Dd
-      %a#letter_e{:class=>"navlink navposition harf_sag_3", :data=>{:letter => 'e'}}Ee
-      
-      %a#letter_f{:class=>"navlink navposition harf_sol_2", :data=>{:letter => 'f'}}Ff
-      %a#letter_g{:class=>"navlink navposition harf_sag_2", :data=>{:letter => 'g'}}Gg
-      %a#letter_h{:class=>"navlink navposition harf_sol_3", :data=>{:letter => 'h'}}Hh
-      %a#letter_ii{:class=>"navlink navposition harf_sag_3", :data=>{:letter => 'ı'}}Iı
-      
-      %a#letter_i{:class=>"navlink navposition harf_sol_2", :data=>{:letter => 'i'}}İi
-      %a#letter_j{:class=>"navlink navposition harf_sag_2", :data=>{:letter => 'j'}}Jj
-      %a#letter_k{:class=>"navlink navposition harf_sol_3", :data=>{:letter => 'k'}}Kk
-      %a#letter_l{:class=>"navlink navposition harf_sag_3", :data=>{:letter => 'l'}}Ll
-      
-      %a#letter_m{:class=>"navlink navposition harf_sol_2", :data=>{:letter => 'm'}}Mm
-      %a#letter_n{:class=>"navlink navposition harf_sag_2", :data=>{:letter => 'n'}}Nn
-      %a#letter_o{:class=>"navlink navposition harf_sol_3", :data=>{:letter => 'o'}}Oo
-      %a#letter_oo{:class=>"navlink navposition harf_sag_3", :data=>{:letter => 'ö'}}Öö
-      
-      %a#letter_p{:class=>"navlink navposition harf_sol_2", :data=>{:letter => 'p'}}Pp
-      %a#letter_r{:class=>"navlink navposition harf_sag_2", :data=>{:letter => 'r'}}Rr
-      %a#letter_s{:class=>"navlink navposition harf_sol_3", :data=>{:letter => 's'}}Ss
-      %a#letter_ss{:class=>"navlink navposition harf_sag_3", :data=>{:letter => 'ş'}}Şş
-      
-      %a#letter_t{:class=>"navlink navposition harf_sol_2", :data=>{:letter => 't'}}Tt
-      %a#letter_u{:class=>"navlink navposition harf_sag_2", :data=>{:letter => 'u'}}Uu
-      %a#letter_uu{:class=>"navlink navposition harf_sol_3", :data=>{:letter => 'ü'}}Üü
-      %a#letter_v{:class=>"navlink navposition harf_sag_3", :data=>{:letter => 'v'}}Vv
-      
-      %a#letter_y{:class=>"navlink navposition harf_sol_4", :data=>{:letter => 'y'}}Yy
-      %a#letter_z{:class=>"navlink navposition harf_sag_4", :data=>{:letter => 'z'}}Zz
-      
-      
-    #liste.sozcuktasiyici
-      - @all_entries.each do |entry|
-        - if entry == @entry
-          = link_to entry.word, entry_path(entry), {:class => 'sozcuklink sozcukselected'}
+    - index = 0
+    - letters.each do |letter|
+      - if index == 0
+        - piece = 'harf_sol_1'
+      - elsif index == 1
+        - piece = 'harf_sag_1'
+      - elsif index == letters.length - 1
+        - if index % 2 == 0
+          - piece = 'harf_sol_4'
         - else
-          = link_to entry.word, entry_path(entry), {:class => 'sozcuklink'}
-          
-  #inter_container.back
-    %div.tanim
-      - if @entry.thumbnail?
-        %div.simgebg
-          = image_tag('theme/blue/ui_img/simge_bg.png', {:width => 139, :height => 143, :style => "position:absolute; top: 0px; left: 0px;"})
-          %div.simge
-            = image_tag(@entry.thumbnail.url, {:style => "position:absolute; top: 0px; left: 0px;"})
-      %strong.name
-        = @entry.word + ": "
-      %span.definition
-        - @chunks.each do |chunk|
-          - chunk.each do |key, value|
-            - if value == nil
-              - if key != nil
-                %span>=key.gsub(' ', "\n")
-            - else
-              %span>= link_to key, entry_path(value)
-      %div.additional_info
-        - if @entry.additionalInfo
-          %em
-            = @entry.additionalInfo
-          
-    %div{:class=>'ornek ornek_border'}
-      #div{:class =>'ornekbaslik ornekbaslik_bg'}
-    %div.mavikontrol
-    %div.etkilesimalan
+          - piece = 'harf_sag_4'
+      - elsif index == letters.length - 2
+        - if index % 2 == 0
+          - piece = 'harf_sol_4'
+        - else
+          - piece = 'harf_sag_2'
+      - elsif index % 4 == 2
+        - piece = 'harf_sol_2'
+      - elsif index % 4 == 3
+        - piece = 'harf_sag_2'
+      - elsif index % 4 == 0
+        - piece = 'harf_sol_2'
+      - elsif index % 4 == 1
+        - piece = 'harf_sag_2'
+
+      = link_to letter.to_upcase_turkish + letter, '#', {:class => 'navlink navposition ' + piece, :data=>{:letter => letter}}
+      - index = index + 1
+
+  %div.btn_prev
+    %img{:src=>'/assets/theme/blue/ui_img/btn_prev.png', :width=>'60', :height=>'46', :alt=>'Önceki'}
+  %div.btn_next
+    %img{:src=>'/assets/theme/blue/ui_img/btn_next.png', :width=>'60', :height=>'46', :alt=>'Sonraki'}
+  %div.btn_home
+    %img{:src=>'/assets/theme/blue/ui_img/btn_home.png', :width=>'40', :height=>'36', :alt=>'Ana Sayfa'}
+  %div.btn_info
+    %img{:src=>'/assets/theme/blue/ui_img/btn_info.png', :width=>'40', :height=>'36', :alt=>'Bilgi'}
+  %div.btn_print
+    %img{:src=>'/assets/theme/blue/ui_img/btn_print.png', :width=>'40', :height=>'36', :alt=>'Etkileşimi Yazdır'}
+
+
+  %div.sozcuktasiyici
+    - @all_entries.each do |entry|
+      - if entry == @entry
+        = link_to entry.word, entry_path(entry), {:class => 'sozcuklink sozcukselected'}
+      - else
+        = link_to entry.word, entry_path(entry), {:class => 'sozcuklink'}
+
+
+  %div.tanim
+    - if @entry.thumbnail?
+      %div.simgebg
+        = image_tag('theme/blue/ui_img/simge_bg.png', {:width => 139, :height => 143, :style => "position:absolute; top: 0px; left: 0px;"})
+        %div.simge
+          = image_tag(@entry.thumbnail.url, {:style => "position:absolute; top: 0px; left: 0px;"})
+    %strong.name
+      = @entry.word + ": "
+    - @chunks.each do |chunk|
+      - chunk.each do |key, value|
+        - if value == nil
+          - if key != nil
+            =key.gsub(' ', "\n")
+        - else
+          = link_to key, entry_path(value)
+    %div.additional_info
+      - if @entry.additionalInfo
+        %em
+          = @entry.additionalInfo
+
+  %div{:class=>'ornek ornek_border sablon'}
+    %div{:class =>'ornekbaslik ornekbaslik_bg'}
+  %div{:class => 'mavikontrol sablon'}
+  %div{:class => 'etkilesimalan sablon'}

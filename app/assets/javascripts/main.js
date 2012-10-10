@@ -231,7 +231,7 @@ Main.initializeNavigation = function() {
 			htmlString += "<a href=" + entries[i].link + " class='sozcuklink " + (entries[i].selected?"sozcukselected":"") + "'>" + entries[i].word + "</a>";
 		}
 		
-		$('#liste').html(htmlString);
+		$('.sozcuktasiyici').html(htmlString);
 	}
     
 	$('.navlink').click(function() {
@@ -308,16 +308,16 @@ Main.setObjective = function(str){
 
 Main.createInteractionSkipSlider = function(){
     var div = document.createElement('div');
-    $('#inter_container').append(div);
+    $('#container').append(div);
     $(div).css({
         position:'absolute',
         paddingLeft:'-1px',
-        top:'395px',
-        left:'30px',
+        top:'331px',
+        left:'438px',
         width:'790px',
         height:'302px',
         borderRadius:'6px',
-        border:'1px solid #000',
+        border:'1px solid rgba(255,255,255,0.1)',
         overflow:'hidden',
         backgroundImage:'url(/assets/skip_screen.png)',
         backgroundRepeat:'no-repeat',
