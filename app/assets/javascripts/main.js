@@ -96,6 +96,7 @@ Main.animateDefinition = function(){
 Main.init = function(){
 	Main.initializeNavigation();
 	Main.createInteractionSkipSlider();
+    Main.initializeToolbar();
 	Main.interaction = $('.etkilesimalan').get(0);
 	Main.animation = $('.ornek').get(0);
 	Main.objective = $('.mavikontrol').get(0);
@@ -211,19 +212,9 @@ Main.calculateDefinitionWaitTime = function(){
 }
 Main.initializeNavigation = function() {
 	var createWordList = function(letter) {
-        $('.navlinktasiyici a').removeClass('harfselected');
 
-        var letter_id = letter;
-        if (letter_id == 'ç') letter_id = 'cc';
-        else if (letter_id == 'ğ') letter_id = 'gg';
-        else if (letter_id == 'ı') letter_id = 'ii';
-        else if (letter_id == 'ö') letter_id = 'oo';
-        else if (letter_id == 'ş') letter_id = 'ss';
-        else if (letter_id == 'ü') letter_id = 'uu';
-
-        $("#letter_"+letter_id).addClass("harfselected");
-
-
+        $('.navlink').removeClass('harfselected');
+        $('.navlink[data-letter="'+letter+'"]').addClass('harfselected');
 		var entries = wordList[letter];
 		var htmlString = "";
 		
@@ -235,13 +226,9 @@ Main.initializeNavigation = function() {
 	}
     
 	$('.navlink').click(function() {
-        var letter = $(this).data('letter')
-        if (wordList[letter].length == 0) {
-            return;
-        } else {
-		    createWordList(letter);
-        }
+		createWordList($(this).data('letter'));
 	});
+
 	createWordList(currentLetter);
 
     var list = "abcçdefghıijklmnoöprsştuüvyz"
@@ -423,5 +410,14 @@ Main.createInteractionSkipSlider = function(){
         up(event);
     });
 
+}
+
+Main.initializeToolbar = function(){
+    $('.btn_prev').click(function(event){
+        window.history.go(-1);
+    });
+    $('.btn_next').click(function(event){
+        window.history.go(1);
+    });
 }
 Main();
