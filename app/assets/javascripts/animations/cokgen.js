@@ -342,7 +342,6 @@ Interaction.generateRandomShapes = function(X,Y,WIDTH,HEIGHT){
 		w = maxW*0.7;
 		h = maxH*0.7;
 		var shape = {};
-		var isRegular;
 		var edgeNumber;
 		
 		var NUMBER_OF_SHAPES  = 12;
