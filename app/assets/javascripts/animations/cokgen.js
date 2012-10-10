@@ -189,10 +189,9 @@ Interaction.init = function(container){
 		
 	};
 	Interaction.shuffledArray = null;
-	Interaction.createDropableShapesLeft(0,0,w*0.2,h*0.8);
-	Interaction.createDropableShapesRight(w*0.8,0,w*0.2,h*0.8);
-	//Interaction.dropableShapes.setImage('dropable_default');
-	Interaction.generateRandomShapes(w*0.2,10,w*0.6,h);
+	Interaction.createDropableShapesLeft(10,0,w*0.2,h*0.8);
+	Interaction.createDropableShapesRight(w*0.8-10,0,w*0.2,h*0.8);
+	Interaction.generateRandomShapes(w*0.25,10,w*0.55,h);
 	Interaction.paper = {width:500,height:300};
 	Interaction.preventDrag = false;
 	if(Interaction.status == null || Interaction.status == 'undefined'){
@@ -332,7 +331,7 @@ var start = function(){
 Interaction.generateRandomShapes = function(X,Y,WIDTH,HEIGHT){
 	Interaction.shapes = [];
 	var maxW = WIDTH*0.25;
-	var maxH = HEIGHT*0.3;
+	var maxH = HEIGHT*0.25;
 	Interaction.shapeCount = -1;
 	do{///generate shapes randomly
 		var x,y,w,h;
