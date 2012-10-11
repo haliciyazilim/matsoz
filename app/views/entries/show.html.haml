@@ -58,10 +58,16 @@
       
     #liste.sozcuktasiyici
       - @all_entries.each do |entry|
-        - if entry == @entry
-          = link_to entry.word, entry_path(entry), {:class => 'sozcuklink sozcukselected'}
+        - if @exporting
+          - if entry == @entry
+            %a{:href => entry.id.to_s + ".html", :class => 'sozcuklink sozcukselected'} #{entry.word}
+          - else
+            %a{:href => entry.id.to_s + ".html", :class => 'sozcuklink'} #{entry.word}
         - else
-          = link_to entry.word, entry_path(entry), {:class => 'sozcuklink'}
+          - if entry == @entry
+            = link_to entry.word, entry_path(entry), {:class => 'sozcuklink sozcukselected'}
+          - else
+            = link_to entry.word, entry_path(entry), {:class => 'sozcuklink'}
           
   #inter_container.back
     %div.tanim
