@@ -27,12 +27,20 @@ class EntriesController < ApplicationController
           @current_letter = letter
           selected = true
         end
-        
-        @word_list[letter] << {
-          :word => entry.word,
-          :selected => selected,
-          :link => entry_path(entry)
-        }
+
+        if @exporting
+          @word_list[letter] << {
+            :word => entry.word,
+            :selected => selected,
+            :link => entry.id.to_s + ".html"
+          }
+        else
+          @word_list[letter] << {
+            :word => entry.word,
+            :selected => selected,
+            :link => entry_path(entry)
+          }
+         end
       end
     end
   end
