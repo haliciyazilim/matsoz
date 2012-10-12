@@ -25,7 +25,7 @@ var Animation = {
         {
             id:'solar_system',
             src:'/assets/animations/uzay/solar_system.jpg'
-        },
+        }
 
     ],
 	init:function(container){
@@ -51,17 +51,17 @@ var Animation = {
                 Animation.ball.animate({
                     style:{position:Animation.ball.position.add(120,10)},
                     duration:1000,
-                animationType:'easeInEaseOut',
+                    animationType:'easeInEaseOut',
                     callback:function(){
                     Animation.ball.animate({
                         style:{position:Animation.ball.position.add(120,-20)},
                         duration:1000,
-                animationType:'easeInEaseOut',
+                        animationType:'easeInEaseOut',
                         callback:function(){
                         Animation.ball.animate({
                             style:{position:Animation.ball.position.add(20,20)},
                             duration:500,
-                animationType:'easeInEaseOut',
+                            animationType:'easeInEaseOut',
                             callback:function(){
                             Animation.ball.animate({
                                 style:{position:Animation.centerPoint},
@@ -117,7 +117,6 @@ var Animation = {
             Animation.earth = new Raster('earth');
             Animation.earth.position = Animation.centerPoint;
             Animation.earth.set_style({opacity:0});
-
             Animation.ball.animate({
                 style:{opacity:0},
                 duration:1000,
@@ -343,15 +342,18 @@ var Interaction = {
 	nextQuestion: function(shape){
             Interaction.toggleButtons();
             Interaction.trial = 1;
-            $("head").append($("img",Interaction.imageDiv));
+//            $(Interaction.images).each(function(){
+//                $('head').append(this);
+//            })
+            $("head").append($("img",Interaction.imageContainer));
             /*<[[TEST*/
 //                shape = 0;
             /*TEST]]>*/
 
             Interaction.shape = shape;
             var image = Interaction.images[shape];
-            $(Interaction.imageContainer).append($("#"+image.id).get(0));
-            $('img',Interaction.imageContianer)
+            $(Interaction.imageContainer).append($("head #"+image.id).get(0));
+            $('img',Interaction.imageContainer)
                 .css({
                     maxWidth:'350px',
                     width:'auto',
