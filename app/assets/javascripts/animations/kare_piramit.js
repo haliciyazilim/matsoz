@@ -100,7 +100,7 @@ Interaction.getFramework = function() {
 
 Interaction.init = function(container){
 	Interaction.container = container;
-	Main.setObjective("Yandaki kare pirtamiti küçültüp büyütünüz veya istediğiniz yönde döndürünüz.");
+	Main.setObjective("Yandaki kare pirtamidi küçültüp büyütünüz veya istediğiniz yönde döndürünüz.");
 	
 	var w = $(Interaction.container).width();
 	var h = $(Interaction.container).height();
