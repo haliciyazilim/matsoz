@@ -2,7 +2,7 @@
 var solutionCSS = {
     position:'absolute',
     bottom:'10px',
-    right:'117px',
+    right:'137px',
     color:'green',
     fontSize:'16px',
     fontWeight:'bold'
@@ -275,15 +275,16 @@ Interaction.init = function(container){
     })
 	Interaction.input = $('#input',Interaction.container).get(0);
 	Interaction.drawRuler();
+    Interaction.setRandomGenerator(9)
 	Interaction.prepareNextQuestion();
 }
 
-Interaction.generateCircle = function(){
+Interaction.generateCircle = function(radius){
 	var x,y,r;
 	x = Interaction.paper.width*0.3;
 	y = Interaction.paper.height*0.5;
 	do
-		r = Math.floor( Math.random()*9+2 ) * Interaction.br ;
+		r = radius * Interaction.br ;
 	while(Interaction.r == r);
 	
 	Interaction.circleSet = new Group();
@@ -314,7 +315,7 @@ Interaction.generateCircle = function(){
 	
 }
 
-Interaction.nextQuestion = function(){
+Interaction.nextQuestion = function(randomNumber){
     if(Interaction.isPaused())
         return;
 	if(Interaction.circleSet)
@@ -327,7 +328,7 @@ Interaction.nextQuestion = function(){
 	Interaction.trial = 0;
 	Interaction.preventDrag = false;
 	
-	Interaction.generateCircle();
+	Interaction.generateCircle(randomNumber+2);
 
 	var callback = function(){
 		Interaction.preventDrag = false;

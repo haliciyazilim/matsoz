@@ -7,7 +7,7 @@ function __Styles() {
         fillColor: "#456"
     };
     animationTextStyle = {
-        fontSize:16
+        fontSize:12
     }
     animationSurfacesTextStyle = {
         fillColor: '#5ba559'

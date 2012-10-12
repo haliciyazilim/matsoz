@@ -243,7 +243,7 @@ TestGenerator.nextQuestion = function(){
 	TestGenerator.count = (TestGenerator.count+1) % TestGenerator.swicthSize;
     TestGenerator.state = Interaction.switchArray[TestGenerator.count]
 	//console.log(TestGenerator.state);
-	/*TEST */ TestGenerator.state = "11";/*TEST*/
+//	/*TEST */ TestGenerator.state = "11";/*TEST*/
 	//switch to a state
 	switch(TestGenerator.state){
 		case '00':
