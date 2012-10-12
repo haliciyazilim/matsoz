@@ -354,7 +354,7 @@ Interaction.init = function(container){
 
 
 function loop(x,y,z) {
-	ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+//	ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 	//console.log(x,y,z);
 	scene.camera.x = x;
 	scene.camera.y = y;
