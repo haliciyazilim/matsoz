@@ -159,10 +159,12 @@ Interaction.init = function(container){
 	changeZAngle();
 	loop(Interaction._3d.x ,Interaction._3d.y ,Interaction._3d.z );
 	var tool = new Tool();
-	tool.onMouseDrag = function(event){
-		Interaction._3d.zAngle -= event.delta.y;
-		Interaction._3d.xAngle -= event.delta.x;
-	}
+    tool.onMouseDrag = function(event){
+        if(event.item){
+            Interaction._3d.zAngle -= event.delta.y;
+            Interaction._3d.xAngle -= event.delta.x;
+        }
+    }
 	setInterval(
 		function(){
 			Interaction._3d.R = Interaction._3d.R_constant - $('#distance').val()*6;
