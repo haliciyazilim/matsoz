@@ -97,6 +97,7 @@ Main.init = function(){
     Main.initializeScreen();
 	Main.initializeNavigation();
 	Main.createInteractionSkipSlider();
+    Main.initializeToolbar();
 	Main.interaction = $('.etkilesimalan').get(0);
 	Main.animation = $('.ornek').get(0);
 	Main.objective = $('.mavikontrol').get(0);
@@ -217,19 +218,9 @@ Main.initializeScreen = function() {
 
 Main.initializeNavigation = function() {
 	var createWordList = function(letter) {
-        $('.navlinktasiyici a').removeClass('harfselected');
 
-        var letter_id = letter;
-        if (letter_id == 'ç') letter_id = 'cc';
-        else if (letter_id == 'ğ') letter_id = 'gg';
-        else if (letter_id == 'ı') letter_id = 'ii';
-        else if (letter_id == 'ö') letter_id = 'oo';
-        else if (letter_id == 'ş') letter_id = 'ss';
-        else if (letter_id == 'ü') letter_id = 'uu';
-
-        $("#letter_"+letter_id).addClass("harfselected");
-
-
+        $('.navlink').removeClass('harfselected');
+        $('.navlink[data-letter="'+letter+'"]').addClass('harfselected');
 		var entries = wordList[letter];
 		var htmlString = "";
 		
@@ -237,17 +228,13 @@ Main.initializeNavigation = function() {
 			htmlString += "<a href=" + entries[i].link + " class='sozcuklink " + (entries[i].selected?"sozcukselected":"") + "'>" + entries[i].word + "</a>";
 		}
 		
-		$('#liste').html(htmlString);
+		$('.sozcuktasiyici').html(htmlString);
 	}
     
 	$('.navlink').click(function() {
-        var letter = $(this).data('letter')
-        if (wordList[letter].length == 0) {
-            return;
-        } else {
-		    createWordList(letter);
-        }
+		createWordList($(this).data('letter'));
 	});
+
 	createWordList(currentLetter);
 
     var list = "abcçdefghıijklmnoöprsştuüvyz"
@@ -314,16 +301,16 @@ Main.setObjective = function(str){
 
 Main.createInteractionSkipSlider = function(){
     var div = document.createElement('div');
-    $('#inter_container').append(div);
+    $('#container').append(div);
     $(div).css({
         position:'absolute',
         paddingLeft:'-1px',
-        top:'395px',
-        left:'30px',
+        top:'331px',
+        left:'438px',
         width:'790px',
         height:'302px',
         borderRadius:'6px',
-        border:'1px solid #000',
+        border:'1px solid rgba(255,255,255,0.1)',
         overflow:'hidden',
         backgroundImage:'url(/assets/skip_screen.png)',
         backgroundRepeat:'no-repeat',
@@ -429,5 +416,14 @@ Main.createInteractionSkipSlider = function(){
         up(event);
     });
 
+}
+
+Main.initializeToolbar = function(){
+    $('.btn_prev').click(function(event){
+        window.history.go(-1);
+    });
+    $('.btn_next').click(function(event){
+        window.history.go(1);
+    });
 }
 Main();

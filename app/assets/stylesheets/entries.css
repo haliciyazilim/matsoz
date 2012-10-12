@@ -321,7 +321,7 @@ img {
 div.ezd_btn_rotate{
 	width:108px;
 	height:105px;
-	z-index:1;
+	/*z-index:1;*/
 	background:url(/assets/animations/3d_navigation/btn_orange_rt_bg.png) 50% 50% no-repeat transparent;
 }
 div.ezd_btn_rotate_top {

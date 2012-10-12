@@ -1,13 +1,19 @@
-var cubeStyle = {
-	strokeColor:'#255b63',
-	strokeWidth:1,
-	fillColor:'#bfe8ef'
-};
-var animationCubeStyle = {
-	strokeColor:'#333',
-	strokeWidth:1,
-	fillColor:'#ddd'
+function __Styles(){
+    cubeStyle = {
+        strokeColor:'#255b63',
+        strokeWidth:1,
+//	fillColor:'#bfe8ef',
+        fillColor:new RgbColor(0.75,0.91,0.94,1),
+        opacity:0.8
+    };
+    animationCubeStyle = {
+        strokeColor:'#333',
+        strokeWidth:1,
+        fillColor:'#ddd'
+    }
+
 }
+
 var Animation = {
 	pathInit:function(){
 			Path.Cube3d = function(p,a,xAngle,yAngle,zAngle){
@@ -188,12 +194,45 @@ var Interaction = {
 					top:'60px',
 					right:'20px'
 				});
-                
+            Interaction.leftButton = Util.dom({
+                tag:'button',
+                parent:Interaction.container,
+                css:{
+                    position:'absolute',
+                    top:'140px',
+                    left:'4px',
+                    backgroundImage:'url(/assets/btn_gray_cw.png)',
+                    border:'none',
+                    width:'32px',
+                    height:'31px'
+                }
+            });
+            Interaction.leftButton.onclick = function(){
+                UnitCube.rotateByY(Interaction.cubes,true);
+                UnitCube.drawCubesOneByOne(Interaction.cubes,Interaction.zeroPoint,Interaction.a,Interaction,1);
+            }
+            Interaction.rightButton = Util.dom({
+                tag:'button',
+                parent:Interaction.container,
+                css:{
+                    position:'absolute',
+                    top:'140px',
+                    left:'312px',
+                    backgroundImage:'url(/assets/btn_gray_ccw.png)',
+                    border:'none',
+                    width:'32px',
+                    height:'31px'
+                }
+            });
+            Interaction.rightButton.onclick = function(){
+                UnitCube.rotateByY(Interaction.cubes,false);
+                UnitCube.drawCubesOneByOne(Interaction.cubes,Interaction.zeroPoint,Interaction.a,Interaction,1);
+            }
             Interaction.setRandomGenerator(5);
 			Interaction.xCubes = 0;
 			Interaction.yCubes = 0;
 			Interaction.zCubes = 0;
-			Interaction.zeroPoint = new Point(138,126);
+			Interaction.zeroPoint = new Point(138,126).add(10,0);
 			Interaction.a = 35;
 			Interaction.h = 35;
 			Interaction.prepareNextQuestion();
@@ -208,7 +247,7 @@ var Interaction = {
 			Interaction.isometricPaper.position = new Point(
                 Interaction.isometricPaper.width*0.5,
                 Interaction.isometricPaper.height*0.5
-            );
+            ).add(10,0);
 			var zero = Interaction.zeroPoint;
 			var a = Interaction.a;
 			
@@ -223,9 +262,6 @@ var Interaction = {
 				zCubes = Math.floor(Math.random()*3)+1;
 			while(Interaction.zCubes == zCubes)
 			
-			Interaction.xCubes = xCubes;
-			Interaction.yCubes = yCubes;
-			Interaction.zCubes = zCubes;
 			Interaction.xCubes = xCubes;
 			Interaction.yCubes = yCubes;
 			Interaction.zCubes = zCubes;
@@ -412,6 +448,14 @@ UnitCube.drawCubesOneByOne = function(cubes,zero,a,_s,delay){
 		});
 		
 	}
+}
+
+UnitCube.rotateByY = function(cubes,clockwise){
+    for(var i=0; i<cubes.length; i++){
+        var temp = cubes[i].x;
+        cubes[i].x = (clockwise?-1:1) * cubes[i].z;
+        cubes[i].z = (clockwise?1:-1) * temp;
+    }
 }
 
 UnitCube.explode = function(cubes,zero,a,distance,_s){

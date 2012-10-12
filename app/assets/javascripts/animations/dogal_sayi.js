@@ -717,32 +717,7 @@ Interaction.init = function(container){
 		.css("text-align","center")
 		.css("border-color",inputStrokeRenk)
 		.addClass("input");
-	
-		
-	// cevap inputları
-	/*
-	$(container).append("<input id='inputCevapYuzMilyon' class='cevapInputlari' type='text' maxlength=1  onkeypress='return SadeceRakam(event)' min='0' max='100'/>");
-	$(container).append("<input id='inputCevapOnMilyon'  class='cevapInputlari' type='text' maxlength=1  onkeypress='return SadeceRakam(event)' min='0' max='100'/>");
-	$(container).append("<input id='inputCevapMilyon'  class='cevapInputlari' type='text' maxlength=1  onkeypress='return SadeceRakam(event)' min='0' max='100'/>");
-	$(container).append("<input id='inputCevapYuzBin' class='cevapInputlari' type='text' maxlength=1  onkeypress='return SadeceRakam(event)' min='0' max='100'/>");
-	$(container).append("<input id='inputCevapOnBin'  class='cevapInputlari' type='text' maxlength=1  onkeypress='return SadeceRakam(event)' min='0' max='100'/>");
-	$(container).append("<input id='inputCevapBin'  class='cevapInputlari' type='text' maxlength=1  onkeypress='return SadeceRakam(event)' min='0' max='100'/>");
-	$(container).append("<input id='inputCevapYuz' class='cevapInputlari' type='text' maxlength=1  onkeypress='return SadeceRakam(event)' min='0' max='100'/>");
-	$(container).append("<input id='inputCevapOn'  class='cevapInputlari' type='text' maxlength=1  onkeypress='return SadeceRakam(event)' min='0' max='100'/>");
-	$(container).append("<input id='inputCevapBir'  class='cevapInputlari' type='text' maxlength=1  onkeypress='return SadeceRakam(event)' min='0' max='100'/>");
-	
-	$(".cevapInputlari").css("position","absolute")
-		
-		.css("margin","auto")
-		.css("height","30px")
-		.css("width","30px");
-	
-	$("#inputCevapYuzMilyon").css("top","320px").css("left","35px");
-	$("#inputCevapOnMilyon").css("top","320px").css("left","75px");
-	
-	
-		*/
-		
+
 		
 		$(container).append("<div id='cevaplar'>");
 			$("#cevaplar").css("width","360px")
@@ -825,8 +800,7 @@ Interaction.init = function(container){
 		.css("text-align","center")
 		.hide();
 		
-		//$("#yatay").css("width","40px  !important");
-		//$("#yatay").css("height","210px  !important");
+
 		
 	
 	var rastgeleSayi;
@@ -992,21 +966,6 @@ Interaction.init = function(container){
 		var on=$("#inputOnlar").val();
 		var bir=$("#inputBirler").val();
 		
-		
-		//console.log("inputlardaki sayı "+yuzMilyon+onMilyon+milyon+yuzBin+onBin+bin+yuz+on+bir);
-		
-		/*if (milyon=="" || yuzBin==""||onBin==""||bin==""|| yuz==""|| on==""|| bir==""){
-			$("#geriBildirimText").attr("class","status_alert").html("Bütün kutucukları doldurunuz.");
-			
-			$("input").keydown(
-				function(){
-					$("#geriBildirimText").html("");
-				}
-			);
-		
-		}
-		else{*/
-		
 		function doldur(){
 			$("#geriBildirimText").attr("class","status_alert").html("Lütfen ilgili kutuları doldurunuz.");
 			
@@ -1120,6 +1079,7 @@ Interaction.init = function(container){
 	
 	function yeniSoru(){
 		sayiUret();
+                enter=0;
 		tiklamaSayisi=0;
 		$("#inputYuzMilyonlar").val("");
 		$("#inputOnMilyonlar").val("");
