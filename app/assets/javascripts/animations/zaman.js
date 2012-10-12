@@ -399,7 +399,7 @@ var Interaction = {
         }
         else{
             $('.menu_link_images').each(function(index, element) {
-                $(this).animate({width:$(this).width()*0.6,bottom:'0px',left:(70+70*index)+'px',marginLeft:-$(this).width()*0.63},1000);
+                $(this).animate({width:$(this).width()*0.6,bottom:'10px',left:(75+70*index)+'px',marginLeft:-$(this).width()*0.63},1000);
             });
             setTimeout(_openPage,1000);
         }
@@ -470,10 +470,17 @@ var Interaction = {
         if(hour == 0)
             hour = 12;
         Interaction.correctAnswer = {h:hour,m:minute};
-        if((hour == values[0] || Interaction.clock.isAfternoonWithTime({h:hour,m:minute}) && hour+12 == values[0]) && minute == values[1])
-            return true;
-        else
+        if(Interaction.clock.isAfternoonWithTime({h:parseInt(Interaction.getQuestionParams()[1].html,10),m:parseInt(Interaction.getQuestionParams()[0].html,10)})===true){
+            console.log('afternoon','hour: '+hour)
+            if(hour == values[0] || hour+12 == values[0])
+                return true;
             return false;
+        }else{
+            console.log('not afternoon','hour: '+hour)
+            if(hour == values[0])
+                return true;
+            return false;
+        }
     },
 	onCorrectAnswer : function(){
 		
@@ -483,7 +490,11 @@ var Interaction = {
 		},
 	onFail : function(){
         var zero = (""+Interaction.correctAnswer.m).length < 2 ? '0':''
-        Interaction.setStatus('Yanlış, doğru cevap '+Interaction.correctAnswer.h+':'+zero + Interaction.correctAnswer.m+' olacaktı.',false);
+        var hour = Interaction.correctAnswer.h;
+        var minute = Interaction.correctAnswer.m
+        if(Interaction.clock.isAfternoonWithTime({h:hour,m:minute}))
+            hour += 12;
+        Interaction.setStatus('Yanlış, doğru cevap '+hour+':'+zero + minute+' olacaktı.',false);
         Interaction.dayDiv.innerHTML = "";
         Interaction.clock.setTime(Interaction.correctAnswer,undefined,function(){
             Interaction.dayDiv.innerHTML = Interaction.clock.getStatus();
