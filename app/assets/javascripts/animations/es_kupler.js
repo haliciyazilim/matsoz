@@ -208,7 +208,7 @@ var Interaction = {
                 }
             });
             Interaction.leftButton.onclick = function(){
-                UnitCube.rotateByY(Interaction.cubes,false);
+                UnitCube.rotateByY(Interaction.cubes,true);
                 UnitCube.drawCubesOneByOne(Interaction.cubes,Interaction.zeroPoint,Interaction.a,Interaction,1);
             }
             Interaction.rightButton = Util.dom({
@@ -225,7 +225,7 @@ var Interaction = {
                 }
             });
             Interaction.rightButton.onclick = function(){
-                UnitCube.rotateByY(Interaction.cubes,true);
+                UnitCube.rotateByY(Interaction.cubes,false);
                 UnitCube.drawCubesOneByOne(Interaction.cubes,Interaction.zeroPoint,Interaction.a,Interaction,1);
             }
             Interaction.setRandomGenerator(5);
