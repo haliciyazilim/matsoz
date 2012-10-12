@@ -241,10 +241,10 @@ TestGenerator.nextQuestion = function(){
 	
 	TestGenerator.stopCheckAnswer = false;
 	TestGenerator.count = (TestGenerator.count+1) % TestGenerator.swicthSize;
+    TestGenerator.state = Interaction.switchArray[TestGenerator.count]
 	//console.log(TestGenerator.state);
-	///*TEST */ TestGenerator.state = "20";/*TEST*/
+	/*TEST */ TestGenerator.state = "11";/*TEST*/
 	//switch to a state
-	TestGenerator.state = Interaction.switchArray[TestGenerator.count]
 	switch(TestGenerator.state){
 		case '00':
 			//dar acili ve cesitkenar
@@ -378,7 +378,7 @@ TestGenerator.nextQuestion = function(){
 			var a,c;
 			a = Math.floor(Math.random()*5)+5;
 			c = a;
-			while(c == a || c < Math.sqrt(2)*a)
+			while(c == a || c <= Math.sqrt(2)*a)
 				c = Math.floor(Math.random()*2+Math.sqrt(2)*a+1);
 			//console.log([a,c]);
 			if(a % 2 ==0){
@@ -389,7 +389,7 @@ TestGenerator.nextQuestion = function(){
 			}
 			else{
 				var triangle = new Triangle(c,a,a,container);
-				triangle.showAngle('C');
+				triangle.showAngle('B');
 				triangle.showAngle('A');
 			}
 			break;
