@@ -985,13 +985,13 @@ var Interaction = {
 							.css("width", "30px")
 							.css("height", "25px")
 				if(Interaction.qType == 0){ // sorting in descending order
-					Main.setObjective('Yanda verilen kesirleri büyükten küçüğe sıralayınız.')
+
 					$('#lessThan1').attr('src', '/assets/animations/kesirleri_karsilastirma/oran_buyuk_active.png');
 					$('#lessThan2').attr('src', '/assets/animations/kesirleri_karsilastirma/oran_buyuk_active.png');
 					$('#lessThan3').attr('src', '/assets/animations/kesirleri_karsilastirma/oran_buyuk_active.png');
 				}
 				else{ // sorting in ascending order
-					Main.setObjective('Yanda verilen kesirleri küçükten büyüğe sıralayınız.')
+
 					$('#lessThan1').attr('src', '/assets/animations/kesirleri_karsilastirma/oran_kucuk_active.png');
 					$('#lessThan2').attr('src', '/assets/animations/kesirleri_karsilastirma/oran_kucuk_active.png');
 					$('#lessThan3').attr('src', '/assets/animations/kesirleri_karsilastirma/oran_kucuk_active.png');
@@ -1270,10 +1270,10 @@ var Interaction = {
                 .css("opacity", 0)
 
             if(Interaction.qType == 0){
-                Main.setObjective('Yandaki kesirleri büyükten küçüğe sıralayınız. Bunun için kesirleri sağa ya da sola kaydırıp diğer kesirlerle yerlerini değiştirebilirsiniz. Daha sonra aralarına küçük (<) ya da büyük (>) işaretlerinden birini sürükleyerek sıralamayı tamamlayabilirsiniz.');
+                Main.setObjective('Yandaki kesirleri <span style="color:red;font-weight:bold;">büyükten küçüğe</span> sıralayınız. Bunun için kesirleri sağa ya da sola kaydırıp diğer kesirlerle yerlerini değiştirebilirsiniz. Daha sonra aralarına küçük (<) ya da büyük (>) işaretlerinden birini sürükleyerek sıralamayı tamamlayabilirsiniz.');
             }
             else{
-                Main.setObjective('Yandaki kesirleri küçükten büyüğe sıralayınız. Bunun için kesirleri sağa ya da sola kaydırıp diğer kesirlerle yerlerini değiştirebilirsiniz. Daha sonra aralarına küçük (<) ya da büyük (>) işaretlerinden birini sürükleyerek sıralamayı tamamlayabilirsiniz.');
+                Main.setObjective('Yandaki kesirleri <span style="color:red;font-weight:bold;">küçükten büyüğe</span> sıralayınız. Bunun için kesirleri sağa ya da sola kaydırıp diğer kesirlerle yerlerini değiştirebilirsiniz. Daha sonra aralarına küçük (<) ya da büyük (>) işaretlerinden birini sürükleyerek sıralamayı tamamlayabilirsiniz.');
             }
             }
 

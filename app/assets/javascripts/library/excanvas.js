@@ -261,14 +261,18 @@ Polygon.WIRE = 1;
  * flattened.
  */
 Polygon.prototype.draw = function() {
-	ctx.beginPath();
-	ctx.moveTo(this.points[0].fx, this.points[0].fy);
+//	ctx.beginPath();
+    if(this.path)
+        this.path.remove();
+    this.path = new Path();
+//	ctx.moveTo(this.points[0].fx, this.points[0].fy);
 
 	for(var i = 0; i < this.points.length; i++) {
-		ctx.lineTo(this.points[i].fx, this.points[i].fy);
+//		ctx.lineTo(this.points[i].fx, this.points[i].fy);
+        this.path.add(new Point(this.points[i].fx, this.points[i].fy))
 	}
-
-	ctx.closePath();
+    this.path.closed = true;
+//	ctx.closePath();
 
 	var color = this.color;
 
@@ -284,25 +288,31 @@ Polygon.prototype.draw = function() {
 	color[2] = (color[2] * lightvector).toString();
 	*/
 
-	if (color.length > 3) {
-		var style = ["rgba(",
-					 color[0], ",",
-					 color[1], ",",
-					 color[2], ",",
-					 color[3], ")"].join("");
-	} else {
-		var style = ["rgb(",
-					 color[0], ",",
-					 color[1], ",",
-					 color[2], ")"].join("");
-	}
+//	if (color.length > 3) {
+//		var style = ["rgba(",
+//					 color[0], ",",
+//					 color[1], ",",
+//					 color[2], ",",
+//					 color[3], ")"].join("");
+//	} else {
+//		var style = ["rgb(",
+//					 color[0], ",",
+//					 color[1], ",",
+//					 color[2], ")"].join("");
+//	}
 
 	if (this.type == Polygon.SOLID) {
-		ctx.fillStyle = style;
-		ctx.fill();
+        this.path.set_style({
+            fillColor:new RgbColor(color[0]/255,color[1]/255,color[2]/255,color[3])
+        })
+//        ctx.fillStyle = style;
+//		ctx.fill();
 	} else if (this.type == Polygon.WIRE) {
-		ctx.strokeStyle = style;
-		ctx.stroke();
+        this.path.set_style({
+            strokeColor:new RgbColor(color[0]/255,color[1]/255,color[2]/255,color[3])
+        })
+//		ctx.strokeStyle = style;
+//		ctx.stroke();
 	}
 }
 
