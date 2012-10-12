@@ -173,7 +173,7 @@ Interaction.init = function(container){
 			loop(Interaction._3d.x ,Interaction._3d.y ,Interaction._3d.z );
 			//Interaction._3d.R++;
 		},
-		25
+		1
 	);
 }
 
@@ -181,7 +181,7 @@ Interaction.init = function(container){
 
 
 function loop(x,y,z) {
-	ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+//	ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
 	scene.camera.x = x;
 	scene.camera.y = y;
@@ -193,7 +193,7 @@ function loop(x,y,z) {
 
 function load_rectangle_pyramid(){
 	canvas = $('canvas',Interaction.container).get(0);
-	ctx = canvas.getContext("2d");
+//	ctx = canvas.getContext("2d");
 
 	canvasWidth = canvas.width*1;
 	canvasHeight = canvas.height*1;
