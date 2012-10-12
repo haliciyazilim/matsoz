@@ -377,7 +377,7 @@ var Interaction = {
 		},
 	init:function(container){
 			Interaction.container = container;
-			Main.setObjective('Yanda bir okulda bazı spor dalarını seçen öğrenci sayıları tabloda verilmiştir. Tabloya göre soruları cevaplayınız.');
+			Main.setObjective('Yanda bir okulda bazı spor dallarını seçen öğrenci sayıları tabloda verilmiştir. Tabloya göre soruları cevaplayınız.');
 			Interaction.paper = {
 				width:$(container).width(),
 				height:$(container).height()
