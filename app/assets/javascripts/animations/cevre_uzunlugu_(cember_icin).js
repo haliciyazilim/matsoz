@@ -264,7 +264,15 @@ Interaction.init = function(container){
 	Interaction.paper = {width:$(container).width(),height:$(container).height()};
 	$('div#B',Interaction.container).html('<div style="text-align:right;padding-right:130px;position:relative;top:-20px;">Çevre&nbsp;=&nbsp;<input type="text" style="width:35px;height:30px;font-size:16px;font-weight:bold;text-align:center;" id="input" maxlength="3" />&nbsp;br</div><div style="text-align:right;"><span id="status" style="position:relative;top:10px;"></span>&emsp;<input type="button" id="control" class="control_button" onclick="Interaction.checkAnswer()" /></div>');
 	Interaction.status = $('#status').get(0);
+    $(Interaction.status).css({
+        position:'relative',
+        right:'20px'
+    })
 	Interaction.control = $('#control',Interaction.container).get(0);
+    $(Interaction.control).css({
+        position:'relative',
+        right:'20px'
+    })
 	Interaction.input = $('#input',Interaction.container).get(0);
 	Interaction.drawRuler();
 	Interaction.prepareNextQuestion();
