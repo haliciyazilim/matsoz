@@ -569,7 +569,7 @@ TestGenerator.checkAnswer = function(){
 	var isWrong = false;
 	if(value == "" || isNaN(value)){
 		isWrong = true;
-		Interaction.setStatus('Lütfen bir sayı giriniz.');
+		Interaction.setStatus('Lütfen bir sayı giriniz.','alert');
 		return ;
 	}
 	else if(value == TestGenerator.values.cevre){

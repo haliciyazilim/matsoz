@@ -45,6 +45,7 @@ Main.startAnimation = function(){
 		View._focused = animationView;
 		Animation.init(Main.animation);
     }
+    Main.startInteraction();
     try{
         if(__START_INTERACTION_IMMEDIATELY === true)
             Main.animationFinished();
@@ -60,18 +61,20 @@ Main.animationFinished = function(delay){
         return;
     if(isNaN(delay) || delay == 0){
         Main.animationFinished.called = true;
-        Main.startInteraction();
+        Main.disposeInteractionSkipSlider();
     }
     else {
         setTimeout(function(){
             if(Main.animationFinished.called == true)
                 return;
             Main.animationFinished.called = true;
-	        Main.startInteraction();
+            Main.disposeInteractionSkipSlider();
 		}, delay);
 	}
 }
-
+Main.disposeInteractionSkipSlider = function(){
+    $('#interaction_cover').animate({opacity:0},500,function(){$(this).remove()});
+}
 Main.startInteraction = function(){
     if (interactionReady == false) {
         interactionReady = true;
@@ -91,9 +94,10 @@ Main.animateDefinition = function(){
 }
 
 Main.init = function(){
+    Main.initializeScreen();
 	Main.initializeNavigation();
-	Main.initializeSoundManager();
-	
+	Main.createInteractionSkipSlider();
+    Main.initializeToolbar();
 	Main.interaction = $('.etkilesimalan').get(0);
 	Main.animation = $('.ornek').get(0);
 	Main.objective = $('.mavikontrol').get(0);
@@ -205,24 +209,18 @@ Main.calculateDefinitionWaitTime = function(){
     }
     var html = $('.definition').html();
     html = removeHTMLTags(html);
-//    console.log(html);
     return countWords(html)*400+500;
 }
+
+Main.initializeScreen = function() {
+    setTimeout(function() { window.scrollTo(0, 1); }, 1);
+}
+
 Main.initializeNavigation = function() {
 	var createWordList = function(letter) {
-        $('.navlinktasiyici a').removeClass('harfselected');
 
-        var letter_id = letter;
-        if (letter_id == 'ç') letter_id = 'cc';
-        else if (letter_id == 'ğ') letter_id = 'gg';
-        else if (letter_id == 'ı') letter_id = 'ii';
-        else if (letter_id == 'ö') letter_id = 'oo';
-        else if (letter_id == 'ş') letter_id = 'ss';
-        else if (letter_id == 'ü') letter_id = 'uu';
-
-        $("#letter_"+letter_id).addClass("harfselected");
-
-
+        $('.navlink').removeClass('harfselected');
+        $('.navlink[data-letter="'+letter+'"]').addClass('harfselected');
 		var entries = wordList[letter];
 		var htmlString = "";
 		
@@ -230,17 +228,13 @@ Main.initializeNavigation = function() {
 			htmlString += "<a href=" + entries[i].link + " class='sozcuklink " + (entries[i].selected?"sozcukselected":"") + "'>" + entries[i].word + "</a>";
 		}
 		
-		$('#liste').html(htmlString);
+		$('.sozcuktasiyici').html(htmlString);
 	}
     
 	$('.navlink').click(function() {
-        var letter = $(this).data('letter')
-        if (wordList[letter].length == 0) {
-            return;
-        } else {
-		    createWordList(letter);
-        }
+		createWordList($(this).data('letter'));
 	});
+
 	createWordList(currentLetter);
 
     var list = "abcçdefghıijklmnoöprsştuüvyz"
@@ -261,48 +255,175 @@ Main.initializeNavigation = function() {
     }
 }
 
-Main.initializeSoundManager = function() {
-	soundManager.mute();
-	
-	soundManager.setup({
-
-		// location: path to SWF files, as needed (SWF file name is appended later.)
-
-		url: '/swf/',
-
-		// optional: version of SM2 flash audio API to use (8 or 9; default is 8 if omitted, OK for most use cases.)
-		// flashVersion: 9,
-    
-		// use soundmanager2-nodebug-jsmin.js, or disable debug mode (enabled by default) after development/testing
-		// debugMode: false,
-    
-		// good to go: the onready() callback
-    
-		onready: function() {
-			
-			// SM2 has started - now you can create and play sounds!
-    	
-			Main.wrongSound = soundManager.createSound({
-				id: 'wrongSound',
-				url: '/sounds/wrong.mp3'
-				// onload: function() { console.log('sound loaded!', this); }
-				// other options here..
-			});
-			
-			Main.correctSound = soundManager.createSound({
-				id: 'correctSound',
-				url: '/sounds/correct.mp3'
-				// onload: function() { console.log('sound loaded!', this); }
-				// other options here..
-			});
-			//     	
-			// mySound.play();
-		}
-	});
-}
+//Main.initializeSoundManager = function() {
+//	soundManager.mute();
+//
+//	soundManager.setup({
+//
+//		// location: path to SWF files, as needed (SWF file name is appended later.)
+//
+//		url: '/swf/',
+//
+//		// optional: version of SM2 flash audio API to use (8 or 9; default is 8 if omitted, OK for most use cases.)
+//		// flashVersion: 9,
+//
+//		// use soundmanager2-nodebug-jsmin.js, or disable debug mode (enabled by default) after development/testing
+//		// debugMode: false,
+//
+//		// good to go: the onready() callback
+//
+//		onready: function() {
+//
+//			// SM2 has started - now you can create and play sounds!
+//
+//			Main.wrongSound = soundManager.createSound({
+//				id: 'wrongSound',
+//				url: '/sounds/wrong.mp3'
+//				// onload: function() { console.log('sound loaded!', this); }
+//				// other options here..
+//			});
+//
+//			Main.correctSound = soundManager.createSound({
+//				id: 'correctSound',
+//				url: '/sounds/correct.mp3'
+//				// onload: function() { console.log('sound loaded!', this); }
+//				// other options here..
+//			});
+//			//
+//			// mySound.play();
+//		}
+//	});
+//}
 
 Main.setObjective = function(str){
 	Main.objective.innerHTML = str;
 };
 
+Main.createInteractionSkipSlider = function(){
+    var div = document.createElement('div');
+    $('#container').append(div);
+    $(div).css({
+        position:'absolute',
+        paddingLeft:'-1px',
+        top:'331px',
+        left:'438px',
+        width:'790px',
+        height:'302px',
+        borderRadius:'6px',
+        border:'1px solid rgba(255,255,255,0.1)',
+        overflow:'hidden',
+        backgroundImage:'url(/assets/skip_screen.png)',
+        backgroundRepeat:'no-repeat',
+        backgroundPosition:'-100px -9px',
+        '-moz-user-select': '-moz-none',
+        '-khtml-user-select': 'none',
+        '-webkit-user-select': 'none',
+        '-ms-user-select': 'none',
+        'user-select': 'none'
+    });
+    div.id = 'interaction_cover';
+
+    var isDragging = false;
+    var isDraggable = true;
+    var startPosition = 0;
+    var down = function(event){
+        event.preventDefault();
+        console.log(event)
+        if(isDraggable != true)
+            return;
+        isDragging = true;
+        startPosition = event.pageX;
+        return false;
+    }
+    var drag = function(event){
+        event.preventDefault();
+        if(isDragging==true){
+            var change = event.pageX - startPosition;
+            change = change < 0 ? '0':change;
+            $(div).css({
+                backgroundPosition:(change-100)+'px -9px'
+            });
+        }
+        return false;
+    }
+    var up = function(event){
+        event.preventDefault();
+        if(isDragging == false)
+            return;
+        isDragging = false;
+        var change = event.pageX - startPosition;
+        change = change < 0 ? '0':change;
+        console.log('[up] change: '+change,event)
+        if(change > 100){
+            isDraggable = false;
+            var animHelper = new AnimationHelper({
+                change:change
+            });
+            animHelper.animate({
+                style:{change:800},
+                duration:250,
+                animationType:'easeIn',
+                update:function(){
+                    $(div).css({backgroundPosition:(this.change-100)+'px -9px'});
+                },
+                callback:function(){
+                    $(div).animate({opacity:0},250,function(){$(this).remove()});
+                }
+            })
+        }
+        else{
+            isDraggable = false;
+            var animHelper = new AnimationHelper({
+                change:change
+            });
+            animHelper.animate({
+                style:{change:0},
+                duration:100,
+                animationType:'easeIn',
+                update:function(){
+                    $(div).css({backgroundPosition:(this.change-100)+'px -9px'});
+                },
+                callback:function(){
+                    isDraggable = true;
+                }
+            })
+        }
+        return false;
+    }
+    $(div).mousedown(down);
+    $(div).mousemove(drag);
+    $(div).mouseup(up);
+    $(div).mouseout(up);
+    $(div).bind('touchmove',function(event){
+        try{
+            event.pageX = event.originalEvent.touches[0].pageX;
+        }
+        catch(e){}
+        drag(event);
+    });
+    $(div).bind('touchstart',function(event){
+        try{
+            event.pageX = event.originalEvent.touches[0].pageX;
+        }
+        catch(e){}
+        down(event);
+    });
+    $(div).bind('touchend',function(event){
+        try{
+            event.pageX = event.originalEvent.changedTouches[0].pageX;
+        }
+        catch(e){}
+        up(event);
+    });
+
+}
+
+Main.initializeToolbar = function(){
+    $('.btn_prev').click(function(event){
+        window.history.go(-1);
+    });
+    $('.btn_next').click(function(event){
+        window.history.go(1);
+    });
+}
 Main();
