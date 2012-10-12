@@ -67,26 +67,31 @@ div.navlinktasiyici{
 div.btn_prev {
 	position:absolute;
 	bottom:60px;
+    cursor:pointer;
 	left:12px;
 }
 div.btn_next {
 	position:absolute;
 	bottom:60px;
+    cursor:pointer;
 	left:72px;
 }
 div.btn_home {
 	position:absolute;
 	bottom:12px;
+    cursor:pointer;
 	left:12px;
 }
 div.btn_info {
 	position:absolute;
 	bottom:12px;
+    cursor:pointer;
 	left:52px;
 }
 div.btn_print {
 	position:absolute;
 	bottom:12px;
+    cursor:pointer;
 	left:92px;
 }
 
