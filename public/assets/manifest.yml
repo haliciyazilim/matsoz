@@ -49,7 +49,7 @@ animations/boyut/bowl_hover.png: animations/boyut/bowl_hover-0c63a9bf796bf99a655
 animations/boyut/bowl_true.png: animations/boyut/bowl_true-f1f4466854199fc2650bc0598073c56d.png
 animations/btn_gray_draw.png: animations/btn_gray_draw-db9a86e1a4f091fa4102b3e02380812e.png
 animations/btn_gray_expand.png: animations/btn_gray_expand-b73b50805fa1a6939e9fb0e4475da852.png
-animations/cevre_uzunlugu_(cokgen_icin)/cevre_ornek_01.png: animations/cevre_uzunlugu_(cokgen_icin)/cevre_ornek_01-fab4ae4dc6e61aa798e8e6f13d758825.png
+animations/cevre_uzunlugu_(cokgen_icin)/cevre_ornek_01.png: animations/cevre_uzunlugu_(cokgen_icin)/cevre_ornek_01-aecdd2ea721ecc676d0c13a4534d7c4e.png
 animations/cevre_uzunlugu_(cokgen_icin)/cevre_ornek_02.png: animations/cevre_uzunlugu_(cokgen_icin)/cevre_ornek_02-d434cebbb9fa9c0bcc6e44881f237672.png
 animations/cevre_uzunlugu_(cokgen_icin)/cevre_ornek_03.png: animations/cevre_uzunlugu_(cokgen_icin)/cevre_ornek_03-cc21373d96c08063a756841ec0261ae5.png
 animations/cevre_uzunlugu_(cokgen_icin)/cevre_ornek_04.png: animations/cevre_uzunlugu_(cokgen_icin)/cevre_ornek_04-b9c4624076559baf049e80e2f755f298.png
@@ -299,6 +299,8 @@ animations/zaman/time_interval.png: animations/zaman/time_interval-d078dc9f8ec64
 animations/zaman/yelkovan.png: animations/zaman/yelkovan-8ff7cb7e50d5f94bb111a6a0128b91fa.png
 btn_check.png: btn_check-b102a31fd9e552eafe89919eda9e6b68.png
 btn_check_icon.png: btn_check_icon-5a5fca01c126e47ba7e9c5119351a090.png
+btn_gray_ccw.png: btn_gray_ccw-d572182ddbcdf63a622fb62ee0032020.png
+btn_gray_cw.png: btn_gray_cw-a9811dc3554404d828285e1452f1151e.png
 btn_gray_delete_text.png: btn_gray_delete_text-f27eaafebf9b6a1043d0e64969fd2dfc.png
 btn_gray_draw.png: btn_gray_draw-db9a86e1a4f091fa4102b3e02380812e.png
 btn_gray_draw_text.png: btn_gray_draw_text-31f43b4c20270a9dece8c77ad8af3d97.png
@@ -323,7 +325,7 @@ animations/aritmetik_ortalama.js: animations/aritmetik_ortalama-e55f8079cfe93fb9
 animations/ataturk_ve_matematik.js: animations/ataturk_ve_matematik-c2f50fb224bffc683034fa1db55e29d4.js
 animations/boyut.js: animations/boyut-7e2dd9b5dd9f6fa41cc81397e0ee33be.js
 animations/cember.js: animations/cember-15dd5264fc4a64426aeffe0eae55f417.js
-animations/cevre_uzunlugu_(cember_icin).js: animations/cevre_uzunlugu_(cember_icin)-9c7b2ed665338b2fa9b95acb1a842cdb.js
+animations/cevre_uzunlugu_(cember_icin).js: animations/cevre_uzunlugu_(cember_icin)-0fd0ea47bcf1d154b8be8f2adfc54080.js
 animations/cevre_uzunlugu_(cokgen_icin).js: animations/cevre_uzunlugu_(cokgen_icin)-2b70918914ef825d565d131a4d1e1bb7.js
 animations/cizgi_grafigi.js: animations/cizgi_grafigi-7c73526e6a8feb37fb43a8feda87cad7.js
 animations/cokgen.js: animations/cokgen-1d401c682cf90c1d1748f076fedab0b9.js
@@ -331,7 +333,7 @@ animations/daire.js: animations/daire-a89cc3a3a6ede9a35120c73148a2ff5c.js
 animations/deneme.js: animations/deneme-f574d2ba2fc6134f5c76b7a9d5871100.js
 animations/denk_kesir.js: animations/denk_kesir-d5ced79a7ee4ad5f0aef7fc085816001.js
 animations/dikdortgen.js: animations/dikdortgen-15b95320f585699f982b7ddd01491258.js
-animations/dikdortgen_piramit.js: animations/dikdortgen_piramit-e2fcdd01094bcace151de03832b806c9.js
+animations/dikdortgen_piramit.js: animations/dikdortgen_piramit-c9532356ed8b4b471c1441d5ae256bb0.js
 animations/dikdortgenler_prizmasi.js: animations/dikdortgenler_prizmasi-9a149b3f5607a630db06c1e38feff99f.js
 animations/dogal_sayi.js: animations/dogal_sayi-ada89440fdf2578a104e63980f492a7d.js
 animations/dogal_sayilarla_bolme_islemi.js: animations/dogal_sayilarla_bolme_islemi-db5a7a1ab19bd95b36f3cc05301b87f5.js
@@ -344,7 +346,7 @@ animations/es_kupler.js: animations/es_kupler-7410f92f94a6c4eed9bcb732efb5ca7b.j
 animations/eskenar_dortgen.js: animations/eskenar_dortgen-a9cd4600bc7869e64443d771c95861f1.js
 animations/hacim.js: animations/hacim-3c511162df3b6abcd0d259caf454e304.js
 animations/kare.js: animations/kare-c9b00ed09d33187572b36422460e952f.js
-animations/kare_piramit.js: animations/kare_piramit-de31521f5854ba9a44ae06408b694c81.js
+animations/kare_piramit.js: animations/kare_piramit-b0a2bd6dfae4430e954d5f7532d80df9.js
 animations/kare_prizma.js: animations/kare_prizma-eca613ceaff1837356e12c225d765a7d.js
 animations/kesirleri_birbirine_cevirme.js: animations/kesirleri_birbirine_cevirme-a3f59f673c2a7752ca03ec478f4a9058.js
 animations/kesirleri_karsilastirma.js: animations/kesirleri_karsilastirma-bbb007b1942bdcdd7c9d51ca8f8bd0e0.js
@@ -374,7 +376,7 @@ animations/susleme.js: animations/susleme-469cb21d01847d08a5cef9a36853a282.js
 animations/tablo.js: animations/tablo-990cc12180578173e01a1195c8c9ea84.js
 animations/ucgen_piramit.js: animations/ucgen_piramit-cea756a9c203f7c430f9933c2c016fe9.js
 animations/ucgen_prizma.js: animations/ucgen_prizma-c29dc33afb81e1b58ddb1f141d6968cb.js
-animations/ucgenlerin_siniflandirilmasi.js: animations/ucgenlerin_siniflandirilmasi-8ee98da16195124e47c23272f5695c4a.js
+animations/ucgenlerin_siniflandirilmasi.js: animations/ucgenlerin_siniflandirilmasi-d996e9f71d2c521d791c84288103fd4b.js
 animations/uslu_gosterim.js: animations/uslu_gosterim-2b44c375e790d210db6df98e4ea6b451.js
 animations/uzay.js: animations/uzay-4122c42b2732d6ebed106d671c13f701.js
 animations/uzunluklari_olcme.js: animations/uzunluklari_olcme-9d9d18a69da4c296762b78428a3d4b40.js
@@ -421,7 +423,7 @@ theme/bes/harf_sol_4a.png: theme/bes/harf_sol_4a-a420d959752090dd1101736b2004cb7
 theme/bes/logo_bes.png: theme/bes/logo_bes-c939b87a17dcc653ca1cabdc1076b114.png
 theme/bes/matsoz_bes.css: theme/bes/matsoz_bes-8b00ffd7e4028608c07ebc0abba768d8.css
 theme/bes/ornek.png: theme/bes/ornek-54f3deb4e54befcfb419ac328c0f691b.png
-theme/blue/matsoz_blue.css: theme/blue/matsoz_blue-bcbf27e8dcdbfd856ea68f400741b166.css
+theme/blue/matsoz_blue.css: theme/blue/matsoz_blue-abe16cc1c709aa7bc424a7af5b0198ff.css
 theme/blue/ui_img/FULL_SCREEN.jpg: theme/blue/ui_img/FULL_SCREEN-356ef11bf311b20d0bcde2f302fc6082.jpg
 theme/blue/ui_img/blue_leather.gif: theme/blue/ui_img/blue_leather-e2e9b2e22a2b332b8707e57b4f476e1b.gif
 theme/blue/ui_img/blue_leather.png: theme/blue/ui_img/blue_leather-3ef493dc18acba9ae61f277b9ff71bcc.png
