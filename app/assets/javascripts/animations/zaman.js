@@ -441,6 +441,7 @@ var Interaction = {
                 var minute = Math.floor(Math.random()*11+1)*5;
                 $(Interaction.questionDiv).css({opacity:1});
                 var h = Interaction.clock.getTime().h;
+                h = Interaction.clock.isAfternoon() === true ? h + 12 : h;
                 h = h==0?"0":h;
                 var m = ''+Interaction.clock.getTime().m;
                 m = m.length==1?"0"+m:m;
