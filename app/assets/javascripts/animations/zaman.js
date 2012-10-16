@@ -493,7 +493,7 @@ var Interaction = {
         var zero = (""+Interaction.correctAnswer.m).length < 2 ? '0':''
         var hour = Interaction.correctAnswer.h;
         var minute = Interaction.correctAnswer.m
-        if(Interaction.clock.isAfternoonWithTime({h:hour,m:minute}))
+        if(Interaction.clock.isAfternoonWithTime({h:parseInt(Interaction.getQuestionParams()[1].html,10),m:parseInt(Interaction.getQuestionParams()[0].html,10)})===true)
             hour += 12;
         Interaction.setStatus('Yanlış, doğru cevap '+hour+':'+zero + minute+' olacaktı.',false);
         Interaction.dayDiv.innerHTML = "";
