@@ -473,12 +473,12 @@ var Interaction = {
         Interaction.correctAnswer = {h:hour,m:minute};
         if(Interaction.clock.isAfternoonWithTime({h:parseInt(Interaction.getQuestionParams()[1].html,10),m:parseInt(Interaction.getQuestionParams()[0].html,10)})===true){
             console.log('afternoon','hour: '+hour)
-            if(hour == values[0] || hour+12 == values[0])
+            if( (hour == values[0]  || hour+12 == values[0]) && minute == values[1])
                 return true;
             return false;
         }else{
             console.log('not afternoon','hour: '+hour)
-            if(hour == values[0])
+            if(hour == values[0] && minute == values[1])
                 return true;
             return false;
         }
