@@ -471,7 +471,7 @@ var Interaction = {
         if(hour == 0)
             hour = 12;
         Interaction.correctAnswer = {h:hour,m:minute};
-        if(Interaction.clock.isAfternoonWithTime({h:parseInt(Interaction.getQuestionParams()[1].html,10),m:parseInt(Interaction.getQuestionParams()[0].html,10)})===true){
+        if(Interaction.clock.isAfternoonWithTime({h:parseInt(Interaction.getQuestionParams()[0].html,10),m:parseInt(Interaction.getQuestionParams()[1].html,10)})===true){
             console.log('afternoon','hour: '+hour)
             if( (hour == values[0]  || hour+12 == values[0]) && minute == values[1])
                 return true;
@@ -493,7 +493,7 @@ var Interaction = {
         var zero = (""+Interaction.correctAnswer.m).length < 2 ? '0':''
         var hour = Interaction.correctAnswer.h;
         var minute = Interaction.correctAnswer.m
-        if(Interaction.clock.isAfternoonWithTime({h:parseInt(Interaction.getQuestionParams()[1].html,10),m:parseInt(Interaction.getQuestionParams()[0].html,10)})===true)
+        if(Interaction.clock.isAfternoonWithTime({h:parseInt(Interaction.getQuestionParams()[0].html,10),m:parseInt(Interaction.getQuestionParams()[1].html,10)})===true)
             hour += 12;
         Interaction.setStatus('Yanlış, doğru cevap '+hour+':'+zero + minute+' olacaktı.',false);
         Interaction.dayDiv.innerHTML = "";
