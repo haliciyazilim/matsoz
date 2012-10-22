@@ -188,7 +188,7 @@ var Animation = {
 				var div = document.createElement('div')
 				$(Animation.container).append(div);
 				$(div)
-					.html('O : Merkez<br/>r = yarıçap<br/>2 x r = R : çap<br/>')
+					.html('O : Merkez<br/>r : yarıçap<br/>2 x r = R : çap<br/>')
 					.css({
 						position:'absolute',
 						top:'50%',
