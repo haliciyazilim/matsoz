@@ -518,7 +518,7 @@ soruOlustur();
 			cevapIslem=cevapPay/cevapPayda;
 			if(girdiIslem==cevapIslem){
 			//console.log("if doğruysa girdim."+girdi+" "+yuvarlak);
-				$("#geriBildirimText").attr("class","status_true").html("Tebrikler");
+				$("#geriBildirimText").attr("class","status_true").html("Tebrikler!");
 				$("#btnKontrol").hide();
 				$("#sonraki").show();
 			}

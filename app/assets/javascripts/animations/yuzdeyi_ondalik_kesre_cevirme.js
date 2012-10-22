@@ -486,51 +486,57 @@ Interaction.init = function(container){
 				$("#girdiCevap2").removeAttr('onkeydown');
 				$("#girdiCevap1").removeAttr('onkeydown');
 				$("#giris").removeAttr('onkeydown');*/
+
+
 				
 				
 			}
 			else{
-			var ondalikliGirdi=parseInt(girdi);
-			if(girdi<10)
-				if(girdi>0)
-                                    ondalikliGirdi="0"+girdi;
-                                else
-                                    ondalikliGirdi=girdi;
-                                
-			else if(girdi==100)
-				ondalikliGirdi=1;
-			else
-				ondalikliGirdi=girdi; 
-			
-				
-				console.log("c1: "+cevap1+" c2: "+cevap2+" c3: "+cevap3);
-				console.log("Ondalıklı Girdi: "+ondalikliGirdi);
-				console.log("Girdi: "+girdi);
-			// Cevap Doğruysa
-			
-			if(parseInt(cevap1,10)==parseInt(girdi,10) && cevap3==ondalikliGirdi){
-				enter++;
-				$("#btnKontrol").hide();
-				$("#sonraki").show();
-				//$("#geriBildirim").hide();
-				//$("#geriBildirim").removeClass("status_false").addClass("status_true");
-				$("#geriBildirimText").attr("class","status_true").html("Tebrikler");
-				$("#geriBildirim").show();
-				
-				if(cevap1==0)
-					$("#orta3 #esit1").css("opacity","1");
-				
-				console.log("enter"+enter);
-				if (enter==2){
-					enter=0;
-					yeniSoru();
-				}
-				else{
-				$("#girdiCevap3").get(0).setAttribute('onkeydown','return tusEngelle(event);');
-				//$("#girdiCevap2").get(0).setAttribute('onkeydown','return tusEngelle(event);');
-				$("#girdiCevap1").get(0).setAttribute('onkeydown','return tusEngelle(event);');
-				$("#giris").get(0).setAttribute('onkeydown','return tusEngelle(event);');
-			}
+                var ondalikliGirdi=parseInt(girdi);
+                if(girdi<10 && girdi>0)
+                    ondalikliGirdi="0"+girdi;
+                else if(girdi==100)
+                    ondalikliGirdi=1;
+                else
+                    ondalikliGirdi=girdi;
+
+                cevap3=$("#girdiCevap3").val();
+
+                    console.log("c1: "+cevap1+" c2: "+cevap2+" c3: "+cevap3);
+                    console.log("Ondalıklı Girdi: "+ondalikliGirdi);
+                    console.log("Girdi: "+girdi);
+                // Cevap Doğruysa
+
+                if(girdi<100){
+                    cevap3=parseFloat("0."+cevap3);
+                    ondalikliGirdi=parseFloat("0."+ondalikliGirdi);
+                    console.log("cevpları Değişti: "+cevap3+", "+ondalikliGirdi);
+                }
+
+                if(parseInt(cevap1,10)==parseInt(girdi,10) && cevap3==ondalikliGirdi){
+                    enter++;
+                    $("#btnKontrol").hide();
+                    $("#sonraki").show();
+                    //$("#geriBildirim").hide();
+                    //$("#geriBildirim").removeClass("status_false").addClass("status_true");
+                    $("#geriBildirimText").attr("class","status_true").html("Tebrikler!");
+                    $("#geriBildirim").show();
+                    tik=0;
+
+                    if(cevap1==0)
+                        $("#orta3 #esit1").css("opacity","1");
+
+                    console.log("enter"+enter);
+                    if (enter==2){
+                        enter=0;
+                        yeniSoru();
+                    }
+                    else{
+                    $("#girdiCevap3").get(0).setAttribute('onkeydown','return tusEngelle(event);');
+                    //$("#girdiCevap2").get(0).setAttribute('onkeydown','return tusEngelle(event);');
+                    $("#girdiCevap1").get(0).setAttribute('onkeydown','return tusEngelle(event);');
+                    $("#giris").get(0).setAttribute('onkeydown','return tusEngelle(event);');
+                }
 				
 				
 				
@@ -544,12 +550,18 @@ Interaction.init = function(container){
 				//console.log("tik"+tiklamaSayisi);
 				$("#geriBildirimText").attr("class","status_alert").html("Tekrar deneyiniz.");
 				$("#geriBildirim").show();
-			}
+
+
+            }
 			
 			// iki denemede de doğru cevap bulunamamışsa
 			if(tiklamaSayisi>=2){
 				//$(".status_alert").html("Yanlış. Doğru cevap: ");
 				//console.log(tiklamaSayisi);
+
+
+
+                
 				
 				$("#geriBildirimText").attr("class","status_false").html("Yanlış. Doğru cevap:");
 				var cevap=parseInt($("#giris").val(),10);
@@ -639,12 +651,20 @@ Interaction.init = function(container){
 //				kontrol();
 //			}
 //		});
-		
+		var tik=0;
 		$("#girdiCevap3").keyup(function(event) {
 				
                     if(event.keyCode == 13) {
-                        kontrol();
+                        tik++;
+                        if (tik==3){
+                            tik=0;
+                            yeniSoru();
+                        }
+                        else
+                            kontrol()
                     }
+
+
 		});
 		
 
