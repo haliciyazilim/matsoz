@@ -18,7 +18,7 @@ var Animation = {
 						.css("left", "60px")
 						.css("top", "30px");
 			
-			$(container).append('<div id="infoText">Bir kitapevinde hafta boyunca satılan kitapların tablosu yapılmıştır.</div>')
+			$(container).append('<div id="infoText">Bir kitabevinde hafta boyunca satılan kitapların tablosu yapılmıştır.</div>')
 			$('#infoText').css("position", "absolute")
 							.css("top", "134px")
 							.css("left", "60px")

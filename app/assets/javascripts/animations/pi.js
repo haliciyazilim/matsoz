@@ -334,6 +334,9 @@ var Interaction = {
 		Interaction.prepareNextQuestion();
 	},
 	nextQuestion:function(){
+        Interaction.inputs[0].style.color = "#000";
+        Interaction.inputs[1].style.color = "#000";
+        Interaction.inputs[2].style.color = "#000";
         if(Interaction.circleRadius == undefined)
             Interaction.circleRadius = 60;
 		else{
@@ -523,8 +526,8 @@ var Interaction = {
 
     },
     onFail : function(){
-        Interaction.inputs[2].value = (""+Interaction.circleRadius / 60).replace(".",",");
-        Interaction.inputs[1].value = (""+(Interaction.circleRadius / 60 * 6)).replace(".",",");
+        Interaction.inputs[2].value = (""+(Interaction.circleRadius / 60).toFixed(1)).replace(".",",");
+        Interaction.inputs[1].value = (""+(Interaction.circleRadius / 60 * 3).toFixed(1)).replace(".",",");
         Interaction.inputs[0].value = 3;
         Interaction.inputs[0].style.color = "#0a0";
         Interaction.inputs[1].style.color = "#0a0";

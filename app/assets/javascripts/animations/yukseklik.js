@@ -108,7 +108,7 @@ var Interaction = {
 		project.activeLayer.removeChildren();
 		Interaction.shapeCount++;
 		Interaction.drawHeightLine.vertexLetter = false;
-		Interaction.letters = ["E","D","C","B","A"];
+		Interaction.letters = ["A","B","C","D","E"];
 		var X = Interaction.paper.width*0.5-100;
 		var Y = Interaction.paper.height*0.5-75;
 		var W = 200;

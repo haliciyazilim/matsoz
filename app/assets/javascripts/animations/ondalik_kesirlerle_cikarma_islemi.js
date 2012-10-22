@@ -42,30 +42,7 @@ var Animation = {
             var subtraction = new LongSubtraction(2.38,1.26,"animation_subtraction",24);
             subtraction.doldur();
             subtraction.basla(1000, 1000);
-//			$(container).append(div);
-//			$(div)
-//				.append('<div id="addend1"><span class="3">2</span>,<span class="2">3</span><span class="1">8</span></div><div id="addend2"><span class="3">1</span>,<span class="2">2</span><span class="1">6</span></div><div id="line"><span>-</span></div><br/>')
-//				.append('<div id="result"></div>')
-//				.css(animationSubtractCss);
-//			
-//			$('#line',div).css({
-//				height:'2px',
-//				borderBottom:'2px solid #fff',
-//				position:'relative',
-//				top:'5px',
-//				left:'15px'
-//			});
-//			
-//			$('#line span',div).css({
-//				position:'absolute',
-//				top:'-35px',	
-//				left:'10px',
-//				zIndex:2
-//			});
-//			$('#result').css({
-//				position:'relative',
-//				top:'-35px'
-//			})
+
 			var size = new Size(40,40)
 			var p1 = new Point(450,10).add(0.5,0.5);
 			var r1 = new Path.Rectangle(p1, size);
@@ -224,6 +201,10 @@ var Interaction = {
 							return false;
 					}()
 				)
+
+//        Interaction.addend1=3.45;
+//        Interaction.addend2=3.00;
+
 			$(Interaction.addend1Div).html(Util.numberTurkishFloating(Interaction.addend1,2));
 			$(Interaction.addend2Div).html(Util.numberTurkishFloating(Interaction.addend2,2));
 			

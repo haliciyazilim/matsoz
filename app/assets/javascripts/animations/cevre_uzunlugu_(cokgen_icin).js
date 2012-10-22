@@ -414,7 +414,7 @@ TestGenerator.nextQuestion = function(){
 	TestGenerator.letters = (Math.random()>0.5 ? ["A","B","C","D","E"]:["K","L","M","N","P"]);
 	var count = (Interaction.count++)%Interaction.shuffledArray.length;
 	TestGenerator.shape = Interaction.shuffledArray[count];
-//	/*TEST*/TestGenerator.shape = 6;/*TEST*/
+//	/*TEST*/TestGenerator.shape = 4;/*TEST*/
 	switch(TestGenerator.shape){
 		case 0:
 			var a = Math.floor(Math.random()*10)+5;
@@ -448,6 +448,9 @@ TestGenerator.nextQuestion = function(){
 			c = a+b;
 			while(a+b <= c || Math.abs(a-b) >= c)
 				c = Math.floor(Math.random()*5)+5;
+            if(Util.rand01() == 1){
+                a *= 2; b*= 2; c *= 2;
+            }
 			TestGenerator.values = {a:a,b:b,c:c,cevre:(a+b+c)};
 			new Triangle(a,b,c,TestGenerator.getMeasure(),TestGenerator.paper).showEdge('a').showEdge('b').showEdge('c');
 			break;
@@ -455,6 +458,8 @@ TestGenerator.nextQuestion = function(){
 		case 4:
 			var a,b,c;
 			a = 6,b = 8,c = 6;
+            var k = Util.randomInteger(1,5);
+            a *= k; b *= k; c *= k;
 			TestGenerator.values = {a:a,b:b,c:c,cevre:(a+b+c)} ;
 			new Triangle(a,b,c,TestGenerator.getMeasure(),TestGenerator.paper).showEdge('a').showEdge('b').showAngle('A').showAngle('B');
 			break;
@@ -502,10 +507,7 @@ TestGenerator.showSolution = function(){
         html:'Ç = <span id="0"></span><span id="1"></span><span id="2"></span><span id="3">&nbsp;=&nbsp;</span><span id="4"></span>'
     });
     TestGenerator.solution = solution;
-
-
     $(solution).html();
-
     switch(TestGenerator.shape){
         case 0:
             $("#0",solution).html(4);
