@@ -184,12 +184,12 @@ var Interaction = {
 		.addChild(
 			new Node("Porselen")
 			.addChild(new Node("Tabak"))
-			.addChild(new Node("Çaydanlık"))
+			.addChild(new Node("Fincan"))
 		)
 		.addChild(
 			new Node("Cam")
 			.addChild(new Node("Bardak"))
-			.addChild(new Node("Kâse"))
+			.addChild(new Node("Sürahi"))
 		)
 		.addChild(
 			new Node("Metal")
@@ -467,7 +467,7 @@ function semaOlustur(renk,border,sozcuk){
                 tetkik=false;
 		if(sayi==tane){
                     
-                    Interaction.setStatus('Tebrikler', true);
+                    Interaction.setStatus('Tebrikler!', true);
                     $("#kontrolBtn").show();
                     sayi=0;
                 }
