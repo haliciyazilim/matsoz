@@ -6,11 +6,11 @@ function __Styles() {
         fillColor: "#456"
     };
     animationTextStyle = {
-        fontSize:16
+        fontSize:13
     }
     animationSurfacesTextStyle = {
         fillColor: '#5ba559',
-        fontSize:14
+        fontSize:13
     }
     animationEdgesTextStyle = {
         fillColor: '#c14444'
