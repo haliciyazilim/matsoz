@@ -92,7 +92,7 @@ Interaction.getFramework = function() {
 
 Interaction.init = function(container){
 	Interaction.container = container;
-	Main.setObjective("Aşağıdaki üçgen piramidi küçültüp büyütünüz veya istediğiniz yönde döndürünüz.");
+	Main.setObjective("Yandaki üçgen piramidi küçültüp büyütünüz veya istediğiniz yönde döndürünüz.");
 	
 	var w = $(Interaction.container).width();
 	var h = $(Interaction.container).height();
