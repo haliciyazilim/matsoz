@@ -28,21 +28,16 @@ var rulerStyle = {
 	strokeColor:'#000',
 	strokeWidth: 2,
 	fillColor : '#EED'
-	
 };
-var rulerTextStyle = {
-	
-	
-};
+var rulerTextStyle = {};
+
 var rulerLineStyle = {
 	strokeWidth: 2,
 	strokeColor:'#000'
 };
 var animationEdgeStyle = {
-	
 	strokeWidth: 2,
 	strokeColor:'#000'
-
 }
 /*Styles*/
 
@@ -275,18 +270,21 @@ Interaction.init = function(container){
     })
 	Interaction.input = $('#input',Interaction.container).get(0);
 	Interaction.drawRuler();
-    Interaction.setRandomGenerator(9)
 	Interaction.prepareNextQuestion();
 }
 
-Interaction.generateCircle = function(radius){
+Interaction.generateCircle = function(){
 	var x,y,r;
 	x = Interaction.paper.width*0.3;
 	y = Interaction.paper.height*0.5;
-	do
-		r = radius * Interaction.br ;
-	while(Interaction.r == r);
-	
+    if(Interaction.radiusArray == undefined){
+        Interaction.radiusArray = Util.getShuffledArray(11,2);
+        Interaction.radiusArrayIndex = 0;
+    }
+
+    r = Interaction.radiusArray[Interaction.radiusArrayIndex] * Interaction.br ;
+    Interaction.radiusArrayIndex = ++Interaction.radiusArrayIndex % Interaction.radiusArray.length;
+
 	Interaction.circleSet = new Group();
 	var point = new Path.Circle(new Point(x,y),1);
 	point.style = edgeStyle;
@@ -315,7 +313,7 @@ Interaction.generateCircle = function(radius){
 	
 }
 
-Interaction.nextQuestion = function(randomNumber){
+Interaction.nextQuestion = function(){
     if(Interaction.isPaused())
         return;
 	if(Interaction.circleSet)
@@ -328,7 +326,7 @@ Interaction.nextQuestion = function(randomNumber){
 	Interaction.trial = 0;
 	Interaction.preventDrag = false;
 	
-	Interaction.generateCircle(randomNumber+2);
+	Interaction.generateCircle();
 
 	var callback = function(){
 		Interaction.preventDrag = false;
