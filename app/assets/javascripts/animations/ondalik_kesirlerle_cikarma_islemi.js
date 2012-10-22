@@ -201,6 +201,10 @@ var Interaction = {
 							return false;
 					}()
 				)
+
+//        Interaction.addend1=3.45;
+//        Interaction.addend2=3.00;
+
 			$(Interaction.addend1Div).html(Util.numberTurkishFloating(Interaction.addend1,2));
 			$(Interaction.addend2Div).html(Util.numberTurkishFloating(Interaction.addend2,2));
 			
