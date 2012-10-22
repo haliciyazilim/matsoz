@@ -203,7 +203,7 @@ Animation.init=function(container){
 
 
 Interaction.init = function(container){
-	Main.setObjective("Yandaki sayılar için istenilen yuvarlamayı yaparak klavyeden sayıyı yazınız ve kontrol ediniz.");
+	Main.setObjective("Yandaki sayılar için istenilen yuvarlamayı yaparak sayıyı yazınız ve kontrol ediniz.");
 	
 	
 	
@@ -230,10 +230,9 @@ Interaction.init = function(container){
 		.css("right","0")
 		.css("margin","auto")
 		//.css("border","solid 1px black")
-		.css("font-size","16px").hide()
-		//.css("font-weight","bold");
-		.html("<strong class='sayi'>"+sayi+"</strong> en yakın "+yazi +" yuvarlanırsa <strong class='sayi' id='dogruCevap'>"+yuvarlak+"</strong> olur.");
-	var yuvarlak, yuvarlakOn, yuvarlakYuz, yazi,sayi;
+		.css("font-size","16px").hide();
+
+	var yuvarlak, yuvarlakOn, yuvarlakYuz, yazi, sayi;
 	var sira=0;
 	function rastgeleSayi(){
 		sira++;
@@ -255,7 +254,7 @@ Interaction.init = function(container){
 	
 	sayi=rastgeleSayi();
 	
-	
+
 	$("#cerceve").html("<strong class='sayi'>"+sayi+"</strong> en yakın "+yazi +" yuvarlanırsa <input type='text' class='sayi' id='girdi' maxlength=5  onkeypress='return SadeceRakam(event)'> olur.");
 	$("#cerceveCevap").html("<strong class='sayi' id='soruSayisi'>"+sayi+"</strong> en yakın "+yazi +" yuvarlanırsa <strong class='sayi' id='dogruCevap'>"+yuvarlak+"</strong> olur.");
 	$("#dogruCevap").css("color",dogruCevapGosterimRengi);
@@ -364,6 +363,7 @@ Interaction.init = function(container){
 	function yeniSoru(){
 			sayi=rastgeleSayi();
 			$("#cerceve").html("<strong class='sayi'>"+sayi+"</strong> en yakın "+yazi +" yuvarlanırsa <input type='text' class='sayi' id='girdi' maxlength=4  onkeypress='return SadeceRakam(event)'> olur.");
+            $("#cerceveCevap").html("<strong class='sayi' id='soruSayisi'>"+sayi+"</strong> en yakın "+yazi +" yuvarlanırsa <strong class='sayi' id='dogruCevap'>"+yuvarlak+"</strong> olur.");
 			$("input").trigger("yeniSoru");
 			$(".sayi").trigger("yeniSayi");
 			$("#dogruCevap").html(yuvarlak);
@@ -373,6 +373,7 @@ Interaction.init = function(container){
 			$("#geriBildirimText").html("");
 			$("#btnKontrol").show();
 			tiklama=0;
+            $()
 		}
 	
 	var tiklama=0;
@@ -398,7 +399,7 @@ Interaction.init = function(container){
 			if(girdi==yuvarlak){
 				enter++;
 			//console.log("if doğruysa girdim."+girdi+" "+yuvarlak);
-				$("#geriBildirimText").attr("class","status_true").html("Tebrikler");
+				$("#geriBildirimText").attr("class","status_true").html("Tebrikler!");
 				$("#btnKontrol").hide();
 				$("#sonraki").show();
 				if (enter==2)
