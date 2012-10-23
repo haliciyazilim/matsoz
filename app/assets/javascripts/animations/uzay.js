@@ -338,6 +338,7 @@ var Interaction = {
             
             Interaction.setRandomGenerator(11);
             Interaction.prepareNextQuestion();
+            Interaction.index = 0;
 		},
 	nextQuestion: function(shape){
             Interaction.toggleButtons();
@@ -361,6 +362,13 @@ var Interaction = {
                     height:'auto'
                 });
             $(Interaction.questionDiv).html('<strong>'+image.name + "</strong> <br/> bir uzay mıdır?");
+            Interaction.index++;
+            if(Interaction.index > 10){
+                Interaction.setRandomGenerator(11);
+                Interaction.index = 0;
+
+            }
+
 		},
 
 	/*
