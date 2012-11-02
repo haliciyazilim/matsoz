@@ -391,7 +391,7 @@ animations/zihinden_carpma_islemi.js: animations/zihinden_carpma_islemi-b8b9e3a7
 animations/zihinden_cikarma_islemi.js: animations/zihinden_cikarma_islemi-4940920b61cfce2bd92f5cf28a514e69.js
 animations/zihinden_toplama_islemi.js: animations/zihinden_toplama_islemi-7737213d60f940a067b9da44a5a381d7.js
 application.js: application-30939899585cf2854059a1905b2feb91.js
-main.js: main-5276a8a671e97774bde013523a9bb8a0.js
+main.js: main-6d39baf456961eb7da1ca628079b551c.js
 processFiles.sh: processFiles-79b648dcbce096681d6650d60495e4ac.sh
 stats/highcharts.js: stats/highcharts-4b26148a5a280ffedb7386e3d0c73c77.js
 stats/stats.js: stats/stats-eb0d5b2516a5bcc5dea1dcebc2e4d975.js
@@ -423,6 +423,7 @@ theme/bes/logo_bes.png: theme/bes/logo_bes-c939b87a17dcc653ca1cabdc1076b114.png
 theme/bes/matsoz_bes.css: theme/bes/matsoz_bes-8b00ffd7e4028608c07ebc0abba768d8.css
 theme/bes/ornek.png: theme/bes/ornek-54f3deb4e54befcfb419ac328c0f691b.png
 theme/blue/matsoz_blue.css: theme/blue/matsoz_blue-55dad67da416d39e44ffe05fb98d2a9c.css
+theme/blue/matsoz_splash.css: theme/blue/matsoz_splash-658522f29996561c4a9e668b18e6a3d2.css
 theme/blue/ui_img/FULL_SCREEN.jpg: theme/blue/ui_img/FULL_SCREEN-356ef11bf311b20d0bcde2f302fc6082.jpg
 theme/blue/ui_img/blue_leather.gif: theme/blue/ui_img/blue_leather-e2e9b2e22a2b332b8707e57b4f476e1b.gif
 theme/blue/ui_img/blue_leather.png: theme/blue/ui_img/blue_leather-3ef493dc18acba9ae61f277b9ff71bcc.png
@@ -450,11 +451,16 @@ theme/blue/ui_img/harf_sol_3.png: theme/blue/ui_img/harf_sol_3-ab7e1660466b188d8
 theme/blue/ui_img/harf_sol_3_pasif.png: theme/blue/ui_img/harf_sol_3_pasif-265fa2b6dacd609a4ca38ff78c18b7cd.png
 theme/blue/ui_img/harf_sol_4.png: theme/blue/ui_img/harf_sol_4-2731a752d26d17d435135b8d60cf9f2c.png
 theme/blue/ui_img/harf_sol_4_pasif.png: theme/blue/ui_img/harf_sol_4_pasif-d31501609fc95de46a384a791eeaeae8.png
+theme/blue/ui_img/matsoz5_logo.png: theme/blue/ui_img/matsoz5_logo-26df48ad414f7ca98afce22e5d337ded.png
+theme/blue/ui_img/matsoz6_logo.png: theme/blue/ui_img/matsoz6_logo-d76836d86df88e7fedb5dab083f905af.png
+theme/blue/ui_img/matsoz_splash_bg.jpg: theme/blue/ui_img/matsoz_splash_bg-4589c70d253283a56ce8d44fc907bfb9.jpg
 theme/blue/ui_img/matsoz_v1_mainbg.jpg: theme/blue/ui_img/matsoz_v1_mainbg-6264026ae953c65a0f1e2d848d074349.jpg
 theme/blue/ui_img/matsoz_v1_mainbg2.jpg: theme/blue/ui_img/matsoz_v1_mainbg2-9dfffb56d16cf2a8d51f93162b25ef74.jpg
 theme/blue/ui_img/sembol_pi.png: theme/blue/ui_img/sembol_pi-6377e81f4e7492067b2b98feba3e611a.png
 theme/blue/ui_img/simge_bg.png: theme/blue/ui_img/simge_bg-5f9c9a810a33ecb9dac44d46ae3367a1.png
 theme/blue/ui_img/simge_bg.psd: theme/blue/ui_img/simge_bg-2996369d547afc81133c591c79c54539.psd
 theme/blue/ui_img/sozcuk_selected.png: theme/blue/ui_img/sozcuk_selected-46f879b5031f1690c0b93ecbe7833746.png
+theme/blue/ui_img/splash_halici_logo.png: theme/blue/ui_img/splash_halici_logo-05a0cd833dda547dfa6ccb251fdde3ee.png
+theme/blue/ui_img/splash_meb_logo.png: theme/blue/ui_img/splash_meb_logo-58d72e89727ff084649676d468943580.png
 theme/hommade_apple.woff: theme/hommade_apple-13abdcfdf90b946db7c8cecb5ecd7e25.woff
 theme/reset.css: theme/reset-49ba50e16222d377e57885519ee7ab65.css
