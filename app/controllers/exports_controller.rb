@@ -15,10 +15,10 @@ class ExportsController < EntriesController
 #    target  = "tmp/export/index.html"
 #    content = render_to_string 'entries/index.html.haml'
 
-    File.open(target, "w+") do |f|
-      f.write(content)
-    end
-    @index_page = false
+#    File.open(target, "w+") do |f|
+#      f.write(content)
+#    end
+#    @index_page = false
 
 
     @all_entries.each do |entry|
