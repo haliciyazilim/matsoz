@@ -393,6 +393,7 @@ animations/zihinden_toplama_islemi.js: animations/zihinden_toplama_islemi-773721
 application.js: application-30939899585cf2854059a1905b2feb91.js
 main.js: main-6d39baf456961eb7da1ca628079b551c.js
 processFiles.sh: processFiles-79b648dcbce096681d6650d60495e4ac.sh
+splash.js: splash-caf8acd62edaace59aaf670ac42b35a8.js
 stats/highcharts.js: stats/highcharts-4b26148a5a280ffedb7386e3d0c73c77.js
 stats/stats.js: stats/stats-eb0d5b2516a5bcc5dea1dcebc2e4d975.js
 application.css: application-b8241a60fef4287e448363fe4eee650d.css
