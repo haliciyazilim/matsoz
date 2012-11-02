@@ -21,7 +21,18 @@ var Main = function(){
 			log: function(){}
 		}
 	}
-	$(document).ready(Main.init);
+    $(document).ready(function(){
+
+        try{
+            if(Interaction)
+                Main.init();
+        }
+        catch(e){
+            console.log('Interaction is not defined');
+
+        }
+    });
+
 }
 
 Main.config = {
@@ -425,5 +436,23 @@ Main.initializeToolbar = function(){
     $('.btn_next').click(function(event){
         window.history.go(1);
     });
+    $('.btn_home').click(function(event){
+        window.location = '../';
+    });
+    $('.btn_print').click(function(event){
+//        $('.etkilesimalan').printElement();
+        window.print();
+//        printDiv($('#container').get(0));
+    });
 }
 Main();
+//function printDiv(div) {
+//    var printContents = div.innerHTML;
+//    var originalContents = document.body.innerHTML;
+//
+//    document.body.innerHTML = printContents;
+//
+//    window.print();
+//
+//    document.body.innerHTML = originalContents;
+//}
