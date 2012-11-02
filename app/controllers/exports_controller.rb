@@ -8,7 +8,7 @@ class ExportsController < EntriesController
     `mkdir tmp/export/entries`
 
 
-    @index = true
+    @index_page = true
     set_all_entries
     create_word_list
     index
@@ -18,7 +18,7 @@ class ExportsController < EntriesController
     File.open(target, "w+") do |f|
       f.write(content)
     end
-    @index = false
+    @index_page = false
 
 
     @all_entries.each do |entry|

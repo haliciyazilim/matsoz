@@ -29,7 +29,7 @@ class EntriesController < ApplicationController
         end
 
         if @exporting
-          if @index
+          if @index_page
             link = "entries/" + entry.id.to_s + ".html"
           else
             link = entry.id.to_s + ".html"
