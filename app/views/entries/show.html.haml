@@ -5,12 +5,20 @@
   = javascript_include_tag 'main.js'
   = stylesheet_link_tag 'theme/blue/matsoz_blue.css'
   = stylesheet_link_tag 'theme/bes/matsoz_bes.css'
+  = stylesheet_link_tag 'print.css', :media => 'print'
   - begin
     = javascript_include_tag @entry.javascript_file
   - rescue
 
   - if Rails.env.development?
     = javascript_include_tag 'development.js'
+
+  - if @exporting
+    :javascript
+      var exportedPage = true;
+  - else
+    :javascript
+      var exportedPage = false;
 
   :javascript
     var wordList = #{@word_list.to_json};

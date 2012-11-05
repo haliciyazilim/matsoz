@@ -455,11 +455,15 @@ Main.initializeToolbar = function(){
         window.history.go(1);
     });
     $('.btn_home').click(function(event){
-        window.location = '../';
+        if (exportedPage) {
+            window.location = '../index.html';
+        } else {
+            window.location = '../';
+        }
     });
     $('.btn_print').click(function(event){
 //        $('.etkilesimalan').printElement();
-        window.print();
+//        window.print();
 //        printDiv($('#container').get(0));
     });
 }
