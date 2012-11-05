@@ -427,23 +427,7 @@ Main.createInteractionSkipSlider = function(){
         up(event);
     });
 
-    $(".btn_print").click(function(){
-        var resim=$(".simge").html();
 
-        var simgeContainer=$(".simgebg").html();
-        $(".simgebg").remove();
-
-        var yazilacak=$(".tanim").html();
-
-
-
-        var yazilmasiGereken=resim+"<p class='tanim'>"+yazilacak+"</p>";
-
-        var orjinalSayfa=$("body").html();
-        $("body").html(yazilmasiGereken);
-        window.print();
-        $("body").html(orjinalSayfa)
-    });
 
 }
 
@@ -457,11 +441,28 @@ Main.initializeToolbar = function(){
     $('.btn_home').click(function(event){
         window.location = '../';
     });
-    $('.btn_print').click(function(event){
-//        $('.etkilesimalan').printElement();
+
+    $(".btn_print").click(function(){
+        var resim=$(".simge").html();
+
+        var simgeContainer=$(".simgebg").html();
+        $(".simgebg").remove();
+
+        var yazilacak=$(".tanim").html();
+
+
+        if(resim==null){
+            var yazilmasiGereken="<p class='tanim'>"+yazilacak+"</p>";
+        }
+        else
+            var yazilmasiGereken=resim+"<p class='tanim'>"+yazilacak+"</p>";
+
+        var orjinalSayfa=$("body").html();
+        $("body").html(yazilmasiGereken);
         window.print();
-//        printDiv($('#container').get(0));
+        $("body").html(orjinalSayfa)
     });
+
 }
 Main();
 //function printDiv(div) {
