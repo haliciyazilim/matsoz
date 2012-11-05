@@ -1,12 +1,16 @@
 @media print{
-    .simge{
-        position:relative;
-        margin-left: 10px;
-        float:left;
+    body, html{
+        font-size:20px !important;
+        white-space: normal;
     }
-    .tanim{
-        position:relative;
-        float:left;
-    }
+    img{
+        display: block !important;
+        float: left !important;
+        position: static !important;
 
+    }
+    p.tanim{
+        float:left !important;
+
+    }
 }
