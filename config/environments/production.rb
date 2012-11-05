@@ -49,6 +49,7 @@ Matsoz::Application.configure do
   # config.assets.precompile += %w(*.js)
   config.assets.precompile += %w( main.js )
   config.assets.precompile += %w( animations/*.js )
+  config.assets.precompile += %w( print.css )
   config.assets.precompile += %w( theme/*.css )
   config.assets.precompile += %w( theme/blue/*.css )
   config.assets.precompile += %w( stats/*.js )
