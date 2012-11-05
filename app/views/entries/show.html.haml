@@ -93,7 +93,7 @@
             =key.gsub(' ', "\n")
         - else
           - if @exporting
-            %a{:href => value.id.to_s + ".html"} key
+            %a{:href => value.id.to_s + ".html"} #{key}
           - else
             = link_to key, entry_path(value)
     %div.additional_info
