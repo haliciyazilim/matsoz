@@ -92,7 +92,10 @@
           - if key != nil
             =key.gsub(' ', "\n")
         - else
-          = link_to key, entry_path(value)
+          - if @exporting
+            %a{:href => value.id.to_s + ".html"} key
+          - else
+            = link_to key, entry_path(value)
     %div.additional_info
       - if @entry.additionalInfo
         %em
