@@ -427,6 +427,24 @@ Main.createInteractionSkipSlider = function(){
         up(event);
     });
 
+    $(".btn_print").click(function(){
+        var resim=$(".simge").html();
+
+        var simgeContainer=$(".simgebg").html();
+        $(".simgebg").remove();
+
+        var yazilacak=$(".tanim").html();
+
+
+
+        var yazilmasiGereken=resim+"<p class='tanim'>"+yazilacak+"</p>";
+
+        var orjinalSayfa=$("body").html();
+        $("body").html(yazilmasiGereken);
+        window.print();
+        $("body").html(orjinalSayfa)
+    });
+
 }
 
 Main.initializeToolbar = function(){
