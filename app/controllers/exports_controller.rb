@@ -7,20 +7,6 @@ class ExportsController < EntriesController
     `mkdir tmp/export`
     `mkdir tmp/export/entries`
 
-
-#    @index_page = true
-#    set_all_entries
-#    create_word_list
-#    index
-#    target  = "tmp/export/index.html"
-#    content = render_to_string 'entries/index.html.haml'
-
-#    File.open(target, "w+") do |f|
-#      f.write(content)
-#    end
-#    @index_page = false
-
-
     @all_entries.each do |entry|
       params[:id] = entry.id
       set_all_entries
@@ -32,6 +18,16 @@ class ExportsController < EntriesController
       File.open(target, "w+") do |f|
         f.write(content)
       end
+    end
+
+    @index_page = true
+    set_all_entries
+    create_word_list
+    target  = "tmp/export/index.html"
+    content = render_to_string 'entries/index.html.haml'
+
+    File.open(target, "w+") do |f|
+      f.write(content)
     end
 
 
