@@ -432,11 +432,18 @@ Main.createInteractionSkipSlider = function(){
 }
 
 Main.initializeToolbar = function(){
+    Main.InfoDialog = new Dialog({
+        title:'Lorem Ipsum',
+        content:"Lorem Ipsum, dizgi ve baskı endüstrisinde kullanılan mıgır metinlerdir. Lorem Ipsum, adı bilinmeyen bir matbaacının bir hurufat numune kitabı oluşturmak üzere bir yazı galerisini alarak karıştırdığı 1500'lerden beri endüstri standardı sahte metinler olarak kullanılmıştır. Beşyüz yıl boyunca varlığını sürdürmekle kalmamış, aynı zamanda pek değişmeden elektronik dizgiye de sıçramıştır. 1960'larda Lorem Ipsum pasajları da içeren Letraset yapraklarının yayınlanması ile ve yakın zamanda Aldus PageMaker gibi Lorem Ipsum sürümleri içeren masaüstü yayıncılık yazılımları ile popüler olmuştur."
+    });
     $('.btn_prev').click(function(event){
         window.history.go(-1);
     });
     $('.btn_next').click(function(event){
         window.history.go(1);
+    });
+    $('.btn_info').click(function(event){
+        Main.InfoDialog.show();
     });
     $('.btn_home').click(function(event){
         if (exportedPage) {
