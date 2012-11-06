@@ -446,24 +446,28 @@ Main.initializeToolbar = function(){
         }
     });
     $(".btn_print").click(function(){
-        var resim=$(".simge").html();
+        /*var resim=$(".simge").html();
 
         var simgeContainer=$(".simgebg").html();
         $(".simgebg").remove();
 
         var yazilacak=$(".tanim").html();
 
+        var css='@media print {body, html{font-size:50px !important; white-space: normal;} img{display: block !important; float: left !important; position: static !important;} p.tanim{float:left !important;}}';
 
         if(resim==null){
             var yazilmasiGereken="<p class='tanim'>"+yazilacak+"</p>";
+
         }
         else
-            var yazilmasiGereken=resim+"<p class='tanim'>"+yazilacak+"</p>";
+            var yazilmasiGereken=resim+"<p class='tanim'>"+yazilacak+"</p>";*/
 
-        var orjinalSayfa=$("body").html();
-        $("body").html(yazilmasiGereken);
         window.print();
-        $("body").html(orjinalSayfa)
+
+        //var orjinalSayfa=$("body").html();
+        //$("body").html(yazilmasiGereken);
+        //window.print();
+        //$("body").html(orjinalSayfa)
     });
 
 }
