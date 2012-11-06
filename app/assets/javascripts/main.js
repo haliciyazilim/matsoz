@@ -432,11 +432,18 @@ Main.createInteractionSkipSlider = function(){
 }
 
 Main.initializeToolbar = function(){
+    Main.InfoDialog = new Dialog({
+        title:'Lorem Ipsum',
+        content:"Lorem Ipsum, dizgi ve baskı endüstrisinde kullanılan mıgır metinlerdir. Lorem Ipsum, adı bilinmeyen bir matbaacının bir hurufat numune kitabı oluşturmak üzere bir yazı galerisini alarak karıştırdığı 1500'lerden beri endüstri standardı sahte metinler olarak kullanılmıştır. Beşyüz yıl boyunca varlığını sürdürmekle kalmamış, aynı zamanda pek değişmeden elektronik dizgiye de sıçramıştır. 1960'larda Lorem Ipsum pasajları da içeren Letraset yapraklarının yayınlanması ile ve yakın zamanda Aldus PageMaker gibi Lorem Ipsum sürümleri içeren masaüstü yayıncılık yazılımları ile popüler olmuştur."
+    });
     $('.btn_prev').click(function(event){
         window.history.go(-1);
     });
     $('.btn_next').click(function(event){
         window.history.go(1);
+    });
+    $('.btn_info').click(function(event){
+        Main.InfoDialog.show();
     });
     $('.btn_home').click(function(event){
         if (exportedPage) {
@@ -446,24 +453,28 @@ Main.initializeToolbar = function(){
         }
     });
     $(".btn_print").click(function(){
-        var resim=$(".simge").html();
+        /*var resim=$(".simge").html();
 
         var simgeContainer=$(".simgebg").html();
         $(".simgebg").remove();
 
         var yazilacak=$(".tanim").html();
 
+        var css='@media print {body, html{font-size:50px !important; white-space: normal;} img{display: block !important; float: left !important; position: static !important;} p.tanim{float:left !important;}}';
 
         if(resim==null){
             var yazilmasiGereken="<p class='tanim'>"+yazilacak+"</p>";
+
         }
         else
-            var yazilmasiGereken=resim+"<p class='tanim'>"+yazilacak+"</p>";
+            var yazilmasiGereken=resim+"<p class='tanim'>"+yazilacak+"</p>";*/
 
-        var orjinalSayfa=$("body").html();
-        $("body").html(yazilmasiGereken);
         window.print();
-        $("body").html(orjinalSayfa)
+
+        //var orjinalSayfa=$("body").html();
+        //$("body").html(yazilmasiGereken);
+        //window.print();
+        //$("body").html(orjinalSayfa)
     });
 
 }

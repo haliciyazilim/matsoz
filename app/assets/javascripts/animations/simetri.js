@@ -21,6 +21,23 @@ var Animation = {
 
         setTimeout('$("#butterfly").attr("src", "/assets/animations/simetri/01.jpg")', 8000);
 
+//        var kelebek = new GIF({
+//            src:'/assets/animations/simetri/kelebek.jpg',
+//            width:128,
+//            height:113,
+//            parent:Animation.container,
+//            count:30,
+//            css:{
+//                position:"absolute",
+//                top:'50px',
+//                left:'40px',
+//                opacity:0
+//            }
+//        });
+//        $(kelebek.div).animate({opacity:1},1000,'easeInOutQuad',function(){
+//            kelebek.play(8)
+//        })
+
 
         AnimateHelper = new AnimationHelper({
 
