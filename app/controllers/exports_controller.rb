@@ -20,6 +20,17 @@ class ExportsController < EntriesController
       end
     end
 
+    @index_page = true
+    set_all_entries
+    create_word_list
+    target  = "tmp/export/index.html"
+    content = render_to_string 'entries/index.html.haml'
+
+    File.open(target, "w+") do |f|
+      f.write(content)
+    end
+
+
     `script/export.sh`
     `rm -rf tmp/export`
 
