@@ -391,7 +391,7 @@ animations/zihinden_carpma_islemi.js: animations/zihinden_carpma_islemi-b8b9e3a7
 animations/zihinden_cikarma_islemi.js: animations/zihinden_cikarma_islemi-4940920b61cfce2bd92f5cf28a514e69.js
 animations/zihinden_toplama_islemi.js: animations/zihinden_toplama_islemi-7737213d60f940a067b9da44a5a381d7.js
 application.js: application-30939899585cf2854059a1905b2feb91.js
-main.js: main-686e47995c5021aa54d8fd7c8ca3636c.js
+main.js: main-0c4ffd6220d0400c8aeb3d263b1bbe28.js
 processFiles.sh: processFiles-79b648dcbce096681d6650d60495e4ac.sh
 splash.js: splash-caf8acd62edaace59aaf670ac42b35a8.js
 stats/highcharts.js: stats/highcharts-4b26148a5a280ffedb7386e3d0c73c77.js
@@ -421,7 +421,7 @@ theme/bes/harf_sol_1a.png: theme/bes/harf_sol_1a-8c04c4a6a0c5df06e15efb9b2a36eb4
 theme/bes/harf_sol_2a.png: theme/bes/harf_sol_2a-cc370933a26f9447f22c4def88130469.png
 theme/bes/harf_sol_3a.png: theme/bes/harf_sol_3a-bda5cbde991aaf199b2f4bb05fc51efb.png
 theme/bes/harf_sol_4a.png: theme/bes/harf_sol_4a-a420d959752090dd1101736b2004cb74.png
-theme/bes/logo_bes.png: theme/bes/logo_bes-c939b87a17dcc653ca1cabdc1076b114.png
+theme/bes/logo_bes.png: theme/bes/logo_bes-8929083a2c9afa83001c64ef89016387.png
 theme/bes/matsoz_bes.css: theme/bes/matsoz_bes-8b00ffd7e4028608c07ebc0abba768d8.css
 theme/bes/ornek.png: theme/bes/ornek-54f3deb4e54befcfb419ac328c0f691b.png
 theme/blue/matsoz_blue.css: theme/blue/matsoz_blue-55dad67da416d39e44ffe05fb98d2a9c.css
