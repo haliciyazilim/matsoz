@@ -36,7 +36,7 @@ class ExportsController < EntriesController
 
     @all_entries.each do |entry|
       if entry.thumbnail?
-        open('tmp/export/assets/symbols/'+entry.id+'.png', 'wb') do |file|
+        open('tmp/export/assets/symbols/'+entry.id.to_s+'.png', 'wb') do |file|
           file << open(entry.thumbnail.url).read
         end
       end
