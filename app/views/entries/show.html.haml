@@ -91,7 +91,10 @@
       %div.simgebg
         = image_tag('theme/blue/ui_img/simge_bg.png', {:width => 139, :height => 143, :style => "position:absolute; top: 0px; left: 0px;"})
         %div.simge
-          = image_tag(@entry.thumbnail.url, {:style => "position:absolute; top: 0px; left: 0px;"})
+          - if @exporting
+            = image_tag('/assets/symbols/' + @entry.id, {:style => "position:absolute; top: 0px; left: 0px;"})
+          - else
+            = image_tag(@entry.thumbnail.url, {:style => "position:absolute; top: 0px; left: 0px;"})
     %strong.name
       = @entry.word + ": "
     - @chunks.each do |chunk|

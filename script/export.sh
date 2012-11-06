@@ -1,7 +1,5 @@
 #!/bin/bash
 
-mkdir tmp/export/assets
-
 # cp -R app/assets/images/* tmp/export/assets/
 # cp -R app/assets/javascripts/* tmp/export/assets/
 # cp -R app/assets/stylesheets/* tmp/export/assets/

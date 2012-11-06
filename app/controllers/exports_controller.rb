@@ -1,11 +1,14 @@
 # encoding: utf-8
 
+require 'open-uri'
 
 class ExportsController < EntriesController
   def index
     @exporting = true
     `mkdir tmp/export`
     `mkdir tmp/export/entries`
+    `mkdir tmp/export/assets`
+    `mkdir tmp/export/assets/symbols`
 
     @all_entries.each do |entry|
       params[:id] = entry.id
@@ -30,6 +33,14 @@ class ExportsController < EntriesController
       f.write(content)
     end
 
+
+    @all_entries.each do |entry|
+      if entry.thumbnail?
+        open('tmp/export/assets/symbols/'+entry.id+'.png', 'wb') do |file|
+          file << open(entry.thumbnail.url).read
+        end
+      end
+    end
 
     `script/export.sh`
     `rm -rf tmp/export`
