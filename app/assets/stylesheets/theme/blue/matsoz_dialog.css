@@ -1,9 +1,9 @@
 @charset "utf-8";
 /* CSS Document */
 
-.dialogmaske {
+div.dialogmaske {
     position:absolute;
-    z-index:9999;
+    z-index:99;
     width:100%;
     height:100%;
     background: url(ui_img/serit_beyaz_3.png) repeat rgba(25,45,54,0.9);
@@ -32,6 +32,12 @@ div.dialoggolge {
     background-color: #FFF;
     z-index: 100;
 }
+#dialog_box a#kapat{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    z-index: 101;
+}
 
 #dialog_box .dialog_title {
     border-radius:			10px;
@@ -57,6 +63,49 @@ div.dialoggolge {
 }
 
 #dialog_box .dialog_content {
-    padding:15px;
+    height: 435px;
+
+}#dialog_box .dialog_tab_content {
+    overflow: auto;
+    height: 100%;
+    text-align: justify;
+    font-size: 13px;
+    line-height: 17px;
+    padding: 10px;
+ }
+#dialog_box .dialog_tab_content p {
+    padding-bottom: 15px;
 }
 
+#dialog_box .dialog_tab_bar{
+    float: none;
+    height: 31px;
+    line-height: 30px;
+/*    padding-top: 5px;*/
+    border-bottom: 1px solid #000000 ;
+    position: relative;
+    z-index: 0;
+}
+
+#dialog_box .dialog_tab_title{
+    min-width: 120px;
+    max-width: 180px;
+    position: relative;
+    z-index: 1;
+    float: left;
+    height: 30px;
+    line-height: 30px;
+    border: 1px solid #000;
+    border-bottom: none;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+#dialog_box .dialog_passive_tab{
+    background-color: #74b2e2;
+    border-bottom: 1px solid #000;
+}
+#dialog_box .dialog_active_tab{
+    background-color: #aed0ea;
+    border-bottom: 1px solid #aed0ea;
+}
