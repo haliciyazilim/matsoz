@@ -250,7 +250,7 @@ function InteractionBase(){
 			Interaction.nextQuestion();
 		
 		try{
-			Interaction.inputs[0].focus();
+//			Interaction.inputs[0].focus();
 		}
 		catch(e){}
 	};
