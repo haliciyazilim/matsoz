@@ -316,8 +316,8 @@ Main.createInteractionSkipSlider = function(){
     $(div).css({
         position:'absolute',
         paddingLeft:'-1px',
-        top:'331px',
-        left:'438px',
+        top:'454px',
+        left:'118px',
         width:'790px',
         height:'302px',
         borderRadius:'6px',

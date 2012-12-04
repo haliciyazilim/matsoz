@@ -25,66 +25,11 @@
     var currentLetter = '#{@current_letter}';
 
 #container
-  %div.matsoz_logo
-    %img{:src=>'/assets/theme/bes/logo_bes.png'}
-  .navlinktasiyici
-    - letters = []
-    - @word_list.keys.each do |key|
-      - if @word_list[key].length != 0
-        - letters << key
-
-    - index = 0
-    - letters.each do |letter|
-      - if index == 0
-        - piece = 'harf_sol_1'
-      - elsif index == 1
-        - piece = 'harf_sag_1'
-      - elsif index == letters.length - 1
-        - if index % 2 == 0
-          - piece = 'harf_sol_4'
-        - else
-          - piece = 'harf_sag_4'
-      - elsif index == letters.length - 2
-        - if index % 2 == 0
-          - piece = 'harf_sol_4'
-        - else
-          - piece = 'harf_sag_2'
-      - elsif index % 4 == 2
-        - piece = 'harf_sol_2'
-      - elsif index % 4 == 3
-        - piece = 'harf_sag_2'
-      - elsif index % 4 == 0
-        - piece = 'harf_sol_2'
-      - elsif index % 4 == 1
-        - piece = 'harf_sag_2'
-
-      = link_to letter.to_upcase_turkish + letter, '#', {:class => 'navlink navposition ' + piece, :data=>{:letter => letter}, :onclick=>'return false'}
-      - index = index + 1
 
 
-  %div.btn_prev
-    %img{:src=>'/assets/theme/blue/ui_img/btn_prev.png', :width=>'60', :height=>'46', :alt=>'Önceki'}
-  %div.btn_next
-    %img{:src=>'/assets/theme/blue/ui_img/btn_next.png', :width=>'60', :height=>'46', :alt=>'Sonraki'}
-  %div.btn_home
-    %img{:src=>'/assets/theme/blue/ui_img/btn_home.png', :width=>'40', :height=>'36', :alt=>'Ana Sayfa'}
-  %div.btn_info
-    %img{:src=>'/assets/theme/blue/ui_img/btn_info.png', :width=>'40', :height=>'36', :alt=>'Bilgi'}
-  %div.btn_print
-    %img{:src=>'/assets/theme/blue/ui_img/btn_print.png', :width=>'40', :height=>'36', :alt=>'Etkileşimi Yazdır'}
 
-  %div.sozcuktasiyici
-    - @all_entries.each do |entry|
-      - if @exporting
-        - if entry == @entry
-          %a{:href => entry.id.to_s + ".html", :class => 'sozcuklink sozcukselected'} #{entry.word}
-        - else
-          %a{:href => entry.id.to_s + ".html", :class => 'sozcuklink'} #{entry.word}
-      - else
-        - if entry == @entry
-          = link_to entry.word, entry_path(entry), {:class => 'sozcuklink sozcukselected'}
-        - else
-          = link_to entry.word, entry_path(entry), {:class => 'sozcuklink'}
+
+
 
   %div.tanim
     - if @entry.thumbnail?
@@ -114,5 +59,6 @@
 
   %div{:class=>'ornek ornek_border sablon'}
     %div{:class =>'ornekbaslik ornekbaslik_bg'}
+
   %div{:class => 'mavikontrol sablon'}
   %div{:class => 'etkilesimalan sablon'}
