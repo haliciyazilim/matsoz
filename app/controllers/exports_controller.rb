@@ -4,6 +4,11 @@ require 'open-uri'
 
 class ExportsController < EntriesController
   def index
+    
+    if params[:target].downcase = 'ipad'
+      @ipad = true
+    end
+    
     @exporting = true
     `mkdir tmp/export`
     `mkdir tmp/export/entries`
