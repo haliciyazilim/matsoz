@@ -48,12 +48,14 @@ Matsoz::Application.configure do
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   # config.assets.precompile += %w(*.js)
   config.assets.precompile += %w( main.js )
+  config.assets.precompile += %w( main_ipad.js )
   config.assets.precompile += %w( animations/*.js )
   config.assets.precompile += %w( print.css )
   config.assets.precompile += %w( theme/*.css )
   config.assets.precompile += %w( theme/blue/*.css )
   config.assets.precompile += %w( stats/*.js )
   config.assets.precompile += %w( splash.js )
+  config.assets.precompile += %w( splash_ipad.js )
   
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
