@@ -392,9 +392,11 @@ animations/zihinden_carpma_islemi.js: animations/zihinden_carpma_islemi-b8b9e3a7
 animations/zihinden_cikarma_islemi.js: animations/zihinden_cikarma_islemi-4940920b61cfce2bd92f5cf28a514e69.js
 animations/zihinden_toplama_islemi.js: animations/zihinden_toplama_islemi-7737213d60f940a067b9da44a5a381d7.js
 application.js: application-30939899585cf2854059a1905b2feb91.js
-main.js: main-d2acf7f4dfebdf867cb162a29fdceb27.js
+main.js: main-8f9487b0cbef4b73cac63c15e136d793.js
+main_ipad.js: main_ipad-3fb7e48c6fa22cba4dccd51c829bb3c4.js
 processFiles.sh: processFiles-79b648dcbce096681d6650d60495e4ac.sh
 splash.js: splash-caf8acd62edaace59aaf670ac42b35a8.js
+splash_ipad.js: splash_ipad-819720b506d7a637dc2bb1f6275001f1.js
 stats/highcharts.js: stats/highcharts-4b26148a5a280ffedb7386e3d0c73c77.js
 stats/stats.js: stats/stats-eb0d5b2516a5bcc5dea1dcebc2e4d975.js
 application.css: application-b8241a60fef4287e448363fe4eee650d.css
@@ -426,8 +428,10 @@ theme/bes/logo_bes.png: theme/bes/logo_bes-8929083a2c9afa83001c64ef89016387.png
 theme/bes/matsoz_bes.css: theme/bes/matsoz_bes-8b00ffd7e4028608c07ebc0abba768d8.css
 theme/bes/ornek.png: theme/bes/ornek-54f3deb4e54befcfb419ac328c0f691b.png
 theme/blue/matsoz_blue.css: theme/blue/matsoz_blue-55dad67da416d39e44ffe05fb98d2a9c.css
+theme/blue/matsoz_blue_ipad.css: theme/blue/matsoz_blue_ipad-6598713f3c451c043b2efd339ae8766b.css
 theme/blue/matsoz_dialog.css: theme/blue/matsoz_dialog-89cac1bb134d2033b60c382773c24895.css
 theme/blue/matsoz_splash.css: theme/blue/matsoz_splash-658522f29996561c4a9e668b18e6a3d2.css
+theme/blue/matsoz_splash_ipad.css: theme/blue/matsoz_splash_ipad-a41963a0fc400cf0919753ec825a042a.css
 theme/blue/ui_img/FULL_SCREEN.jpg: theme/blue/ui_img/FULL_SCREEN-356ef11bf311b20d0bcde2f302fc6082.jpg
 theme/blue/ui_img/accept.png: theme/blue/ui_img/accept-490839e90c7872d1b2a2022764fca894.png
 theme/blue/ui_img/add.png: theme/blue/ui_img/add-6766b4d21b0a95d38fa62314cb268e23.png
