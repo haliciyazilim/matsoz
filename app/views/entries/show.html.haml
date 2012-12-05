@@ -121,5 +121,10 @@
 
   %div{:class=>'ornek ornek_border sablon'}
     %div{:class =>'ornekbaslik ornekbaslik_bg'}
-  %div{:class => 'mavikontrol sablon'}
-  %div{:class => 'etkilesimalan sablon'}
+  - if @ipad
+    #container2
+      %div{:class => 'mavikontrol sablon'}
+      %div{:class => 'etkilesimalan sablon'}
+  - else
+    %div{:class => 'mavikontrol sablon'}
+    %div{:class => 'etkilesimalan sablon'}
