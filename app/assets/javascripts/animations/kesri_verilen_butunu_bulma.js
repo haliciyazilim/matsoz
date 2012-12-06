@@ -229,8 +229,11 @@ var Animation = {
 				delay: 9000,
 				animationType: 'easeInEaseOut'
 			});
+<<<<<<< HEAD
 			
 			Main.animationFinished(11000);
+=======
+>>>>>>> origin/abdullah-dev
 
 		}
 }

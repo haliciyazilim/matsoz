@@ -78,7 +78,10 @@ var Animation = {
 				});
 				
 			}
+<<<<<<< HEAD
             Main.animationFinished(5000);
+=======
+>>>>>>> origin/abdullah-dev
 		}
 }
 
@@ -119,7 +122,11 @@ var Interaction = {
 					top:'130px',
 					right:'20px'
 				});
+<<<<<<< HEAD
             Interaction.setRandomGenerator(5);
+=======
+
+>>>>>>> origin/abdullah-dev
 			Interaction.xCubes = 0;
 			Interaction.yCubes = 0;
 			Interaction.zCubes = 0;
@@ -127,7 +134,11 @@ var Interaction = {
 			Interaction.a = 30;
 			Interaction.prepareNextQuestion();
 		},
+<<<<<<< HEAD
 	nextQuestion:function(randomNumber){
+=======
+	nextQuestion:function(){
+>>>>>>> origin/abdullah-dev
 			if(Interaction.pause == true)
 				return;
 			Interaction.pause = false;
@@ -135,6 +146,10 @@ var Interaction = {
 			var zero = Interaction.zeroPoint;
 			var a = Interaction.a;
 			
+<<<<<<< HEAD
+=======
+			var cubes = [];
+>>>>>>> origin/abdullah-dev
 			var zCubes, xCubes, yCubes;
 			do
 				xCubes = Math.floor(Math.random()*4)+3;
@@ -143,12 +158,17 @@ var Interaction = {
 				yCubes = Math.floor(Math.random()*3)+1;
 				while(Interaction.yCubes == yCubes)
 			do
+<<<<<<< HEAD
 				zCubes = Math.floor(Math.random()*3)+1;
+=======
+				zCubes = Math.floor(Math.random()*7)+1;
+>>>>>>> origin/abdullah-dev
 			while(zCubes/4 > xCubes-2 || Interaction.zCubes == zCubes)
 			
 			Interaction.xCubes = xCubes;
 			Interaction.yCubes = yCubes;
 			Interaction.zCubes = zCubes;
+<<<<<<< HEAD
             
 			Interaction.cubes = Interaction.generateShape(randomNumber);
 //			Interaction.cubes = Interaction.generateShape(4);
@@ -200,6 +220,21 @@ var Interaction = {
             }
             return cubes;
         },
+=======
+			
+			//console.log(xCubes,yCubes,zCubes);
+
+			for(var i=0; i< xCubes ; i++)
+				cubes.push(new UnitCube(i-1,0,0));
+			for(var i=0; i< yCubes ; i++)
+				cubes.push(new UnitCube(0,i+1,0));
+			for(var i=0; i< zCubes ; i++)
+				cubes.push(new UnitCube(Math.floor(i/3),0,i%3+1));
+			
+			Interaction.cubes = cubes;
+			UnitCube.drawCubes(cubes,zero,a,Interaction);
+		},
+>>>>>>> origin/abdullah-dev
 	showCubes : function(distance){
 			if(Interaction.pause == true)
 				return;
@@ -248,8 +283,13 @@ var Interaction = {
 		},
 	onFail : function(){
 			Interaction.setStatus('Yanlış cevap, doğrusu '+Interaction.cubes.length + ' olacaktı.',false);
+<<<<<<< HEAD
 			Interaction.showCubes(10);
 		}
+=======
+			Interaction.showCubes(20);
+		},
+>>>>>>> origin/abdullah-dev
 };
 
 function UnitCube(x,y,z){

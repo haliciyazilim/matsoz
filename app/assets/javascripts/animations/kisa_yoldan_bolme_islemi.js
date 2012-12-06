@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 function __Styles(){
 	animationDivisionStyle = {
@@ -14,6 +15,19 @@ function __Styles(){
     if(navigator.appName == "Microsoft Internet Explorer"){
 		animationDivisionStyle.fontFamily = "arial";
 	}
+=======
+function __Styles(){
+	animationDivisionStyle = {
+		width:'130px',
+		position:'absolute',
+		top:'55px',
+		left:'60px',
+		fontSize:'23px',
+		color:'#fff',
+		fontFamily:"'Homemade Apple', cursive",
+		opacity:0
+	}
+>>>>>>> origin/abdullah-dev
 }
 
 var Animation = {
@@ -28,6 +42,10 @@ var Animation = {
 			var board = new Raster('board');
 			board.position = new Point(Math.floor(w*0.5),Math.floor(h*0.5)+2)
 			
+<<<<<<< HEAD
+=======
+			$('head').append("<link href='http://fonts.googleapis.com/css?family=Homemade+Apple' rel='stylesheet' type='text/css'>");
+>>>>>>> origin/abdullah-dev
 			
 			var div = document.createElement('div');
 			$(container).append(div);
@@ -70,7 +88,11 @@ var Animation = {
 			$(container).append(div2);
 			$(div2)
 				.css(animationDivisionStyle)
+<<<<<<< HEAD
 				.css({left:'260px', width:'190px'})
+=======
+				.css({ left:'260px', width:'160px'})
+>>>>>>> origin/abdullah-dev
 				.delay(7000)
 				.animate({opacity:0.9},1000);
 			Animation.division2 = new LongDivision(4581,9,div2);
@@ -110,7 +132,11 @@ var Animation = {
 			$(container).append(div3);
 			$(div3)
 				.css(animationDivisionStyle)
+<<<<<<< HEAD
 				.css({left:'460px', width:'220px'})
+=======
+				.css({ left:'460px', width:'190px'})
+>>>>>>> origin/abdullah-dev
 				.delay(11000)
 				.animate({opacity:0.9},1000);
 			Animation.division3 = new LongDivision(4581,9,div3);
@@ -140,7 +166,10 @@ var Animation = {
 			setTimeout(
 				'Animation.division3.nextStep(2000);'
 				,11000);
+<<<<<<< HEAD
             Main.animationFinished(15000)
+=======
+>>>>>>> origin/abdullah-dev
 		}
 }
 
@@ -174,7 +203,11 @@ var Interaction = {
 					position:'absolute',
 					top:'50px',
 					left:'100px',
+<<<<<<< HEAD
 					width:'260px',
+=======
+					width:'250px',
+>>>>>>> origin/abdullah-dev
 					height:'80px',
 					fontSize:'28px'
 				});
@@ -286,6 +319,10 @@ var Interaction = {
 				}
 			}
 			setTimeout(callNextStep,500);
+<<<<<<< HEAD
 		}
+=======
+		},
+>>>>>>> origin/abdullah-dev
 }
 

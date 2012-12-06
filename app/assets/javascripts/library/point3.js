@@ -32,6 +32,7 @@ Point3.prototype.add = function(other) {
 	);
 }
 
+<<<<<<< HEAD
 Point3.prototype.swapXZ = function() {
 	return new Point3(
 		this.z,
@@ -40,6 +41,8 @@ Point3.prototype.swapXZ = function() {
 	);
 }
 
+=======
+>>>>>>> origin/abdullah-dev
 Point3.prototype.normalize = function(){
 	return this.setLength(1);
 }
@@ -54,6 +57,7 @@ Point3.prototype.length = function(){
 
 Point3.prototype.setLength = function(length){
 	var factor = length/this.norm();
+<<<<<<< HEAD
 		
 	return this.scale(factor);
 }
@@ -62,6 +66,12 @@ Point3.prototype.scale = function(scale) {
 	this.x = this.x*scale;
 	this.y = this.y*scale;
 	this.z = this.z*scale;
+=======
+	
+	this.x = this.x*factor;
+	this.y = this.y*factor;
+	this.z = this.z*factor;		
+>>>>>>> origin/abdullah-dev
 	
 	return this;
 }

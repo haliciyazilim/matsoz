@@ -5,6 +5,7 @@ var AnimationManager = function(){
 	AnimationManager.interactionAnimations = [];	
 }
 
+<<<<<<< HEAD
 AnimationManager.delay = function (func, delay) {
 	var animationHelper = new AnimationHelper({});
 	animationHelper.animate({
@@ -15,6 +16,8 @@ AnimationManager.delay = function (func, delay) {
 	});
 }
 
+=======
+>>>>>>> origin/abdullah-dev
 AnimationManager.Animation = function (item, animationHash) {
 	this.item = item;
 	
@@ -62,6 +65,7 @@ AnimationManager.Animation = function (item, animationHash) {
 		} else if (this.animationType == 'easeInOutQuad') { // From jQuery
 			if (ratio < 0.5) return 2*ratio*ratio;
 			return ratio * (4 - 2*ratio) - 1;
+<<<<<<< HEAD
 		} else if (this.animationType == 'easeOutBounce') { // From jQuery
 			// t: current time, b: begInnIng value, c: change In value, d: duration
 			
@@ -90,6 +94,8 @@ AnimationManager.Animation = function (item, animationHash) {
 			
 			
 			
+=======
+>>>>>>> origin/abdullah-dev
 		} else if (this.animationType == 'custom') {
 			return this.mappingFunction(ratio);
 		} else {
@@ -175,11 +181,14 @@ AnimationManager.update = function(event) {
 							var x = startValue.x + (endValue.x - startValue.x) * ratio;
 							var y = startValue.y + (endValue.y - startValue.y) * ratio;
 							animation.item[key] = new Point(x, y);
+<<<<<<< HEAD
 						} else if (startValue instanceof Point3) {
 							var x = startValue.x + (endValue.x - startValue.x) * ratio;
 							var y = startValue.y + (endValue.y - startValue.y) * ratio;
 							var z = startValue.z + (endValue.z - startValue.z) * ratio;
 							animation.item[key] = new Point(x, y);							
+=======
+>>>>>>> origin/abdullah-dev
 						} else if (startValue instanceof RgbColor) {
 							var red = startValue.red + (endValue.red - startValue.red) * ratio;
 							var green = startValue.green + (endValue.green - startValue.green) * ratio;

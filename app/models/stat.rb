@@ -29,6 +29,7 @@ class Stat < ActiveRecord::Base
       
     stories = responseHash['stories']
       
+<<<<<<< HEAD
     hash = {
       :accepted => 0,
       :delivered => 0,
@@ -41,6 +42,13 @@ class Stat < ActiveRecord::Base
     stories.each do |story|
       state = story['current_state'].to_sym
       hash[state] += 1
+=======
+    hash = {}
+    
+    stories.each do |story|
+      state = story['current_state'].to_sym
+      hash[state] ? hash[state] += 1 : hash[state] = 1
+>>>>>>> origin/abdullah-dev
     end
     
     date = Date.current()

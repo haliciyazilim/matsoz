@@ -166,10 +166,16 @@ var Animation = {
 					},
 					duration:1000,
 					delay:4500,
+<<<<<<< HEAD
 					animationType: 'easeInEaseOut',
 				});
 			}
 			Main.animationFinished(6000);
+=======
+					animationType: 'easeInEaseOut'
+				});
+			}
+>>>>>>> origin/abdullah-dev
 			
 		}
 }
@@ -186,7 +192,11 @@ var Interaction = {
 			}
 			
 			Interaction.appendInput({
+<<<<<<< HEAD
 				width: '36px',
+=======
+				width: '30px',
+>>>>>>> origin/abdullah-dev
 				height: '32px',
 				textAlign: 'center',
 				position: 'absolute',
@@ -196,7 +206,11 @@ var Interaction = {
 			});
 			
 			Interaction.appendInput({
+<<<<<<< HEAD
 				width: '36px',
+=======
+				width: '30px',
+>>>>>>> origin/abdullah-dev
 				height: '32px',
 				textAlign: 'center',
 				position: 'absolute',
@@ -206,7 +220,11 @@ var Interaction = {
 			});
 			
 			$(Interaction.inputs[0]).attr('maxlength', '2')
+<<<<<<< HEAD
 			$(Interaction.inputs[1]).attr('maxlength', '3')
+=======
+			$(Interaction.inputs[1]).attr('maxlength', '2')
+>>>>>>> origin/abdullah-dev
 			
 			var questionDiv = document.createElement('div')
 			questionDiv.id = 'questionDiv';
@@ -279,7 +297,11 @@ var Interaction = {
 				.css({
 					padding: 0,
 					borderTop: "2px solid",
+<<<<<<< HEAD
 					width: "42px",
+=======
+					width: "36px",
+>>>>>>> origin/abdullah-dev
 					height: "1px",
 					position: "absolute",
 					left: "148px",
@@ -337,5 +359,9 @@ var Interaction = {
 			Interaction.inputs[1].value = Interaction.denom1 * Interaction.denom2;
 			Interaction.inputs[0].style.color = "green";
 			Interaction.inputs[1].style.color = "green";	
+<<<<<<< HEAD
 		}
+=======
+		},
+>>>>>>> origin/abdullah-dev
 }

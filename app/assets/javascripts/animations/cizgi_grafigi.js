@@ -75,7 +75,11 @@ Animation.init = function(container) {
 			}
 			
 			line1 = new Path.Line(graph.getXYCoordinate(0,0), this.line1End);
+<<<<<<< HEAD
 			line1.strokeColor = '#8b5400';
+=======
+			line1.strokeColor = '#262626';
+>>>>>>> origin/abdullah-dev
 			line1.strokeWidth = 2;
 		}
 	});
@@ -92,7 +96,11 @@ Animation.init = function(container) {
 			}
 			
 			line2 = new Path.Line(graph.getXYCoordinate(2,2), this.line2End);
+<<<<<<< HEAD
 			line2.strokeColor = '#8b5400';
+=======
+			line2.strokeColor = '#262626';
+>>>>>>> origin/abdullah-dev
 			line2.strokeWidth = 2;
 		}
 	});
@@ -109,7 +117,11 @@ Animation.init = function(container) {
 			}
 			
 			line3 = new Path.Line(graph.getXYCoordinate(3,2), this.line3End);
+<<<<<<< HEAD
 			line3.strokeColor = '#8b5400';
+=======
+			line3.strokeColor = '#262626';
+>>>>>>> origin/abdullah-dev
 			line3.strokeWidth = 2;
 		}
 	});
@@ -173,6 +185,7 @@ Animation.init = function(container) {
 	
 	// Clock
 	kadran = new Raster("kadran");
+<<<<<<< HEAD
 	kadran.position = new Point(192,48);
 	
 	yelkovan = new Raster("yelkovan");
@@ -180,6 +193,15 @@ Animation.init = function(container) {
 	
 	akrep = new Raster("akrep");
 	akrep.position = new Point(192,48);
+=======
+	kadran.position = new Point(48,48);
+	
+	yelkovan = new Raster("yelkovan");
+	yelkovan.position = new Point(48,48);
+	
+	akrep = new Raster("akrep");
+	akrep.position = new Point(48,48);
+>>>>>>> origin/abdullah-dev
 	
 	clockHelper = new AnimationHelper({
 		yelkovanAngle: 0,
@@ -198,18 +220,30 @@ Animation.init = function(container) {
 		duration: 8000,
 		update: function() {
 			var matrix = new Matrix();
+<<<<<<< HEAD
 			matrix.rotate(this.akrepAngle, 192, 48);
+=======
+			matrix.rotate(this.akrepAngle, 48, 48);
+>>>>>>> origin/abdullah-dev
 			matrix.concatenate(akrep.lastTransformation);
 			
 			akrep.setMatrix(matrix);
 			
 			matrix = new Matrix();
+<<<<<<< HEAD
 			matrix.rotate(this.yelkovanAngle, 192, 48);
 			matrix.concatenate(yelkovan.lastTransformation);
 			
 			yelkovan.setMatrix(matrix);
 		},
 		callback: Main.animationFinished
+=======
+			matrix.rotate(this.yelkovanAngle, 48, 48);
+			matrix.concatenate(yelkovan.lastTransformation);
+			
+			yelkovan.setMatrix(matrix);
+		}
+>>>>>>> origin/abdullah-dev
 	})
 }
 
@@ -314,7 +348,11 @@ interactionInit = function(container) {
 				correctCircle.remove();
 			}
 			correctCircle = new Path.Circle(graph.getXYCoordinate(randomDay, data[randomDay] - 90), 6);
+<<<<<<< HEAD
 			correctCircle.fillColor = 'green';
+=======
+			correctCircle.fillColor = 'red';
+>>>>>>> origin/abdullah-dev
 			
 			$('#status').html('<span class="status_true">Tebrikler!</span>');
 			$('#submitButton').get(0).className = "next_button";
@@ -337,7 +375,11 @@ interactionInit = function(container) {
 					correctCircle.remove();
 				}
 				correctCircle = new Path.Circle(graph.getXYCoordinate(randomDay, data[randomDay] - 90), 6);
+<<<<<<< HEAD
 				correctCircle.fillColor = 'green';
+=======
+				correctCircle.fillColor = 'red';
+>>>>>>> origin/abdullah-dev
 				$('#status').html('<span class="status_false">Olmadı!</span>');
 				$('#textInput').val(correctAnswer);
 				$('#submitButton').get(0).className = "next_button";
@@ -378,6 +420,7 @@ interactionInit = function(container) {
 paperAddOns = function () {
 	
 	
+<<<<<<< HEAD
 	Path.LineGraph = function(point, width, height, chart, style) {
 		if (style == undefined) {
 			style = {
@@ -388,6 +431,9 @@ paperAddOns = function () {
 			}
 		}
 		
+=======
+	Path.LineGraph = function(point, width, height, chart) {
+>>>>>>> origin/abdullah-dev
 		var group = new Group();
 		
 		var gridStartOffset = 0;
@@ -423,30 +469,49 @@ paperAddOns = function () {
 		for (index = 0; index < numOfXPoints; index++) {
 			gridLine = new Path.Line(new Point(xStep * index + xStart, yStart + gridStartOffset), new Point(xStep * index + xStart, yStep * (numOfYPoints - 1) + yStart - 10));
 			gridLine.strokeWidth = 1;
+<<<<<<< HEAD
 			gridLine.strokeColor = style.gridColor;
+=======
+			gridLine.strokeColor = 'gray';
+>>>>>>> origin/abdullah-dev
 			group.addChild(gridLine);
 		}
 		
 		for (index = 0; index < numOfYPoints; index++) {
 			gridLine = new Path.Line(new Point(xStart - gridStartOffset, index * yStep + yStart), new Point(xStep * (numOfXPoints-1) + xStart + 10, index * yStep + yStart));
 			gridLine.strokeWidth = 1;
+<<<<<<< HEAD
 			gridLine.strokeColor = style.gridColor;
+=======
+			gridLine.strokeColor = 'gray';
+>>>>>>> origin/abdullah-dev
 			group.addChild(gridLine);
 		}
 		
 		// Grid Labels
 		for (index = 0; index < numOfXPoints; index++) {
+<<<<<<< HEAD
 			var xOffset = -3 + 6;
 			var yOffset = 15;
 			
 			if (xGridLabelStyle.rotation == 90) {
 				xOffset = 2.5 + 5;
+=======
+			var xOffset = -3;
+			var yOffset = 15;
+			
+			if (xGridLabelStyle.rotation == 90) {
+				xOffset = 2.5;
+>>>>>>> origin/abdullah-dev
 				yOffset = 5.5;
 			}
 			
 			var text = new PointText(new Point(xStart + index*xStep + xOffset, yStart + yOffset + gridStartOffset));
 			text.set_style(xGridLabelStyle);
+<<<<<<< HEAD
 			text.fillColor = style.textColor;
+=======
+>>>>>>> origin/abdullah-dev
 			text.content = chart.xLabels[index];
 			if (xGridLabelStyle.rotation) {
 			 	text.rotate(xGridLabelStyle.rotation);
@@ -457,7 +522,10 @@ paperAddOns = function () {
 		for (index = 0; index < numOfYPoints; index++) {
 			var text = new PointText(new Point(xStart - 10 - gridStartOffset, yStart + index*yStep + 1));
 			text.set_style(yGridLabelStyle);
+<<<<<<< HEAD
 			text.fillColor = style.textColor;
+=======
+>>>>>>> origin/abdullah-dev
 			text.content = (yMax - yMin) / (numOfYPoints-1) * index + yMin;
 			group.addChild(text);
 		}
@@ -465,6 +533,7 @@ paperAddOns = function () {
 		// Axes
 		origin = new Point(point.add([0, height]));
 		
+<<<<<<< HEAD
 		xAxis = new Path.OneSidedArrow(origin, origin.add([width + 10 + gridStartOffset, 0]),10, 18);
 		xAxis.strokeWidth = 2;
 		xAxis.fillColor = style.axisColor;
@@ -474,6 +543,13 @@ paperAddOns = function () {
 		yAxis.strokeWidth = 2;
 		yAxis.fillColor = style.axisColor;		
 		yAxis.strokeColor = style.axisColor;
+=======
+		xAxis = new Path.OneSidedArrow(origin, origin.add([width + 10 + gridStartOffset, 0]),15, 30);
+		xAxis.strokeWidth = 4;
+		
+		yAxis = new Path.OneSidedArrow(origin, origin.add([0, -height - 10 - gridStartOffset]),15, 30);
+		yAxis.strokeWidth = 4;
+>>>>>>> origin/abdullah-dev
 		
 		group.addChild(xAxis);
 		group.addChild(yAxis);
@@ -521,7 +597,11 @@ paperAddOns = function () {
 			path.lineTo(new Point((xStep * index + xStart), ((chart.data[index] - yMin) * yStep + yStart)));
 		}
 		path.strokeWidth = 2;
+<<<<<<< HEAD
 		path.strokeColor = style.lineColor;
+=======
+		path.strokeColor = 'black';
+>>>>>>> origin/abdullah-dev
 		
 		group.addChild(path);
 		

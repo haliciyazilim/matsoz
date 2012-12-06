@@ -272,8 +272,12 @@ var Animation = {
 				raster.animate({
 					style:{opacity:1},
 					duration:1000,
+<<<<<<< HEAD
 					delay:500,
                     callback:Main.animationFinished
+=======
+					delay:500
+>>>>>>> origin/abdullah-dev
 
 				});
 			}
