@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 function __Styles(){
     textStyle = {
         'font-size':'16px',
@@ -15,29 +14,6 @@ function __Styles(){
         'stroke-width': '2px'
     };
 }
-=======
-// JavaScript Document
-
-/*Styles*/
-
-var textStyle = {
-	'font-size':'16px',
-	'text-color': '#55f'
-};
-var lineStyle = {
-	strokeColor:"#000",
-	strokeWidth:1
-}
-var circleStyle = {
-	strokeColor:"#000"
-};
-var angleStyle = {
-	'stroke-width': '2px'
-};
-
-
-/*Styles*/
->>>>>>> origin/abdullah-dev
 var Animation = {
 	init:function(container){
 		Animation.container = container;
@@ -72,28 +48,17 @@ var Animation = {
 		};
 		Animation.onFrame = function(event){
 			var x=p1.x,y=p1.y;
-<<<<<<< HEAD
             var dot;
-=======
->>>>>>> origin/abdullah-dev
 			if(animationHelper.angle > animationHelper.nextDot){
 				x += R*Math.cos(Util.degreeToRadians(animationHelper.nextDot));
 				y += R*Math.sin(Util.degreeToRadians(animationHelper.nextDot));
 				if(animationHelper.angle > 360)
-<<<<<<< HEAD
 					dot = new Path.Circle(
-=======
-					var dot = new Path.Circle(
->>>>>>> origin/abdullah-dev
 						new Point(x,y),
 						3
 					);
 				else
-<<<<<<< HEAD
 					dot = new Path.Circle(
-=======
-					var dot = new Path.Circle(
->>>>>>> origin/abdullah-dev
 						new Point(x,y),
 						3
 					);
@@ -178,14 +143,9 @@ var Animation = {
 					'</div>'
 				);
 				$('div#result',Animation.container).css({opacity:0});
-<<<<<<< HEAD
 				$('div#result',Animation.container).animate({opacity:1},1000,Main.animationFinished)
 				Animation.onFrame = null;
                 
-=======
-				$('div#result',Animation.container).animate({opacity:1},1000)
-				Animation.onFrame = null;
->>>>>>> origin/abdullah-dev
 			}
 		}
 		animationHelper.animate({
@@ -226,11 +186,7 @@ var Animation = {
 		});
 	}
 };
-<<<<<<< HEAD
 var Interaction = {};
-=======
-var Interaction = function(){}; Interaction();
->>>>>>> origin/abdullah-dev
 Interaction.getFramework = function() {
 	return 'paper';
 }
@@ -287,11 +243,7 @@ Interaction.init = function(container){
 	Interaction.status.className = "status_true";
 	$(Interaction.status).css({
 		position:'absolute',
-<<<<<<< HEAD
 		left:'30px',
-=======
-		left:Interaction.paper.width*0.05,
->>>>>>> origin/abdullah-dev
 		top:Interaction.paper.height*0.6,
 		width:'40%'
 	});
@@ -307,13 +259,8 @@ Interaction.pause = false;
 Interaction.setRadius = function(r){
 	$(Interaction.radius).hide();
 	Interaction.r = r;
-<<<<<<< HEAD
 	if(r/Interaction.br - Math.floor(r/Interaction.br)< 0.1)
 		Interaction.radius.innerHTML = Math.floor(r/Interaction.br);
-=======
-	if(r/Interaction.br == Math.floor(r/Interaction.br))
-		Interaction.radius.innerHTML = r/Interaction.br;
->>>>>>> origin/abdullah-dev
 	else
 		Interaction.radius.innerHTML = Util.numberTurkishFloating(r/Interaction.br,1);
 	$(Interaction.radius).show();
@@ -352,7 +299,6 @@ Interaction.drawCircle = function(){
 				clearTimeout(Interaction.drawCircle.t);
 				Interaction.drawCircle._o = 359.9;
 				Interaction.pause = false;
-<<<<<<< HEAD
 				Interaction.drawCircle.textO = new PointText(new Point(Interaction.drawCircle.x-11,Interaction.drawCircle.y+10));
 				Interaction.drawCircle.textO.content = "O";
 				
@@ -363,16 +309,6 @@ Interaction.drawCircle = function(){
                 }
 				else
 					Interaction.drawCircle.textR.position = Interaction.drawCircle.textR.position.add(Interaction.r,20);
-=======
-				Interaction.drawCircle.textO = new PointText(new Point(Interaction.drawCircle.x-10,Interaction.drawCircle.y+10));
-				Interaction.drawCircle.textO.content = "O";
-				var textRPoint = new Point(Interaction.drawCircle.x+Interaction.r*0.2,Interaction.drawCircle.y+15);
-				if(Interaction.r/Interaction.br > 4)
-					textRPoint = textRPoint.add(+Interaction.r*0.2,+15);
-				else
-					textRPoint = textRPoint.add(Interaction.r,10);
-				Interaction.drawCircle.textR = new PointText(textRPoint);
->>>>>>> origin/abdullah-dev
 					
 				Interaction.drawCircle.textR.content = "r = "+(Interaction.radius.innerHTML);
 				Interaction.drawCircle.lineR = new Path.Line(new Point(Interaction.drawCircle.x,Interaction.drawCircle.y),new Point(Interaction.drawCircle.x+Interaction.r,Interaction.drawCircle.y));
@@ -462,11 +398,7 @@ Interaction.drawCircle = function(){
 
 
 Interaction.initCompass = function(){
-<<<<<<< HEAD
 	Interaction.compass = new Compass(Interaction.ruler.bounds.x+9,Interaction.ruler.bounds.y);
-=======
-	Interaction.compass = new Compass(Interaction.ruler.bounds.x+2,Interaction.ruler.bounds.y);
->>>>>>> origin/abdullah-dev
 	Interaction.compass.right.class = "right_leg";
 
 	Interaction.drawCompass(Interaction.br*3.5);
@@ -499,7 +431,6 @@ Interaction.drawCompass = function(dx){
 
 Interaction.drawRuler = function(){
 	var x,y,w,h,b,st;
-<<<<<<< HEAD
 	x = 30;
 	y = Interaction.paper.height*0.4;
 	Interaction.ruler = new Raster('ruler');
@@ -508,22 +439,8 @@ Interaction.drawRuler = function(){
 		Math.floor(y+Interaction.ruler.size.height*0.5)+0.5
 	);
 	Interaction.br = 12;
-=======
-	x = Interaction.paper.width*0.02;
-	y = Interaction.paper.height*0.4;
-	Interaction.ruler = new Raster('ruler');
-	Interaction.ruler.position = [
-		Math.floor(x+Interaction.ruler.size.width*0.5),
-		Math.floor(y+Interaction.ruler.size.height*0.5)+0.5
-	];
-	Interaction.br = Math.floor(Interaction.ruler.size.width*0.1);
->>>>>>> origin/abdullah-dev
 
 	var _y1 = y+h*0.6;
 	var _yt = y+h*0.4;
 	var _y2 = y+h;
-<<<<<<< HEAD
 };
-=======
-};
->>>>>>> origin/abdullah-dev

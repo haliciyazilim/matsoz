@@ -550,12 +550,8 @@ Animation.init = function(container) {
 		},
 		duration: duration,
 		delay: totalDelay += duration + delay,
-<<<<<<< HEAD
 		animationType: 'easeInEaseOut',
 		callback: Main.animationFinished
-=======
-		animationType: 'easeInEaseOut'
->>>>>>> origin/abdullah-dev
 	});
 }
 

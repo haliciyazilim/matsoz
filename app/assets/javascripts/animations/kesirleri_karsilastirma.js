@@ -444,10 +444,7 @@ var Animation = {
 					delay: dotGroup2Start+(smallDotFadeInDuration*i),
 					animationType: 'easeInEaseOut'
 				});
-<<<<<<< HEAD
 			}
-=======
->>>>>>> origin/abdullah-dev
 			
 			redDot.animate({
 				style: {
@@ -463,15 +460,9 @@ var Animation = {
 				},
 				duration: 0,
 				delay: redDotStart,
-<<<<<<< HEAD
 				animationType: 'easeInEaseOut',
 			});
 			Main.animationFinished(20000);
-=======
-				animationType: 'easeInEaseOut'
-			});
-	}
->>>>>>> origin/abdullah-dev
 			
 				
 		}
@@ -508,10 +499,7 @@ var Interaction = {
 							.css("width", "40px")
 							.css("float", "left")
 							.css("line-height", "32px")
-<<<<<<< HEAD
 							.css("cursor","pointer");
-=======
->>>>>>> origin/abdullah-dev
 			
 			$('#lessThan').css("position", "absolute")
 							.css("top", "0px")
@@ -529,10 +517,7 @@ var Interaction = {
 							.css("width", "40px")
 							.css("float", "left")
 							.css("line-height", "32px")
-<<<<<<< HEAD
 							.css("cursor","pointer");
-=======
->>>>>>> origin/abdullah-dev
 			
 			$('#equalTo').css("position", "absolute")
 							.css("top", "0px")
@@ -550,10 +535,7 @@ var Interaction = {
 							.css("width", "40px")
 							.css("float", "left")
 							.css("line-height", "32px")
-<<<<<<< HEAD
 							.css("cursor","pointer");
-=======
->>>>>>> origin/abdullah-dev
 			
 			$('#greaterThan').css("position", "absolute")
 							.css("top", "0px")
@@ -567,29 +549,18 @@ var Interaction = {
 			$('#sortingDiv .drg').draggable({
 				revert: "invalid",
 				helper: "clone",
-<<<<<<< HEAD
 				cursor: "pointer",
-=======
->>>>>>> origin/abdullah-dev
 				stack: "#sortingDiv .drg",
 				disabled: "false",
 				start: function(event, ui){
 					Interaction.setStatus('');
-<<<<<<< HEAD
 					$($(ui.helper.get(0)).siblings(this)[1]).css("opacity", 0)
-=======
-					$($(ui.helper.get(0)).siblings(this).get(1)).css("opacity", 0)
->>>>>>> origin/abdullah-dev
 					$(ui.helper.get(0)).css("opacity", 1)
 				},
 				stop: function(event, ui){
 					$(ui.helper.get(0)).css("opacity", 0)
 					if(this.id != Interaction.oldStr+"Hover"){
-<<<<<<< HEAD
 						$($(ui.helper.get(0)).siblings(this)[1]).css("opacity", 1)
-=======
-						$($(ui.helper.get(0)).siblings(this).get(1)).css("opacity", 1)
->>>>>>> origin/abdullah-dev
 					}
 				}
 			});
@@ -640,11 +611,7 @@ var Interaction = {
 							position: 'absolute',
 							left: '211px',
 							top: '68px',
-<<<<<<< HEAD
 							padding: 0,
-=======
-							paddin: 0,
->>>>>>> origin/abdullah-dev
 							margin: 0,
 						});
 			$(Interaction.dropDiv).append('<div id="targetContainer"><img src="/assets/animations/kesirleri_karsilastirma/oran_hedef.png" id="target" /></div>')
@@ -658,10 +625,7 @@ var Interaction = {
 						.css("left", "0px")
 			$(Interaction.dropDiv).droppable({
 						accept: '.drg',
-<<<<<<< HEAD
 						tolerance: 'pointer',
-=======
->>>>>>> origin/abdullah-dev
 						drop: function(event, ui){
 							if(Interaction.oldActiveStr){
 								$("#"+Interaction.oldActiveStr).css("opacity", 0)
@@ -716,10 +680,7 @@ var Interaction = {
 			Interaction.prepareNextQuestion();
 		},
 	nextQuestion: function(randomNumber){
-<<<<<<< HEAD
             Interaction.trial += 1;
-=======
->>>>>>> origin/abdullah-dev
 			if(Interaction.numericalAxis)
 				Interaction.numericalAxis.remove();
 			if($('#pointDiv'))
@@ -1311,11 +1272,7 @@ var Interaction = {
 		
 		setTimeout(
 				'Interaction.pause = 0;'
-<<<<<<< HEAD
 				,1500);
-=======
-				,2000);
->>>>>>> origin/abdullah-dev
 		
 		Interaction.numericalAxis = new Group();
 		
@@ -1333,11 +1290,7 @@ var Interaction = {
 		// bigDots
 		var bigDots = new Group();
 		for(i = 0; i < iter + 1; i++){
-<<<<<<< HEAD
 			var dot = new Path.Circle(new Point(80+(pieceLength*i), 180), 5);
-=======
-			var dot = new Path.Circle(new Point(80+(pieceLength*i), 180), 4);
->>>>>>> origin/abdullah-dev
 			dot.fillColor = "black";
 			bigDots.addChild(dot);
 		}
@@ -1345,11 +1298,7 @@ var Interaction = {
 		var smallDots = new Group();
 		for(i = 0; i < iter; i++){
 			for(j = 1; j < piece; j++){
-<<<<<<< HEAD
 				var dot2 = new Path.Circle(new Point(80+(pieceLength*i)+Math.floor(j*(pieceLength/piece)), 180), 3);
-=======
-				var dot2 = new Path.Circle(new Point(80+(pieceLength*i)+Math.floor(j*(pieceLength/piece)), 180), 2);
->>>>>>> origin/abdullah-dev
 				dot2.fillColor = "black";
 				smallDots.addChild(dot2);
 			}

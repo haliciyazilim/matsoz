@@ -85,20 +85,12 @@ function InteractionBase(){
 			.css({
 				position:'absolute'
 			})
-<<<<<<< HEAD
         $(input).css(css);
         $(Interaction.container).append(input);
 		if(Interaction.inputs.length == 0)
 			Interaction.input = input;
 		Interaction.inputs.push(input);
 
-=======
-		if(Interaction.inputs.length == 0)
-			Interaction.input = input;
-		Interaction.inputs.push(input);
-		$(Interaction.container).append(input);
-		$(input).css(css);
->>>>>>> origin/abdullah-dev
 		return input;
 	};
 	
@@ -173,13 +165,8 @@ function InteractionBase(){
 					Interaction.button.click();
 			})
 			.css({
-<<<<<<< HEAD
 				width:(parseInt($(input).css('font-size'),10)*(maxLength*0.5+0.5))+"px",
 				height:(parseInt($(input).css('font-size'),10)*1.2)+"px"
-=======
-				width:(parseInt($(".input").css('font-size'),10)*(maxLength*0.5+0.5))+"px",
-				height:(parseInt($(".input").css('font-size'),10)*1.2)+"px"
->>>>>>> origin/abdullah-dev
 			});
 			
 		if (css) {
@@ -263,11 +250,7 @@ function InteractionBase(){
 			Interaction.nextQuestion();
 		
 		try{
-<<<<<<< HEAD
 //			Interaction.inputs[0].focus();
-=======
-			Interaction.inputs[0].focus();
->>>>>>> origin/abdullah-dev
 		}
 		catch(e){}
 	};
@@ -277,11 +260,7 @@ function InteractionBase(){
 		if(Interaction.preCheck && Interaction.preCheck() === false)
 			return;
 		var isCorrect;
-<<<<<<< HEAD
 		if(Interaction.__inputVersion == 2){	// addInput()
-=======
-		if(Interaction.__inputVersion == 2){
->>>>>>> origin/abdullah-dev
 			isCorrect = true;
 			for(var i=0; i<Interaction.inputs.length;i++){
 				var value = Interaction.inputs[i].value;
@@ -304,15 +283,12 @@ function InteractionBase(){
 				else
 					isInputCorrect = (value == Interaction.inputs[i].correctAnswer);
 				
-<<<<<<< HEAD
 				$(Interaction.inputs[i]).get(0).onfocus = function () {
 					$(this).removeClass('input_user_answer_correct');
 					$(this).removeClass('input_user_answer_wrong');
 					$(this).removeClass('input_correct_answer');
 				}
 				
-=======
->>>>>>> origin/abdullah-dev
 				if(isInputCorrect === true){
 					$(Interaction.inputs[i]).addClass('input_user_answer_correct');
 				}
@@ -365,43 +341,29 @@ function InteractionBase(){
 			
 			if(Interaction.onCorrectAnswer)
 				Interaction.onCorrectAnswer();
-<<<<<<< HEAD
 				
 //				Main.correctSound.play();
-=======
->>>>>>> origin/abdullah-dev
 		}
 		else if(Interaction.trial == 0){
 			Interaction.__status(Interaction.__status.WRONG);
 			if(Interaction.onWrongAnswer)
 				Interaction.onWrongAnswer();
-<<<<<<< HEAD
 				
 //			Main.wrongSound.play();
 		}
 		else{
 			$(Interaction.inputs).each(function(index, element) {
 				$(this).get(0).onfocus = null;
-=======
-		}
-		else{
-			$(Interaction.inputs).each(function(index, element) {
->>>>>>> origin/abdullah-dev
             	$(this).get(0).onkeydown = function(event){
 					if(event.keyCode != 13)
 						return false;
 				}   
             });
-<<<<<<< HEAD
 
 			if(Interaction.onFail)
 				Interaction.onFail();
 				
 //			Main.wrongSound.play();
-=======
-			if(Interaction.onFail)
-				Interaction.onFail();
->>>>>>> origin/abdullah-dev
 		}
 		if(isCorrect || Interaction.trial > 0){
 			Interaction.button.onclick = Interaction.prepareNextQuestion;
@@ -428,15 +390,8 @@ function InteractionBase(){
 			return false;
 		}
 	};
-<<<<<<< HEAD
 	Interaction.pause = function(delay){
 		if(delay == undefined || isNaN(delay))
-=======
-	
-	
-	Interaction.pause = function(delay){
-		if(delay == undefined || isNan(delay))
->>>>>>> origin/abdullah-dev
 			delay = 0;
 		if(delay == 0)
 			Interaction.__isPaused = true;

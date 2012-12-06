@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 var __Styles = function (){
 	textRectStyle = {
 		fillColor:'#e6c181',
@@ -51,40 +50,6 @@ var Animation = {
 				return group;
 			}
 			var createNumber = function (p,arr,delay){
-=======
-var textRectStyle = {
-	fillColor:'#fd0',
-	strokeColor:'#000',
-	strokeWidth:2,
-	fontSize:24
-}
-var animationTextRectStyle = {
-	fillColor:'#fdd',
-	strokeColor:'#000',
-	strokeWidth:2,
-	fontSize:13
-}
-var questionTextStyle = {
-	fontSize:15,
-	justification:'center'
-}
-var Animation = {
-	init:function(container){
-			Animation.container = container;
-			Animation.referencePoint = new Point(100,15);
-			Animation.textRectSize = new Size(30,30);
-			function TextRect (p,s,t){
-				var rect = new Path.Rectangle(p,s);
-				var text = new PointText(p.add(s.width*0.5-animationTextRectStyle.fontSize*0.4,s.height*0.5+animationTextRectStyle.fontSize*0.5));
-				text.content = t;
-				var group = new Group();
-				group.addChild(rect);
-				group.addChild(text);
-				group.text = text;
-				return group;
-			}
-			function createNumber(p,arr,delay){
->>>>>>> origin/abdullah-dev
 				var shapes = [];
 				var group = new Group();
 				for(i=arr.length-1;i>=0;i--){
@@ -93,20 +58,11 @@ var Animation = {
 						Animation.textRectSize,
 						arr[i].text
 					);
-<<<<<<< HEAD
 					shape.text.fontSize = animationTextRectStyle.fontSize;
 					shape.textShadow.fontSize = animationTextRectStyle.fontSize;
 					shape.translate(arr[i].translate);
 					shape.translatePoint = new Point(0,0);
 					shape.firstPosition = shape.position;
-=======
-					shape.set_style(animationTextRectStyle);
-					shape.text.fontSize = animationTextRectStyle.fontSize;
-					shape.translate(arr[i].translate);
-					shape.translatePoint = new Point(0,0);
-					shape.firstPosition = shape.position;
-					//console.log("I'm here");
->>>>>>> origin/abdullah-dev
 					shape.opacity=1;
 					shape.animate({
 						init:function(){
@@ -116,10 +72,6 @@ var Animation = {
 						duration:1000,
 						animationType:'easeIn',
 						update:function(){
-<<<<<<< HEAD
-=======
-						//	console.log(this.opacity);
->>>>>>> origin/abdullah-dev
 							this.position = this.firstPosition.add(this.translatePoint);
 						},
 						delay:delay+300*i
@@ -127,12 +79,9 @@ var Animation = {
 					shapes.push(shape);
 					group.addChild(shape);
 				}
-<<<<<<< HEAD
 				var bar = new Raster('animation_number_bar');
 				bar.position = new Point(p.add(Animation.textRectSize.width*2.5,Animation.textRectSize.height+bar.bounds.height*0.5+1));
 				group.addChild(bar);
-=======
->>>>>>> origin/abdullah-dev
 			}
 			
 			createNumber(
@@ -147,11 +96,7 @@ var Animation = {
 				0
 			);
 
-<<<<<<< HEAD
 			var tP1 = new Point(-250,30);
-=======
-			var tP1 = new Point(200,50);
->>>>>>> origin/abdullah-dev
 			createNumber(
 				Animation.referencePoint.add(tP1),
 				[
@@ -163,11 +108,7 @@ var Animation = {
 				],
 				8000
 			);
-<<<<<<< HEAD
 			var tP1 = new Point(-150,100);
-=======
-			var tP1 = new Point(-50,100);
->>>>>>> origin/abdullah-dev
 			createNumber(
 				Animation.referencePoint.add(tP1),
 				[
@@ -179,11 +120,7 @@ var Animation = {
 				],
 				6000
 			);
-<<<<<<< HEAD
 			var tP1 = new Point(150,100);
-=======
-			var tP1 = new Point(300,100);
->>>>>>> origin/abdullah-dev
 			createNumber(
 				Animation.referencePoint.add(tP1),
 				[
@@ -195,11 +132,7 @@ var Animation = {
 				],
 				4000
 			);
-<<<<<<< HEAD
 			var tP1 = new Point(250,30);
-=======
-			var tP1 = new Point(400,10);
->>>>>>> origin/abdullah-dev
 			createNumber(
 				Animation.referencePoint.add(tP1),
 				[
@@ -211,23 +144,17 @@ var Animation = {
 				],
 				2000
 			);
-<<<<<<< HEAD
                 Main.animationFinished(10500);
-=======
->>>>>>> origin/abdullah-dev
 		} 
 }
 
 var Interaction = {
-<<<<<<< HEAD
 	images:[
 		{
 			id:'interaction_number_bar',
 			src:'/assets/animations/ondalik_kesir_olusturma/interaction_number_bar.png'
 		}
 	],
-=======
->>>>>>> origin/abdullah-dev
 	getFramework:function(){
 			return 'paper';
 		},
@@ -241,11 +168,7 @@ var Interaction = {
 	},
 	init:function(container){
 			Interaction.container = container;
-<<<<<<< HEAD
 			Main.setObjective('Yandaki rakamları ve virgül işaretini sürükleyerek istenen ondalık kesri oluşturunuz.');
-=======
-			Main.setObjective('Yandaki rakamları ve virgül işaretini fare ile sürükleyerek istenen ondalık kesri oluşturunuz.');
->>>>>>> origin/abdullah-dev
 			Interaction.paper = {
 				width:$(container).width(),
 				height:$(container).height()
@@ -254,7 +177,6 @@ var Interaction = {
 			Interaction.textRectSize = new Size(45,40);
 			Path.TextRect = function(p,s,t){
 				var rect = new Path.Rectangle(p,s);
-<<<<<<< HEAD
 				rect.set_style(textRectStyle);
 				var textPoint = p.add(s.width*0.5-textRectStyle.fontSize*0.4,s.height*0.5+textRectStyle.fontSize*0.5)
 				var textShadow = new PointText(textPoint.add(1,1));
@@ -281,30 +203,11 @@ var Interaction = {
             })
 			Interaction.appendStatus({
 				bottom:'30px',
-=======
-				var text = new PointText(p.add(s.width*0.5-textRectStyle.fontSize*0.4,s.height*0.5+textRectStyle.fontSize*0.5));
-				text.content = t;
-				var group = new Group();
-				group.addChild(rect);
-				group.addChild(text);
-				group.text = text;
-				group.rect = rect;
-				group.firstposition = group.position;
-				return group;
-			}
-			Interaction.appendButton({
-				bottom:'40px',
-				right:'40px'
-			});
-			Interaction.appendStatus({
-				bottom:'50px',
->>>>>>> origin/abdullah-dev
 				right:'160px'
 			});
 			
 			Interaction.questionText = new PointText(new Point(Interaction.paper.width*0.5,110));
 			Interaction.questionText.set_style(questionTextStyle);
-<<<<<<< HEAD
 			Interaction.createTool();
 			Interaction.createBar(new Point(300,175));
 			Interaction.setRandomGenerator(6);
@@ -320,29 +223,17 @@ var Interaction = {
 			var tool = new Tool();
 			tool.onMouseDown = function(event){
 				if(event.item && event.item.class == 'draggable' && !Interaction.isPaused() ){
-=======
-			
-			var div = document.createElement('div');
-			var tool = new Tool();
-			tool.onMouseDown = function(event){
-				if(event.item && event.item.class == 'draggable'){
-					//console.log(event.item);
->>>>>>> origin/abdullah-dev
 					var parent = event.item.parent;
 					parent.removeChildren(event.item);
 					parent.addChild(event.item);
 					this.item = event.item;
-<<<<<<< HEAD
 					this.totalDelta = new Point(0,0);
 					this.firstPosition = this.item.position;
 				
-=======
->>>>>>> origin/abdullah-dev
 				}
 			}
 			tool.onMouseDrag = function(event){
 				if(this.item){
-<<<<<<< HEAD
 					var newPoint = this.firstPosition.add(this.totalDelta).add(event.delta);
 					if(Interaction.bar.bounds.contains(event.point)){
 						this.item.snapped = true;
@@ -365,17 +256,6 @@ var Interaction = {
 				}
 				this.item = false;
 				
-=======
-					this.item.position = this.item.position.add(event.delta)
-					if(intersectWithOthers(this.item,Interaction.shapes,event))
-						this.item.position = this.item.position.add(event.delta.negate())
-					else
-						this.item._mousePosition = event.point;
-				}
-			}
-			tool.onMouseUp = function(){
-				this.item = false;
->>>>>>> origin/abdullah-dev
 			}
 			function intersectWithOthers (shape,arr,event){
 				for(var i=0;i<arr.length;i++){
@@ -385,22 +265,11 @@ var Interaction = {
 				}
 				return false
 			}
-<<<<<<< HEAD
 			tool.activate();
 		},
 		
 	nextQuestion: function(randomNumber){
             Interaction.resume();
-=======
-			
-			tool.activate();
-			Interaction.setRandomGenerator(6);
-			Interaction.prepareNextQuestion();
-			
-		},
-		
-	nextQuestion: function(randomNumber){
->>>>>>> origin/abdullah-dev
 			if(Interaction.shapes){
 				$(Interaction.shapes).each(function(index, element) {
                     this.remove();
@@ -416,16 +285,9 @@ var Interaction = {
 					Interaction.textRectSize,
 					digit
 				);
-<<<<<<< HEAD
 				shape.snapped = false;
 				shape.set_style(textRectStyle);
 				shape.class = 'draggable';
-=======
-				
-				shape.set_style(textRectStyle);
-				shape.class = 'draggable';
-				shape.text.fontSize = textRectStyle.fontSize;
->>>>>>> origin/abdullah-dev
 				Interaction.shapes.push(shape);
 				Interaction.digits.push(digit);
 			}
@@ -447,20 +309,12 @@ var Interaction = {
 				}
 			}
 			/*<[[TEST*/
-<<<<<<< HEAD
 //				randomNumber = Interaction.__type.LARGER_THAN;
-=======
-			//	randomNumber = Interaction.__type.SMALLEST_IN_BETWEEN;
->>>>>>> origin/abdullah-dev
 			/*TEST]]>*/
 			Interaction.qType = randomNumber;
 			switch(randomNumber){
 				
-<<<<<<< HEAD
 				case Interaction.__type.LARGEST_OF_THE_SMALLERS :
-=======
-				case Interaction.__type.LARGEST_OF_THE_SMALLERS : 
->>>>>>> origin/abdullah-dev
 					do{
 						Interaction.digit = Util.randomInteger(0,1000);
 					}while(!Interaction.hasSmaller(Interaction.digit))
@@ -474,11 +328,7 @@ var Interaction = {
 					Interaction.setQuestionText(Interaction.digit + ' sayısından büyük en küçük ondalık kesri oluşturunuz.');
 					break;
 				
-<<<<<<< HEAD
 				case Interaction.__type.SMALLEST_IN_BETWEEN :
-=======
-				case Interaction.__type.SMALLEST_IN_BETWEEN : 
->>>>>>> origin/abdullah-dev
 					do{
 						Interaction.digit_larger = Util.randomInteger(0,1000);
 					}while(!Interaction.hasSmaller(Interaction.digit_larger))
@@ -523,22 +373,14 @@ var Interaction = {
 					do{
 						Interaction.digit = Util.randomInteger(0,1000);
 					}while(!Interaction.hasSmaller(Interaction.digit))
-<<<<<<< HEAD
 					Interaction.setQuestionText(Interaction.digit + ' sayısından küçük bir ondalık kesir oluşturunuz.'); 
-=======
-					Interaction.setQuestionText(Interaction.digit + ' sayısından küçük ondalık kesri oluşturunuz.'); 
->>>>>>> origin/abdullah-dev
 					break;
 				
 				case Interaction.__type.LARGER_THAN :
 					do{
 						Interaction.digit = Util.randomInteger(0,1000);
 					}while(!Interaction.hasLarger(Interaction.digit))
-<<<<<<< HEAD
 					Interaction.setQuestionText(Interaction.digit + ' sayısından büyük bir ondalık kesir oluşturunuz.'); 
-=======
-					Interaction.setQuestionText(Interaction.digit + ' sayısından büyük ondalık kesri oluşturunuz.'); 
->>>>>>> origin/abdullah-dev
 					
 					break;		
 			}
@@ -571,13 +413,9 @@ var Interaction = {
 			}
 			return false;
 		},
-<<<<<<< HEAD
 	shapeToNumber : function(isString){
             if(isString==undefined)
                 isString = false;
-=======
-	shapeToNumber : function(){
->>>>>>> origin/abdullah-dev
 			var str = "";
 			Interaction.shapes.sort(
 				function(s1,s2){
@@ -591,23 +429,17 @@ var Interaction = {
 			);
 			for(var i=0; i< Interaction.shapes.length;i++)
 				str += Interaction.shapes[i].text.content;
-<<<<<<< HEAD
 			if(!isString){
                 str = str.replace(',','.');
                 str =  parseFloat(str,10);
             }
             return str;
-=======
-			str = str.replace(',','.');
-			return parseFloat(str,10);
->>>>>>> origin/abdullah-dev
 		},
 	setQuestionText : function(text){
 			Interaction.questionText.content = text;
 		},
 	preCheck: function(){
 			for(var i=0; i< Interaction.shapes.length;i++)
-<<<<<<< HEAD
 				if(Interaction.shapes[i].snapped  == false){
 					Interaction.setStatus('Lütfen bütün sayıları rafın üzerine bırakınız.','alert');
 					return false;
@@ -617,12 +449,6 @@ var Interaction = {
 				Interaction.setStatus('Lütfen virgülü sayıların arasına yerleştiriniz.','alert');
 				return false;
 			}
-=======
-				if(Interaction.shapes[i]._mousePosition == undefined || Interaction.shapes[i]._mousePosition.y < 130){
-					Interaction.setStatus('Lütfen bütün sayıları yazının altına taşıyınız.');
-					return false;
-				}
->>>>>>> origin/abdullah-dev
 			return true;
 		},
 	findAnswer : function(answerCondition){
@@ -658,7 +484,6 @@ var Interaction = {
 		},
 	isAnswerCorrect : function(){
 			var value = Interaction.shapeToNumber();
-<<<<<<< HEAD
 			switch(Interaction.qType){
 			case Interaction.__type.LARGEST_OF_THE_SMALLERS :
 				Interaction.correctAnswer = Interaction.findAnswer(Interaction.answerCondition.LARGEST_OF_THE_SMALLERS);
@@ -697,51 +522,10 @@ var Interaction = {
 					return true;
 				
 				break;		
-=======
-			  switch(Interaction.qType){
-				case Interaction.__type.LARGEST_OF_THE_SMALLERS : 
-					Interaction.correctAnswer = Interaction.findAnswer(Interaction.answerCondition.LARGEST_OF_THE_SMALLERS);
-					if(Interaction.answerCondition.LARGEST_OF_THE_SMALLERS(value))
-						return true;
-					break;
-				
-				case Interaction.__type.SMALLEST_OF_THE_LARGERS :
-					Interaction.correctAnswer = Interaction.findAnswer(Interaction.answerCondition.SMALLEST_OF_THE_LARGERS);
-					if(Interaction.answerCondition.SMALLEST_OF_THE_LARGERS(value))
-						return true;
-					
-					break;
-				
-				case Interaction.__type.SMALLEST_IN_BETWEEN :
-					Interaction.correctAnswer = Interaction.findAnswer(Interaction.answerCondition.SMALLEST_IN_BETWEEN); 
-					if(Interaction.answerCondition.SMALLEST_IN_BETWEEN(value))
-						return true;
-					break;
-				
-				case Interaction.__type.LARGEST_IN_BETWEEN :
-					Interaction.correctAnswer = Interaction.findAnswer(Interaction.answerCondition.LARGEST_IN_BETWEEN);
-					if(Interaction.answerCondition.LARGEST_IN_BETWEEN(value))
-						return true;
-					break;
-				
-				case Interaction.__type.SMALLER_THAN :
-					Interaction.correctAnswer = Interaction.findAnswer(Interaction.answerCondition.SMALLER_THAN);
-					if(Interaction.answerCondition.SMALLER_THAN(value))
-						return true;
-					break;
-				
-				case Interaction.__type.LARGER_THAN :
-					Interaction.correctAnswer = Interaction.findAnswer(Interaction.answerCondition.LARGER_THAN);
-					if(Interaction.answerCondition.LARGER_THAN(value))
-						return true;
-					
-					break;		
->>>>>>> origin/abdullah-dev
 			}
 			return false;
 		},
 	onCorrectAnswer : function(){
-<<<<<<< HEAD
             Interaction.pause();
 			Interaction.correctAnswer = Interaction.shapeToNumber();
 			Interaction.orderNumbers();
@@ -763,41 +547,19 @@ var Interaction = {
 				i1 = answer.indexOf(s1.text.content);
 				i2 = answer.indexOf(s2.text.content);
 				
-=======
-			
-		},
-	onWrongAnswer : function(){
-		
-		},
-	onFail : function(){
-			Interaction.shapes.sort(function(s1,s2){
-				var i1,i2;
-			//	console.log(s1,s2);
-				i1 = (""+Interaction.correctAnswer).replace('.',',').indexOf(s1.text.content);
-				i2 = (""+Interaction.correctAnswer).replace('.',',').indexOf(s2.text.content);
-			//	console.log(s1.text.content +': '+i1,s2.text.content +': '+i2);
->>>>>>> origin/abdullah-dev
 				if(i1 < i2)
 					return -1;
 				else 
 					return 1;
 			});
 			for(var i=0;i<Interaction.shapes.length;i++){
-<<<<<<< HEAD
 				var point = Interaction.referencePoint.add(Math.floor(i*Interaction.textRectSize.width*1.4)+40,130);
-=======
-				var point = Interaction.referencePoint.add(Math.floor(i*Interaction.textRectSize.width*1.4),130);
->>>>>>> origin/abdullah-dev
 				var rectPosition = point;
 				var textPosition = point.add(
 					-textRectStyle.fontSize*0.4,
 					+textRectStyle.fontSize*0.5
 				);
-<<<<<<< HEAD
 				
-=======
-				//Interaction.shapes[i].rect.position = rectPosition;
->>>>>>> origin/abdullah-dev
 				console.log(point.toString());
 				Interaction.shapes[i].rect.animate({
 					style:{position:rectPosition},
@@ -807,7 +569,6 @@ var Interaction = {
 					style:{position:textPosition},
 					duration:1000
 				})
-<<<<<<< HEAD
 				Interaction.shapes[i].children[1].animate({
 					style:{position:textPosition.add(1,1)},
 					duration:1000
@@ -815,11 +576,6 @@ var Interaction = {
 			}
 		}
 	
-=======
-			}
-			Interaction.setStatus('Yanlış cevap. Doğrusu '+Interaction.correctAnswer.replace('.',',')+' olacaktı',false);
-		},
->>>>>>> origin/abdullah-dev
 }
 
 

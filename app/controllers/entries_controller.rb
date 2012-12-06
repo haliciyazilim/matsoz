@@ -27,7 +27,6 @@ class EntriesController < ApplicationController
           @current_letter = letter
           selected = true
         end
-<<<<<<< HEAD
 
         if @exporting
           if @index_page
@@ -49,14 +48,6 @@ class EntriesController < ApplicationController
             :link => entry_path(entry)
           }
          end
-=======
-        
-        @word_list[letter] << {
-          :word => entry.word,
-          :selected => selected,
-          :link => entry_path(entry)
-        }
->>>>>>> origin/abdullah-dev
       end
     end
   end
@@ -85,19 +76,11 @@ class EntriesController < ApplicationController
         delimiter = delimiters.shift
         
         if delimiter == "**"
-<<<<<<< HEAD
           @chunks.push({chunk => Entry.find_by_word(chunk.to_downcase_turkish)})
           @chunks.push({chunks.shift => nil})
         elsif delimiter == "=>"
           destination = chunks.shift
           @chunks.push({chunk => Entry.find_by_word(destination.to_downcase_turkish)})
-=======
-          @chunks.push({chunk => Entry.find_by_word(chunk)})
-          @chunks.push({chunks.shift => nil})
-        elsif delimiter == "=>"
-          destination = chunks.shift
-          @chunks.push({chunk => Entry.find_by_word(destination)})
->>>>>>> origin/abdullah-dev
           
           delimiter = delimiters.shift
           if delimiter == "**"

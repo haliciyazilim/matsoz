@@ -1,5 +1,4 @@
 // JavaScript Document
-<<<<<<< HEAD
 function __Styles(){
 	shapeStyle = {
 		strokeColor:'#255b63',
@@ -23,28 +22,6 @@ function __Styles(){
 	}
 
 
-=======
-
-var shapeStyle = {
-	strokeColor:'#255b63',
-	strokeWidth:2
-};
-var dashedLineStyle = {
-	strokeColor:'#333',
-	strokeWidth:1,
-	dashArray:[3,2]
-};
-var heightLineStyle = {
-	strokeColor:'#f00',
-	strokeWidth:2
-};
-var textStyle = {
-	fontSize:16
-};
-hCircleStyle = {
-	fillColor:'#bfe8ef',
-	strokeColor:'#255b63'
->>>>>>> origin/abdullah-dev
 }
 var Animation = {
 	images:[
@@ -92,12 +69,8 @@ var Animation = {
 		r3.animate({
 			style:{opacity:1},
 			duration:1000,
-<<<<<<< HEAD
 			delay:2300,
             callback:Main.animationFinished
-=======
-			delay:2300
->>>>>>> origin/abdullah-dev
 		});
 		 
 	}
@@ -135,17 +108,12 @@ var Interaction = {
 		project.activeLayer.removeChildren();
 		Interaction.shapeCount++;
 		Interaction.drawHeightLine.vertexLetter = false;
-<<<<<<< HEAD
 		Interaction.letters = ["A","B","C","D","E"];
-=======
-		Interaction.letters = ["E","D","C","B","A"];
->>>>>>> origin/abdullah-dev
 		var X = Interaction.paper.width*0.5-100;
 		var Y = Interaction.paper.height*0.5-75;
 		var W = 200;
 		var H = 200;
 		var NUMBER_OF_SHAPES  = 9 ;
-<<<<<<< HEAD
 		try{
             if(phase == undefined)
                 phase = 0;
@@ -158,22 +126,13 @@ var Interaction = {
             phase = 0;
         
         
-=======
-		var phase = Math.floor(Math.random()*60)-30;
-
->>>>>>> origin/abdullah-dev
 		Interaction.shapeCount = Interaction.shapeCount%NUMBER_OF_SHAPES;
 		if(Interaction.shuffledArray == null || Interaction.shuffledArray == undefined)
 			Interaction.shuffledArray = Util.getShuffledArray(NUMBER_OF_SHAPES);
 		Interaction.shapeType = Interaction.shuffledArray[Interaction.shapeCount];	
 		/*TEST*/ 
-<<<<<<< HEAD
 		//	Interaction.shapeType = 8 ;  
         /*TEST*/
-=======
-		//	Interaction.shapeType = 8 ;
-		/*TEST*/
->>>>>>> origin/abdullah-dev
 
 		switch(Interaction.shapeType){
 			case 0://square
@@ -224,15 +183,9 @@ var Interaction = {
 		
 		var tool = new Tool();
 		tool.onMouseDown = function(event){
-<<<<<<< HEAD
 			if( Interaction.shape == null || Interaction.shape == undefined )
 				return;
 			for( var i=0 ; i < Interaction.shape.vertexArray.length ; i++ )
-=======
-			if(Interaction.shape == null || Interaction.shape == undefined)
-				return;
-			for(var i=0;i<Interaction.shape.vertexArray.length;i++)
->>>>>>> origin/abdullah-dev
 				if(POINT_HIT_TOLERANCE > Interaction.shape.vertexArray[i].getDistance(event.point) ){
 					Interaction.drawHeightLine(i);
 				}
@@ -240,7 +193,6 @@ var Interaction = {
 		tool.activate();	
 	},
 	drawHeightLine : function(index){
-<<<<<<< HEAD
         if(Interaction.drawHeightLine.increment == undefined)
             Interaction.drawHeightLine.increment = 0;
         else if(Interaction.drawHeightLine.increment == 0)
@@ -259,19 +211,6 @@ var Interaction = {
 				p2 = Interaction.shape.vertexArray[(index+i+2)%4];
 				h = p.projectToLine(p1,p2); 
 				break;
-=======
-		if(Interaction.heightLine)
-			Interaction.heightLine.remove();
-		var p1,p2,p,h;
-				p = Interaction.shape.vertexArray[index];
-		switch(Interaction.shape.vertexArray.length){
-			case 4:
-				p1 = Interaction.shape.vertexArray[(index+1)%4];
-				p2 = Interaction.shape.vertexArray[(index+2)%4];
-				h = p.projectToLine(p1,p2); 
-				break;
-				
->>>>>>> origin/abdullah-dev
 			case 3:
 				p1 = Interaction.shape.vertexArray[(index+1)%3];
 				p2 = Interaction.shape.vertexArray[(index+2)%3];
@@ -294,10 +233,7 @@ var Interaction = {
 			c = p1;
 			d = p2;
 		}
-<<<<<<< HEAD
         
-=======
->>>>>>> origin/abdullah-dev
 		var d_ph = h.findPointTo(d,10);
 		var p_ph = h.findPointTo(p,10);;
 		var m_ph = Util.centerOfPoints([d_ph,p_ph]);
@@ -308,12 +244,8 @@ var Interaction = {
 		Interaction.heightLine.addChild(l1);
 		Interaction.heightLine.addChild(l2);
 		Interaction.heightLine.addChild(m);
-<<<<<<< HEAD
 		
         //decide to draw a dahsed line
-=======
-		//decide to draw a dahsed line
->>>>>>> origin/abdullah-dev
 		if(!h.isBetweenTwoLinePoints(p1,p2))
 			Interaction.heightLine.addChild(
 				new Path.Line(h,c)
@@ -326,11 +258,7 @@ var Interaction = {
 			Interaction.drawHeightLine.vertexLetter = Interaction.printVertexLetters(t_p);
 		var circ = new Path.Circle(Util.centerOfPoints([p,h]),12).set_style(hCircleStyle);
 		var hText = new PointText(
-<<<<<<< HEAD
 			Util.centerOfPoints([p,h]).add(-4,5)
-=======
-			Util.centerOfPoints([p,h]).add(-5,7)
->>>>>>> origin/abdullah-dev
 		); 
 		hText.set_style(textStyle);
 		hText.content = 'h';

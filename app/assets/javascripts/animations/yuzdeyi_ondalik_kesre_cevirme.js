@@ -186,19 +186,11 @@ Animation.init=function(container){
 		delay:3000
 	});
 	
-<<<<<<< HEAD
 	Main.animationFinished(8000);
 };
 
 Interaction.init = function(container){
 	Main.setObjective("Yandaki yüzlük tablonun yanındaki kutuya istediğiniz sayıyı yazınız. Oluşan yüzdeyi ondalık kesir olarak kutuya yazınız ve “Kontrol” düğmesine basınız.");
-=======
-	
-};
-
-Interaction.init = function(container){
-	Main.setObjective("Yandaki yüzlük tablonun altındaki kutuya istediğiniz sayıyı yazınız. Oluşan yüzdeyi ondalık kesir olarak kutuya yazınız ve “Kontrol” düğmesine fare ile tıklayınız.");
->>>>>>> origin/abdullah-dev
 	//Interaction.container = container;
 	
 	/*
@@ -208,12 +200,8 @@ Interaction.init = function(container){
 	
 	// 4 ana div var; sol ve orta1 orta2 orta3.
 	
-<<<<<<< HEAD
 	//sol div bilgileri
 /*	
-=======
-	//sol div bilgileri	
->>>>>>> origin/abdullah-dev
 	$(container).append("<div id='sol'>");
 	$(container).append("<style>#sol{position:absolute; top:165px; left:110px; width:100px; height:100px}</style>");
 	
@@ -235,7 +223,6 @@ Interaction.init = function(container){
 	$("#sol",container).append("<div class='payda'>");
 	$("#sol .payda",container).append("100");
 	$(container).append("<style>#giris{width:30px; height:30px; margin:auto;position:absolute;  left:0; right:0; z-index:2} </style>");
-<<<<<<< HEAD
 */
 	
 	// orta divlerin bilgileri
@@ -247,16 +234,6 @@ Interaction.init = function(container){
         $(container).append("<div id='orta1'>");
 	$(container).append("<style>#orta1{position:absolute; top:70px; left:350px; width:100px; height:40px}</style>");
         
-=======
-	
-	
-	// orta divlerin bilgileri
-	
-	$(container).append("<div id='orta1'>");
-	$(container).append("<style>#orta1{position:absolute; top:70px; left:270px; width:100px; height:40px}</style>");
-	$(container).append("<div id='orta2'>");
-	$(container).append("<style>#orta2{position:absolute; top:50px; left:340px; width:100px; height:100px}</style>");
->>>>>>> origin/abdullah-dev
 	$(container).append("<div id='orta3'>");
 	$(container).append("<style>#orta3{position:absolute; top:70px; left:420px; width:100px; height:40px}</style>");
 	
@@ -271,11 +248,7 @@ Interaction.init = function(container){
 	$(container).append("<style>#esit1{position:absolute; top: 10px; left:75px;  width:20px; height:20px;}</style>");
 	
 	// orta2'in içindeki nesnelerin bilgieri
-<<<<<<< HEAD
 	$("#orta2",container).append("<input id='giris' type='text' maxlength=3 onkeypress='return SadeceRakam(event)'/>");
-=======
-	$("#orta2",container).append("<input id='girdiCevap2' type='text' maxlength=3 onkeypress='return SadeceRakam(event)'/>");
->>>>>>> origin/abdullah-dev
 	//$("#orta2",container).append("<div id='kesir'>");
 	$("#orta2",container).append("<div id='kesir2'>");
 	$('#kesir2').css("position","absolute")
@@ -293,13 +266,8 @@ Interaction.init = function(container){
 	$("#orta2 .payda",container).append("100");
 	$("#orta2 #esit2",container).append("=");
 	$(container).append("<style>#esit2{position:absolute; top: 30px; left:80px;  width:20px; height:20px;}</style>");
-<<<<<<< HEAD
 	$(container).append("<style>#giris{width:30px; height:30px; margin:auto;position:absolute;  left:0; right:0; z-index:2} .payda{margin:auto;position:absolute; top: 50px; left:0; right:0; width:35px; height:10px; text-align:center}</style>");
 		$("#giris").focus();
-=======
-	$(container).append("<style>#girdiCevap2{width:30px; height:30px; margin:auto;position:absolute;  left:0; right:0; z-index:2} .payda{margin:auto;position:absolute; top: 50px; left:0; right:0; width:35px; height:10px; text-align:center}</style>");
-		
->>>>>>> origin/abdullah-dev
 	// orta3'in içindeki nesnelerin bilgieri
 	$("#orta3",container).append("<input id='girdiCevap3' type='text' maxlength=2 onkeypress='return SadeceRakam(event)'/>");
 	$("#orta3",container).append("<div id='yuzde2'>");
@@ -333,15 +301,9 @@ Interaction.init = function(container){
 	
 	// Cevap divleri 3 ana div var.
 	$(container).append("<div id='Corta1'>");
-<<<<<<< HEAD
 	$(container).append("<style>#Corta1{position:absolute; top:180px; left:360px; width:80px; height:40px; display:none}</style>");
 	$(container).append("<div id='Corta2'>");
 	$(container).append("<style>#Corta2{position:absolute; top:160px; left:275px; width:80px; height:100px;display:none}</style>");
-=======
-	$(container).append("<style>#Corta1{position:absolute; top:180px; left:280px; width:80px; height:40px; display:none}</style>");
-	$(container).append("<div id='Corta2'>");
-	$(container).append("<style>#Corta2{position:absolute; top:160px; left:350px; width:80px; height:100px;display:none}</style>");
->>>>>>> origin/abdullah-dev
 	$(container).append("<div id='Corta3'>");
 	$(container).append("<style>#Corta3{position:absolute; top:180px; left:430px; width:80px; height:40px;display:none}</style>");
 	
@@ -378,11 +340,7 @@ Interaction.init = function(container){
 	
 	// cevap div 3 
 	$("#Corta3",container).append("<div id='Cevap3'>");
-<<<<<<< HEAD
 	$(container).append("<style> #Cevap3{width: 60px; height: 30px; position:absolute; top:10px; left:10px; } </style>");
-=======
-	$(container).append("<style> #Cevap3{width: 40px; height: 30px; position:absolute; top:10px; left:10px; } </style>");
->>>>>>> origin/abdullah-dev
 	
 	// 3 cevap divin yazı ayarı
 	$(container).append("<style> #Cevap1, #Cevap2, #Cevap3{text-align:center} </style>");
@@ -449,17 +407,10 @@ Interaction.init = function(container){
 		cevap1=parseInt($("#girdiCevap1").val(),10);
 		$("#geriBildirim").hide();
 	});	
-<<<<<<< HEAD
 //	$("#girdiCevap2").change(function(){
 //		cevap2=parseInt($("#girdiCevap2").val(),10);
 //		$("#geriBildirim").hide();
 //	});	
-=======
-	$("#girdiCevap2").change(function(){
-		cevap2=parseInt($("#girdiCevap2").val(),10);
-		$("#geriBildirim").hide();
-	});	
->>>>>>> origin/abdullah-dev
 	$("#girdiCevap3").change(function(){
 		cevap3=$("#girdiCevap3").val();
 		$("#geriBildirim").hide();
@@ -500,7 +451,6 @@ Interaction.init = function(container){
 
 	
 	function yeniSoru(){
-<<<<<<< HEAD
             
 		$("#giris, #girdiCevap1, #girdiCevap2, #girdiCevap3").val("");
 		$("#geriBildirim, #Corta1, #Corta2, #Corta3, #sonraki").hide();
@@ -508,12 +458,6 @@ Interaction.init = function(container){
                 $("#giris").focus();
 		tiklamaSayisi=0;
                 enter=0;
-=======
-		$("#giris, #girdiCevap1, #girdiCevap2, #girdiCevap3").val("");
-		$("#geriBildirim, #Corta1, #Corta2, #Corta3, #sonraki").hide();
-		$("#btnKontrol").show();
-		tiklamaSayisi=0;
->>>>>>> origin/abdullah-dev
 		bosKare.yap();
 		$(container).append("<style>#Cevap1, #Cevap2, #Cevap3, #girdiCevap1, #girdiCevap2, #girdiCevap3{color:'black';}</style>");
 		cevap1=""; cevap2=""; cevap3="";
@@ -533,11 +477,7 @@ Interaction.init = function(container){
 			
 			// ondalikliGirdi inputa girilen değer kırpılmış olduğu için sorun çıkartıyordu. Alttaki satırla halledildi.
 			
-<<<<<<< HEAD
 			if(girdi===undefined ||girdi==="" || cevap1===undefined ||cevap1==="" || cevap3===undefined || cevap3===""){
-=======
-			if(girdi===undefined ||girdi==="" || cevap1===undefined ||cevap1==="" || cevap2===undefined || cevap2==="" || cevap3===undefined || cevap3===""){
->>>>>>> origin/abdullah-dev
 			//if($("#girdiCevap1").val()=="" || $("#girdiCevap2").val()=="" || $("#girdiCevap3").val()==""){
 				$("#geriBildirimText").attr("class","status_alert").html("Bütün kutucukları doldurunuz.");
 				$("#geriBildirim").show();
@@ -546,16 +486,12 @@ Interaction.init = function(container){
 				$("#girdiCevap2").removeAttr('onkeydown');
 				$("#girdiCevap1").removeAttr('onkeydown');
 				$("#giris").removeAttr('onkeydown');*/
-<<<<<<< HEAD
 
 
-=======
->>>>>>> origin/abdullah-dev
 				
 				
 			}
 			else{
-<<<<<<< HEAD
                 var ondalikliGirdi=parseInt(girdi);
                 if(girdi<10 && girdi>0)
                     ondalikliGirdi="0"+girdi;
@@ -601,45 +537,6 @@ Interaction.init = function(container){
                     $("#girdiCevap1").get(0).setAttribute('onkeydown','return tusEngelle(event);');
                     $("#giris").get(0).setAttribute('onkeydown','return tusEngelle(event);');
                 }
-=======
-			var ondalikliGirdi=parseInt(girdi);
-			if(girdi<10)
-				ondalikliGirdi="0"+girdi;
-			else if(girdi==100)
-				ondalikliGirdi=1;
-			else
-				ondalikliGirdi=girdi; 
-			
-				
-				console.log("c1: "+cevap1+" c2: "+cevap2+" c3: "+cevap3);
-				console.log("Ondalıklı Girdi: "+ondalikliGirdi);
-				console.log("Girdi: "+girdi);
-			// Cevap Doğruysa
-			
-			if(parseInt(cevap1,10)==parseInt(girdi,10) && parseInt(cevap2,10)==parseInt(girdi,10) && cevap3==ondalikliGirdi){
-				enter++;
-				$("#btnKontrol").hide();
-				$("#sonraki").show();
-				//$("#geriBildirim").hide();
-				//$("#geriBildirim").removeClass("status_false").addClass("status_true");
-				$("#geriBildirimText").attr("class","status_true").html("Tebrikler");
-				$("#geriBildirim").show();
-				
-				if(cevap1==0)
-					$("#orta3 #esit1").css("opacity","1");
-				
-				console.log("enter"+enter);
-				if (enter==2){
-					enter=0;
-					yeniSoru();
-				}
-				else{
-				$("#girdiCevap3").get(0).setAttribute('onkeydown','return tusEngelle(event);');
-				$("#girdiCevap2").get(0).setAttribute('onkeydown','return tusEngelle(event);');
-				$("#girdiCevap1").get(0).setAttribute('onkeydown','return tusEngelle(event);');
-				$("#giris").get(0).setAttribute('onkeydown','return tusEngelle(event);');
-			}
->>>>>>> origin/abdullah-dev
 				
 				
 				
@@ -653,25 +550,18 @@ Interaction.init = function(container){
 				//console.log("tik"+tiklamaSayisi);
 				$("#geriBildirimText").attr("class","status_alert").html("Tekrar deneyiniz.");
 				$("#geriBildirim").show();
-<<<<<<< HEAD
 
 
             }
-=======
-			}
->>>>>>> origin/abdullah-dev
 			
 			// iki denemede de doğru cevap bulunamamışsa
 			if(tiklamaSayisi>=2){
 				//$(".status_alert").html("Yanlış. Doğru cevap: ");
 				//console.log(tiklamaSayisi);
-<<<<<<< HEAD
 
 
 
                 
-=======
->>>>>>> origin/abdullah-dev
 				
 				$("#geriBildirimText").attr("class","status_false").html("Yanlış. Doğru cevap:");
 				var cevap=parseInt($("#giris").val(),10);
@@ -680,11 +570,7 @@ Interaction.init = function(container){
 				
 				
 				$("#girdiCevap3").get(0).setAttribute('onkeydown','return tusEngelle(event);');
-<<<<<<< HEAD
 				//$("#girdiCevap2").get(0).setAttribute('onkeydown','return tusEngelle(event);');
-=======
-				$("#girdiCevap2").get(0).setAttribute('onkeydown','return tusEngelle(event);');
->>>>>>> origin/abdullah-dev
 				$("#girdiCevap1").get(0).setAttribute('onkeydown','return tusEngelle(event);');
 				$("#giris").get(0).setAttribute('onkeydown','return tusEngelle(event);');
 				
@@ -707,11 +593,7 @@ Interaction.init = function(container){
 					if(cevap==0){
 						$("#orta3 #esit1").css("opacity","1");
 						//$("#girdiCevap3").val("0");
-<<<<<<< HEAD
 						$("#Cevap3").html("0,0  = 0");
-=======
-						$("#Cevap3").html(cevap);
->>>>>>> origin/abdullah-dev
 					}
 					else if(cevap<10){
 						//$("#girdiCevap3").val("0"+cevap);
@@ -738,37 +620,19 @@ Interaction.init = function(container){
 					$("#girdiCevap1").css("color","red");
 				else
 					$("#girdiCevap1").css("color","green");
-<<<<<<< HEAD
 //				if (cevap2!=girdi)
 //					$("#girdiCevap2").css("color","red");
 //				else
 //					$("#girdiCevap2").css("color","green");
-=======
-				if (cevap2!=girdi)
-					$("#girdiCevap2").css("color","red");
-				else
-					$("#girdiCevap2").css("color","green");
->>>>>>> origin/abdullah-dev
 				if (cevap3!=ondalikliGirdi)
 					$("#girdiCevap3").css("color","red");
 				else
 					$("#girdiCevap3").css("color","green");
-<<<<<<< HEAD
 				$("#Cevap1, #Cevap3").css("color","green");
 				$("#geriBildirim, #Corta1, #Corta2, #Corta3, #sonraki").show();
 					
 				}
 				
-=======
-				$("#Cevap1, #Cevap2, #Cevap3").css("color","green");
-				$("#geriBildirim, #Corta1, #Corta2, #Corta3, #sonraki").show();
-					
-				}
-				if(tiklamaSayisi==3){
-				console.log("tikalam 3'e grdim");
-				yeniSoru();
-				}
->>>>>>> origin/abdullah-dev
 			}		
 					
 		}
@@ -782,7 +646,6 @@ Interaction.init = function(container){
 			}
 		});
 		
-<<<<<<< HEAD
 //		$("#girdiCevap2").keyup(function(event) {
 //			if(event.keyCode == 13) {
 //				kontrol();
@@ -802,19 +665,6 @@ Interaction.init = function(container){
                     }
 
 
-=======
-		$("#girdiCevap2").keyup(function(event) {
-			if(event.keyCode == 13) {
-				kontrol();
-			}
-		});
-		
-		$("#girdiCevap3").keyup(function(event) {
-				
-				if(event.keyCode == 13) {
-					kontrol();
-				}
->>>>>>> origin/abdullah-dev
 		});
 		
 

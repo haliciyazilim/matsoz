@@ -539,33 +539,16 @@ var Animation = {
 		$(".Oyatay").css("-moz-transform","rotate(-90deg)");
 		$(".Oyatay").css("-o-transform","rotate(-90deg)");
 		
-<<<<<<< HEAD
 
-=======
-		
-		//$("#yuzler .yazi").css("-writing-mode","tb-rl");
-		//-webkit-transform:rotate(-90deg);
->>>>>>> origin/abdullah-dev
 		$(".Oyatay").css("text-align","left");
 		$(".Oyatay").css("position","absolute");
 		$(".Oyatay").css("height","30px");
 		$(".Oyatay").css("width","150px");
 		$(".Oyatay").css("bottom","130px");
 		$(".Oyatay").css("left","-50px");
-<<<<<<< HEAD
 
 		$(".Oyatay").css("font-size","small");
 		
-=======
-		//$("#yatay").css("right","200px");
-		//$("#yatay").css("margin","auto");
-		$(".Oyatay").css("font-size","small");
-		
-		/*$("#Okesir").css("opacity","0").delay(1000).animate({opacity:"1"},1000);
-		$("#Oesittir").css("opacity","0").delay(2000).animate({opacity:"1"},1000);
-		$("#Oinput").css("opacity","0").delay(3000).animate({opacity:"1"},1000);
-		$("#OSoruCokluInput").css("opacity","0").delay(4000).animate({opacity:"1"},1000);*/
->>>>>>> origin/abdullah-dev
 		var sayac=0;
 		var hiz=500
 		for(var i=1; i<=paySayi.length;i++)
@@ -597,12 +580,8 @@ var Animation = {
 			console.log("ondalik For");
 			$("#"+basamaklar[i]).css("opacity","0").delay(sayac+hiz*i).animate({opacity:"1"},500);
 		}
-<<<<<<< HEAD
 		Main.animationFinished(17000);	
                 //Main.animationFinished(1000);	
-=======
-			
->>>>>>> origin/abdullah-dev
 		
 	}
 }
@@ -650,10 +629,7 @@ var Interaction = {
 						payda=10;
 						break;
 				}
-<<<<<<< HEAD
                                 
-=======
->>>>>>> origin/abdullah-dev
 				return true;
 					
 			}
@@ -663,13 +639,8 @@ var Interaction = {
 			
 			
 			
-<<<<<<< HEAD
 			Interaction.appendButton({bottom:"20px", right:"48px"});
 			Interaction.appendStatus({bottom:"30px", right:"185px", width:"400px"});
-=======
-			Interaction.appendButton({bottom:"40px", right:"48px"});
-			Interaction.appendStatus({bottom:"50px", right:"200px"});
->>>>>>> origin/abdullah-dev
 			
 			
 			
@@ -681,13 +652,10 @@ var Interaction = {
 		$("#kesirPay").html(format(pay, {point:","}));
 		$("#kesirPayda").html(payda);
 		$("input").css("color","black");
-<<<<<<< HEAD
                 $("input").html("");
                 
                 $("#soruTekliInputCevap").animate({opacity:"0"},1000);
                 $(".cokluCevap").animate({opacity:"0"},1000);
-=======
->>>>>>> origin/abdullah-dev
 		
 		
 	
@@ -703,7 +671,6 @@ var Interaction = {
 
 			}
 		}
-<<<<<<< HEAD
 		
 		
 		
@@ -711,29 +678,6 @@ var Interaction = {
 			console.log("if denetim"+bosSayisi);
 			Interaction.setStatus('Lüften bütün kutucukları doldurun.',false);
 			return false	
-=======
-		/*	
-		if(bosSayisi==7){
-			console.log("if denetim"+bosSayisi);
-			Interaction.setStatus('Lüften bütün kutucukları doldurun.',false);
-			return false
-		}
-		
-		else{
-			if(Interaction.inputs[0]==""){
-				console.log("girdsm");
-				Interaction.setStatus('Lüften ondalık kısmı doldurun.',false);
-			}
-			else{
-			console.log("if else denetim"+bosSayisi);
-			return true;
-			}
-		}*/
-		
-		
-		if(bosSayisi==7){
-			return true;	
->>>>>>> origin/abdullah-dev
 		}
 		if(Interaction.inputs[0].value==""){
 				console.log("girdsm");
@@ -743,11 +687,7 @@ var Interaction = {
 		
 		else{
 			var sayac=0;
-<<<<<<< HEAD
 			for(var i=1; i<Interaction.inputs.length;i++){
-=======
-			for(var i=1; i<Interaction.length;i++){
->>>>>>> origin/abdullah-dev
 				console.log("xxxxxxxxxxxxxxxxxxxxxxxxx");
 				if(Interaction.inputs[i].value!=""){
 					break;
@@ -755,27 +695,18 @@ var Interaction = {
 				else
 					sayac++;
 			}
-<<<<<<< HEAD
                         console.log("sayac"+sayac);
 			if(Interaction.inputs[0].value!="" && sayac==6){
-=======
-			if(sayac==6){
->>>>>>> origin/abdullah-dev
 				Interaction.setStatus('Lüften kesir kısmını doldurun.',false);
 				return false;
 			}
 			else
-<<<<<<< HEAD
 				return true;
-=======
-				return true
->>>>>>> origin/abdullah-dev
 		}
 			
 		},
 	isAnswerCorrect : function(values){
 		Interaction.sonuc=pay/payda;
-<<<<<<< HEAD
                 
 		Interaction.yanlis="";
                 console.log("else");
@@ -808,41 +739,11 @@ var Interaction = {
                         Interaction.yanlis="tablo";
                        
                 }   
-=======
-		
-		
-		
-		
-		/*if(values[0]!=""){
-			
-			console.log("sonuc "+sonuc);
-			console.log("format "+format(Interaction.sonuc, {group:"", places:3}));
-			console.log("girdi "+values[0]);
-			
-			if(parseInt(format(Interaction.sonuc, {group:"", places:3}))==parseInt(values))
-				return true
-		}
-		else
-			console.log("else");
-			var girdilerdenGelen="";
-			for(var i=1; i<values.length;i++){
-				girdilerdenGelen+=values[i];
-				if(i==3)
-					girdilerdenGelen+=",";
-			}*/
-			console.log(girdilerdenGelen);
-			
-			if(girdilerdenGelen==String(format(Interaction.sonuc, {group:"", places:3})))
-				return true
-			
-		
->>>>>>> origin/abdullah-dev
 		},
 	onCorrectAnswer : function(){
 		
 		},
 	onWrongAnswer : function(){
-<<<<<<< HEAD
              if(Interaction.yanlis=="ondalik" || Interaction.yanlis=="tablo"){
                  Interaction.setStatus("Cevabın bir kısmı <b id='dogru'>doğru</b>, bir kısmı <b id='yanlis'>yanlış</b>; lütfen tekrar deneyiniz");
                  $("#dogru").css("color","green")
@@ -907,18 +808,6 @@ var Interaction = {
  
             $("#dCevap").css("color","green");
 		}
-=======
-		
-		
-		},
-	onFail : function(){
-		var sonucStr=Interaction.sonuc.toString().replace(".",",");
-		Interaction.setStatus('Yanlış cevap, doğrusu <strong id="dCevap">'+sonucStr+' </strong>şeklinde olacaktı.',false);
-		$("#dCevap").css("color","green");
-		$("input").css("color","red");
-		
-		},
->>>>>>> origin/abdullah-dev
 }
 
 
@@ -1011,11 +900,7 @@ var etkilesim=function(amac){
 			// cok inputlu
 		$(this.anadiv, Interaction.container).append("<div id='SoruCokluInput'>");
 			$("#SoruCokluInput").css("width","261px")
-<<<<<<< HEAD
 			.css("height","160px")
-=======
-			.css("height","180px")
->>>>>>> origin/abdullah-dev
 			.css("margin","auto")
 			.css("position","absolute")
 			//.css("bottom","20px")
@@ -1060,48 +945,11 @@ var etkilesim=function(amac){
 	$("#kesirKisim", container).append("<div class='yaziBolukler'>");
 		$("#kesirKisim .yaziBolukler").html("Kesir Kısmı");	
 		
-<<<<<<< HEAD
 		
 	$("#SoruCokluInput",container).append("<div id='yuzler' >");
 	
 		$("#yuzler").css("width","40px");
 		$("#yuzler").css("height","130px");
-=======
-		// basamaklar baslık
-	/*$("#tamKisim",container).append("<div id='basamaklarBaslik' >");
-	
-		$("#basamaklarBaslik").css("width","31px")
-			.css("height","108px")
-			.css("position","absolute")
-			.css("top","30px")
-			.css("left","-32px")
-			.css("margin","auto")
-			.css("border","solid 1px "+tabloStrokeRenk)
-			//.css("background-color", tabloMilyonlarFillRenk)
-			.css("border-right","none").css("border-left","none")
-			.css("font-size","small").css("font-weight","bold");
-		
-		$("#basamaklarBaslik",container).append("<div class='yatayBaslik'>");
-		$("#basamaklarBaslik .yatayBaslik").html("Basamaklar")
-			.css("-webkit-transform","rotate(-90deg)")
-			.css("transform","rotate(-90deg)")
-			.css("-ms-transform","rotate(-90deg)")
-			.css("-moz-transform","rotate(-90deg)")
-			.css("-o-transform","rotate(-90deg)")
-			.css("text-align","left")
-			.css("position","absolute")
-			.css("height","30px")
-			.css("width","150px")
-			.css("bottom","70px")
-			.css("left","-53px")
-			.css("font-size","small");*/
-		
-			// 
-	$("#SoruCokluInput",container).append("<div id='yuzler' >");
-	
-		$("#yuzler").css("width","40px");
-		$("#yuzler").css("height","150px");
->>>>>>> origin/abdullah-dev
 		$("#yuzler").css("position","absolute");
 		$("#yuzler").css("top","30px");
 		$("#yuzler").css("left","0px");
@@ -1128,11 +976,7 @@ var etkilesim=function(amac){
 			//.css("font-size","medium").html("ok");
 		
 		if (this.amac=="soru"){	
-<<<<<<< HEAD
 		var yuzler=Interaction.appendInput({},true,true);
-=======
-		var yuzler=Interaction.appendInput({},true);
->>>>>>> origin/abdullah-dev
 			$(Interaction.inputs[1]).attr('maxlength', '1').attr("id","inputYuzler");
 			$("#girdiYuzler",container).append(yuzler);
 		}
@@ -1156,11 +1000,7 @@ var etkilesim=function(amac){
 		// onlar
 	$("#SoruCokluInput",container).append("<div id='onlar' >");
 		$("#onlar").css("width","40px");
-<<<<<<< HEAD
 		$("#onlar").css("height","130px");
-=======
-		$("#onlar").css("height","150px");
->>>>>>> origin/abdullah-dev
 		$("#onlar").css("position","absolute");
 		$("#onlar").css("top","30px");
 		$("#onlar").css("left","40px");
@@ -1187,11 +1027,7 @@ var etkilesim=function(amac){
 			.css("border-left","none");
 			//.css("font-size","medium").html("ok");
 	if (this.amac=="soru"){		
-<<<<<<< HEAD
 		var onlar=Interaction.appendInput({},true,true);
-=======
-		var onlar=Interaction.appendInput({},true);
->>>>>>> origin/abdullah-dev
 		$(Interaction.inputs[2]).attr('maxlength', '1').attr("id","inputOnlar");
 		$("#girdiOnlar",container).append(onlar);
 	}
@@ -1211,11 +1047,7 @@ var etkilesim=function(amac){
 		// birler
 	$("#SoruCokluInput",container).append("<div id='birler' >");
 		$("#birler").css("width","40px");
-<<<<<<< HEAD
 		$("#birler").css("height","130px");
-=======
-		$("#birler").css("height","150px");
->>>>>>> origin/abdullah-dev
 		$("#birler").css("position","absolute");
 		$("#birler").css("top","30px");
 		$("#birler").css("left","80px");
@@ -1241,11 +1073,7 @@ var etkilesim=function(amac){
 			.css("border-left","none");
 			//.css("font-size","medium").html("ok");
 	if (this.amac=="soru"){	
-<<<<<<< HEAD
 		var birler=Interaction.appendInput({},true,true);
-=======
-		var birler=Interaction.appendInput({},true);
->>>>>>> origin/abdullah-dev
 		$(Interaction.inputs[3]).attr('maxlength', '1').attr("id","inputBirler");
 		$("#girdiBirler",container).append(birler);
 	}
@@ -1263,11 +1091,7 @@ var etkilesim=function(amac){
 		
 		$("#SoruCokluInput",container).append("<div id='virgul' >");
 		$("#virgul").css("width","20px")
-<<<<<<< HEAD
 			.css("height","160px")
-=======
-			.css("height","180px")
->>>>>>> origin/abdullah-dev
 			.css("position","absolute")
 			.css("top","0px")
 			.css("left","120px")
@@ -1278,11 +1102,7 @@ var etkilesim=function(amac){
 			.css("font-size","medium")
 			.css("text-align","center")
 			.css("font-size","40px")
-<<<<<<< HEAD
 			.css("line-height","270px")
-=======
-			.css("line-height","310px")
->>>>>>> origin/abdullah-dev
 			.html(",");
 
 		
@@ -1291,11 +1111,7 @@ var etkilesim=function(amac){
 		// Onda birler
 	$("#SoruCokluInput",container).append("<div id='ondaBirler' >");
 		$("#ondaBirler").css("width","40px");
-<<<<<<< HEAD
 		$("#ondaBirler").css("height","130px");
-=======
-		$("#ondaBirler").css("height","150px");
->>>>>>> origin/abdullah-dev
 		$("#ondaBirler").css("position","absolute");
 		$("#ondaBirler").css("top","30px");
 		$("#ondaBirler").css("left","141px");
@@ -1321,11 +1137,7 @@ var etkilesim=function(amac){
 			.css("border-left","none");
 			//.css("font-size","medium").html("ok");
 	if (this.amac=="soru"){		
-<<<<<<< HEAD
 		var ondaBirler=Interaction.appendInput({},true,true);
-=======
-		var ondaBirler=Interaction.appendInput({},true);
->>>>>>> origin/abdullah-dev
 		$(Interaction.inputs[4]).attr('maxlength', '1').attr("id","inputOndaBirler");
 		$("#girdiOndaBirler",container).append(ondaBirler);
 	}
@@ -1344,11 +1156,7 @@ var etkilesim=function(amac){
 		// Yüzde birler
 	$("#SoruCokluInput",container).append("<div id='yuzdeBirler' >");
 		$("#yuzdeBirler").css("width","40px");
-<<<<<<< HEAD
 		$("#yuzdeBirler").css("height","130px");
-=======
-		$("#yuzdeBirler").css("height","150px");
->>>>>>> origin/abdullah-dev
 		$("#yuzdeBirler").css("position","absolute");
 		$("#yuzdeBirler").css("top","30px");
 		$("#yuzdeBirler").css("left","180px");
@@ -1373,11 +1181,7 @@ var etkilesim=function(amac){
 			.css("border-left","none");
 			//.css("font-size","medium").html("ok");
 	if (this.amac=="soru"){		
-<<<<<<< HEAD
 		var yuzdeBirler=Interaction.appendInput({},true,true);
-=======
-		var yuzdeBirler=Interaction.appendInput({},true);
->>>>>>> origin/abdullah-dev
 		$(Interaction.inputs[5]).attr('maxlength', '1').attr("id","inputYuzdeBirler");
 		$("#girdiYuzdeBirler",container).append(yuzdeBirler);
 	}
@@ -1395,11 +1199,7 @@ var etkilesim=function(amac){
 		// Binde Birler
 	$("#SoruCokluInput",container).append("<div id='bindeBirler' >");
 		$("#bindeBirler").css("width","40px");
-<<<<<<< HEAD
 		$("#bindeBirler").css("height","130px");
-=======
-		$("#bindeBirler").css("height","150px");
->>>>>>> origin/abdullah-dev
 		$("#bindeBirler").css("position","absolute");
 		$("#bindeBirler").css("top","30px");
 		$("#bindeBirler").css("left","220px");
@@ -1426,11 +1226,7 @@ var etkilesim=function(amac){
 			.css("border-left","none");
 			//.css("font-size","medium").html("ok");
 	if (this.amac=="soru"){		
-<<<<<<< HEAD
 		var bindeBirler=Interaction.appendInput({},true,true);
-=======
-		var bindeBirler=Interaction.appendInput({},true);
->>>>>>> origin/abdullah-dev
 		$(Interaction.inputs[6]).attr('maxlength', '1').attr("id","inputBindeBirler");
 		$("#girdiBindeBirler",container).append(bindeBirler);
 	}
@@ -1472,13 +1268,8 @@ var etkilesim=function(amac){
 		//-webkit-transform:rotate(-90deg);
 		$(".yatay").css("text-align","left");
 		$(".yatay").css("position","absolute");
-<<<<<<< HEAD
 		$(".yatay").css("height","6px");
 		$(".yatay").css("width","130px");
-=======
-		$(".yatay").css("height","30px");
-		$(".yatay").css("width","150px");
->>>>>>> origin/abdullah-dev
 		$(".yatay").css("bottom","110px");
 		$(".yatay").css("left","-50px");
 		//$("#yatay").css("right","200px");
@@ -1486,7 +1277,6 @@ var etkilesim=function(amac){
 		$(".yatay").css("font-size","small");
 		
 		}
-<<<<<<< HEAD
                 // cevaplar
                 if(this.amac=="soru"){
                     
@@ -1607,8 +1397,6 @@ var etkilesim=function(amac){
 				//$("#soruTekliInput #input",Interaction.container).append(girdi);
 			
                 }
-=======
->>>>>>> origin/abdullah-dev
 	
 	};
 var format = function(num, options) {
@@ -1623,8 +1411,4 @@ var format = function(num, options) {
 				
 	for (result = result.replace('.', options.point); regex.test(result) && options.group; result=result.replace(regex, '$1'+options.group+'$2')) {};
 	return (num < 0 ? '-' : '') + options.prefix + result + options.suffix;
-<<<<<<< HEAD
 };
-=======
-};
->>>>>>> origin/abdullah-dev

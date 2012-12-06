@@ -129,12 +129,8 @@ var Animation = {
 			900,
 			function(){
 				$(Animation.container).append('<span style="position:absolute;bottom:20px;left:80%">Altıgen</span>');
-<<<<<<< HEAD
                 Main.animationFinished();
             }
-=======
-			}
->>>>>>> origin/abdullah-dev
 		);	
 	}
 };
@@ -193,16 +189,9 @@ Interaction.init = function(container){
 		
 	};
 	Interaction.shuffledArray = null;
-<<<<<<< HEAD
 	Interaction.createDropableShapesLeft(10,0,w*0.2,h*0.8);
 	Interaction.createDropableShapesRight(w*0.8-10,0,w*0.2,h*0.8);
 	Interaction.generateRandomShapes(w*0.25,10,w*0.55,h);
-=======
-	Interaction.createDropableShapesLeft(0,0,w*0.2,h*0.8);
-	Interaction.createDropableShapesRight(w*0.8,0,w*0.2,h*0.8);
-	//Interaction.dropableShapes.setImage('dropable_default');
-	Interaction.generateRandomShapes(w*0.2,10,w*0.6,h);
->>>>>>> origin/abdullah-dev
 	Interaction.paper = {width:500,height:300};
 	Interaction.preventDrag = false;
 	if(Interaction.status == null || Interaction.status == 'undefined'){
@@ -342,11 +331,7 @@ var start = function(){
 Interaction.generateRandomShapes = function(X,Y,WIDTH,HEIGHT){
 	Interaction.shapes = [];
 	var maxW = WIDTH*0.25;
-<<<<<<< HEAD
 	var maxH = HEIGHT*0.25;
-=======
-	var maxH = HEIGHT*0.3;
->>>>>>> origin/abdullah-dev
 	Interaction.shapeCount = -1;
 	do{///generate shapes randomly
 		var x,y,w,h;
@@ -357,10 +342,6 @@ Interaction.generateRandomShapes = function(X,Y,WIDTH,HEIGHT){
 		w = maxW*0.7;
 		h = maxH*0.7;
 		var shape = {};
-<<<<<<< HEAD
-=======
-		var isRegular;
->>>>>>> origin/abdullah-dev
 		var edgeNumber;
 		
 		var NUMBER_OF_SHAPES  = 12;

@@ -5180,17 +5180,10 @@ Path.inject({ statics: new function() {
 				bottom = top + rect.height,
 				path = new Path();
 			path._add([
-<<<<<<< HEAD
 				new Segment(Point.create(left, top)),
 				new Segment(Point.create(left, bottom)),
 				new Segment(Point.create(right, bottom)),
 				new Segment(Point.create(right, top))
-=======
-				new Segment(Point.create(left, bottom)),
-				new Segment(Point.create(left, top)),
-				new Segment(Point.create(right, top)),
-				new Segment(Point.create(right, bottom))
->>>>>>> origin/abdullah-dev
 			]);
 			path._closed = true;
 			return path;
@@ -5748,7 +5741,6 @@ var PointText = this.PointText = TextItem.extend({
 		this._matrix.preConcatenate(matrix);
 		matrix._transformPoint(this._point, this._point);
 	},
-<<<<<<< HEAD
 	
 	/*User defined function*/
 	getWidth : function(){
@@ -5762,9 +5754,6 @@ var PointText = this.PointText = TextItem.extend({
 		ctx.restore();
 		return textDimensions.width;
 	},
-=======
-
->>>>>>> origin/abdullah-dev
 	draw: function(ctx) {
 		if (!this._content)
 			return;
@@ -5772,10 +5761,6 @@ var PointText = this.PointText = TextItem.extend({
 		ctx.font = this.getFontSize() + 'pt ' + this.getFont();
 		ctx.textAlign = this.getJustification();
 		this._matrix.applyToContext(ctx);
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/abdullah-dev
 		var fillColor = this.getFillColor();
 		var strokeColor = this.getStrokeColor();
 		if (!fillColor || !strokeColor)
@@ -6893,11 +6878,7 @@ var View = this.View = PaperScopeItem.extend({
 					var view = scope.views[i];
 					if (view.isVisible()) {
 						View._focused = tempFocus = view;
-<<<<<<< HEAD
 						// throw Base.stop;
-=======
-						throw Base.stop;
->>>>>>> origin/abdullah-dev
 					}
 				}
 			});
@@ -7236,10 +7217,7 @@ var Tool = this.Tool = PaperScopeItem.extend({
 	_reference: 'tool',
 
 	initialize: function() {
-<<<<<<< HEAD
 		this.view = View._focused;
-=======
->>>>>>> origin/abdullah-dev
 		this.base();
 		this._firstMove = true;
 		this._count = 0;
@@ -7323,12 +7301,9 @@ var Tool = this.Tool = PaperScopeItem.extend({
 	},
 
 	onHandleEvent: function(type, pt, event) {
-<<<<<<< HEAD
 		if (this.view != View._focused) {
 			return;
 		}
-=======
->>>>>>> origin/abdullah-dev
 		paper = this._scope;
 		var called = false;
 		switch (type) {
