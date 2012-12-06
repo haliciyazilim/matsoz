@@ -10,43 +10,45 @@ function __Styles(){
 var Animation = {
 	init:function(container){
 			Animation.container = container;
-			
-			$(container).append('<img id="bookstore" src="/assets/animations/tablo/bookstore.png" />');
+
+			$(Animation.container).append('<img id="bookstore" src="/assets/animations/tablo/bookstore.png" />');
 			$('#bookstore').css("width", "180px")
 						.css("height", "100px")
 						.css("position", "absolute")
+                        .css("opacity",0)
 						.css("left", "60px")
 						.css("top", "30px");
-			
-			$(container).append('<div id="infoText">Bir kitabevinde hafta boyunca satılan kitapların tablosu yapılmıştır.</div>')
+
+			$(Animation.container).append('<div id="infoText">Bir kitabevinde hafta boyunca satılan kitapların tablosu yapılmıştır.</div>');
 			$('#infoText').css("position", "absolute")
 							.css("top", "134px")
 							.css("left", "60px")
 							.css("width", "180px")
 							.css("height", "60px")
 							.css("text-align", "center")
+                            .css("opacity",0)
 							.css("font-size", 14);
-			
+
 			var table2Group = new Group();
-			
-			var titleRect = new Path.Rectangle(new Point(300.5, 10.5), new Size(100, 30))
+
+			var titleRect = new Path.Rectangle(new Point(300.5, 10.5), new Size(100, 30));
 			titleRect.strokeColor = animationTableStrokeColor;
 			titleRect.fillColor = animationTableFillColor;
 			table2Group.addChild(titleRect);
-			
+
 			var titleLine = new Path.Line(new Point(300.5, 10.5), new Point(400.5, 40.5));
 			titleLine.strokeColor = animationTableStrokeColor;
 			table2Group.addChild(titleLine);
-			
+
 			// day Rects
 			for(i = 0; i < 6; i++) {
-				var daysRect = new Path.Rectangle(new Point(300.5, 40.5+(20*i)), new Size(100, 20))
+				var daysRect = new Path.Rectangle(new Point(300.5, 40.5+(20*i)), new Size(100, 20));
 				daysRect.strokeColor = animationTableStrokeColor;
 				if(i % 2 == 1)
 					daysRect.fillColor = animationTableFillColor;
 				table2Group.addChild(daysRect);
 			}
-			
+
 			// category Rects
 			for(i = 0; i < 4; i++) {
 				var categoriesRect = new Path.Rectangle(new Point(400.5+(60*i), 10.5), new Size(60, 30));
@@ -54,9 +56,9 @@ var Animation = {
 				categoriesRect.fillColor = animationTableFillColor;
 				table2Group.addChild(categoriesRect);
 			}
-			
+
 			// datas Rects
-			
+
 			for(i = 0; i < 4; i++) {
 				for(j = 0; j < 6; j++) {
 					var datas2Rect = new Path.Rectangle(new Point(400.5+(60*i), 40.5+(20*j)), new Size(60, 20));
@@ -66,29 +68,31 @@ var Animation = {
 					table2Group.addChild(datas2Rect)
 				}
 			}
-			
-			$(container).append('<div id="table2Div"></div>');
+
+			$(Animation.container).append('<div id="table2Div"></div>');
 			$('#table2Div').css("position", "absolute")
 							.css("left", "310px")
 							.css("top", "26px")
 							.css("width", "344px")
-							.css("height", "152px")
+							.css("height", "152px");
 					//		.css("border", "solid")
-			
+
 			$('#table2Div').append('<p id="daysText" >Günler</p>');
 			$('#daysText').css("position", "absolute")
 						.css("left", "22px")
 						.css("top", "14px")
 						.css("font-size", 12)
+                        .css("opacity",0)
 						.css("text-align", "center");
-			
+
 			$('#table2Div').append('<p id="categoriesText" >Kitaplar</p>');
 			$('#categoriesText').css("position", "absolute")
 						.css("left", "58px")
 						.css("top", "0px")
 						.css("font-size", 12)
+                        .css("opacity",0)
 						.css("text-align", "center");
-						
+
 			// days Texts
 			$('#table2Div').append('<p id="mondayText" >Pazartesi</p>');
 			$('#mondayText').css("position", "absolute")
@@ -96,49 +100,55 @@ var Animation = {
 						.css("top", "32px")
 						.css("font-size", 14)
 						.css("font-weight", "bold")
+                        .css("opacity",0)
 						.css("text-align", "center");
-			
+
 			$('#table2Div').append('<p id="tuesdayText" >Salı</p>');
 			$('#tuesdayText').css("position", "absolute")
 						.css("left", "20px")
 						.css("top", "53px")
 						.css("font-size", 14)
 						.css("font-weight", "bold")
+                        .css("opacity",0)
 						.css("text-align", "center");
-			
+
 			$('#table2Div').append('<p id="wednesdayText" >Çarşamba</p>');
 			$('#wednesdayText').css("position", "absolute")
 						.css("left", "20px")
 						.css("top", "72px")
 						.css("font-size", 14)
 						.css("font-weight", "bold")
+                        .css("opacity",0)
 						.css("text-align", "center");
-			
+
 			$('#table2Div').append('<p id="thursdayText" >Perşembe</p>');
 			$('#thursdayText').css("position", "absolute")
 						.css("left", "20px")
 						.css("top", "92px")
 						.css("font-size", 14)
 						.css("font-weight", "bold")
+                        .css("opacity",0)
 						.css("text-align", "center");
-			
+
 			$('#table2Div').append('<p id="fridayText" >Cuma</p>');
 			$('#fridayText').css("position", "absolute")
 						.css("left", "20px")
 						.css("top", "112px")
 						.css("font-size", 14)
 						.css("font-weight", "bold")
+                        .css("opacity",0)
 						.css("text-align", "center");
-			
+
 			$('#table2Div').append('<p id="saturdayText" >Cumartesi</p>');
 			$('#saturdayText').css("position", "absolute")
 						.css("left", "20px")
 						.css("top", "132px")
 						.css("font-size", 14)
 						.css("font-weight", "bold")
+                        .css("opacity",0)
 						.css("text-align", "center");
-			
-			
+
+
 			// categories Texts
 			$('#table2Div').append('<p id="novelText" >Roman</p>');
 			$('#novelText').css("position", "absolute")
@@ -146,35 +156,39 @@ var Animation = {
 						.css("top", "10px")
 						.css("font-size", 14)
 						.css("font-weight", "bold")
+                        .css("opacity",0)
 						.css("text-align", "center");
-			
+
 			$('#table2Div').append('<p id="storyText" >Hikaye</p>');
 			$('#storyText').css("position", "absolute")
 						.css("left", "172px")
 						.css("top", "10px")
 						.css("font-size", 14)
 						.css("font-weight", "bold")
+                        .css("opacity",0)
 						.css("text-align", "center");
-			
+
 			$('#table2Div').append('<p id="poemText" >Şiir</p>');
 			$('#poemText').css("position", "absolute")
 						.css("left", "242px")
 						.css("top", "10px")
 						.css("font-size", 14)
 						.css("font-weight", "bold")
+                        .css("opacity",0)
 						.css("text-align", "center");
-			
+
 			$('#table2Div').append('<p id="otherText" >Diğer</p>');
 			$('#otherText').css("position", "absolute")
 						.css("left", "298px")
 						.css("top", "10px")
 						.css("font-size", 14)
 						.css("font-weight", "bold")
+                        .css("opacity",0)
 						.css("text-align", "center");
-			
+
 			var datas2 = new Array(6, 9, 2, 5, 4, 5, 0, 7, 7, 2, 1, 4, 3, 2, 3, 6,
 									7, 5, 2, 2, 5, 8, 4, 9);
-			
+
 			for(i = 0; i < 6; i++)
 			{
 				var topStr = ""+(32+20*i)+"px";
@@ -183,7 +197,7 @@ var Animation = {
 					var leftStr = ""+(136+60*j)+"px";
 					var id = 'ddata'+(i*4+j);
 					$('#table2Div').append('<p id="'+id+'"></p>');
-					
+
 					$('#'+id).html(datas2[i*4+j]);
 					$('#'+id).css("position", "absolute")
 								.css("left", leftStr)
@@ -193,62 +207,24 @@ var Animation = {
 					$('#'+id).delay(7500+(500*i)+250*(i*4+j)).animate({opacity:1},250)
 				}
 			}
-			
+
 			table2Group.opacity = 0;
-			
-			exampleHelper = {
-				bookstoreOpacity: 0,
-				infoTextOpacity: 0,
-				daysTextOpacity: 0,
-				categoriesTextOpacity: 0,
-				mondayTextOpacity: 0,
-				tuesdayTextOpacity: 0,
-				wednesdayTextOpacity: 0,
-				thursdayTextOpacity: 0,
-				fridayTextOpacity: 0,
-				saturdayTextOpacity: 0,
-				novelTextOpacity: 0,
-				storyTextOpacity: 0,
-				poemTextOpacity: 0,
-				otherTextOpacity: 0,	
-			};
-			
-			exampleHelper.animate = Item.prototype.animate;
-			Animation.onFrame = function(event){
-				$('#bookstore').css("opacity", exampleHelper.bookstoreOpacity);
-				$('#infoText').css("opacity", exampleHelper.infoTextOpacity);
-				$('#daysText').css("opacity", exampleHelper.daysTextOpacity);
-				$('#categoriesText').css("opacity", exampleHelper.categoriesTextOpacity);
-				$('#novelText').css("opacity", exampleHelper.novelTextOpacity);
-				$('#storyText').css("opacity", exampleHelper.storyTextOpacity);
-				$('#poemText').css("opacity", exampleHelper.poemTextOpacity);
-				$('#otherText').css("opacity", exampleHelper.otherTextOpacity);
-				$('#mondayText').css("opacity", exampleHelper.mondayTextOpacity);
-				$('#tuesdayText').css("opacity", exampleHelper.tuesdayTextOpacity);
-				$('#wednesdayText').css("opacity", exampleHelper.wednesdayTextOpacity);
-				$('#thursdayText').css("opacity", exampleHelper.thursdayTextOpacity);
-				$('#fridayText').css("opacity", exampleHelper.fridayTextOpacity);
-				$('#saturdayText').css("opacity", exampleHelper.saturdayTextOpacity);
-			}
-			
-			exampleHelper.animate({
-				style: {
-					bookstoreOpacity: 1
-				},
-				duration: 1000,
-				delay: 1000,
-				animationType: 'easeInEaseOut'
-			});
-			
-			exampleHelper.animate({
-				style: {
-					infoTextOpacity: 1
-				},
-				duration: 1000,
-				delay: 2000,
-				animationType: 'easeInEaseOut'
-			});
-			
+
+            $("#bookstore").delay(1000).animate({opacity:1},1000,"easeInOutQuad");
+            $("#infoText").delay(2000).animate({opacity:1},1000,"easeInOutQuad");
+            $("#categoriesText").delay(4000).animate({opacity:1},500,"easeInOutQuad");
+            $("#daysText").delay(4500).animate({opacity:1},500,"easeInOutQuad");
+            $("#novelText").delay(5000).animate({opacity:1},500,"easeInOutQuad");
+            $("#storyText").delay(5500).animate({opacity:1},500,"easeInOutQuad");
+            $("#poemText").delay(6000).animate({opacity:1},500,"easeInOutQuad");
+            $("#otherText").delay(6500).animate({opacity:1},500,"easeInOutQuad");
+            $("#mondayText").delay(7000).animate({opacity:1},500,"easeInOutQuad");
+            $("#tuesdayText").delay(8500).animate({opacity:1},500,"easeInOutQuad");
+            $("#wednesdayText").delay(10000).animate({opacity:1},500,"easeInOutQuad");
+            $("#thursdayText").delay(11500).animate({opacity:1},500,"easeInOutQuad");
+            $("#fridayText").delay(13000).animate({opacity:1},500,"easeInOutQuad");
+            $("#saturdayText").delay(14500).animate({opacity:1},500,"easeInOutQuad");
+
 			table2Group.animate({
 				style: {
 					opacity: 1
@@ -257,119 +233,11 @@ var Animation = {
 				delay: 3000,
 				animationType: 'easeInEaseOut'
 			});
-			
-			exampleHelper.animate({
-				style: {
-					categoriesTextOpacity: 1
-				},
-				duration: 500,
-				delay: 4000,
-				animationType: 'easeInEaseOut'
-			});
-			
-			exampleHelper.animate({
-				style: {
-					daysTextOpacity: 1
-				},
-				duration: 500,
-				delay: 4500,
-				animationType: 'easeInEaseOut'
-			});
-			
-			exampleHelper.animate({
-				style: {
-					novelTextOpacity: 1
-				},
-				duration: 500,
-				delay: 5000,
-				animationType: 'easeInEaseOut'
-			});
-			
-			exampleHelper.animate({
-				style: {
-					storyTextOpacity: 1
-				},
-				duration: 500,
-				delay: 5500,
-				animationType: 'easeInEaseOut'
-			});
-			
-			exampleHelper.animate({
-				style: {
-					poemTextOpacity: 1
-				},
-				duration: 500,
-				delay: 6000,
-				animationType: 'easeInEaseOut'
-			});
-			
-			exampleHelper.animate({
-				style: {
-					otherTextOpacity: 1
-				},
-				duration: 500,
-				delay: 6500,
-				animationType: 'easeInEaseOut'
-			});
-			
-			exampleHelper.animate({
-				style: {
-					mondayTextOpacity: 1
-				},
-				duration: 500,
-				delay: 7000,
-				animationType: 'easeInEaseOut'
-			});
-			
-				exampleHelper.animate({
-				style: {
-					tuesdayTextOpacity: 1
-				},
-				duration: 500,
-				delay: 8500,
-				animationType: 'easeInEaseOut'
-			});
-			
-			exampleHelper.animate({
-				style: {
-					wednesdayTextOpacity: 1
-				},
-				duration: 500,
-				delay: 10000,
-				animationType: 'easeInEaseOut'
-			});
-			
-				exampleHelper.animate({
-				style: {
-					thursdayTextOpacity: 1
-				},
-				duration: 500,
-				delay: 11500,
-				animationType: 'easeInEaseOut'
-			});
-			
-			exampleHelper.animate({
-				style: {
-					fridayTextOpacity: 1
-				},
-				duration: 500,
-				delay: 13000,
-				animationType: 'easeInEaseOut'
-			});
-			
-				exampleHelper.animate({
-				style: {
-					saturdayTextOpacity: 1
-				},
-				duration: 500,
-				delay: 14500,
-				animationType: 'easeInEaseOut'
-			});
-			
+
 			Main.animationFinished(17000);
-		
+
 		}
-}
+};
 
 var Interaction = {
 	getFramework:function(){
