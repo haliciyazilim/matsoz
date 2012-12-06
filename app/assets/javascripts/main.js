@@ -41,7 +41,7 @@ Main.platform = {
 
 Main.getCurrentPlatform = function(){
     var userAgent = navigator.userAgent;
-    if(userAgent.indexOf("Mobile"))
+    if(userAgent.indexOf("Mobile") > 0)
         return Main.platform.MOBILE;
     else
         return Main.platform.DESKTOP;

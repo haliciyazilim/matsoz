@@ -65,7 +65,7 @@ function InteractionBase(){
 				class:'status'
 			})
 			.css({
-				position:'absolute',
+				position:'absolute'
 			});
 		$(Interaction.status).css(css);
 	};
@@ -199,8 +199,7 @@ function InteractionBase(){
 				'class':'control_button'
 			})
 			.css({
-				position:'absolute',
-				
+				position:'absolute'
 			});
 		$(Interaction.button).css(css);
 	};
