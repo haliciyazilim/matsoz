@@ -148,13 +148,16 @@ function InteractionBase(){
 	}
 	Interaction.createInput = function(isNumber,maxLength,css){
 		var input = document.createElement('input');
-		if(isNumber==true){
+        input.setAttribute('type','text');
+        if(isNumber==true){
 			input.setAttribute('onkeypress','return Interaction.__inputFilter__onlyNumbers(event)');
 			input.setAttribute('isNumber','true');
+            if(Main.getCurrentPlatform() == Main.platform.MOBILE)
+                input.setAttribute('type','number');
 		}
 		else 	
 			input.setAttribute('isNumber','false');
-		input.setAttribute('type','text');
+
 		$(input)
 			.attr({
 				'class':'input',
@@ -193,7 +196,7 @@ function InteractionBase(){
 		$(Interaction.container).append(Interaction.button);
 		$(Interaction.button)
 			.attr({
-				'class':'control_button',					
+				'class':'control_button'
 			})
 			.css({
 				position:'absolute',
