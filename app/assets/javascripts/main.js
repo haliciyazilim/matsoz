@@ -448,7 +448,7 @@ Main.initializeToolbar = function(){
         window.history.go(1);
     });
     $('.btn_info').click(function(event){
-        console.log("I'm here");
+//        console.log("I'm here");
         Main.InfoDialog.show();
     });
     $('.btn_home').click(function(event){
