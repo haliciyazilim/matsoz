@@ -14,7 +14,11 @@ var Animation = {
 				left:'15px',
 				top:'20px'
 			}).fadeIn(1000,'linear'));
+<<<<<<< HEAD:app/assets/javascripts/animations/ataturk_ve_matematik.js
 			Main.animationFinished(1000);
+=======
+			
+>>>>>>> origin/abdullah-dev:app/assets/javascripts/animations/ataturk_ve_geometri.js
 		}
 };
 var Interaction = {};
@@ -172,7 +176,11 @@ Interaction.init = function(container){
 		position:'absolute',
 		bottom:'10%',
 		right:'10%',
+<<<<<<< HEAD:app/assets/javascripts/animations/ataturk_ve_matematik.js
 		width:103,
+=======
+		width:100,
+>>>>>>> origin/abdullah-dev:app/assets/javascripts/animations/ataturk_ve_geometri.js
 		textAlign:'center'
 	});
 	Interaction.preventNextQuestion = false;
@@ -302,7 +310,11 @@ Interaction.words = [
 	},
 	{
 		oldName:'ehram',
+<<<<<<< HEAD:app/assets/javascripts/animations/ataturk_ve_matematik.js
 		newName:'piramit',
+=======
+		newName:'piramid',
+>>>>>>> origin/abdullah-dev:app/assets/javascripts/animations/ataturk_ve_geometri.js
 		shape: 'piramid'
 	},
 	{

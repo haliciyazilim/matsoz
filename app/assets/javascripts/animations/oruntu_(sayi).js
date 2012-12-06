@@ -3,6 +3,7 @@
 var NUMBER_OF_INTERACTION_TYPES = 7;
 var PATTERN_SIZE = 7;
 
+<<<<<<< HEAD
 var showAnswer = function (container, totalDelay, numbers, operations, patternDivs, isPower) {
 	
 	if (isPower != true) isPower = false;
@@ -187,6 +188,8 @@ var showAnswer = function (container, totalDelay, numbers, operations, patternDi
 }
 
 
+=======
+>>>>>>> origin/abdullah-dev
 var Animation = {
 	
 	images: [{
@@ -256,7 +259,10 @@ var Animation = {
 				opacity: 1
 			}, duration);
 			
+<<<<<<< HEAD
 			
+=======
+>>>>>>> origin/abdullah-dev
 			$(container).append("<div id='multiplicationArea'></div>");
 			$("#multiplicationArea").css({
 				position: 'absolute',
@@ -267,9 +273,160 @@ var Animation = {
 				'text-align': 'center',
 				'font-size': '24px'
 			});
+<<<<<<< HEAD
 			
 			totalDelay = showAnswer("multiplicationArea", totalDelay, [3, 6, 12, 24], ["x 2", "x 2", "x 2"], ["number1", "number2", "number3", "number4"]);
 			
+=======
+
+			$("#multiplicationArea").append("<div id=mult1></div>");
+			$("#mult1").css({
+				position: 'absolute',
+				left: '0px',
+				top: '0px',
+			})
+			
+			$("#multiplicationArea").append("<div id=mult2></div>");
+			$("#mult2").css({
+				position: 'absolute',
+				left: '80px',
+				top: '32px',
+			})
+		
+			$("#multiplicationArea").append("<div id=mult3></div>");
+			$("#mult3").css({
+				position: 'absolute',
+				left: '160px',
+				top: '64px',
+			})
+			
+			$("#mult1").append("<span id=mult1_1>3</span>")
+			$("#mult1").append("<span id=mult1_2><span class='constMult'> x 2 </span>= </span>")
+			$("#mult1").append("<span id=mult1_3>6</span>")
+
+			$("#mult1_2 .constMult").css({
+				color: '#f00'
+			});
+
+			$("#mult1_1").css('opacity', 0);
+			$("#mult1_2").css('opacity', 0);
+			$("#mult1_3").css('opacity', 0);
+			
+			$("#mult2").append("<span id=mult2_1>6</span>")
+			$("#mult2").append("<span id=mult2_2><span class='constMult'> x 2 </span>= </span>")
+			$("#mult2").append("<span id=mult2_3>12</span>")
+
+			$("#mult2_1").css({
+				position: "relative",
+				top: "-32px"
+			});
+			
+			$("#mult2_2 .constMult").css({
+				color: '#f00'
+			});
+
+			$("#mult2_1").css('opacity', 0);
+			$("#mult2_2").css('opacity', 0);
+			$("#mult2_3").css('opacity', 0);
+			
+			$("#mult3").append("<span id=mult3_1>12</span>")
+			$("#mult3").append("<span id=mult3_2><span class='constMult'> x 2 </span>= </span>")
+			$("#mult3").append("<span id=mult3_3>24</span>")
+
+			$("#mult3_1").css({
+				position: "relative",
+				top: "-32px"
+			});
+			
+			$("#mult3_2 .constMult").css({
+				color: '#f00'
+			});
+
+			$("#mult3_1").css('opacity', 0);
+			$("#mult3_2").css('opacity', 0);
+			$("#mult3_3").css('opacity', 0);
+			
+			
+			delay = 200;
+			duration = 1000;
+			
+			$("#number1 .num").delay(totalDelay += duration + delay).animate({
+				color: '#f00'
+			}, duration);
+			$("#mult1_1").delay(totalDelay+100).animate({
+				opacity: 1
+			}, duration+200);
+			
+			$("#number2 .num").delay(totalDelay += duration + delay).animate({
+				color: '#f00'
+			}, duration);
+			$("#mult1_3").delay(totalDelay+100).animate({
+				opacity: 1
+			}, duration + 200);
+			
+			$("#mult1_2").delay(totalDelay += duration + delay).animate({
+				opacity: 1
+			}, duration+200);
+			
+			
+			$("#mult2_1").delay(totalDelay += duration + delay - 200).animate({
+				opacity: 1
+			}, 200);
+			
+			$("#number1 .num").delay((duration + delay)*2).animate({
+				color: "#000"
+			}, duration);
+			
+			$("#mult2_1").delay(duration + delay).animate({
+				top: "0px"
+			}, duration);
+			
+			$("#number3 .num").delay(totalDelay += duration + duration + delay).animate({
+				color: '#f00'
+			}, duration);
+			
+			$("#mult2_3").delay(totalDelay+100).animate({
+				opacity: 1
+			}, duration + 200);
+			
+			$("#mult2_2").delay(totalDelay += duration + delay).animate({
+				opacity: 1
+			}, duration);
+			
+			
+			$("#mult3_1").delay(totalDelay += duration + delay - 200).animate({
+				opacity: 1
+			}, 200);
+			
+			$("#number2 .num").delay((duration + delay)*5).animate({
+				color: "#000"
+			}, duration);
+			
+			$("#mult3_1").delay(duration + delay).animate({
+				top: "0px"
+			}, duration);
+			
+			$("#number4 .num").delay(totalDelay += duration + duration + delay).animate({
+				color: '#f00'
+			}, duration);
+			
+			$("#mult3_3").delay(totalDelay+100).animate({
+				opacity: 1
+			}, duration + 200);
+			
+			$("#mult3_2").delay(totalDelay += duration + delay).animate({
+				opacity: 1
+			}, duration);
+			
+			
+			$("#number3 .num").delay((duration + delay) * 6 - delay * 2).animate({
+				color: "#000"
+			}, duration);
+			
+			$("#number4 .num").delay((duration + delay) * 2).animate({
+				color: "#000"
+			}, duration);
+>>>>>>> origin/abdullah-dev
 			
 			totalDelay += 3000;
 			duration = 1000;
@@ -296,7 +453,10 @@ var Animation = {
 				opacity: 1
 			}, duration);
 			
+<<<<<<< HEAD
 			Main.animationFinished(totalDelay+1000);
+=======
+>>>>>>> origin/abdullah-dev
 		}
 }
 
@@ -319,6 +479,7 @@ var Interaction = {
 			Interaction.count = 0;
 			Interaction.shuffledArray = Util.getShuffledArray(NUMBER_OF_INTERACTION_TYPES);
 			
+<<<<<<< HEAD
 			$(container).append("<div id='answerArea'></div>");
 			$("#answerArea").css({
 				position: 'absolute',
@@ -330,6 +491,8 @@ var Interaction = {
 				'font-size': '24px'
 			});
 			
+=======
+>>>>>>> origin/abdullah-dev
 			$(container).append('<div id="patternContainer"></div>');
 			$("#patternContainer").css({
 				position: "absolute",
@@ -366,8 +529,11 @@ var Interaction = {
 		},
 	nextQuestion: function(){		
 			Interaction.pattern = [];
+<<<<<<< HEAD
 			Interaction.operations = [];
 			Interaction.isPower = false;
+=======
+>>>>>>> origin/abdullah-dev
 			var count = (Interaction.count++)%Interaction.shuffledArray.length;
 			// 
 			// if (Interaction.count < 6) {
@@ -376,9 +542,12 @@ var Interaction = {
 			// 	$("#answerEntry").html("Yukarıdaki boşlukları doldurunuz.");
 			// }
 			// 
+<<<<<<< HEAD
 			
 			$("#answerArea").html("");
 			
+=======
+>>>>>>> origin/abdullah-dev
 			switch (Interaction.shuffledArray[count]) {
 				case 0: 			// Addition
 					var startNumber = Util.randomInteger(1, 10);
@@ -387,7 +556,10 @@ var Interaction = {
 					Interaction.pattern.push(startNumber);
 					for (i = 1; i < PATTERN_SIZE; i++) {
 						Interaction.pattern.push(startNumber+=increment);
+<<<<<<< HEAD
 						Interaction.operations.push("+ "+increment);
+=======
+>>>>>>> origin/abdullah-dev
 					}
 					
 					break;
@@ -399,7 +571,10 @@ var Interaction = {
 					Interaction.pattern.push(startNumber);
 					for (i = 1; i < PATTERN_SIZE; i++) {
 						Interaction.pattern.push(startNumber+=increment);
+<<<<<<< HEAD
 						Interaction.operations.push("- "+increment);
+=======
+>>>>>>> origin/abdullah-dev
 					}
 					
 					Interaction.pattern.reverse();
@@ -413,7 +588,10 @@ var Interaction = {
 					Interaction.pattern.push(startNumber);
 					for (i = 1; i < PATTERN_SIZE; i++) {
 						Interaction.pattern.push(startNumber*=multiplier);
+<<<<<<< HEAD
 						Interaction.operations.push("x "+multiplier);
+=======
+>>>>>>> origin/abdullah-dev
 					}
 
 					break;
@@ -425,7 +603,10 @@ var Interaction = {
 					Interaction.pattern.push(startNumber);
 					for (i = 1; i < PATTERN_SIZE; i++) {
 						Interaction.pattern.push(startNumber*=multiplier);
+<<<<<<< HEAD
 						Interaction.operations.push("/ "+multiplier);
+=======
+>>>>>>> origin/abdullah-dev
 					}
 
 					Interaction.pattern.reverse();
@@ -438,11 +619,16 @@ var Interaction = {
 					Interaction.pattern.push(startNumber*startNumber);
 					for (i = 1; i < PATTERN_SIZE; i++) {
 						Interaction.pattern.push((++startNumber)*startNumber);
+<<<<<<< HEAD
 						Interaction.operations.push("x "+(startNumber-1));
 					}
 					
 					Interaction.isPower = true;
 					
+=======
+					}
+					
+>>>>>>> origin/abdullah-dev
 					break;
 					
 				case 5: 			// Reverse Power
@@ -451,6 +637,7 @@ var Interaction = {
 					Interaction.pattern.push(startNumber*startNumber);
 					for (i = 1; i < PATTERN_SIZE; i++) {
 						Interaction.pattern.push((++startNumber)*startNumber);
+<<<<<<< HEAD
 						Interaction.operations.push("x "+startNumber);
 					}
 					
@@ -458,6 +645,11 @@ var Interaction = {
 										
 					Interaction.pattern.reverse();
 					Interaction.operations.reverse();
+=======
+					}
+					
+					Interaction.pattern.reverse();
+>>>>>>> origin/abdullah-dev
 
 					break;
 					
@@ -477,6 +669,7 @@ var Interaction = {
 						recursivePattern.reverse();
 					}
 					
+<<<<<<< HEAD
 					var reversed = Util.rand01();
 					
 					Interaction.pattern.push(startNumber)
@@ -488,6 +681,15 @@ var Interaction = {
 					if (reversed) {
 						Interaction.pattern.reverse();
 						Interaction.operations.reverse();
+=======
+					Interaction.pattern.push(startNumber)
+					for (i = 1; i < PATTERN_SIZE; i++) {
+						Interaction.pattern.push(startNumber+=recursivePattern[i-1]);
+					}
+					
+					if (Util.rand01()) {
+						Interaction.pattern.reverse();
+>>>>>>> origin/abdullah-dev
 					}
 					
 					break;
@@ -538,6 +740,7 @@ var Interaction = {
 				});
 			}
 			
+<<<<<<< HEAD
 			$("#patternContainer").html("");			
 
 			if (typeof Interaction.pattern[0] == "number" || typeof Interaction.pattern[0] == "string") {
@@ -554,6 +757,14 @@ var Interaction = {
 				} else {
 					$("#patternContainer").append(Interaction.pattern[i]);	
 				}
+=======
+			$("#patternContainer").html("");
+			$("#patternContainer").append(Interaction.pattern[0]);
+			
+			for (i = 1; i < Interaction.pattern.length; i++) {
+				$("#patternContainer").append(", ");
+				$("#patternContainer").append(Interaction.pattern[i]);
+>>>>>>> origin/abdullah-dev
 			}
 		},
 	isAnswerCorrect : function(value){
@@ -600,6 +811,7 @@ var Interaction = {
 				}
 			}
 			
+<<<<<<< HEAD
 			
 			var numbers = [];
 			
@@ -642,5 +854,24 @@ var Interaction = {
 			// 				$("#patternContainer").append( "<span class='status_true' style='font-size: 32px'>" + Interaction.pattern[i].correctAnswer + "</span>");
 			// 			}	
 			// 		}
+=======
+			$("#patternContainer").html("");
+			
+			if (typeof Interaction.pattern[0] == "number" || typeof Interaction.pattern[0] == "string") {
+				$("#patternContainer").append(Interaction.pattern[0]);
+			} else {
+				$("#patternContainer").append("<span class='status_true' style='font-size: 32px'>" + Interaction.pattern[0].correctAnswer + "</span>");
+			}
+			
+			for (i = 1; i < Interaction.pattern.length; i++) {
+				$("#patternContainer").append(", ");
+				
+				if (typeof Interaction.pattern[i] == "number" || typeof Interaction.pattern[i] == "string") {
+					$("#patternContainer").append(Interaction.pattern[i]);
+				} else {
+					$("#patternContainer").append( "<span class='status_true' style='font-size: 32px'>" + Interaction.pattern[i].correctAnswer + "</span>");
+				}	
+			}
+>>>>>>> origin/abdullah-dev
 		},
 }

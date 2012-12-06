@@ -24,7 +24,11 @@ var Animation = {
 					position:'absolute',
 					top:y,
 					left:x,
+<<<<<<< HEAD
 					opacity:0
+=======
+					opacity:0,
+>>>>>>> origin/abdullah-dev
 				})
 				.delay(delay)
 				.animate(
@@ -64,7 +68,11 @@ var Animation = {
 				Animation.arcByAngle.strokeWidth = circularAreaStyle.strokeWidth;
 				
 				//console.log(Animation.arcByAngle);
+<<<<<<< HEAD
 //				console.log(this.circleCenter.toString());
+=======
+				console.log(this.circleCenter.toString());
+>>>>>>> origin/abdullah-dev
 			}
 		})
 		var text = new PointText(
@@ -154,6 +162,7 @@ var Animation = {
 			3000
 		);
 		htmlPlaceAndAnimate(
+<<<<<<< HEAD
 			'',
 			458,
 			90,
@@ -167,6 +176,12 @@ var Animation = {
                     width:'170px'
                 })
             }
+=======
+			'_____________________',
+			x+80,
+			y-7,
+			4000
+>>>>>>> origin/abdullah-dev
 		);
 		htmlPlaceAndAnimate(
 			'dairenin çevre uzunluğu',
@@ -229,9 +244,14 @@ var Animation = {
 			'3,14',
 			x+270,
 			y,
+<<<<<<< HEAD
 			12000            
 		);
         Main.animationFinished(15000);
+=======
+			12000
+		);
+>>>>>>> origin/abdullah-dev
 	}
 };
 var Interaction = {
@@ -239,14 +259,22 @@ var Interaction = {
 		{
 			id:'ruler',
 			src:'/assets/animations/pi/ruler_4cm.png'
+<<<<<<< HEAD
 		}
+=======
+		},
+>>>>>>> origin/abdullah-dev
 	],
 	getFramework : function() {
 		return 'paper';
 	},
 	init: function(container){
+<<<<<<< HEAD
         Interaction.container = container;
 		Main.setObjective('Yandaki cetveli sürükleyip kullanarak verilen çemberin çapını ölçünüz. “Aç” düğmesine basıp oluşan çemberin uzunluğunu ölçünüz. Bu iki uzunluktan hareketle π (pi) sayısını yaklaşık olarak bulup kutuya yazınız ve kontrol ediniz.');
+=======
+		Main.setObjective('Aşağıdaki cetveli kullanarak verilen çemberin çapını ölçünüz. “Aç” düğmesine tıklayıp oluşan çemberin uzunluğunu ölçünüz. Bu iki uzunluktan hareketle π (pi) sayısını yaklaşık olarak bulup kutuya yazınız ve kontrol ediniz.');
+>>>>>>> origin/abdullah-dev
 		Interaction.paper = {
 			width:$(container).width(),
 			height:$(container).height()
@@ -261,6 +289,7 @@ var Interaction = {
 				onClick:'Interaction.drawLine()'
 			})
 			.css({
+<<<<<<< HEAD
 				backgroundImage:'url(/assets/btn_gray_expand_text.png)',
 				position:'absolute',
 				top:'200px',
@@ -295,19 +324,77 @@ var Interaction = {
             width:'400px',
             textAlign:'right'
         })
+=======
+				backgroundImage:'url(/assets/animations/btn_gray_expand.png)',
+				position:'absolute',
+				top:'200px',
+				left:'30px',
+				width:'32px',
+				height:'31px',
+			});
+		
+		Interaction.input = document.createElement('input');
+		Interaction.input.setAttribute('type','text');
+		$(container).append(Interaction.input);
+		$(Interaction.input)
+			.attr({
+				class:'number_input_field',
+				maxLength:4
+			})
+			.css({
+				position:'absolute',
+				top:'200px',
+				right:'50px'
+			});
+		Interaction.input.onkeyup = function(e){
+			if(e.keyCode == 13){
+				Interaction.button.click();
+			}
+		}
+		Interaction.button = document.createElement('input');
+		Interaction.button.setAttribute('type','button');
+		$(container).append(Interaction.button);
+		$(Interaction.button)
+			.attr({
+				class:'control_button',
+				onClick:'Interaction.checkAnswer()'
+			})
+			.css({
+				position:'absolute',
+				top:'250px',
+				right:'50px'
+			});
+		Interaction.status = document.createElement('div');
+		$(container).append(Interaction.status);
+		$(Interaction.status).css({
+			position:'absolute',
+			top:'260px',
+			right:'160px',
+			width:'400px',
+			height:'50px',
+			textAlign:'right'
+		});
+>>>>>>> origin/abdullah-dev
 		Interaction.span = document.createElement('div');
 		$(container).append(Interaction.span);
 		$(Interaction.span)
 			.css({
 				position:'absolute',
 				top:'210px',
+<<<<<<< HEAD
 				right:'180px',
 				width:'280px',
 				height:'20px',
+=======
+				right:'100px',
+				width:'400px',
+				height:'50px',
+>>>>>>> origin/abdullah-dev
 				textAlign:'right',
 				fontWeight:'bold',
 				fontSize:'16px'
 			})
+<<<<<<< HEAD
 			.html('π’nin yaklaşık değeri = <span style="border-bottom: 1px solid #000;position: relative;top: -10px;">&emsp;&emsp;&emsp;&emsp;&nbsp;&emsp;</span> = ');
         Util.dom({
             tag:'span',
@@ -349,6 +436,17 @@ var Interaction = {
             
         Interaction.circlePosition = new Point(75,75);
         Interaction.lineStartPoint = new Point(150,75+Interaction.circleRadius);
+=======
+			.html('π’nin yaklaşık değeri = ');
+		;
+		Interaction.pause = false;
+		Interaction.drawRuler(10,10);
+		Interaction.circleRadius = 60;
+		Interaction.circlePosition = new Point(75,75);
+		Interaction.nextQuestion();
+	},
+	nextQuestion:function(){
+>>>>>>> origin/abdullah-dev
 		if(Interaction.circle)
 			Interaction.circle.remove();
 		if(Interaction.drawLine.arc)
@@ -356,8 +454,16 @@ var Interaction = {
 		if(Interaction.drawLine.line)
 			Interaction.drawLine.line.remove();
 		Interaction.trial = 0;
+<<<<<<< HEAD
         Interaction.isLineDrawed = false;
 		Interaction.drawCircle();
+=======
+		Interaction.drawCircle();
+		Interaction.setStatus('');
+		Interaction.button.className = 'control_button';
+		Interaction.button.onclick = Interaction.checkAnswer;
+		Interaction.input.value = '';
+>>>>>>> origin/abdullah-dev
 		Interaction.ruler.animate({
 			style:{position:Interaction.ruler.firstPosition},
 			duration:500
@@ -368,12 +474,20 @@ var Interaction = {
 		Interaction.ruler = new Raster('ruler');
 		Interaction.ruler.set_style(rulerStyle)
 		var firstPosition = new Point(
+<<<<<<< HEAD
 			x+Interaction.ruler.bounds.width+0.5,
+=======
+			x+Interaction.ruler.bounds.width,
+>>>>>>> origin/abdullah-dev
 			y+Interaction.ruler.bounds.height*0.5
 		);
 		Interaction.ruler.position = firstPosition;
 		Interaction.ruler.firstPosition = firstPosition;
+<<<<<<< HEAD
 		Interaction.ruler.guide = true;
+=======
+		
+>>>>>>> origin/abdullah-dev
 		Interaction.ruler.class = 'ruler';
 		var tool = new Tool();
 		tool.onMouseDown = function(event){
@@ -382,6 +496,7 @@ var Interaction = {
 				this.totalDelta = new Point(0,0);
 				this.firstPosition = Interaction.ruler.position;
 			}
+<<<<<<< HEAD
 		}
 		tool.onMouseDrag = function(event){
             if(!this.drag)
@@ -397,6 +512,14 @@ var Interaction = {
                     Interaction.ruler.bounds.width*0.5-10,
                     Interaction.ruler.bounds.height*0.5+1
                     );
+=======
+			
+		}
+		tool.onMouseDrag = function(event){
+			var newPoint = this.firstPosition.add(this.totalDelta).add(event.delta);
+			if(Interaction.isLineDrawed && newPoint.x < 470 && newPoint.x > 430 && newPoint.y > 140 && newPoint.y < 180){
+				Interaction.ruler.position = new Point(448,164);
+>>>>>>> origin/abdullah-dev
 			}else{
 				Interaction.ruler.position = newPoint;
 			}
@@ -462,20 +585,41 @@ var Interaction = {
 				
 				if(drawLineHelper.angle < 360){
 					Interaction.drawLine.arc = new Path.ArcByAngle(
+<<<<<<< HEAD
 						Interaction.lineStartPoint.add(x,-Interaction.circleRadius),
+=======
+						new Point(
+							drawLineHelper.position.x + x,
+							drawLineHelper.position.y
+						),
+>>>>>>> origin/abdullah-dev
 						Interaction.circleRadius,
 						-270+drawLineHelper.angle+360,
 						-270
 					);
 					Interaction.drawLine.arc.set_style(circleStyle);
 					Interaction.drawLine.arc.opacity = 0.5;
+<<<<<<< HEAD
                     //Interaction.ruler.insertAbove(Interaction.drawLine.arc);
+=======
+>>>>>>> origin/abdullah-dev
 				}
 				if(Interaction.drawLine.line)
 					Interaction.drawLine.line.remove();
 				Interaction.drawLine.line = new Path.Line(
+<<<<<<< HEAD
 					 Interaction.lineStartPoint,
                      Interaction.lineStartPoint.add(x,0)
+=======
+					new Point(
+						drawLineHelper.position.x,
+						drawLineHelper.position.y+Interaction.circleRadius
+					),
+					new Point(
+						drawLineHelper.position.x + x,
+						drawLineHelper.position.y+Interaction.circleRadius
+					)
+>>>>>>> origin/abdullah-dev
 				);
 				Interaction.drawLine.line.set_style(circleStyle);
 				Interaction.ruler.insertAbove(Interaction.drawLine.line);
@@ -504,6 +648,7 @@ var Interaction = {
 		});
 		
 	},
+<<<<<<< HEAD
     preCheck : function(){
 
     },
@@ -535,4 +680,57 @@ var Interaction = {
         Interaction.setStatus('Yanlış cevap, doğrular kutularda gösterilmektedir',false);
     }
 
+=======
+	checkAnswer:function(){
+		if(Interaction.pause === true)
+			return;
+		
+		var value = $(Interaction.input).val();
+		
+		if(value == "" || isNaN( parseInt(value.substr(0,1),10) ) ){
+			Interaction.setStatus('Lütfen bir sayı giriniz.',false);
+			return;
+		}
+		if(value.indexOf('.') > -1){
+			Interaction.setStatus('Ondalıklı sayıları virgülle yazınız.',false);
+			return;
+		}
+		var isWrong = true;
+		switch(value){
+			case '3':
+			case '3,1':
+			case '3,14':
+				isWrong = false;
+				break;
+		}
+		if(isWrong === true){
+			Interaction.setStatus('Yanlış cevap. Tekrar Deneyiniz',false);
+			Interaction.trial++;
+			if(Interaction.trial > 1){
+				Interaction.setStatus('Yanlış, doğru cevap: 3,14 ya da 3,1 ya da 3 olacaktı',false);
+				Interaction.button.className = 'next_button';
+				Interaction.button.onclick = Interaction.nextQuestion;
+			}			
+		}
+		else{
+			Interaction.setStatus('Tebrikler !',true);
+			Interaction.button.className = 'next_button';
+			Interaction.button.onclick = Interaction.nextQuestion;
+		}
+	},
+	setStatus : function(str,cls){
+		$(Interaction.status).hide();
+		$(Interaction.status).show();
+		$(Interaction.status ).html(str);
+		if(cls == undefined || cls == null)
+			cls = -1;
+		if(cls === true)
+			$(Interaction.status ).get(0).className = 'status_true';
+		else if(cls === false)
+			$(Interaction.status ).get(0).className = 'status_false';
+		else
+			$(Interaction.status ).get(0).className = 'status';
+		
+	}
+>>>>>>> origin/abdullah-dev
 };

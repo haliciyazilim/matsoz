@@ -180,7 +180,11 @@ Animation.init=function(container){
 	
 
 		
+<<<<<<< HEAD
 Main.animationFinished(6000);
+=======
+
+>>>>>>> origin/abdullah-dev
 
 };
 

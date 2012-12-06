@@ -7,6 +7,7 @@
 
 */
 
+<<<<<<< HEAD
 
 tabloStrokeRenk="#255b63";
 tabloBirlerFillRenk="#ecf8fa";
@@ -18,6 +19,18 @@ sayilarKutuRenk="#e6c181";
 sayilarKutuStrokeRenk="#4f360b";
 sayilarStrokeRenk="#4f360b";
 yerTutucuRenk="#F2F2F2";
+=======
+sayilarStrokeRenk="#9bd1d9";
+	
+	tabloStrokeRenk="#255b63";
+	tabloBirlerFillRenk="#ecf8fa";
+	tabloBinlerFillRenk="#d9f1f5";
+	tabloMilyonlarFillRenk="#bfe8ef";
+	inputStrokeRenk="#9bd1d9";
+	
+	sayiRenk="#255b63";
+	yerTutucuRenk="#BFE8EF";
+>>>>>>> origin/abdullah-dev
 
 function __Styles(){
 	
@@ -613,11 +626,19 @@ var Animation = {
 		
 		//soldaki 0'lar
 		$(container).append("<p id='_51' class='TekTekSayilar'>0</p>");
+<<<<<<< HEAD
 		$("#_51").css("top","65px").css("left","49px").css("color","red").css("opacity","0");
 		$(container).append("<p id='_52' class='TekTekSayilar'>0</p>");
 		$("#_52").css("top","65px").css("left","158px").css("color","red").css("opacity","0");
 		$(container).append("<p id='_53' class='TekTekSayilar'>0</p>");
 		$("#_53").css("top","65px").css("left","169px").css("color","red").css("opacity","0");
+=======
+		$("#_51").css("top","64px").css("left","49px").css("color","red").css("opacity","0");
+		$(container).append("<p id='_52' class='TekTekSayilar'>0</p>");
+		$("#_52").css("top","64px").css("left","158px").css("color","red").css("opacity","0");
+		$(container).append("<p id='_53' class='TekTekSayilar'>0</p>");
+		$("#_53").css("top","64px").css("left","169px").css("color","red").css("opacity","0");
+>>>>>>> origin/abdullah-dev
 		
 		$(".TekTekSayilar").css("position","absolute").css("font-size","20px");
 		
@@ -652,9 +673,15 @@ var Animation = {
 		$("#_52").delay(19000).animate({opacity:"1"},1000);
 		$("#_53").delay(20000).animate({opacity:"1"},1000);
 		
+<<<<<<< HEAD
 		$("#ornekAlt").delay(21000).animate({opacity:"1"},1000);
 		
 		Main.animationFinished(22000);
+=======
+		$("#ornekAlt").delay(21000).animate({opacity:1},1000);
+		
+		
+>>>>>>> origin/abdullah-dev
 		
 		
 		}
@@ -666,7 +693,11 @@ var Interaction = {
 		},
 	init:function(container){
 			Interaction.container = container;
+<<<<<<< HEAD
 			Main.setObjective('Yandaki ondalık kesirleri sürükleyerek küçükten büyüğe doğru sıralayınız.');
+=======
+			Main.setObjective('');
+>>>>>>> origin/abdullah-dev
 			Interaction.paper = {
 				width:$(container).width(),
 				height:$(container).height()
@@ -676,6 +707,7 @@ var Interaction = {
 			// Ana Div
 			$(container).append("<div id='soru'>");
 				$("#soru")
+<<<<<<< HEAD
 					.css("width","100%")
 					.css("height","45px")
 					.css("position","absolute")
@@ -683,12 +715,25 @@ var Interaction = {
 					.css("top","50px")
 					.css("right","0")
 					
+=======
+					.css("width","414px")
+					.css("height","45px")
+					.css("position","absolute")
+					.css("left","0")
+					.css("top","0")
+					.css("right","0")
+					.css("bottom","0")
+>>>>>>> origin/abdullah-dev
 					.css("margin","auto");
 					//.css("border","1px solid red");
 					
 			$(container).append("<div id='cevap'>");
 				$("#cevap")
+<<<<<<< HEAD
 					.css("width","100%")
+=======
+					.css("width","414px")
+>>>>>>> origin/abdullah-dev
 					.css("height","45px")
 					.css("position","absolute")
 					.css("left","0")
@@ -719,6 +764,7 @@ var Interaction = {
 		},
 	nextQuestion: function(randomNumber){
 		$("#cevap").animate({opacity:"0"},1000);
+<<<<<<< HEAD
 		$("#soru").animate({opacity:"1"},1000);
 		//$("#soru").delay(800).animate({top:"0px"},1000);
 		
@@ -726,12 +772,22 @@ var Interaction = {
 		sayi2=sayiUretim();
 		sayi3=sayiUretim();
                 $("li").removeClass("kapali");
+=======
+		//$("#cevap").css("opacity","0");
+		$("#soru").delay(800).animate({top:"0px"},1000);
+		$(" #cevap").html("");
+		sayi1=sayiUretim();
+		sayi2=sayiUretim();
+		sayi3=sayiUretim();
+
+>>>>>>> origin/abdullah-dev
 		
 		//$("#soru ul").empty()
 		$("#soru #siralanacakSayi1").html(sayi1.replace(".",","));
 		$("#soru #siralanacakSayi2").html(sayi2.replace(".",","));
 		$("#soru #siralanacakSayi3").html(sayi3.replace(".",","));
 
+<<<<<<< HEAD
                 setTimeout(cevapGetir,1000);
 		function cevapGetir(){
                     $(" #cevap").html("");
@@ -740,6 +796,15 @@ var Interaction = {
                     var cevap=new liste(siraliListe[0],siraliListe[1],siraliListe[2],"cevap");
                     cevap.doldur();
                 }
+=======
+
+		
+		
+		var siraliListe=[sayi1,sayi2,sayi3];
+		siraliListe.sort();
+		var cevap=new liste(siraliListe[0],siraliListe[1],siraliListe[2],"cevap");
+		cevap.doldur();
+>>>>>>> origin/abdullah-dev
 		
 		
 		
@@ -790,6 +855,7 @@ var Interaction = {
 		$("#cevap #siralanacakSayi3").html(siraliListe[2].toString().replace(".",","));
 		
 		var ilk=$("#soru .sayilar:first").html();
+<<<<<<< HEAD
                 ilk=parseFloat(ilk.replace(",","."));
 		console.log("ilk: "+ilk);
 		
@@ -802,6 +868,15 @@ var Interaction = {
                     return true;
                    
                 }
+=======
+		console.log("ilk: "+ilk);
+		
+		var sonuncu=$("#soru .sayilar:last").html();
+		console.log("sonuncu: "+sonuncu);
+		
+		if(ilk==siraliListe[0].toString().replace(".",",") && sonuncu==siraliListe[2].toString().replace(".",","))
+			return true;
+>>>>>>> origin/abdullah-dev
 		
 		/*
 		console.log("1. item position: "+$("#siralanacakSayi1").position().left+" , "+$("#siralanacakSayi1").position().top);
@@ -820,9 +895,14 @@ var Interaction = {
 		},
 	onFail : function(){
 		Interaction.setStatus('Yanlış cevap, doğrusu yukarıdadır.',false);
+<<<<<<< HEAD
 		$("#soru").animate({opacity:"0.35"},1000);
 		$("#cevap").animate({opacity:"1"},1000);
                 $("li").addClass("kapali");
+=======
+		$("#soru").animate({top:"-100px"},1000);
+		$("#cevap").delay(800).animate({opacity:"1"},1000);
+>>>>>>> origin/abdullah-dev
 		
 		},
 }
@@ -834,7 +914,45 @@ liste=function(eleman1,eleman2, eleman3,div){
 	this.e3=eleman3;
 	this.doldur=
 		function(){	
+<<<<<<< HEAD
 		
+=======
+		if(this.div=="#soru"){
+			$(function() {
+				$("#soru #siralama" ).sortable({
+					//items: "li:not(.ui-state-disabled)",
+					
+					 placeholder : "yerTutucu",
+					//grid: [80, 30],
+					//helper: 'original',
+					//forceHelperSize: true,
+					//forcePlaceholderSize: true,
+					
+					/*opactiy:0.6,
+					cursor: 'move',
+					axis: 'x',
+					zIndex:5,*/
+					tolerance: 'pointer',
+					
+					
+				});
+				
+				//$( "#soru #siralama" ).sortable({cancel: ".ui-state-disabled"});
+
+				
+				//$( "#soru #siralama" ).disableSelection();
+				//$("#soru #siralama").sortable( "refreshPositions" );
+				
+				/*$("#soru .sayilar").draggable({
+					connectToSortable: ".sayilar",
+					
+			
+					});*/
+			});
+			
+			
+		}
+>>>>>>> origin/abdullah-dev
 		
 			
 			//$(container).append("<style>#siralama .yer_tutucu { width: 66px; background:#009966; height:20px}</style>");
@@ -847,6 +965,7 @@ liste=function(eleman1,eleman2, eleman3,div){
 			
 			
 			
+<<<<<<< HEAD
 			$(this.div).append("<ul id='siralama'>");
 			
 			$(this.div+" #siralama").append("<li id='siralanacakSayi1' class='sayilar'>");
@@ -867,6 +986,27 @@ liste=function(eleman1,eleman2, eleman3,div){
 				$(this.div+" #siralama #siralanacakSayi3")
 					.html(this.e3);
 			 $(this.div+" #siralama").append("<div id='raf3' class='raf'>");
+=======
+			$(this.div, container).append("<ul id='siralama'>");
+			
+			$(this.div+" #siralama", container).append("<li id='siralanacakSayi1' class='sayilar'>");
+				$(this.div+" #siralama #siralanacakSayi1")
+					.html(this.e1);
+
+				$(this.div+" #siralama", container).append("<div id='kucuk1' class='isaretler'>");
+
+			$(this.div+" #siralama", container).append("<li id='siralanacakSayi2' class='sayilar'>");
+				$(this.div+" #siralama #siralanacakSayi2")
+					.html(this.e2);
+
+				$(this.div+" #siralama", container).append("<div id='kucuk2' class='isaretler'>");		
+
+
+			$(this.div+" #siralama", container).append("<li id='siralanacakSayi3' class='sayilar'>");
+				$(this.div+" #siralama #siralanacakSayi3")
+					.html(this.e3);
+			
+>>>>>>> origin/abdullah-dev
 			
 			$(this.div+" #siralama .sayilar")
 					
@@ -889,6 +1029,10 @@ liste=function(eleman1,eleman2, eleman3,div){
 				.css("line-height","30px");
 				//.css("border","solid 1px black");
 			$(this.div+" #siralama .sayilar")
+<<<<<<< HEAD
+=======
+					//.addClass("ui-state-default")
+>>>>>>> origin/abdullah-dev
 					.css("font-size","20px")
 					.css("cursor","pointer");
 				
@@ -896,15 +1040,22 @@ liste=function(eleman1,eleman2, eleman3,div){
 				$(this.div+" #siralama .sayilar").css("text-align","left").css("width","40px");
 			}
 			if(this.div=="#soru" ||this.div=="#cevap"){
+<<<<<<< HEAD
 				$(container).append("<style>"+this.div+" #siralama {width:430px; list-style-type:none; cursor:auto; margin:auto;}</style>");
 				$(container).append("<style>" +this.div+" #siralama li {float:left; height:20px; width:70px; margin:0px 30px; padding: 8px 5px;background:"+sayilarKutuRenk+"; font-size:12px; color:"+sayilarStrokeRenk+"; font-weight:bold; border:1px solid "+sayilarKutuStrokeRenk+";}</style>");
 				$(container).append("<style>" +this.div+" #siralama .yerTutucu { width: 70px; background:"+yerTutucuRenk+"; height:20px; border-color:"+yerTutucuRenk+"}</style>");
+=======
+				$(container).append("<style>"+this.div+" #siralama {width:414px; list-style-type:none;float:left; cursor:auto;}</style>");
+				$(container).append("<style>" +this.div+" #siralama li {float:left;width:80px; margin-left:50px; background:"+sayiRenk+"; font-size:12px; color:#FFF; }</style>");
+				$(container).append("<style>" +this.div+" #siralama .yerTutucu { width: 80px; background:"+yerTutucuRenk+"; height:20px}</style>");
+>>>>>>> origin/abdullah-dev
 				$(this.div+" #siralama .sayilar").css("text-align","center");
 			}
 			
 			
 					
 			if(this.div=="#soru" || this.div=="#cevap"){
+<<<<<<< HEAD
 				$(this.div+" #kucuk1").css("left","210px");
 				$(this.div+" #kucuk2").css("left","350px");
                                 $(this.div+" #raf1").css("left","103px");
@@ -926,6 +1077,22 @@ liste=function(eleman1,eleman2, eleman3,div){
 			else if(this.div=="#ornekAlt"){
 				$(this.div+" #kucuk1").css("left","88px");
 				$(this.div+" #kucuk2").css("left","206px");
+=======
+				$(this.div+" #kucuk1").css("left","140px");
+				$(this.div+" #kucuk2").css("left","272px");
+			
+				$(this.div+" #siralama .isaretler", container).append("<img id='kucuk' src='/assets/animations/yuzdeleri_karsilastirma/sol_ok.png' />");
+					$(this.div+" .isaretler")
+						//.addClass("ui-state-disabled")
+						.css("position","absolute")
+						.css("bottom","20px")
+						.css("margin","auto");
+						//.css("border","1px solid orange");
+			}
+			else if(this.div=="#ornekAlt"){
+				$(this.div+" #kucuk1").css("left","90px");
+				$(this.div+" #kucuk2").css("left","222px");
+>>>>>>> origin/abdullah-dev
 				$(this.div+" .isaretler")
 						
 						.css("position","absolute")
@@ -941,6 +1108,7 @@ liste=function(eleman1,eleman2, eleman3,div){
 			
 			
 			
+<<<<<<< HEAD
 			
 			
 			if(this.div=="#soru"){
@@ -978,6 +1146,11 @@ liste=function(eleman1,eleman2, eleman3,div){
 			
 			
 		}
+=======
+			//$(container).append("<style>#siralama .yer_tutucu { background:#009966; width:100px;height:20px}</style>");
+			
+
+>>>>>>> origin/abdullah-dev
 		}
 }
 

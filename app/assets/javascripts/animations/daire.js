@@ -142,7 +142,11 @@ var Animation = {
 					'</div>'
 				);
 				$('div#result',Animation.container).css({opacity:0});
+<<<<<<< HEAD
 				$('div#result',Animation.container).animate({opacity:1},1000,Main.animationFinished)
+=======
+				$('div#result',Animation.container).animate({opacity:1},1000)
+>>>>>>> origin/abdullah-dev
 				Animation.onFrame = null;
 			}
 		}
@@ -219,7 +223,11 @@ Interaction.images = [
 ];
 
 Interaction.init = function(container){
+<<<<<<< HEAD
 	Main.setObjective('Yandaki cetvel ve pergeli kullanarak seçeceğiniz yarıçap uzunluğuna sahip çemberi aşağıdaki “Çiz” butonuna basarak çizdiriniz. Daha sonra makas resmine tıklayarak kesiniz ve daire elde ediniz.');
+=======
+	Main.setObjective('Yandaki cetvel ve pergeli kullanarak seçeceğiniz yarıçap uzunluğuna sahip çemberi aşağıdaki “Çiz” butonuna basarak çizdiriniz. Daha sonra Daha sonra makas resmine tıklayarak kesiniz ve daire elde ediniz.');
+>>>>>>> origin/abdullah-dev
 	Interaction.container = container;
 	Interaction.paper = {width:$(container).width(),height:$(container).height()};
 	Interaction.button = document.createElement('input');
@@ -256,7 +264,11 @@ Interaction.init = function(container){
 	$(Interaction.status).css({
 		position:'absolute',
 		display:'block',
+<<<<<<< HEAD
 		left:'30px',
+=======
+		left:10,
+>>>>>>> origin/abdullah-dev
 		top:Interaction.paper.height*0.4,
 		width:'40%'
 	});
@@ -350,6 +362,7 @@ Interaction.drawCircle = function(){
 				Interaction.pause = false;
 				Interaction.drawCircle.textO = new PointText(
 					new Point(
+<<<<<<< HEAD
 						Interaction.drawCircle.x-10,
 						Interaction.drawCircle.y+10
 					)
@@ -363,6 +376,14 @@ Interaction.drawCircle = function(){
 				else
 					Interaction.drawCircle.textR.position = Interaction.drawCircle.textR.position.add(Interaction.r,20);
 					
+=======
+						Interaction.drawCircle.x-15,
+						Interaction.drawCircle.y+15
+					)
+				);
+				Interaction.drawCircle.textO.content = "O";
+				Interaction.drawCircle.textR = new PointText(new Point(Interaction.drawCircle.x+Interaction.r*0.2,Interaction.drawCircle.y+15));
+>>>>>>> origin/abdullah-dev
 				Interaction.drawCircle.textR.content = "r = "+(Interaction.radius.innerHTML);
 				Interaction.drawCircle.lineR = new Path.Line(new Point(Interaction.drawCircle.x,Interaction.drawCircle.y),new Point(Interaction.drawCircle.x+Interaction.r,Interaction.drawCircle.y));
 				Interaction.drawCircle.lineR.set_style(lineStyle);
@@ -424,6 +445,10 @@ Interaction.drawCircle = function(){
 			if(Interaction.drawCircle.circle)
 				Interaction.drawCircle.circle.remove();
 			var center = new Point(Interaction.drawCircle.x,Interaction.drawCircle.y);
+<<<<<<< HEAD
+=======
+			
+>>>>>>> origin/abdullah-dev
 			var radius = Interaction.r;
 			var startAngle = Util.degreeToRadians(0);
 			var endAngle = Util.degreeToRadians(Interaction.drawCircle._o);
@@ -457,7 +482,11 @@ Interaction.showCircularRegion = function(){
 	$(Interaction.status).show();				
 	if(Interaction.splitCircularRegion.circle)
 		Interaction.splitCircularRegion.circle.remove();
+<<<<<<< HEAD
 	flipCircularRegion = function(){
+=======
+	function flipCircularRegion(){
+>>>>>>> origin/abdullah-dev
 		var angle = new Date().getTime() - Interaction.showCircularRegion.startTime;
 		angle *= 0.20;
 		if(angle > 360){
@@ -465,6 +494,7 @@ Interaction.showCircularRegion = function(){
 			$(Interaction.status).hide();
 			Interaction.status.innerHTML += ' <input type="button" class="repeat_button" style="margin-top:5px;" onclick="Interaction.nextQuestion()">';
 			$(Interaction.status).show();
+<<<<<<< HEAD
             Interaction.drawCircle.textO = new PointText(
                 new Point(
                     Interaction.drawCircle.x-10,
@@ -506,6 +536,8 @@ Interaction.showCircularRegion = function(){
                 },
                 duration:1000
             });
+=======
+>>>>>>> origin/abdullah-dev
 			return;
 		}
 		var w = Interaction.r*Math.cos(Util.degreeToRadian(angle));
@@ -569,6 +601,10 @@ Interaction.splitCircularRegion = function(){
 			var radius = Interaction.r+1;
 			var startAngle = Util.degreeToRadians(0);
 			var endAngle = Util.degreeToRadians(-Interaction.splitCircularRegion._o);
+<<<<<<< HEAD
+=======
+			
+>>>>>>> origin/abdullah-dev
 			Interaction.scissor_half.rotate(+Interaction.splitCircularRegion._o_old-Interaction.splitCircularRegion._o, center);
 			Interaction.splitCircularRegion._o_old = Interaction.splitCircularRegion._o;
 			var point1 = new Point(center.x + Math.cos(startAngle) * radius,
@@ -580,7 +616,13 @@ Interaction.splitCircularRegion = function(){
 			try{
 				Interaction.splitCircularRegion.circle = new Path.Arc(point1, point2, point3);
 			}
+<<<<<<< HEAD
 			catch(e){}
+=======
+			catch(e){
+				//console.log("I'm here");
+			}
+>>>>>>> origin/abdullah-dev
 			Interaction.splitCircularRegion.circle.set_style(circleStyle);
 			Interaction.splitCircularRegion.circle.set_style({strokeColor:'#fff',strokeWidth:2,dashArray:[3,2]});
 			Interaction.splitCircularRegion.circle.moveBelow(Interaction.scissor_half);
@@ -590,8 +632,14 @@ Interaction.splitCircularRegion = function(){
 	
 }
 Interaction.initCompass = function(){
+<<<<<<< HEAD
 	Interaction.compass = new Compass(Interaction.ruler.bounds.x+9,Interaction.ruler.bounds.y);
 	Interaction.compass.right.class = "right_leg";
+=======
+	Interaction.compass = new Compass(Interaction.ruler.bounds.x+2,Interaction.ruler.bounds.y);
+	Interaction.compass.right.class = "right_leg";
+
+>>>>>>> origin/abdullah-dev
 	Interaction.drawCompass(Interaction.br*3.5);
 	var tool = new Tool();
 	tool.drag = false;
@@ -623,6 +671,7 @@ Interaction.drawCompass = function(dx){
 
 Interaction.drawRuler = function(){
 	var x,y,w,h,b,st;
+<<<<<<< HEAD
 	x = 30;
 	y = Interaction.paper.height*0.4;
 	Interaction.ruler = new Raster('ruler');
@@ -631,6 +680,17 @@ Interaction.drawRuler = function(){
 		Math.floor(y+Interaction.ruler.size.height*0.5)+0.5
 	);
 	Interaction.br = 12;
+=======
+	x = Interaction.paper.width*0.02;
+	y = Interaction.paper.height*0.4;
+	Interaction.ruler = new Raster('ruler');
+	Interaction.ruler.position = [
+		Math.floor(x+Interaction.ruler.size.width*0.5),
+		Math.floor(y+Interaction.ruler.size.height*0.5)+0.5
+	];
+	Interaction.br = Math.floor(Interaction.ruler.size.width*0.1);
+
+>>>>>>> origin/abdullah-dev
 	var _y1 = y+h*0.6;
 	var _yt = y+h*0.4;
 	var _y2 = y+h;

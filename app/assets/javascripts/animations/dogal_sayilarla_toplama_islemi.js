@@ -22,6 +22,7 @@ Interaction.getFramework = function() {
 
 
 Animation.init=function(container){
+<<<<<<< HEAD
     $(container).append("<div id='ornek'>");
         $("#ornek").css("width","120px")
             .css("height","130px")
@@ -37,6 +38,21 @@ Animation.init=function(container){
         toplamaIslemi.doldur();
 	toplamaIslemi.basla(1000,800);
      Main.animationFinished(12000);
+=======
+	$(container).append("<div id='ornek'>");
+		$("#ornek").css("width","120px")
+		.css("height","130px")
+		.css("margin","auto")
+		.css("position","absolute")
+		//.css("bottom","20px")
+		.css("left","0")
+		.css("right","0")
+		.css("top","40px");
+		
+		toplamaIslemi=new LongAddition(93507,78235,"ornek");
+			toplamaIslemi.doldur();
+			toplamaIslemi.basla(1000,800);
+>>>>>>> origin/abdullah-dev
 
 
 };
@@ -788,7 +804,10 @@ Interaction.init = function(container){
 		}
 	);
 	function yeniSoru(){
+<<<<<<< HEAD
             
+=======
+>>>>>>> origin/abdullah-dev
 		soruSirasi++;
 		$("#soru").html("");
 		$("#geriBildirimText").html("");
@@ -798,8 +817,12 @@ Interaction.init = function(container){
 		$("#girdi, #girdi1, #girdi2, #girdi3").trigger("yeniSoru");
 		
 		$("#soru").delay(500).animate({right:"0px"},1000);
+<<<<<<< HEAD
 		$("#cevap").animate({opacity:"0"},1000);
             
+=======
+		$("#cevap").animate({opacity:"0",},1000);
+>>>>>>> origin/abdullah-dev
 	}
 	//var soruSirasi=9;
 	function soruGetir(){
@@ -895,7 +918,10 @@ Interaction.init = function(container){
 								
 								var toplamaIslemi=new LongAddition(nihaiToplanan1,nihaiToplanan2,"cevap");
 									toplamaIslemi.doldur();
+<<<<<<< HEAD
                                                                         
+=======
+>>>>>>> origin/abdullah-dev
 									toplamaIslemi.basla(1000,800);							
 								
 								

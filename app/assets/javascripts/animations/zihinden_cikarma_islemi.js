@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 function __Styles(){
     animationDivCss = {
 					width:120,
@@ -16,6 +17,8 @@ function __Styles(){
 		animationDivCss.fontFamily = "arial";
 	}
 }
+=======
+>>>>>>> origin/abdullah-dev
 var Animation = {
 	images:[
 		{
@@ -30,6 +33,10 @@ var Animation = {
 			board.position = new Point(Math.floor(w*0.5),Math.floor(h*0.5)+2)
 			
 			
+<<<<<<< HEAD
+=======
+			$('head').append("<link href='http://fonts.googleapis.com/css?family=Homemade+Apple' rel='stylesheet' type='text/css'>");
+>>>>>>> origin/abdullah-dev
 			
 			var div = document.createElement('div');
 			
@@ -37,7 +44,23 @@ var Animation = {
 			$(div)
 				.html('<div id="addend1">5673</div><div id="addend2">4<span id="zeros">000</span></div><div id="line"><span>-</span></div><br/>')
 				.append('<div id="result">1<span id=lastDigits>673</span></div>')
+<<<<<<< HEAD
 				.css(animationDivCss);
+=======
+				.css({
+					width:120,
+					position:'absolute',
+					top:'50px',
+					left:'300px',
+					fontSize:'32px',
+					textAlign:'right',
+					lineHeight:'30px',
+					fontWeight:'700',
+					color:'#fff',
+					fontFamily:"'Homemade Apple', cursive",
+					opacity:0.9
+				});
+>>>>>>> origin/abdullah-dev
 			$('#line',div).css({
 				height:'2px',
 				borderBottom:'2px solid #fff',
@@ -47,7 +70,11 @@ var Animation = {
 			});
 			$('#line span',div).css({
 				position:'absolute',
+<<<<<<< HEAD
 				top:'-25px',	
+=======
+				top:'-15px',	
+>>>>>>> origin/abdullah-dev
 				left:'10px',
 				color:'#fff'
 			});
@@ -73,10 +100,16 @@ var Animation = {
 					function(){
 						$('#zeros',div)
 							.delay(1000)
+<<<<<<< HEAD
 							.animate({opacity:1},1000,Main.animationFinished);
 					}
 				);
                    
+=======
+							.animate({opacity:1},1000);
+					}
+				);
+>>>>>>> origin/abdullah-dev
 		}
 }
 
@@ -86,7 +119,11 @@ var Interaction = {
 		},
 	init:function(container){
 			Interaction.container = container;
+<<<<<<< HEAD
 			Main.setObjective('Yandaki çıkarma işlemini zihinden yapınız ve sonucu kontrol ediniz.');
+=======
+			Main.setObjective('Dört basamaklı doğal sayılarla 10’un, 100’ün ve 1000’in en çok dokuz katı olan doğal sayıların çıkarma işlemi.');
+>>>>>>> origin/abdullah-dev
 			Interaction.paper = {
 				width:$(container).width(),
 				height:$(container).height()
@@ -205,9 +242,12 @@ var Interaction = {
 			var startOfLastDigits = resultHTML.length-Interaction.addend2Div.innerHTML.length+1;
 			resultHTML = resultHTML.substring(0,startOfLastDigits)+'<span id="lastDigits">'+resultHTML.substr(startOfLastDigits)+'</span>';
 			$('#result',Interaction.solutionDiv).html(resultHTML);
+<<<<<<< HEAD
             $('#result',Interaction.solutionDiv)
                 .css({opacity:0})
                 .animate({opacity:1},500)
+=======
+>>>>>>> origin/abdullah-dev
 			$('#result #lastDigits',Interaction.solutionDiv)
 				.css({opacity:0,position:'relative',top:'-82px'})
 				.delay(1500)
@@ -236,5 +276,9 @@ var Interaction = {
 						
 					}
 				);
+<<<<<<< HEAD
 		}
+=======
+		},
+>>>>>>> origin/abdullah-dev
 }

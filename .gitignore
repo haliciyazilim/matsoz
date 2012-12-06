@@ -23,6 +23,7 @@
 # Ignore local initializations
 /config/initializers/local/*
 
+<<<<<<< HEAD
 
 /nbproject/
 /.idea/
@@ -32,3 +33,6 @@
 
 /app/assets/javascripts/animations/.idea/
 .DS_Store
+=======
+/nbproject/private/
+>>>>>>> origin/abdullah-dev

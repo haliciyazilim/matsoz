@@ -180,8 +180,11 @@ function aciklamalariGetir(){
 	gosteri("gul",1000);
 	gosteri("lale",3500);
 	gosteri("cerceve",5500);
+<<<<<<< HEAD
         
         Main.animationFinished(8000);
+=======
+>>>>>>> origin/abdullah-dev
 
 };
 
@@ -518,7 +521,11 @@ soruOlustur();
 			cevapIslem=cevapPay/cevapPayda;
 			if(girdiIslem==cevapIslem){
 			//console.log("if doğruysa girdim."+girdi+" "+yuvarlak);
+<<<<<<< HEAD
 				$("#geriBildirimText").attr("class","status_true").html("Tebrikler!");
+=======
+				$("#geriBildirimText").attr("class","status_true").html("Tebrikler");
+>>>>>>> origin/abdullah-dev
 				$("#btnKontrol").hide();
 				$("#sonraki").show();
 			}
