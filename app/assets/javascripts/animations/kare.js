@@ -30,11 +30,7 @@ Interaction.images = [{
 Interaction.init = function(container) {
 	paperAddOns();
 	
-<<<<<<< HEAD
 	Main.setObjective('Karenin iç açıları toplamı 360° dir. Bunu görmek için "Oynat" düğmesine basınız.')
-=======
-	Main.setObjective('Karenin iç açıları toplamı 360° dir. Bunu görmek için "Göster" düğmesine basınız.')
->>>>>>> origin/abdullah-dev
 	
 	// Images
 	var fullImage = new Raster('fullImage');
@@ -189,18 +185,10 @@ Interaction.init = function(container) {
 //	runAnimation();
 		
 	// Create the control button
-<<<<<<< HEAD
 	$(container).append('<input id="replayButton" type="button" class="play_button" />');
 	$('#replayButton').css("position", "absolute")
 					  .css("bottom", "10px")
 					  .css("right", "10px");
-=======
-	$(container).append('<input id="replayButton" type="button" value="Göster" />');
-	$('#replayButton').css("position", "absolute")
-					  .css("bottom", "20px")
-					  .css("right", "20px");
-	$('#replayButton').addClass('control_button');
->>>>>>> origin/abdullah-dev
 	$('#replayButton').click(function () {
 		initializeAnimation();
 		runAnimation();
@@ -547,10 +535,7 @@ Animation.init = function (container) {
 		duration: 1000,
 		delay: 13000,
 		animationType: 'easeInEaseOut',
-<<<<<<< HEAD
 		callback: Main.animationFinished
-=======
->>>>>>> origin/abdullah-dev
 	});
 	
 	kare09.animate({

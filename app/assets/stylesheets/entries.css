@@ -197,10 +197,7 @@ p.exampleHeader {
 	width:103px;
 	border:none;
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/abdullah-dev
 .repeat_button{
 	background-image:url(/assets/btn_repeat.png);
 	background-color: #fff;
@@ -208,10 +205,7 @@ p.exampleHeader {
 	width:103px;
 	border:none;
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/abdullah-dev
 .draw_button{
 	background-image:url(/assets/btn_gray_draw.png);
 	background-color: #fff;
@@ -220,7 +214,6 @@ p.exampleHeader {
 	border:none;
 }
 
-<<<<<<< HEAD
 .play_button{
 	background-image:url(/assets/btn_play.png);
 	background-color: #fff;
@@ -264,17 +257,6 @@ p.exampleHeader {
 }
 
 
-=======
-
-.repeat_button{
-	background-image:url(/assets/btn_repeat.png);
-	background-color: #fff;
-	height:40px;
-	width:103px;
-	border:none;
-}
-
->>>>>>> origin/abdullah-dev
 .status_field {
 	text-align: center;
 	width: 200px;
@@ -317,7 +299,6 @@ p.exampleHeader {
 	box-shadow: 0px 0px 10px #f55;
 }
 .input_user_answer_correct[type="text"]{
-<<<<<<< HEAD
 	color: green;
 }
 
@@ -327,17 +308,6 @@ p.exampleHeader {
 
 .input_correct_answer[type="text"]{
 	color :green;
-=======
-
-}
-
-.input_user_answer_wrong[type="text"]{
-
-}
-
-.input_correct_answer[type="text"]{
-
->>>>>>> origin/abdullah-dev
 }
 
 /*Egemen's classes*/
@@ -351,11 +321,7 @@ img {
 div.ezd_btn_rotate{
 	width:108px;
 	height:105px;
-<<<<<<< HEAD
 	/*z-index:1;*/
-=======
-	z-index:1;
->>>>>>> origin/abdullah-dev
 	background:url(/assets/animations/3d_navigation/btn_orange_rt_bg.png) 50% 50% no-repeat transparent;
 }
 div.ezd_btn_rotate_top {

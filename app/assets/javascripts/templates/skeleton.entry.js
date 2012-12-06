@@ -51,9 +51,5 @@ var Interaction = {
 		},
 	onFail : function(){
 		
-<<<<<<< HEAD
 		}
-=======
-		},
->>>>>>> origin/abdullah-dev
 }

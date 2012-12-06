@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 function __Styles(){
     animationDivCss = {
         width:120,
@@ -17,8 +16,6 @@ function __Styles(){
 		animationDivCss.fontFamily = "arial";
 	}
 }
-=======
->>>>>>> origin/abdullah-dev
 var Animation = {
 	images:[
 		{
@@ -27,11 +24,6 @@ var Animation = {
 		}
 	],
 	init:function(container){
-<<<<<<< HEAD
-=======
-			$('head').append("<link href='http://fonts.googleapis.com/css?family=Homemade+Apple' rel='stylesheet' type='text/css'>");
-			
->>>>>>> origin/abdullah-dev
 			var w=Math.floor($(container).width()), h=Math.floor($(container).height());
 			var board = new Raster('board');
 			board.position = new Point(Math.floor(w*0.5),Math.floor(h*0.5)+2)
@@ -41,22 +33,7 @@ var Animation = {
 			$(div)
 				.html('<div id="addend1">7284</div><div id="addend2">9<span id="zeros">000</span></div><div id="line"><span>+</span></div><br/>')
 				.append('<div id="result">16<span id=lastDigits>284</span></div>')
-<<<<<<< HEAD
 				.css(animationDivCss);
-=======
-				.css({
-					width:120,
-					position:'absolute',
-					top:'50px',
-					left:'300px',
-					fontSize:'32px',
-					color:'#fff',
-					textAlign:'right',
-					lineHeight:'30px',
-					fontFamily:"'Homemade Apple', cursive",
-					opacity:0.9
-				});
->>>>>>> origin/abdullah-dev
 			$('#line',div).css({
 				height:'2px',
 				borderBottom:'2px solid #fff',
@@ -66,11 +43,7 @@ var Animation = {
 			});
 			$('#line span',div).css({
 				position:'absolute',
-<<<<<<< HEAD
 				top:'-25px',	
-=======
-				top:'-15px',	
->>>>>>> origin/abdullah-dev
 				left:'10px'
 			});
 			
@@ -95,11 +68,7 @@ var Animation = {
 					function(){
 						$('#zeros',div)
 							.delay(1000)
-<<<<<<< HEAD
 							.animate({opacity:1},1000,Main.animationFinished);
-=======
-							.animate({opacity:1},1000);
->>>>>>> origin/abdullah-dev
 					}
 				);
 		}
@@ -111,11 +80,7 @@ var Interaction = {
 		},
 	init:function(container){
 			Interaction.container = container;
-<<<<<<< HEAD
 			Main.setObjective('Yandaki toplama işlemini zihinden yapınız ve sonucu kontrol ediniz.');
-=======
-			Main.setObjective('Dört basamaklı doğal sayılarla 10’un, 100’ün ve 1000’in en çok dokuz katı olan doğal sayıların toplama işlemi.');
->>>>>>> origin/abdullah-dev
 			Interaction.paper = {
 				width:$(container).width(),
 				height:$(container).height()
@@ -206,10 +171,6 @@ var Interaction = {
 				.css({
 					left:$(Interaction.solutionDiv).position().left+160
 				});
-<<<<<<< HEAD
-=======
-			
->>>>>>> origin/abdullah-dev
 			$('#result',Interaction.solutionDiv)
 				.css({
 					position:'relative',
@@ -222,58 +183,36 @@ var Interaction = {
 			var startOfLastDigits = resultHTML.length-Interaction.addend2Div.innerHTML.length+1;
 			resultHTML = resultHTML.substring(0,startOfLastDigits)+'<span id="lastDigits">'+resultHTML.substr(startOfLastDigits)+'</span>';
 			$('#result',Interaction.solutionDiv).html(resultHTML);
-<<<<<<< HEAD
             $('#result',Interaction.solutionDiv)
                 .css({opacity:0})
                 .animate({opacity:1},500)
 			$('#result #lastDigits',Interaction.solutionDiv)
 				.css({opacity:0,position:'relative',top:'-82px'})
 				.delay(2000)
-=======
-			$('#result #lastDigits',Interaction.solutionDiv)
-				.css({opacity:0,position:'relative',top:'-82px'})
-				.delay(1500)
->>>>>>> origin/abdullah-dev
 				.animate({opacity:1,top:'0px'},1000)
 			$('#addend2',Interaction.solutionDiv)
 				.html(zeros)
 			
 			$('#addend2 .zero',Interaction.solutionDiv)
 				.css({color:'#000'})
-<<<<<<< HEAD
 				.delay(1000)
-=======
-				.delay(500)
->>>>>>> origin/abdullah-dev
 				.animate(
 					{color:'#ddd'},
 					1000
 				);
 			$('.zero',Interaction.solutionDiv)
 				.css({color:'#000'})
-<<<<<<< HEAD
 				.delay(1000)
-=======
-				.delay(500)
->>>>>>> origin/abdullah-dev
 				.animate(
 					{color:'#ddd'},
 					1000,
 					function(){
 						$('.zero',Interaction.solutionDiv)
 							.animate({color:'#000'},500,function(){
-<<<<<<< HEAD
 								Interaction.pause = false;
-=======
-								Interaction.pause = false;	
->>>>>>> origin/abdullah-dev
 							})
 						
 					}
 				);
-<<<<<<< HEAD
 		}
-=======
-		},
->>>>>>> origin/abdullah-dev
 }
