@@ -298,15 +298,15 @@ p.exampleHeader {
 	-webkit-box-shadow: 0px 0px 10px #f55;
 	box-shadow: 0px 0px 10px #f55;
 }
-.input_user_answer_correct[type="text"]{
+.input_user_answer_correct{
 	color: green;
 }
 
-.input_user_answer_wrong[type="text"]{
+.input_user_answer_wrong{
 	color: red;
 }
 
-.input_correct_answer[type="text"]{
+.input_correct_answer{
 	color :green;
 }
 
