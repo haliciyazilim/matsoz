@@ -325,12 +325,24 @@ Main.setObjective = function(str){
 
 Main.createInteractionSkipSlider = function(){
     var div = document.createElement('div');
-    $('#container').append(div);
+
+	if (Main.getCurrentPlatform() == Main.platform.MOBILE) {
+		$('#container2').append(div);
+		$(div).css({
+		    top:'0px',
+	        left:'0px',
+		});
+	} else {
+	    $('#container').append(div);
+	    $(div).css({
+		    top:'331px',
+	        left:'438px',
+		});
+	}
+
     $(div).css({
         position:'absolute',
         paddingLeft:'-1px',
-        top:'331px',
-        left:'438px',
         width:'790px',
         height:'302px',
         borderRadius:'6px',
@@ -345,6 +357,7 @@ Main.createInteractionSkipSlider = function(){
         '-ms-user-select': 'none',
         'user-select': 'none'
     });
+
     div.id = 'interaction_cover';
 
     var isDragging = false;
