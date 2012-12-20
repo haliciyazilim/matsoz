@@ -1,13 +1,13 @@
 
 - content_for(:head) do
   %meta{'http-equiv'=>'Content-Type', 'content' => 'text/html; charset=UTF-8'}
+  = javascript_include_tag 'main.js'
   - if @ipad
-    = javascript_include_tag 'main_ipad.js'
     = stylesheet_link_tag 'theme/blue/matsoz_blue_ipad.css'
     = stylesheet_link_tag 'theme/blue/matsoz_dialog.css'
     = stylesheet_link_tag 'theme/bes/matsoz_bes.css'
   - else
-    = javascript_include_tag 'main.js'
+
     = stylesheet_link_tag 'theme/blue/matsoz_blue.css'
     = stylesheet_link_tag 'theme/blue/matsoz_dialog.css'
     = stylesheet_link_tag 'theme/bes/matsoz_bes.css'
