@@ -4,6 +4,7 @@ class EntriesController < ApplicationController
   before_filter :set_all_entries, :create_word_list
   
   def set_all_entries
+    puts params[:word_list]
     if params[:word_list]
       words = params[:word_list].split(',')
     end
@@ -13,7 +14,10 @@ class EntriesController < ApplicationController
     else
       @all_entries = []
       words.each do |word|
-        @all_entries << Entry.where(:word => word).first
+        entry = Entry.where(:word => word).first
+        if (entry)
+          @all_entries << entry
+        end
       end
     end
       
@@ -28,79 +32,84 @@ class EntriesController < ApplicationController
     @word_list = {}
     if (!words)
       letters = ['a', 'b', 'c', 'ç', 'd', 'e', 'f', 'g', 'h', 'ı', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'ö', 'p', 'r', 's', 'ş', 't', 'u', 'ü', 'v', 'y', 'z'];
-          letters.each do |letter|
-            entries = Entry.find(:all, :conditions => ['word LIKE ? OR word LIKE ?', "#{letter}%", "#{letter.to_upcase_turkish}%"], :order => 'word ASC')
-          
-            puts entries
-          
-            entries = entries.sort do |entry1, entry2|
-              entry1.word.compare_turkish(entry2.word)
-            end
-          
-            @word_list[letter] = []
-            entries.each do |entry|
-            
-              selected = false
-              if entry.id.to_s == params[:id].to_s
-                @current_letter = letter
-                selected = true
-              end
-    
-              if @exporting
-                if @index_page
-                  link = "entries/" + entry.id.to_s + ".html"
-                else
-                  link = entry.id.to_s + ".html"
-                end
-    
-    
-                @word_list[letter] << {
-                  :word => entry.word,
-                  :selected => selected,
-                  :link => link
-                }
-              else
-                @word_list[letter] << {
-                  :word => entry.word,
-                  :selected => selected,
-                  :link => entry_path(entry)
-                }
-               end
-            end
+      letters.each do |letter|
+        entries = Entry.find(:all, :conditions => ['word LIKE ? OR word LIKE ?', "#{letter}%", "#{letter.to_upcase_turkish}%"], :order => 'word ASC')
+      
+        puts entries
+      
+        entries = entries.sort do |entry1, entry2|
+          entry1.word.compare_turkish(entry2.word)
+        end
+      
+        @word_list[letter] = []
+        entries.each do |entry|
+        
+          selected = false
+          if entry.id.to_s == params[:id].to_s
+            @current_letter = letter
+            selected = true
           end
+
+          if @exporting
+            if @index_page
+              link = "entries/" + entry.id.to_s + ".html"
+            else
+              link = entry.id.to_s + ".html"
+            end
+
+
+            @word_list[letter] << {
+              :word => entry.word,
+              :selected => selected,
+              :link => link
+            }
+          else
+            @word_list[letter] << {
+              :word => entry.word,
+              :selected => selected,
+              :link => entry_path(entry)
+            }
+           end
+        end
+      end
     else
       # words = ['açınım', 'boyut', 'doğal sayılarla çarpma işlemi', 'eş küpler', 'kesirleri sıralama', 'paralelkenar']
       words.each do |word|
         entry = Entry.where(:word => word).first
-        letter = word.chars.first
-      
-        @word_list[letter] = []
-      
-        selected = false
-        if entry.id.to_s == params[:id].to_s
-          @current_letter = letter
-          selected = true
-        end
+        
+        if (entry)
+          letter = word.chars.first
 
-        if @exporting
-          if @index_page
-            link = "entries/" + entry.id.to_s + ".html"
-          else
-            link = entry.id.to_s + ".html"
+          if !@word_list[letter]
+            @word_list[letter] = []
+          end
+      
+          selected = false
+          if entry.id.to_s == params[:id].to_s
+            @current_letter = letter
+            selected = true
           end
 
-          @word_list[letter] << {
-            :word => entry.word,
-            :selected => selected,
-            :link => link
-          }
-        else
-          @word_list[letter] << {
-            :word => entry.word,
-            :selected => selected,
-            :link => entry_path(entry)
-          }
-         end      
+          if @exporting
+            if @index_page
+              link = "entries/" + entry.id.to_s + ".html"
+            else
+              link = entry.id.to_s + ".html"
+            end
+
+            @word_list[letter] << {
+              :word => entry.word,
+              :selected => selected,
+              :link => link
+            }
+          else
+            @word_list[letter] << {
+              :word => entry.word,
+              :selected => selected,
+              :link => entry_path(entry)
+            }
+          end      
+        end
       end
     end
   end
