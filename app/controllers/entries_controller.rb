@@ -30,6 +30,12 @@ class EntriesController < ApplicationController
     end
     
     @word_list = {}
+    letters = ['a', 'b', 'c', 'ç', 'd', 'e', 'f', 'g', 'h', 'ı', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'ö', 'p', 'r', 's', 'ş', 't', 'u', 'ü', 'v', 'y', 'z'];
+    letters.each do |letter|
+      @word_list[letter] = []
+    end
+    
+    
     if (!words)
       letters = ['a', 'b', 'c', 'ç', 'd', 'e', 'f', 'g', 'h', 'ı', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'ö', 'p', 'r', 's', 'ş', 't', 'u', 'ü', 'v', 'y', 'z'];
       letters.each do |letter|
@@ -41,7 +47,6 @@ class EntriesController < ApplicationController
           entry1.word.compare_turkish(entry2.word)
         end
       
-        @word_list[letter] = []
         entries.each do |entry|
         
           selected = false
@@ -79,10 +84,6 @@ class EntriesController < ApplicationController
         
         if (entry)
           letter = word.chars.first
-
-          if !@word_list[letter]
-            @word_list[letter] = []
-          end
       
           selected = false
           if entry.id.to_s == params[:id].to_s
