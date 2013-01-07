@@ -27,7 +27,8 @@ img {
     bottom:0;
     margin:auto;
     width:1024px;
-    height: 600px;
+    height: 700px;
+    padding-top: 20px;
 
 
     text-align: left;
@@ -48,17 +49,20 @@ div.tanim {
 
     margin:auto;
     width:780px;
+    height: 120px;
 
-    font-size:14px;
+    font-size:17px;
     color:#c7e9ff;
-    line-height:16px;
+    line-height:19px;
     text-align: "left";
+
+
     /*	background-color:#FFF;*/
 }
 div.tanim strong{
     text-shadow: 1px 1px 0px rgba(0,0,0,0.8);
     margin-right:8px;
-    font-size:16px;
+    font-size:21px;
 }
 
 div.tanim em{
@@ -126,7 +130,7 @@ div.mavikontrol {
     padding:12px;
     margin-right: 10px;
 
-    background-color:#bfe8ef;
+    background-color:#B7D087;
 
 }
 

@@ -309,6 +309,7 @@ p.exampleHeader {
 }
 
 .input_correct_answer[type="text"], .input_correct_answer[type="text"]{
+
 	color :green;
 }
 

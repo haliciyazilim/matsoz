@@ -34,6 +34,18 @@ var Main = function(){
     });
 
 }
+Main.platform = {
+    MOBILE:'Mobile',
+    DESKTOP:'Desktop'
+}
+
+Main.getCurrentPlatform = function(){
+    var userAgent = navigator.userAgent;
+    if(userAgent.indexOf("Mobile") > 0)
+        return Main.platform.MOBILE;
+    else
+        return Main.platform.DESKTOP;
+}
 
 Main.config = {
 	defaultLibrary: "raphael"
@@ -94,6 +106,7 @@ Main.startInteraction = function(){
 		View._focused = interactionView;
         initializeRunLoop();
         Interaction.init(Main.interaction);
+        Main.createInteractionSkipSlider();
     }
 }
 
@@ -107,7 +120,6 @@ Main.animateDefinition = function(){
 Main.init = function(){
     Main.initializeScreen();
 	Main.initializeNavigation();
-	Main.createInteractionSkipSlider();
     Main.initializeToolbar();
 	Main.interaction = $('.etkilesimalan').get(0);
 	Main.animation = $('.ornek').get(0);
@@ -199,6 +211,7 @@ Main.init = function(){
             setTimeout(Main.startAnimation,/*Main.calculateDefinitionWaitTime()*/1000);
         }
     }
+
 };
 Main.calculateDefinitionWaitTime = function(){
     function removeHTMLTags(htmlString){
@@ -312,12 +325,24 @@ Main.setObjective = function(str){
 
 Main.createInteractionSkipSlider = function(){
     var div = document.createElement('div');
-    $('#container').append(div);
+
+	if (Main.getCurrentPlatform() == Main.platform.MOBILE) {
+		$('#container2').append(div);
+		$(div).css({
+		    top:'0px',
+	        left:'0px',
+		});
+	} else {
+	    $('#container').append(div);
+	    $(div).css({
+		    top:'331px',
+	        left:'438px',
+		});
+	}
+
     $(div).css({
         position:'absolute',
         paddingLeft:'-1px',
-        top:'331px',
-        left:'438px',
         width:'790px',
         height:'302px',
         borderRadius:'6px',
@@ -332,6 +357,7 @@ Main.createInteractionSkipSlider = function(){
         '-ms-user-select': 'none',
         'user-select': 'none'
     });
+
     div.id = 'interaction_cover';
 
     var isDragging = false;
@@ -367,37 +393,11 @@ Main.createInteractionSkipSlider = function(){
         console.log('[up] change: '+change,event)
         if(change > 100){
             isDraggable = false;
-            var animHelper = new AnimationHelper({
-                change:change
-            });
-            animHelper.animate({
-                style:{change:800},
-                duration:250,
-                animationType:'easeIn',
-                update:function(){
-                    $(div).css({backgroundPosition:(this.change-100)+'px -9px'});
-                },
-                callback:function(){
-                    $(div).animate({opacity:0},250,function(){$(this).remove()});
-                }
-            })
+            $(div).animate({backgroundPosition:'700px -9px'},250,function(){$(this).remove();});
         }
         else{
             isDraggable = false;
-            var animHelper = new AnimationHelper({
-                change:change
-            });
-            animHelper.animate({
-                style:{change:0},
-                duration:100,
-                animationType:'easeIn',
-                update:function(){
-                    $(div).css({backgroundPosition:(this.change-100)+'px -9px'});
-                },
-                callback:function(){
-                    isDraggable = true;
-                }
-            })
+            $(div).animate({backgroundPosition:'-100px -9px'},250,function(){isDraggable = true;});
         }
         return false;
     }

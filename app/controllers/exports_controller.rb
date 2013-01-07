@@ -5,8 +5,10 @@ require 'open-uri'
 class ExportsController < EntriesController
   def index
     
-    if params[:target].downcase == 'ipad'
-      @ipad = true
+    if params[:target]
+      if params[:target].downcase == 'ipad'
+        @ipad = true
+      end
     end
     
     @exporting = true
