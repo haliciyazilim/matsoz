@@ -154,10 +154,15 @@ function InteractionBase(){
         }
         else
             input.setAttribute('isNumber','false');
-        if(isNumber == true && Main.getCurrentPlatform() == Main.platform.MOBILE)
-            input.setAttribute('type','number');
-        else
-            input.setAttribute('type','text');
+        input.setAttribute('type','text');
+        if(isNumber == true && Main.getCurrentPlatform() == Main.platform.MOBILE){
+            $(input).keydown(function(){
+                this.setAttribute('type','text');
+            });
+            $(input).focus(function(){
+                this.setAttribute('type','number');
+            });
+        }
         $(input)
             .attr({
                 'class':'input',
@@ -175,7 +180,6 @@ function InteractionBase(){
             width:(parseInt($(input).css('font-size'),10)*(maxLength*0.5+0.5))+"px",
             height:(parseInt($(input).css('font-size'),10)*1.7)+"px"
         });
-
         if (css)
             $(input).css(css);
 
