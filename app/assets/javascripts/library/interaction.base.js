@@ -147,40 +147,43 @@ function InteractionBase(){
 		return Interaction.__questionParams;
 	}
 	Interaction.createInput = function(isNumber,maxLength,css){
-		var input = document.createElement('input');
-        input.setAttribute('type','text');
+        var input = document.createElement('input');
         if(isNumber==true){
-			input.setAttribute('onkeypress','return Interaction.__inputFilter__onlyNumbers(event)');
-			input.setAttribute('isNumber','true');
-            if(Main.getCurrentPlatform() == Main.platform.MOBILE)
-                input.setAttribute('type','number');
-		}
-		else 	
-			input.setAttribute('isNumber','false');
+            input.setAttribute('onkeypress','return Interaction.__inputFilter__onlyNumbers(event)');
+            input.setAttribute('isNumber','true');
+        }
+        else
+            input.setAttribute('isNumber','false');
+        input.setAttribute('type','text');
+        if(isNumber == true && Main.getCurrentPlatform() == Main.platform.MOBILE){
+            $(input).keydown(function(){
+                this.setAttribute('type','text');
+            });
+            $(input).focus(function(){
+                this.setAttribute('type','number');
+            });
+        }
+        $(input)
+            .attr({
+                'class':'input',
+                'maxLength':maxLength
+            })
+            .keyup(function(event){
+                if(event.keyCode == 13 && Interaction.button)
+                    Interaction.button.click();
+            })
+            .css({
+                fontSize:'16px'
+            });
 
-		$(input)
-			.attr({
-				'class':'input',
-				'maxLength':maxLength
-			})
-			.keyup(function(event){
-				if(event.keyCode == 13)
-					Interaction.button.click();
-			})
-			.css({
-				width:(parseInt($(input).css('font-size'),10)*(maxLength*0.5+0.5))+"px",
-				height:(parseInt($(input).css('font-size'),10)*1.2)+"px"
-			});
-			
-		if (css) {
-			$(input).css(css)
-			.css({
-				width:(parseInt($(input).css('font-size'),10)*(maxLength*0.5+0.5))+"px",
-				height:(parseInt($(input).css('font-size'),10)*1.2)+"px"
-			});
-		}
-			
-		return input;
+        $(input).css({
+            width:(parseInt($(input).css('font-size'),10)*(maxLength*0.5+0.5))+"px",
+            height:(parseInt($(input).css('font-size'),10)*1.7)+"px"
+        });
+        if (css)
+            $(input).css(css);
+
+        return input;
 	};
 	
 	Interaction.flushInputs = function(){
