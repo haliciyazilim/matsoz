@@ -89,7 +89,7 @@ var Animation = {
                                                         .css("font-size", 14)
                                                         .css("text-align", "center")
                                                         .css("opacity", 0)
-                                                        .delay(4000).animate({opacity:1}, 500)
+                                                        .delay(4000).animate({opacity:1}, 500,'easeInOutQuad');
 
                         $('#datasHolderDiv').append('<div id="tuesday">Salı</div>');
                         $('#tuesday').css("position", "absolute")
@@ -106,7 +106,7 @@ var Animation = {
                                                         .css("font-size", 14)
                                                         .css("text-align", "center")
                                                         .css("opacity", 0)
-                                                        .delay(5000).animate({opacity:1}, 500)
+                                                        .delay(5000).animate({opacity:1}, 500, 'easeInOutQuad');
 
                         $('#datasHolderDiv').append('<div id="wednesday">Çarşamba</div>');
                         $('#wednesday').css("position", "absolute")
@@ -123,7 +123,7 @@ var Animation = {
                                                         .css("font-size", 14)
                                                         .css("text-align", "center")
                                                         .css("opacity", 0)
-                                                        .delay(6000).animate({opacity:1}, 500)
+                                                        .delay(6000).animate({opacity:1}, 500, 'easeInOutQuad');
 
                         $('#datasHolderDiv').append('<div id="thursday">Perşembe</div>');
                         $('#thursday').css("position", "absolute")
@@ -140,7 +140,7 @@ var Animation = {
                                                         .css("font-size", 14)
                                                         .css("text-align", "center")
                                                         .css("opacity", 0)
-                                                        .delay(7000).animate({opacity:1}, 500)
+                                                        .delay(7000).animate({opacity:1}, 500, 'easeInOutQuad');
 
                         $('#datasHolderDiv').append('<div id="friday">Cuma</div>');
                         $('#friday').css("position", "absolute")
@@ -157,7 +157,7 @@ var Animation = {
                                                         .css("font-size", 14)
                                                         .css("text-align", "center")
                                                         .css("opacity", 0)
-                                                        .delay(8000).animate({opacity:1}, 500)
+                                                        .delay(8000).animate({opacity:1}, 500, 'easeInOutQuad');
 
                         $('#datasHolderDiv').append('<div id="saturday">Cumartesi</div>');
                         $('#saturday').css("position", "absolute")
@@ -174,7 +174,7 @@ var Animation = {
                                                         .css("font-size", 14)
                                                         .css("text-align", "center")
                                                         .css("opacity", 0)
-                                                        .delay(9000).animate({opacity:1}, 500)
+                                                        .delay(9000).animate({opacity:1}, 500, 'easeInOutQuad');
 
                         $('#datasHolderDiv').append('<div id="sunday">Pazar</div>');
                         $('#sunday').css("position", "absolute")
@@ -191,14 +191,14 @@ var Animation = {
                                                         .css("font-size", 14)
                                                         .css("text-align", "center")
                                                         .css("opacity", 0)
-                                                        .delay(10000).animate({opacity:1}, 500)
+                                                        .delay(10000).animate({opacity:1}, 500, 'easeInOutQuad');
 
                         $(container).append('<div id="executionDiv"></div>');
                         $('#executionDiv').css("position", "absolute")
                                                                 .css("left", "102px")
                                                                 .css("top", "128px")
                                                                 .css("width", "600")
-                                                                .css("height", "60")
+                                                                .css("height", "60");
 
                         $('#executionDiv').append('<div id="averageText">Aritmetik Ortalama</div>');
                         $('#averageText').css("position", "absolute")
@@ -212,7 +212,7 @@ var Animation = {
                         $('#execEq').css("position", "absolute")
                                                 .css("left", "176px")
                                                 .css("top", "20px")
-                                                .css("font-size", 20)
+                                                .css("font-size", 20);
 
                         $('#executionDiv').append('<div id="numerator"></div>');
                         $('#numerator').css("position", "absolute")
@@ -222,60 +222,60 @@ var Animation = {
                                                         .css("text-align", "center")
                                                         .css("width", "320x");
 
-                        $('#numerator').append('<div id="firstN">25</div>')
+                        $('#numerator').append('<div id="firstN">25</div>');
                         $('#firstN').css("position", "absolute")
                                                 .css("left", "0px")
                                                 .css("top", "2px")
                                                 .css("font-size", 16)
-                                                .css("text-align", "center")
+                                                .css("text-align", "center");
 
-                        $('#numerator').append('<div id="secondN">+ 27</div>')
+                        $('#numerator').append('<div id="secondN">+ 27</div>');
                         $('#secondN').css("position", "absolute")
                                                 .css("left", "20px")
                                                 .css("top", "2px")
                                                 .css("font-size", 16)
                                                 .css("text-align", "center")
-                                                .css("width", "40px")
+                                                .css("width", "40px");
 
-                        $('#numerator').append('<div id="thirdN">+ 30</div>')
+                        $('#numerator').append('<div id="thirdN">+ 30</div>');
                         $('#thirdN').css("position", "absolute")
                                                 .css("left", "56px")
                                                 .css("top", "2px")
                                                 .css("font-size", 16)
                                                 .css("text-align", "center")
-                                                .css("width", "40px")
+                                                .css("width", "40px");
 
-                        $('#numerator').append('<div id="fourthN">+ 29</div>')
+                        $('#numerator').append('<div id="fourthN">+ 29</div>');
                         $('#fourthN').css("position", "absolute")
                                                 .css("left", "92px")
                                                 .css("top", "2px")
                                                 .css("font-size", 16)
                                                 .css("text-align", "center")
-                                                .css("width", "40px")
+                                                .css("width", "40px");
 
-                        $('#numerator').append('<div id="fifthN">+ 31</div>')
+                        $('#numerator').append('<div id="fifthN">+ 31</div>');
                         $('#fifthN').css("position", "absolute")
                                                 .css("left", "126px")
                                                 .css("top", "2px")
                                                 .css("font-size", 16)
                                                 .css("text-align", "center")
-                                                .css("width", "40px")
+                                                .css("width", "40px");
 
-                        $('#numerator').append('<div id="sixthN">+ 28</div>')
+                        $('#numerator').append('<div id="sixthN">+ 28</div>');
                         $('#sixthN').css("position", "absolute")
                                                 .css("left", "164px")
                                                 .css("top", "2px")
                                                 .css("font-size", 16)
                                                 .css("text-align", "center")
-                                                .css("width", "40px")
+                                                .css("width", "40px");
 
-                        $('#numerator').append('<div id="seventhN">+ 26</div>')
+                        $('#numerator').append('<div id="seventhN">+ 26</div>');
                         $('#seventhN').css("position", "absolute")
                                                 .css("left", "202px")
                                                 .css("top", "2px")
                                                 .css("font-size", 16)
                                                 .css("text-align", "center")
-                                                .css("width", "40px")
+                                                .css("width", "40px");
 
                         $('#executionDiv').append('<div id="execLine"></div>');
                         $('#execLine').css("position","absolute")
@@ -299,7 +299,7 @@ var Animation = {
                         $('#execEq2').css("position", "absolute")
                                                 .css("left", "449px")
                                                 .css("top", "20px")
-                                                .css("font-size", 20)
+                                                .css("font-size", 20);
 
                         $('#executionDiv').append('<div id="numerator2">196</div>');
                         $('#numerator2').css("position", "absolute")
@@ -405,7 +405,7 @@ var Animation = {
                                 $('#denumerator2').css("opacity", exampleHelper.denumerator2Opacity);
                                 $('#execEq3').css("opacity", exampleHelper.execEq3Opacity);
                                 $('#lastNum').css("opacity", exampleHelper.lastNumOpacity);
-                        }
+                        };
 
                         exampleHelper.animate({
                                 style: {
@@ -413,7 +413,7 @@ var Animation = {
                                 },
                                 duration: 1000,
                                 delay: 1000,
-                                animationType: 'easeInEaseOut'
+                                animationType: 'easeInOutQuad'
                         });
 
                         exampleHelper.animate({
@@ -422,7 +422,7 @@ var Animation = {
                                 },
                                 duration: 1000,
                                 delay: 2000,
-                                animationType: 'easeInEaseOut'
+                                animationType: 'easeInOutQuad'
                         });
 
 
@@ -432,7 +432,7 @@ var Animation = {
                                 },
                                 duration: 500,
                                 delay: 3000,
-                                animationType: 'easeIneaseOut'
+                                animationType: 'easeInOutQuad'
                         });
 
                         for(i = 1; i < 7; i++) {
@@ -442,7 +442,7 @@ var Animation = {
                                         },
                                         duration: 100,
                                         delay: 3700+(1000*i),
-                                        animationType: 'easeIneaseOut'
+                                        animationType: 'easeInOutQuad'
                                 });
                         }
 
@@ -452,7 +452,7 @@ var Animation = {
                                 },
                                 duration: 500,
                                 delay: 4000,
-                                animationType: 'easeInEaseOut'
+                                animationType: 'easeInOutQuad'
                         });
 
                         exampleHelper.animate({
@@ -461,7 +461,7 @@ var Animation = {
                                 },
                                 duration: 500,
                                 delay: 5000,
-                                animationType: 'easeInEaseOut'
+                                animationType: 'easeInOutQuad'
                         });
 
                         exampleHelper.animate({
@@ -470,7 +470,7 @@ var Animation = {
                                 },
                                 duration: 500,
                                 delay: 6000,
-                                animationType: 'easeInEaseOut'
+                                animationType: 'easeInOutQuad'
                         });
 
                         exampleHelper.animate({
@@ -479,7 +479,7 @@ var Animation = {
                                 },
                                 duration: 500,
                                 delay: 7000,
-                                animationType: 'easeInEaseOut'
+                                animationType: 'easeInOutQuad'
                         });
 
                         exampleHelper.animate({
@@ -488,7 +488,7 @@ var Animation = {
                                 },
                                 duration: 500,
                                 delay: 8000,
-                                animationType: 'easeInEaseOut'
+                                animationType: 'easeInOutQuad'
                         });
 
                         exampleHelper.animate({
@@ -497,7 +497,7 @@ var Animation = {
                                 },
                                 duration: 500,
                                 delay: 9000,
-                                animationType: 'easeInEaseOut'
+                                animationType: 'easeInOutQuad'
                         });
 
                         exampleHelper.animate({
@@ -506,7 +506,7 @@ var Animation = {
                                 },
                                 duration: 500,
                                 delay: 10000,
-                                animationType: 'easeInEaseOut'
+                                animationType: 'easeInOutQuad'
                         });
 
                         exampleHelper.animate({
@@ -515,7 +515,7 @@ var Animation = {
                                 },
                                 duration: 1000,
                                 delay: 11000,
-                                animationType: 'easeInEaseOut'
+                                animationType: 'easeInOutQuad'
                         });
 
                         exampleHelper.animate({
@@ -524,7 +524,7 @@ var Animation = {
                                 },
                                 duration: 1000,
                                 delay: 12000,
-                                animationType: 'easeInEaseOut'
+                                animationType: 'easeInOutQuad'
                         });
 
                         exampleHelper.animate({
@@ -533,7 +533,7 @@ var Animation = {
                                 },
                                 duration: 1000,
                                 delay: 13000,
-                                animationType: 'easeInEaseOut'
+                                animationType: 'easeInOutQuad'
                         });
 
 
@@ -543,7 +543,7 @@ var Animation = {
                                 },
                                 duration: 500,
                                 delay: 14000,
-                                animationType: 'easeInEaseOut'
+                                animationType: 'easeInOutQuad'
                         });
 
                         exampleHelper.animate({
@@ -552,7 +552,7 @@ var Animation = {
                                 },
                                 duration: 500,
                                 delay: 14500,
-                                animationType: 'easeInEaseOut'
+                                animationType: 'easeInOutQuad'
                         });
 
                         exampleHelper.animate({
@@ -561,7 +561,7 @@ var Animation = {
                                 },
                                 duration: 500,
                                 delay: 15000,
-                                animationType: 'easeInEaseOut'
+                                animationType: 'easeInOutQuad'
                         });
 
                         exampleHelper.animate({
@@ -570,7 +570,7 @@ var Animation = {
                                 },
                                 duration: 300,
                                 delay: 15500,
-                                animationType: 'easeInEaseOut'
+                                animationType: 'easeInOutQuad'
                         });
 
                         exampleHelper.animate({
@@ -579,7 +579,7 @@ var Animation = {
                                 },
                                 duration: 500,
                                 delay: 16000,
-                                animationType: 'easeInEaseOut'
+                                animationType: 'easeInOutQuad'
                         });
 
                         exampleHelper.animate({
@@ -588,7 +588,7 @@ var Animation = {
                                 },
                                 duration: 500,
                                 delay: 16500,
-                                animationType: 'easeInEaseOut'
+                                animationType: 'easeInOutQuad'
                         });
 
                         exampleHelper.animate({
@@ -597,7 +597,7 @@ var Animation = {
                                 },
                                 duration: 500,
                                 delay: 17000,
-                                animationType: 'easeInEaseOut'
+                                animationType: 'easeInOutQuad'
                         });
 
                         exampleHelper.animate({
@@ -606,7 +606,7 @@ var Animation = {
                                 },
                                 duration: 1000,
                                 delay: 17500,
-                                animationType: 'easeInEaseOut'
+                                animationType: 'easeInOutQuad'
                         });
 
                         exampleHelper.animate({
@@ -615,7 +615,7 @@ var Animation = {
                                 },
                                 duration: 1000,
                                 delay: 18500,
-                                animationType: 'easeInEaseOut'
+                                animationType: 'easeInOutQuad'
                         });
 
                         exampleHelper.animate({
@@ -624,7 +624,7 @@ var Animation = {
                                 },
                                 duration: 1000,
                                 delay: 19500,
-                                animationType: 'easeInEaseOut'
+                                animationType: 'easeInOutQuad'
                         });
 
                         exampleHelper.animate({
@@ -633,7 +633,7 @@ var Animation = {
                                 },
                                 duration: 1000,
                                 delay: 20500,
-                                animationType: 'easeInEaseOut'
+                                animationType: 'easeInOutQuad'
                         });
 
                         exampleHelper.animate({
@@ -642,7 +642,7 @@ var Animation = {
                                 },
                                 duration: 1000,
                                 delay: 21500,
-                                animationType: 'easeInEaseOut'
+                                animationType: 'easeInOutQuad'
                         });
 
                         exampleHelper.animate({
@@ -651,7 +651,7 @@ var Animation = {
                                 },
                                 duration: 1000,
                                 delay: 22500,
-                                animationType: 'easeInEaseOut'
+                                animationType: 'easeInOutQuad'
                         });
 
                         exampleHelper.animate({
@@ -660,7 +660,7 @@ var Animation = {
                                 },
                                 duration: 1000,
                                 delay: 23500,
-                                animationType: 'easeInEaseOut',
+                                animationType: 'easeInOutQuad',
                                 callback: function(){
                                     Main.animationFinished();
                                 }
