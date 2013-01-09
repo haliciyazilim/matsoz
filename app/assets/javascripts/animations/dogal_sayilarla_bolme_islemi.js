@@ -136,12 +136,12 @@ var Interaction = {
             if (this.div == "#soru") {
                 console.log($(".down", asamalarArray[i]).html());
                 var upUzunluk=sonuc.toString().length;
-                $(".up", asamalarArray[i]).html("<input id='up_"+i+"' class='inputUp' isNumber='true' type='text' maxlength="+upUzunluk+"></input>");
+                $(".up", asamalarArray[i]).html("<input id='up_"+i+"' class='inputUp' onkeypress='return Interaction.__inputFilter__onlyNumbers(event)' isNumber='true' type='text' maxlength="+upUzunluk+"></input>");
                 $("#up_"+i).css("width",upUzunluk+"ex");
                 Interaction.inputs.push($(".up input", asamalarArray[i]).get(0));
                 
                 var downUzunluk=kalan.toString().length;
-                $(".down", asamalarArray[i]).html("<input id='down_"+i+"' class='inputDown' isNumber='true' type='text' maxlength="+downUzunluk+"></input>");
+                $(".down", asamalarArray[i]).html("<input id='down_"+i+"' class='inputDown' onkeypress='return Interaction.__inputFilter__onlyNumbers(event)' isNumber='true' type='text' maxlength="+downUzunluk+"></input>");
                  $("#down_"+i).css("width",downUzunluk+"ex");
                 Interaction.inputs.push($(".down input", asamalarArray[i]).get(0));
             } 
@@ -477,7 +477,7 @@ var Interaction = {
       right: "250px"
     }, 1000);
     $("#cevap").delay(500).animate({
-      opacity: "1",
+      opacity: "1"
     }, 1000);
     Interaction.setStatus('Yanlış cevap, doğrusu sağ tarafta.', false);
   },
