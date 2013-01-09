@@ -20,7 +20,6 @@ class EntriesController < ApplicationController
         end
       end
     end
-      
   end
   
   def create_word_list
