@@ -1211,10 +1211,10 @@ var Interaction = {
 			$('#divison123').css("position", "absolute")
 							.css("top", "-60px")
 							.css("left", "240px")
-							.css("width", "62px")
-							.css("height", "76px")
-							.css("font-size", 22)
-							.css("padding", 0)
+							.css("width", "120px")
+							.css("height", "130px")
+							.css("font-size", 20)
+							.css("margin", "auto")
 	
 		},
 		

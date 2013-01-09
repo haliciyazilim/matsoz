@@ -2,6 +2,7 @@ function InteractionBase(){
 	if(window['__Styles'] !== undefined){
 		__Styles();
 	}
+    Interaction.__disableAutoInputFocus = false;
 	Interaction.inputs = [];
 	Interaction.__isPaused = false;
 	Interaction.__inputVersion = 0;
@@ -248,17 +249,36 @@ function InteractionBase(){
 			Interaction.button.onclick = Interaction.__checkAnswer;
 		}
 		Interaction.trial = 0;
-		
-		if(Interaction.__randomGenerator)
-			Interaction.nextQuestion(Interaction.__randomGenerator.nextNumber());	
-		else
-			Interaction.nextQuestion();
-		
-		try{
-//			Interaction.inputs[0].focus();
-		}
+
+        if(Main.getCurrentPlatform() == Main.platform.MOBILE)
+            Interaction.disableAutoFocus();
+        else if(Main.getCurrentPlatform() == Main.platform.DESKTOP)
+            Interaction.enableAutoFocus();
+
+        if(Interaction.__randomGenerator)
+            Interaction.nextQuestion(Interaction.__randomGenerator.nextNumber());
+        else
+            Interaction.nextQuestion();
+        try{
+            if(Interaction.__disableAutoInputFocus == false){
+                Interaction.inputs[0].focus();
+            }else{
+                Interaction._removeFocusFromInputs();
+            }
+        }
 		catch(e){}
 	};
+    Interaction._removeFocusFromInputs = function(){
+        for(var i=0;i<Interaction.inputs.length;i++){
+            Interaction.inputs[i].blur();
+        }
+    }
+    Interaction.disableAutoFocus = function(){
+        Interaction.__disableAutoInputFocus = true;
+    };
+    Interaction.enableAutoFocus = function(){
+        Interaction.__disableAutoInputFocus = false;
+    };
 	Interaction.__checkAnswer = function(){
 		if(typeof Interaction.pause == 'function' && Interaction.isPaused() || Interaction.pause == true)
 			return;
