@@ -79,34 +79,34 @@ var Animation = {
 				})
 			$('#marble').css({
 					position: "absolute",
-					top: "0px",
+					top: "4px",
 					left:"0px",
 					width: "100px",
-					height: "100px",
+					height: "96px",
 					opacity: 0,
 			}).delay(2000).animate({opacity:1}, 1000)
 			$('#marble2').css({
 					position: "absolute",
-					top: "0px",
+					top: "4px",
 					left:"110px",
 					width: "100px",
-					height: "100px",
+					height: "96px",
 					opacity: 0,
 			}).delay(6000).animate({opacity:1}, 1000)
 			$('#marble3').css({
 					position: "absolute",
-					top: "0px",
+					top: "4px",
 					left:"220px",
 					width: "100px",
-					height: "100px",
+					height: "96px",
 					opacity: 0,
 			}).delay(6000).animate({opacity:1}, 1000)
 			$('#marble4').css({
 					position: "absolute",
-					top: "0px",
+					top: "4px",
 					left:"330px",
 					width: "100px",
-					height: "100px",
+					height: "96px",
 					opacity: 0,
 			}).delay(6000).animate({opacity:1}, 1000)
 			
