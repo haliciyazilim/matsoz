@@ -48,7 +48,7 @@ Main.getCurrentPlatform = function(){
 }
 
 Main.config = {
-	defaultLibrary: "raphael"
+	defaultLibrary: "paper"
 };
 
 Main.startAnimation = function(){
@@ -133,10 +133,7 @@ Main.init = function(){
 		framework = Main.config.defaultLibrary;
 	}
 	
-	if (framework == 'raphael') {
-		Main.raphaelInit();
-		Interaction.init(Main.interaction);
-	} else if (framework == 'paper') {
+	if (framework == 'paper') {
 		Main.scale = 1;
 		paper.install(window);
 		Main.paperInit();
@@ -453,7 +450,7 @@ Main.initializeToolbar = function(){
     });
     $('.btn_home').click(function(event){
         if (exportedPage) {
-            window.location = '../index.html';
+            window.location = '../../intro/index.html';
         } else {
             window.location = '../';
         }
@@ -485,13 +482,4 @@ Main.initializeToolbar = function(){
 
 }
 Main();
-//function printDiv(div) {
-//    var printContents = div.innerHTML;
-//    var originalContents = document.body.innerHTML;
-//
-//    document.body.innerHTML = printContents;
-//
-//    window.print();
-//
-//    document.body.innerHTML = originalContents;
-//}
+
