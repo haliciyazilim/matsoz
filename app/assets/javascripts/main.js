@@ -81,7 +81,7 @@ Main.getCurrentPlatform = function(){
 }
 
 Main.config = {
-	defaultLibrary: "raphael"
+	defaultLibrary: "paper"
 };
 
 Main.startAnimation = function(){
@@ -166,10 +166,7 @@ Main.init = function(){
 		framework = Main.config.defaultLibrary;
 	}
 	
-	if (framework == 'raphael') {
-		Main.raphaelInit();
-		Interaction.init(Main.interaction);
-	} else if (framework == 'paper') {
+	if (framework == 'paper') {
 		Main.scale = 1;
 		paper.install(window);
 		Main.paperInit();
@@ -241,33 +238,12 @@ Main.init = function(){
                 throw '';
         }
         catch(e){
-            setTimeout(Main.startAnimation,/*Main.calculateDefinitionWaitTime()*/1000);
+            setTimeout(Main.startAnimation,1000);
         }
     }
 
 };
-Main.calculateDefinitionWaitTime = function(){
-    function removeHTMLTags(htmlString){
-        if(htmlString){
-            var mydiv = document.createElement("div");
-            mydiv.innerHTML = htmlString;
-            if (document.all)// IE Stuff
-                return mydiv.innerText;
-            else // Mozilla does not work with innerText
-                return mydiv.textContent;
-        }
-        return null;
-    }
-    function countWords(s){
-        s = s.replace(/(^\s*)|(\s*$)/gi,"");
-        s = s.replace(/[ ]{2,}/gi," ");
-        s = s.replace(/\n /,"\n");
-        return s.split(' ').length;
-    }
-    var html = $('.definition').html();
-    html = removeHTMLTags(html);
-    return countWords(html)*400+500;
-}
+
 
 Main.initializeScreen = function() {
     setTimeout(function() { window.scrollTo(0, 1); }, 1);
@@ -486,7 +462,7 @@ Main.initializeToolbar = function(){
     });
     $('.btn_home').click(function(event){
         if (exportedPage) {
-            window.location = '../index.html';
+            window.location = '../../intro/index.html';
         } else {
             window.location = '../';
         }
@@ -518,13 +494,4 @@ Main.initializeToolbar = function(){
 
 }
 Main();
-//function printDiv(div) {
-//    var printContents = div.innerHTML;
-//    var originalContents = document.body.innerHTML;
-//
-//    document.body.innerHTML = printContents;
-//
-//    window.print();
-//
-//    document.body.innerHTML = originalContents;
-//}
+
