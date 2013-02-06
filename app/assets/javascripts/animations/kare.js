@@ -138,7 +138,7 @@ Interaction.init = function(container) {
 			}
 			arrow = new Path.OneSidedRoundArrow(new Point(250,150), 75, -Math.PI/3 + 0.4, arrowHelper.endAngle, {arrowEnd: true});
 			arrow.opacity = arrowHelper.opacity;
-			arrow.strokeColor = 'black';
+			arrow.strokeColor = '#000';
 			arrow.strokeWidth = 2.5;
 			if (angleText) {
 				angleText.remove();
@@ -146,7 +146,7 @@ Interaction.init = function(container) {
 		
 			angleText = new PointText(new Point(312, 96));
 			angleText.justification = 'left';
-			angleText.fillColor = 'black';
+			angleText.fillColor = '#000';
 			angleText.content = Math.floor(arrowHelper.angle) + "°";
 			angleText.characterStyle = {
 				fontSize: 16,
@@ -232,7 +232,7 @@ paperAddOns = function () {
 			}
 			var circle = new Path.Circle(point1, options.arrowEndSize);
 			group.addChild(circle);
-			circle.fillColor = 'black';
+			circle.fillColor = '#000';
 		}
 		
 		var arrowHeadSize = options.arrowHeadSize;
@@ -266,13 +266,13 @@ paperAddOns = function () {
 						point3.y - arrowHeadSize*Math.sin(a2) 
 					) );
 		pt.closed = true;
-		path.strokeColor = 'black';
+		path.strokeColor = '#000';
 		pt.style = {
-			strokeColor: 'black',
-			fillColor : 'black'
+			strokeColor: '#000',
+			fillColor : '#000'
 		};
-		path2.strokeColor = 'black';
-		path3.strokeColor = 'black';
+		path2.strokeColor = '#000';
+		path3.strokeColor = '#000';
 		
 		group.addChild(path);
 		group.addChild(pt);
