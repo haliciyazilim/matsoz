@@ -46,6 +46,246 @@ var createFraction = function (container, name, x, y, nominator, denominator, li
 	return $('#'+name);
 }
 
+var Interaction = {
+	getFramework:function() {
+        return 'paper';
+    },
+
+	init:function(container) {
+		Main.setObjective("Yanda verilen kesre denk kesir oluşturmak\niçin boşluğa uygun sayıyı yazınız. Daha sonra\n“Kontrol” düğmesine basınız.");		
+		Interaction.container = container;
+		
+		$(container).append('<div id="interactionArea"></div>');
+		
+		// interactionInit(container);
+		Interaction.paper = {
+            width:$(container).width(),
+            height:$(container).height()
+        }
+
+		Interaction.appendButton({
+            bottom:"10px",
+            right:"10px"
+        });
+
+		Interaction.appendStatus({
+            bottom:"20px",
+            right:"150px"
+        })
+
+		// $('#statuss').css("position", "absolute")
+		// 				.css("left", "160px")
+		// 				.css("top", "260px")
+		// 				.css("width", "200px")
+		// 				.css("height", "20px")
+		// 				.css("text-align", "center");
+
+        Interaction.appendInput({
+            position: "static"
+        }),
+
+
+
+		Interaction.prepareNextQuestion();
+	},
+	nextQuestion: function(){
+		if (Interaction.pie1) {
+			Interaction.pie1.remove();
+		}
+		
+		if (Interaction.pie2) {
+			Interaction.pie2.remove();
+		}
+		
+		$('#interactionArea').html('');
+		
+		var smallFractionDenominator = Math.floor(Math.random() * 4) + 2;
+		var smallFractionNominator = Math.floor(Math.random() * (smallFractionDenominator-1)) + 1;
+
+		var factor = Math.floor(Math.random() * 2) + 2;
+
+		var firstFractionNominator, firstFractionDenominator;
+		var secondFractionNominator, secondFractionDenominator;
+
+		if (Math.floor(Math.random() * 2) == 0) {
+			firstFractionNominator = smallFractionNominator;
+			firstFractionDenominator = smallFractionDenominator;
+			secondFractionNominator = smallFractionNominator * factor;
+			secondFractionDenominator = smallFractionDenominator * factor;
+		} else {
+			secondFractionNominator = smallFractionNominator;
+			secondFractionDenominator = smallFractionDenominator;
+			firstFractionNominator = smallFractionNominator * factor;
+			firstFractionDenominator = smallFractionDenominator * factor;
+		}
+
+		$('#interactionArea').append('<div id="firstF"></div>');
+		$('#firstF').css("position", "absolute")
+					.css("top", "185px")
+					.css("left", "114px")
+					.css("width", "40px")
+					.css("height", "40px");
+
+		$('#firstF').append('<div id="exLine"></div>');
+		$('#exLine').css("position","absolute")
+					.css("left", "12px")
+					.css("top", "26px")
+					.css("width", "30px")
+					.css("height", "1px")
+					.css("padding", 0)
+					.css("border-top", "2px solid");
+
+		$('#firstF').append('<p id="nomm">'+firstFractionNominator+'</p>');
+		$('#nomm').css("position", "absolute")
+					.css("text-align", "center")
+					.css("top", "0px")
+					.css("left", "10px")
+					.css("width", "34px")
+					.css("font-size", 24);
+
+		$('#firstF').append('<p id="denomm">'+firstFractionDenominator+'</p>');
+		$('#denomm').css("position", "absolute")
+					.css("text-align", "center")
+					.css("top", "30px")
+					.css("left", "10px")
+					.css("width", "34px")
+					.css("font-size", 24);
+
+
+	
+		missing = Math.floor(Math.random()*2);
+		if (missing == 0) {
+			$('#interactionArea').append('<div id="secondF"></div>');
+			$('#secondF').css("position", "absolute")
+						.css("top", "185px")
+						.css("left", "364px")
+						.css("width", "40px")
+						.css("height", "40px");
+
+			$('#secondF').append('<div id="exLine2"></div>');
+			$('#exLine2').css("position","absolute")
+						.css("left", "12px")
+						.css("top", "26px")
+						.css("width", "30px")
+						.css("height", "1px")
+						.css("padding", 0)
+						.css("border-top", "2px solid");
+
+			$('#secondF').append('<p id="denomm2">'+secondFractionDenominator+'</p>');
+			$('#denomm2').css("position", "absolute")
+						.css("text-align", "center")
+						.css("top", "30px")
+						.css("left", "10px")
+						.css("width", "34px")
+						.css("font-size", 24);
+		} else {
+			$('#interactionArea').append('<div id="secondF"></div>');
+			$('#secondF').css("position", "absolute")
+						.css("top", "185px")
+						.css("left", "364px")
+						.css("width", "40px")
+						.css("height", "40px");
+
+			$('#secondF').append('<div id="exLine2"></div>');
+			$('#exLine2').css("position","absolute")
+						.css("left", "12px")
+						.css("top", "26px")
+						.css("width", "30px")
+						.css("height", "1px")
+						.css("padding", 0)
+						.css("border-top", "2px solid");
+
+			$('#secondF').append('<p id="nomm2">'+secondFractionNominator+'</p>');
+			$('#nomm2').css("position", "absolute")
+						.css("text-align", "center")
+						.css("top", "0px")
+						.css("left", "10px")
+						.css("width", "34px")
+						.css("font-size", 24);
+		}
+		
+		if (missing == 0) {
+			Interaction.answer = firstFractionNominator*secondFractionDenominator/firstFractionDenominator;
+		} else {
+			Interaction.answer = secondFractionNominator*firstFractionDenominator/firstFractionNominator;
+		}
+		
+		var shapeType = Math.floor(Math.random() * 3);	
+
+		var pie1, pie2;
+	
+		switch (shapeType) {
+			case 0:
+				pie1 = new Path.SegmentedRectangle(82, 30, 120, 120, smallFractionDenominator, firstFractionDenominator/smallFractionDenominator, firstFractionNominator, fillColor, true);
+				pie1.strokeColor = strokeColor;
+				pie1.strokeWidth = 2;
+			
+				pie2 = new Path.SegmentedRectangle(332, 30, 120, 120, smallFractionDenominator, secondFractionDenominator/smallFractionDenominator, secondFractionNominator, fillColor, true);
+				pie2.strokeColor = strokeColor;
+				pie2.strokeWidth = 2;
+				break;
+			
+			case 1:
+				pie1 = new Path.SegmentedCircle(new Point(142, 90), 70, firstFractionNominator, firstFractionDenominator, fillColor, true);
+				pie1.strokeColor = strokeColor;
+				pie1.strokeWidth = 2;
+			
+				pie2 = new Path.SegmentedCircle(new Point(392, 90), 70, secondFractionNominator, secondFractionDenominator, fillColor, true);
+				pie2.strokeColor = strokeColor;
+				pie2.strokeWidth = 2;
+				break;
+		
+			case 2:
+				pie1 = new Path.SegmentedRectangle(52, 60, 180, 60, smallFractionDenominator, firstFractionDenominator/smallFractionDenominator, firstFractionNominator, fillColor, true);
+				pie1.strokeColor = strokeColor;
+				pie1.strokeWidth = 2;
+			
+				pie2 = new Path.SegmentedRectangle(302, 60, 180, 60, smallFractionDenominator, secondFractionDenominator/smallFractionDenominator, secondFractionNominator, fillColor, true);
+				pie2.strokeColor = strokeColor;
+				pie2.strokeWidth = 2;
+				break;
+		}
+	
+		pie2.opacity = 0;
+		
+		Interaction.pie1 = pie1;
+		Interaction.pie2 = pie2;
+		
+		$(Interaction.input).css("position", "absolute")
+						.css("left", "374px")
+						.css("width", "32")
+						.css("height", "30")
+						.css("box-sizing","border-box")
+						.css("padding", "0")
+						.css("font-size", 18)
+						.css("text-align", "center");
+						
+		if (missing == 0) {
+			$(Interaction.input).css("top", "175px");
+		} else {
+			$(Interaction.input).css("top", "215px");
+		}
+
+	},
+	isAnswerCorrect : function(value){
+        return value == Interaction.answer;
+    },
+	onCorrectAnswer : function(){
+        // $(Interaction.input).css("color","green");
+        Interaction.showAnswer();
+    },
+	onWrongAnswer : function(){
+		
+    },
+	onFail : function(){
+        Interaction.setStatus('Yanlış cevap, doğru cevap ' + Interaction.answer + ' olacaktı!',false);
+        Interaction.showAnswer();
+    },
+    showAnswer : function() {
+
+	}
+}
+
 Animation.init = function(container) {	
 	var pie1, pie2, pie3, pie4, pie5;
 	var pieGroup1 = new Group();
@@ -553,296 +793,4 @@ Animation.init = function(container) {
 		animationType: 'easeInEaseOut',
 		callback: Main.animationFinished
 	});
-}
-
-Interaction.getFramework = function () {
-	return 'paper';
-}
-
-Interaction.init = function(container){
-	Main.setObjective("Yanda verilen kesre denk kesir oluşturmak\niçin boşluğa uygun sayıyı yazınız. Daha sonra\n“Kontrol” düğmesine basınız.");
-	//animationInit(Raphael("animation_container"));
-	interactionInit(container);
-};
-
-function interactionInit(container) {
-	var smallFractionDenominator = Math.floor(Math.random() * 4) + 2;
-	var smallFractionNominator = Math.floor(Math.random() * (smallFractionDenominator-1)) + 1;
-	
-	var factor = Math.floor(Math.random() * 2) + 2;
-	
-	var firstFractionNominator, firstFractionDenominator;
-	var secondFractionNominator, secondFractionDenominator;
-	
-	if (Math.floor(Math.random() * 2) == 0) {
-		firstFractionNominator = smallFractionNominator;
-		firstFractionDenominator = smallFractionDenominator;
-		secondFractionNominator = smallFractionNominator * factor;
-		secondFractionDenominator = smallFractionDenominator * factor;
-	} else {
-		secondFractionNominator = smallFractionNominator;
-		secondFractionDenominator = smallFractionDenominator;
-		firstFractionNominator = smallFractionNominator * factor;
-		firstFractionDenominator = smallFractionDenominator * factor;
-	}
-	
-	// firstF
-	$(container).append('<div id="firstF"></div>');
-	$('#firstF').css("position", "absolute")
-				.css("top", "185px")
-				.css("left", "114px")
-				.css("width", "40px")
-				.css("height", "40px");
-	
-	$('#firstF').append('<div id="exLine"></div>');
-	$('#exLine').css("position","absolute")
-				.css("left", "12px")
-				.css("top", "26px")
-				.css("width", "30px")
-				.css("height", "1px")
-				.css("padding", 0)
-				.css("border-top", "2px solid");
-	
-	$('#firstF').append('<p id="nomm">'+firstFractionNominator+'</p>');
-	$('#nomm').css("position", "absolute")
-				.css("text-align", "center")
-				.css("top", "0px")
-				.css("left", "10px")
-				.css("width", "34px")
-				.css("font-size", 24);
-	
-	$('#firstF').append('<p id="denomm">'+firstFractionDenominator+'</p>');
-	$('#denomm').css("position", "absolute")
-				.css("text-align", "center")
-				.css("top", "30px")
-				.css("left", "10px")
-				.css("width", "34px")
-				.css("font-size", 24);
-	
-	
-	
-	missing = Math.floor(Math.random()*2);
-	
-	if (missing == 0) {
-		$(container).append('<div id="secondF"></div>');
-		$('#secondF').css("position", "absolute")
-					.css("top", "185px")
-					.css("left", "364px")
-					.css("width", "40px")
-					.css("height", "40px");
-					
-		$('#secondF').append('<div id="exLine2"></div>');
-		$('#exLine2').css("position","absolute")
-					.css("left", "12px")
-					.css("top", "26px")
-					.css("width", "30px")
-					.css("height", "1px")
-					.css("padding", 0)
-					.css("border-top", "2px solid");
-
-		$('#secondF').append('<p id="denomm2">'+secondFractionDenominator+'</p>');
-		$('#denomm2').css("position", "absolute")
-					.css("text-align", "center")
-					.css("top", "30px")
-					.css("left", "10px")
-					.css("width", "34px")
-					.css("font-size", 24);
-	} else {
-		$(container).append('<div id="secondF"></div>');
-		$('#secondF').css("position", "absolute")
-					.css("top", "185px")
-					.css("left", "364px")
-					.css("width", "40px")
-					.css("height", "40px");
-			
-		$('#secondF').append('<div id="exLine2"></div>');
-		$('#exLine2').css("position","absolute")
-					.css("left", "12px")
-					.css("top", "26px")
-					.css("width", "30px")
-					.css("height", "1px")
-					.css("padding", 0)
-					.css("border-top", "2px solid");
-
-		$('#secondF').append('<p id="nomm2">'+secondFractionNominator+'</p>');
-		$('#nomm2').css("position", "absolute")
-					.css("text-align", "center")
-					.css("top", "0px")
-					.css("left", "10px")
-					.css("width", "34px")
-					.css("font-size", 24);
-	}
-	
-	var shapeType = Math.floor(Math.random() * 3);	
-
-	var pie1, pie2;
-	
-	switch (shapeType) {
-		case 0:
-			pie1 = new Path.SegmentedRectangle(82, 30, 120, 120, smallFractionDenominator, firstFractionDenominator/smallFractionDenominator, firstFractionNominator, fillColor, true);
-			pie1.strokeColor = strokeColor;
-			pie1.strokeWidth = 2;
-			
-			pie2 = new Path.SegmentedRectangle(332, 30, 120, 120, smallFractionDenominator, secondFractionDenominator/smallFractionDenominator, secondFractionNominator, fillColor, true);
-			pie2.strokeColor = strokeColor;
-			pie2.strokeWidth = 2;
-			break;
-			
-		case 1:
-			pie1 = new Path.SegmentedCircle(new Point(142, 90), 70, firstFractionNominator, firstFractionDenominator, fillColor, true);
-			pie1.strokeColor = strokeColor;
-			pie1.strokeWidth = 2;
-			
-			pie2 = new Path.SegmentedCircle(new Point(392, 90), 70, secondFractionNominator, secondFractionDenominator, fillColor, true);
-			pie2.strokeColor = strokeColor;
-			pie2.strokeWidth = 2;
-			break;
-		
-		case 2:
-			pie1 = new Path.SegmentedRectangle(52, 60, 180, 60, smallFractionDenominator, firstFractionDenominator/smallFractionDenominator, firstFractionNominator, fillColor, true);
-			pie1.strokeColor = strokeColor;
-			pie1.strokeWidth = 2;
-			
-			pie2 = new Path.SegmentedRectangle(302, 60, 180, 60, smallFractionDenominator, secondFractionDenominator/smallFractionDenominator, secondFractionNominator, fillColor, true);
-			pie2.strokeColor = strokeColor;
-			pie2.strokeWidth = 2;
-			break;
-	}
-	
-	$(container).append('<div id="statuss"></div>');
-	$('#statuss').css("position", "absolute")
-					.css("left", "160px")
-					.css("top", "260px")
-					.css("width", "200px")
-					.css("height", "20px")
-					.css("text-align", "center");
-	
-	
-	pie2.opacity = 0;
-	
-	$(container).append('<input id="textInput" type="text" class="inp" pattern="[0-9]*" maxlength="2" />');
-	$('#textInput').css("position", "absolute")
-					.css("left", "374px")
-					.css("width", "32")
-					.css("height", "30")
-					.css("box-sizing","border-box")
-					.css("padding", "0")
-					.css("font-size", 18)
-					.css("text-align", "center");
-	
-
-	if (missing == 0) {
-		$('#textInput').css("top", "175px");
-	} else {
-		$('#textInput').css("top", "215px");
-	}
-	
-	$('#textInput').addClass('input');
-
-							
-	$(container).append('<input id="submitButton" type="button" class="control_button" />');
-	$('#submitButton').css("position", "absolute")
-						.css("right", "10px")
-						.css("bottom", "10px");
-	
-	var tryCount = 0;
-	
-	submit = function(){
-		if (tryCount == -1) {
-			pie1.remove();
-			pie2.remove();
-			
-			$('#statuss').remove();				
-			$('#textInput').remove();
-			$('#submitButton').remove();
-			
-			$('#firstF').remove();
-			$('#secondF').remove();
-			
-			interactionInit(container);
-			
-			return;
-		}
-		
-	    var val = $('#textInput').val();
-		var intRegex = /^\d+$/;
-	    if(!intRegex.test(val)) {
-			$('#statuss').get(0).className = "status_alert";
-			$('#statuss').html("Lütfen kutucuklara sayı giriniz.");
-			return;
-		}
-		
-		var correct;
-		
-		if (missing == 0) {
-			correct = firstFractionDenominator/firstFractionNominator == secondFractionDenominator/parseInt($('#textInput').val());
-		} else {
-			correct = firstFractionDenominator/firstFractionNominator == parseInt($('#textInput').val())/secondFractionNominator;
-		}
-		
-		if (correct) {
-			$('#statuss').get(0).className = "status_true";
-			$('#statuss').html("Tebrikler!");
-			pie2.animate({
-				style: {
-					opacity: 1
-				},
-				duration: 500,
-				animationType: 'easeInEaseOut'
-			});
-			
-			$('#submitButton').get(0).className = "next_button";
-			tryCount = -1;
-			
-			$("#textInput").get(0).onkeydown = function(event){
-				if(event.keyCode != 13) {
-					return false;
-				}
-			}
-		} else {
-			tryCount++;
-			
-			if (tryCount < 2) {
-				$('#textInput').val("");
-				$('#statuss').get(0).className = "status_false";
-				$('#statuss').html("Tekrar deneyiniz.");
-			} else {
-				if (missing == 0) {
-					$('#textInput').val(secondFractionNominator);
-				} else {
-					$('#textInput').val(secondFractionDenominator);
-				}
-				
-				pie2.animate({
-					style: {
-						opacity: 1
-					},
-					duration: 500,
-					animationType: 'easeInEaseOut'
-				});
-				
-				$('#statuss').get(0).className = "status_false";
-				$('#statuss').html("Olmadı! Doğru cevap yukarıda gösterilmiştir.");
-				
-				$('#submitButton').get(0).className = "next_button";
-				tryCount = -1;
-				
-				$("#textInput").get(0).onkeydown = function(event){
-					if(event.keyCode != 13) {
-						return false;
-					}
-				}
-			}
-		}
-	};
-	
-	
-	$('#submitButton').click(submit);
-	
-	$("#textInput").keypress(function(event) {
-		if(event.keyCode == 13) {
-			submit();
-		}
-	});
-		
 }
