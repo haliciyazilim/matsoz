@@ -262,14 +262,16 @@ function InteractionBase(){
             Interaction.nextQuestion(Interaction.__randomGenerator.nextNumber());
         else
             Interaction.nextQuestion();
-        try{
-            if(Interaction.__disableAutoInputFocus == false){
-                Interaction.inputs[0].focus();
-            }else{
-                Interaction._removeFocusFromInputs();
+        if(Main.getCurrentPlatform() == Main.platform.DESKTOP){
+            try{
+                if(Interaction.__disableAutoInputFocus == false){
+                    Interaction.inputs[0].focus();
+                }else{
+                    Interaction._removeFocusFromInputs();
+                }
             }
+            catch(e){}
         }
-		catch(e){}
 	};
     Interaction._removeFocusFromInputs = function(){
         for(var i=0;i<Interaction.inputs.length;i++){
