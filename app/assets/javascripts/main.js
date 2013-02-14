@@ -454,6 +454,7 @@ Main.initializeToolbar = function(){
 
     $('.btn_prev').click(function(event){
         window.history.go(-1);
+
     });
     $('.btn_next').click(function(event){
         window.history.go(1);

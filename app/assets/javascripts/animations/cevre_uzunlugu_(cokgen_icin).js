@@ -358,21 +358,19 @@ Interaction.init = function(container){
 	$(Interaction.container).append('<style>div#L{width:60%;height:100%;text-align:center;}</style>');
 	$(Interaction.container).append('<style>div#R{width:40%;height:100%;}</style>');
 	Interaction.T = $('div#T',Interaction.container).get(0);
-	Interaction.input = document.createElement('input');
-	Interaction.input.className = 'number_input_field';
-	Interaction.input.setAttribute('type','text');
-	Interaction.input.setAttribute('maxlength','3');
+    Interaction.appendInput({
+        position:'static'
+    });
+    Interaction.appendButton({
+        position:'static'
+    });
 	$('div#B',Interaction.container).html('<div id="L"></div><div id="R"></div>');
 	$('div#B > div#L',Interaction.container).append('Ç =&nbsp;');
 	$('div#B > div#L',Interaction.container).append(Interaction.input);
 	$('div#B > div#L',Interaction.container).append('&nbsp;<span id="input_measure"></span>');
-	Interaction.button = document.createElement('input');
-	Interaction.button.setAttribute('type','button');
-	Interaction.button.onclick = TestGenerator.checkAnswer;
-	Interaction.button.className = 'control_button';
 	$('div#B > div#R',Interaction.container).append(Interaction.button);
 	$('div#B > div#R',Interaction.container).append('<div id="status"></div>');
-	Interaction.status = $('div#B > div#R > div#status',Interaction.R).get(0);
+
 	$(Interaction.status ).css({
 		position:'relative',
 		width:'220px',
@@ -382,45 +380,39 @@ Interaction.init = function(container){
 		paddingTop:'10px' ,
 		textAlign:'center'
 	});
+    Interaction.appendStatus({
+        bottom:'100px',
+        right:'51px'
+    });
 	Interaction.preventNextQuestion = false;
 	var NUMBER_OF_SHAPES  = 7;
 	Interaction.shuffledArray = Util.getShuffledArray(NUMBER_OF_SHAPES);
 	Interaction.count = 0;
-	TestGenerator.nextQuestion();
+	Interaction.prepareNextQuestion();
 	
 }
-var TestGenerator = {};
-TestGenerator.nextQuestion = function(){
+Interaction.nextQuestion = function(){
     if(Interaction.isPaused())
         return;
 	Main.interactionProject.activeLayer.removeChildren();
-    $(TestGenerator.solution).remove();
-	TestGenerator.shape = null;
-	TestGenerator.trial = 0;
-	TestGenerator.values = null;
-	Interaction.setStatus('');
-	Interaction.button.className = 'control_button';
-	Interaction.input.value = '';
-	Interaction.input.onkeyup = function(e){
-		if(e.keyCode == 13)
-			TestGenerator.checkAnswer();		
-	}
-	Interaction.input.style.color = '';
-	Interaction.button.onclick = TestGenerator.checkAnswer;
-	TestGenerator.shape = Math.floor(Math.random()*4);
-	TestGenerator.paper = {width:$(Interaction.container).width()*0.4 , height:$(Interaction.container).height()}
+    $(Interaction.solution).remove();
+	Interaction.shape = null;
+//	Interaction.trial = 0;
+	Interaction.values = null;
+	Interaction.shape = Math.floor(Math.random()*4);
+	Interaction.paper = {width:$(Interaction.container).width()*0.4 , height:$(Interaction.container).height()}
 	var m = Math.floor(Math.random()*2);
-	TestGenerator.setMeasure(m);
-	TestGenerator.letters = (Math.random()>0.5 ? ["A","B","C","D","E"]:["K","L","M","N","P"]);
+	Interaction.setMeasure(m);
+	Interaction.letters = (Math.random()>0.5 ? ["A","B","C","D","E"]:["K","L","M","N","P"]);
 	var count = (Interaction.count++)%Interaction.shuffledArray.length;
-	TestGenerator.shape = Interaction.shuffledArray[count];
-//	/*TEST*/TestGenerator.shape = 4;/*TEST*/
-	switch(TestGenerator.shape){
+	Interaction.shape = Interaction.shuffledArray[count];
+//	/*TEST*/Interaction.shape = 4;/*TEST*/
+	switch(Interaction.shape){
 		case 0:
 			var a = Math.floor(Math.random()*10)+5;
 			var cevre = 4*a;
-			TestGenerator.values = {a:a,cevre:cevre};
-			rectangle(a,a,TestGenerator.getMeasure(),TestGenerator.paper);
+			Interaction.values = {a:a,cevre:cevre};
+			rectangle(a,a,Interaction.getMeasure(),Interaction.paper);
 			break;
 		case 1:
 			var a,b;
@@ -428,8 +420,8 @@ TestGenerator.nextQuestion = function(){
 			b = a;
 			while(a==b)
 				b = Math.floor(Math.random()*10)+5;
-			TestGenerator.values = {a:a,b:b,cevre:2*(a+b)};
-			rectangle(a,b,TestGenerator.getMeasure(),TestGenerator.paper);
+			Interaction.values = {a:a,b:b,cevre:2*(a+b)};
+			rectangle(a,b,Interaction.getMeasure(),Interaction.paper);
 			break;
 		case 2:
 			var a,b,_a;
@@ -438,8 +430,8 @@ TestGenerator.nextQuestion = function(){
 			while(a==_a)
 				_a = Math.floor(Math.random()*5)+5;
 			b = Math.floor(Math.random()*5)+5;
-			TestGenerator.values = {a:a,b:b,_a:_a,cevre:2*(a+_a+b)};
-			rhomboid(a,_a,b,TestGenerator.getMeasure(),TestGenerator.paper);
+			Interaction.values = {a:a,b:b,_a:_a,cevre:2*(a+_a+b)};
+			rhomboid(a,_a,b,Interaction.getMeasure(),Interaction.paper);
 			break;
 		case 3:
 			var a,b,c;
@@ -451,8 +443,8 @@ TestGenerator.nextQuestion = function(){
             if(Util.rand01() == 1){
                 a *= 2; b*= 2; c *= 2;
             }
-			TestGenerator.values = {a:a,b:b,c:c,cevre:(a+b+c)};
-			new Triangle(a,b,c,TestGenerator.getMeasure(),TestGenerator.paper).showEdge('a').showEdge('b').showEdge('c');
+			Interaction.values = {a:a,b:b,c:c,cevre:(a+b+c)};
+			new Triangle(a,b,c,Interaction.getMeasure(),Interaction.paper).showEdge('a').showEdge('b').showEdge('c');
 			break;
 		
 		case 4:
@@ -460,8 +452,8 @@ TestGenerator.nextQuestion = function(){
 			a = 6,b = 8,c = 6;
             var k = Util.randomInteger(1,5);
             a *= k; b *= k; c *= k;
-			TestGenerator.values = {a:a,b:b,c:c,cevre:(a+b+c)} ;
-			new Triangle(a,b,c,TestGenerator.getMeasure(),TestGenerator.paper).showEdge('a').showEdge('b').showAngle('A').showAngle('B');
+			Interaction.values = {a:a,b:b,c:c,cevre:(a+b+c)} ;
+			new Triangle(a,b,c,Interaction.getMeasure(),Interaction.paper).showEdge('a').showEdge('b').showAngle('A').showAngle('B');
 			break;
 		case 5:
 			var a,b,_a,c;
@@ -471,8 +463,8 @@ TestGenerator.nextQuestion = function(){
 				_a = Math.floor(Math.random()*5)+4;
 			b = Math.floor(Math.random()*5)+5;
 			c = Math.floor(Math.random()*3+b-1)
-			TestGenerator.values = {a:a,b:b,_a:_a,c:c,cevre:(a+_a+b+c)};
-			trapezoid(a,_a,b,c,TestGenerator.getMeasure(),TestGenerator.paper);
+			Interaction.values = {a:a,b:b,_a:_a,c:c,cevre:(a+_a+b+c)};
+			trapezoid(a,_a,b,c,Interaction.getMeasure(),Interaction.paper);
 			break;
 		case 6:
 			var a,W;
@@ -480,25 +472,41 @@ TestGenerator.nextQuestion = function(){
 			W = 2*a;
 			while(W >= 2*a)
 				W = Math.floor(Math.random()*2)+6;
-			TestGenerator.values = {a:a,cevre:4*a};
-			rhombus(a,W,TestGenerator.getMeasure(),TestGenerator.paper);
+			Interaction.values = {a:a,cevre:4*a};
+			rhombus(a,W,Interaction.getMeasure(),Interaction.paper);
 			break;
 	}
 }
-TestGenerator.setMeasure = function(m){ 
-	TestGenerator.measure = m;
-	$('#input_measure').html(TestGenerator.getMeasure());
+Interaction.setMeasure = function(m){ 
+	Interaction.measure = m;
+	$('#input_measure').html(Interaction.getMeasure());
 }
-TestGenerator.getMeasure = function(){
-	if(TestGenerator.measure == null || TestGenerator.measure == 'undefined')
-		throw 'TestGenerator.values.m is not defined';
-	if(TestGenerator.measure == 0)
+Interaction.getMeasure = function(){
+	if(Interaction.measure == null || Interaction.measure == 'undefined')
+		throw 'Interaction.values.m is not defined';
+	if(Interaction.measure == 0)
 		return 'cm';
 	else
 		return 'm';
 };
+Interaction.isAnswerCorrect = function(){
+    var value = Interaction.input.value;
+    return value == Interaction.values.cevre;
+}
 
-TestGenerator.showSolution = function(){
+Interaction.onWrongAnswer = function(){
+
+}
+
+Interaction.onCorrectAnswer = function(){
+
+}
+
+Interaction.onFail = function(){
+		Interaction.setStatus('Yanlış. Doğru cevap: '+Interaction.values.cevre+' '+Interaction.getMeasure(),false);
+
+}
+Interaction.showSolution = function(){
     Interaction.pause();
     var solution = Util.dom({
         tag:'div',
@@ -506,51 +514,51 @@ TestGenerator.showSolution = function(){
         css:solutionCSS,
         html:'Ç = <span id="0"></span><span id="1"></span><span id="2"></span><span id="3">&nbsp;=&nbsp;</span><span id="4"></span>'
     });
-    TestGenerator.solution = solution;
+    Interaction.solution = solution;
     $(solution).html();
-    switch(TestGenerator.shape){
+    switch(Interaction.shape){
         case 0:
             $("#0",solution).html(4);
             $("#1",solution).html('&nbsp;x&nbsp;');
-            $("#2",solution).html(TestGenerator.values.a);
-            $("#4",solution).html(TestGenerator.values.cevre);
+            $("#2",solution).html(Interaction.values.a);
+            $("#4",solution).html(Interaction.values.cevre);
             break;
         case 1:
             $("#0",solution).html(2);
             $("#1",solution).html('&nbsp;x&nbsp;');
-            $("#2",solution).html('('+TestGenerator.values.a+' + '+TestGenerator.values.b+')');
-            $("#4",solution).html(TestGenerator.values.cevre);
+            $("#2",solution).html('('+Interaction.values.a+' + '+Interaction.values.b+')');
+            $("#4",solution).html(Interaction.values.cevre);
             break;
         case 2:
             $("#0",solution).html(2);
             $("#1",solution).html('&nbsp;x&nbsp;');
-            $("#2",solution).html('('+(TestGenerator.values.a+TestGenerator.values._a)+' + '+TestGenerator.values.b+')');
-            $("#4",solution).html(TestGenerator.values.cevre);
+            $("#2",solution).html('('+(Interaction.values.a+Interaction.values._a)+' + '+Interaction.values.b+')');
+            $("#4",solution).html(Interaction.values.cevre);
             break;
         case 3:
-            $("#0",solution).html(TestGenerator.values.a);
+            $("#0",solution).html(Interaction.values.a);
             $("#1",solution).html(' + ');
-            $("#2",solution).html(TestGenerator.values.b+' + '+TestGenerator.values.c);
-            $("#4",solution).html(TestGenerator.values.cevre);
+            $("#2",solution).html(Interaction.values.b+' + '+Interaction.values.c);
+            $("#4",solution).html(Interaction.values.cevre);
             break;
 
         case 4:
-            $("#0",solution).html(TestGenerator.values.a);
+            $("#0",solution).html(Interaction.values.a);
             $("#1",solution).html(' + ');
-            $("#2",solution).html(TestGenerator.values.b+' + '+TestGenerator.values.c);
-            $("#4",solution).html(TestGenerator.values.cevre);
+            $("#2",solution).html(Interaction.values.b+' + '+Interaction.values.c);
+            $("#4",solution).html(Interaction.values.cevre);
             break;
         case 5:
-            $("#0",solution).html(TestGenerator.values.a+' + '+TestGenerator.values._a);
+            $("#0",solution).html(Interaction.values.a+' + '+Interaction.values._a);
             $("#1",solution).html(' + ');
-            $("#2",solution).html(TestGenerator.values.b+' + '+TestGenerator.values.c);
-            $("#4",solution).html(TestGenerator.values.cevre);
+            $("#2",solution).html(Interaction.values.b+' + '+Interaction.values.c);
+            $("#4",solution).html(Interaction.values.cevre);
             break;
         case 6:
             $("#0",solution).html(4);
             $("#1",solution).html('&nbsp;x&nbsp;');
-            $("#2",solution).html(TestGenerator.values.a);
-            $("#4",solution).html(TestGenerator.values.cevre);
+            $("#2",solution).html(Interaction.values.a);
+            $("#4",solution).html(Interaction.values.cevre);
             break;
     }
 
@@ -558,47 +566,47 @@ TestGenerator.showSolution = function(){
         $("#"+i,solution).css({opacity:0}).delay(1000*i).animate({opacity:1},1000,(i==4?Interaction.resume:undefined));
 }
 
-TestGenerator.printVertexLetters = function(p){
+Interaction.printVertexLetters = function(p){
 	for(var i=0; i<p.length;i++){
 		var text = new PointText(p[i]);
-		text.content = ""+TestGenerator.letters.shift();
+		text.content = ""+Interaction.letters.shift();
 		text.style = textStyle;
 		text=null;
 	}
 }
-TestGenerator.checkAnswer = function(){
-	var value = Interaction.input.value;
-	var isWrong = false;
-	if(value == "" || isNaN(value)){
-		isWrong = true;
-		Interaction.setStatus('Lütfen bir sayı giriniz.','alert');
-		return ;
-	}
-	else if(value == TestGenerator.values.cevre){
-		Interaction.setStatus('Tebrikler !',true);
-		Interaction.button.onclick = TestGenerator.nextQuestion;
-		Interaction.button.className = 'next_button';
-		Interaction.input.onkeyup = TestGenerator.nextQuestion;
-	}
-	else{
-		Interaction.setStatus('Tekrar deneyiniz. ',false);
-		isWrong = true;
-	}
-	if(isWrong && TestGenerator.trial > 0){
-		Interaction.input.style.color = 'red';
-		Interaction.input.value = TestGenerator.values.cevre;
-		Interaction.input.onkeyup = TestGenerator.nextQuestion;
-		Interaction.setStatus('Yanlış. Doğru cevap: '+TestGenerator.values.cevre+' '+TestGenerator.getMeasure(),false);
-		Interaction.button.onclick = TestGenerator.nextQuestion;
-		Interaction.button.className = 'next_button';
-        TestGenerator.showSolution();
-	}	
-	else{
-		Interaction.button.onlick = TestGenerator.nextQuestion;
-		TestGenerator.trial++;
-		TestGenerator.trial++;
-	}
-}
+//Interaction.checkAnswer = function(){
+//	var value = Interaction.input.value;
+//	var isWrong = false;
+//	if(value == "" || isNaN(value)){
+//		isWrong = true;
+//		Interaction.setStatus('Lütfen bir sayı giriniz.','alert');
+//		return ;
+//	}
+//	else if(value == Interaction.values.cevre){
+//		Interaction.setStatus('Tebrikler !',true);
+//		Interaction.button.onclick = Interaction.nextQuestion;
+//		Interaction.button.className = 'next_button';
+//		Interaction.input.onkeyup = Interaction.nextQuestion;
+//	}
+//	else{
+//		Interaction.setStatus('Tekrar deneyiniz. ',false);
+//		isWrong = true;
+//	}
+//	if(isWrong && Interaction.trial > 0){
+//		Interaction.input.style.color = 'red';
+//		Interaction.input.value = Interaction.values.cevre;
+//		Interaction.input.onkeyup = Interaction.nextQuestion;
+//		Interaction.setStatus('Yanlış. Doğru cevap: '+Interaction.values.cevre+' '+Interaction.getMeasure(),false);
+//		Interaction.button.onclick = Interaction.nextQuestion;
+//		Interaction.button.className = 'next_button';
+//        Interaction.showSolution();
+//	}
+//	else{
+//		Interaction.button.onlick = Interaction.nextQuestion;
+//		Interaction.trial++;
+//		Interaction.trial++;
+//	}
+//}
 
 
 function rectangle(a,b,measure,paper){
@@ -624,7 +632,7 @@ function rectangle(a,b,measure,paper){
 	t2.content = ""+b+" "+measure;
 	
 	//letters
-	TestGenerator.printVertexLetters(
+	Interaction.printVertexLetters(
 			[
 				new Point(x-10,y+h+10),
 				new Point(x+w+10,y+h+10),
@@ -659,7 +667,7 @@ function rhomboid(a,b,H,measure,paper){
 	var t2 = new PointText(new Point(x+w+_w-20,y+h*0.5+10));
 	t2.content = ""+H+" "+measure;
 	
-	TestGenerator.printVertexLetters(
+	Interaction.printVertexLetters(
 			[
 				new Point(x-10,y+h+10),
 				new Point(x+w+10,y+h+10),
@@ -697,7 +705,7 @@ function rhombus(a,W,measure,paper){
 	t2.characterStyle.justification = 'center'
 	t3.characterStyle.justification = 'center'
 	
-	TestGenerator.printVertexLetters(
+	Interaction.printVertexLetters(
 			[
 				new Point(x-10,y+h*0.5),
 				new Point(x+w*0.5,y-10),
@@ -733,7 +741,7 @@ function trapezoid(a,_a,b,c,measure,paper){
 	t3.content = ""+(b)+" "+measure;
 	var t3 = new PointText(new Point(x+w*0.5-10,y-5));
 	t3.content = ""+_a+" "+measure;
-	TestGenerator.printVertexLetters(
+	Interaction.printVertexLetters(
 			[
 				new Point(x-10,y+h+10),
 				new Point(x+w+10,y+h+10),
@@ -769,7 +777,7 @@ function Triangle(i,j,k,measure,paper){
 					this.p3);
 	triangle.style = edgeStyle;
 	
-	TestGenerator.printVertexLetters(
+	Interaction.printVertexLetters(
 			[
 				new Point(this.p1.x-10,this.p1.y+10),
 				new Point(this.p2.x+10,this.p2.y+10),

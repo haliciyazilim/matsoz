@@ -170,8 +170,9 @@ function InteractionBase(){
                 'maxLength':maxLength
             })
             .keyup(function(event){
-                if(event.keyCode == 13 && Interaction.button)
+                if(event.keyCode == 13 && Interaction.button){
                     Interaction.button.click();
+                }
             })
             .css({
                 fontSize:'16px'
