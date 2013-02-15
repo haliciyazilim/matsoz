@@ -213,11 +213,11 @@ Main.paperInit.Path = function() {
 						point2.y - arrowHeadSize*Math.sin(a2) 
 					) );
 		pt.closed = true;
-		path.strokeColor = 'black';
+		path.strokeColor = '#000';
 		// try {
 			pt.style = {
-				strokeColor: 'black',
-				fillColor : 'black'
+				strokeColor: '#000',
+				fillColor : '#000'
 			};
 		// } catch (e) {
 		// 	console.log(e);
@@ -582,7 +582,7 @@ Main.paperInit.Path = function() {
 			payda.style = textStyle;
 			frag.addChild(payda);			
 		}
-		cizgi.strokeColor = 'black' ;
+		cizgi.strokeColor = '#000' ;
 		cizgi.add(new Point(top_x, Math.floor(top_y+scale)+0.5));
 		cizgi.add(new Point(top_x+scale*length, Math.floor(top_y+scale)+0.5));
 		frag.addChild(cizgi);

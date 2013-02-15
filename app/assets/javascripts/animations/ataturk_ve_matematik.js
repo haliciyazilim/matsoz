@@ -183,6 +183,7 @@ Interaction.init = function(container){
     Interaction.previous_button.className = 'next_button';
     $(Interaction.previous_button).css({
         position:'absolute',
+        backgroundImage:'url(/assets/btn_previous.png)',
         bottom:'10%',
         left:'10%',
         width:103,
