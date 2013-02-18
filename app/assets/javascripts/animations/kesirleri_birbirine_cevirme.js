@@ -1268,13 +1268,13 @@ var Interaction = {
 					,3000);
 			}
 			else{
-				var answerStr = "Cevap: ("+Interaction.wh+" x "+Interaction.denom+") + "+Interaction.nom+" = ";
+				var answerStr = "Cevap: ("+Interaction.wh+" x "+Interaction.denom+") + "+Interaction.nom%Interaction.denom+" = ";
 					$('#answer').html('<p id="ans">'+answerStr+'</p>');
 					$('#ans').css("position", "absolute")
 								.css("top", "2px")
 								.css("right", "70px")							
-								.css("text-align", "right")
-					$('#answer').append('<div id="ansLine"></div>')
+								.css("text-align", "right");
+					$('#answer').append('<div id="ansLine"></div>');
 					$('#ansLine').css("position", "absolute")
 								.css("top", "20px")
 								.css("right", "38px")
@@ -1282,14 +1282,14 @@ var Interaction = {
 								.css("height", "1px")
 								.css("padding", 0)
 								.css("border-top", "2px solid");
-					$('#answer').append('<p id="ansNom"></div>')
+					$('#answer').append('<p id="ansNom"></div>');
 					$('#ansNom').css("position", "absolute")
 									.css("top", "0px")
 									.css("left", "219px")
 									.css("text-align", "center")
-									.css("width", "20px")
+									.css("width", "20px");
 					$('#ansNom').html(Interaction.nom);
-					$('#answer').append('<p id="ansDenom"></div>')
+					$('#answer').append('<p id="ansDenom"></div>');
 					$('#ansDenom').css("position", "absolute")
 									.css("top", "24px")
 									.css("left", "219px")
