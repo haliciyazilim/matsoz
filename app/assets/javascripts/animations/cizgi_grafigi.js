@@ -5,374 +5,123 @@
 /*Styles*/
 
 var Animation = function(){};Animation();
-var Interaction = function(){};Interaction();
 
-Animation.images = [{
-	id: "car",
-	src: '/assets/animations/cizgi_grafigi/car.jpg'
-},
-{
-	id: "kadran",
-	src: '/assets/animations/cizgi_grafigi/kadran.png'
-},
-{
-	id: "akrep",
-	src: '/assets/animations/cizgi_grafigi/akrep.png'
-},
-{
-	id: "yelkovan",
-	src: '/assets/animations/cizgi_grafigi/yelkovan.png'
-}
-];
+var Interaction = {
+	getFramework:function() {
+        return 'paper';
+    },
 
-Animation.init = function(container) {
-	paperAddOns();
-	
-	xLabels = ["0", "1", "2", "3", "4"];
-	// Create the chart
-	var chart = {
-		xAxisName: "Zaman",
-		xAxisUnit: "Saat",
-		yAxisName: "Yol (km)",
-		xLabels: xLabels,
-		yAxisLimits: [0, 40],
-		yAxisStep: 10,
-		data: []
-	};
-	
-	var graph = new Path.LineGraph(new Point(520, 35), 180, 120, chart);
-	
-	// Title of the chart
-	$(container).append('<div id="graph_title2"></div>');
-	$('#graph_title2').css("color", "#262626")
-					.css("text-align", "left")
-					.css("position", "absolute")
-					.css("left", "576px")
-					.css("top", "16px")
-					.css("width", "180")
-					.css("height", "100")
-					.css("font-size", "16px");
-
-	$('#graph_title2').append('<div><b>Grafik: </b>Otomobilin zamana göre aldığı yol</div>');
-	
-	var animationHelper = new AnimationHelper({
-		line1End: graph.getXYCoordinate(0,0),
-		line2End: graph.getXYCoordinate(2,2),
-		line3End: graph.getXYCoordinate(3,2),
-	})
-	
-	var line1, line2, line3;
-	
-	animationHelper.animate({
-		style: {
-			line1End: graph.getXYCoordinate(2,2),
-		},
-		duration: 4000,
-		delay: 2000,
-		update: function() {
-			if (line1) {
-				line1.remove();
-			}
-			
-			line1 = new Path.Line(graph.getXYCoordinate(0,0), this.line1End);
-			line1.strokeColor = '#8b5400';
-			line1.strokeWidth = 2;
-		}
-	});
-	
-	animationHelper.animate({
-		style: {
-			line2End: graph.getXYCoordinate(3,2),
-		},
-		duration: 2000,
-		delay: 6000,
-		update: function() {
-			if (line2) {
-				line2.remove();
-			}
-			
-			line2 = new Path.Line(graph.getXYCoordinate(2,2), this.line2End);
-			line2.strokeColor = '#8b5400';
-			line2.strokeWidth = 2;
-		}
-	});
-	
-	animationHelper.animate({
-		style: {
-			line3End: graph.getXYCoordinate(4,3),
-		},
-		duration: 2000,
-		delay: 8000,
-		update: function() {
-			if (line3) {
-				line3.remove();
-			}
-			
-			line3 = new Path.Line(graph.getXYCoordinate(3,2), this.line3End);
-			line3.strokeColor = '#8b5400';
-			line3.strokeWidth = 2;
-		}
-	});
-	
-	// Car
-	var xStart = 20;
-	var xEnd = 360;
-	
-	// var carStart = new Point(70, 140);
-	// var carEnd = new Point(340, 140);
-	
-	var carHelper = new AnimationHelper({
-		x: xStart
-	})
-	
-	$(container).append('<img src="/assets/animations/cizgi_grafigi/car.jpg" id="car_image"></img>');
-	$("#car_image").css("position", "absolute")
-				   .css("left", xStart+"px")
-				   .css("top", "140px")
-				   .css("z-index", "1");
-	
-	carHelper.animate({
-		style: {
-			x: (xEnd - xStart)*2/3 + xStart
-		},
-		duration: 4000,
-		delay: 2000,
-		update: function() {
-			$("#car_image").css("left", this.x+"px");
-		}
-	})
-	
-	carHelper.animate({
-		style: {
-			x: xEnd
-		},
-		duration: 2000,
-		delay: 8000,
-		update: function() {
-			$("#car_image").css("left", this.x+"px");
-		}
-	})
-	
-	// var car = new Raster("car");
-	// car.position = carStart;
-	// car.animate({
-	// 	style: {
-	// 		position: new Point((carEnd.x - carStart.x)/3*2 + carStart.x, carStart.y)
-	// 	},
-	// 	duration: 2000,
-	// 	delay: 1000
-	// });
-	// 
-	// car.animate({
-	// 	style: {
-	// 		position: carEnd
-	// 	},
-	// 	duration: 1000,
-	// 	delay: 4000
-	// });
-	
-	// Clock
-	kadran = new Raster("kadran");
-	kadran.position = new Point(192,48);
-	
-	yelkovan = new Raster("yelkovan");
-	yelkovan.position = new Point(192,48);
-	
-	akrep = new Raster("akrep");
-	akrep.position = new Point(192,48);
-	
-	clockHelper = new AnimationHelper({
-		yelkovanAngle: 0,
-		akrepAngle: 0
-	})
-	
-	akrep.lastTransformation = akrep.matrix;
-	yelkovan.lastTransformation = yelkovan.matrix;
-	
-	clockHelper.animate({
-		style: {
-			yelkovanAngle: 360*4,
-			akrepAngle: 120
-		},
-		delay: 2000,
-		duration: 8000,
-		update: function() {
-			var matrix = new Matrix();
-			matrix.rotate(this.akrepAngle, 192, 48);
-			matrix.concatenate(akrep.lastTransformation);
-			
-			akrep.setMatrix(matrix);
-			
-			matrix = new Matrix();
-			matrix.rotate(this.yelkovanAngle, 192, 48);
-			matrix.concatenate(yelkovan.lastTransformation);
-			
-			yelkovan.setMatrix(matrix);
-		},
-		callback: Main.animationFinished
-	})
-}
-
-Interaction.getFramework = function() {
-	return 'paper';
-}
-
-Interaction.init = function(container) {
-	interactionInit(container);
-}
-
-interactionInit = function(container) {
-	// Variables
-	var correctCircle;
-
-	paperAddOns();
+	init:function(container) {
+		// interactionInit(container);
+		Interaction.container = container;
+		$(container).append('<div id="interactionArea"></div>');
 		
-	// Create the random data
-	var data = [];
+		paperAddOns();
+		
+		Interaction.appendButton({
+			position: "absolute",
+            top:"130px",
+            left:"406px"
+        });
+		// 
+		// Interaction.appendStatus({
+		// 	position: "absolute",
+		//             top:"180px",
+		//             left:"340px",
+		// 	textAlign: "center"
+		//         })
+		
+		Interaction.appendStatus({
+            top:"180px",
+            left:"340px"
+        })
+
+        Interaction.appendInput({
+            position: "absolute",
+            top: "80px",
+            left: "416px"
+        })
+
+		Interaction.prepareNextQuestion();
+	},
 	
-	for (i = 0; i < 6; i++) {
-		data.push(Math.floor(Math.random() * 4) + 91);
+	nextQuestion: function(){
+		if (Interaction.graph) {
+			Interaction.graph.remove();
+		}
+		
+		if (Interaction.correctCircle) {
+			Interaction.correctCircle.remove();
+		}
+ 		
+		$('#interactionArea').html('');
+	
+		// Create the random data
+		var data = [];
+
+		for (i = 0; i < 6; i++) {
+			data.push(Math.floor(Math.random() * 4) + 91);
+		}
+
+		xLabels = ["Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi"];
+		// Create the chart
+		var chart = {
+			xAxisName: "Zaman",
+			xAxisUnit: "Gün",
+			yAxisName: "Satış Fiyatı",
+			yAxisUnit: "TL",
+			xLabels: xLabels,
+			yAxisLimits: [90, 94],
+			xGridLabelStyle: {
+				justification: 'right',
+				fillColor: 'black',
+				fontSize: 8,
+				rotation: -90
+			},
+			data: data
+		};
+
+		Interaction.graph = new Path.LineGraph(new Point(80, 70), 180, 160, chart);
+		
+		// Title of the chart
+		$('#interactionArea').append('<div id="graph_title"></div>');
+		$('#graph_title').css("line-height", "24px")
+						.css("color", "#262626")
+						.css("position", "absolute")
+						.css("left", "126px")
+						.css("top", "36px")
+						.css("width", "330")
+						.css("height", "100")
+						.css("font-size", "16px");
+
+		$('#graph_title').append('<div><b>Grafik: </b>Altın satış fiyatı</div>');
+		
+		
+		// Select random question
+		Interaction.randomDay = Math.floor(Math.random() * 6);
+		Interaction.answer = data[Interaction.randomDay];
+		Interaction.data = data;
+
+		Main.setObjective("Yandaki grafiğe göre altın satış fiyatı "+xLabels[Interaction.randomDay]+" günü kaç lira olmuştur?");
+	},
+	isAnswerCorrect : function(value){
+        return value == Interaction.answer;
+    },
+	onCorrectAnswer : function(){
+        // $(Interaction.input).css("color","green");
+        Interaction.showAnswer();
+    },
+	onWrongAnswer : function(){
+		
+    },
+	onFail : function(){
+        Interaction.setStatus('Yanlış cevap, doğru cevap ' + Interaction.answer + ' olacaktı!',false);
+        Interaction.showAnswer();
+    },
+    showAnswer : function() {
+		Interaction.correctCircle = new Path.Circle(Interaction.graph.getXYCoordinate(Interaction.randomDay, Interaction.data[Interaction.randomDay] - 90), 6);
+		Interaction.correctCircle.fillColor = 'green';
 	}
-	
-	xLabels = ["Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi"];
-	// Create the chart
-	var chart = {
-		xAxisName: "Zaman",
-		xAxisUnit: "Gün",
-		yAxisName: "Satış Fiyatı",
-		yAxisUnit: "TL",
-		xLabels: xLabels,
-		yAxisLimits: [90, 94],
-		xGridLabelStyle: {
-			justification: 'right',
-			fillColor: 'black',
-			fontSize: 8,
-			rotation: -90
-		},
-		data: data
-	};
-	
-	var graph = new Path.LineGraph(new Point(80, 70), 180, 160, chart);
-	//graph.scale(Main.scale, new Point(0,0));
-	
-	// Title of the chart
-	$(container).append('<div id="graph_title"></div>');
-	$('#graph_title').css("line-height", "24px")
-					.css("color", "#262626")
-					.css("position", "absolute")
-					.css("left", "126px")
-					.css("top", "36px")
-					.css("width", "330")
-					.css("height", "100")
-					.css("font-size", "16px");
-
-	$('#graph_title').append('<div><b>Grafik: </b>Altın satış fiyatı</div>');
-
-	
-	
-	// Select random question
-	randomDay = Math.floor(Math.random() * 6);
-	correctAnswer = data[randomDay];
-	
-	Main.setObjective("Yandaki grafiğe göre altın satış fiyatı "+xLabels[randomDay]+" günü kaç lira olmuştur?");
-	
-	
-	// Status
-	$(container).append('<div id="status" class="status_field"></div>');
-	$('#status').css("position", "absolute")
-	        	.css("top", "180px")
-	        	.css("left", "340px")
-	        	.css("text-align", "center");
-	       
-	// Restart
-	restart = function() {
-		if (correctCircle) {
-			correctCircle.remove();
-		}
-		$('#graph_title').remove();
-		$('#textInput').remove();
-		$('#submitButton').remove();
-		$('#status').remove();
-		graph.remove();
-		interactionInit(container);		
-	}
-	
-	
-	// Submit
-	noOfWrongAnswers = 0;
-	
-	submit = function () {
-		val = $('#textInput').val();
-		
-		if (!Util.isInteger(val)) {
-			$('#status').html('<span class="status_alert">Lütfen kutucuğa bir tamsayı giriniz</span>');
-			return;
-		}
-		
-		if (val == correctAnswer) {
-			if (correctCircle) {
-				correctCircle.remove();
-			}
-			correctCircle = new Path.Circle(graph.getXYCoordinate(randomDay, data[randomDay] - 90), 6);
-			correctCircle.fillColor = 'green';
-			
-			$('#status').html('<span class="status_true">Tebrikler!</span>');
-			$('#submitButton').get(0).className = "next_button";
-			$('#submitButton').unbind("click");
-			$('#submitButton').click(restart);
-			submit = restart;
-			
-			$("#textInput").get(0).onkeydown = function(event){
-				if(event.keyCode != 13) {
-					return false;
-				}
-			}
-		} else {
-			if (noOfWrongAnswers == 0) {
-				$('#status').html('<span class="status_false">Tekrar Deneyiniz!</span>');
-				$('#textInput').val('');
-				noOfWrongAnswers = 1;
-			} else {
-				if (correctCircle) {
-					correctCircle.remove();
-				}
-				correctCircle = new Path.Circle(graph.getXYCoordinate(randomDay, data[randomDay] - 90), 6);
-				correctCircle.fillColor = 'green';
-				$('#status').html('<span class="status_false">Olmadı!</span>');
-				$('#textInput').val(correctAnswer);
-				$('#submitButton').get(0).className = "next_button";
-				$('#submitButton').unbind("click");
-				$('#submitButton').click(restart);
-				submit = restart;
-				
-				$("#textInput").get(0).onkeydown = function(event){
-					if(event.keyCode != 13) {
-						return false;
-					}
-				}
-			}
-		}
-	};
-	
-	// Create the control button
-	$(container).append('<input id="submitButton" type="button" />');
-	$('#submitButton').css("position", "absolute")
-					  .css("top", "130px")
-					  .css("left", "406px");
-	$('#submitButton').addClass('control_button');
-	$('#submitButton').click(submit);
-	
-	// Create the input field
-	$(container).append('<input id="textInput" type="textbox" />');
-	$('#textInput').css("position", "absolute")
-				   .css("top", "80px")
-				   .css("left", "416px");
-	$('#textInput').addClass('number_input_field');
-	$("#textInput").keypress(function(event) {
-		if(event.keyCode == 13) {
-			submit();
-		}
-	});
 }
 
 paperAddOns = function () {
@@ -532,3 +281,191 @@ paperAddOns = function () {
 		return group;
 	};
 };
+
+
+
+Animation.images = [{
+	id: "car",
+	src: '/assets/animations/cizgi_grafigi/car.jpg'
+},
+{
+	id: "kadran",
+	src: '/assets/animations/cizgi_grafigi/kadran.png'
+},
+{
+	id: "akrep",
+	src: '/assets/animations/cizgi_grafigi/akrep.png'
+},
+{
+	id: "yelkovan",
+	src: '/assets/animations/cizgi_grafigi/yelkovan.png'
+}
+];
+
+Animation.init = function(container) {
+	paperAddOns();
+	
+	xLabels = ["0", "1", "2", "3", "4"];
+	// Create the chart
+	var chart = {
+		xAxisName: "Zaman",
+		xAxisUnit: "Saat",
+		yAxisName: "Yol (km)",
+		xLabels: xLabels,
+		yAxisLimits: [0, 40],
+		yAxisStep: 10,
+		data: []
+	};
+	
+	var graph = new Path.LineGraph(new Point(520, 35), 180, 120, chart);
+	
+	// Title of the chart
+	$(container).append('<div id="graph_title2"></div>');
+	$('#graph_title2').css("color", "#262626")
+					.css("text-align", "left")
+					.css("position", "absolute")
+					.css("left", "576px")
+					.css("top", "16px")
+					.css("width", "180")
+					.css("height", "100")
+					.css("font-size", "16px");
+
+	$('#graph_title2').append('<div><b>Grafik: </b>Otomobilin zamana göre aldığı yol</div>');
+	
+	var animationHelper = new AnimationHelper({
+		line1End: graph.getXYCoordinate(0,0),
+		line2End: graph.getXYCoordinate(2,2),
+		line3End: graph.getXYCoordinate(3,2),
+	})
+	
+	var line1, line2, line3;
+	
+	animationHelper.animate({
+		style: {
+			line1End: graph.getXYCoordinate(2,2),
+		},
+		duration: 4000,
+		delay: 2000,
+		update: function() {
+			if (line1) {
+				line1.remove();
+			}
+			
+			line1 = new Path.Line(graph.getXYCoordinate(0,0), this.line1End);
+			line1.strokeColor = '#8b5400';
+			line1.strokeWidth = 2;
+		}
+	});
+	
+	animationHelper.animate({
+		style: {
+			line2End: graph.getXYCoordinate(3,2),
+		},
+		duration: 2000,
+		delay: 6000,
+		update: function() {
+			if (line2) {
+				line2.remove();
+			}
+			
+			line2 = new Path.Line(graph.getXYCoordinate(2,2), this.line2End);
+			line2.strokeColor = '#8b5400';
+			line2.strokeWidth = 2;
+		}
+	});
+	
+	animationHelper.animate({
+		style: {
+			line3End: graph.getXYCoordinate(4,3),
+		},
+		duration: 2000,
+		delay: 8000,
+		update: function() {
+			if (line3) {
+				line3.remove();
+			}
+			
+			line3 = new Path.Line(graph.getXYCoordinate(3,2), this.line3End);
+			line3.strokeColor = '#8b5400';
+			line3.strokeWidth = 2;
+		}
+	});
+	
+	// Car
+	var xStart = 20;
+	var xEnd = 360;
+	
+	var carHelper = new AnimationHelper({
+		x: xStart
+	})
+	
+	$(container).append('<img src="/assets/animations/cizgi_grafigi/car.jpg" id="car_image"></img>');
+	$("#car_image").css("position", "absolute")
+				   .css("left", xStart+"px")
+				   .css("top", "140px")
+				   .css("z-index", "1");
+	
+	carHelper.animate({
+		style: {
+			x: (xEnd - xStart)*2/3 + xStart
+		},
+		duration: 4000,
+		delay: 2000,
+		update: function() {
+			$("#car_image").css("left", this.x+"px");
+		}
+	})
+	
+	carHelper.animate({
+		style: {
+			x: xEnd
+		},
+		duration: 2000,
+		delay: 8000,
+		update: function() {
+			$("#car_image").css("left", this.x+"px");
+		}
+	})
+	
+	// Clock
+	kadran = new Raster("kadran");
+	kadran.position = new Point(192,48);
+	
+	yelkovan = new Raster("yelkovan");
+	yelkovan.position = new Point(192,48);
+	
+	akrep = new Raster("akrep");
+	akrep.position = new Point(192,48);
+	
+	clockHelper = new AnimationHelper({
+		yelkovanAngle: 0,
+		akrepAngle: 0
+	})
+	
+	akrep.lastTransformation = akrep.matrix;
+	yelkovan.lastTransformation = yelkovan.matrix;
+	
+	clockHelper.animate({
+		style: {
+			yelkovanAngle: 360*4,
+			akrepAngle: 120
+		},
+		delay: 2000,
+		duration: 8000,
+		update: function() {
+			var matrix = new Matrix();
+			matrix.rotate(this.akrepAngle, 192, 48);
+			matrix.concatenate(akrep.lastTransformation);
+			
+			akrep.setMatrix(matrix);
+			
+			matrix = new Matrix();
+			matrix.rotate(this.yelkovanAngle, 192, 48);
+			matrix.concatenate(yelkovan.lastTransformation);
+			
+			yelkovan.setMatrix(matrix);
+		},
+		callback: Main.animationFinished
+	})
+}
+
