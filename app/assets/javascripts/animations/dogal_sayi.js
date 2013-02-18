@@ -331,7 +331,7 @@ var Interaction = {
         $("#milyonlarBolYuzMilyonlar").css("font-size","medium");
 
         $("#milyonlarBolYuzMilyonlar",container).append("<div class='yatay'>");
-        $("#milyonlarBolYuzMilyonlar .yatay").html("Yüz milyonlar ");
+        $("#milyonlarBolYuzMilyonlar .yatay").html("Yüz milyonlar <br /> Basamağı ");
 
         $("#aksiyon #milyonlarBolYuzMilyonlar",container).append("<div id='girdiYuzMilyonlar' >");
         $("#girdiYuzMilyonlar").css("width","40px")
@@ -360,23 +360,6 @@ var Interaction = {
         },true,true);
 
         $("#girdiYuzMilyonlar",container).append(girdiYuzMilyonlar);
-        /*
-        $("#inputYuzMilyonlar")
-            .css("position","absolute")
-            .css("bottom","0")
-            .css("left","0")
-            .css("right","0")
-            .css("top","0")
-            .css("margin","auto")
-            .css("height","30px")
-            .css("width","30px");
-            */
-
-
-
-        //$(Interaction.inputs[0]).attr('maxlength', '1')
-       // $("#soruTekliInput #input",Interaction.container).append(girdiYuzMilyonlar);
-
 
         // on milyonlar
         $("#aksiyon",container).append("<div id='milyonlarBolOnMilyonlar' >");
@@ -393,7 +376,7 @@ var Interaction = {
         $("#milyonlarBolOnMilyonlar").css("font-size","medium");
 
         $("#milyonlarBolOnMilyonlar",container).append("<div class='yatay'>");
-        $("#milyonlarBolOnMilyonlar .yatay").html("On milyonlar ");
+        $("#milyonlarBolOnMilyonlar .yatay").html("On milyonlar <br /> Basamağı  ");
 
 
         $("#aksiyon #milyonlarBolOnMilyonlar",container).append("<div id='girdiOnMilyonlar' >");
@@ -442,7 +425,7 @@ var Interaction = {
         $("#milyonlarBolMilyonlar").css("font-size","medium");
 
         $("#milyonlarBolMilyonlar",container).append("<div class='yatay'>");
-        $("#milyonlarBolMilyonlar .yatay").html("Milyonlar ");
+        $("#milyonlarBolMilyonlar .yatay").html("Milyonlar<br />Basamağı  ");
 
         $("#aksiyon #milyonlarBolMilyonlar",container).append("<div id='girdiMilyonlar' >");
         $("#girdiMilyonlar").css("width","40px")
@@ -497,7 +480,7 @@ var Interaction = {
         $("#binlerBolYuzBinler").css("font-size","medium");
 
         $("#binlerBolYuzBinler",container).append("<div class='yatay'>");
-        $("#binlerBolYuzBinler .yatay").html("Yüz binler ");
+        $("#binlerBolYuzBinler .yatay").html("Yüz binler <br /> Basamağı");
 
         $("#aksiyon #binlerBolYuzBinler",container).append("<div id='girdiYuzBinler' >");
         $("#girdiYuzBinler").css("width","40px")
@@ -553,7 +536,7 @@ var Interaction = {
         $("#binlerBolOnBinler").css("font-size","medium");
 
         $("#binlerBolOnBinler",container).append("<div class='yatay'>");
-        $("#binlerBolOnBinler .yatay").html("On binler ");
+        $("#binlerBolOnBinler .yatay").html("On binler <br /> Basamağı  ");
 
         $("#aksiyon #binlerBolOnBinler",container).append("<div id='girdiOnBinler' >");
         $("#girdiOnBinler").css("width","40px")
@@ -607,7 +590,7 @@ var Interaction = {
         $("#binlerBolBinler").css("font-size","medium");
 
         $("#binlerBolBinler",container).append("<div class='yatay'>");
-        $("#binlerBolBinler .yatay").html("Binler ");
+        $("#binlerBolBinler .yatay").html("Binler<br /> Basamağı ");
 
 
         $("#aksiyon #binlerBolBinler",container).append("<div id='girdiBinler' >");
@@ -665,7 +648,7 @@ var Interaction = {
             .css("font-size","medium");
 
         $("#birlerBolYuzler",container).append("<div class='yatay'>");
-        $("#birlerBolYuzler .yatay").html("Yüzler ");
+        $("#birlerBolYuzler .yatay").html("Yüzler<br /> Basamağı ");
 
         $("#aksiyon #birlerBolYuzler",container).append("<div id='girdiYuzler' >");
         $("#girdiYuzler").css("width","40px")
@@ -719,7 +702,7 @@ var Interaction = {
             .css("font-size","medium");
 
         $("#birlerBolOnlar",container).append("<div class='yatay'>");
-        $("#birlerBolOnlar .yatay").html("Onlar ");
+        $("#birlerBolOnlar .yatay").html("Onlar<br /> Basamağı ");
 
         $("#aksiyon #birlerBolOnlar",container).append("<div id='girdiOnlar' >");
         $("#girdiOnlar").css("width","40px")
@@ -771,7 +754,7 @@ var Interaction = {
             .css("font-size","medium");
 
         $("#birlerBolBirler",container).append("<div class='yatay'>");
-        $("#birlerBolBirler .yatay").html("Birler ");
+        $("#birlerBolBirler .yatay").html("Birler<br /> Basamağı ");
 
         $("#aksiyon #birlerBolBirler",container).append("<div id='girdiBirler' >");
         $("#girdiBirler").css("width","39px")
@@ -865,8 +848,8 @@ var Interaction = {
         $(".yatay").css("position","absolute");
         $(".yatay").css("height","30px");
         $(".yatay").css("width","150px");
-        $(".yatay").css("bottom","110px");
-        $(".yatay").css("left","-50px");
+        $(".yatay").css("bottom","105px");
+        $(".yatay").css("left","-52px");
         //$("#yatay").css("right","200px");
         //$("#yatay").css("margin","auto");
         $(".yatay").css("font-size","small");
