@@ -47,7 +47,7 @@ var Interaction = {
     },
     init:function(container){
         Interaction.container = container;
-        Main.setObjective("Yandaki çıkarma işlemini yapınız ve kontrol ediniz.");
+        Main.setObjective("Yandaki çıkarma işlemini yapınız ve kontrol ediniz. (Cevabı birler basamağından başlayarak yazınız.)");
         Interaction.paper = {
             width:$(container).width(),
             height:$(container).height()
@@ -141,12 +141,12 @@ var Interaction = {
     },
     nextQuestion: function(){
         yeniSoru();
-        /*
+
         $("#girdi").live("yeniGirdi", function(){
             $(this).keydown(InputReverseWritable);
         });
-        */
 
+        $("input").attr("onkeypress",'return SadeceRakam(event)');
 
 
     },
@@ -1091,7 +1091,7 @@ function soruToplananlar(){
         .css("font-size","30px");
     //.css("border","solid 1px black");
 
-    $("#girdi").keydown(Input);
+    $("#girdi").keydown(InputReverseWriteable);
 
     $("#girdi").keyup(
         function(){

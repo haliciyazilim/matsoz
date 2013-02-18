@@ -53,7 +53,7 @@ var Interaction = {
 
 
 
-        Main.setObjective("Yandaki toplama işlemini yapınız ve kontrol ediniz.");
+        Main.setObjective("Yandaki toplama işlemini yapınız ve kontrol ediniz. (Cevabı birler basamağından başlayarak yazınız.)");
 
         soruSirasi=0;
 
@@ -129,7 +129,7 @@ var Interaction = {
     nextQuestion: function(){
 
         yeniSoru();
-
+        $("input").attr("onkeypress",'return SadeceRakam(event)');
 
 
     },
@@ -837,24 +837,7 @@ function eldeliToplama(){
         .css("z-index","5").attr("maxlength","6")
         .html("+");
 
-    $("#girdi").keydown(function(event){
-        var pos;
-        if(event.keyCode == 8)
-            pos = 1;
-        else
-            pos = 0;
-        if(this.createTextRange){
-            var textRange = node.createTextRange();
-            textRange.collapse(true);
-            textRange.moveEnd(pos);
-            textRange.moveStart(pos);
-            textRange.select();
-            return true;
-        }else if(this.setSelectionRange){
-            this.setSelectionRange(pos,pos);
-            return true;
-        }
-    });
+    $("#girdi").keydown(InputReverseWriteable);
 
     $("#girdi").keyup(
         function(){
@@ -1002,24 +985,7 @@ function soruToplananlar(){
         .css("font-size","30px");
     //.css("border","solid 1px black");
 
-    $("#girdi").keydown(function(event){
-        var pos;
-        if(event.keyCode == 8)
-            pos = 1;
-        else
-            pos = 0;
-        if(this.createTextRange){
-            var textRange = node.createTextRange();
-            textRange.collapse(true);
-            textRange.moveEnd(pos);
-            textRange.moveStart(pos);
-            textRange.select();
-            return true;
-        }else if(this.setSelectionRange){
-            this.setSelectionRange(pos,pos);
-            return true;
-        }
-    });
+    $("#girdi").keydown(InputReverseWriteable);
 
     $("#girdi").keyup(
         function(){
