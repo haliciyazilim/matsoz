@@ -265,10 +265,8 @@ Main.initializeNavigation = function() {
             }
 			htmlString += "<a href=" + entries[i].link + " class='sozcuklink " + (entries[i].selected?"sozcukselected":"") + "'>" + entries[i].word + "</a>";
 		}
-		
 		$('.sozcuktasiyici').html(htmlString);
 	}
-    
 	$('.navlink').click(function() {
 		createWordList($(this).data('letter'));
 	});
@@ -348,13 +346,13 @@ Main.createInteractionSkipSlider = function(){
 		$('#container2').append(div);
 		$(div).css({
 		    top:'0px',
-	        left:'0px',
+	        left:'0px'
 		});
 	} else {
 	    $('#container').append(div);
 	    $(div).css({
 		    top:'331px',
-	        left:'438px',
+	        left:'438px'
 		});
 	}
 
@@ -444,16 +442,13 @@ Main.createInteractionSkipSlider = function(){
         catch(e){}
         up(event);
     });
-
-
-
 }
 
 Main.initializeToolbar = function(){
     Main.InfoDialog = new Dialog({title:'Information'});
     Main.InfoDialog.addContent(
         'Program Hakkında',
-        '<div style="width: 100%; margin: auto; box-sizing: border-box; padding: 100px; padding-top: 50px; padding-right: 250px; line-height: 20px;">Bu ürün TÜBİTAK ve Milli Eğitim Bakanlığı adına Halıcı Bilgi İşlem AŞ tarafından geliştirilmiştir. <br/><a href="http://www.halici.com.tr" target="_blank">www.halici.com.tr</a><br/>Etkileşimli Matematik Sözlüğü<br/>Güncelleme Tarihi:  2013-01-21<br/>Versiyon: 1.0.1<br/><br/>Tablet için kullanıma uygun olup Chrome ve Safari tarayıcıları ile çalışır.<br/>Tarayıcı Gereksinimleri: Javascript, HTML5, CSS3<br/>İhtiyaç duyulacak gereksinimler ve programın işlevselliği kullandığınız işletim sistemi ve donanıma bağlı olarak değişiklik gösterebilir.<br/></div>'
+        '<div style="width: 100%; margin: auto; box-sizing: border-box; padding: 100px; padding-top: 50px; padding-right: 250px; line-height: 20px;">Bu ürün TÜBİTAK ve Milli Eğitim Bakanlığı adına Halıcı Bilgi İşlem AŞ tarafından geliştirilmiştir. <br/><a href="http://www.halici.com.tr" target="_blank">www.halici.com.tr</a><br/>Etkileşimli Matematik Sözlüğü<br/>Güncelleme Tarihi:  2013-01-21<br/>Versiyon: 1.0.1<br/>Tablet için kullanıma uygun olup Chrome ve Safari tarayıcıları ile çalışır.<br/>Tarayıcı Gereksinimleri: Javascript, HTML5, CSS3<br/>İhtiyaç duyulacak gereksinimler ve programın işlevselliği kullandığınız işletim sistemi ve donanıma bağlı olarak değişiklik gösterebilir.<br/></div>'
     );
 
     Main.InfoDialog.addContent('Kullanıcı Kılavuzu','<iframe src="/resources/matsoz_manuel/matsoz_manuel.htm" style="width: 100%; height: 99%; border: none; padding: 0px; box-sizing: border-box; overflow: hidden; margin: 0px;"></iframe>');
@@ -514,7 +509,7 @@ function detectOrientation(){
 }
 function OrientationWarningDialogBox(){
     var mask = document.createElement('div');
-    mask.className = 'dialogmaske';
+    mask.className = 'dialogmaske dialogmaske_alert';
     document.body.appendChild(mask);
 
     var dialog_box = document.createElement('div');
@@ -524,20 +519,24 @@ function OrientationWarningDialogBox(){
     dialog_box.setAttribute('DialogId',this.id);
     document.body.appendChild(dialog_box);
     $(mask).css({
-        width:$('#container').width() + 'px',
+        width:$('#container').width() + 'px'
     });
     $(dialog_box).css({
         position:'fixed',
-        width:'350px',
-        height:'100px',
+        width:'390px',
+        height:'140px',
         marginLeft:'-150px',
         marginTop:'-50px',
-        padding:'10px',
+        padding:'30px',
         fontSize:'20px',
+        lineHeight:'23px',
         color:'#f00',
         fontWeight:'bold',
         boxSizing:'border-box'
     });
+//    $(mask).css({
+//        background:"url(ui_img/serit_siyah_20.png) repeat rgba(255,0,0,0.8)"
+//    })
     $(dialog_box).html("Dikey pozisyon desteklenmemektedir. Lütfen cihazınızı yatay konuma getiriniz.");
     this.mask = mask;
     this.dialog_box = dialog_box;

@@ -10,7 +10,9 @@ div.dialogmaske {
     z-index:99;
     background: url(ui_img/serit_beyaz_3.png) repeat rgba(25,45,54,0.9);
 }
-
+div.dialogmaske_alert{
+    background:url(ui_img/serit_siyah_20.png) repeat rgba(255,0,0,0.8) !important;
+}
 div.dialoggolge {
     border-radius:			10px;
     -webkit-border-radius:	10px;
