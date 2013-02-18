@@ -164,7 +164,7 @@ var Interaction = {
 		},
 	init:function(container){
 			Interaction.container = container;
-			Main.setObjective('Yüzde birler basamağından itibaren toplama işlemini sırası geldiğinde uygun yere virgül koymayı unutmadan yapınız ve kontrol ediniz.');
+			Main.setObjective('Yüzde birler basamağından itibaren toplama işlemini sırası geldiğinde uygun yere virgül koymayı unutmadan yapınız ve kontrol ediniz. (Cevabı yüzde birler basamağından başlayarak yazınız.)');
 			Interaction.paper = {
 				width:$(container).width(),
 				height:$(container).height()

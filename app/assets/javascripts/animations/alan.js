@@ -286,69 +286,50 @@ Interaction.init = function(container){
 	$(Interaction.container).append('<style>div#R > div#T{box-sizing:border-box;padding-top:40%;}</style>');
 	$(Interaction.container).append('<style>div#R > div#B{box-sizing:border-box;text-align:right;padding-right:25%;padding-top:10%;}</style>');
 	$(Interaction.R).append('<div id="T"></div><div id="B"></div>');
-	Interaction.input = document.createElement('input');
-	Interaction.input.className = 'number_input_field';
-	Interaction.input.setAttribute('type','text');
-	Interaction.input.setAttribute('maxlength','3');
+	Interaction.input = Interaction.appendInput({
+        position:'static'
+    },true,false);
 	$('div#T',Interaction.R).append('A =&nbsp;');
 	$('div#T',Interaction.R).append(Interaction.input);
 	$('div#T',Interaction.R).append('&nbsp;<span id="input_measure"></span>²');
-	Interaction.button = document.createElement('input');
-	Interaction.button.setAttribute('type','button');
-	Interaction.button.onclick = TestGenerator.checkAnswer;
-	Interaction.button.className = 'control_button';
+    Interaction.appendButton({
+        position:'static'
+    });
 	$('div#B',Interaction.R).append(Interaction.button);
 	$('div#B',Interaction.R).append('<div id="status"></div>');
-	Interaction.status = $('div#B > div#status',Interaction.R).get(0);
-	Interaction.status.style.fontWeight = 'bold';
-	Interaction.status.style.paddingTop = '10px';
-	TestGenerator.nextQuestion();
+
+    Interaction.appendStatus({
+        bottom:'80px',
+        right:'60px'
+    })
+	Interaction.prepareNextQuestion();
 }
 
-Interaction.setStatus = function(str,cls){
-	$(Interaction.status ).html(str);
-	if(cls === true)
-		$(Interaction.status ).get(0).className = 'status_true';
-	else if(cls === false)
-		$(Interaction.status ).get(0).className = 'status_false';
-	else
-		$(Interaction.status ).get(0).className = 'status';
-}
 
-var TestGenerator = {};
 
-TestGenerator.nextQuestion = function(){
+Interaction.nextQuestion = function(){
     if(Interaction.isPaused())
         return;
-	Interaction.input.onkeyup = function(e){
-		//console.log(e.keyCode)
-		if(e.keyCode == 13)
-			TestGenerator.checkAnswer();		
-	}
-    $(TestGenerator.solution).remove();
-	TestGenerator.shape = null;
-	TestGenerator.trial = 0;
-	TestGenerator.values = null;
+
+    $(Interaction.solution).remove();
+	Interaction.shape = null;
+	Interaction.trial = 0;
+	Interaction.values = null;
 	Main.interactionProject.activeLayer.removeChildren();
-	Interaction.setStatus('');
-	Interaction.button.className = 'control_button';
-	Interaction.input.value = '';
-	Interaction.input.style.color = '';
-	Interaction.button.onclick = TestGenerator.checkAnswer;
-	TestGenerator.shape = Math.floor(Math.random()*4);
-	TestGenerator.paper = {width:300 , height:300}
+	Interaction.shape = Math.floor(Math.random()*4);
+	Interaction.paper = {width:300 , height:300}
 	
 	var m = Math.floor(Math.random()*2);
-	TestGenerator.setMeasure(m);
-	TestGenerator.letters = (Math.random()>0.5 ? ["A","B","C","D","E"]:["K","L","M","N","P"]);
-//	/*TEST*/TestGenerator.shape = 3;/*TEST*/
+	Interaction.setMeasure(m);
+	Interaction.letters = (Math.random()>0.5 ? ["A","B","C","D","E"]:["K","L","M","N","P"]);
+//	/*TEST*/Interaction.shape = 3;/*TEST*/
 	
-	switch(TestGenerator.shape){
+	switch(Interaction.shape){
 		case 0:
 			var a = Math.floor(Math.random()*10)+5;
 			var area = a*a;
-			TestGenerator.values = {a:a,area:area};
-			new rectangle(a,a,TestGenerator.getMeasure(),TestGenerator.paper);
+			Interaction.values = {a:a,area:area};
+			new rectangle(a,a,Interaction.getMeasure(),Interaction.paper);
 			break;
 		case 1:
 			var a,b;
@@ -356,8 +337,8 @@ TestGenerator.nextQuestion = function(){
 			b = a;
 			while(a==b)
 				b = Math.floor(Math.random()*10)+5;
-			TestGenerator.values = {a:a,b:b,area:a*b};
-			rectangle(a,b,TestGenerator.getMeasure(),TestGenerator.paper);
+			Interaction.values = {a:a,b:b,area:a*b};
+			rectangle(a,b,Interaction.getMeasure(),Interaction.paper);
 			break;
 		case 2:
 			var a,b,H;
@@ -366,8 +347,8 @@ TestGenerator.nextQuestion = function(){
 			while(a==b)
 				b = Math.floor(Math.random()*5)+5;
 			H = Math.floor(Math.random()*5)+5;
-			TestGenerator.values = {a:a,b:b,H:H,area:(a+b)*H};
-			rhomboid(a,b,H,TestGenerator.getMeasure(),TestGenerator.paper);
+			Interaction.values = {a:a,b:b,H:H,area:(a+b)*H};
+			rhomboid(a,b,H,Interaction.getMeasure(),Interaction.paper);
 			break;
 		case 3:
 			var a,b,H;
@@ -378,24 +359,24 @@ TestGenerator.nextQuestion = function(){
 			H = 1;
 			while(H%2==1)
 				H = Math.floor(Math.random()*5)+5;
-			TestGenerator.values = {a:a,b:b,H:H,area:(a+b)*H*0.5};
-			triangle(a,b,H,TestGenerator.getMeasure(),TestGenerator.paper);
+			Interaction.values = {a:a,b:b,H:H,area:(a+b)*H*0.5};
+			triangle(a,b,H,Interaction.getMeasure(),Interaction.paper);
 			break;
 	}
 }
-TestGenerator.setMeasure = function(m){
-	TestGenerator.measure = m;
-	$('#input_measure').html(TestGenerator.getMeasure());
+Interaction.setMeasure = function(m){
+	Interaction.measure = m;
+	$('#input_measure').html(Interaction.getMeasure());
 }
-TestGenerator.getMeasure = function(){
-	if(TestGenerator.measure == null || TestGenerator.measure == 'undefined')
-		throw 'TestGenerator.measure is not defined';
-	if(TestGenerator.measure == 0)
+Interaction.getMeasure = function(){
+	if(Interaction.measure == null || Interaction.measure == 'undefined')
+		throw 'Interaction.measure is not defined';
+	if(Interaction.measure == 0)
 		return 'cm';
 	else
 		return 'm';
 };
-TestGenerator.showSolution = function(){
+Interaction.showSolution = function(){
     Interaction.pause();
     var solution = Util.dom({
         tag:'div',
@@ -403,32 +384,32 @@ TestGenerator.showSolution = function(){
         css:solutionCSS,
         html:'<span id="0"></span><span id="1">&nbsp;x&nbsp;</span><span id="2"></span><span id="3">&nbsp;=&nbsp;</span><span id="4"></span>'
     });
-    TestGenerator.solution = solution;
-    switch(TestGenerator.shape){
+    Interaction.solution = solution;
+    switch(Interaction.shape){
 
         case 0:
-            $("#0",solution).html(TestGenerator.values.a);
-            $("#2",solution).html(TestGenerator.values.a);
-            $("#4",solution).html(TestGenerator.values.area);
+            $("#0",solution).html(Interaction.values.a);
+            $("#2",solution).html(Interaction.values.a);
+            $("#4",solution).html(Interaction.values.area);
             break;
 
         case 1:
-            $("#0",solution).html(TestGenerator.values.a);
-            $("#2",solution).html(TestGenerator.values.b);
-            $("#4",solution).html(TestGenerator.values.area);
+            $("#0",solution).html(Interaction.values.a);
+            $("#2",solution).html(Interaction.values.b);
+            $("#4",solution).html(Interaction.values.area);
             break;
 
         case 2:
-            $("#0",solution).html(TestGenerator.values.a+TestGenerator.values.b);
-            $("#2",solution).html(TestGenerator.values.H);
-            $("#4",solution).html(TestGenerator.values.area);
+            $("#0",solution).html(Interaction.values.a+Interaction.values.b);
+            $("#2",solution).html(Interaction.values.H);
+            $("#4",solution).html(Interaction.values.area);
             break;
 
         case 3:
             var style = {position:'relative',top:'-8px'};
-            $("#0",solution).css(style).html(TestGenerator.values.a+TestGenerator.values.b);
+            $("#0",solution).css(style).html(Interaction.values.a+Interaction.values.b);
             $("#1",solution).css(style);
-            $("#2",solution).css(style).html(TestGenerator.values.H);
+            $("#2",solution).css(style).html(Interaction.values.H);
             $(solution).append('<div></div>');
             $('div',solution).css({
                 position:'absolute',
@@ -439,7 +420,7 @@ TestGenerator.showSolution = function(){
                 top:'7px',
                 left:'0px'
             }).html(2)
-            $("#4",solution).html(TestGenerator.values.area);
+            $("#4",solution).html(Interaction.values.area);
             break;
 
     }
@@ -447,46 +428,31 @@ TestGenerator.showSolution = function(){
     for(var i=0;i<5;i++)
         $("#"+i,solution).css({opacity:0}).delay(1000*i).animate({opacity:1},1000,(i==4?Interaction.resume:undefined));
 }
-TestGenerator.checkAnswer = function(){
-    if(Interaction.isPaused())
-        return;
-	//check the answer
-	var value = Interaction.input.value;
-	var isWrong = false;
-	if(value == "" ||isNaN(value)){
-		isWrong = true;
-		Interaction.setStatus('Lütfen bir sayı giriniz.',false);
-		return;
-	}
-	else if(value == TestGenerator.values.area){
-		Interaction.setStatus('Tebrikler !',true);
-		Interaction.button.onclick = TestGenerator.nextQuestion;
-		Interaction.input.onkeyup = TestGenerator.nextQuestion;
-		Interaction.button.className = 'next_button';
-	}
-	else{
-		Interaction.setStatus('Tekrar deneyiniz. ',false);
-		TestGenerator.trial++;
-		isWrong = true;
-	}
-	if(isWrong && TestGenerator.trial > 1){
-		Interaction.input.style.color = 'red';
-		Interaction.input.value = TestGenerator.values.area;
-		Interaction.setStatus('Yanlış. Doğru cevap: '+TestGenerator.values.area+' '+TestGenerator.getMeasure() + '²',false);
-		Interaction.button.onclick = TestGenerator.nextQuestion;
-		Interaction.input.onkeyup = TestGenerator.nextQuestion;
-		Interaction.button.className = 'next_button';
-        TestGenerator.showSolution();
-	}	
-	else{
-		TestGenerator.trial++;
-	}
+
+Interaction.isAnswerCorrect = function(){
+    var value = Interaction.input.value;
+    return parseInt(value,10) === Interaction.values.area;
 }
 
-TestGenerator.printVertexLetters = function(p){
+Interaction.onWrongAnswer = function(){
+
+}
+
+Interaction.onCorrectAnswer = function(){
+
+}
+
+Interaction.onFail = function(){
+    Interaction.input.value = Interaction.values.area;
+    Interaction.setStatus('Yanlış. Doğru cevap: '+Interaction.values.area+' '+Interaction.getMeasure() + '²',false);
+    Interaction.showSolution();
+}
+
+
+Interaction.printVertexLetters = function(p){
 	for(var i=0; i<p.length;i++){
 		var text = new PointText(p[i]);
-		text.content = ""+TestGenerator.letters.shift();
+		text.content = ""+Interaction.letters.shift();
 		text.style = textStyle;
 		text=null;
 	}
@@ -514,7 +480,7 @@ function rectangle(a,b,measure,paper){
 	var t2 = new PointText(new Point(x+w+5,y+h*0.5));
 	t2.content = ""+b+" "+measure;
 	//letters
-	TestGenerator.printVertexLetters(
+	Interaction.printVertexLetters(
 			[
 				new Point(x-10,y+h+10),
 				new Point(x+w+10,y+h+10),
@@ -560,7 +526,7 @@ function rhomboid(a,b,H,measure,paper){
 	curve.position= new Point(x+w*0.5,y+h+20)
 	curve.size = new Size(w,curve.height);
 	
-	TestGenerator.printVertexLetters(
+	Interaction.printVertexLetters(
 			[
 				new Point(x-10,y+h+10),
 				new Point(x+w+10,y+h+10),
@@ -605,7 +571,7 @@ function triangle(a,b,H,measure,paper){
 	var curve = new Raster('curve');
 	curve.position= new Point(x+w*0.5,y+h+20)
 	curve.size = new Size(w,curve.height);
-	TestGenerator.printVertexLetters(
+	Interaction.printVertexLetters(
 			[
 				new Point(x-10,y+h+10),
 				new Point(x+w+10,y+h+10),

@@ -254,22 +254,32 @@ Interaction.images = [
 Interaction.init = function(container){
 	Main.setObjective('Yandaki çemberin yarıçapını cetvel yardımıyla ölçünüz ve çevresini hesaplayınız. Bulduğunuz sonucu aşağıdaki kutucuğa yazınız ve “Kontrol” düğmesine basınız. <span style="font-weight:bold;">(π = 3 alınız.)</span>');
 	Interaction.container = container;
-	$(Interaction.container).append('<div id="B" style="position:absolute; top:70%; left:0%; width:100%; "></div>');
+	$(Interaction.container).append('<div id="B"></div>');
 
 	Interaction.paper = {width:$(container).width(),height:$(container).height()};
-	$('div#B',Interaction.container).html('<div style="text-align:right;padding-right:130px;position:relative;top:-20px;">Çevre&nbsp;=&nbsp;<input type="text" style="width:35px;height:30px;font-size:16px;font-weight:bold;text-align:center;" id="input" maxlength="3" />&nbsp;br</div><div style="text-align:right;"><span id="status" style="position:relative;top:10px;"></span>&emsp;<input type="button" id="control" class="control_button" onclick="Interaction.checkAnswer()" /></div>');
-	Interaction.status = $('#status').get(0);
-    $(Interaction.status).css({
-        position:'relative',
-        right:'20px'
+
+	Interaction.appendInput({
+        position:'static'
+    });
+    Interaction.appendButton({
+        top:'200px',
+        right:'80px'
+    });
+    Interaction.appendStatus({
+        top:'250px',
+        right:'80px'
+    });
+    $('div#B',Interaction.container).css({
+        position:'absolute',
+        right:'80px',
+        top:'150px'
     })
-	Interaction.control = $('#control',Interaction.container).get(0);
-    $(Interaction.control).css({
-        position:'relative',
-        right:'20px'
-    })
-	Interaction.input = $('#input',Interaction.container).get(0);
-	Interaction.drawRuler();
+    $('div#B',Interaction.container)
+        .append('Çevre&nbsp;=&nbsp;')
+        .append(Interaction.input)
+        .append('&nbsp;br');
+
+    Interaction.drawRuler();
 	Interaction.prepareNextQuestion();
 }
 
@@ -313,17 +323,14 @@ Interaction.generateCircle = function(){
 	
 }
 
+
+
 Interaction.nextQuestion = function(){
     if(Interaction.isPaused())
         return;
 	if(Interaction.circleSet)
 		Interaction.circleSet.remove();
     $(Interaction.solution).remove();
-	Interaction.control.onclick = Interaction.checkAnswer;
-	Interaction.control.className = 'control_button';
-	Interaction.input.value = '';
-	Interaction.setStatus('');
-	Interaction.trial = 0;
 	Interaction.preventDrag = false;
 	
 	Interaction.generateCircle();
@@ -342,6 +349,24 @@ Interaction.nextQuestion = function(){
 	Interaction.odx=0;
 	Interaction.ody=0;
 }
+Interaction.isAnswerCorrect = function(value){
+    var answer = Interaction.input.value;
+	var rightAnswer = 2 * Interaction.r * 3 / Interaction.br;
+    return answer == rightAnswer;
+}
+
+Interaction.onWrongAnswer = function(){
+
+}
+
+Interaction.onCorrectAnswer = function(){
+
+}
+
+Interaction.onFail = function(){
+    var rightAnswer = 2 * Interaction.r * 3 / Interaction.br;
+    Interaction.setStatus('Yanlış, doğru cevap: '+rightAnswer,false);
+}
 
 Interaction.showSolution = function(){
     Interaction.pause();
@@ -359,36 +384,6 @@ Interaction.showSolution = function(){
     for(var i=0;i<5;i++)
         $("#"+i,solution).css({opacity:0}).delay(1000*i).animate({opacity:1},1000,(i==4?Interaction.resume:undefined));
 }
-
-Interaction.checkAnswer = function(){
-	var answer = Interaction.input.value;
-	var rightAnswer = 2 * Interaction.r * 3 / Interaction.br;
-	
-	if(answer == rightAnswer){
-		Interaction.setStatus('Tebrikler!',true);
-		Interaction.control.className = 'next_button';
-		Interaction.control.onclick = Interaction.nextQuestion;
-		Interaction.input.onkeyup = Interaction.nextQuestion;
-	}
-	else if(Interaction.trial == 0){
-		if(answer == '' || isNaN(answer)){
-			Interaction.setStatus('Lütfen bir sayı giriniz',false);
-			return;
-		}
-		else
-			Interaction.setStatus('Yanlış cevap, tekrar deneyiniz',false);
-		Interaction.trial++;
-	}
-	else{
-		Interaction.setStatus('Yanlış, doğru cevap: '+rightAnswer,false);
-        Interaction.showSolution();
-		Interaction.control.onclick = Interaction.nextQuestion;
-		Interaction.control.className = 'next_button';
-		Interaction.input.onkeyup = Interaction.nextQuestion;
-		Interaction.input.value = rightAnswer;
-	}
-}
-
 
 Interaction.drawRuler = function(){
 	var x,y,w,h,b,st;
