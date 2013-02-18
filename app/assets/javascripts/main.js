@@ -61,6 +61,7 @@ var Main = function(){
                 Main.init();
         }
         catch(e){
+            Main.initializeToolbar();
             console.log('Interaction is not defined');
 
         }
@@ -250,14 +251,18 @@ Main.initializeScreen = function() {
 }
 
 Main.initializeNavigation = function() {
-	var createWordList = function(letter) {
+	var selectedWordIndex = 0;
+    var createWordList = function(letter) {
 
         $('.navlink').removeClass('harfselected');
         $('.navlink[data-letter="'+letter+'"]').addClass('harfselected');
 		var entries = wordList[letter];
 		var htmlString = "";
-		
+
 		for (i = 0; i < entries.length; i++) {
+            if(entries[i].selected){
+                selectedWordIndex = i;
+            }
 			htmlString += "<a href=" + entries[i].link + " class='sozcuklink " + (entries[i].selected?"sozcukselected":"") + "'>" + entries[i].word + "</a>";
 		}
 		
@@ -286,6 +291,8 @@ Main.initializeNavigation = function() {
             $("#letter_"+letter_id).addClass("harfpasif");
         }
     }
+    var sozcuktasiyici = $('.sozcuktasiyici').get(0);
+    sozcuktasiyici.scrollByLines(13 - selectedWordIndex);
 }
 
 //Main.initializeSoundManager = function() {
@@ -450,9 +457,14 @@ Main.initializeToolbar = function(){
     Main.InfoDialog.addContent('Kullanıcı Kılavuzu','<iframe src="/resources/matsoz_manuel/matsoz_manuel.htm" style="width: 100%; height: 99%; border: none; padding: 0px; box-sizing: border-box; overflow: hidden; margin: 0px;"></iframe>');
 
     $('.btn_home').click(function(event){
-        if (exportedPage) {
-            window.location = '../../intro/index.html';
-        } else {
+        try{
+            if (exportedPage) {
+                window.location = '../../intro/index.html';
+            } else {
+                window.location = '../';
+            }
+        }
+        catch(e){
             window.location = '../';
         }
     });
