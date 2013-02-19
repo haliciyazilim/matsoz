@@ -19,7 +19,7 @@ var Animation = {
     .css("left", "450px")
     //.css("right","0")
     .css("top", "50px");
-    // saglama2	
+    // saglama2
     $(container).append("<div id='saglama2'>");
     $("#saglama2").css("width", "80px").css("height", "130px").css("margin", "auto").css("position", "absolute")
     //.css("bottom","20px")
@@ -57,7 +57,7 @@ var Interaction = {
   },
   init: function (container) {
     Interaction.container = container;
-    Main.setObjective(' Yandaki bölme işlemini yapınız ve kontrol ediniz.');
+    Main.setObjective(' Yandaki bölme işlemini yapınız ve kontrol ediniz. (Cevabı birler basamağından başlayarak yazınız.)');
     Interaction.paper = {
       width: $(container).width(),
       height: $(container).height()
