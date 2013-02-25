@@ -5,17 +5,13 @@ div.tanim strong{
     color:#6ea00f;
 }
 div.tanim a {
-	color:#93ca2a;
+	color:#6ea00f;
 	text-decoration:none;
 	border-bottom:1px solid #93ca2a;
 }
 div.tanim a:hover {
-	color:#FFFFFF;
-	text-decoration:none;
-	border-bottom:none;
+	color:#6ea00f;
 }
-
-
 
 .ornekbaslik_bg {
 	background:url(ornek.png) no-repeat 50% 50%;

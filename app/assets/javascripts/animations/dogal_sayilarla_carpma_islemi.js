@@ -54,7 +54,7 @@ var Interaction = {
 
 
 
-        Main.setObjective("Yandaki çarpma işlemini yapınız ve kontrol ediniz.");
+        Main.setObjective("Yandaki çarpma işlemini yapınız ve kontrol ediniz. (Cevabı birler basamağından başlayarak yazınız.)");
 
         // Soru Divi
         $(container).append("<div id='soru'>");
@@ -117,7 +117,7 @@ var Interaction = {
 
         yeniSoru();
 
-
+        $("input").attr("onkeypress",'return SadeceRakam(event)');
 
     },
     preCheck: function(){
@@ -656,24 +656,7 @@ function carpma(){
         .css("right","0px")
         .css("font-size","30px");
     //.css("border","solid 1px black");
-    $("#girdi1, #girdi2, #girdi3, #girdiToplam").keydown(function(event){
-        var pos;
-        if(event.keyCode == 8)
-            pos = 1;
-        else
-            pos = 0;
-        if(this.createTextRange){
-            var textRange = node.createTextRange();
-            textRange.collapse(true);
-            textRange.moveEnd(pos);
-            textRange.moveStart(pos);
-            textRange.select();
-            return true;
-        }else if(this.setSelectionRange){
-            this.setSelectionRange(pos,pos);
-            return true;
-        }
-    });
+    $("#girdi1, #girdi2, #girdi3, #girdiToplam").keydown(InputReverseWritable);
 
 
     $("#girdi1, #girdi2, #girdi3, #girdiToplam").keyup(
