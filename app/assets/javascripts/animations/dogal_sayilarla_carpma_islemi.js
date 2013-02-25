@@ -561,7 +561,7 @@ function carpma(){
             right: "0px",
             fontSize: "30px"
 
-        },false,false);
+        },true,false);
         girdi.id="girdi"+id;
 
         $("#soru",container).append(girdi);
@@ -613,7 +613,7 @@ function carpma(){
                 right: "0px",
                 fontSize: "30px"
 
-            },false,false);
+            },true,false);
             girdiToplam.id="girdiToplam";
 
             $("#soru",container).append(girdiToplam);
@@ -699,7 +699,7 @@ function bilinmeyenCarpanlar(){
         right: "0px",
         fontSize: "30px"
 
-    },false,false);
+    },true,false);
     girdi.id="girdi";
 
 
@@ -848,7 +848,7 @@ function tekCarpanlar(){
             right: "0px",
             fontSize: "30px"
 
-        },false,false);
+        },true,false);
         input1.id="girdi1";
 
         var input2=Interaction.appendInput({
@@ -860,7 +860,7 @@ function tekCarpanlar(){
             right: "0px",
             fontSize: "30px"
 
-        },false,false);
+        },true,false);
         input2.id="girdi2";
 
         $("#soru",container).append("<div id='cevap1'>");
@@ -1041,7 +1041,7 @@ function tekCarpanlar(){
             right: "0px",
             fontSize: "30px"
 
-        },false,false);
+        },true,false);
         input2.id="girdi2";
 
         var input3=Interaction.appendInput({
@@ -1053,7 +1053,7 @@ function tekCarpanlar(){
             right: "0px",
             fontSize: "30px"
 
-        },false,false);
+        },true,false);
         input3.id="girdi3";
 
         $("#soru",container).append(input1);

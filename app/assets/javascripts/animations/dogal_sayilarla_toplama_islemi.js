@@ -681,7 +681,7 @@ function eldesizToplama(){
         right: "0px",
         fontSize: "30px"
 
-    },false,false);
+    },true,false);
     girdi.id="girdi";
     $("#soru",container).append(girdi);
 
@@ -820,7 +820,7 @@ function eldeliToplama(){
         right: "0px",
         fontSize: "30px"
 
-    },false,false);
+    },true,false);
     girdi.id="girdi";
     $("#soru",container).append(girdi);
     $("#soru #girdi").css("width","120px")
@@ -902,7 +902,7 @@ function soruToplananlar(){
         right: "0px",
         fontSize: "30px"
 
-    },false,false);
+    },true,false);
     girdi.id="girdi";
     console.log("soruSirasi: "+soruSirasi);
     if(soruSirasi==5 || soruSirasi==7){
@@ -1058,7 +1058,7 @@ function soruBirerBilinmeyen(){
             right: "0px",
             fontSize: "30px"
 
-        },false,false);
+        },true,false);
         input1.id="girdi1";
 
         var input2=Interaction.appendInput({
@@ -1070,7 +1070,7 @@ function soruBirerBilinmeyen(){
             right: "0px",
             fontSize: "30px"
 
-        },false,false);
+        },true,false);
         input2.id="girdi2";
 
         $("#soru",container).append("<div id='toplanan1' class='toplanan'>");
@@ -1111,7 +1111,7 @@ function soruBirerBilinmeyen(){
             right: "0px",
             fontSize: "30px"
 
-        },false,false);
+        },true,false);
         input1.id="girdi1";
 
         var input2=Interaction.appendInput({
@@ -1123,7 +1123,7 @@ function soruBirerBilinmeyen(){
             right: "0px",
             fontSize: "30px"
 
-        },false,false);
+        },true,false);
         input2.id="girdi2";
 
         var input3=Interaction.appendInput({
@@ -1135,7 +1135,7 @@ function soruBirerBilinmeyen(){
             right: "0px",
             fontSize: "30px"
 
-        },false,false);
+        },true,false);
         input3.id="girdi3";
 
 
@@ -1182,7 +1182,7 @@ function soruBirerBilinmeyen(){
             right: "0px",
             fontSize: "30px"
 
-        },false,false);
+        },true,false);
         input1.id="girdi1";
 
         var input2=Interaction.appendInput({
@@ -1194,7 +1194,7 @@ function soruBirerBilinmeyen(){
             right: "0px",
             fontSize: "30px"
 
-        },false,false);
+        },true,false);
         input2.id="girdi2";
 
         var input3=Interaction.appendInput({
@@ -1206,7 +1206,7 @@ function soruBirerBilinmeyen(){
             right: "0px",
             fontSize: "30px"
 
-        },false,false);
+        },true,false);
         input3.id="girdi3";
 
 
