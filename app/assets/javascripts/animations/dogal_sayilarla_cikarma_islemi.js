@@ -91,7 +91,7 @@ var Interaction = {
             right: "0px",
             fontSize: "30px"
 
-        },true,false);
+        },false,false);
         girdi.id="girdi";
 
 
@@ -1129,7 +1129,7 @@ function soruBirerBilinmeyen(){
         right: "0px",
         fontSize: "30px"
 
-    },true,false);
+    },false,false);
     input1.id="girdi1";
 
     var input2=Interaction.appendInput({
@@ -1141,7 +1141,7 @@ function soruBirerBilinmeyen(){
         right: "0px",
         fontSize: "30px"
 
-    },true,false);
+    },false,false);
     input2.id="girdi2";
 
     console.log("soruSirasi: "+soruSirasi+"Birer Bilinmeyen");
@@ -1213,7 +1213,7 @@ function soruBirerBilinmeyen(){
             right: "0px",
             fontSize: "30px"
 
-        },true,false);
+        },false,false);
         input3.id="girdi3";
         $("#soru",container).append("<div id='toplanan1' class='toplanan'>");
         $("#toplanan1")
@@ -1257,7 +1257,7 @@ function soruBirerBilinmeyen(){
             right: "0px",
             fontSize: "30px"
 
-        },true,false);
+        },false,false);
         input3.id="girdi3";
         $("#soru",container).append("<div id='toplanan1' class='toplanan'>");
         $("#toplanan1")
