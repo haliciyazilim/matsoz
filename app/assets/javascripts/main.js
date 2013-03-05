@@ -491,6 +491,8 @@ Main.initializeToolbar = function(isPassive){
     });
 
 }
+
+Main();
 var orientationWarningDialog = null;
 window.onorientationchange = detectOrientation;
 function detectOrientation(){
