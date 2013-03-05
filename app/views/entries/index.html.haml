@@ -2,7 +2,6 @@
 - content_for(:head) do
   %meta{'http-equiv'=>'Content-Type', 'content' => 'text/html; charset=UTF-8'}
   = javascript_include_tag 'main.js'
-  = javascript_include_tag 'library/dialog.js'
   - if @ipad
     = javascript_include_tag 'splash_ipad.js'
     = stylesheet_link_tag 'theme/blue/matsoz_blue_ipad.css'
@@ -23,6 +22,8 @@
   - else
     :javascript
       var exportedPage = false;
+  :javascript
+    var indexPage = true;
 #container
   - if !@ipad
     -##words_list
