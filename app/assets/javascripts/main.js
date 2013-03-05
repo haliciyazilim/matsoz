@@ -450,8 +450,10 @@ Main.initializeToolbar = function(isPassive){
     var aboutUsUrl = '/resources/about_us/about_us.htm';
     try{
         if(exportedPage){
-            matsozManualUrl = 'resources/matsoz_manuel/matsoz_manuel.htm';
-            aboutUsUrl = 'resources/about_us/about_us.htm';
+            if(indexPage){
+                matsozManualUrl = 'resources/matsoz_manuel/matsoz_manuel.htm';
+                aboutUsUrl = 'resources/about_us/about_us.htm';
+            }
         }
     }
     catch(e){}
@@ -463,12 +465,18 @@ Main.initializeToolbar = function(isPassive){
         'Kullanıcı Kılavuzu',
         '<iframe src="'+matsozManualUrl+'" style="width: 100%; height: 99%; border: none; padding: 0px; box-sizing: border-box; overflow: hidden; margin: 0px;"></iframe>'
     );
+
     $('.btn_home').click(function(event){
         try{
             if (exportedPage) {
-                window.location = '../../intro/index.html';
-            } else {
-                window.location = '../';
+                try{
+                    if(indexPage){
+                        window.location = '../intro/index.html';
+                    }
+                }
+                catch(e){
+                    window.location = '../../intro/index.html';
+                }
             }
         }
         catch(e){
@@ -483,8 +491,6 @@ Main.initializeToolbar = function(isPassive){
     });
 
 }
-Main();
-
 var orientationWarningDialog = null;
 window.onorientationchange = detectOrientation;
 function detectOrientation(){
