@@ -113,6 +113,7 @@ var Animation = {
 						.css("font-size", 18)
 						.css("padding", 0)
 						.css("margin", 0)
+                        .css("opacity",0)
 						.css("line-height","18px")
 						
 			$('#firstF').append('<div id="whh">2</div>');
@@ -152,6 +153,7 @@ var Animation = {
 						.css("font-size", 18)
 						.css("padding", 0)
 						.css("margin", 0)
+                        .css("opacity",0)
 						.css("line-height","18px")
 			
 				
@@ -183,24 +185,28 @@ var Animation = {
 			$('#zzero').css("position", "absolute")
 						.css("top", "0px")
 						.css("left", "10px")
+                        .css("opacity",0)
 						.css("color", "grey");
 						
 			$('#whs').append('<p id="oone">1</p>');
 			$('#oone').css("position", "absolute")
 						.css("top", "0px")
 						.css("left", "144px")
+                        .css("opacity",0)
 						.css("color", "grey");
 						
 			$('#whs').append('<p id="ttwo">2</p>');
 			$('#ttwo').css("position", "absolute")
 						.css("top", "0px")
 						.css("left", "280px")
+                        .css("opacity",0)
 						.css("color", "grey");
 			
 			$('#whs').append('<p id="tthree">3</p>');
 			$('#tthree').css("position", "absolute")
 						.css("top", "0px")
 						.css("left", "415px")
+                        .css("opacity",0)
 						.css("color", "grey");
 			
 			// 0/9, 9/9, 18/9, 22/9s
@@ -221,6 +227,7 @@ var Animation = {
 						.css("font-size", 18)
 						.css("padding", 0)
 						.css("margin", 0)
+                        .css("opacity",0)
 						.css("line-height","18px")
 						.css("color", "grey");
 		
@@ -249,6 +256,7 @@ var Animation = {
 						.css("font-size", 18)
 						.css("padding", 0)
 						.css("margin", 0)
+                        .css("opacity",0)
 						.css("line-height","18px")
 						.css("color", "grey");
 		
@@ -276,6 +284,7 @@ var Animation = {
 						.css("font-size", 18)
 						.css("padding", 0)
 						.css("margin", 0)
+                        .css("opacity",0)
 						.css("line-height","18px")
 						.css("color", "grey");
 			
@@ -303,6 +312,7 @@ var Animation = {
 						.css("font-size", 18)
 						.css("padding", 0)
 						.css("margin", 0)
+                        .css("opacity",0)
 						.css("line-height","18px")
 						.css("color", "grey");
 				
@@ -331,6 +341,7 @@ var Animation = {
 						.css("font-size", 18)
 						.css("padding", 0)
 						.css("margin", 0)
+                        .css("opacity",0)
 						.css("line-height","18px")
 						
 			$('#first2F').append('<p id="whh2">2</p>');
@@ -376,6 +387,7 @@ var Animation = {
 						.css("font-size", 18)
 						.css("padding", 0)
 						.css("margin", 0)
+                        .css("opacity",0)
 						.css("line-height","18px")
 		
 			
@@ -406,12 +418,14 @@ var Animation = {
 			$('#nomm5').css("position", "absolute")
 						.css("top", "0px")
 						.css("left", "-12px")
+                        .css("opacity",0)
 						.css("font-size", 18);
 						
 			$('#firstEq').append('<p id="nomm55">+ 4 =</p>');
 			$('#nomm55').css("position", "absolute")
 						.css("top", "0px")
 						.css("left", "44px")
+                        .css("opacity",0)
 						.css("font-size", 18);
 			
 			$('#firstEq').append('<div id="firstEqF"></div>');
@@ -428,15 +442,18 @@ var Animation = {
 			$('#firstEqF').append('<div id="nomm555">22</div>');
 			$('#nomm555').css("text-align", "center")
 						.css("height", "20px")
+                        .css("opacity",0)
 			
 			$('#firstEqF').append('<div id="exLine5"></div>');
 			$('#exLine5').css("height", "1px")
 						.css("border-top", "2px solid")
 						.css("padding", 0)
+                        .css("opacity",0)
 			
 			$('#firstEqF').append('<div id="denomm5">9</div>');
 			$('#denomm5').css("text-align", "center")
 						.css("height", "20px")
+                        .css("opacity",0)
 						
 			// secondEq		
 			$(container).append('<div id="secondEq"></div>');
@@ -451,30 +468,35 @@ var Animation = {
 			$('#num1').css("position", "absolute")
 						.css("top", "3px")
 						.css("left", "15px")
+                        .css("opacity",0)
 						.css("font-size", 18);
 						
 			$('#secondEq').append('<p id="num2">9</p>');
 			$('#num2').css("position", "absolute")
 						.css("top", "2px")
 						.css("left", "46px")
+                        .css("opacity",0)
 						.css("font-size", 18);
 			
 			$('#secondEq').append('<p id="num3">2</p>');
 			$('#num3').css("position", "absolute")
 						.css("top", "24px")
 						.css("left", "46px")
+                        .css("opacity",0)
 						.css("font-size", 18);
 			
 			$('#secondEq').append('<p id="num4">18</p>');
 			$('#num4').css("position", "absolute")
 						.css("top", "23px")
 						.css("left", "15px")
+                        .css("opacity",0)
 						.css("font-size", 18),
 			
 			$('#secondEq').append('<p id="num5">4</p>');
 			$('#num5').css("position", "absolute")
 						.css("top", "44px")
 						.css("left", "20px")
+                        .css("opacity",0)
 						.css("font-size", 18);
 			
 			// first3F
@@ -487,6 +509,7 @@ var Animation = {
 						.css("font-size", 18)
 						.css("padding", 0)
 						.css("margin", 0)
+                        .css("opacity",0)
 						.css("line-height","18px")
 						
 			$('#first3F').append('<p id="whh33">2</p>');
