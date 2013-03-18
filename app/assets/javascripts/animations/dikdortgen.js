@@ -68,6 +68,8 @@ Interaction.init = function(container) {
 		if (angleText) {
 			angleText.remove();
 		}
+		
+		angleText = new PointText(new Point(322, 86));
 	};
 
 	var runAnimation = function() {
@@ -144,11 +146,7 @@ Interaction.init = function(container) {
 			arrow.opacity = arrowHelper.opacity;
 			arrow.strokeColor = '#000';
 			arrow.strokeWidth = 2.5;
-			if (angleText) {
-				angleText.remove();
-			}
-		
-			angleText = new PointText(new Point(322, 86));
+
 			angleText.justification = 'left';
 			angleText.fillColor = '#000';
 			angleText.content = Math.floor(arrowHelper.angle) + "°";
