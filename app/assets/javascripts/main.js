@@ -49,11 +49,11 @@
 
 
 var Main = function(){
-	if(navigator.appName == "Microsoft Internet Explorer"){
-		console ={
-			log: function(){}
-		}
-	}
+    if(navigator.appName == "Microsoft Internet Explorer"){
+        console ={
+            log: function(){}
+        }
+    }
     $(document).ready(function(){
 
         try{
@@ -63,11 +63,11 @@ var Main = function(){
         catch(e){
             Main.initializeToolbar();
             console.log('Interaction is not defined');
-
         }
     });
 
 }
+
 Main.platform = {
     MOBILE:'Mobile',
     DESKTOP:'Desktop'
@@ -82,13 +82,13 @@ Main.getCurrentPlatform = function(){
 }
 
 Main.config = {
-	defaultLibrary: "paper"
+    defaultLibrary: "paper"
 };
 
 Main.startAnimation = function(){
     animationView.onFrame = function(event) {
         Main.animationProject.activate();
-		View._focused = animationView;
+        View._focused = animationView;
         AnimationManager.update(event);
         if (typeof(Animation.onFrame) == 'function') {
             Animation.onFrame(event);
@@ -98,9 +98,9 @@ Main.startAnimation = function(){
         animationReady = true;
         return;
     } else {
-		Main.animationProject.activate();
-		View._focused = animationView;
-		Animation.init(Main.animation);
+        Main.animationProject.activate();
+        View._focused = animationView;
+        Animation.init(Main.animation);
     }
     Main.startInteraction();
     try{
@@ -108,13 +108,13 @@ Main.startAnimation = function(){
             Main.animationFinished();
     }
     catch(e){
-    }    
+    }
 }
 Main.animationFinished = function(delay){
-	if (delay == undefined) {
-		delay = 100;
-	}
-	if(Main.animationFinished.called == true)
+    if (delay == undefined) {
+        delay = 100;
+    }
+    if(Main.animationFinished.called == true)
         return;
     if(isNaN(delay) || delay == 0){
         Main.animationFinished.called = true;
@@ -126,8 +126,8 @@ Main.animationFinished = function(delay){
                 return;
             Main.animationFinished.called = true;
             Main.disposeInteractionSkipSlider();
-		}, delay);
-	}
+        }, delay);
+    }
 }
 Main.disposeInteractionSkipSlider = function(){
     $('#interaction_cover').animate({opacity:0},500,function(){$(this).remove()});
@@ -137,10 +137,9 @@ Main.startInteraction = function(){
         interactionReady = true;
     } else {
         Main.interactionProject.activate();
-		View._focused = interactionView;
+        View._focused = interactionView;
         initializeRunLoop();
         Interaction.init(Main.interaction);
-        Main.createInteractionSkipSlider();
     }
 }
 
@@ -153,54 +152,56 @@ Main.animateDefinition = function(){
 
 Main.init = function(){
     Main.initializeScreen();
-	Main.initializeNavigation();
+    Main.initializeNavigation();
+    Main.createInteractionSkipSlider();
     Main.initializeToolbar();
-	Main.interaction = $('.etkilesimalan').get(0);
-	Main.animation = $('.ornek').get(0);
-	Main.objective = $('.mavikontrol').get(0);
-	//Main.InteractionContainer.appendChild(Main.ObjectiveContainer);
-	
-	var framework;
-	if (typeof(Interaction.getFramework) == "function") {
-		framework = Interaction.getFramework();
-	} else {
-		framework = Main.config.defaultLibrary;
-	}
-	
-	if (framework == 'paper') {
-		Main.scale = 1;
-		paper.install(window);
-		Main.paperInit();
-		
-		var interactionWidth = $(Main.interaction).width();
-		var interactionHeight = $(Main.interaction).height();
+    Main.interaction = $('.etkilesimalan').get(0);
+    Main.animation = $('.ornek').get(0);
+    Main.objective = $('.mavikontrol').get(0);
+    //Main.InteractionContainer.appendChild(Main.ObjectiveContainer);
 
-		Main.interaction.innerHTML += "<canvas id='interaction_canvas' class='interaction_canvas' keepalive='true' width='"+interactionWidth*Main.scale+"px' height='"+interactionHeight*Main.scale+"px'></canvas>"
-		canvas = $('.interaction_canvas').get(0);
-		paper.setup(canvas);
-		Main.interactionProject = paper.project;
-		interactionView = paper.view;
-		paper.defaultProject = Main.interactionProject;
-		
-		var animationWidth = $(Main.animation).width();
-		var animationHeight = $(Main.animation).height();
 
-		Main.animation.innerHTML += "<canvas id='animation_canvas' class='animation_canvas' keepalive='true' width='"+animationWidth*Main.scale+"px' height='"+animationHeight*Main.scale+"px'></canvas>"
-		canvas = $('.animation_canvas').get(0);
-		paper.setup(canvas);
-		Main.animationProject = paper.project;
-		animationView = paper.view;
-		AnimationManager();
-		
-		animationReady = false;
-		interactionReady = false;
-		
+    var framework;
+    if (typeof(Interaction.getFramework) == "function") {
+        framework = Interaction.getFramework();
+    } else {
+        framework = Main.config.defaultLibrary;
+    }
+
+    if (framework == 'paper') {
+        Main.scale = 1;
+        paper.install(window);
+        Main.paperInit();
+
+        var interactionWidth = $(Main.interaction).width();
+        var interactionHeight = $(Main.interaction).height();
+
+        Main.interaction.innerHTML += "<canvas id='interaction_canvas' class='interaction_canvas' keepalive='true' width='"+interactionWidth*Main.scale+"px' height='"+interactionHeight*Main.scale+"px'></canvas>"
+        canvas = $('.interaction_canvas').get(0);
+        paper.setup(canvas);
+        Main.interactionProject = paper.project;
+        interactionView = paper.view;
+        paper.defaultProject = Main.interactionProject;
+
+        var animationWidth = $(Main.animation).width();
+        var animationHeight = $(Main.animation).height();
+
+        Main.animation.innerHTML += "<canvas id='animation_canvas' class='animation_canvas' keepalive='true' width='"+animationWidth*Main.scale+"px' height='"+animationHeight*Main.scale+"px'></canvas>"
+        canvas = $('.animation_canvas').get(0);
+        paper.setup(canvas);
+        Main.animationProject = paper.project;
+        animationView = paper.view;
+        AnimationManager();
+
+        animationReady = false;
+        interactionReady = false;
+
         if(Animation.images == null || Animation.images == undefined) {
-             Main.startAnimation();
+            Main.startAnimation();
         }
         else {
             Util.loadImages(
-                Animation.images, 
+                Animation.images,
                 function(){
                     Main.startAnimation();
                 }
@@ -217,21 +218,21 @@ Main.init = function(){
                 }
             );
         }
-		initializeRunLoop = function () {
+        initializeRunLoop = function () {
             //console.log("I'm here");
-			if (animationReady === true && interactionReady === true) {
-				interactionView.onFrame = function(event) {
-					Main.interactionProject.activate();
-					View._focused = interactionView;
-					AnimationManager.update(event);
-					if (typeof(Interaction.onFrame) == 'function') {
-						Interaction.onFrame(event);
-					}
-				}
-			}
-		}
-		InteractionBase();	
-		Main.animateDefinition();
+            if (animationReady === true && interactionReady === true) {
+                interactionView.onFrame = function(event) {
+                    Main.interactionProject.activate();
+                    View._focused = interactionView;
+                    AnimationManager.update(event);
+                    if (typeof(Interaction.onFrame) == 'function') {
+                        Interaction.onFrame(event);
+                    }
+                }
+            }
+        }
+        InteractionBase();
+        Main.animateDefinition();
         try{
             if(__START_INTERACTION_IMMEDIATELY === true)
                 Main.startAnimation();
@@ -242,7 +243,6 @@ Main.init = function(){
             setTimeout(Main.startAnimation,1000);
         }
     }
-
 };
 
 
@@ -251,27 +251,29 @@ Main.initializeScreen = function() {
 }
 
 Main.initializeNavigation = function() {
-	var selectedWordIndex = 0;
+    var selectedWordIndex = 0;
     var createWordList = function(letter) {
 
         $('.navlink').removeClass('harfselected');
         $('.navlink[data-letter="'+letter+'"]').addClass('harfselected');
-		var entries = wordList[letter];
-		var htmlString = "";
+        var entries = wordList[letter];
+        var htmlString = "";
 
-		for (i = 0; i < entries.length; i++) {
+        for (i = 0; i < entries.length; i++) {
             if(entries[i].selected){
                 selectedWordIndex = i;
             }
-			htmlString += "<a href=" + entries[i].link + " class='sozcuklink " + (entries[i].selected?"sozcukselected":"") + "'>" + entries[i].word + "</a>";
-		}
-		$('.sozcuktasiyici').html(htmlString);
-	}
-	$('.navlink').click(function() {
-		createWordList($(this).data('letter'));
-	});
+            htmlString += "<a href=" + entries[i].link + " class='sozcuklink " + (entries[i].selected?"sozcukselected":"") + "'>" + entries[i].word + "</a>";
+        }
 
-	createWordList(currentLetter);
+        $('.sozcuktasiyici').html(htmlString);
+    }
+
+    $('.navlink').click(function() {
+        createWordList($(this).data('letter'));
+    });
+
+    createWordList(currentLetter);
 
     var list = "abcçdefghıijklmnoöprsştuüvyz"
 
@@ -290,9 +292,11 @@ Main.initializeNavigation = function() {
         }
     }
     var sozcuktasiyici = $('.sozcuktasiyici').get(0);
-    console.log("selectedWordIndex: "+selectedWordIndex);
-    if(selectedWordIndex > 11)
-        sozcuktasiyici.scrollByLines(selectedWordIndex - 11);
+    if(selectedWordIndex > 12){
+        var scrollAmount = (selectedWordIndex - 12)* 42;
+        $(sozcuktasiyici).animate({ scrollTop: scrollAmount+"px"},500);
+    }
+
 }
 
 //Main.initializeSoundManager = function() {
@@ -336,29 +340,17 @@ Main.initializeNavigation = function() {
 //}
 
 Main.setObjective = function(str){
-	Main.objective.innerHTML = str;
+    Main.objective.innerHTML = str;
 };
 
 Main.createInteractionSkipSlider = function(){
     var div = document.createElement('div');
-
-	if (Main.getCurrentPlatform() == Main.platform.MOBILE) {
-		$('#container2').append(div);
-		$(div).css({
-		    top:'0px',
-	        left:'0px'
-		});
-	} else {
-	    $('#container').append(div);
-	    $(div).css({
-		    top:'331px',
-	        left:'438px'
-		});
-	}
-
+    $('#container').append(div);
     $(div).css({
         position:'absolute',
         paddingLeft:'-1px',
+        top:'331px',
+        left:'438px',
         width:'790px',
         height:'302px',
         borderRadius:'6px',
@@ -373,7 +365,6 @@ Main.createInteractionSkipSlider = function(){
         '-ms-user-select': 'none',
         'user-select': 'none'
     });
-
     div.id = 'interaction_cover';
 
     var isDragging = false;
@@ -442,6 +433,7 @@ Main.createInteractionSkipSlider = function(){
         catch(e){}
         up(event);
     });
+
 }
 
 Main.initializeToolbar = function(isPassive){
@@ -491,8 +483,9 @@ Main.initializeToolbar = function(isPassive){
     });
 
 }
-
 Main();
+
+
 var orientationWarningDialog = null;
 window.onorientationchange = detectOrientation;
 function detectOrientation(){
