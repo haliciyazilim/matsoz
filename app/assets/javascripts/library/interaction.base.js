@@ -230,28 +230,28 @@ function InteractionBase(){
 			}
 		}
 	}
-	
-	Interaction.prepareNextQuestion = function(){
-		if(typeof Interaction.pause == 'function' && Interaction.isPaused() || Interaction.pause == true)
-			return;
-		if(Interaction.status)
-			Interaction.setStatus('');
-		if(Interaction.__inputVersion == 2)
-			Interaction.flushInputs();
-		for(i = 0; i < Interaction.inputs.length; i++){
-			if(Interaction.inputs[i]){
-				$(Interaction.inputs[i]).get(0).onkeydown = null;
-				Interaction.inputs[i].value = '';
-				$(Interaction.inputs[i]).removeClass('input_user_answer_correct');
-				$(Interaction.inputs[i]).removeClass('input_user_answer_wrong');
-				$(Interaction.inputs[i]).removeClass('input_correct_answer');
-			}
-		}
-		if(Interaction.button){
-			Interaction.button.className = 'control_button';
-			Interaction.button.onclick = Interaction.__checkAnswer;
-		}
-		Interaction.trial = 0;
+
+    Interaction.prepareNextQuestion = function(){
+        if(typeof Interaction.pause == 'function' && Interaction.isPaused() || Interaction.pause == true)
+            return;
+        if(Interaction.status)
+            Interaction.setStatus('');
+        if(Interaction.__inputVersion == 2)
+            Interaction.flushInputs();
+        Interaction.enableEntryForInputs();
+        for(i = 0; i < Interaction.inputs.length; i++){
+            if(Interaction.inputs[i]){
+                Interaction.inputs[i].value = '';
+                $(Interaction.inputs[i]).removeClass('input_user_answer_correct');
+                $(Interaction.inputs[i]).removeClass('input_user_answer_wrong');
+                $(Interaction.inputs[i]).removeClass('input_correct_answer');
+            }
+        }
+        if(Interaction.button){
+            Interaction.button.className = 'control_button';
+            Interaction.button.onclick = Interaction.__checkAnswer;
+        }
+        Interaction.trial = 0;
 
         if(Main.getCurrentPlatform() == Main.platform.DESKTOP)
             Interaction.enableAutoFocus();
@@ -261,6 +261,7 @@ function InteractionBase(){
         else
             Interaction.nextQuestion();
 
+//        alert(Main.getCurrentPlatform() + " \n " + navigator.userAgent);
         if(Main.getCurrentPlatform() == Main.platform.DESKTOP){
             try{
                 if(Interaction.__disableAutoInputFocus == false){
@@ -275,7 +276,7 @@ function InteractionBase(){
         else{
             Interaction._removeFocusFromInputs();
         }
-	};
+    };
     Interaction._removeFocusFromInputs = function(){
         for(var i=0;i<Interaction.inputs.length;i++){
             Interaction.inputs[i].blur();
@@ -287,125 +288,138 @@ function InteractionBase(){
     Interaction.enableAutoFocus = function(){
         Interaction.__disableAutoInputFocus = false;
     };
-	Interaction.__checkAnswer = function(){
-		if(typeof Interaction.pause == 'function' && Interaction.isPaused() || Interaction.pause == true)
-			return;
-		if(Interaction.preCheck && Interaction.preCheck() === false)
-			return;
-		var isCorrect;
-		if(Interaction.__inputVersion == 2){	// addInput()
-			isCorrect = true;
-			for(var i=0; i<Interaction.inputs.length;i++){
-				var value = Interaction.inputs[i].value;
-				if($(Interaction.inputs[i]).val() == ""){
-					Interaction.__status(Interaction.__status.EMPTY);
-					return;
-				}
-				if(value == "" ||isNaN(value) && value.indexOf(',') < 0) {
-					Interaction.__status(Interaction.__status.NUMBER);
-					return;
-				}
-				if(value.indexOf('.') > 0){
-					Interaction.__status(Interaction.__status.FLOATING);
-					return;
-				}
-				
-				var isInputCorrect;
-				if(typeof Interaction.inputs[i].correctAnswer == 'function')
-					isInputCorrect = (value == Interaction.inputs[i].correctAnswer(value));
-				else
-					isInputCorrect = (value == Interaction.inputs[i].correctAnswer);
-				
-				$(Interaction.inputs[i]).get(0).onfocus = function () {
-					$(this).removeClass('input_user_answer_correct');
-					$(this).removeClass('input_user_answer_wrong');
-					$(this).removeClass('input_correct_answer');
-				}
-				
-				if(isInputCorrect === true){
-					$(Interaction.inputs[i]).addClass('input_user_answer_correct');
-				}
-				else{
-					$(Interaction.inputs[i]).addClass('input_user_answer_wrong');
-					isCorrect = false;
-				}
-			}
-		}
-		else{
-			if(Interaction.inputs.length >= 1){
-				var values = [];
-				for(var i=0; i<Interaction.inputs.length;i++){
-					values[i] = Interaction.inputs[i].value;
-					if(Interaction.inputs[i].getAttribute('isNumber') == 'true'){			
-						if(!Interaction.inputs[i].isEmpty && $(Interaction.inputs[i]).val() == ""){
-							Interaction.__status(Interaction.__status.EMPTY);
-							return;
-						}
-						if(isNaN(values[i]) && values[i].indexOf(',') < 0) {
-							Interaction.__status(Interaction.__status.NUMBER);
-							return;
-						}
-						if(values[i].indexOf('.') > 0){
-							Interaction.__status(Interaction.__status.FLOATING);
-							return;
-						}
-					}
-				}
-				if(Interaction.inputs.length == 1){
-					isCorrect = Interaction.isAnswerCorrect(values[0]);
-				}
-				else{
-					isCorrect = Interaction.isAnswerCorrect(values);
-				}
-			}
-			else
-				isCorrect = Interaction.isAnswerCorrect();
-		}
-		
-		//call user-defined functions
-		if(isCorrect){
-			Interaction.__status(Interaction.__status.CORRECT);
-			$(Interaction.inputs).each(function(index, element) {
-            	$(this).get(0).onkeydown = function(event){
-					if(event.keyCode != 13)
-						return false;
-				}   
-            });
-			
-			if(Interaction.onCorrectAnswer)
-				Interaction.onCorrectAnswer();
-				
-//				Main.correctSound.play();
-		}
-		else if(Interaction.trial == 0){
-			Interaction.__status(Interaction.__status.WRONG);
-			if(Interaction.onWrongAnswer)
-				Interaction.onWrongAnswer();
-				
-//			Main.wrongSound.play();
-		}
-		else{
-			$(Interaction.inputs).each(function(index, element) {
-				$(this).get(0).onfocus = null;
-            	$(this).get(0).onkeydown = function(event){
-					if(event.keyCode != 13)
-						return false;
-				}   
-            });
+    Interaction.__checkAnswer = function(){
+        if(typeof Interaction.pause == 'function' && Interaction.isPaused() || Interaction.pause == true)
+            return;
+        if(Interaction.preCheck && Interaction.preCheck() === false)
+            return;
+        var isCorrect;
+        if(Interaction.__inputVersion == 2){	// addInput()
+            isCorrect = true;
+            for(var i=0; i<Interaction.inputs.length;i++){
+                var value = Interaction.inputs[i].value;
+                if($(Interaction.inputs[i]).val() == ""){
+                    Interaction.__status(Interaction.__status.EMPTY);
+                    return;
+                }
+                if(value == "" ||isNaN(value) && value.indexOf(',') < 0) {
+                    Interaction.__status(Interaction.__status.NUMBER);
+                    return;
+                }
+                if(value.indexOf('.') > 0){
+                    Interaction.__status(Interaction.__status.FLOATING);
+                    return;
+                }
 
-			if(Interaction.onFail)
-				Interaction.onFail();
-				
+                var isInputCorrect;
+                if(typeof Interaction.inputs[i].correctAnswer == 'function')
+                    isInputCorrect = (value == Interaction.inputs[i].correctAnswer(value));
+                else
+                    isInputCorrect = (value == Interaction.inputs[i].correctAnswer);
+
+                $(Interaction.inputs[i]).get(0).onfocus = function () {
+                    $(this).removeClass('input_user_answer_correct');
+                    $(this).removeClass('input_user_answer_wrong');
+                    $(this).removeClass('input_correct_answer');
+                }
+
+                if(isInputCorrect === true){
+                    $(Interaction.inputs[i]).addClass('input_user_answer_correct');
+                }
+                else{
+                    $(Interaction.inputs[i]).addClass('input_user_answer_wrong');
+                    isCorrect = false;
+                }
+            }
+        }
+        else{ // appendInput()
+            if(Interaction.inputs.length >= 1){
+                var values = [];
+                for(var i=0; i<Interaction.inputs.length;i++){
+                    values[i] = Interaction.inputs[i].value;
+                    if(Interaction.inputs[i].getAttribute('isEmpty') == 'false' && $(Interaction.inputs[i]).val() == ""){
+                        Interaction.__status(Interaction.__status.EMPTY);
+                        return;
+                    }
+                    if(Interaction.inputs[i].getAttribute('isNumber') == 'true'){
+                        if(isNaN(values[i]) && values[i].indexOf(',') < 0) {
+                            Interaction.__status(Interaction.__status.NUMBER);
+                            return;
+                        }
+                        if(values[i].indexOf('.') > 0){
+                            Interaction.__status(Interaction.__status.FLOATING);
+                            return;
+                        }
+                    }
+                }
+                if(Interaction.inputs.length == 1){
+                    isCorrect = Interaction.isAnswerCorrect(values[0]);
+                }
+                else{
+                    isCorrect = Interaction.isAnswerCorrect(values);
+                }
+            }
+            else
+                isCorrect = Interaction.isAnswerCorrect();
+        }
+
+        //call user-defined functions
+        if(isCorrect){
+            Interaction.__status(Interaction.__status.CORRECT);
+            Interaction.disableEntryForInputs();
+
+            if(Interaction.onCorrectAnswer)
+                Interaction.onCorrectAnswer();
+
+//			Main.correctSound.play();
+        }
+        else if(Interaction.trial == 0){
+            Interaction.__status(Interaction.__status.WRONG);
+            if(Interaction.onWrongAnswer)
+                Interaction.onWrongAnswer();
+
 //			Main.wrongSound.play();
-		}
-		if(isCorrect || Interaction.trial > 0){
-			Interaction.button.onclick = Interaction.prepareNextQuestion;
-			Interaction.button.className = 'next_button';
-		}
-		Interaction.trial++;
-	};
-	
-	Interaction.__inputFilter__onlyNumbers = function (e,allowedchars){
+        }
+        else{
+            Interaction.disableEntryForInputs();
+
+            if(Interaction.onFail)
+                Interaction.onFail();
+
+//			Main.wrongSound.play();
+        }
+        if(isCorrect || Interaction.trial > 0){
+            Interaction.button.onclick = Interaction.prepareNextQuestion;
+            Interaction.button.className = 'next_button';
+        }
+        Interaction.trial++;
+    };
+    Interaction.enableEntryForInputs = function(){
+        $(Interaction.inputs).each(function(index, element) {
+//            $(this).get(0).onkeydown = null;
+//            $(this).get(0).onkeypress = null;
+//            $(this).get(0).onkeyup = null;
+            $(this).get(0).disabled = false;
+        });
+    }
+
+    Interaction.disableEntryForInputs = function(){
+
+        $(Interaction.inputs).each(function(index, element) {
+//            $(this).get(0).onfocus = null;
+            $(this).get(0).disabled = true;
+//            var f = function(event){
+//                if(event.keyCode != 13)
+//                    return false;
+//            };
+//            $(this).get(0).onkeydown = f;
+//            $(this).get(0).onkeypress = f;
+//            $(this).get(0).onkeyup = f;
+
+        });
+    }
+
+    Interaction.__inputFilter__onlyNumbers = function (e,allowedchars){
 		var isPassKey =function (key,allowedchars){
 			if(allowedchars!=null){
 				for(var i=0;i<allowedchars.length;i++){
