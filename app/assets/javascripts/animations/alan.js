@@ -257,8 +257,11 @@ var Animation = {
             {fillColor:new RgbColor(1,1,0.7,0.5)},
             1500,
             13000,
-            'Üçgensel Bölge<br/><span style="position:relative;top:10px;"> A =</span><span id="1" lineFrom="0,0" lineTo="0,2" >2br</span> x <span id="2" lineFrom="-1,2" lineTo="2,2" >3br</span><span style="position:relative;top:10px;"> = 3br²</span><br/><div style="position:relative;height:20px;width:50px;border-top:1px solid #000;left:30px;text-align:center;">2</div>'
+            'Üçgensel Bölge<br/><span style="position:relative;top:10px;"> A =</span><span id="1" lineFrom="0,0" lineTo="0,2" >2br</span> x <span id="2" lineFrom="-1,2" lineTo="2,2" >3br</span><span style="position:relative;top:10px;"> = 3br²</span><br/><div style="opacity:0;position:relative;height:20px;width:50px;border-top:1px solid #000;left:30px;text-align:center;" id="line">2</div>'
         );
+        setTimeout(function(){
+            $("#line",Animation.container).css({opacity:1},500);
+        },17000);
 		triangle2.startAnimation();
         Main.animationFinished(17000);
 	}
@@ -388,28 +391,28 @@ Interaction.showSolution = function(){
     switch(Interaction.shape){
 
         case 0:
-            $("#0",solution).html(Interaction.values.a);
-            $("#2",solution).html(Interaction.values.a);
-            $("#4",solution).html(Interaction.values.area);
+            $("#0",solution).html(Interaction.values.a + Interaction.getMeasure());
+            $("#2",solution).html(Interaction.values.a + Interaction.getMeasure());
+            $("#4",solution).html(Interaction.values.area + Interaction.getMeasure() + '²');
             break;
 
         case 1:
-            $("#0",solution).html(Interaction.values.a);
-            $("#2",solution).html(Interaction.values.b);
-            $("#4",solution).html(Interaction.values.area);
+            $("#0",solution).html(Interaction.values.a+ Interaction.getMeasure() );
+            $("#2",solution).html(Interaction.values.b+ Interaction.getMeasure() );
+            $("#4",solution).html(Interaction.values.area+ Interaction.getMeasure() + '²');
             break;
 
         case 2:
-            $("#0",solution).html(Interaction.values.a+Interaction.values.b);
-            $("#2",solution).html(Interaction.values.H);
-            $("#4",solution).html(Interaction.values.area);
+            $("#0",solution).html(Interaction.values.a+Interaction.values.b+ Interaction.getMeasure() );
+            $("#2",solution).html(Interaction.values.H+ Interaction.getMeasure() );
+            $("#4",solution).html(Interaction.values.area+ Interaction.getMeasure() + '²');
             break;
 
         case 3:
             var style = {position:'relative',top:'-8px'};
-            $("#0",solution).css(style).html(Interaction.values.a+Interaction.values.b);
+            $("#0",solution).css(style).html(Interaction.values.a+Interaction.values.b + Interaction.getMeasure() );
             $("#1",solution).css(style);
-            $("#2",solution).css(style).html(Interaction.values.H);
+            $("#2",solution).css(style).html(Interaction.values.H+ Interaction.getMeasure());
             $(solution).append('<div></div>');
             $('div',solution).css({
                 position:'absolute',
@@ -420,7 +423,8 @@ Interaction.showSolution = function(){
                 top:'7px',
                 left:'0px'
             }).html(2)
-            $("#4",solution).html(Interaction.values.area);
+            $("#4",solution).html(Interaction.values.area+ Interaction.getMeasure() + '²');
+            $("#4",solution).html(Interaction.values.area+ Interaction.getMeasure() + '²');
             break;
 
     }

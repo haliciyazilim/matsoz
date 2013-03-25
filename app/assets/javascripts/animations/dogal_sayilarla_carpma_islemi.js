@@ -117,7 +117,10 @@ var Interaction = {
 
         yeniSoru();
 
-        $("input").attr("onkeypress",'return SadeceRakam(event)');
+        $("input").attr("onkeypress",'return SadeceRakam(event)').keydown(InputReverseWriteable);
+
+        $("input").keydown(InputReverseWriteable);
+
 
     },
     preCheck: function(){
@@ -575,9 +578,8 @@ function carpma(){
             .css("right",right)
             .css("font-size","30px")
             .css("top",top+"px").attr("maxlength","7")
-            .css("z-index","5");
-
-        if(i==(carpan2Str.length-1)){
+            .css("z-index","5").keydown(InputReverseWriteable);
+            if(i==(carpan2Str.length-1)){
             $("#soru",container).append("<div id='toplamaIsareti'>");
             $("#toplamaIsareti").css("width",120+i*20+"px")
                 .css("text-align","left")
@@ -627,7 +629,7 @@ function carpma(){
                 .css("right","0px")
                 .css("font-size","30px")
                 .css("top",top+40+"px")
-                .css("z-index","5").attr("maxlength","7");
+                .css("z-index","5").attr("maxlength","7").keydown(InputReverseWriteable);;
 
 
 
@@ -656,7 +658,7 @@ function carpma(){
         .css("right","0px")
         .css("font-size","30px");
     //.css("border","solid 1px black");
-    $("#girdi1, #girdi2, #girdi3, #girdiToplam").keydown(InputReverseWritable);
+   // $("#girdi1, #girdi2, #girdi3, #girdiToplam").keydown(InputReverseWritable);
 
 
     $("#girdi1, #girdi2, #girdi3, #girdiToplam").keyup(
@@ -706,7 +708,7 @@ function bilinmeyenCarpanlar(){
     $("#soru",container).append(girdi);
     $("#girdi")
         .css("top","10px")
-        .css("z-index","5");
+        .css("z-index","5").keydown(InputReverseWriteable);;
 
     $("#soru",container).append("<div id='carpan1' class='carpan'>");
     $("#carpan1")
@@ -812,7 +814,7 @@ function bilinmeyenCarpanlar(){
         .css("right","0px")
         .css("font-size","30px");
     //.css("border","solid 1px black");
-    $("#girdi").keydown(InputReverseWriteable);
+   // $("#girdi").keydown(InputReverseWriteable);
 
 
 
