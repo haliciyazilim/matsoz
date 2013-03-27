@@ -137,12 +137,12 @@ var Interaction = {
                 console.log($(".down", asamalarArray[i]).html());
                 var upUzunluk=sonuc.toString().length;
                 $(".up", asamalarArray[i]).html("<input id='up_"+i+"' class='inputUp' onkeypress='return Interaction.__inputFilter__onlyNumbers(event)' isNumber='true' type='text' maxlength="+upUzunluk+"></input>");
-                $("#up_"+i).css("width",upUzunluk+"ex");
+                $("#up_"+i).css("width",upUzunluk+0.5+"ex");
                 Interaction.inputs.push($(".up input", asamalarArray[i]).get(0));
                 
                 var downUzunluk=kalan.toString().length;
                 $(".down", asamalarArray[i]).html("<input id='down_"+i+"' class='inputDown' onkeypress='return Interaction.__inputFilter__onlyNumbers(event)' isNumber='true' type='text' maxlength="+downUzunluk+"></input>");
-                 $("#down_"+i).css("width",downUzunluk+"ex");
+                 $("#down_"+i).css("width",downUzunluk+0.5+"ex");
                 Interaction.inputs.push($(".down input", asamalarArray[i]).get(0));
             } 
             else
@@ -181,7 +181,7 @@ var Interaction = {
         $("#soru .step:first").css("width", "60px")
         //.css("margin-top","28px");
         
-        $("#soru .inputUp, #soru .inputDown").css("font-size", "20px").css("text-align", "right").css("z-index", "5").keydown(InputReverseWriteable);
+        $("#soru .inputUp, #soru .inputDown").css("font-size", "20px").css("text-align", "right").css("z-index", "5").css("margin-left","-5px").keydown(InputReverseWriteable);
         $("#soru input").css("height","30px");
         
         Interaction.inputs[0].id="islemSonucu";

@@ -424,13 +424,13 @@ Interaction.showSolution = function(){
                 left:'0px'
             }).html(2)
             $("#4",solution).html(Interaction.values.area+ Interaction.getMeasure() + '²');
-            $("#4",solution).html(Interaction.values.area+ Interaction.getMeasure() + '²');
             break;
 
     }
 
     for(var i=0;i<5;i++)
         $("#"+i,solution).css({opacity:0}).delay(1000*i).animate({opacity:1},1000,(i==4?Interaction.resume:undefined));
+    $('div',solution).css({opacity:0}).delay(1000*5).animate({opacity:1},1000);
 }
 
 Interaction.isAnswerCorrect = function(){
