@@ -165,7 +165,7 @@ Interaction.expand = function(){
     Interaction.cube.contract();
     setTimeout(function(){
         Interaction.resume();
-    },12000);
+    },14500);
 
 }
 
