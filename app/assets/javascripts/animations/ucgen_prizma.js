@@ -96,7 +96,7 @@ var Animation = {
 var Interaction = {};
 Interaction.init = function(container){
     Interaction.container = container;
-    Main.setObjective("Yandaki küpü küçültüp büyütünüz veya istediğiniz yönde döndürünüz.");
+    Main.setObjective("Yandaki cismin yüzlerini, ayrıtlarını veya köşelerini görmek için ilgili butonlara basınız.");
     var cubeMatrix = Util.createProjectionMatrixForObjectAt(170, 167);
     var cube = new Prism(50*2, 70*2, 30*2, cubeMatrix);
     cube.project();
