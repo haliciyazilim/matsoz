@@ -88,7 +88,7 @@ var Animation = {
 var Interaction = {};
 Interaction.init = function(container){
     Interaction.container = container;
-    Main.setObjective("Yandaki küpü küçültüp büyütünüz veya istediğiniz yönde döndürünüz.");
+    Main.setObjective("Yandaki cismin yüzlerini, ayrıtlarını veya köşelerini görmek için ilgili butonlara basınız.");
     var cubeMatrix = Util.createProjectionMatrixForObjectAt(200, 187);
     var cube = new ExpandableShapeTetrahedron(160, cubeMatrix);
     cube.project();
