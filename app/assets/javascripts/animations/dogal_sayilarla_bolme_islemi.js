@@ -94,6 +94,8 @@ var Interaction = {
       this.sonuc = Math.floor(this.bolunen / this.bolen);
       this.div = "#" + div
       this.yap = function () {
+        console.log("***************Normal Bölme İşlemi");
+
         var bolmeIslemi = new LongDivision(this.bolunen, this.bolen, this.div);
         asamalarArray = new Array();
         asamaSonuclari = new Array();
@@ -178,7 +180,7 @@ var Interaction = {
         $("#soru .up").css("margin-bottom", "12px")
         //.css("margin-top","28px");
         $("#soru .step").css("height", "68px");
-        $("#soru .step:first").css("width", "60px")
+        $("#soru .step:first").css("width", "60px");
         //.css("margin-top","28px");
         
         $("#soru .inputUp, #soru .inputDown").css("font-size", "20px").css("text-align", "right").css("z-index", "5").css("margin-left","-5px").keydown(InputReverseWriteable);
@@ -196,6 +198,8 @@ var Interaction = {
       //this.bolen = 1;
       this.div = "#" + div;
       this.yap = function () {
+
+          console.log("**************Bölensiz Bölme İşlemi");
         bolmeIslemi = new LongDivision(this.bolunen, this.bolen, this.div);
         console.log(bolmeIslemi.nodes.dividend);
         console.log("bolen: " + this.bolen + " bölünen: " + this.bolunen);
@@ -234,7 +238,7 @@ var Interaction = {
           });
           $(Interaction.inputs[0]).attr('maxlength', '3')
           $("#soru #divisor").html(input).css("height", "35px");
-          $("#soru #divisor input").css("margin-left", "3px");
+          $("#soru #divisor input").css("margin-left", "3px").css("text-align", "right").keydown(InputReverseWriteable);;
         } else $("#cevap #divisor").css("color", Interaction.dogruCevapRengi);
       };
     };
@@ -243,6 +247,7 @@ var Interaction = {
       this.bolen = bolen;
       this.div = "#" + div;
       this.yap = function () {
+          console.log("***************Bölünensiz Bölme İşlemi");
         bolmeIslemi = new LongDivision(this.bolunen, this.bolen, this.div);
         console.log(bolmeIslemi.nodes.dividend);
         console.log("bolen: " + this.bolen + " bölünen: " + this.bolunen);
@@ -279,7 +284,7 @@ var Interaction = {
             width: '50px',
             fontSize: '20px',
           });
-          $(Interaction.inputs[0]).attr('maxlength', '4')
+          $(Interaction.inputs[0]).attr('maxlength', '4').css("text-align", "right").keydown(InputReverseWriteable);
           $("#soru #dividend").html(input);
         } else $("#cevap #dividend").css("color", Interaction.dogruCevapRengi);
         $("#soru .up").css("margin-bottom", "12px")
