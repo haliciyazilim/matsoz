@@ -121,7 +121,7 @@ var Interaction = {
             //width:"80px",
             fontSize: "20px",
           }, true, true);
-          $(Interaction.inputs[0]).attr('maxlength', '5')
+          $(Interaction.inputs[0]).attr('maxlength', '4')
           $("#soru #answer", Interaction.container).append(girdi);
         }
         //console.log(asamalarArray[2]);
@@ -236,7 +236,7 @@ var Interaction = {
             width: '50px',
             fontSize: '20px'
           });
-          $(Interaction.inputs[0]).attr('maxlength', '3')
+          $(Interaction.inputs[0]).attr('maxlength', '4')
           $("#soru #divisor").html(input).css("height", "35px");
           $("#soru #divisor input").css("margin-left", "3px").css("text-align", "right").keydown(InputReverseWriteable);;
         } else $("#cevap #divisor").css("color", Interaction.dogruCevapRengi);
