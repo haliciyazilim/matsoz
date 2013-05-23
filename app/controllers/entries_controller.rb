@@ -119,6 +119,9 @@ class EntriesController < ApplicationController
   end
   
   def show
+
+    @ipad = true
+
     @entry = Entry.find(params[:id])
 
     chunks = @entry.meaning.split(/=>|\*\*/)
