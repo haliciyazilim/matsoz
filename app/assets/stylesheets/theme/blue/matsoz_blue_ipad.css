@@ -31,30 +31,6 @@ img {
 
 }
 
-@media screen and (max-height: 645px) {
-    #container {
-        position:relative !important;
-        top:0px !important;
-        left:0px !important;
-        margin: auto !important;
-        margin-left: auto !important; /*set to a negative number 1/2 of your width*/
-        margin-top: auto !important; /*set to a negative number 1/2 of your height*/
-
-    }
-
-}
-@media screen and (max-width: 1280px){
-    #container {
-        position:relative !important;
-        top:0px !important;
-        left:0px !important;
-        margin: auto !important;
-        margin-left: auto !important; /*set to a negative number 1/2 of your width*/
-        margin-top: auto !important; /*set to a negative number 1/2 of your height*/
-    }
-}
-
-
 div.matsoz_logo {
     position:absolute;
     left:40px;
