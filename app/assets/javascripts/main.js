@@ -416,6 +416,12 @@ Main.createInteractionSkipSlider = function(){
         '-ms-user-select': 'none',
         'user-select': 'none'
     });
+
+    if(window['forIpad'] == true){
+        $(div).css({
+            left:"-13px"
+        });
+    }
     div.id = 'interaction_cover';
 
     var isDragging = false;

@@ -19,6 +19,13 @@
   - if Rails.env.development?
     = javascript_include_tag 'development.js'
 
+  - if @ipad
+    :javascript
+      var forIpad = true;
+  - else
+    :javascript
+      var forIpad = false;
+
   - if @exporting
     :javascript
       var exportedPage = true;

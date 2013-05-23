@@ -119,6 +119,7 @@ class EntriesController < ApplicationController
   end
   
   def show
+
     @entry = Entry.find(params[:id])
 
     chunks = @entry.meaning.split(/=>|\*\*/)
