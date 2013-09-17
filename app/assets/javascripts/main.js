@@ -69,6 +69,7 @@ var Main = function(){
         }
         catch(e){
             Main.initializeToolbar();
+            console.log(e);
             console.log('Interaction is not defined');
         }
     });
@@ -166,6 +167,7 @@ Main.init = function(){
     Main.initializeNavigation();
     Main.createInteractionSkipSlider();
     Main.initializeToolbar();
+    Main.initializeCountlyStatistics();
     Main.interaction = $('.etkilesimalan').get(0);
     Main.animation = $('.ornek').get(0);
     Main.objective = $('.mavikontrol').get(0);
@@ -393,6 +395,66 @@ Main.initializeNavigation = function() {
 Main.setObjective = function(str){
     Main.objective.innerHTML = str;
 };
+
+Main.initializeCountlyStatistics = function(){
+    function s4() {
+        return Math.floor((1 + Math.random()) * 0x10000)
+            .toString(16)
+            .substring(1);
+    };
+
+    function guid() {
+        return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+            s4() + '-' + s4() + s4() + s4();
+    }
+    if(!localStorage.uuid){
+        localStorage.uuid=guid();
+    }
+    function SendWordEvent(word)
+    {
+        var demoEvent = new CountlyEvent();
+        demoEvent.Key = "Word";
+        demoEvent.Count = 1;
+        demoEvent.UsingSegmentation = true;
+
+        var demoSegmentation = new SegmentationObject();
+        demoSegmentation.Key = "Word";
+        demoSegmentation.Value = word;
+
+        demoEvent.Segmentation.push(demoSegmentation);
+
+        Countly.PostEvent(demoEvent);
+    }
+    try{
+
+        Countly.Init("http://mobile-analytics.eba.gov.tr","2067854f18ec9000757e54b32586c294824eba00","1.5",localStorage.uuid);
+
+        Countly.OnStart();
+        try{
+            if(wordList && currentLetter){
+                var selectedWord = "";
+                for(var i=0 ;i< wordList[currentLetter].length ; i++){
+                    if(wordList[currentLetter][i].selected == true){
+                        selectedWord = wordList[currentLetter][i].word;
+                    }
+                }
+                console.log(selectedWord);
+                SendWordEvent(selectedWord);
+            }
+        }
+        catch (e){}
+        jQuery(window).bind(
+            "beforeunload",
+            function() {
+                Countly.OnStop();
+            }
+        );
+    }
+    catch (e){
+        console.log(e);
+    }
+
+}
 
 Main.createInteractionSkipSlider = function(){
     var div = document.createElement('div');
@@ -636,3 +698,4 @@ Main();
 //    }
 //}
 //$(document).ready(detectOrientation);
+
